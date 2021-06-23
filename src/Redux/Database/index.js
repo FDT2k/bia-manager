@@ -30,6 +30,7 @@ export const makeSlice= (name="database") => createSlice({
             }
         },
         del: (state, action) => {
+            
             state.list = state.list.filter((db) =>{
                 return db.uid !== action.payload.uid
             } );

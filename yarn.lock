@@ -1194,6 +1194,11 @@
   dependencies:
     "@geekagency/composite-js" "^2.0.19"
 
+"@geekagency/use-fields-value@^1.0.1":
+  version "1.0.1"
+  resolved "http://registry.lan:4873/@geekagency%2fuse-fields-value/-/use-fields-value-1.0.1.tgz#84d5c84690fd4bd385732835deaaa7837c9184f6"
+  integrity sha512-5J2HRNHrGHN/kivhxVb9DoDWWQgqkDx9HL4OU2mfbeyiinCChXb+7tuOQ5OBrHRK7rDAp3jM4mp7euUrbi6h8g==
+
 "@hapi/address@2.x.x":
   version "2.1.4"
   resolved "https://registry.yarnpkg.com/@hapi/address/-/address-2.1.4.tgz#5d67ed43f3fd41a69d4b9ff7b56e7c0d1d0a81e5"

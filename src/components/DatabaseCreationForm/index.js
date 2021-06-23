@@ -1,16 +1,22 @@
 import React from 'react';
 
-
+import LayoutFlex from 'bia-layout/layouts/Flex'
 
 export default props => {
 
 
     return (
-        <form>
-            
+        <LayoutFlex column>
+            <LayoutFlex>
+                <label>Nom</label>
+                <input type="text" />
 
-        </form>
+            </LayoutFlex>
+            <LayoutFlex>
+                <button>Créer</button>
+            </LayoutFlex>
 
+        </LayoutFlex>
 
     )
 }
