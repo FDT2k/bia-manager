@@ -1,10 +1,8 @@
 
-import Router from 'components/Router';
+import Home from 'views/Home';
 function App() {
   return (
-    <div className="bia">
-        <Router/>
-    </div>
+        <Home/>
   );
 }
 

@@ -3,7 +3,7 @@ import { useTable, useSortBy, useGlobalFilter, usePagination, useFilters } from 
 import GlobalFilter from 'components/GlobalFilter';
 import Pagination from 'bia-layout/components/Table/Pagination';
 import { filterPropStartingWith, forwardProps, bem, cEx, modifiersToCeX } from 'bia-layout/utils'
-import matchSorter from 'match-sorter'
+import {matchSorter} from 'match-sorter'
 import DefaultFilter from './Filters/DefaultFilter'
 import './style.scss';
 
@@ -11,7 +11,7 @@ import './style.scss';
 const [__base_class, element, modifier] = bem('listing')
 
 export default props => {
-    const { data, columns } = props;
+    const { data, columns, Tools } = props;
 
     function fuzzyTextFilterFn(rows, id, filterValue) {
         console.log(rows,id,filterValue)
@@ -93,6 +93,7 @@ export default props => {
                                 globalFilter={state.globalFilter}
                                 setGlobalFilter={setGlobalFilter}
                             />
+                            {Tools && <Tools/>}
                         </th>
                     </tr>
                    
