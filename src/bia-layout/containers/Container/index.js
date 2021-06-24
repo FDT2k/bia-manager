@@ -1,7 +1,7 @@
 import React,{useState,useEffect, useRef} from 'react'
 
 import './style.scss';
-import { filterPropStartingWith, forwardProps, bem, cEx, modifiersToCeX } from '../../utils'
+import { filterPropStartingWith, forwardProps, bem, cEx, modifiersToCeX } from 'bia-layout/utils'
 
 
 const [__base_class, element,modifier]= bem('container')

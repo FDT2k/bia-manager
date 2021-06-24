@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react'
 
-import { filterPropStartingWith, forwardProps, bem, cEx, modifiersToCeX }  from '../../utils'
+import { filterPropStartingWith, forwardProps, bem, cEx, modifiersToCeX }  from 'bia-layout/utils'
 
 
 import './style.scss';

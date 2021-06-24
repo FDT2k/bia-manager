@@ -2,7 +2,7 @@ import React from 'react';
 
 import { add, del, selectDatabases } from 'Stores/Databases';
 import { useSelector, useDispatch } from 'react-redux';
-import { Delete } from 'components/Icons';
+import { Delete } from 'bia-layout/components/Icons';
 import Fullscreen from 'bia-layout/containers/Fullscreen'
 import Container from 'bia-layout/containers/Container'
 import LayoutFlex from 'bia-layout/layouts/Flex'
