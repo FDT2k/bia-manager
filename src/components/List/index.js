@@ -1,17 +1,18 @@
-import React,{useMemo,useEffect,useState} from 'react';
-
+import React, { useMemo, useEffect, useState } from 'react';
+import moment from 'moment';
 
 import List from 'bia-layout/components/Table';
-import useDatabaseFromContext from  'hooks/useDatabaseFromContext';
+import useDatabaseFromContext from 'hooks/useBIAManager';
 
 
 
 
 export default props => {
 
-    const db = useDatabaseFromContext();
+    const {api} = useDatabaseFromContext();
 
-    const [patients,setPatients] = useState([]);
+    const [patients, setPatients] = useState([]);
+    const [loading, setLoading] = useState(false);
 
 
     const data = useMemo(
@@ -24,47 +25,66 @@ export default props => {
 
         () => [
             {
-                Header: 'Column 1',
+                Header: 'Nom',
                 accessor: 'nom',
-                filter:'text'
+                filter: 'text'
             },
             {
-                Header: 'Column 2',
+                Header: 'Prenom',
                 accessor: 'prenom',
-                filter:'fuzzyText'
+                filter: 'fuzzyText'
             },
             {
-                Header: 'Column 3',
-                accessor: (row) => {
+                Header: 'Date de naissance',
+               /* accessor: (row) => {
+                    let d = moment(row.dateNaissance).format('D.M.Y')
+                    return d;
+                }*/
+                accessor: 'dateNaissance',
+                Cell: ({value})=> {
+                    let d = moment(value).format('DD.MM.Y')
+                    return d;
 
-                    return row.nom + row.prenom;
                 }
+            },
+            {
+                Header: 'Sexe',
+                accessor: 'sexe',
+                filter: 'fuzzyText'
+            },
+            {
+                Header: 'Groupe Pathologique',
+                accessor: 'groupePath',
+                filter: 'fuzzyText'
             },
         ],
         []
     )
 
-    useEffect(()=>{
+    useEffect(() => {
         fetch();
-    },[db]);
+    }, []);
 
-    const fetch = _=> {
-
-        db.patients.toArray().then(
-            p=> setPatients(p)
+    const fetch = _ => {
+        setLoading(true);
+        console.log('fetch');
+        api.getAll().then(
+            p => {
+                console.log(p);
+                setPatients(p);
+                setLoading(false);
+            }
         )
     }
 
-    const addPatients = _=> db.patients.bulkPut([
-        
-        {nom:'Karsegard',prenom:'Fabien'}
-    ]).then(fetch);
-    
+   
 
-    const Tools = props => (<button onClick={addPatients}>Créer</button>)
+    const Tools = props => (<button >Créer</button>)
 
-    return(
-        <List columns={columns} data={data} Tools={Tools}/>
-    
+    return (
+        <>
+        <List columns={columns} data={data} Tools={Tools} />
+        {loading &&  <h1>Loading....</h1>}
+        </>
     )
 }

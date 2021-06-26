@@ -3,7 +3,7 @@ import { useTable, useSortBy, useGlobalFilter, usePagination, useFilters } from 
 import GlobalFilter from 'components/GlobalFilter';
 import Pagination from 'bia-layout/components/Table/Pagination';
 import { filterPropStartingWith, forwardProps, bem, cEx, modifiersToCeX } from 'bia-layout/utils'
-import {matchSorter} from 'match-sorter'
+import { matchSorter } from 'match-sorter'
 import DefaultFilter from './Filters/DefaultFilter'
 import './style.scss';
 
@@ -14,7 +14,7 @@ export default props => {
     const { data, columns, Tools } = props;
 
     function fuzzyTextFilterFn(rows, id, filterValue) {
-        console.log(rows,id,filterValue)
+        console.log(rows, id, filterValue)
         return matchSorter(rows, filterValue, { keys: [row => row.values[id]] })
     }
 
@@ -43,12 +43,12 @@ export default props => {
 
     const defaultColumn = React.useMemo(
         () => ({
-          // Let's set up our default Filter UI
-          Filter: DefaultFilter,
+            // Let's set up our default Filter UI
+            Filter: DefaultFilter,
         }),
         []
-      )
-    const tableInstance = useTable({ columns, data,defaultColumn,filterTypes }, useFilters, useGlobalFilter, useSortBy, usePagination)
+    )
+    const tableInstance = useTable({ columns, data, defaultColumn, filterTypes }, useFilters, useGlobalFilter, useSortBy, usePagination)
 
 
     const {
@@ -93,32 +93,47 @@ export default props => {
                                 globalFilter={state.globalFilter}
                                 setGlobalFilter={setGlobalFilter}
                             />
-                            {Tools && <Tools/>}
+                            {Tools && <Tools />}
                         </th>
                     </tr>
-                   
-                       
-                       
-                       
+
+
+                    <tr>
+
+                        <th colSpan={visibleColumns.length}>
+                           {
+                               
+                               headerGroups.map (group=> {
+                                    return group.headers.map(column=>{
+
+                                        return column.render('Filter') 
+                                    })
+
+                               })
+                           }
+                        </th>
+                    </tr>
+
+
                     {headerGroups.map(headerGroup => (
                         <>
-                        <tr {...headerGroup.getHeaderGroupProps()}>
-                            {headerGroup.headers.map(column => (
-                                <th
-                                   
-                                >
-                                    <div  {...column.getHeaderProps(column.getSortByToggleProps())}>
-                                    {column.render('Header')}</div>
-                                    <span>
-                                        {column.isSorted ? (column.isSortedDesc ? ' 🔽' : ' 🔼') : ''}
-                                    </span>
-                                </th>
-                            ))}
-                        </tr>
-                       
+                            <tr {...headerGroup.getHeaderGroupProps()}>
+                                {headerGroup.headers.map(column => (
+                                    <th
+
+                                    >
+                                        <div  {...column.getHeaderProps(column.getSortByToggleProps())}>
+                                            {column.render('Header')}</div>
+                                        <span>
+                                            {column.isSorted ? (column.isSortedDesc ? ' 🔽' : ' 🔼') : ''}
+                                        </span>
+                                    </th>
+                                ))}
+                            </tr>
+
                         </>
                     ))}
-                    
+
 
                 </thead>
                 <tbody {...getTableBodyProps()}>
@@ -140,7 +155,7 @@ export default props => {
                     })}
                 </tbody>
             </table>
-            <Pagination {...pageProps}/>
+            <Pagination {...pageProps} />
         </>
     )
 }

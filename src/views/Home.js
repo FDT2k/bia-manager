@@ -1,14 +1,25 @@
 import React from 'react';
-import DatabaseProvider from 'hooks/DatabaseProvider'
+import {Provider} from 'hooks/Provider'
 import List from 'components/List'
+
+import ImportData from 'components/DatabaseImport'
 export default props => {
     
     return (
-        <DatabaseProvider name="bia">
-
-            <List/>
-
-        </DatabaseProvider>
+        <>
+        {<Provider dbname="bia" dbtype="dexie">
+            <>
+                <List/>
+                <ImportData/>
+            </>
+    </Provider>}
+        <Provider dbname="bia_pouch" dbtype="pouch">
+            <>
+                <List/>
+                <ImportData/>
+            </>
+        </Provider>
+        </>
     )
 
 
