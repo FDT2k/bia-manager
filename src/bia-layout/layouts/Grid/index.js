@@ -1,7 +1,7 @@
 import React,{useState} from 'react'
 import {cEx} from '@geekagency/gen-classes'
 
-
+import './style.scss';
 export default props => {
 
   const {className,layout3,layout2, ...rest} = props
