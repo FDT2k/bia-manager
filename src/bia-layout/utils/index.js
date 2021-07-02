@@ -67,7 +67,8 @@ export const withBem = bem => Component => props=>{
     const classes = cEx([
         bem.current,
         className
-    ])
+    ]);
+    rest.parentBEM = bem;
  //   return <Component {...rest} parentBEM={bem} className={classes} />
     return <Component {...rest}  className={classes} />
 
@@ -89,7 +90,9 @@ export const withModifiers = (namer, modifiers) => Component => props => {
 
 export const reduceVariables = (keyEnhancer,valEnhancer, list, variables) => {
     return list.reduce((acc, item) => {
-        acc[keyEnhancer(item,variables[item])] = valEnhancer(variables[item]);
+        if(typeof variables[item] !== 'undefined'){
+            acc[keyEnhancer(item,variables[item])] = valEnhancer(variables[item]);
+        }
         return acc
     }, {})
 }
@@ -107,7 +110,7 @@ export const withVariables = (keyEnhancer,valEnhancer, variables) => Component =
         ...reduceVariables(keyEnhancer,valEnhancer, variables, presentVars)
     };
 
-    
+
     return <Component style={styles} {..._props}/>
 }
 
@@ -143,7 +146,7 @@ export const applyModifiers = (modifiers,unless) => Component => props => {
     if(unless && unless.length>0){
         let __m = {};
         let found = false;
-        
+
         for(let prop of Object.keys(props)){
             if(unless.indexOf(prop) !==-1){
                 found = true
@@ -155,7 +158,6 @@ export const applyModifiers = (modifiers,unless) => Component => props => {
     }else{
         _m = modifiers
     }
-
     return <Component {..._m} {...props} />
 }
 
@@ -164,6 +166,10 @@ const  makePropsFilter= (prefix)=> ([
     forwardPropsRemovingHeader(prefix)
 ])
 
+
+export const kebabize = (str) => str.replace(/[A-Z]+(?![a-z])|[A-Z]/g, ($, ofs) => (ofs ? "-" : "") + $.toLowerCase())
+export const snakize = (str) => str.replace(/[A-Z]+(?![a-z])|[A-Z]/g, ($, ofs) => (ofs ? "_" : "") + $.toLowerCase())
+export const camelize = (text) => text.replace(/^([A-Z])|[\s-_]+(\w)/g, (_, p1, p2, __) =>  p2 ?  p2.toUpperCase() :  p1.toLowerCase());
 
 export {
     spreadObjectBeginWith as filterPropStartingWith,

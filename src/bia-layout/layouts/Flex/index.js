@@ -1,36 +1,36 @@
 import React,{useState} from 'react'
 
 
-import { filterPropStartingWith, forwardProps, bem, cEx } from '../../utils'
+import { filterPropStartingWith,applyModifiers, forwardProps, bem, cEx } from 'bia-layout/utils'
 import './style.scss';
 
 export const [__base_class,element, modifier] = bem('layout-flex')
 
 
-export default props => {
+export const LayoutFlex=  props => {
   const {className,
 
     cover,
 
     centered, // align && just Center
-    alignCenter, 
+    alignCenter,
     alignStretch,
     alignStart,
     justStretch,
-    justBetween, 
-    justAround, 
-    justEvenly, 
+    justBetween,
+    justAround,
+    justEvenly,
     justCenter,
     justStart,
     justEnd,
 
     contentStart,
 
-    column, 
-    columnReverse, 
+    column,
+    columnReverse,
     row,
     rowReverse,
-    
+
     wrap,
     nowrap,
     wrapReverse,
@@ -66,8 +66,11 @@ export default props => {
   return (
       <>
         <div className={classes} {...rest}>
-          {props.children}     
+          {props.children}
         </div>
       </>
   )
 }
+export const LayoutFlexColumn = applyModifiers({column:true})(LayoutFlex);
+export const LayoutFlexRow = LayoutFlex;
+export default LayoutFlex;

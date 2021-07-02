@@ -1,0 +1,19 @@
+:root {
+    --editor-left-margin: 5%;
+    --editor-right-margin: 5%;
+}
+
+.editor-grid{
+
+    grid-template-columns: var(--editor-left-margin) 100px auto 100px var(--editor-right-margin) ;
+    grid-template-rows:  50px 50px auto;
+
+    grid-template-areas:
+        "margin nav nav nav margin2"
+        "margin patient patient patient margin2"
+        "margin mesures content rest margin2"
+        ;
+
+    justify-items: stretch;
+
+}

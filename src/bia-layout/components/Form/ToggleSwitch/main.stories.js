@@ -1,23 +1,32 @@
 
 import React, { useEffect,useMemo, useState, useRef } from 'react';
-//import 'sass/projects/hermod/style.scss';
 import { makeThemeSelect, Containers, Annotate } from 'stories/storybook-utils'
 import makeData from 'seeders/makeData';
-import TagInput from './index'
+import ToggleSwitch from './index'
 import Container from 'bia-layout/containers/Container'
 export default Annotate({
       Concept: '',
       Default: ''
-}, Containers('Form/Fields/TagInput'));
+}, Containers('Form/Fields/ToggleSwitch'));
 
 
 
-export const SimpleList = () =>  {
+export const Simple = () =>  {
 
   
     return (
     <Container style={{width:'500px', 'backgroundColor':'blue','padding':'10px'}}>
-        <TagInput/>
+        <ToggleSwitch id="hey"/>
+    </Container>
+    )
+}
+
+export const Variables = () =>  {
+
+  
+    return (
+    <Container style={{width:'500px', 'backgroundColor':'blue','padding':'10px'}}>
+        <ToggleSwitch id="hey" colorYes="red" colorNo="pink"/>
     </Container>
     )
 }

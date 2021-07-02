@@ -5,6 +5,11 @@ import Navbar from 'bia-layout/components/Navbar';
 import Grid from 'bia-layout/layouts/Grid';
 import {Person} from 'bia-layout/components/Icons';
 import List from 'bia-layout/components/Table';
+import Container from 'bia-layout/containers/Container';
+import LayoutFlex from 'bia-layout/layouts/Flex';
+
+
+import MainView from 'bia-layout/components/Views/MainView'
 import './style.scss'
 export default props => {
 
@@ -38,23 +43,12 @@ export default props => {
         []
     )
     return (
-        <Fullscreen>
-            <Grid layout3 className="bia-main">
-                <Navbar>
-                    <div>BIA Manager</div>
-                    <div><Person/>User doc</div>
-                </Navbar>
-                <div>
-                <List data={data} columns={columns} />
-                </div>
-                <Navbar><div>
-                    <span> Base de données bia-test </span> -
-                    <span> Patients 12541235</span> -
-                    <span> Mesures: 31231 </span>
-                    </div></Navbar>
-            </Grid>
+        <MainView>
 
-        </Fullscreen>
+            <List data={data} columns={columns} />
+
+
+        </MainView>
     )
 
 }
