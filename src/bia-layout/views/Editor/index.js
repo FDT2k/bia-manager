@@ -1,74 +1,52 @@
 import React,{useMemo} from 'react';
+import { bem,compose, withModifiers,applyModifiers, withVariables, divElement, withBaseClass, getClasseNames } from 'bia-layout/utils'
 
 import MainView from 'bia-layout/components/Views/MainView'
 import EditorLayout from 'bia-layout/layouts/Editor'
 import LayoutFlex,{LayoutFlexColumn} from 'bia-layout/layouts/Flex'
 import Container from 'bia-layout/containers/Container'
 import PatientHeader from 'bia-layout/components/Views/PatientHeader'
-import ToggleSwitch from 'bia-layout/components/Form/ToggleSwitch'
+import FieldText from 'bia-layout/components/Form/Fields/FieldText'
+import FieldSelect from 'bia-layout/components/Form/Fields/FieldSelect'
+import FieldToggle from 'bia-layout/components/Form/Fields/FieldToggle'
 import {ComponentWithArea as Area,withGridArea} from 'bia-layout/hoc/grid/Area'
+
+import {Delete,ArrowBack} from 'bia-layout/components/Icons';
 import './style.scss'
-
-
-const FieldText= props=> {
-    const {label} = props;
-
-    return (
-        <LayoutFlexColumn>
-            <label>{label}</label>
-            <input type="text"/>
-        </LayoutFlexColumn>
-    )
-
-}
-
-
-const FieldSelect= props=> {
-    const {label} = props;
-    return (
-        <LayoutFlexColumn>
-            <label>{label}</label>
-            <select>
-                <option value="test">Test</option>
-            </select>
-        </LayoutFlexColumn>
-    )
-
-}
-
-const FieldToggle= props=> {
-    const {label,labelYes,labelNo, id} = props;
-    return (
-        <LayoutFlexColumn>
-            <label>{label}</label>
-            <ToggleSwitch labelYes={labelYes} labelNo={labelNo} id={id}/>
-        </LayoutFlexColumn>
-    )
-
-}
 
 
 const ContainerWithArea = withGridArea(Container);
 
-export default props => {
+
+const [__base_class,element,modifier] = bem ('bia-editor')
+
+const ListItem = applyModifiers({'alignCenter':true})(LayoutFlex);
+
+const NavComponent = compose(
+                            applyModifiers({'alignCenter':true}),
+                            withGridArea
+                            )(LayoutFlex);
+
+const Editor =  props => {
+
+    const {className, ...rest} = getClasseNames(__base_class,props);
+
     return (
-        <MainView>
+        <MainView className={className}>
             <EditorLayout>
-                <Area area="nav"> &lt;- Retour à la liste</Area>
-                <Area area="patient"> <PatientHeader/></Area>
-                <Area area="mesures">
-                    <ul>
-                        <li><b>mesures</b></li>
-                        <li>19.10.1982 </li>
-                        <li>19.10.1982 </li>
-                        <li>19.10.1982 </li>
-                        <li>19.10.1982 </li>
-                        <li>19.10.1982 </li>
-                        <li>19.10.1982 </li>
-                        <li>19.10.1982 </li>
-                    </ul>
+                <NavComponent className={element('nav')} area="nav"> <ArrowBack/> <h3>Retour à la liste</h3></NavComponent>
+                <Area className={element('patient')} area="patient"><PatientHeader/></Area>
+                <Area className={element('mesures')} area="mesures">
+                        <ListItem><b>Mesures</b></ListItem>
+                        <ListItem>19.10.1982 <Delete/></ListItem>
+                        <ListItem>19.10.1982 <Delete/></ListItem>
+                        <ListItem>19.10.1982 <Delete/></ListItem>
+                        <ListItem>19.10.1982 <Delete/></ListItem>
+                        <ListItem>19.10.1982 <Delete/></ListItem>
+                        <ListItem>19.10.1982 <Delete/></ListItem>
+                        <ListItem>19.10.1982 <Delete/></ListItem>
                 </Area>
-                <ContainerWithArea area="content">
+                <ContainerWithArea className={element('form')} area="content">
                     <LayoutFlexColumn>
                         <LayoutFlex wrap >
                             <FieldText label="Date d'examen"/>
@@ -106,3 +84,6 @@ export default props => {
     )
 
 }
+
+
+export default (Editor);

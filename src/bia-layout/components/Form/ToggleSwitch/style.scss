@@ -1,86 +1,97 @@
 :root{
-    
-    --color-switch: #fff;
-    --color-yes: green;
-    --color-no: red;
+
+    --color-switch: white;
+    --color-yes: black;
+    --color-no: black;
+    --color-text: white;
 }
 
 .toggle-switch {
-  position: relative;
-  display: inline-block;
-  vertical-align: middle;
-  -webkit-user-select: none;
-  -moz-user-select: none;
-  -ms-user-select: none;
-  text-align: left;
-  &-checkbox {
-    display: none;
-  }
-  &-label {
-    display: block;
+
+    &--focus{
+        border:2px solid red;
+    }
+    position: relative;
     overflow: hidden;
-    cursor: pointer;
-    margin: 0;
-  }
-  &-inner {
-    display: block;
-    width: 200%;
-    margin-left: -100%;
-    transition: margin 0.3s ease-in 0s;
-    &:before,
-    &:after {
-      display: block;
-      float: left;
-      width: 50%;
-      height: 34px;
-      padding: 0;
-      line-height: 34px;
-      font-size: 14px;
-      color: white;
-      font-weight: bold;
-      box-sizing: border-box;
+    display: inline-block;
+    vertical-align: middle;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    text-align: left;
+
+    &-checkbox {
+        position:absolute;
+        top:-10px;
+        left:-50px;
     }
-    &:before {
-      content: attr(data-yes);
-      text-transform: uppercase;
-      padding-left: 10px;
-      background-color:var(--color-yes);
-      color: #fff;
+    &-label {
+        border-radius: 5px;
+        display: block;
+        overflow: hidden;
+        cursor: pointer;
+        margin: 0;
     }
-  }
-  &-disabled {
-    background-color: #ddd;
-    cursor: not-allowed;
-    &:before {
-      background-color: #ddd;
-      cursor: not-allowed;
+    &-inner {
+        display: block;
+        width: 200%;
+        margin-left: -100%;
+        transition: margin 0.3s ease-in 0s;
+        &:before,
+        &:after {
+            display: block;
+            float: left;
+            width: 50%;
+            height: 34px;
+            padding: 0;
+            line-height: 34px;
+            font-size: 14px;
+            color: white;
+            font-weight: bold;
+            box-sizing: border-box;
+        }
+        &:before {
+            content: attr(data-yes);
+            text-transform: uppercase;
+            padding-left: 10px;
+            background-color:var(--color-yes);
+            color: var(--color-text);
+        }
     }
-  }
-  &-inner:after {
-    content: attr(data-no);
-    text-transform: uppercase;
-    padding-right: 10px;
-    background-color: var(--color-no);
-    color: #fff;
-    text-align: right;
-  }
-  &-switch {
-    display: block;
-    width: 24px;
-    margin: 5px;
-    background: var(--color-switch);
-    position: absolute;
-    top: 0;
-    bottom: 0;
-    right: calc( 100% - 34px);
-    transition: all 0.3s ease-in 0s;
-  }
-  &-checkbox:checked + &-label {
-    .toggle-switch-inner {
-      margin-left: 0;
+    &-disabled {
+        background-color: #ddd;
+        cursor: not-allowed;
+        &:before {
+            background-color: #ddd;
+            cursor: not-allowed;
+        }
     }
-    .toggle-switch-switch {
-      right: 0px;
+    &-inner:after {
+        content: attr(data-no);
+        text-transform: uppercase;
+        padding-right: 10px;
+        background-color: var(--color-no);
+        color: var(--color-text);
+        text-align: right;
     }
-  }
+    &-switch {
+        display: block;
+        width: 24px;
+        border-radius: 4px;
+        margin: 5px;
+        background: var(--color-switch);
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        right: calc( 100% - 34px);
+        transition: all 0.3s ease-in 0s;
+    }
+    &-checkbox:checked + &-label {
+        .toggle-switch-inner {
+            margin-left: 0;
+        }
+        .toggle-switch-switch {
+            right: 0px;
+        }
+    }
 }

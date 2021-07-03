@@ -61,6 +61,14 @@ export const withBaseClass = BaseClass => Component => props => {
     return <Component {...rest} className={classes} />
 }
 
+export const getClasseNames = (BaseClass,props) => {
+    const { className, ...rest } = props;
+    const classes = cEx([
+        BaseClass,
+        className
+    ])
+    return {className:classes,...rest}
+}
 
 export const withBem = bem => Component => props=>{
     const { className, ...rest } = props;

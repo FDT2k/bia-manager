@@ -1,0 +1,36 @@
+@import 'bia-layout/sass/font-style.scss';
+
+
+.bia-editor{
+    @extend %base_font;
+    &__nav{
+        
+    }
+
+    &__patient{
+        h1{
+            @extend %fat-header;
+        }
+
+        .patient-header__field{
+            b{
+                font-weight:bold;
+            }
+        }
+    }
+    &__editor{
+    }
+
+
+    .field{
+
+        padding:10px;
+        justify-content: space-between;
+    }
+
+
+}
+
+.editor-grid{
+    grid-gap: 10px;
+}

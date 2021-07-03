@@ -1,8 +1,9 @@
-import React from 'react';
+import React,{useEffect,useRef} from 'react';
 
 import './style.scss';
 import { bem, compose, kebabize,filterPropPresentIn, baseElement, applyModifiers, withVariables, withModifiers, wrapComponent, asideElement, divElement, withBaseClass, cEx } from 'bia-layout/utils'
 
+import useFocus from 'hooks/useFocus';
 
 const ToggleSwitch = props => {
 
@@ -12,8 +13,17 @@ const ToggleSwitch = props => {
 
     const {onChange, ...rest3} = rest2;
 
-    return (<div className="toggle-switch" {...rest3}>
+    const ref = useRef();
+    const focus = useFocus({ref});
+
+    const classes = cEx([
+        'toggle-switch',
+        _=> focus? 'toggle-switch--focus':''
+    ])
+
+    return (<div className={classes} {...rest3}>
         <input
+            ref={ref}
             type="checkbox"
             className="toggle-switch-checkbox"
             {...formProps}

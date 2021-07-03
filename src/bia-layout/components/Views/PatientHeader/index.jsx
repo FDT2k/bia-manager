@@ -22,28 +22,32 @@ const PatientHeader =Element=> props => {
             <h1> Céline Bellefeuille </h1>
             <FieldSet>
                 <Field>
-                    <b>test</b>
-                    field 1
+                    <b>Date de naissance</b>
+                    18.03.1992
                 </Field>
                 <Field>
-                    <b>test</b>
-                    field 1
+                    <b>Âge</b>
+                    31
                 </Field>
                 <Field>
-                    <b>test</b>
-                    field 1
+                    <b>Sexe</b>
+                    féminin
                 </Field>
                 <Field>
-                    <b>test</b>
-                    field 1
+                    <b>Taille</b>
+                    168cm
                 </Field>
                 <Field>
-                    <b>test</b>
-                    field 1
+                    <b>Poids habituel</b>
+                    93.2kg
                 </Field>
                 <Field>
-                    <b>test</b>
-                    field 1
+                    <b>Groupe pathologique</b>
+                    VNS2021
+                </Field>
+                <Field>
+                    <b>Nombre de mesures</b>
+                    0
                 </Field>
             </FieldSet>
 
