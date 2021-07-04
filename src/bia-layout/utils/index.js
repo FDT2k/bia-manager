@@ -6,7 +6,7 @@ import {key} from '@geekagency/composite-js/ObjectUtils'
 import { cEx } from '@geekagency/gen-classes'
 
 
-const e = React.createElement;
+export const e = React.createElement;
 
 const bem = main => {
     return (

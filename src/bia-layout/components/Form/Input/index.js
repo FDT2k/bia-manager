@@ -4,14 +4,12 @@ import './style.scss';
 import { bem, compose, kebabize,filterPropPresentIn, baseElement, applyModifiers, withVariables, withModifiers, wrapComponent, asideElement, divElement, withBaseClass, cEx } from 'bia-layout/utils'
 
 
-const Button = props => {
+const Input = props => {
 
 
-    const [formProps, rest ] = filterPropPresentIn(['id','name','checked'],props);
+    
 
-    const {onChange, ...rest2} = rest;
-
-    return (<input type="text"/>)
+    return (<input type="text" {...props}/>)
 
 }
 
@@ -30,4 +28,4 @@ const WithColors =  withVariables(
 );
 */
 
-export default Button;
+export default Input;

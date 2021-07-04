@@ -1,9 +1,9 @@
 import React from 'react';
 
 import './style.scss';
-import { bem, compose, kebabize,filterPropPresentIn, baseElement, applyModifiers, withVariables, withModifiers, wrapComponent, asideElement, divElement, withBaseClass, cEx } from 'bia-layout/utils'
+import { bem, compose, kebabize,filterPropPresentIn, baseElement, applyModifiers, withVariables, withModifiers, wrapComponent, asideElement, divElement, withBaseClass, cEx ,e} from 'bia-layout/utils'
 
-
+/*
 const Button = props => {
 
 
@@ -14,7 +14,11 @@ const Button = props => {
     return (<button>button</button>
     )
 
-}
+}*/
+
+const Button = compose(
+    withBaseClass('.button')
+)(e('button'));
 
 /*
 ToggleSwitch.defaultProps = {

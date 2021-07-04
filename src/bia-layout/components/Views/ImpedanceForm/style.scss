@@ -1,0 +1,20 @@
+:root{
+
+    --template-area: ""
+}
+
+.impedance-form{
+
+    grid-template-columns:fit-content(1fr) fit-content(50px) fit-content(50px) fit-content(50px) fit-content(50px)  ;
+    grid-template-rows:  fit-content(50px) fit-content(50px) fit-content(50px) fit-content(50px) fit-content(50px)  ;
+
+    align-items: center;
+
+    grid-template-areas: ". h_5 h_50 h_100 h_nor"
+    "h_res  f_res_5 f_res_50 f_res_100 f_res_nor"
+    "h_reac f_reac_5 f_reac_50 f_reac_100 f_reac_nor"
+    "h_imp f_imp_5 f_imp_50 f_imp_100 f_imp_nor"
+    "h_angl f_angl_5 f_angl_50 f_angl_100 f_angl_nor"
+    ;
+
+}

@@ -10,7 +10,7 @@ const modifiers = [
     'r3c3'
 ]
 
-const [__base_class,element,modifier] = bem ('editor-grid')
+const [__base_class,element,modifier] = bem ('editor-grid-layout')
 
 const EditorGrid = compose(
     withBaseClass(__base_class),
