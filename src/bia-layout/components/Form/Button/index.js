@@ -3,22 +3,21 @@ import React from 'react';
 import './style.scss';
 import { bem, compose, kebabize,filterPropPresentIn, baseElement, applyModifiers, withVariables, withModifiers, wrapComponent, asideElement, divElement, withBaseClass, cEx ,e} from 'bia-layout/utils'
 
-/*
-const Button = props => {
+
+const Component = props => {
 
 
     const [formProps, rest ] = filterPropPresentIn(['id','name','checked'],props);
 
     const {onChange, ...rest2} = rest;
 
-    return (<button>button</button>
-    )
+    return (<button>button</button>)
 
-}*/
+}
 
 const Button = compose(
     withBaseClass('.button')
-)(e('button'));
+)(Component);
 
 /*
 ToggleSwitch.defaultProps = {

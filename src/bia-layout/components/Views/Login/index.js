@@ -13,7 +13,7 @@ const LoginForm = props => {
     const {className, ...rest} = props
 
     const classes = cEx(["login-form",className]);
-    
+
     return (
         <LayoutFlex className={classes} column justCenter {...rest}>
             <InputGroup>

@@ -4,6 +4,7 @@ import { makeThemeSelect, Containers, Annotate } from 'stories/storybook-utils'
 import makeData from 'seeders/makeData';
 import {withBaseClass,withModifiers,withVariables,compose, bem,divElement} from 'bia-layout/utils'
 import ImpedanceLayout from './index'
+import {ComponentWithArea,withGridArea} from 'bia-layout/hoc/grid/Area'
 import Container from 'bia-layout/containers/Container';
 import Input from 'bia-layout/components/Form/Input'
 import mexp  from 'math-expression-evaluator';
@@ -14,14 +15,6 @@ export default Annotate({
 
 
 
-const WithGridArea =  withVariables(
-    x => `grid-area`,
-    x => `${x}`,
-    ['area']
-);
-const ComponentWithArea = compose(
-    WithGridArea
-)(divElement);
 
 
 const fieldName = (row,col)=>{
@@ -29,7 +22,6 @@ const fieldName = (row,col)=>{
 }
 
 const evaluateEquation = (values,formula) => {
-    console.log(values,formula);
     const regex = /\{\{(\s*([\w\.-]+)\s*)\}\}/g;
     let m = null;
     let evaluator = formula;
@@ -59,13 +51,24 @@ const recomputeGroup = (conversionFunctions,groups,columns,rows)=>(group,values)
                 let formula = conversionFunctions[field];
                 let fieldKey = fieldName(field,col);
                 if(formula){
+                    try{
                     //console.log(vals,formula);
                     let result =evaluateEquation(vals,formula);
                     //console.log(field,'res',result);
                     result = mexp.eval(result);
+                    if(isNaN(result)){
+                        result = '-';
+                    }
                     //console.log(result);
                     //console.log({[fieldKey]:result});
                     newState[fieldKey]=result;
+                    }catch(e){
+                        console.error(e)
+                        newState[fieldKey]='-';
+
+                    }
+                }else{
+                    newState[fieldKey]='-';
                 }
             });
         })
@@ -97,21 +100,36 @@ export const Defaut = () =>  {
 
     const conversionFunctions= {
         'imp': 'root( ({{res}}^2) + ({{reac}}^2))',
+        'angl': 'atan( ({{reac}} / {{res}}) * (180/pi)  )',
+        'res': '{{imp}} * cos({{angl}}/(180/pi))',
+        'reac': '{{imp}} * sin({{angl}} /(180/pi))',
     }
 
     const handleChange= (group,values)=> {
 
         let newState = recomputeGroup(conversionFunctions,groups,columns,rows)(group,values);
 
-        console.log(newState);
+        console.log('result',newState);
         setForm({
             initialValues:newState,
             group
         });
     };
 
-    console.log(form.initialValues);
     return (
-        <ImpedanceLayout columns={columns} handleChange={handleChange} rows={rows} groups={groups} initialValues={form.initialValues} editedGroup={form.group} style={{backgroundColor:'#FF000088'}}/>
+        <ImpedanceLayout  columns={columns} handleChange={handleChange} rows={rows} groups={groups} initialValues={form.initialValues} editedGroup={form.group} style={{backgroundColor:'#FF000088'}}>
+            <ComponentWithArea area="h_5">5khz</ComponentWithArea>
+            <ComponentWithArea area="h_50">50khz</ComponentWithArea>
+            <ComponentWithArea area="h_100">100khz</ComponentWithArea>
+            <ComponentWithArea area="h_nor">Normes</ComponentWithArea>
+            <ComponentWithArea area="h_res">Resistance</ComponentWithArea>
+            <ComponentWithArea area="h_angl">Angle de phase</ComponentWithArea>
+            <ComponentWithArea area="h_reac">Reactance</ComponentWithArea>
+            <ComponentWithArea area="h_imp">Impédance</ComponentWithArea>
+            <ComponentWithArea area="f_res_nor">10-12</ComponentWithArea>
+            <ComponentWithArea area="f_reac_nor">10-12</ComponentWithArea>
+            <ComponentWithArea area="f_imp_nor">10-12</ComponentWithArea>
+            <ComponentWithArea area="f_angl_nor">10-12</ComponentWithArea>
+        </ImpedanceLayout>
     )
 }

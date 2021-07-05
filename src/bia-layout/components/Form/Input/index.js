@@ -5,12 +5,7 @@ import { bem, compose, kebabize,filterPropPresentIn, baseElement, applyModifiers
 
 
 const Input = props => {
-
-
-    
-
     return (<input type="text" {...props}/>)
-
 }
 
 /*

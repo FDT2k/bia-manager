@@ -5,7 +5,7 @@
 
 .editor-grid-layout{
 
-    grid-template-columns: var(--editor-left-margin) 100px auto fit-content(200px) var(--editor-right-margin) ;
+    grid-template-columns: var(--editor-left-margin) 120px auto fit-content(200px) var(--editor-right-margin) ;
     grid-template-rows:  fit-content(50px) fit-content(200px) auto;
 
     grid-template-areas:

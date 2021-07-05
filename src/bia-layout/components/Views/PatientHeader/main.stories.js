@@ -9,7 +9,7 @@ import Container from 'bia-layout/containers/Container'
 export default Annotate({
       Concept: '',
       Default: ''
-}, Containers('ViewsComponent/PatientHeader'));
+}, Containers('ViewComponent/PatientHeader'));
 
 
 

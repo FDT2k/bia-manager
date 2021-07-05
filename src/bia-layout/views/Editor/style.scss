@@ -4,18 +4,26 @@
 .bia-editor{
     @extend %base_font;
     &__nav{
-        
+        padding-top:20px;
     }
 
     &__patient{
+
         h1{
             @extend %fat-header;
         }
-
+        .patient-header{
+            padding-top:17px;
+            border-bottom:1px solid black;
+        }
         .patient-header__field{
             b{
                 font-weight:bold;
             }
+        }
+        .patient-header__fieldset{
+            padding-top:11px;
+            padding-bottom:17px;
         }
     }
     &__editor{
@@ -27,8 +35,14 @@
         padding:10px;
         justify-content: space-between;
     }
-
-
+    &__form{
+        padding-top: 17px;
+        padding-left:70px;
+        padding-right:70px;
+    }
+    &__mesures{
+        padding-top:17px;
+    }
 }
 
 .editor-grid{

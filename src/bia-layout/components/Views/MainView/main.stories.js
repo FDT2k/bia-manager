@@ -7,7 +7,7 @@ import Container from 'bia-layout/containers/Container'
 export default Annotate({
       Concept: '',
       Default: ''
-}, Containers('ViewsComponent/Main'));
+}, Containers('ViewComponent/Main'));
 
 
 

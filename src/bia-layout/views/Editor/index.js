@@ -4,6 +4,7 @@ import { bem,compose, withModifiers,applyModifiers, withVariables, divElement, w
 import MainView from 'bia-layout/components/Views/MainView'
 import EditorLayout from 'bia-layout/layouts/Editor'
 import LayoutFlex,{LayoutFlexColumn} from 'bia-layout/layouts/Flex'
+import Grid from 'bia-layout/layouts/Grid'
 import Container from 'bia-layout/containers/Container'
 import PatientHeader from 'bia-layout/components/Views/PatientHeader'
 import FieldText from 'bia-layout/components/Form/Fields/FieldText'
@@ -20,7 +21,7 @@ const ContainerWithArea = withGridArea(Container);
 
 const [__base_class,element,modifier] = bem ('bia-editor')
 
-const ListItem = applyModifiers({'alignCenter':true})(LayoutFlex);
+const ListItem = applyModifiers({'alignCenter':true,'justBetween':true})(LayoutFlex);
 
 const NavComponent = compose(
                             applyModifiers({'alignCenter':true}),
@@ -58,11 +59,42 @@ const Editor =  props => {
                             <FieldText label="Taille cm"/>
                         </LayoutFlex>
                         <Container>
-                            Hello world
+
+
                         </Container>
 
                         <Container>
-                            table
+                            <Grid style={{
+                                gridTemplateColumns:"2fr 1fr 1fr 1fr",
+                                    gridAutoRows:"1fr"
+                                }}>
+                                <div></div>
+                                <div className="row header">50khz</div>
+                                <div className="row header">Geneva</div>
+                                <div className="row header">Norme</div>
+
+                                <div className="row header">%Eau corporelle</div>
+                                <div>10</div>
+                                <div>20</div>
+                                <div>39</div>
+
+                                <div className="row header">Masse Maigre</div>
+                                    <div>10</div>
+                                    <div>20</div>
+                                    <div>39</div>
+
+
+                                <div className="row header">%Masse Maigre</div>
+                                    <div>10</div>
+                                    <div>20</div>
+                                    <div>39</div>
+                                        <div className="row header">%Masse Maigre</div>
+
+                                        <div>10</div>
+                                        <div>20</div>
+                                        <div>39</div>
+
+                            </Grid>
                         </Container>
 
                     </LayoutFlexColumn>
