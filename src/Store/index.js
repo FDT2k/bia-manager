@@ -2,12 +2,12 @@ import {combineReducers} from '@reduxjs/toolkit';
 import { createMigrate } from 'redux-persist'
 import {makeStore} from 'store';
 
-import DatabaseSlice,{makeSelectors} from 'Redux/Database'
+import Patient from 'Redux/Patient/reducer';
 
-const reducer = combineReducers({
-    databases:DatabaseSlice.reducer
-})
-
+const reducer= (state,action)=> {
+    console.log(action);
+    return state;
+}
 
 
 const migrations = {
@@ -15,7 +15,7 @@ const migrations = {
     // migration clear out device state
     return {
       ...state,
-     
+
     }
   },
   1: (state) => {
@@ -27,11 +27,8 @@ const migrations = {
   }
 }
 
-export const {add,del} = DatabaseSlice.actions;
 
-export const {selectDatabases} = makeSelectors(state=>state.databases);
-
-export default makeStore('root',reducer,{devTools:true},{
-    version:2,
+export default makeStore('root',Patient,{devTools:true},{
+    version:1,
     migrate:createMigrate(migrations)
 });
