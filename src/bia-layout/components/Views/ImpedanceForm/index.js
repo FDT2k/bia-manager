@@ -1,20 +1,58 @@
-import React,{useState,useEffect} from 'react'
+import React,{useState,useEffect,useCallback} from 'react'
 import {withBaseClass,withModifiers,compose, bem,divElement} from 'bia-layout/utils'
 
 import Grid from 'bia-layout/layouts/Grid';
 import {ComponentWithArea,withGridArea} from 'bia-layout/hoc/grid/Area'
 import Input from 'bia-layout/components/Form/Input'
-import {useFieldValues} from '@geekagency/use-fields-value';
 import './style.scss';
 
 const [__base_class,element,modifier] = bem ('impedance-form')
 
+const useFieldValues = (initialState = {}, attribute = 'name') => {
+  const [values, setValues] = useState(initialState);
+  const [touched,setTouched] = useState(false);
+  const handleChange =(event) => {
+    setTouched(true);
+
+    if (!event || !event.target){
+      return ;
+    }
+    if (typeof (event.target[attribute]) === 'undefined') {
+      throw new Error(`[useFieldValue] attribute "${attribute}"  not present on target node`)
+    }
+    const newState = {
+      ...values,
+      [event.target[attribute]]: event.target.value
+    }
+    setValues(newState);
+    return newState;
+  }
+
+  const replaceValues =(values) => setValues(values)
+  const assignValues =(vals) =>
+  {
+    let v = Object.assign({},values,vals);
+    setValues(v)
+  }
+
+  return {
+    values,
+    touched,
+    handleChange,
+    replaceValues,
+    assignValues,
+
+    inputProps: prop => ({
+      onChange: handleChange,
+      value: values[prop],
+      [attribute]:prop
+    })
+  };
+}
 
 
 const ToggleEditField = (EditableComponent,UnEditableComponent)=> props => {
     const {editable, ...rest} = props;
-
-
     return (
         <>
         {editable && <EditableComponent  {...rest}/>}
@@ -25,7 +63,7 @@ const ToggleEditField = (EditableComponent,UnEditableComponent)=> props => {
 }
 
 const FieldGroup = props => {
-    const {editable, children,group,handleGroupFocus,  ...rest} = props;
+    const {editable, children,group ,handleGroupFocus,  ...rest} = props;
     const handleClick = e=> {
         if(!editable){
             handleGroupFocus(group);
@@ -46,54 +84,25 @@ const FieldGroup = props => {
 }
 
 
-const UneditableInputWithArea = withGridArea(props=> <div {...props}>{props.value}</div>);
+const UneditableInputWithArea = withGridArea(props=>{
+    return (<div {...props}>{props.value}</div>)
+});
 
 const InputWithArea = ToggleEditField(withGridArea(Input),UneditableInputWithArea);
 
 
-const evaluateEquation = (values,formula) => {
-    console.log(values,formula);
-    const regex = /\{\{(\s*([\w\.-]+)\s*)\}\}/g;
-    let m = null;
-    let evaluator = formula;
-    while ((m = regex.exec(formula))) {
-        let key = m[1];
-
-        let value = values[m[1]];
-        evaluator = evaluator.replace(m[0],value);
-        //console.log(evaluator);
-    }
-    return evaluator;
-}
 const Component = props => {
 
-    const {className, initialValues,..._props} = props;
+    let {className, handleChange:handleValuesChange,formValues,computedValues,...__props} = props;
+    const {columns,rows,groups, editedGroup:propEditedGroup,..._props} = __props;
 
-    const [editedGroup, setEditedGroup] = useState('a');
+    const [editedGroup, setEditedGroup] = useState(propEditedGroup);
 
-    const columns = [
-        '5',
-        '50',
-        '100'
-    ]
-
-    const rows = [
-        'res',
-        'reac',
-        'imp',
-        'angl'
-    ]
-
-    const groups = {
-        'a':['res','reac'],
-        'b':['imp','angl']
+    const fieldName = (row,col)=>{
+        return `f_${row}_${col}`
     }
 
-    const conversionFunctions= {
-        'imp': 'root( ({{res}}^2) + ({{reac}}^2)',
-    }
-
-    //make an array of all the fields in the form
+    //make an array of all the EDITABLE fields in the form
     const fields = columns.reduce ((c,col)=>{
         let items = rows.reduce((c,row)=>{
             c.push(`f_${row}_${col}`);
@@ -105,44 +114,27 @@ const Component = props => {
 
 
     //make the initial state if not given as prop
-    const fieldsState =  initialValues || fields.reduce((carry,item)=>{
-        carry[item]=0;
-        return carry;
-    },{});
-
-
-    const {values,inputProps} = useFieldValues(fieldsState);
-
-    const recomputeGroup = (group,values)=>{
-        console.log('recomputing values')
-        columns.map(col=> {
-            const {[group]:val,...toRecompute} = groups;
-            Object.keys(toRecompute).map (recomputed_group=> {
-                toRecompute[recomputed_group].map(field=>{
-                    let formula = conversionFunctions[field];
-                    if(formula){
-                        console.log(formula);
-                        let result = evaluateEquation(val,formula);
-                        console.log(result);
-                    }
-                });
-            })
-            console.log(group,val,toRecompute);
-        });
+    if(!formValues){
+        formValues = fields.reduce((carry,item)=>{
+            carry[item]=0;
+            return carry;
+        },{});
     }
 
+
+    const {values,replaceValues,inputProps,assignValues} = useFieldValues(formValues);
+
+
+
     useEffect(()=>{
-        console.log(values);
-
-        recomputeGroup(editedGroup,values);
-
+        handleValuesChange(editedGroup,values);
     },[values]);
+    console.log('rendering3',values);
+
 
     const findGroup = y=>
         Object.keys(groups).reduce( (result,group)=> {
             if(result == null){
-            //    console.log(y)
-            //    console.log(groups[group].indexOf(y))
                 result = groups[group].indexOf(y) !==-1 ? group: null;
             }
             return result;
@@ -157,7 +149,8 @@ const Component = props => {
         }
         let items = columns.map (col=>{
             let name=`f_${row}_${col}`;
-             return (<InputWithArea editable={true} key={name} area={name} name={name} {...inputProps(name)}/> )
+    //        console.log('value',values[name],inputProps(name))
+             return (<InputWithArea  key={name} area={name} name={name} {...inputProps(name)}/> )
         });
 
         c[groupId].push( ... items);
@@ -183,7 +176,7 @@ const Component = props => {
 
                 return (<FieldGroup key={group} group={group} handleGroupFocus={
                     setEditedGroup
-                } editable={group == editedGroup}>
+                }  editable={group == editedGroup}>
                             {fieldsByGroup[group]}
                     </FieldGroup>)
             })
