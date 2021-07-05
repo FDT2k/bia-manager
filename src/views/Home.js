@@ -4,7 +4,7 @@ import List from 'components/List'
 
 import ImportData from 'components/DatabaseImport'
 export default props => {
-    
+
     return (
         <>
         {<Provider dbname="bia" dbtype="dexie">
@@ -13,12 +13,7 @@ export default props => {
                 <ImportData/>
             </>
     </Provider>}
-        <Provider dbname="bia_pouch" dbtype="pouch">
-            <>
-                <List/>
-                <ImportData/>
-            </>
-        </Provider>
+        
         </>
     )
 

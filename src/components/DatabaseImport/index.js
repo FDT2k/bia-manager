@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 
 import LayoutFlex from 'bia-layout/layouts/Flex'
 import { useFieldValues } from '@geekagency/use-fields-value'
-import FileInput from 'bia-layout/form/FileInput'
 import useDatabaseFromContext from 'hooks/useBIAManager';
 
 export default props => {
@@ -61,24 +60,24 @@ export default props => {
             }, { data: {},list:[], countPatient: 0, countMesure: 0 });
 
 
-           
+
 
             setImportedData(data);
         })
 
 
-       
+
     }
     const addPatients = _=> {
         api.import_data(imported_data.list).then(_=>console.log('done'));
-        
+
     }
     return (
         <LayoutFlex column>
             <LayoutFlex>
                 <label>Choisir un fichier</label>
 
-                <FileInput handleChange={files => {
+                <input type="file" onChange={files => {
                     _import(files[0].text())
                 }} />
 

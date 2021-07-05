@@ -21,6 +21,8 @@ export default props => {
         },
         [patients]
     )
+
+    
     const columns = React.useMemo(
 
         () => [
@@ -66,7 +68,7 @@ export default props => {
     }, []);
 
     const fetch = _ => {
-        setLoading(true);
+    /*    setLoading(true);
         console.log('fetch');
         api.getAll().then(
             p => {
@@ -74,10 +76,10 @@ export default props => {
                 setPatients(p);
                 setLoading(false);
             }
-        )
+        )*/
     }
 
-   
+
 
     const Tools = props => (<button >Créer</button>)
 
