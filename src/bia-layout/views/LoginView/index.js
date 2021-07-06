@@ -9,14 +9,14 @@ import './style.scss'
 
 
 export default props => {
-
+    const{handleSubmit, ...rest} = props;
     return (
         <MainView>
             <LayoutFlex cover centered>
-                        <Login/>
-                        </LayoutFlex>
+                <Login handleSubmit={handleSubmit}/>
+            </LayoutFlex>
 
-                    </MainView>
+        </MainView>
     )
 
 }

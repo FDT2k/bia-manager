@@ -62,6 +62,8 @@ const AutoComplete = props => {
     const { options, style, search, visible, handleSelect } = props;
     const up = useKeyPress("ArrowUp");
     const down = useKeyPress("ArrowDown");
+
+
     const [displayedOptions, setDisplayedOptions] = useState(options);
     const [selected, setSelected] = useState(0);
     useEffect(() => {
@@ -114,7 +116,7 @@ AutoComplete.defaultProps = {
 }
 
 const TagInput = (props) => {
-    const { handleChange, tags: initialTags, fields } = props;
+    const { handleChange, tags: initialTags, fields, ...rest } = props;
     const backspacePressed = useKeyPress("Backspace");
     const enterPressed = useKeyPress("Enter");
     const escapePressed = useKeyPress("Escape");
@@ -135,13 +137,14 @@ const TagInput = (props) => {
                     handleChange(tags);
                 }
             }
+            showAutocomplete(false);
         }
         if (enterPressed) {
             if (!autocomplete) {
                 if (typedTag != "") {
                     setTags([...tags, typedTag]);
                     setTypedTag("");
-                    
+
                 }
             } else {
                 setTypedTag(field + ':')
@@ -171,7 +174,7 @@ const TagInput = (props) => {
 
     return (
         <>
-            <div className="tag-input" onClick={_ => ref.current.focus()}>
+            <div className="tag-input" onClick={_ => ref.current.focus()} {...rest}>
                 {tags.map((t, idx) => (
                     <div className="tag">{t}  <button onClick={_ => deleteTag(idx)}>x</button></div>
                 ))}

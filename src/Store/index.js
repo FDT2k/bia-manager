@@ -4,10 +4,10 @@ import {makeStore} from 'store';
 
 import Patient from 'Redux/Patient/reducer';
 
-const reducer= (state,action)=> {
-    console.log(action);
-    return state;
-}
+const reducer= combineReducers({
+    patient:Patient
+})
+
 
 
 const migrations = {
@@ -28,7 +28,7 @@ const migrations = {
 }
 
 
-export default makeStore('root',Patient,{devTools:true},{
-    version:1,
+export default makeStore('root',reducer,{devTools:true},{
+    version:2,
     migrate:createMigrate(migrations)
 });

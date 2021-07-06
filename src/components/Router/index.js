@@ -3,20 +3,18 @@ import React from 'react';
 
 import { Route } from "wouter";
 
-
+import Login  from 'components/Views/Login'
+import Search  from 'components/Views/Search'
 
 export default props => {
-    
-    return (
-        <Store>
-            
-        <Test/>
 
-          
- {/*<Route path="/"><DatabaseSelection /></Route>
-            <Route path="/import"><DatabaseImport /></Route>
-            <Route path="/create"><DatabaseCreationForm /></Route>
-    <Route path="/list"><List /></Route>*/}
-        </Store>
+    return (
+
+        <>
+
+
+        <Route path="/"><Login /></Route>
+        <Route path="/search"><Search /></Route>
+        </>
     );
 }

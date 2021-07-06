@@ -11,7 +11,9 @@ import './style.scss';
 const [__base_class, element, modifier] = bem('listing')
 
 export default props => {
-    const { data, columns, Tools } = props;
+
+
+    const { data, columns, Tools, SortUp, SortDown, ...rest } = props;
 
     function fuzzyTextFilterFn(rows, id, filterValue) {
         console.log(rows, id, filterValue)
@@ -79,40 +81,9 @@ export default props => {
         state: { pageIndex: pageProps.pageIndex, pageSize: pageProps.pageSize }
 
     } = tableInstance);
-    console.log('render');
     return (
-        <>
-            <table className={cEx([__base_class])} {...getTableProps()}>
+            <table className={cEx([__base_class])} {...getTableProps()} {...rest}>
                 <thead>
-                    <tr>
-                        <th
-                            colSpan={visibleColumns.length}
-                        >
-                            <GlobalFilter
-                                preGlobalFilteredRows={preGlobalFilteredRows}
-                                globalFilter={state.globalFilter}
-                                setGlobalFilter={setGlobalFilter}
-                            />
-                            {Tools && <Tools />}
-                        </th>
-                    </tr>
-
-
-                    <tr>
-
-                        <th colSpan={visibleColumns.length}>
-                           {
-                               
-                               headerGroups.map (group=> {
-                                    return group.headers.map(column=>{
-
-                                        return column.render('Filter') 
-                                    })
-
-                               })
-                           }
-                        </th>
-                    </tr>
 
 
                     {headerGroups.map(headerGroup => (
@@ -125,7 +96,7 @@ export default props => {
                                         <div  {...column.getHeaderProps(column.getSortByToggleProps())}>
                                             {column.render('Header')}</div>
                                         <span>
-                                            {column.isSorted ? (column.isSortedDesc ? ' 🔽' : ' 🔼') : ''}
+                                            {column.isSorted ? (column.isSortedDesc ? (SortUp? <SortUp/>: ' 🔽') : (SortDown? <SortDown/>:' 🔼')) : ''}
                                         </span>
                                     </th>
                                 ))}
@@ -155,7 +126,6 @@ export default props => {
                     })}
                 </tbody>
             </table>
-            <Pagination {...pageProps} />
-        </>
+
     )
 }

@@ -13,7 +13,7 @@ export default Annotate({
 
 export const SimpleList = () =>  {
 
-   
+
 
     return (<MainView/>)
 }

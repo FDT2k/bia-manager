@@ -18,11 +18,17 @@ import { PersistGate } from 'redux-persist/integration/react'
 
 
 export const makeStore = (persistKey,reducer,options={},persistMigration={version:1}) => props=> {
+  const persistConfig = {
+    key: persistKey,
+    ...persistMigration,
+    storage,
+  }
 
+  const persistedReducer = persistReducer(persistConfig, reducer)
 
   const store = configureStore({
     ...options,
-    reducer: reducer,
+    reducer: persistedReducer,
     middleware: getDefaultMiddleware({
       serializableCheck: {
         ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER],
@@ -30,13 +36,13 @@ export const makeStore = (persistKey,reducer,options={},persistMigration={versio
     }),
   })
 
- 
+  let persistor = persistStore(store)
 
   return (
     <Provider store={store}>
-
+      <PersistGate loading={null} persistor={persistor}>
         {props.children}
-
+      </PersistGate>
     </Provider>)
 }
 

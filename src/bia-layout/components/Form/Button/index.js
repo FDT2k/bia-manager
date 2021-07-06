@@ -7,11 +7,8 @@ import { bem, compose, kebabize,filterPropPresentIn, baseElement, applyModifiers
 const Component = props => {
 
 
-    const [formProps, rest ] = filterPropPresentIn(['id','name','checked'],props);
 
-    const {onChange, ...rest2} = rest;
-
-    return (<button>button</button>)
+    return (<button {...props}>{props.children}</button>)
 
 }
 

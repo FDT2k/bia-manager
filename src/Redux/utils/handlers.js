@@ -9,6 +9,13 @@ export const delFromList = curry((list, val) => filter(isStrictlyNotEqual(val), 
 export const addToListUniq = curry((list, val) => add(del(list, val), val))
 
 
+export const delObjectProp = curry((state,key_value) => Object.keys(state).reduce((carry,item)=>{
+    if(state[item]!==key_value){
+        carry[item]=state[item];
+    }
+    return carry
+},{}));
+
 
 export const delete_list_item = curry((state,action) => filter(item=> item.id !=action.payload,state));
 

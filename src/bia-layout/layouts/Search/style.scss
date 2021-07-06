@@ -1,0 +1,20 @@
+:root {
+    --search-left-margin: 5%;
+    --search-right-margin: 5%;
+}
+
+.search-grid-layout{
+
+    grid-template-columns: var(--search-left-margin) minmax(1060px, auto) var(--search-right-margin) ;
+    grid-template-rows: 76px fit-content(200px) auto;
+
+    grid-template-areas:
+        "margin_left search  margin_right"
+        "margin_left filter  margin_right"
+        "margin_left list margin_right"
+        ;
+
+    justify-content: center;
+    align-items: flex-start;
+
+}

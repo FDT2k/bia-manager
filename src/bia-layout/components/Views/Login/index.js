@@ -8,12 +8,17 @@ import Input from 'bia-layout/components/Form/Input';
 import Label from 'bia-layout/components/Form/Label';
 import Button from 'bia-layout/components/Form/Button';
 import LayoutFlex from 'bia-layout/layouts/Flex';
+import {useFieldValues} from '@geekagency/use-fields-value'
+
+
 const LoginForm = props => {
 
-    const {className, ...rest} = props
-
+    const {className,handleSubmit, ...rest} = props
+    const {inputProps,values} = useFieldValues({username:'',password:''})
     const classes = cEx(["login-form",className]);
-
+    const _handleSubmit = e=>{
+        handleSubmit && handleSubmit(values);
+    }
     return (
         <LayoutFlex className={classes} column justCenter {...rest}>
             <InputGroup>
@@ -25,7 +30,7 @@ const LoginForm = props => {
                 <Input/>
             </InputGroup>
             <LayoutFlex justEnd>
-                <Button/>
+                <Button onClick={_handleSubmit}/>
             </LayoutFlex>
         </LayoutFlex>
     )
