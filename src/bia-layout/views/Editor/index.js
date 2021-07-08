@@ -30,12 +30,12 @@ const NavComponent = compose(
 
 const Editor =  props => {
 
-    const {className, ...rest} = getClasseNames(__base_class,props);
+    const {className, handleGoBack,...rest} = getClasseNames(__base_class,props);
 
     return (
         <MainView className={className}>
             <EditorLayout>
-                <NavComponent className={element('nav')} area="nav"> <ArrowBack/> <h3>Retour à la liste</h3></NavComponent>
+                <NavComponent className={element('nav')} area="nav" onClick={handleGoBack}> <ArrowBack/> <h3>Retour à la liste</h3></NavComponent>
                 <Area className={element('patient')} area="patient"><PatientHeader/></Area>
                 <Area className={element('mesures')} area="mesures">
                         <ListItem><b>Mesures</b></ListItem>

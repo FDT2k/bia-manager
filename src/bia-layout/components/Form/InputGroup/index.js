@@ -4,18 +4,12 @@ import './style.scss';
 import { bem, compose, kebabize,filterPropPresentIn, baseElement, applyModifiers, withVariables, withModifiers, wrapComponent, asideElement, divElement, withBaseClass, cEx } from 'bia-layout/utils'
 
 import LayoutFlex from 'bia-layout/layouts/Flex';
-const InputGroup = props => {
 
 
-    const [formProps, rest ] = filterPropPresentIn(['id','name','checked'],props);
-
-
-    return (<LayoutFlex column justBetween {...props}>
-            {props.children}
-        </LayoutFlex>)
-
-}
-
+const InputGroup = compose (
+    withBaseClass('input-group'),
+    applyModifiers({column:true,justBetween:true})
+)(LayoutFlex);
 /*
 ToggleSwitch.defaultProps = {
     onChange: x=>x,

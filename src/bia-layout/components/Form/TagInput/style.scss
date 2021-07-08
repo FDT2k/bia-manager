@@ -23,11 +23,15 @@
   position:absolute;
   display:none;
   z-index:1000;
+
   &--visible{
     display:block;
   }
   &__item{
-    &--selected{
+      cursor:pointer;
+      min-height:30px;
+      background-color: white;
+    &--selected, &:hover{
        background-color:pink;
     }
   }

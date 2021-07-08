@@ -1,0 +1,16 @@
+
+
+%colors-negative{
+    background-color: var(--primary);
+    color:var(--secondary);
+    outline-color: var(--secondary);
+    border-color: var(--secondary);
+}
+
+
+%colors-positive{
+    background-color: var(--secondary);
+    color:var(--primary);
+    outline-color: var(--secondary);
+    border-color: var(--secondary);
+}

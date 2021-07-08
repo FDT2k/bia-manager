@@ -25,5 +25,5 @@ export default  args => {
 
     }, [ref])
 
-    return focused;
+    return {hasFocus:focused,handleFocus,handleBlur};
 }

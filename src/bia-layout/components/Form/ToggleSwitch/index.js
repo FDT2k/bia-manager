@@ -14,11 +14,11 @@ const ToggleSwitch = props => {
     const {onChange, ...rest3} = rest2;
 
     const ref = useRef();
-    const focus = useFocus({ref});
+    const {hasFocus} = useFocus({ref});
 
     const classes = cEx([
         'toggle-switch',
-        _=> focus? 'toggle-switch--focus':''
+        _=> hasFocus? 'toggle-switch--focus':''
     ])
 
     return (<div className={classes} {...rest3}>

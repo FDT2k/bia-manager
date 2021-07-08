@@ -2,6 +2,7 @@ import React, { useState, useRef, useEffect } from 'react';
 import './style.scss';
 
 import useKeyPress from 'hooks/useKeypress';
+import useFocus from 'hooks/useFocus';
 import classNames from 'classnames';
 /*
 export default props => {
@@ -59,13 +60,22 @@ export default props => {
 
 
 const AutoComplete = props => {
-    const { options, style, search, visible, handleSelect } = props;
+    const { options, style, search, visible, handleSelect,handleHoldFocus } = props;
+
     const up = useKeyPress("ArrowUp");
     const down = useKeyPress("ArrowDown");
 
 
+    const _handleHoldFocus = _=> {
+        let keys =  visible? ['ArrowUp','ArrowDown']: [];
+        handleHoldFocus && handleHoldFocus(keys);
+    }
+
     const [displayedOptions, setDisplayedOptions] = useState(options);
     const [selected, setSelected] = useState(0);
+
+
+
     useEffect(() => {
         if (visible) {
             if (up) {
@@ -84,8 +94,12 @@ const AutoComplete = props => {
                 }
 
             }
+
         }
+        _handleHoldFocus();
     }, [up, down, visible]);
+
+
 
     useEffect(() => {
         handleSelect(displayedOptions[selected])
@@ -100,7 +114,7 @@ const AutoComplete = props => {
     return (
         <div style={style} className={classNames(['autocomplete', { 'autocomplete--visible': visible }])}>
             {displayedOptions.map((item, idx) => {
-                return (<div className={classNames(
+                return (<div onClick={_=>setSelected(idx)} className={classNames(
                     ['autocomplete__item',
                         { 'autocomplete__item--selected': idx == selected }]
                 )}>{item}</div>)
@@ -116,49 +130,70 @@ AutoComplete.defaultProps = {
 }
 
 const TagInput = (props) => {
-    const { handleChange, tags: initialTags, fields, ...rest } = props;
+    const { handleChange, handleAddTag, handleRemoveTag, handleFocus: handleFocusChange, tags: initialTags, fields, ...rest } = props;
+
+
+
     const backspacePressed = useKeyPress("Backspace");
     const enterPressed = useKeyPress("Enter");
     const escapePressed = useKeyPress("Escape");
+
     const ref = useRef();
+
     const [typedTag, setTypedTag] = useState("");
     const [tags, setTags] = useState(initialTags);
     const [autocomplete, showAutocomplete] = useState(false);
     const [field, setSelectedField] = useState('');
+    const {hasFocus, handleFocus,handleBlur} = useFocus({ref,focused:true});
 
     const [inputBounds, setInputBounds] = useState({ top: 0, left: 0 });
-    useEffect(() => {
-        if (backspacePressed) {
-            if (typedTag == "") {
-                if (tags.length > 0) {
-                    let tag = tags.pop();
-                    setTags([...tags]);
-                    setTypedTag(tag);
-                    handleChange(tags);
-                }
-            }
-            showAutocomplete(false);
-        }
-        if (enterPressed) {
-            if (!autocomplete) {
-                if (typedTag != "") {
-                    setTags([...tags, typedTag]);
-                    setTypedTag("");
 
+    useEffect(() => {
+        if(hasFocus){
+            handleFocusChange(true);
+            if (backspacePressed) {
+                if (typedTag == "") {
+                    if (tags.length > 0) {
+                        let tag = tags.pop();
+                        handleRemoveTag(tag);
+                        setTags([...tags]);
+                        setTypedTag(tag);
+                        handleChange(tags);
+                    }
                 }
-            } else {
-                setTypedTag(field + ':')
                 showAutocomplete(false);
             }
-            handleChange(tags);
+            if (enterPressed) {
+                let newTags = [...tags];
+                if (!autocomplete) {
+                    if (typedTag != "") {
+                        newTags.push(typedTag)
+                        setTags(newTags);
+                        setTypedTag("");
+                        handleAddTag(typedTag);
 
-        }
+                    }
+                } else {
+                    setTypedTag(field + ':')
+                    showAutocomplete(false);
+                }
+                handleChange(newTags);
+            }
 
-        if (escapePressed) {
+            if (escapePressed) {
+                showAutocomplete(false);
+            }
+        } else {
             showAutocomplete(false);
+            if(typedTag==':'){
+                setTypedTag("");
+            }
+            handleFocusChange(false);
         }
 
-    }, [backspacePressed, escapePressed, enterPressed]);
+    }, [backspacePressed, escapePressed, enterPressed,hasFocus]);
+
+
     useEffect(() => {
      //   console.log(fields,typedTag.slice(0, -1), fields.indexOf(typedTag.slice(0, -1)));
         if (typedTag == ':' || (typedTag.slice(-1) == ':' && fields.indexOf(typedTag.slice(0, -1)) ===-1)) {
@@ -167,8 +202,13 @@ const TagInput = (props) => {
         }
     }, [typedTag]);
 
-    const deleteTag = (idx) => {
-        setTags(prevState => prevState.filter((tag, i) => i !== idx))
+
+
+    const deleteTag = (idx,tag) => {
+        handleRemoveTag(tag);
+        let newTags = tags.filter((tag, i) => i !== idx);
+        setTags(newTags)
+        handleChange(newTags);
     }
 
 
@@ -176,17 +216,15 @@ const TagInput = (props) => {
         <>
             <div className="tag-input" onClick={_ => ref.current.focus()} {...rest}>
                 {tags.map((t, idx) => (
-                    <div className="tag">{t}  <button onClick={_ => deleteTag(idx)}>x</button></div>
+                    <div className="tag">{t}  <button onClick={_ => deleteTag(idx,t)}>x</button></div>
                 ))}
                 <input
                     ref={ref}
+                    focus={hasFocus}
                     type="text"
                     value={typedTag}
                     onChange={(e) => setTypedTag(e.target.value)}
-
                 />
-
-
             </div>
             <AutoComplete style={{ left: inputBounds.left, top: inputBounds.top }} handleSelect={setSelectedField} visible={autocomplete} options={fields} />
         </>
@@ -195,7 +233,10 @@ const TagInput = (props) => {
 
 TagInput.defaultProps = {
     tags: [],
-    handleChange: x => x
+    handleChange: x => x,
+    handleAddTag: x => x,
+    handleRemoveTag: x => x,
+    handleFocus:x=>x
 }
 
 export default TagInput;

@@ -3,10 +3,14 @@ import { createMigrate } from 'redux-persist'
 import {makeStore} from 'store';
 
 import Patient from 'Redux/Patient/reducer';
+import makePatientSelectors from 'Redux/Patient/selectors';
 
 const reducer= combineReducers({
     patient:Patient
 })
+
+
+export const {select_patients_list,select_count_results} = makePatientSelectors(state=>state.patient);
 
 
 

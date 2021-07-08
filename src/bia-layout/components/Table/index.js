@@ -13,7 +13,7 @@ const [__base_class, element, modifier] = bem('listing')
 export default props => {
 
 
-    const { data, columns, Tools, SortUp, SortDown, ...rest } = props;
+    const { data, columns,selectedIndex, handleSelect, Tools, SortUp, SortDown, ...rest } = props;
 
     function fuzzyTextFilterFn(rows, id, filterValue) {
         console.log(rows, id, filterValue)
@@ -108,10 +108,12 @@ export default props => {
 
                 </thead>
                 <tbody {...getTableBodyProps()}>
-                    {page.map(row => {
+                    {rows.map((row,idx) => {
                         prepareRow(row)
                         return (
-                            <tr {...row.getRowProps()}>
+                            <tr {...row.getRowProps()} className={cEx([
+                                    {'selected': _=>selectedIndex ==idx}
+                                ])} onClick={_=>handleSelect(idx)}>
                                 {row.cells.map(cell => {
                                     return (
                                         <td

@@ -1,4 +1,4 @@
-import React,{useMemo} from 'react';
+import React,{useMemo,useEffect,useState} from 'react';
 
 import Fullscreen from 'bia-layout/containers/Fullscreen'
 import Navbar from 'bia-layout/components/Navbar';
@@ -16,7 +16,7 @@ import {withGridArea,ComponentWithArea} from 'bia-layout/hoc/grid/Area'
 import {applyModifiers,compose,withBaseClass} from 'bia-layout/utils'
 import './style.scss'
 
-
+import useKeyPress from 'hooks/useKeypress';
 
 export const SearchArea =  compose(
                                 withGridArea,
@@ -33,51 +33,36 @@ export const AdvancedSearch = compose(
                             )(LayoutFlex)
 
 
-export default props => {
+export const Component = props=> {
+
+    const arrowDownPressed = useKeyPress('ArrowDown');
+    const arrowUpPressed = useKeyPress('ArrowUp');
+
+    const [selectedIndex, setSelectedIndex]=  useState(-1);
+    const [searchBarFocused, setSearchBarFocused] = useState(false);
+
+    const {results,handleSearch,handleCreate,handleSelectRow:_handleSelectRow } = props;
+    useEffect(()=>{
+        if(!searchBarFocused){
+        if(arrowDownPressed){
+            setSelectedIndex(idx => (idx == results.length-1 ? 0: idx+1));
+        }
+        if(arrowUpPressed){
+            setSelectedIndex(idx => idx >0 ? idx-1: results.length-1);
+        }
+        }
+    },[arrowDownPressed,arrowUpPressed,searchBarFocused]);
 
     const data = useMemo(
         () => {
-            return [
-                {
-                    'nom':'Karsegard',
-                    'prenom':'Fabien',
-                    'dateNaissance':'24-02-1982',
-                    'sexe':'homme',
-                    'count':'14',
-                    'patho': 'VENS2015'
-
-                },
-                {
-                    'nom':'Karsegard',
-                    'prenom':'Fabien',
-                    'dateNaissance':'24-02-1982',
-                    'sexe':'homme',
-                    'count':'14',
-                    'patho': 'VENS2015'
-
-                },
-                {
-                    'nom':'Karsegard',
-                    'prenom':'Fabien',
-                    'dateNaissance':'24-02-1982',
-                    'sexe':'homme',
-                    'count':'14',
-                    'patho': 'VENS2015'
-
-                },
-                {
-                    'nom':'Karsegard',
-                    'prenom':'Fabien',
-                    'dateNaissance':'24-02-1982',
-                    'sexe':'homme',
-                    'count':'14',
-                    'patho': 'VENS2015'
-                }
-            ];
+            return results;
         },
-        []
+        [results]
     )
 
+    const _handleSearch = tags => {
+        handleSearch && handleSearch(tags);
+    }
 
     const columns = React.useMemo(
 
@@ -118,14 +103,36 @@ export default props => {
         'nom',
         'prenom'
     ]
+
+    const handleSelectRow = index=>{
+
+        _handleSelectRow && _handleSelectRow(index)
+    }
+
     return (
         <MainView>
             <SearchLayout>
-                <SearchArea area="search"><TagInput fields={searchableFields}/><Button>Créer un nouveau Patient</Button></SearchArea>
+                <SearchArea area="search"><TagInput handleFocus={v=>setSearchBarFocused(v)} handleChange={_handleSearch} fields={searchableFields}/><Button>Créer un nouveau Patient</Button></SearchArea>
                 <AdvancedSearch area="filter">recherche avancée <ArrowDown/></AdvancedSearch>
-                <ListWithArea SortUp={ArrowUp} SortDown={ArrowDown}  area="list" data={data} columns={columns} />
+                <ListWithArea
+                    SortUp={ArrowUp}
+                    SortDown={ArrowDown}
+                    handleSelect={handleSelectRow}
+                    selectedIndex={selectedIndex}
+                    area="list"
+                    data={data}
+                    columns={columns}
+                />
             </SearchLayout>
         </MainView>
     )
 
 }
+
+Component.defaultProps= {
+    results:[],
+    handleSearch:_=>console.warn('search handler not implemented'),
+    handleCreate:_=>console.warn('create handler not implemented'),
+}
+
+export default Component;

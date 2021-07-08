@@ -30,7 +30,7 @@ const LoginForm = props => {
                 <Input/>
             </InputGroup>
             <LayoutFlex justEnd>
-                <Button onClick={_handleSubmit}/>
+                <Button onClick={_handleSubmit}>Se connecter</Button>
             </LayoutFlex>
         </LayoutFlex>
     )
