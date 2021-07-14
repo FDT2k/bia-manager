@@ -25,5 +25,13 @@ export default  args => {
 
     }, [ref])
 
+    useEffect(() => {
+        if(ref && ref.current){
+            focused && ref.current.focus();
+        }
+
+    }, [focused])
+
+
     return {hasFocus:focused,handleFocus,handleBlur};
 }

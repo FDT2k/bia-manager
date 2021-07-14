@@ -53,8 +53,8 @@ const Editor =  props => {
                             <FieldText label="Date d'examen"/>
                             <FieldSelect label="Activité physique"/>
                             <FieldSelect label="Type d'Activité physique"/>
-                            <FieldToggle label="Fumeur" id="fumeur" labelNo="X"/>
-                            <FieldToggle label="Coté mesuré" labelYes="Droit" labelNo="Gauche" id="cote"/>
+                            <FieldToggle label="Fumeur" id="fumeur" labelYes="Oui" labelNo="Non"/>
+                            <FieldToggle label="Coté mesuré" labelYes="Gauche" labelNo="Droit" id="cote"/>
                             <FieldText label="Poids Actuel"/>
                             <FieldText label="Taille cm"/>
                         </LayoutFlex>

@@ -5,6 +5,7 @@
     @extend %base_font;
     &__nav{
         padding-top:20px;
+        cursor:pointer;
     }
 
     &__patient{

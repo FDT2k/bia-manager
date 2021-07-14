@@ -86,12 +86,12 @@ export default props => {
                 <thead>
 
 
-                    {headerGroups.map(headerGroup => (
+                    {headerGroups.map((headerGroup,idx) => (
                         <>
-                            <tr {...headerGroup.getHeaderGroupProps()}>
-                                {headerGroup.headers.map(column => (
+                            <tr key={idx} {...headerGroup.getHeaderGroupProps()}>
+                                {headerGroup.headers.map((column,idx) => (
                                     <th
-
+                                        key={idx}
                                     >
                                         <div  {...column.getHeaderProps(column.getSortByToggleProps())}>
                                             {column.render('Header')}</div>
@@ -111,7 +111,7 @@ export default props => {
                     {rows.map((row,idx) => {
                         prepareRow(row)
                         return (
-                            <tr {...row.getRowProps()} className={cEx([
+                            <tr key={idx} {...row.getRowProps()} className={cEx([
                                     {'selected': _=>selectedIndex ==idx}
                                 ])} onClick={_=>handleSelect(idx)}>
                                 {row.cells.map(cell => {

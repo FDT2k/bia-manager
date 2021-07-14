@@ -6,18 +6,21 @@ export default name => {
 
 
     const db = new Dexie(name);
+
     db.version(1).stores({
-        patients: `++id,nom,prenom`,
-        mesures: '++id'
-    });
-    db.version(2).stores({
-        patients: `++id,nom,prenom,dateNaissance`,
-        mesures: '++id'
-    });
-    db.version(3).stores({
-        patients: `++id,nom,prenom,dateNaissance,[nom+prenom+dateNaissance]`,
+        patients: "++id,nom,prenom,dateNaissance,groupePath,search_terms"
+        ,
         mesures: '++id'
     });
 
+
+    db.patients.hook("creating", function (primKey, obj, trans) {
+       obj.search_terms = obj.nom +' '+obj.prenom+' '+obj.dateNaissance+' '+obj.groupPath;
+    });
+
+    db.patients.hook("updating", function (mods, primKey, obj, trans) {
+        obj.search_terms = obj.nom +' '+obj.prenom+' '+obj.dateNaissance+' '+obj.groupPath;
+
+    });
     return db;
 }

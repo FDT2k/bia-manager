@@ -2,16 +2,64 @@ import {createSelector} from 'reselect';
 import {spec} from '@geekagency/composite-js/ObjectUtils'
 
 
-
-
+/*
+export const buildFilter = tags => item => {
+    for(let i =0; i < tags.length;i++){
+        const tag = tags[i];
+        let hasField = tag.indexOf(':') !==-1;
+        if(hasField){
+            let fieldpos = tag.indexOf(':');
+            let key = tag.substr(0,fieldpos).trim();
+            let value = tag.substr(fieldpos+1).trim();
+            //collection = buildFieldQuery(collection)(key,value);
+            return (new RegExp(`/${value}/`)).test(item[key]);
+        }else{
+            //collection=buildQuery(collection)(tag);
+        }
+    }
+}
+*/
 
 export default  baseSelector => {
 
+   const select_patients= createSelector(baseSelector, state => state.patients);
+   const select_tags= createSelector(baseSelector, state => state.search_terms);
+   const select_patients_list= createSelector(select_patients, (state) => state.allIds.map(key=>state.byIds[key]));
+   const select_count_results= createSelector(baseSelector, state => state.patients.allIds.length);
+
+   const select_patients_list_filtered = createSelector(select_patients, (state) => state.filteredIds.map(key=>state.byIds[key]));/* (state,tags) => {
+
+        const tag_filter = (tag,patients) => {
+            return patients.reduce((carry,id)=>{
+                let patient = state.byIds[id];
+                let hasField = tag.indexOf(':') !==-1;
+                if(hasField){
+                    let fieldpos = tag.indexOf(':');
+                    let key = tag.substr(0,fieldpos).trim();
+                    let value = tag.substr(fieldpos+1).trim();
+                    //collection = buildFieldQuery(collection)(key,value);
+                    if ((new RegExp(`/${value}/`)).test(patient[key])){
+                        carry.push(patient)
+                    }
+                }
+            },[]);
+        }
+
+        result = {...state};
+
+        for(tag in tags){
+            console.log(tag);
+        }
+
+   });*/
+
    return {
-       select_patients: createSelector([baseSelector], state => state.patients),
-       select_patients_list: createSelector([baseSelector], state => state.patients.allIds.map(key=>state.patients.byIds[key])),
-       select_count_results: createSelector([baseSelector], state => state.patients.allIds.length),
-      
+       select_patients,
+       select_tags,
+       select_patients_list,
+       select_count_results,
+       select_tags,
+       select_patients_list_filtered
    }
 
 }

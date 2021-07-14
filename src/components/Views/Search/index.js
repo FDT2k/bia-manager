@@ -7,8 +7,8 @@ import { useLocation } from "wouter";
 import useBIAManager from 'hooks/useBIAManager';
 
 
-import {update_search_tags,search} from 'Redux/Patient/actions';
-import {select_patients_list,select_count_results} from 'Store';
+import {update_search_tags,search} from 'Store';
+import {select_patients_list_filtered,select_count_results} from 'Store';
 
 
 export default props => {
@@ -18,16 +18,22 @@ export default props => {
 
 
 
-    const sel_patients = useSelector(select_patients_list);
+    const sel_patients = useSelector(select_patients_list_filtered);
     const results_count = useSelector(select_count_results);
 
 
     const handleSearch = tags => {
+        if(tags.length>0){
 
-        console.log(tags);
+            const [dbsearch,...rest] =tags;
 
-        dispatch(update_search_tags(tags))
-        dispatch(search(_=> api.search({nom:'karsegard'})))
+            const query = _=> api.search([dbsearch]);
+
+            dispatch(search(query,rest))
+            .catch(err=>{
+                console.error('search error',err);
+            })
+        }
     }
 
 

@@ -7,9 +7,9 @@
 }
 
 .toggle-switch {
-
+    min-width:60px;
     &--focus{
-        border:2px solid red;
+        outline:2px solid red;
     }
     position: relative;
     overflow: hidden;

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState,useRef } from 'react';
 
 import LayoutFlex from 'bia-layout/layouts/Flex'
 import { useFieldValues } from '@geekagency/use-fields-value'
@@ -10,6 +10,7 @@ export default props => {
     const [imported_data, setImportedData] = useState();
     const { values, inputProps, handleChange } = useFieldValues({ name: 'world' })
     const {api} = useDatabaseFromContext();
+    const  fileRef = useRef();
 
     const _import = promise => {
         promise.then(text => {
@@ -68,6 +69,11 @@ export default props => {
 
 
     }
+
+    const onFileChange = _=> {
+        _import(fileRef.current.files[0].text());
+
+    }
     const addPatients = _=> {
         api.import_data(imported_data.list).then(_=>console.log('done'));
 
@@ -77,9 +83,7 @@ export default props => {
             <LayoutFlex>
                 <label>Choisir un fichier</label>
 
-                <input type="file" onChange={files => {
-                    _import(files[0].text())
-                }} />
+                <input ref={fileRef} type="file" onChange={onFileChange} />
 
             </LayoutFlex>
             <LayoutFlex>

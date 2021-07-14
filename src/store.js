@@ -1,5 +1,6 @@
 import React from 'react';
 import { configureStore, getDefaultMiddleware } from '@reduxjs/toolkit'
+import logger from 'redux-logger'
 import { Provider } from 'react-redux'
 import {
   persistStore,
@@ -20,24 +21,24 @@ import { PersistGate } from 'redux-persist/integration/react'
 export const makeStore = (persistKey,reducer,options={},persistMigration={version:1}) => props=> {
 
 
-  const store = configureStore({
-    ...options,
-    reducer: reducer,
-    middleware: getDefaultMiddleware({
-      serializableCheck: {
-        ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER],
-      },
-    }),
-  })
+    const store = configureStore({
+        ...options,
+        reducer: reducer,
+        middleware: getDefaultMiddleware({
+            serializableCheck: {
+                ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER],
+            },
+        }).concat(logger),
+    })
 
- 
 
-  return (
-    <Provider store={store}>
 
-        {props.children}
+    return (
+        <Provider store={store}>
 
-    </Provider>)
+            {props.children}
+
+        </Provider>)
 }
 
 export default makeStore;

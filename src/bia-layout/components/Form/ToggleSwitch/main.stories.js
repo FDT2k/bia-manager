@@ -13,17 +13,15 @@ export default Annotate({
 
 export const Simple = () =>  {
 
-  
+
     return (
-    <Container style={{width:'500px', 'backgroundColor':'blue','padding':'10px'}}>
-        <ToggleSwitch id="hey"/>
-    </Container>
+        <ToggleSwitch id="hey" labelYes="Yes" labelNo="no"/>
     )
 }
 
 export const Variables = () =>  {
 
-  
+
     return (
     <Container style={{width:'500px', 'backgroundColor':'blue','padding':'10px'}}>
         <ToggleSwitch id="hey" colorYes="red" colorNo="pink"/>

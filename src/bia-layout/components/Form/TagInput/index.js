@@ -114,7 +114,7 @@ const AutoComplete = props => {
     return (
         <div style={style} className={classNames(['autocomplete', { 'autocomplete--visible': visible }])}>
             {displayedOptions.map((item, idx) => {
-                return (<div onClick={_=>setSelected(idx)} className={classNames(
+                return (<div key={idx} onClick={_=>setSelected(idx)} className={classNames(
                     ['autocomplete__item',
                         { 'autocomplete__item--selected': idx == selected }]
                 )}>{item}</div>)
@@ -216,11 +216,11 @@ const TagInput = (props) => {
         <>
             <div className="tag-input" onClick={_ => ref.current.focus()} {...rest}>
                 {tags.map((t, idx) => (
-                    <div className="tag">{t}  <button onClick={_ => deleteTag(idx,t)}>x</button></div>
+                    <div className="tag" key={idx}>{t}  <button onClick={_ => deleteTag(idx,t)}>x</button></div>
                 ))}
                 <input
                     ref={ref}
-                    focus={hasFocus}
+
                     type="text"
                     value={typedTag}
                     onChange={(e) => setTypedTag(e.target.value)}
