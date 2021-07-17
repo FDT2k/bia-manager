@@ -4,7 +4,7 @@
   "private": true,
   "dependencies": {
     "@karsegard/cex": "^1.4.4",
-    "@karsegard/composite-js": "^2.2.0",
+    "@karsegard/composite-js": "^2.2.2",
     "@karsegard/react-hooks": "^1.0.6",
     "@material-ui/core": "^4.11.4",
     "@material-ui/icons": "^4.11.2",

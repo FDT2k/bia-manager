@@ -1,6 +1,7 @@
 
 import create from 'Redux/utils/make-action'
 import {createAction} from '@reduxjs/toolkit'
+import {compare} from '@karsegard/composite-js/List'
 import createAsyncAction,{makePromiseDispatcher} from 'Redux/utils/async-dispatch'
 
 export const ADD_SEARCH_TAG='ADD_SEARCH_TAG';
@@ -15,6 +16,7 @@ export const UPDATE_PATIENT='UPDATE_PATIENT';
 export const DELETE_PATIENT='DELETE_PATIENT';
 export const FETCHING_FROM_DATABASE='FETCHING_FROM_DATABASE';
 export const FILTER_PATIENTS= 'FILTER_PATIENTS';
+export const REMOVE_FILTER= 'REMOVE_FILTER';
 
 
 
@@ -30,6 +32,7 @@ export const fetched_patient_fail       = create(FETCHED_PATIENTS_FAIL);
 
 export const fetching_from_db = create(FETCHING_FROM_DATABASE);
 export const filter_patients = create(FILTER_PATIENTS);
+export const remove_filter = create(REMOVE_FILTER);
 
 
 export const ensure_array = x => {
@@ -41,24 +44,49 @@ export const ensure_array = x => {
 export const search_in_database = makePromiseDispatcher(x=>({error:x.message}),ensure_array,fetched_patient_fail,fetched_patient);
 
 
+export const filter_results = (baseSelector) => (dispatch,getState)=>{
+    const state = baseSelector(getState())
+
+    const [first_tag,...other_tags] =state.tags;
+
+
+    if(state.tags.length >= 1 && state.tags.length < state.patients.filtered.length){
+        dispatch(remove_filter(null));
+
+    }
+
+
+    other_tags.map(
+        tag => dispatch(filter_patients(tag))
+    )
+
+}
+
 export const makeSearch = baseSelector => (dbsearchfn,tags) => (dispatch,getState)=> {
 
     const state = baseSelector(getState())
 
+    const [first_tag,...other_tags] =tags;
 
-    const [dbtag,...rest] =tags;
+    if( compare(state.tags,tags)){
+        console.log('tag did not changed')
+        return ;
+    }
+
 
     dispatch(update_search_tags(tags));
 
-    
-    if(dbtag && tags.length==1){
-        dispatch(fetching_from_db({}));
 
-        return dispatch(search_in_database(dbsearchfn(dbtag))).then(result=> {
-            dispatch(filter_patients(tags));
+
+    if(first_tag && tags.length==1 && first_tag != state.tags[0]){ // if the first tag did change, then refetch a preset from the database
+        dispatch(fetching_from_db({}));
+        const search = dispatch(search_in_database(dbsearchfn(first_tag)));
+        return search.then(result=> {
+            dispatch(filter_results(baseSelector));
         });
     }else{
-        return dispatch(filter_patients(tags));
+        dispatch(filter_results(baseSelector));
+    //    return dispatch(filter_patients(tags));
 
     }
 }

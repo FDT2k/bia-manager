@@ -1,6 +1,7 @@
 import React from 'react';
 import { configureStore, getDefaultMiddleware } from '@reduxjs/toolkit'
 import logger from 'redux-logger'
+import thunk from 'redux-thunk'
 import { Provider } from 'react-redux'
 import {
   persistStore,
@@ -24,11 +25,12 @@ export const makeStore = (persistKey,reducer,options={},persistMigration={versio
     const store = configureStore({
         ...options,
         reducer: reducer,
-        middleware: getDefaultMiddleware({
+        /*middleware: getDefaultMiddleware({
             serializableCheck: {
                 ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER],
             },
-        }).concat(logger),
+        }).concat(logger),*/
+        middleware: [thunk,logger]
     })
 
 

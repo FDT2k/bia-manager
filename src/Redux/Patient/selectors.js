@@ -27,7 +27,16 @@ export default  baseSelector => {
    const select_patients_list= createSelector(select_patients, (state) => state.allIds.map(key=>state.byIds[key]));
    const select_count_results= createSelector(baseSelector, state => state.patients.allIds.length);
 
-   const select_patients_list_filtered = createSelector(select_patients, (state) => state.filteredIds.map(key=>state.byIds[key]));/* (state,tags) => {
+   const select_patients_list_filtered = createSelector(select_patients, (state) =>{
+
+       if(state.filtered.length == 0)
+            return [];
+
+       return state.filtered[state.filtered.length-1].ids.map(key=>state.byIds[key])
+   });
+
+
+       /* (state,tags) => {
 
         const tag_filter = (tag,patients) => {
             return patients.reduce((carry,id)=>{

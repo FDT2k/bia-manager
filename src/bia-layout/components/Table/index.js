@@ -84,8 +84,6 @@ export default props => {
     return (
             <table className={cEx([__base_class])} {...getTableProps()} {...rest}>
                 <thead>
-
-
                     {headerGroups.map((headerGroup,idx) => (
                         <>
                             <tr key={idx} {...headerGroup.getHeaderGroupProps()}>
@@ -104,8 +102,6 @@ export default props => {
 
                         </>
                     ))}
-
-
                 </thead>
                 <tbody {...getTableBodyProps()}>
                     {rows.map((row,idx) => {

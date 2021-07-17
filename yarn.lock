@@ -1690,10 +1690,15 @@
   dependencies:
     "@karsegard/composite-js" "^2.1.2"
 
-"@karsegard/composite-js@^2.1.2", "@karsegard/composite-js@^2.2.0":
+"@karsegard/composite-js@^2.1.2":
   version "2.2.0"
   resolved "http://registry.lan:4873/@karsegard%2fcomposite-js/-/composite-js-2.2.0.tgz#e3e01de44fbcbad7783ba17b879ac3f286132b7f"
   integrity sha512-pzrdpKr65GgZu5ubuRc/HYZm7INJTQg7MiCdzO6aCXgHmzO9QO6IE8Zc7f936UMgB1u+rDiybBSSgdcxjf43DA==
+
+"@karsegard/composite-js@^2.2.2":
+  version "2.2.2"
+  resolved "http://registry.lan:4873/@karsegard%2fcomposite-js/-/composite-js-2.2.2.tgz#034e433fd23e7ac2ce3ce9b0d457d3b5148f8a85"
+  integrity sha512-ZCsN5QAOjtGMmrNKsn6tXeC7aEBvkTnhHvKzM62IZW9EINfq/tQHNn3Y1ErbbwWCuf8vZ3hA7/X6kB/TaGvG+w==
 
 "@karsegard/react-hooks@^1.0.6":
   version "1.0.6"
