@@ -41,10 +41,24 @@ export const ensure_array = x => {
 export const search_in_database = makePromiseDispatcher(x=>({error:x.message}),ensure_array,fetched_patient_fail,fetched_patient);
 
 
-export const makeSearch = baseSelector => (dbpromise,tags) => (dispatch,getState)=> {
+export const makeSearch = baseSelector => (dbsearchfn,tags) => (dispatch,getState)=> {
+
+    const state = baseSelector(getState())
+
+
+    const [dbtag,...rest] =tags;
+
     dispatch(update_search_tags(tags));
-    dispatch(fetching_from_db({}));
-    return dispatch(search_in_database(dbpromise)).then(result=> {
-        dispatch(filter_patients(tags));
-    });
+
+    
+    if(dbtag && tags.length==1){
+        dispatch(fetching_from_db({}));
+
+        return dispatch(search_in_database(dbsearchfn(dbtag))).then(result=> {
+            dispatch(filter_patients(tags));
+        });
+    }else{
+        return dispatch(filter_patients(tags));
+
+    }
 }

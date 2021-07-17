@@ -1,6 +1,6 @@
 
-import {curry} from '@geekagency/composite-js'
-import {spec} from '@geekagency/composite-js/ObjectUtils'
+import {curry} from '@karsegard/composite-js'
+import {spec} from '@karsegard/composite-js/ObjectUtils'
 import Promise from 'bluebird'
 
 const getAll = db => _ => {
@@ -31,6 +31,10 @@ const buildFieldQuery = collection => (key,value)=> {
 }
 
 const search = db => tags=> {
+
+    const worker = new Worker("dexie.worker.js");
+    worker.postMessage('coucou');
+    worker.onmessage = console.error;
         return db.open().then( db =>{
 
             let collection = db.patients;

@@ -1,5 +1,5 @@
-import {curry,filter,assign2} from '@geekagency/composite-js'
-import {not,isStrictlyNotEqual,_either,identity,map} from '@geekagency/composite-js'
+import {curry,filter,assign2} from '@karsegard/composite-js'
+import {not,isStrictlyNotEqual,_either,identity,map} from '@karsegard/composite-js'
 
 
 

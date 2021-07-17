@@ -3,10 +3,9 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "@geekagency/composite-js": "^2.0.26",
-    "@geekagency/gen-classes": "^1.3.5",
-    "@geekagency/redux-action-types": "^1.4.1",
-    "@geekagency/use-fields-value": "^1.0.1",
+    "@karsegard/cex": "^1.4.4",
+    "@karsegard/composite-js": "^2.2.0",
+    "@karsegard/react-hooks": "^1.0.6",
     "@material-ui/core": "^4.11.4",
     "@material-ui/icons": "^4.11.2",
     "@reduxjs/toolkit": "^1.6.0",
@@ -38,6 +37,7 @@
   },
   "scripts": {
     "start": "PORT=3333 BROWSER=false react-scripts start",
+    "start-worker": "webpack --watch",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
@@ -80,6 +80,7 @@
     "@storybook/preset-create-react-app": "^3.1.7",
     "@storybook/react": "^6.3.0",
     "babel-plugin-inline-import": "^3.0.0",
-    "namor": "^2.0.3"
+    "namor": "^2.0.3",
+    "webpack-cli": "^4.7.2"
   }
 }

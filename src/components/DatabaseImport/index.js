@@ -1,7 +1,7 @@
 import React, { useState,useRef } from 'react';
 
 import LayoutFlex from 'bia-layout/layouts/Flex'
-import { useFieldValues } from '@geekagency/use-fields-value'
+import { useFieldValues } from '@karsegard/cex'
 import useDatabaseFromContext from 'hooks/useBIAManager';
 
 export default props => {

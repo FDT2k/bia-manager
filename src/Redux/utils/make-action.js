@@ -1,4 +1,4 @@
-import {curry} from '@geekagency/composite-js'
+import {curry} from '@karsegard/composite-js'
 
 
 

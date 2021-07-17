@@ -1,5 +1,5 @@
 import React,{useState} from 'react'
-import {cEx} from '@geekagency/gen-classes'
+import {cEx} from '@karsegard/cex'
 import {withBaseClass,withModifiers,compose, bem,divElement} from 'bia-layout/utils'
 import './style.scss';/*
 export default props => {

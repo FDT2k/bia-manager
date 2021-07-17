@@ -25,11 +25,10 @@ export default props => {
     const handleSearch = tags => {
         if(tags.length>0){
 
-            const [dbsearch,...rest] =tags;
 
-            const query = _=> api.search([dbsearch]);
+            const query = dbsearch => () => api.search([dbsearch]);
 
-            dispatch(search(query,rest))
+            Promise.resolve(dispatch(search(query,tags)))
             .catch(err=>{
                 console.error('search error',err);
             })

@@ -16,7 +16,7 @@ makePromiseDispatcher = FN<PayloadResolver> => FN <PayloadResolver> => <ActionCr
 
 */
 
-import {identity,curry,compose,trace,prop,tryCatcher} from '@geekagency/composite-js'
+import {identity,curry,compose,trace,prop,tryCatcher} from '@karsegard/composite-js'
 import Promise from 'bluebird'
 
 export const makePromiseDispatcher = curry((errorPayloadResolver,payloadResolver,RejectedActionCreator,ResolvedActionCreator,promise) =>{

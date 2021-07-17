@@ -53,6 +53,8 @@ export const Component = props=> {
         }
     },[arrowDownPressed,arrowUpPressed,searchBarFocused]);
 
+
+    
     const data = useMemo(
         () => {
             return results;
@@ -84,7 +86,7 @@ export const Component = props=> {
             },
             {
                 Header: 'Groupe pathologique',
-                accessor: 'patho',
+                accessor: 'groupePath',
 
             },
             {

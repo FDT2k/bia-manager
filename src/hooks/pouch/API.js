@@ -1,6 +1,6 @@
 
-import {curry} from '@geekagency/composite-js'
-import {spec} from '@geekagency/composite-js/ObjectUtils'
+import {curry} from '@karsegard/composite-js'
+import {spec} from '@karsegard/composite-js/ObjectUtils'
 const getAll = db=> _=> {
     console.log(db)
     return db.allDocs({

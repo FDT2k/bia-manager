@@ -1,5 +1,5 @@
 import { withKnobs } from "@storybook/addon-knobs";
-import {curry} from '@geekagency/composite-js'
+import {curry} from '@karsegard/composite-js'
 
 export const makeTOC = curry((category,title)=>{
     return {
@@ -18,7 +18,7 @@ export const Annotate = curry((annotation, toc) =>  {
                 ...toc.parameters.notes,
                 ...annotation
             }
-        }   
+        }
     }
 });
 

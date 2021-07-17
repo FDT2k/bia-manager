@@ -5,7 +5,7 @@ import Grid from 'bia-layout/layouts/Grid';
 import {ComponentWithArea,withGridArea} from 'bia-layout/hoc/grid/Area'
 import Input from 'bia-layout/components/Form/Input'
 import {filterPropPresentIn} from 'bia-layout/utils';
-import {useFieldValues} from '@geekagency/use-fields-value'
+import {useFieldValues} from '@karsegard/react-hooks'
 import './style.scss';
 
 const [__base_class,element,modifier] = bem ('impedance-form')

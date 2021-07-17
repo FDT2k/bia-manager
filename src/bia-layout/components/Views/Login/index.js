@@ -8,7 +8,7 @@ import Input from 'bia-layout/components/Form/Input';
 import Label from 'bia-layout/components/Form/Label';
 import Button from 'bia-layout/components/Form/Button';
 import LayoutFlex from 'bia-layout/layouts/Flex';
-import {useFieldValues} from '@geekagency/use-fields-value'
+import {useFieldValues} from '@karsegard/react-hooks'
 
 
 const LoginForm = props => {

@@ -1,5 +1,5 @@
 import {createSelector} from 'reselect';
-import {spec} from '@geekagency/composite-js/ObjectUtils'
+import {spec} from '@karsegard/composite-js/ObjectUtils'
 
 
 /*

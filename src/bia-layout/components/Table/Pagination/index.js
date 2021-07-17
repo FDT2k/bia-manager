@@ -1,4 +1,4 @@
-import { identity } from '@geekagency/composite-js';
+import { identity } from '@karsegard/composite-js';
 import React from 'react';
 
 const Component =  props => {

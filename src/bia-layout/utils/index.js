@@ -1,9 +1,9 @@
 import React from 'react';
 
-import { spreadObjectPresentIn, spreadObjectBeginWith, forwardPropsRemovingHeader } from '@geekagency/composite-js/ReactUtils'
-import { curry, enlist,  compose } from '@geekagency/composite-js'
-import {key} from '@geekagency/composite-js/ObjectUtils'
-import { cEx } from '@geekagency/gen-classes'
+import { spreadObjectPresentIn, spreadObjectBeginWith, forwardPropsRemovingHeader } from '@karsegard/composite-js/ReactUtils'
+import { curry, enlist,  compose } from '@karsegard/composite-js'
+import {key} from '@karsegard/composite-js/ObjectUtils'
+import { cEx } from '@karsegard/cex'
 
 
 export const e = React.createElement;
