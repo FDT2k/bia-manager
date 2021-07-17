@@ -12,7 +12,7 @@ const reducer= combineReducers({
 })
 
 export const baseSelector = state=>state.database;
-export const {select_patients_list,select_patients_list_filtered,select_count_results,select_tags} = makePatientSelectors(baseSelector);
+export const {select_patients_list,select_patients_list_filtered,select_count_results,select_tags,select_patient} = makePatientSelectors(baseSelector);
 
 
 

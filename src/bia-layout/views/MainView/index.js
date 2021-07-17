@@ -54,7 +54,7 @@ export const Component = props=> {
     },[arrowDownPressed,arrowUpPressed,searchBarFocused]);
 
 
-    
+
     const data = useMemo(
         () => {
             return results;
@@ -114,7 +114,7 @@ export const Component = props=> {
     return (
         <MainView>
             <SearchLayout>
-                <SearchArea area="search"><TagInput handleFocus={v=>setSearchBarFocused(v)} handleChange={_handleSearch} fields={searchableFields}/><Button>Créer un nouveau Patient</Button></SearchArea>
+                <SearchArea area="search"><TagInput handleFocus={v=>setSearchBarFocused(v)} handleChange={_handleSearch} fields={searchableFields}/><Button onClick={handleCreate}>Créer un nouveau Patient</Button></SearchArea>
                 <AdvancedSearch area="filter">recherche avancée <ArrowDown/></AdvancedSearch>
                 <ListWithArea
                     SortUp={ArrowUp}

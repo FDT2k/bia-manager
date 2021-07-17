@@ -11,7 +11,6 @@ import FieldText from 'bia-layout/components/Form/Fields/FieldText'
 import FieldSelect from 'bia-layout/components/Form/Fields/FieldSelect'
 import FieldToggle from 'bia-layout/components/Form/Fields/FieldToggle'
 import {ComponentWithArea as Area,withGridArea} from 'bia-layout/hoc/grid/Area'
-
 import {Delete,ArrowBack} from 'bia-layout/components/Icons';
 import './style.scss'
 
@@ -30,22 +29,20 @@ const NavComponent = compose(
 
 const Editor =  props => {
 
-    const {className, handleGoBack,...rest} = getClasseNames(__base_class,props);
+    const {className, handleGoBack,data,...rest} = getClasseNames(__base_class,props);
 
     return (
         <MainView className={className}>
             <EditorLayout>
                 <NavComponent className={element('nav')} area="nav" onClick={handleGoBack}> <ArrowBack/> <h3>Retour à la liste</h3></NavComponent>
-                <Area className={element('patient')} area="patient"><PatientHeader/></Area>
+                <Area className={element('patient')} area="patient"><PatientHeader data={data}/></Area>
                 <Area className={element('mesures')} area="mesures">
                         <ListItem><b>Mesures</b></ListItem>
-                        <ListItem>19.10.1982 <Delete/></ListItem>
-                        <ListItem>19.10.1982 <Delete/></ListItem>
-                        <ListItem>19.10.1982 <Delete/></ListItem>
-                        <ListItem>19.10.1982 <Delete/></ListItem>
-                        <ListItem>19.10.1982 <Delete/></ListItem>
-                        <ListItem>19.10.1982 <Delete/></ListItem>
-                        <ListItem>19.10.1982 <Delete/></ListItem>
+                        {data.mesures.map(mesure=> {
+
+                            return <ListItem>{mesure.dateMesure} <Delete/></ListItem>
+                            })}
+
                 </Area>
                 <ContainerWithArea className={element('form')} area="content">
                     <LayoutFlexColumn>
@@ -115,6 +112,16 @@ const Editor =  props => {
         </MainView>
     )
 
+}
+
+Editor.defaultProps= {
+    data: {
+        mesures:[],
+        lastname:'Bellefeuille',
+        firstname: 'Céline',
+        birthdate:'1970-01-01',
+        age: 1000,
+    }
 }
 
 

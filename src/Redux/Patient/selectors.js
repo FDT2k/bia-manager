@@ -36,6 +36,10 @@ export default  baseSelector => {
    });
 
 
+   const select_patient = patient_id => createSelector(select_patients,(state)=>{
+       return state.byIds[patient_id];
+   })
+
        /* (state,tags) => {
 
         const tag_filter = (tag,patients) => {
@@ -68,7 +72,8 @@ export default  baseSelector => {
        select_patients_list,
        select_count_results,
        select_tags,
-       select_patients_list_filtered
+       select_patients_list_filtered,
+       select_patient
    }
 
 }

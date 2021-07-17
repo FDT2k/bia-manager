@@ -61,7 +61,7 @@
 /******/
 /******/ 	var hotApplyOnUpdate = true;
 /******/ 	// eslint-disable-next-line no-unused-vars
-/******/ 	var hotCurrentHash = "58816286c0fc15af4aaf";
+/******/ 	var hotCurrentHash = "67a4ed26d3d4ee5f5b80";
 /******/ 	var hotRequestTimeout = 10000;
 /******/ 	var hotCurrentModuleData = {};
 /******/ 	var hotCurrentChildModule;
@@ -881,7 +881,7 @@ __webpack_require__.r(__webpack_exports__);
   var db = new dexie__WEBPACK_IMPORTED_MODULE_0__["default"](name);
   db.version(1).stores({
     patients: "++id,nom,prenom,dateNaissance,groupePath,search_terms",
-    mesures: '++id'
+    import_mapping: "++id,name"
   });
   db.patients.hook("creating", function (primKey, obj, trans) {
     obj.search_terms = obj.nom + ' ' + obj.prenom + ' ' + obj.dateNaissance + ' ' + obj.groupPath;

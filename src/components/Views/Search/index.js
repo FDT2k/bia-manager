@@ -44,7 +44,11 @@ export default props => {
         console.log(index, patients[index]);
         setLocation("/editor/"+patients[index].id);
     }
+
+    const handleCreate = _=> {
+        alert('tbd');
+    }
     return (
-        <MainView results={patients} handleSearch={handleSearch} handleSelectRow={handleSelectRow}/>
+        <MainView results={patients} handleSearch={handleSearch} handleCreate={handleCreate} handleSelectRow={handleSelectRow}/>
     )
 }

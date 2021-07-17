@@ -104,7 +104,7 @@ export default props => {
                     ))}
                 </thead>
                 <tbody {...getTableBodyProps()}>
-                    {rows.map((row,idx) => {
+                    {page.map((row,idx) => {
                         prepareRow(row)
                         return (
                             <tr key={idx} {...row.getRowProps()} className={cEx([

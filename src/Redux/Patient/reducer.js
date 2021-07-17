@@ -15,10 +15,10 @@ export const tags = createReducer([],{
 
 export const patients = createReducer({byIds:{},allIds:[],filtered:[]},{
     [FETCHED_PATIENTS]: (state,action)=> {
-        const patients = action.payload.map(item=>item.PatientUuid);
+        const patients = action.payload.map(item=>item.id);
         return {
             byIds: action.payload.reduce((carry,item)=>{
-                                                carry[item.PatientUuid]=item;
+                                                carry[item.id]=item;
                                                 return carry;
                                             },{}),
             allIds: patients,

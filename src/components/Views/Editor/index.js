@@ -6,8 +6,9 @@ import { useDispatch,useSelector } from 'react-redux';
 import { useLocation,useRoute,useRouter } from "wouter";
 import useBIAManager from 'hooks/useBIAManager';
 
-import {update_search_tags,search} from 'Redux/Patient/actions';
-import {select_patients_list,select_count_results} from 'Store';
+import {update_search_tags,search} from 'Store';
+import {select_patients_list,select_count_results,select_patient} from 'Store';
+
 
 
 export default props => {
@@ -16,8 +17,11 @@ export default props => {
     const {api} = useBIAManager();
     const [match, params] = useRoute("/editor/:id");
 
-    console.log(match,params);
+    const patient =  useSelector(select_patient(params.id));
+
+
+
     return (
-        <Editor handleGoBack={_=>setLocation('/search')}/>
+        <Editor handleGoBack={_=>setLocation('/search')} data={patient}/>
     )
 }
