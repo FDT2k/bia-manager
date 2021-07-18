@@ -71,31 +71,31 @@ export const Component = props=> {
         () => [
             {
                 Header: 'Nom',
-                accessor: 'nom',
+                accessor: 'lastname',
                 filter:'text'
             },
             {
                 Header: 'Prenom',
-                accessor: 'prenom',
+                accessor: 'firstname',
                 filter:'fuzzyText'
             },
             {
                 Header: 'Date de naissance',
-                accessor: 'dateNaissance',
+                accessor: 'birthdate',
 
             },
             {
                 Header: 'Groupe pathologique',
-                accessor: 'groupePath',
+                accessor: 'groups.path',
 
             },
             {
                 Header: 'Sexe',
-                accessor: 'sexe',
+                accessor: 'gender',
             },
             {
                 Header: 'Mesures',
-                accessor: 'count',
+                accessor: v=> v.mesures.length,
             },
         ],
         []

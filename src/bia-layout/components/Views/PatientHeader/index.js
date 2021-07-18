@@ -25,7 +25,7 @@ const PatientHeader = props => {
         'gender': 'Sexe',
         'height': 'Taille',
         'usual_weight': 'Poids habituel',
-        'groups.12345': 'Groupe pathologique',
+        'groups.path': 'Groupe pathologique',
         'data_count': 'Nombre de mesures'
     }
     const {data,t, ...rest} = props
@@ -37,7 +37,7 @@ const PatientHeader = props => {
                     enlist(fields).map( item => {
 
                             return (
-                                <Field>
+                                <Field key={key(item)}>
                                     <b>{t(value(item))}</b>
                                     {data[key(item)]}
                                 </Field>

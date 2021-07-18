@@ -1,0 +1,8 @@
+self["webpackHotUpdate"](0,[
+/* 0 */
+/***/ (function(module, exports) {
+
+throw new Error("Module build failed (from ./node_modules/babel-loader/lib/index.js):\nSyntaxError: /home/fabien/work/bia-manager/src/components/DatabaseImport/csvimport.worker.js: Unexpected token (86:0)\n\n\u001b[0m \u001b[90m 84 |\u001b[39m\u001b[0m\n\u001b[0m \u001b[90m 85 |\u001b[39m onmessage \u001b[33m=\u001b[39m e\u001b[33m=>\u001b[39m parse(e\u001b[33m.\u001b[39mdata)\u001b[33m;\u001b[39m\u001b[0m\n\u001b[0m\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m 86 |\u001b[39m\u001b[0m\n\u001b[0m \u001b[90m    |\u001b[39m \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\u001b[0m\n    at Object._raise (/home/fabien/work/bia-manager/node_modules/@babel/parser/lib/index.js:816:17)\n    at Object.raiseWithData (/home/fabien/work/bia-manager/node_modules/@babel/parser/lib/index.js:809:17)\n    at Object.raise (/home/fabien/work/bia-manager/node_modules/@babel/parser/lib/index.js:770:17)\n    at Object.unexpected (/home/fabien/work/bia-manager/node_modules/@babel/parser/lib/index.js:9893:16)\n    at Object.parseExprAtom (/home/fabien/work/bia-manager/node_modules/@babel/parser/lib/index.js:11307:20)\n    at Object.parseExprAtom (/home/fabien/work/bia-manager/node_modules/@babel/parser/lib/index.js:5241:20)\n    at Object.parseExprSubscripts (/home/fabien/work/bia-manager/node_modules/@babel/parser/lib/index.js:10881:23)\n    at Object.parseUpdate (/home/fabien/work/bia-manager/node_modules/@babel/parser/lib/index.js:10861:21)\n    at Object.parseMaybeUnary (/home/fabien/work/bia-manager/node_modules/@babel/parser/lib/index.js:10839:23)\n    at Object.parseExprOps (/home/fabien/work/bia-manager/node_modules/@babel/parser/lib/index.js:10696:23)");
+
+/***/ })
+])

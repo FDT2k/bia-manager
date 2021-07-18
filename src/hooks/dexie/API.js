@@ -12,7 +12,7 @@ const getAll = db => _ => {
 
 const buildQuery = collection => tag => {
     const searchableColumns = [
-        'nom','prenom','dateNaissance','groupePath'
+        'firstname','lastname','birthdate','groups.path'
     ];
 
     let method = 'where';
@@ -32,9 +32,9 @@ const buildFieldQuery = collection => (key,value)=> {
 
 const search = db => tags=> {
 
-    const worker = new Worker("dexie.worker.js");
-    worker.postMessage('coucou');
-    worker.onmessage = console.error;
+    //const worker = new Worker("dexie.worker.js");
+    //worker.postMessage('coucou');
+    //worker.onmessage = console.error;
         return db.open().then( db =>{
 
             let collection = db.patients;

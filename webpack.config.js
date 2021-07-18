@@ -18,12 +18,12 @@ const babelLoader ={
     }
 }
 
-module.exports = {
+const exportWorker =  (file,output) => ({
   mode: 'none',
   target: "webworker", //Importan! Use webworker target
-  entry: './src/dexie.worker.js',
+  entry: file,
   output: {
-    filename: 'dexie.worker.js',
+    filename: output,
     path: build
   },
   resolve: {
@@ -47,4 +47,9 @@ module.exports = {
       },
     ]
   }
-};
+});
+
+module.exports = [
+    exportWorker('./src/dexie.worker.js','dexie.worker.js'),
+    exportWorker('./src/components/DatabaseImport/csvimport.worker.js','csvimport.worker.js')
+]
