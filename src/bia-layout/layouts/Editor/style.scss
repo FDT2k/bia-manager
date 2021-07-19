@@ -5,13 +5,13 @@
 
 .editor-grid-layout{
 
-    grid-template-columns: var(--editor-left-margin) 120px auto fit-content(200px) var(--editor-right-margin) ;
+    grid-template-columns: var(--editor-left-margin) 120px auto  var(--editor-right-margin) ;
     grid-template-rows:  fit-content(50px) fit-content(200px) auto;
 
     grid-template-areas:
-        "margin nav nav nav margin2"
-        "margin patient patient patient margin2"
-        "margin mesures content rest margin2"
+        "margin nav nav margin2"
+        "margin patient patient margin2"
+        "margin mesures content margin2"
         ;
 
     justify-items: stretch;

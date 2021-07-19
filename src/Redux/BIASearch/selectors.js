@@ -23,7 +23,7 @@ export const buildFilter = tags => item => {
 export default  baseSelector => {
 
    const select_patients= createSelector(baseSelector, state => state.patients);
-   const select_tags= createSelector(baseSelector, state => state.search_terms);
+   const select_tags= createSelector(baseSelector, state => state.tags);
    const select_patients_list= createSelector(select_patients, (state) => state.allIds.map(key=>state.byIds[key]));
    const select_count_results= createSelector(baseSelector, state => state.patients.allIds.length);
 

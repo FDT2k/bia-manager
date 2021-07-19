@@ -8,7 +8,7 @@ import useBIAManager from 'hooks/useBIAManager';
 
 
 import {update_search_tags,search} from 'Store';
-import {select_patients_list_filtered,select_count_results} from 'Store';
+import {select_patients_list_filtered,select_tags,select_count_results} from 'Store';
 
 
 export default props => {
@@ -38,8 +38,8 @@ export default props => {
 
     const patients = sel_patients;
 
-
-
+    const tags = useSelector(select_tags)
+    console.log(tags);
     const handleSelectRow =  index => {
         console.log(index, patients[index]);
         setLocation("/editor/"+patients[index].id);
@@ -49,6 +49,6 @@ export default props => {
         alert('tbd');
     }
     return (
-        <MainView results={patients} handleSearch={handleSearch} handleCreate={handleCreate} handleSelectRow={handleSelectRow}/>
+        <MainView results={patients} tags={tags} handleSearch={handleSearch} handleCreate={handleCreate} handleSelectRow={handleSelectRow}/>
     )
 }

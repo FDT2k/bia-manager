@@ -132,8 +132,6 @@ AutoComplete.defaultProps = {
 const TagInput = (props) => {
     const { handleChange, handleAddTag, handleRemoveTag, handleFocus: handleFocusChange, tags: initialTags, fields, ...rest } = props;
 
-
-
     const backspacePressed = useKeyPress("Backspace");
     const enterPressed = useKeyPress("Enter");
     const escapePressed = useKeyPress("Escape");

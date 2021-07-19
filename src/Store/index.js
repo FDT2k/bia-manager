@@ -2,13 +2,14 @@ import {combineReducers} from '@reduxjs/toolkit';
 import { createMigrate } from 'redux-persist'
 import {makeStore} from 'store';
 
-import Patient from 'Redux/Patient/reducer';
-import makePatientSelectors from 'Redux/Patient/selectors';
-import {update_search_tags,makeSearch} from 'Redux/Patient/actions';
+import BIASearch from 'Redux/BIASearch/reducer';
+import makePatientSelectors from 'Redux/BIASearch/selectors';
+import {update_search_tags,makeSearch} from 'Redux/BIASearch/actions';
+
 import {createSelector} from 'reselect';
 
 const reducer= combineReducers({
-    database:Patient
+    database:BIASearch
 })
 
 export const baseSelector = state=>state.database;

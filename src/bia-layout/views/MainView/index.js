@@ -41,7 +41,7 @@ export const Component = props=> {
     const [selectedIndex, setSelectedIndex]=  useState(-1);
     const [searchBarFocused, setSearchBarFocused] = useState(false);
 
-    const {results,handleSearch,handleCreate,handleSelectRow:_handleSelectRow } = props;
+    const {results,handleSearch,handleCreate,tags,handleSelectRow:_handleSelectRow } = props;
     useEffect(()=>{
         if(!searchBarFocused){
         if(arrowDownPressed){
@@ -114,7 +114,7 @@ export const Component = props=> {
     return (
         <MainView>
             <SearchLayout>
-                <SearchArea area="search"><TagInput handleFocus={v=>setSearchBarFocused(v)} handleChange={_handleSearch} fields={searchableFields}/><Button onClick={handleCreate}>Créer un nouveau Patient</Button></SearchArea>
+                <SearchArea area="search"><TagInput tags={tags}  handleFocus={v=>setSearchBarFocused(v)} handleChange={_handleSearch} fields={searchableFields}/><Button onClick={handleCreate}>Créer un nouveau Patient</Button></SearchArea>
                 <AdvancedSearch area="filter">recherche avancée <ArrowDown/></AdvancedSearch>
                 <ListWithArea
                     SortUp={ArrowUp}
