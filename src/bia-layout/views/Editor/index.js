@@ -48,7 +48,7 @@ const Editor =  props => {
                             return <ListItem>{mesure.date} <Delete/></ListItem>
                         })}
                 </Area>
-                <ContainerWithArea className={element('form')} area="content">
+                <ContainerWithArea className={element('form')} area="content" scrollable>
                     <MesureEditor/>
                 </ContainerWithArea>
 

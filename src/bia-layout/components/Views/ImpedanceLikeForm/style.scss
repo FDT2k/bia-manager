@@ -4,6 +4,8 @@
 }
 
 .impedance-form{
+    min-height:auto;
+    height:auto;
 
     grid-template-columns:fit-content(1fr) fit-content(50px) fit-content(50px) fit-content(50px) fit-content(50px)  ;
     grid-template-rows:  fit-content(50px) fit-content(50px) fit-content(50px) fit-content(50px) fit-content(50px)  ;

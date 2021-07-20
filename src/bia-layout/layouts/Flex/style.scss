@@ -1,7 +1,6 @@
 @import "flex";
 .layout-flex {
-    max-height:100%;
-    max-width:100%;
+  
     @include flex();
     @include flex-direction(row);
     //@include flex-align(center);

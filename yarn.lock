@@ -1705,10 +1705,10 @@
   resolved "http://registry.lan:4873/@karsegard%2fcomposite-js/-/composite-js-2.3.0.tgz#a7276f9b60cfeb287a291fc95bc097cddf7227cb"
   integrity sha512-/rdxE1PaeuqZ/QTbmk64UA3/8GBwOGQ2qqiNbbslrYqtRAebbEp31DeT4GvVb9sc4pmFzb0yv4oWxO0DLJnkXw==
 
-"@karsegard/react-hooks@^1.2.0":
-  version "1.2.0"
-  resolved "http://registry.lan:4873/@karsegard%2freact-hooks/-/react-hooks-1.2.0.tgz#a159828a34c3515def74b6d75afa9efa4e4a7d9f"
-  integrity sha512-lXZDEEPun1eNb5ZYs8yAidbvhCWR3HchGYT6kc2A+Jmz0jyUpmomwy+pl07zIm4PWmaw/8BnzyEK9/keyx3ElA==
+"@karsegard/react-hooks@^1.4.0":
+  version "1.4.0"
+  resolved "http://registry.lan:4873/@karsegard%2freact-hooks/-/react-hooks-1.4.0.tgz#3a35dca154def95d5661fe370381f81c5f726211"
+  integrity sha512-YWL1mW4G1etJRgsHU52SoJXJyXBPAduC+XwaLZ2M+UNdv7Ulhvrv69mS17aqy8daYQGcOf01J3zy/X9Pb12PLA==
   dependencies:
     react "^17.0.2"
 

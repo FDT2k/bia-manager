@@ -8,10 +8,10 @@ import useFocus from 'hooks/useFocus';
 const ToggleSwitch = props => {
 
 
-    const [formProps, rest ] = filterPropPresentIn(['id','name','checked'],props);
+    const [formProps, rest ] = filterPropPresentIn(['id','name'],props);
     const [inputProps, rest2 ] = filterPropPresentIn(['labelYes','labelNo'],rest);
 
-    const {onChange, ...rest3} = rest2;
+    const {checked,onChange, ...rest3} = rest2;
 
     const ref = useRef();
     const {hasFocus} = useFocus({ref});
@@ -20,14 +20,14 @@ const ToggleSwitch = props => {
         'toggle-switch',
         _=> hasFocus? 'toggle-switch--focus':''
     ])
-
     return (<div className={classes} {...rest3}>
         <input
             ref={ref}
             type="checkbox"
             className="toggle-switch-checkbox"
+            defaultChecked={checked}
             {...formProps}
-            onChange={e => onChange(e.target.checked)}
+            onChange={onChange}
             />
         <label className="toggle-switch-label" htmlFor={formProps.id}>
             <span className="toggle-switch-inner" data-yes={inputProps.labelYes} data-no={inputProps.labelNo} />
