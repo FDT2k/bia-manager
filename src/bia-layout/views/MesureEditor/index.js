@@ -1,4 +1,4 @@
-import React, { useMemo, useState, forwardRef } from 'react';
+import React, { useMemo, useState, forwardRef, useEffect } from 'react';
 import { bem, compose, withModifiers, applyModifiers, withVariables, divElement, withBaseClass, getClasseNames } from 'bia-layout/utils'
 
 import LayoutFlex, { LayoutFlexColumn } from 'bia-layout/layouts/Flex'
@@ -13,36 +13,39 @@ import { Save, Print, Stats } from 'bia-layout/components/Icons';
 import DatePicker from 'react-datepicker';
 import { useFieldValues } from '@karsegard/react-hooks';
 import ElectricalDataForm from 'bia-layout/views/ElectricalDataForm';
+import { bmi, ideal_weight } from 'references';
 import './style.scss'
 import "react-datepicker/dist/react-datepicker.css";
 
-const ContainerWithArea = withGridArea(Container);
 
-
-const [__base_class, element, modifier] = bem('bia-editor')
-
-const ListItem = applyModifiers({ 'alignCenter': true, 'justBetween': true })(LayoutFlex);
-
-const NavComponent = compose(
-    applyModifiers({ 'alignCenter': true }),
-    withGridArea
-)(LayoutFlex);
 const CustomInput = forwardRef(({ value, onClick }, ref) => (
     <div className="example-custom-input" onClick={onClick} ref={ref}>
         {value}
     </div>
 ));
-
+const [__base_class, element, modifier] = bem('bia-mesure-editor')
 
 const Editor = props => {
 
-    const { className, t, handleGoBack, mesure, ...rest } = getClasseNames(__base_class, props);
+    const { className, gender, t, handleGoBack, mesure, ...rest } = getClasseNames(__base_class, props);
 
-    const { values, handleChangeValue, inputProps, handleChange } = useFieldValues(mesure);
+    const { values, handleChangeValue, inputProps, handleChange, assignValues } = useFieldValues(mesure);
 
+
+    useEffect(() => {
+        
+
+        
+
+        assignValues({
+            bmi: bmi(values.weight,values.height),
+            ideal_weight: ideal_weight(gender,values.height)
+        });
+
+    }, [values.weight, values.height,gender]);
 
     return (
-        <LayoutFlex {...rest}>
+        <LayoutFlex {...rest} className={className}>
             <LayoutFlexColumn>
                 <LayoutFlex wrap >
                     <Field label={t("Date d'Examen")}>
@@ -61,57 +64,33 @@ const Editor = props => {
 
                     </Field>
                     <Field label={t("Type d'Activité physique")}>
-                            <select>
+                        <select>
 
                             <option>abcd</option>
-                            </select>
+                        </select>
 
                     </Field>
                     <Field label={t("Fumeur")}>
-                        <ToggleSwitch id="smoker" labelYes="Oui" labelNo="Non" name="smoker" onChange={handleChange} checked={values.smoker}/>
+                        <ToggleSwitch id="smoker" labelYes="Oui" labelNo="Non" name="smoker" onChange={handleChange} checked={values.smoker} />
                     </Field>
                     <Field label={t("Coté mesuré")}>
                         <ToggleSwitch labelYes="Gauche" labelNo="Droit" name="left_side" onChange={handleChange} id="left_side" checked={values.left_side} />
                     </Field>
                     <Field label={t("Poids Actuel")} >
-                        <input type="text" {...inputProps('weight')}/>
-                        
-                    </Field>
-                    <Field label={t("Taille cm")}  >
-
-                        <input type="text" {...inputProps('height')}/>
+                        <input type="text" {...inputProps('weight')} />
 
                     </Field>
                     <Field label={t("Taille cm")}  >
-
-                        <input type="text" {...inputProps('height')}/>
-
+                        <input type="text" {...inputProps('height')} />
                     </Field>
-                    <Field label={t("Taille cm")}  >
 
-                        <input type="text" {...inputProps('height')}/>
-
-                    </Field>
-                    <Field label={t("Taille cm")}  >
-
-                        <input type="text" {...inputProps('height')}/>
-
-                    </Field>
-                    <Field label={t("Taille cm")}  >
-
-                        <input type="text" {...inputProps('height')}/>
-
-                    </Field>
-                </LayoutFlex> 
+                </LayoutFlex>
                 <Container fit grow>
-                    <ElectricalDataForm/>
-                    <pre>
-                    {JSON.stringify(values,null,4)}
-                    </pre>
-
+                    <ElectricalDataForm />
+                 
                 </Container>
 
-                <Container  fit grow>
+                <Container fit grow>
                     <Grid style={{
                         gridTemplateColumns: "2fr 1fr 1fr 1fr",
                         gridAutoRows: "1fr"
@@ -142,95 +121,96 @@ const Editor = props => {
                         <div>39</div>
                         <div className="row header">%Masse Maigre</div>
 
-<div>10</div>
-<div>20</div>
-<div>39</div> <div className="row header">%Masse Maigre</div>
+                        <div>10</div>
+                        <div>20</div>
+                        <div>39</div> <div className="row header">%Masse Maigre</div>
 
-<div>10</div>
-<div>20</div>
-<div>39</div> <div className="row header">%Masse Maigre</div>
+                        <div>10</div>
+                        <div>20</div>
+                        <div>39</div> <div className="row header">%Masse Maigre</div>
 
-<div>10</div>
-<div>20</div>
-<div>39</div> <div className="row header">%Masse Maigre</div>
+                        <div>10</div>
+                        <div>20</div>
+                        <div>39</div> <div className="row header">%Masse Maigre</div>
 
-<div>10</div>
-<div>20</div>
-<div>39</div> <div className="row header">%Masse Maigre</div>
+                        <div>10</div>
+                        <div>20</div>
+                        <div>39</div> <div className="row header">%Masse Maigre</div>
 
-<div>10</div>
-<div>20</div>
-<div>39</div> <div className="row header">%Masse Maigre</div>
+                        <div>10</div>
+                        <div>20</div>
+                        <div>39</div> <div className="row header">%Masse Maigre</div>
 
-<div>10</div>
-<div>20</div>
-<div>39</div> <div className="row header">%Masse Maigre</div>
+                        <div>10</div>
+                        <div>20</div>
+                        <div>39</div> <div className="row header">%Masse Maigre</div>
 
-<div>10</div>
-<div>20</div>
-<div>39</div> <div className="row header">%Masse Maigre</div>
+                        <div>10</div>
+                        <div>20</div>
+                        <div>39</div> <div className="row header">%Masse Maigre</div>
 
-<div>10</div>
-<div>20</div>
-<div>39</div> <div className="row header">%Masse Maigre</div>
+                        <div>10</div>
+                        <div>20</div>
+                        <div>39</div> <div className="row header">%Masse Maigre</div>
 
-<div>10</div>
-<div>20</div>
-<div>39</div> <div className="row header">%Masse Maigre</div>
+                        <div>10</div>
+                        <div>20</div>
+                        <div>39</div> <div className="row header">%Masse Maigre</div>
 
-<div>10</div>
-<div>20</div>
-<div>39</div> <div className="row header">%Masse Maigre</div>
+                        <div>10</div>
+                        <div>20</div>
+                        <div>39</div> <div className="row header">%Masse Maigre</div>
 
-<div>10</div>
-<div>20</div>
-<div>39</div> <div className="row header">%Masse Maigre</div>
+                        <div>10</div>
+                        <div>20</div>
+                        <div>39</div> <div className="row header">%Masse Maigre</div>
 
-<div>10</div>
-<div>20</div>
-<div>39</div> <div className="row header">%Masse Maigre</div>
+                        <div>10</div>
+                        <div>20</div>
+                        <div>39</div> <div className="row header">%Masse Maigre</div>
 
-<div>10</div>
-<div>20</div>
-<div>39</div> <div className="row header">%Masse Maigre</div>
+                        <div>10</div>
+                        <div>20</div>
+                        <div>39</div> <div className="row header">%Masse Maigre</div>
 
-<div>10</div>
-<div>20</div>
-<div>39</div> <div className="row header">%Masse Maigre</div>
+                        <div>10</div>
+                        <div>20</div>
+                        <div>39</div> <div className="row header">%Masse Maigre</div>
 
-<div>10</div>
-<div>20</div>
-<div>39</div> <div className="row header">%Masse Maigre</div>
+                        <div>10</div>
+                        <div>20</div>
+                        <div>39</div> <div className="row header">%Masse Maigre</div>
 
-<div>10</div>
-<div>20</div>
-<div>39</div> <div className="row header">%Masse Maigre</div>
+                        <div>10</div>
+                        <div>20</div>
+                        <div>39</div> <div className="row header">%Masse Maigre</div>
 
-<div>10</div>
-<div>20</div>
-<div>39</div>
+                        <div>10</div>
+                        <div>20</div>
+                        <div>39</div>
                     </Grid>
                 </Container>
 
             </LayoutFlexColumn>
             <LayoutFlexColumn>
                 <Field label={t("Examinateur")}>
-
+                    <div>{values.examinator}</div>
                 </Field>
                 <Field label={t("BioImpédanceMètre")}>
-
+                    <div>{values.machine}</div>
+                    
                 </Field>
                 <Field label={t("BMI Reference")}>
-
+                    <div>{values.bmi_ref}</div>
                 </Field>
                 <Field label={t("Poids Idéal")}>
-
+                    <div>{values.ideal_weight}</div>
                 </Field>
                 <Field label={t("BMI Actuel")}>
-
+                    <div>{values.bmi}</div>
                 </Field>
                 <Field label={t("Remarques / Interprétations")}>
-
+                    <div>hello world</div>
                 </Field>
                 <LayoutFlex justBetween>
                     <button><Save /></button>
@@ -243,15 +223,24 @@ const Editor = props => {
 
 }
 
+
+
 Editor.defaultProps = {
     mesure: {
         date: new Date(),
-        left_side:false,
+        left_side: false,
         weight: 52,
-        height: 177
+        height: 177,
+        smoker: false,
+        examinator:"Fabien",
+        machine:"Nutriguard"
+
     },
+    gender:'m',
     t: x => x
 }
+
+
 
 
 export default (Editor);

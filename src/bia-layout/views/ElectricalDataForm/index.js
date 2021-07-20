@@ -1,7 +1,7 @@
 
 import React, { useEffect, useMemo, useState, useRef } from 'react';
 import { withBaseClass, withModifiers, withVariables, compose, bem, divElement } from 'bia-layout/utils'
-import ImpedanceLayout from 'bia-layout/components/Views/ImpedanceLikeForm'
+import ImpedanceLayout,{ImpedanceHeader,ImpedanceLineHeader} from 'bia-layout/components/Views/ImpedanceLikeForm'
 import { ComponentWithArea, withGridArea } from 'bia-layout/hoc/grid/Area'
 import mexp from 'math-expression-evaluator';
 
@@ -99,6 +99,10 @@ const allFields = rows.reduce((carry,row)=> {
     return [...carry,...fields];
 },[])
 
+
+const LineHeader = withGridArea(ImpedanceLineHeader);
+const Header = withGridArea(ImpedanceHeader);
+
 const ElectricalDataForm =  props => {
     const {handleChange: parentHandleChange,initialValues, ...rest} = props;
     const [form, setForm] = useState({ group: 'a', initialValues});
@@ -118,15 +122,15 @@ const ElectricalDataForm =  props => {
     };
 
     return (
-        <ImpedanceLayout columns={columns} handleChange={handleChange} rows={rows} groups={groups} initialValues={form.initialValues} editedGroup={form.group} style={{ backgroundColor: '#FF000088' }}>
-            <ComponentWithArea area="h_5">5khz</ComponentWithArea>
-            <ComponentWithArea area="h_50">50khz</ComponentWithArea>
-            <ComponentWithArea area="h_100">100khz</ComponentWithArea>
-            <ComponentWithArea area="h_nor">Normes</ComponentWithArea>
-            <ComponentWithArea area="h_res">Resistance</ComponentWithArea>
-            <ComponentWithArea area="h_angl">Angle de phase</ComponentWithArea>
-            <ComponentWithArea area="h_reac">Reactance</ComponentWithArea>
-            <ComponentWithArea area="h_imp">Impédance</ComponentWithArea>
+        <ImpedanceLayout {...rest} columns={columns} handleChange={handleChange} rows={rows} groups={groups} initialValues={form.initialValues} editedGroup={form.group} style={{ backgroundColor: '#FF000088' }}>
+            <Header area="h_5">5khz</Header>
+            <Header area="h_50">50khz</Header>
+            <Header area="h_100">100khz</Header>
+            <Header area="h_nor">Normes</Header>
+            <LineHeader area="h_res">Resistance</LineHeader>
+            <LineHeader area="h_angl">Angle de phase</LineHeader>
+            <LineHeader area="h_reac">Reactance</LineHeader>
+            <LineHeader area="h_imp">Impédance</LineHeader>
             <ComponentWithArea area="f_res_nor"></ComponentWithArea>
             <ComponentWithArea area="f_reac_nor"></ComponentWithArea>
             <ComponentWithArea area="f_imp_nor"></ComponentWithArea>
@@ -142,4 +146,4 @@ ElectricalDataForm.defaultProps = {
     },{})
 }
 
-export default ElectricalDataForm;
+export default withBaseClass('electrical-data-form')(ElectricalDataForm);

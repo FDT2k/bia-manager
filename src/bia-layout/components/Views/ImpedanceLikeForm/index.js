@@ -1,5 +1,5 @@
 import React,{useState,useEffect,useCallback} from 'react'
-import {withBaseClass,withModifiers,compose, bem,divElement} from 'bia-layout/utils'
+import {withBaseClass,withModifiers,compose, bem,divElement,cEx} from 'bia-layout/utils'
 
 import Grid from 'bia-layout/layouts/Grid';
 import {ComponentWithArea,withGridArea} from 'bia-layout/hoc/grid/Area'
@@ -13,11 +13,15 @@ const [__base_class,element,modifier] = bem ('impedance-form')
 
 
 const ToggleEditField = (EditableComponent,UnEditableComponent)=> props => {
-    const {editable,computedValue, ...rest} = props;
+    const {className: _className,editable,computedValue, ...rest} = props;
+    const className = cEx([
+        _className,
+        {'editable':_=> editable}
+    ]);
     return (
         <>
-        {editable && <EditableComponent  {...rest}/>}
-        {!editable && <UnEditableComponent computedValue={computedValue} {...rest}/>}
+        {editable && <EditableComponent className={className}  {...rest}/>}
+        {!editable && <UnEditableComponent computedValue={computedValue} className={className} {...rest}/>}
         </>
     )
 
@@ -143,7 +147,7 @@ const Component = props => {
                             editable={group == editedGroup}
                         >
                             {fieldsByGroup[group].map(name=>{
-                                return  <InputWithArea  key={name} area={name} name={name} computedValue={initialValues[name]} {...inputProps(name)}/>
+                                return  <InputWithArea className={element('field')}  key={name} area={name} name={name} computedValue={initialValues[name]} {...inputProps(name)}/>
                             }
                             )}
                         </FieldGroup>
@@ -156,6 +160,14 @@ const Component = props => {
 const ImpedanceForm = compose(
     withBaseClass(__base_class),
 )(Component)
+
+export const ImpedanceHeader = compose(
+    withBaseClass(element('header'))
+)(divElement)
+
+export const ImpedanceLineHeader = compose(
+    withBaseClass(element('line-header'))
+)(divElement)
 
 
 export default ImpedanceForm;
