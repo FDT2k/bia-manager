@@ -29,9 +29,12 @@
       }
   
       mainWindow = new BrowserWindow(windowOptions)
-
-//      mainWindow.loadURL(path.join('file://', __dirname, '/index.html'))
-      mainWindow.loadURL('http://localhost:3000');
+      
+      mainWindow.loadURL(
+        isDev
+          ? 'http://azathoth.lan:3333'
+          : `file://${path.join(__dirname, '../build/index.html')}`
+      );
   
       // Launch fullscreen with DevTools open, usage: npm run debug
       if (debug) {

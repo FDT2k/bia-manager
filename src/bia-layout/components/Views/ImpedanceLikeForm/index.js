@@ -1,6 +1,8 @@
 import React,{useState,useEffect,useCallback} from 'react'
 import {withBaseClass,withModifiers,compose, bem,divElement,cEx} from 'bia-layout/utils'
 
+import ToggleEditField from 'bia-layout/hoc/ToggleEdit'
+
 import Grid from 'bia-layout/layouts/Grid';
 import {ComponentWithArea,withGridArea} from 'bia-layout/hoc/grid/Area'
 import Input from 'bia-layout/components/Form/Input'
@@ -10,22 +12,6 @@ import './style.scss';
 
 const [__base_class,element,modifier] = bem ('impedance-form')
 
-
-
-const ToggleEditField = (EditableComponent,UnEditableComponent)=> props => {
-    const {className: _className,editable,computedValue, ...rest} = props;
-    const className = cEx([
-        _className,
-        {'editable':_=> editable}
-    ]);
-    return (
-        <>
-        {editable && <EditableComponent className={className}  {...rest}/>}
-        {!editable && <UnEditableComponent computedValue={computedValue} className={className} {...rest}/>}
-        </>
-    )
-
-}
 
 const FieldGroup = props => {
     const {editable, children,group ,handleGroupFocus,  ...rest} = props;
@@ -49,8 +35,8 @@ const FieldGroup = props => {
 
 
 const UneditableInputWithArea = withGridArea(props=>{
-    const{computedValue, ...rest} = props
-    return (<div {...rest}>{computedValue}</div>)
+    const{value, ...rest} = props
+    return (<div {...rest}>{value}</div>)
 });
 
 const InputWithArea = ToggleEditField(withGridArea(Input),UneditableInputWithArea);
@@ -66,6 +52,7 @@ const findGroupForField = groups=>fieldName=> Object.keys(groups).reduce( (resul
 const Component = props => {
 
     let {className, handleChange:handleValuesChange,initialValues,...__props} = props;
+    console.log(initialValues);
     const {columns,rows,groups, editedGroup:propEditedGroup,..._props} = __props;
 
     const [editedGroup, setEditedGroup] = useState(propEditedGroup);
@@ -105,8 +92,7 @@ const Component = props => {
     }
 
 
-    const {values,replaceValues,inputProps,assignValues} = useFieldValues(initialValues);
-
+    const {values,handleChange:handleFieldChange,replaceValues,inputProps,assignValues} = useFieldValues(initialValues);
 
 
     useEffect(()=>{
@@ -147,7 +133,8 @@ const Component = props => {
                             editable={group == editedGroup}
                         >
                             {fieldsByGroup[group].map(name=>{
-                                return  <InputWithArea className={element('field')}  key={name} area={name} name={name} computedValue={initialValues[name]} {...inputProps(name)}/>
+                               
+                                return  <InputWithArea className={element('field')}  key={name} area={name} name={name} value={initialValues[name]} onChange={handleFieldChange}/>
                             }
                             )}
                         </FieldGroup>

@@ -4,18 +4,18 @@ import { bem, compose, withModifiers, applyModifiers, withVariables, divElement,
 import LayoutFlex, { LayoutFlexColumn } from 'bia-layout/layouts/Flex'
 import Grid from 'bia-layout/layouts/Grid'
 import Container from 'bia-layout/containers/Container'
-import FieldText from 'bia-layout/components/Form/Fields/FieldText'
 import Field from 'bia-layout/components/Form/Fields'
-import FieldSelect from 'bia-layout/components/Form/Fields/FieldSelect'
 import ToggleSwitch from 'bia-layout/components/Form/ToggleSwitch'
-import { ComponentWithArea as Area, withGridArea } from 'bia-layout/hoc/grid/Area'
 import { Save, Print, Stats } from 'bia-layout/components/Icons';
 import DatePicker from 'react-datepicker';
 import { useFieldValues } from '@karsegard/react-hooks';
 import ElectricalDataForm from 'bia-layout/views/ElectricalDataForm';
 import { bmi, ideal_weight } from 'references';
+import Input from 'bia-layout/components/Form/Input'
+import ToggleEditField from 'bia-layout/hoc/ToggleEdit'
 import './style.scss'
 import "react-datepicker/dist/react-datepicker.css";
+import { Toggle } from 'react-ionicons';
 
 
 const CustomInput = forwardRef(({ value, onClick }, ref) => (
@@ -23,6 +23,13 @@ const CustomInput = forwardRef(({ value, onClick }, ref) => (
         {value}
     </div>
 ));
+
+
+const EditPlaceholder = props => (<div>value</div>)
+
+const EditableTextInput = ToggleEditField(Input,EditPlaceholder)
+
+
 const [__base_class, element, modifier] = bem('bia-mesure-editor')
 
 const Editor = props => {
@@ -44,9 +51,15 @@ const Editor = props => {
 
     }, [values.weight, values.height,gender]);
 
+    const electricalHandleChange = values => {
+
+        assignValues({data:values});
+    }
+
     return (
         <LayoutFlex {...rest} className={className}>
             <LayoutFlexColumn>
+                <pre>{JSON.stringify(values,null,10)}</pre>
                 <LayoutFlex wrap >
                     <Field label={t("Date d'Examen")}>
                         <DatePicker
@@ -86,8 +99,7 @@ const Editor = props => {
 
                 </LayoutFlex>
                 <Container fit grow>
-                    <ElectricalDataForm />
-                 
+                    <ElectricalDataForm  handleChange={electricalHandleChange} values={values.data}/>
                 </Container>
 
                 <Container fit grow>
@@ -201,7 +213,8 @@ const Editor = props => {
                     
                 </Field>
                 <Field label={t("BMI Reference")}>
-                    <div>{values.bmi_ref}</div>
+                    
+                <EditableTextInput/>
                 </Field>
                 <Field label={t("Poids Idéal")}>
                     <div>{values.ideal_weight}</div>

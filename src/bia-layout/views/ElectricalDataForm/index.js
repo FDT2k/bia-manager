@@ -104,8 +104,9 @@ const LineHeader = withGridArea(ImpedanceLineHeader);
 const Header = withGridArea(ImpedanceHeader);
 
 const ElectricalDataForm =  props => {
-    const {handleChange: parentHandleChange,initialValues, ...rest} = props;
-    const [form, setForm] = useState({ group: 'a', initialValues});
+    const {handleChange: parentHandleChange,values,group, ...rest} = props;
+
+   //const [form, setForm] = useState({ group: 'a', initialValues});
    
 
  
@@ -114,15 +115,15 @@ const ElectricalDataForm =  props => {
         let newState = recomputeGroup(conversionFunctions, groups, columns, rows)(group, values);
 
         console.log('result', newState);
-        setForm({
+       /* setForm({
             initialValues: newState,
             group
-        });
+        });*/
         parentHandleChange&& parentHandleChange(newState);
     };
 
     return (
-        <ImpedanceLayout {...rest} columns={columns} handleChange={handleChange} rows={rows} groups={groups} initialValues={form.initialValues} editedGroup={form.group} style={{ backgroundColor: '#FF000088' }}>
+        <ImpedanceLayout {...rest} columns={columns} handleChange={handleChange} rows={rows} groups={groups} initialValues={values} editedGroup={group} style={{ backgroundColor: '#FF000088' }}>
             <Header area="h_5">5khz</Header>
             <Header area="h_50">50khz</Header>
             <Header area="h_100">100khz</Header>
@@ -140,10 +141,11 @@ const ElectricalDataForm =  props => {
 }
 
 ElectricalDataForm.defaultProps = {
-    initialValues:allFields.reduce((carry,item)=>{
+    values:allFields.reduce((carry,item)=>{
         carry[item]=0;
         return carry;
-    },{})
+    },{}),
+    group:'a'
 }
 
 export default withBaseClass('electrical-data-form')(ElectricalDataForm);
