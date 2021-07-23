@@ -8,8 +8,18 @@
         font-weight:bold;
     }
     
-
+  
     input{
         width:56px;
     }
+}
+
+
+.bia-editor__form{
+
+    div.editable-field{
+        min-height:30px;
+        background-color: grey;
+    }
+
 }

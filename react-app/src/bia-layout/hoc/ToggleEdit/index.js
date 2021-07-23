@@ -5,11 +5,15 @@ import './style.scss'
 
 export const ToggleEditField = (EditableComponent,UnEditableComponent)=> props => {
     const {className: _className,editable, ...rest} = getClasseNames('editable-field',props);
+
     const className = cEx([
         _className,
         {'editable':_=> editable}
     ]);
-    console.log(rest);
+    
+    console.log('child render',rest);
+
+
     return (
         <>
         {editable && <EditableComponent className={className}  {...rest}/>}

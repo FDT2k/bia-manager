@@ -1,5 +1,10 @@
-import React, { useMemo, useState, forwardRef, useEffect } from 'react';
+import React, { useMemo, useState, forwardRef,useRef, useEffect } from 'react';
+import DatePicker from 'react-datepicker';
+import { useFieldValues,useKeypress,useFocus } from '@karsegard/react-hooks';
+
+
 import { bem, compose, withModifiers, applyModifiers, withVariables, divElement, withBaseClass, getClasseNames } from 'bia-layout/utils'
+
 
 import LayoutFlex, { LayoutFlexColumn } from 'bia-layout/layouts/Flex'
 import Grid from 'bia-layout/layouts/Grid'
@@ -7,15 +12,15 @@ import Container from 'bia-layout/containers/Container'
 import Field from 'bia-layout/components/Form/Fields'
 import ToggleSwitch from 'bia-layout/components/Form/ToggleSwitch'
 import { Save, Print, Stats } from 'bia-layout/components/Icons';
-import DatePicker from 'react-datepicker';
-import { useFieldValues } from '@karsegard/react-hooks';
+
 import ElectricalDataForm from 'bia-layout/views/ElectricalDataForm';
 import { bmi, ideal_weight } from 'references';
 import Input from 'bia-layout/components/Form/Input'
 import ToggleEditField from 'bia-layout/hoc/ToggleEdit'
+
+
 import './style.scss'
 import "react-datepicker/dist/react-datepicker.css";
-import { Toggle } from 'react-ionicons';
 
 
 const CustomInput = forwardRef(({ value, onClick }, ref) => (
@@ -25,9 +30,36 @@ const CustomInput = forwardRef(({ value, onClick }, ref) => (
 ));
 
 
-const EditPlaceholder = props => (<div>value</div>)
 
-const EditableTextInput = ToggleEditField(Input,EditPlaceholder)
+const Editable = props => {
+    
+    const [editable,setEditable] = useState(false);
+    const enterPressed = useKeypress('Enter');
+    const ref = useRef()
+    const {hasFocus} = useFocus({ref,debug:true});
+
+    useEffect(()=>{
+        if(ref.current && enterPressed && hasFocus){
+            setEditable(false);
+        }
+    },[enterPressed,hasFocus])
+
+    
+    useEffect(()=>{
+        if(editable && ref.current){
+            ref.current.focus();
+        }
+    },[editable])
+
+    return (<>
+            {editable && <input ref={ref}  onBlur={_=>setEditable(false)} type="text" {...props}/>}
+            {!editable && <div className={props.className} onClick={_=>setEditable(true)}>{props.value}</div>}
+            </>
+        )
+    
+}
+
+const EditableTextInput =  withBaseClass('editable-field')(Editable)
 
 
 const [__base_class, element, modifier] = bem('bia-mesure-editor')
@@ -40,9 +72,6 @@ const Editor = props => {
 
 
     useEffect(() => {
-        
-
-        
 
         assignValues({
             bmi: bmi(values.weight,values.height),
@@ -206,7 +235,7 @@ const Editor = props => {
             </LayoutFlexColumn>
             <LayoutFlexColumn>
                 <Field label={t("Examinateur")}>
-                    <div>{values.examinator}</div>
+                <EditableTextInput  value={values.examinator} name="examinator" onChange={handleChange}/>
                 </Field>
                 <Field label={t("BioImpédanceMètre")}>
                     <div>{values.machine}</div>
@@ -214,7 +243,7 @@ const Editor = props => {
                 </Field>
                 <Field label={t("BMI Reference")}>
                     
-                <EditableTextInput/>
+                <EditableTextInput  value={values.bmi_ref} name="bmi_ref" onChange={handleChange}/>
                 </Field>
                 <Field label={t("Poids Idéal")}>
                     <div>{values.ideal_weight}</div>
@@ -223,7 +252,7 @@ const Editor = props => {
                     <div>{values.bmi}</div>
                 </Field>
                 <Field label={t("Remarques / Interprétations")}>
-                    <div>hello world</div>
+                <EditableTextInput  value={values.comments} name="comments" onChange={handleChange}/>
                 </Field>
                 <LayoutFlex justBetween>
                     <button><Save /></button>
@@ -244,7 +273,9 @@ Editor.defaultProps = {
         left_side: false,
         weight: 52,
         height: 177,
+        bmi_ref:44,
         smoker: false,
+        comments:"sens de l'humour nul",
         examinator:"Fabien",
         machine:"Nutriguard"
 

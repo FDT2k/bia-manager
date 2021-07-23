@@ -51,7 +51,6 @@
     "start": "PORT=3333 BROWSER=false react-scripts start",
     "storybook": "BROWSER=false start-storybook -p 6006 -s public",
     "start-worker": "webpack --watch",
-    
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
@@ -86,12 +85,12 @@
     ]
   },
   "devDependencies": {
-    "@storybook/addon-actions": "^6.3.0",
-    "@storybook/addon-essentials": "^6.3.0",
-    "@storybook/addon-links": "^6.3.0",
-    "@storybook/node-logger": "^6.3.0",
-    "@storybook/preset-create-react-app": "^3.1.7",
-    "@storybook/react": "^6.3.0",
+    "@storybook/addon-actions": "^6.3.5",
+    "@storybook/addon-essentials": "^6.3.5",
+    "@storybook/addon-links": "^6.3.5",
+    "@storybook/node-logger": "^6.3.5",
+    "@storybook/preset-create-react-app": "^3.2.0",
+    "@storybook/react": "^6.3.5",
     "babel-plugin-inline-import": "^3.0.0",
     "namor": "^2.0.3",
     "webpack-cli": "^4.7.2"
