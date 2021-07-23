@@ -1,6 +1,6 @@
 import React from 'react';
 
-import MainView from 'bia-layout/views/MainView'
+import SearchView from 'bia-layout/views/SearchView'
 
 import { useDispatch,useSelector } from 'react-redux';
 import { useLocation } from "wouter";
@@ -49,6 +49,6 @@ export default props => {
         alert('tbd');
     }
     return (
-        <MainView results={patients} tags={tags} handleSearch={handleSearch} handleCreate={handleCreate} handleSelectRow={handleSelectRow}/>
+        <SearchView results={patients} tags={tags} handleSearch={handleSearch} handleCreate={handleCreate} handleSelectRow={handleSelectRow}/>
     )
 }
