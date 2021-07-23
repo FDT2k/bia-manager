@@ -21,7 +21,6 @@ import useKeyPress from 'hooks/useKeypress';
 export const SearchArea =  compose(
                                 withGridArea,
                                 withBaseClass('search')
-
                             )
                             (LayoutFlex)
 export const ListWithArea = withGridArea(List)
@@ -110,6 +109,8 @@ export const Component = props=> {
 
         _handleSelectRow && _handleSelectRow(index)
     }
+
+
 
     return (
         <MainView>

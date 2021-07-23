@@ -1,6 +1,6 @@
 import {combineReducers} from '@reduxjs/toolkit';
 import { createMigrate } from 'redux-persist'
-import {makeStore} from 'store';
+import {makeStore} from 'store-dev';
 
 import BIASearch from 'Redux/BIASearch/reducer';
 import makePatientSelectors from 'Redux/BIASearch/selectors';

@@ -27,6 +27,7 @@ export const Elements = makeTOC('Generic/Elements');
 export const Containers = makeTOC('Generic/Containers');
 export const Projects = makeTOC('Projects');
 
+export const AppToc = makeTOC('App');
 
 
 export { makeThemeSelect } from 'stories/theme-knobs'

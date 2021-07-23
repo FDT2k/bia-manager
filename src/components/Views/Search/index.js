@@ -1,6 +1,6 @@
 import React from 'react';
 
-import SearchView from 'bia-layout/views/SearchView'
+import MainView from 'bia-layout/views/MainView'
 
 import { useDispatch,useSelector } from 'react-redux';
 import { useLocation } from "wouter";
