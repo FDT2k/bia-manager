@@ -1,35 +1,11 @@
 import React, { useState,useRef,useEffect } from 'react';
 
 import LayoutFlex from 'bia-layout/layouts/Flex'
-import { useFieldValues } from '@karsegard/react-hooks'
+import { useFieldValues,useWorker } from '@karsegard/react-hooks'
 import useDatabaseFromContext from 'hooks/useBIAManager';
 import { CircularProgressbar } from 'react-circular-progressbar';
 import 'react-circular-progressbar/dist/styles.css';
 
-
-const useWorker = (workerPath,callback) => {
-    const workerRef = useRef();
-
-
-
-    useEffect(
-        () => {
-            const worker = new Worker(workerPath);
-            workerRef.current = worker;
-            worker.onmessage = message => callback(message.data)
-            return () => {
-                worker.terminate();
-            };
-        },
-        [workerPath]
-    );
-
-    return [
-        (...args) => {
-            workerRef.current.postMessage(...args);
-        }
-    ];
-};
 
 export default props => {
 
@@ -38,6 +14,8 @@ export default props => {
 
     const [parsing, setParsing] = useState();
     const [percentage, setPercentage] = useState(0);
+    const [importing,setImporting] = useState(false);
+    const [imported,setImported] = useState(false);
 
 
     const { values, inputProps, handleChange } = useFieldValues({ name: 'world' })
@@ -92,6 +70,8 @@ export default props => {
 
 
     const onFileChange = _=> {
+        setImported(false);
+        setImporting(false);
         setParsing(true);
         fileRef.current.files[0].text().then(text=> {
             parse ({text,line_separator,separator,mapping: mappings.BIAManager,identifier})
@@ -102,7 +82,8 @@ export default props => {
 
 
     const addPatients = _=> {
-        api.import_data(imported_data.list).then(_=>console.log('done'));
+        setImporting(true)
+        api.import_data(imported_data.list).then(_=>{setImporting(false); setImported(true);});
 
     }
 
@@ -121,14 +102,22 @@ export default props => {
             </LayoutFlex>
             <LayoutFlex>
 
-                {parsing && <CircularProgressbar value={percentage} text={`${percentage}%`} />}
+                {parsing && <LayoutFlex alignCenter>
+                    <div style={{width:'50px',height:'50px'}}>
+                        <CircularProgressbar value={percentage} text={`${percentage}%`} />
+                    </div>
+                    <div>Conversion  en cours</div>
+                </LayoutFlex>}
                 {imported_data && <span>{imported_data.countPatient} patients et {imported_data.countMesure} mesures à importer</span>}
 
 
             </LayoutFlex>
 
             <LayoutFlex justStretch>
-                <button onClick={addPatients}>Importer</button>
+                {imported_data && ! importing && !imported && <button onClick={addPatients}>Importer</button>}
+
+                {importing && <h1>importation en cours</h1>}
+                {imported && <h1>importation terminée</h1>}
             </LayoutFlex>
 
         </LayoutFlex>
