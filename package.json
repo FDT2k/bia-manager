@@ -56,7 +56,7 @@
     "storybook": "start-storybook -p 6006 -s public",
     "build-storybook": "build-storybook -s public",
     "dev-electron": "electron ./",
-    "package:linux": "electron-packager  . --overwrite --platform=linux --arch=x64 --out=release --no-prune"
+    "package:linux": "electron-packager  . -r @babel/register  --overwrite --ignore=node_modules --platform=linux --arch=x64 --out=release --no-prune"
   },
   "eslintConfig": {
     "extends": [
