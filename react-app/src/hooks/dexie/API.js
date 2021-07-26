@@ -74,11 +74,17 @@ const search = db => tags=> {
 
 }
 
+const get_patient = db=>  id=> {
+    return db.open().then( db =>{
+        return db.patients.get(parseInt(id));
+    });
+}
+
 const import_data = db => data => {
     return db.open().then( db =>{
         return db.patients.bulkAdd(data);
     });
 }
-const api = {getAll,search,import_data}
+const api = {getAll,search,import_data,get_patient}
 
 export default spec(api)

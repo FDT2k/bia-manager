@@ -8,11 +8,11 @@ import Editor           from 'components/Views/Editor'
 import DatabaseImport   from 'components/DatabaseImport'
 
 export default props => {
-
     return (<>
             <Route path="/"><Login /></Route>
             <Route path="/import"><DatabaseImport /></Route>
             <Route path="/search"><Search /></Route>
             <Route path="/editor/:id"><Editor /></Route>
+            <Route path="/editor/:id/:mesure_id"><Editor /></Route>
         </>);
 }

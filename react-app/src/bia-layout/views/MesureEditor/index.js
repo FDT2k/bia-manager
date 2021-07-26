@@ -1,6 +1,6 @@
-import React, { useMemo, useState, forwardRef,useRef, useEffect } from 'react';
+import React, { useMemo, useState, forwardRef, useRef, useEffect } from 'react';
 import DatePicker from 'react-datepicker';
-import { useFieldValues,useKeypress,useFocus } from '@karsegard/react-hooks';
+import { useFieldValues, useKeypress, useFocus } from '@karsegard/react-hooks';
 
 
 import { bem, compose, withModifiers, applyModifiers, withVariables, divElement, withBaseClass, getClasseNames } from 'bia-layout/utils'
@@ -21,6 +21,7 @@ import ToggleEditField from 'bia-layout/hoc/ToggleEdit'
 
 import './style.scss'
 import "react-datepicker/dist/react-datepicker.css";
+import { is_nil } from '@karsegard/composite-js';
 
 
 const CustomInput = forwardRef(({ value, onClick }, ref) => (
@@ -32,69 +33,98 @@ const CustomInput = forwardRef(({ value, onClick }, ref) => (
 
 
 const Editable = props => {
-    
-    const [editable,setEditable] = useState(false);
+
+    const [editable, setEditable] = useState(false);
     const enterPressed = useKeypress('Enter');
     const ref = useRef()
-    const {hasFocus} = useFocus({ref,debug:true});
+    const { hasFocus } = useFocus({ ref, debug: true });
 
-    useEffect(()=>{
-        if(ref.current && enterPressed && hasFocus){
+    useEffect(() => {
+        if (ref.current && enterPressed && hasFocus) {
             setEditable(false);
         }
-    },[enterPressed,hasFocus])
+    }, [enterPressed, hasFocus])
 
-    
-    useEffect(()=>{
-        if(editable && ref.current){
+
+    useEffect(() => {
+        if (editable && ref.current) {
             ref.current.focus();
         }
-    },[editable])
+    }, [editable])
 
     return (<>
-            {editable && <input ref={ref}  onBlur={_=>setEditable(false)} type="text" {...props}/>}
-            {!editable && <div className={props.className} onClick={_=>setEditable(true)}>{props.value}</div>}
-            </>
-        )
-    
+        {editable && <input ref={ref} onBlur={_ => setEditable(false)} type="text" {...props} />}
+        {!editable && <div className={props.className} onClick={_ => setEditable(true)}>{props.value}</div>}
+    </>
+    )
+
 }
 
-const EditableTextInput =  withBaseClass('editable-field')(Editable)
+const EditableTextInput = withBaseClass('editable-field')(Editable)
 
+
+const SafeDatePicker = ({date,handleChange}) => {
+
+    let val = date;
+
+    if(is_nil(date)){
+        val= new Date();
+    }
+    
+    if( ! (val instanceof Date)){
+        val = new Date(val);
+        
+    }
+
+    
+    return (
+        <DatePicker
+        selected={val}
+        onChange={handleChange}
+        customInput={<CustomInput tabindex="-1" />}
+    />
+    )
+}
 
 const [__base_class, element, modifier] = bem('bia-mesure-editor')
 
 const Editor = props => {
 
-    const { className, gender, t, handleGoBack, mesure, ...rest } = getClasseNames(__base_class, props);
+    const { className, gender, t, handleGoBack, mesure, ...rest } = getClasseNames(__base_class, props)
 
     const { values, handleChangeValue, inputProps, handleChange, assignValues } = useFieldValues(mesure);
 
+    useEffect(() => {
+        console.log('reloading',mesure);
+       assignValues(mesure);
+
+    }, [mesure]);
 
     useEffect(() => {
+        if (!is_nil(values.weight) && !is_nil(values.height)) {
+            assignValues({
+                bmi: bmi(values.weight, values.height),
+                ideal_weight: ideal_weight(gender, values.height)
+            });
+        }
 
-        assignValues({
-            bmi: bmi(values.weight,values.height),
-            ideal_weight: ideal_weight(gender,values.height)
-        });
-
-    }, [values.weight, values.height,gender]);
+    }, [values.weight, values.height, gender]);
 
     const electricalHandleChange = values => {
 
-        assignValues({data:values});
+        assignValues({ data: values });
     }
 
     return (
         <LayoutFlex {...rest} className={className}>
             <LayoutFlexColumn>
+                <pre>{JSON.stringify(mesure,null,10)}</pre>
                 <pre>{JSON.stringify(values,null,10)}</pre>
                 <LayoutFlex wrap >
                     <Field label={t("Date d'Examen")}>
-                        <DatePicker
+                        <SafeDatePicker
                             selected={values.date}
-                            onChange={handleChangeValue('date')}
-                            customInput={<CustomInput tabindex="-1" />}
+                            handleChange={handleChangeValue('date')}
                         />
                     </Field>
 
@@ -128,7 +158,7 @@ const Editor = props => {
 
                 </LayoutFlex>
                 <Container fit grow>
-                    <ElectricalDataForm  handleChange={electricalHandleChange} values={values.data}/>
+                    <ElectricalDataForm handleChange={electricalHandleChange} values={values.data} />
                 </Container>
 
                 <Container fit grow>
@@ -235,15 +265,15 @@ const Editor = props => {
             </LayoutFlexColumn>
             <LayoutFlexColumn>
                 <Field label={t("Examinateur")}>
-                <EditableTextInput  value={values.examinator} name="examinator" onChange={handleChange}/>
+                    <EditableTextInput value={values.examinator} name="examinator" onChange={handleChange} />
                 </Field>
                 <Field label={t("BioImpédanceMètre")}>
                     <div>{values.machine}</div>
-                    
+
                 </Field>
                 <Field label={t("BMI Reference")}>
-                    
-                <EditableTextInput  value={values.bmi_ref} name="bmi_ref" onChange={handleChange}/>
+
+                    <EditableTextInput value={values.bmi_ref} name="bmi_ref" onChange={handleChange} />
                 </Field>
                 <Field label={t("Poids Idéal")}>
                     <div>{values.ideal_weight}</div>
@@ -252,7 +282,7 @@ const Editor = props => {
                     <div>{values.bmi}</div>
                 </Field>
                 <Field label={t("Remarques / Interprétations")}>
-                <EditableTextInput  value={values.comments} name="comments" onChange={handleChange}/>
+                    <EditableTextInput value={values.comments} name="comments" onChange={handleChange} />
                 </Field>
                 <LayoutFlex justBetween>
                     <button><Save /></button>
@@ -271,16 +301,16 @@ Editor.defaultProps = {
     mesure: {
         date: new Date(),
         left_side: false,
-        weight: 52,
-        height: 177,
-        bmi_ref:44,
+        weight: null,
+        height: null,
+        bmi_ref: null,
         smoker: false,
-        comments:"sens de l'humour nul",
-        examinator:"Fabien",
-        machine:"Nutriguard"
+        comments: null,
+        examinator: null,
+        machine: null
 
     },
-    gender:'m',
+    gender: 'm',
     t: x => x
 }
 

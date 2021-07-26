@@ -1,1 +1,10 @@
-{}
+{
+
+
+    "scripts": {
+        "start": "cd react-app; yarn run start",
+        "storybook": "cd react-app; yarn run storybook",
+        "start-worker": "cd react-app; yarn run start-worker"
+      
+      }
+}

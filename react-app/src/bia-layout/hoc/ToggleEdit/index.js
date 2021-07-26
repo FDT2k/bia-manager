@@ -11,7 +11,6 @@ export const ToggleEditField = (EditableComponent,UnEditableComponent)=> props =
         {'editable':_=> editable}
     ]);
     
-    console.log('child render',rest);
 
 
     return (

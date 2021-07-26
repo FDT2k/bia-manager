@@ -1,4 +1,4 @@
-import React,{useState,useEffect,useCallback} from 'react'
+import React,{useState,useEffect,useMemo} from 'react'
 import {withBaseClass,withModifiers,compose, bem,divElement,cEx} from 'bia-layout/utils'
 
 import ToggleEditField from 'bia-layout/hoc/ToggleEdit'
@@ -51,25 +51,22 @@ const findGroupForField = groups=>fieldName=> Object.keys(groups).reduce( (resul
 
 const Component = props => {
 
-    let {className, handleChange:handleValuesChange,initialValues,...__props} = props;
-    console.log(initialValues);
+    let {className, handleChange:handleValuesChange,initialValues,fieldName,...__props} = props;
     const {columns,rows,groups, editedGroup:propEditedGroup,..._props} = __props;
 
     const [editedGroup, setEditedGroup] = useState(propEditedGroup);
 
     const findGroup = findGroupForField(groups);
 
-    const fieldName = (row,col)=>{
-        return `f_${row}_${col}`
-    }
+  
 
-    const fieldsByGroup = rows.reduce ((c,row)=>{
+    const fieldsByGroup = useMemo(()=>rows.reduce ((c,row)=>{
         let groupId = findGroup(row);
         if(!c[groupId]){
             c[groupId] = [];
         }
         let items = columns.map (col=>{
-            let name=`f_${row}_${col}`;
+            let name= fieldName(row,col);
     //        console.log('value',values[name],inputProps(name))
         //     return (<InputWithArea  key={name} area={name} name={name} {...inputProps(name)}/> )
             return name;
@@ -77,22 +74,31 @@ const Component = props => {
 
         c[groupId].push( ... items);
         return c;
-    },{});
+    },{}),[rows,columns,groups])
+    
 
+    useEffect(()=>{
+        console.log('test',fieldsByGroup);
+    },[fieldsByGroup]);
     //make an array of all the EDITABLE fields in the form
     const fields = fieldsByGroup[editedGroup];
+    
+    useEffect(()=>{
+        //Set default values if not set
+        if(!initialValues){
+            console.log('initializing values')
+            initialValues = fields.reduce((carry,item)=>{
+                carry[item]=0;
+                return carry;
+            },{});
+        }
 
-
-    //Set default values if not set
-    if(!initialValues){
-        initialValues = fields.reduce((carry,item)=>{
-            carry[item]=0;
-            return carry;
-        },{});
-    }
+    },[])
+  
 
 
     const {values,handleChange:handleFieldChange,replaceValues,inputProps,assignValues} = useFieldValues(initialValues);
+    console.log('6form',initialValues,values);
 
 
     useEffect(()=>{
@@ -133,7 +139,7 @@ const Component = props => {
                             editable={group == editedGroup}
                         >
                             {fieldsByGroup[group].map(name=>{
-                               
+                               console.log(name)
                                 return  <InputWithArea className={element('field')}  key={name} area={name} name={name} value={initialValues[name]} onChange={handleFieldChange}/>
                             }
                             )}
@@ -144,9 +150,17 @@ const Component = props => {
         </Grid>)
 }
 
+Component.defaultProps = {
+    fieldName:(row,col)=>{
+        return `f_${row}_${col}`
+    }
+}
+
 const ImpedanceForm = compose(
     withBaseClass(__base_class),
 )(Component)
+
+
 
 export const ImpedanceHeader = compose(
     withBaseClass(element('header'))

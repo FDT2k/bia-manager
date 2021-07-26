@@ -4,9 +4,10 @@ import {createAction} from '@reduxjs/toolkit'
 import {compare} from '@karsegard/composite-js/List'
 import createAsyncAction,{makePromiseDispatcher} from 'Redux/utils/async-dispatch'
 
-export const UPDATE_DATA='UPDATE_DATA';
-export const UPDATE_DATA='UPDATE_DATA';
 
-export const update_data  = create(UPDATE_DATA);
+export const EDIT_PATIENT = 'EDIT_PATIENT';
+export const EDIT_MESURE = 'EDIT_MESURE';
 
-export const create_mesure =
+
+
+export const edit_patient = create(EDIT_PATIENT);

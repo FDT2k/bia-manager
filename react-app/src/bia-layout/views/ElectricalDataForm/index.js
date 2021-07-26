@@ -9,7 +9,7 @@ import mexp from 'math-expression-evaluator';
 
 
 const fieldName = (row, col) => {
-    return `f_${row}_${col}`
+    return `${row}${col}`
 }
 
 const evaluateEquation = (values, formula) => {
@@ -22,7 +22,6 @@ const evaluateEquation = (values, formula) => {
         let value = parseFloat(values[m[1]]);
         evaluator = evaluator.replace(m[0], value);
     }
-    console.log(evaluator);
     return evaluator;
 }
 
@@ -73,21 +72,21 @@ const columns = [
 
 const rows = [
     'res',
-    'reac',
-    'imp',
-    'angl'
+    'rea',
+    'z',
+    'a'
 ]
 
 const groups = {
-    'a': ['res', 'reac'],
-    'b': ['imp', 'angl']
+    'a': ['res', 'rea'],
+    'b': ['z', 'a']
 }
 
 const conversionFunctions = {
-    'imp': {formula: 'root( ({res}^2) + ({reac}^2))', precision:0},
-    'angl': {formula:'atan( {reac} / {res}) ', precision:1},
-    'res': {formula:'{imp} * cos({angl})', precision:0},
-    'reac': {formula:'{imp} * sin({angl})', precision:0},
+    'z': {formula: 'root( ({res}^2) + ({rea}^2))', precision:0},
+    'a': {formula:'atan( {rea} / {res}) ', precision:1},
+    'res': {formula:'{z} * cos({a})', precision:0},
+    'rea': {formula:'{z} * sin({a})', precision:0},
 }
 
 
@@ -106,36 +105,34 @@ const Header = withGridArea(ImpedanceHeader);
 const ElectricalDataForm =  props => {
     const {handleChange: parentHandleChange,values,group, ...rest} = props;
 
-   //const [form, setForm] = useState({ group: 'a', initialValues});
    
 
  
     const handleChange = (group, values) => {
-
+        console.log('prerecomputation state',values);
         let newState = recomputeGroup(conversionFunctions, groups, columns, rows)(group, values);
 
         console.log('result', newState);
-       /* setForm({
-            initialValues: newState,
-            group
-        });*/
+      
         parentHandleChange&& parentHandleChange(newState);
     };
 
+   
+
     return (
-        <ImpedanceLayout {...rest} columns={columns} handleChange={handleChange} rows={rows} groups={groups} initialValues={values} editedGroup={group} style={{ backgroundColor: '#FF000088' }}>
+        <ImpedanceLayout {...rest} fieldName={fieldName} columns={columns} handleChange={handleChange} rows={rows} groups={groups} initialValues={values} editedGroup={group} >
             <Header area="h_5">5khz</Header>
             <Header area="h_50">50khz</Header>
             <Header area="h_100">100khz</Header>
             <Header area="h_nor">Normes</Header>
             <LineHeader area="h_res">Resistance</LineHeader>
-            <LineHeader area="h_angl">Angle de phase</LineHeader>
-            <LineHeader area="h_reac">Reactance</LineHeader>
-            <LineHeader area="h_imp">Impédance</LineHeader>
+            <LineHeader area="h_a">Angle de phase</LineHeader>
+            <LineHeader area="h_rea">Reactance</LineHeader>
+            <LineHeader area="h_z">Impédance</LineHeader>
             <ComponentWithArea area="f_res_nor"></ComponentWithArea>
-            <ComponentWithArea area="f_reac_nor"></ComponentWithArea>
-            <ComponentWithArea area="f_imp_nor"></ComponentWithArea>
-            <ComponentWithArea area="f_angl_nor">6.3-8.2</ComponentWithArea>
+            <ComponentWithArea area="f_rea_nor"></ComponentWithArea>
+            <ComponentWithArea area="f_z_nor"></ComponentWithArea>
+            <ComponentWithArea area="f_a_nor">6.3-8.2</ComponentWithArea>
         </ImpedanceLayout>
     )
 }

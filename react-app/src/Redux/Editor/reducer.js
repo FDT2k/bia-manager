@@ -1,7 +1,7 @@
 
 import createReducer from 'Redux/utils/create-reducer'
 import {combineReducers} from 'redux'
-import {UPDATE_DATA} from './actions';
+import {EDIT_PATIENT} from './actions';
 
 import {delFromList,addToListUniq,delObjectProp,updateProp} from 'Redux/utils/handlers';
 
@@ -14,7 +14,7 @@ export const examinators = createReducer(['Fabien','bob'],{
 
 });
 
-
+/*
 const EMPTY_MESURE= {
     id: null,
     examinator: "",
@@ -42,7 +42,7 @@ const EMPTY_MESURE= {
         res100:0,
         bmi_ref:null
     },
-    formulas_results: [
+    formulas_results: {
         'segal': {
             bmi:0,
             ​water: 0,
@@ -82,8 +82,8 @@ const EMPTY_MESURE= {
             fat_free_ratio: 0,
             fat_free_dry_ratio: 0
         }
-    ]
-}
+    }
+}*/
 
 
 export const mesure = createReducer({},{
@@ -91,13 +91,18 @@ export const mesure = createReducer({},{
 });
 
 
-
+export const patient = createReducer({},{
+    [EDIT_PATIENT]: (state,{payload})=> updateProp(payload.id,state,payload)
+})
 
 
 
 export const reducer = combineReducers({
-    tags,
+    machines,
+    examinators,
+    mesure,
     patient
+
 });
 
 

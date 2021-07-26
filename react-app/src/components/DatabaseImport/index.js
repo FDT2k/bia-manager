@@ -42,6 +42,7 @@ export default props => {
     const mappings = {
         BIAManager: {
             patient: {
+                
                 'prenom': 'firstname',
                 'nom': 'lastname',
                 'dateNaissance': 'birthdate',
@@ -57,6 +58,15 @@ export default props => {
                 'a100':{name:'data', transform: "(state={},value)=> ({...state,a100:value.a100})"},
                 'a5':{name:'data', transform: "(state={},value)=> ({...state,a5:value.a5})"},
                 'a50':{name:'data', transform: "(state={},value)=> ({...state,a50:value.a50})"},
+                'z100':{name:'data', transform: "(state={},value)=> ({...state,z100:value.z100})"},
+                'z5':{name:'data', transform: "(state={},value)=> ({...state,z5:value.z5})"},
+                'z50':{name:'data', transform: "(state={},value)=> ({...state,z50:value.z50})"},
+                'res100':{name:'data', transform: "(state={},value)=> ({...state,res100:value.res100})"},
+                'res5':{name:'data', transform: "(state={},value)=> ({...state,res5:value.res5})"},
+                'res50':{name:'data', transform: "(state={},value)=> ({...state,res50:value.res50})"},
+                'rea100':{name:'data', transform: "(state={},value)=> ({...state,rea100:value.rea100})"},
+                'rea5':{name:'data', transform: "(state={},value)=> ({...state,rea5:value.rea5})"},
+                'rea50':{name:'data', transform: "(state={},value)=> ({...state,rea50:value.rea50})"},
                 'appareil':'machine'
             }
         }

@@ -29,7 +29,7 @@ const NavComponent = compose(
 
 const Editor =  props => {
 
-    const {className, t,handleGoBack,data,mesure,...rest} = getClasseNames(__base_class,props);
+    const {className, t,handleGoBack,handleMesureOpen,data,mesure,...rest} = getClasseNames(__base_class,props);
     const [startDate, setStartDate] = useState(new Date());
     const ExampleCustomInput = forwardRef(({ value, onClick }, ref) => (
         <div className="example-custom-input" onClick={onClick} ref={ref}>
@@ -37,7 +37,9 @@ const Editor =  props => {
         </div>
     ));
 
-    
+    const onMesureClick = (d,idx)=> {
+        handleMesureOpen && handleMesureOpen(d,idx)
+    }
 
     return (
         <MainView className="bia-main--editor">
@@ -46,12 +48,12 @@ const Editor =  props => {
                 <Area className={element('patient')} area="patient"><PatientHeader data={data}/></Area>
                 <Area className={element('mesures')} area="mesures">
                         <ListItem><b>{t('Mesures')}</b></ListItem>
-                        {data.mesures.map(mesure=> {
-                            return <ListItem>{mesure.date} <Delete/></ListItem>
+                        {data && data.mesures && data.mesures.map( (mesure,idx)=> {
+                            return <ListItem key={idx} onClick={_=>onMesureClick(mesure,idx)}>{mesure.date} <Delete/></ListItem>
                         })}
                 </Area>
                 <ContainerWithArea className={element('form')} area="content" scrollable>
-                    <MesureEditor/>
+                    <MesureEditor  mesure={mesure}/>
                 </ContainerWithArea>
 
             </EditorLayout>
