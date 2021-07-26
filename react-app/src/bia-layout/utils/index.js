@@ -21,15 +21,16 @@ const bem = main => {
 
 
 
-export const makeBem = current => {
+export const makeBEM = current => {
     return {
         current,
         make: {
-            block: block => makeBem(`${current}-${block}`),
-            element: element=> makeBem(`${current}__${element}`),
-            modifier:modifier => makeBem(`${current}--${modifier}`)
+            block: block => makeBEM(`${current}-${block}`),
+            element: element=> makeBEM(`${current}__${element}`),
+            modifier:modifier => makeBEM(`${current}--${modifier}`)
         },
         block :block => `${current}-${block}`,
+        element: element => `${current}__${element}`,
         modifier: modifier => `${current}--${modifier}`
     }
 }
@@ -70,13 +71,13 @@ export const getClasseNames = (BaseClass,props) => {
     return {className:classes,...rest}
 }
 
-export const withBem = bem => Component => props=>{
+export const withBEM = bem => Component => props=>{
     const { className, ...rest } = props;
     const classes = cEx([
         bem.current,
         className
     ]);
-    rest.parentBEM = bem;
+    rest.BEM = bem.make;
  //   return <Component {...rest} parentBEM={bem} className={classes} />
     return <Component {...rest}  className={classes} />
 

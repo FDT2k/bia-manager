@@ -1,5 +1,5 @@
 import React,{useState,useEffect,useMemo} from 'react'
-import {withBaseClass,withModifiers,compose, bem,divElement,cEx} from 'bia-layout/utils'
+import {withBaseClass,withModifiers,compose, bem,divElement,cEx,withBEM,makeBEM} from 'bia-layout/utils'
 
 import ToggleEditField from 'bia-layout/hoc/ToggleEdit'
 
@@ -10,7 +10,6 @@ import {filterPropPresentIn} from 'bia-layout/utils';
 import {useFieldValues} from '@karsegard/react-hooks'
 import './style.scss';
 
-const [__base_class,element,modifier] = bem ('impedance-form')
 
 
 const FieldGroup = props => {
@@ -51,13 +50,14 @@ const findGroupForField = groups=>fieldName=> Object.keys(groups).reduce( (resul
 
 const Component = props => {
 
-    let {className, handleChange:handleValuesChange,initialValues,fieldName,...__props} = props;
+    let {className, handleChange,values,fieldName, validRange,...__props} = props;
     const {columns,rows,groups, editedGroup:propEditedGroup,..._props} = __props;
 
     const [editedGroup, setEditedGroup] = useState(propEditedGroup);
 
     const findGroup = findGroupForField(groups);
 
+    
   
 
     const fieldsByGroup = useMemo(()=>rows.reduce ((c,row)=>{
@@ -77,49 +77,11 @@ const Component = props => {
     },{}),[rows,columns,groups])
     
 
-    useEffect(()=>{
-        console.log('test',fieldsByGroup);
-    },[fieldsByGroup]);
+  
     //make an array of all the EDITABLE fields in the form
     const fields = fieldsByGroup[editedGroup];
-    
-    useEffect(()=>{
-        //Set default values if not set
-        if(!initialValues){
-            console.log('initializing values')
-            initialValues = fields.reduce((carry,item)=>{
-                carry[item]=0;
-                return carry;
-            },{});
-        }
-
-    },[])
+   
   
-
-
-    const {values,handleChange:handleFieldChange,replaceValues,inputProps,assignValues} = useFieldValues(initialValues);
-    console.log('6form',initialValues,values);
-
-
-    useEffect(()=>{
-        handleValuesChange(editedGroup,values);
-    },[values]);
-
-
-    useEffect(()=>{
-        const fields = fieldsByGroup[editedGroup];
-
-
-        //Set default values if not set
-        const[form,computed] = filterPropPresentIn(fields,initialValues);
-
-        initialValues = fields.reduce((carry,item)=>{
-            carry[item]=initialValues[item];
-            return carry;
-        },{});
-
-        replaceValues(initialValues);
-    },[editedGroup])
 
 
     return (<Grid className={className} >
@@ -139,8 +101,20 @@ const Component = props => {
                             editable={group == editedGroup}
                         >
                             {fieldsByGroup[group].map(name=>{
-                               console.log(name)
-                                return  <InputWithArea className={element('field')}  key={name} area={name} name={name} value={initialValues[name]} onChange={handleFieldChange}/>
+                                const is_valid = values[name] >= validRange.min && values[name] <= validRange.max;
+                                const bem = props.BEM.element('field');
+                                const classes = cEx([
+                                    bem.current,
+                                    _ => is_valid ? bem.modifier('valid'): bem.modifier('invalid')
+                                ]);
+                                return  <InputWithArea 
+                                    className={classes}  
+                                    key={name} 
+                                    area={name} 
+                                    name={name} 
+                                    value={values[name]}
+                                    onChange={handleChange}
+                                    />
                             }
                             )}
                         </FieldGroup>
@@ -153,21 +127,27 @@ const Component = props => {
 Component.defaultProps = {
     fieldName:(row,col)=>{
         return `f_${row}_${col}`
-    }
+    },
+    validRange:{min:0,max:Infinity}
 }
 
+
+
+const _bem = makeBEM ('impedance-form')
+
+
 const ImpedanceForm = compose(
-    withBaseClass(__base_class),
+    withBEM(_bem),
 )(Component)
 
 
 
 export const ImpedanceHeader = compose(
-    withBaseClass(element('header'))
+    withBaseClass(_bem.element('header'))
 )(divElement)
 
 export const ImpedanceLineHeader = compose(
-    withBaseClass(element('line-header'))
+    withBaseClass(_bem.element('line-header'))
 )(divElement)
 
 

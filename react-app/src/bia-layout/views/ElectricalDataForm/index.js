@@ -103,9 +103,9 @@ const LineHeader = withGridArea(ImpedanceLineHeader);
 const Header = withGridArea(ImpedanceHeader);
 
 const ElectricalDataForm =  props => {
-    const {handleChange: parentHandleChange,values,group, ...rest} = props;
+    const {handleChange,values,group, ...rest} = props;
 
-   
+   /*
 
  
     const handleChange = (group, values) => {
@@ -117,10 +117,16 @@ const ElectricalDataForm =  props => {
         parentHandleChange&& parentHandleChange(newState);
     };
 
-   
+   */
+
+    const recomputed_values = useMemo (()=> {
+        return recomputeGroup(conversionFunctions, groups, columns, rows)(group, values);
+
+    },[values])
+
 
     return (
-        <ImpedanceLayout {...rest} fieldName={fieldName} columns={columns} handleChange={handleChange} rows={rows} groups={groups} initialValues={values} editedGroup={group} >
+        <ImpedanceLayout {...rest} fieldName={fieldName} columns={columns} handleChange={handleChange} rows={rows} groups={groups} values={recomputed_values} editedGroup={group} >
             <Header area="h_5">5khz</Header>
             <Header area="h_50">50khz</Header>
             <Header area="h_100">100khz</Header>

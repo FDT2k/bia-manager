@@ -9,8 +9,15 @@ export const machines = createReducer(['Nutriguard'],{
 
 });
 
+export const physical_act = createReducer(['élevée'],{
 
-export const examinators = createReducer(['Fabien','bob'],{
+});
+export const type_act = createReducer(['endurance','muscu'],{
+
+});
+
+
+export const examinators = createReducer(['Fabien','Bob'],{
 
 });
 
@@ -101,7 +108,9 @@ export const reducer = combineReducers({
     machines,
     examinators,
     mesure,
-    patient
+    patient,
+    physical_act,
+    type_act
 
 });
 

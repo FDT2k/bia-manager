@@ -12,7 +12,7 @@ export default  baseSelector => {
 
       const res = m[mesure_id];
 
-      return res || {}
+      return res 
    
    });
 

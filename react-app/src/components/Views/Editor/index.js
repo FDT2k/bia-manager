@@ -48,6 +48,8 @@ export default props => {
     const patient = useSelector(select_edited_patient(patient_id));
     const mesure =  useSelector(select_edited_mesure(patient_id,mesure_id))
 
+    
+
     const handleMesureOpen = (value,idx)=> {
         setLocation(`/editor/${patient_id}/${idx}`);
     }

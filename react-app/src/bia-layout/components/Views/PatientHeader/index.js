@@ -23,7 +23,7 @@ const PatientHeader = props => {
         'birthdate': 'Date de naissance',
         'age': 'Âge',
         'gender': 'Sexe',
-        'height': 'Taille',
+        'usual_height': 'Taille',
         'usual_weight': 'Poids habituel',
         'groups.path': 'Groupe pathologique',
         'data_count': 'Nombre de mesures'

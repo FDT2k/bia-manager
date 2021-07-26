@@ -57,8 +57,8 @@ const parse = ({
             }
 
             const patient_keys = Object.keys(mapping.patient);
+            
             const [patient,mesure] = filterPropPresentIn(patient_keys,item);
-
             const index_key= item[identifier];
             if (typeof carry.data[index_key] == "undefined") {
 

@@ -93,11 +93,13 @@ const Editor = props => {
     const { className, gender, t, handleGoBack, mesure, ...rest } = getClasseNames(__base_class, props)
 
     const { values, handleChangeValue, inputProps, handleChange, assignValues } = useFieldValues(mesure);
+    const { values:electricalValues, handleChange:electricalHandleChange,replaceValues: replaceElectricalValues } = useFieldValues(mesure.data);
 
     useEffect(() => {
         console.log('reloading',mesure);
+        
        assignValues(mesure);
-
+       replaceElectricalValues(mesure.data);
     }, [mesure]);
 
     useEffect(() => {
@@ -110,10 +112,7 @@ const Editor = props => {
 
     }, [values.weight, values.height, gender]);
 
-    const electricalHandleChange = values => {
-
-        assignValues({ data: values });
-    }
+ 
 
     return (
         <LayoutFlex {...rest} className={className}>
@@ -158,7 +157,7 @@ const Editor = props => {
 
                 </LayoutFlex>
                 <Container fit grow>
-                    <ElectricalDataForm handleChange={electricalHandleChange} values={values.data} />
+                    <ElectricalDataForm handleChange={electricalHandleChange} values={electricalValues} />
                 </Container>
 
                 <Container fit grow>
