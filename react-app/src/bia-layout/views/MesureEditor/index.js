@@ -88,6 +88,9 @@ const SafeDatePicker = ({date,handleChange}) => {
     )
 }
 
+
+
+
 const [__base_class, element, modifier] = bem('bia-mesure-editor')
 
 const Editor = props => {
