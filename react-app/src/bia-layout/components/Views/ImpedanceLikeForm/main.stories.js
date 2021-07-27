@@ -1,6 +1,6 @@
 
 import React, { useEffect,useMemo, useState, useRef } from 'react';
-import { makeThemeSelect, Containers, Annotate } from 'stories/storybook-utils'
+import { makeThemeSelect, AppToc, Annotate } from 'stories/storybook-utils'
 import makeData from 'seeders/makeData';
 import {withBaseClass,withModifiers,withVariables,compose, bem,divElement} from 'bia-layout/utils'
 import ImpedanceLayout from './index'
@@ -11,7 +11,7 @@ import mexp  from 'math-expression-evaluator';
 export default Annotate({
     Concept: '',
     Default: ''
-}, Containers('ViewComponent/Impedance'));
+}, AppToc('ViewComponent/Impedance'));
 
 
 
@@ -107,13 +107,15 @@ export const Defaut = () =>  {
 
     const handleChange= (group,values)=> {
 
-        let newState = recomputeGroup(conversionFunctions,groups,columns,rows)(group,values);
+     /*   let newState = recomputeGroup(conversionFunctions,groups,columns,rows)(group,values);
 
         console.log('result',newState);
         setForm({
             initialValues:newState,
             group
-        });
+        });*/
+        console.log(group,values);
+
     };
 
     return (
@@ -137,6 +139,7 @@ export const Defaut = () =>  {
 
 export const Test = () =>  {
     const [form,setForm] = useState({group:'a'});
+
     const columns = [
         '5',
         '50',
@@ -163,18 +166,40 @@ export const Test = () =>  {
     }
 
     const handleChange= (group,values)=> {
-
+        console.log(group,values);
+/*
         let newState = recomputeGroup(conversionFunctions,groups,columns,rows)(group,values);
 
         console.log('result',newState);
         setForm({
             initialValues:newState,
             group
-        });
+        });*/
     };
 
+
+    const _validateRange = (key,value)=>{
+        console.log(key,value)
+        return value >= 0;
+
+    }
+
+
     return (
-        <ImpedanceLayout  columns={columns} rows={rows} groups={groups} editedGroup="a">
+        <ImpedanceLayout  columns={columns} rows={rows} groups={groups}  editedGroup="a" handleFormBlur={_=>console.log('blur')} handleGroupChange={_=>console.log('change')} validateRange={_validateRange}>
+            <ComponentWithArea area="h_5">5khz</ComponentWithArea>
+            <ComponentWithArea area="h_50">50khz</ComponentWithArea>
+            <ComponentWithArea area="h_100">100khz</ComponentWithArea>
+            <ComponentWithArea area="h_nor">Normes</ComponentWithArea>
+            <ComponentWithArea area="h_res">Resistance</ComponentWithArea>
+            <ComponentWithArea area="h_a">Angle de phase</ComponentWithArea>
+            <ComponentWithArea area="h_rea">Reactance</ComponentWithArea>
+            <ComponentWithArea area="h_z">Impédance</ComponentWithArea>
+            <ComponentWithArea area="f_res_nor">10-12</ComponentWithArea>
+            <ComponentWithArea area="f_rea_nor">10-12</ComponentWithArea>
+            <ComponentWithArea area="f_z_nor">10-12</ComponentWithArea>
+            <ComponentWithArea area="f_a_nor">10-12</ComponentWithArea>
         </ImpedanceLayout>
     )
 }
+

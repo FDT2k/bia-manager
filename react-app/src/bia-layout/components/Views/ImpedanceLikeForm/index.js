@@ -48,10 +48,10 @@ const findGroupForField = groups=>fieldName=> Object.keys(groups).reduce( (resul
 
 const Component = props => {
 
-    let {className,handleChangeGroup, handleChange,values,fieldName, validRange,...__props} = props;
-    const {columns,rows,groups, editedGroup,..._props} = __props;
+    let {className,handleChangeGroup, handleChange,handleGroupChange,handleFormBlur,values,fieldName, validRange,...__props} = props;
+    const {columns,rows,groups, validateRange,editedGroup:initialEditedGroup,..._props} = __props;
 
-//    const [editedGroup, setEditedGroup] = useState(propEditedGroup);
+    const [editedGroup, setEditedGroup] = useState(initialEditedGroup);
 
     const findGroup = findGroupForField(groups);
 
@@ -83,6 +83,9 @@ const Component = props => {
         handleChange && handleChange(e)
     }
 
+    const _handleFormBlur = e=>{
+        handleFormBlur && handleFormBlur(e)
+    }
 
     return (<Grid className={className} >
 
@@ -95,14 +98,17 @@ const Component = props => {
                             key={group}
                             group={group}
                             handleGroupFocus={
-                                handleChangeGroup
+                                v=> {
+                                    setEditedGroup(v);
+                                    handleGroupChange(v);
+                                }
                             }
 
                             editable={group == editedGroup}
                         >
                             {fieldsByGroup[group].map(name=>{
                                 const val = values[name];
-                                const is_valid = val && val >= validRange.min && val <= validRange.max;
+                                const is_valid = validateRange(name,val);
                                 const bem = props.BEM.element('field');
                                 const classes = cEx([
                                     bem.current,
@@ -114,6 +120,7 @@ const Component = props => {
                                     area={name} 
                                     name={name} 
                                     value={values[name]}
+                                    onBlur={_handleFormBlur}
                                     onChange={_handleChange}
                                     />
                             }
@@ -130,7 +137,7 @@ Component.defaultProps = {
         return `${row}${col}`
     },
     values:{},
-    validRange:{min:0,max:Infinity}
+    validateRange:(key,value)=>true
 }
 
 
