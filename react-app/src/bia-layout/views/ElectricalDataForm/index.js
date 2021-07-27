@@ -129,7 +129,9 @@ const ElectricalDataForm = props => {
   
 
     const handleValidation = (key,value)=>{
-
+        if(key == 'a5' || key =='a50' || key =='a100'){
+            return value >= 6.3 && value <=8.2
+        }
         if(value > 0 ){
             return true
         }
