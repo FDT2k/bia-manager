@@ -18,7 +18,7 @@ export default Annotate({
 
 
 const fieldName = (row,col)=>{
-    return `f_${row}_${col}`
+    return `${row}${col}`
 }
 
 const evaluateEquation = (values,formula) => {
@@ -88,21 +88,21 @@ export const Defaut = () =>  {
 
     const rows = [
         'res',
-        'reac',
-        'imp',
-        'angl'
+        'rea',
+        'z',
+        'a'
     ]
 
     const groups = {
-        'a':['res','reac'],
-        'b':['imp','angl']
+        'a':['res','rea'],
+        'b':['z','a']
     }
 
     const conversionFunctions= {
-        'imp': 'root( ({{res}}^2) + ({{reac}}^2))',
-        'angl': 'atan( ({{reac}} / {{res}}) * (180/pi)  )',
-        'res': '{{imp}} * cos({{angl}}/(180/pi))',
-        'reac': '{{imp}} * sin({{angl}} /(180/pi))',
+        'z': 'root( ({{res}}^2) + ({{rea}}^2))',
+        'a': 'atan( ({{rea}} / {{res}}) * (180/pi)  )',
+        'res': '{{z}} * cos({{a}}/(180/pi))',
+        'rea': '{{z}} * sin({{a}} /(180/pi))',
     }
 
     const handleChange= (group,values)=> {
@@ -130,6 +130,51 @@ export const Defaut = () =>  {
             <ComponentWithArea area="f_reac_nor">10-12</ComponentWithArea>
             <ComponentWithArea area="f_imp_nor">10-12</ComponentWithArea>
             <ComponentWithArea area="f_angl_nor">10-12</ComponentWithArea>
+        </ImpedanceLayout>
+    )
+}
+
+
+export const Test = () =>  {
+    const [form,setForm] = useState({group:'a'});
+    const columns = [
+        '5',
+        '50',
+        '100'
+    ]
+
+    const rows = [
+        'res',
+        'rea',
+        'z',
+        'a'
+    ]
+
+    const groups = {
+        'a':['res','rea'],
+        'b':['z','a']
+    }
+
+    const conversionFunctions= {
+        'z': 'root( ({{res}}^2) + ({{rea}}^2))',
+        'a': 'atan( ({{rea}} / {{res}}) * (180/pi)  )',
+        'res': '{{z}} * cos({{a}}/(180/pi))',
+        'rea': '{{z}} * sin({{a}} /(180/pi))',
+    }
+
+    const handleChange= (group,values)=> {
+
+        let newState = recomputeGroup(conversionFunctions,groups,columns,rows)(group,values);
+
+        console.log('result',newState);
+        setForm({
+            initialValues:newState,
+            group
+        });
+    };
+
+    return (
+        <ImpedanceLayout  columns={columns} rows={rows} groups={groups} editedGroup="a">
         </ImpedanceLayout>
     )
 }

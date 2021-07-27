@@ -1,12 +1,11 @@
 
 import React, { useEffect, useMemo, useState, useRef } from 'react';
-import { withBaseClass, withModifiers, withVariables, compose, bem, divElement } from 'bia-layout/utils'
+import { withBaseClass, withModifiers, withVariables, compose, bem, divElement ,filterPropPresentIn} from 'bia-layout/utils'
 import ImpedanceLayout,{ImpedanceHeader,ImpedanceLineHeader} from 'bia-layout/components/Views/ImpedanceLikeForm'
 import { ComponentWithArea, withGridArea } from 'bia-layout/hoc/grid/Area'
 import mexp from 'math-expression-evaluator';
 
-
-
+import { useFieldValues, useKeypress, useFocus } from '@karsegard/react-hooks';
 
 const fieldName = (row, col) => {
     return `${row}${col}`
@@ -61,7 +60,7 @@ const recomputeGroup = (conversionFunctions, groups, columns, rows) => (group, v
         })
     });
 
-    return { ...values, ...newState };
+    return [values,newState];
 };
 
 const columns = [
@@ -102,31 +101,59 @@ const allFields = rows.reduce((carry,row)=> {
 const LineHeader = withGridArea(ImpedanceLineHeader);
 const Header = withGridArea(ImpedanceHeader);
 
+const findGroupForField = groups=>fieldName=> Object.keys(groups).reduce( (result,group)=> {
+    if(result == null){
+        result = groups[group].indexOf(fieldName) !==-1 ? group: null;
+    }
+    return result;
+
+},null);
+
 const ElectricalDataForm =  props => {
-    const {handleChange,values,group, ...rest} = props;
 
-   /*
+    const {handleChangeGroup,values:initialValues, ...rest} = props;
+    const { values,handleChange,replaceValues,assignValues} = useFieldValues(initialValues);
+    const [editedGroup,setEditedGroup] = useState('a');
 
- 
-    const handleChange = (group, values) => {
-        console.log('prerecomputation state',values);
-        let newState = recomputeGroup(conversionFunctions, groups, columns, rows)(group, values);
+    const findGroup = findGroupForField(groups);
 
-        console.log('result', newState);
-      
-        parentHandleChange&& parentHandleChange(newState);
-    };
+    const fieldsByGroup = useMemo(()=>rows.reduce ((c,row)=>{
+        let groupId = findGroup(row);
+        if(!c[groupId]){
+            c[groupId] = [];
+        }
+        let items = columns.map (col=>{
+            let name= fieldName(row,col);
+    //        console.log('value',values[name],inputProps(name))
+        //     return (<InputWithArea  key={name} area={name} name={name} {...inputProps(name)}/> )
+            return name;
+        });
 
-   */
+        c[groupId].push( ... items);
+        return c;
+    },{}),[rows,columns,groups])
 
-    const recomputed_values = useMemo (()=> {
-        return recomputeGroup(conversionFunctions, groups, columns, rows)(group, values);
 
-    },[values])
+    const [watchValues, recomputedValues] = filterPropPresentIn(fieldsByGroup[editedGroup],values)
+
+    console.log(watchValues,recomputedValues)
+    
+
+    useEffect(()=>{
+        replaceValues(initialValues);
+    },[initialValues])
+    
+    const [unchanged,recomputed] =  useMemo(()=>{
+        return  recomputeGroup(conversionFunctions, groups, columns, rows)(editedGroup, values)
+    },[watchValues]);
+    
+
 
 
     return (
-        <ImpedanceLayout {...rest} fieldName={fieldName} columns={columns} handleChange={handleChange} rows={rows} groups={groups} values={recomputed_values} editedGroup={group} >
+        <>
+        <pre>{JSON.stringify(values,null,10)}</pre>
+        <ImpedanceLayout {...rest} fieldName={fieldName} columns={columns} handleChange={handleChange} handleChangeGroup={e=>setEditedGroup(e)} rows={rows} groups={groups} values={{...unchanged,...recomputed}} editedGroup={editedGroup} >
             <Header area="h_5">5khz</Header>
             <Header area="h_50">50khz</Header>
             <Header area="h_100">100khz</Header>
@@ -140,6 +167,7 @@ const ElectricalDataForm =  props => {
             <ComponentWithArea area="f_z_nor"></ComponentWithArea>
             <ComponentWithArea area="f_a_nor">6.3-8.2</ComponentWithArea>
         </ImpedanceLayout>
+        </>
     )
 }
 

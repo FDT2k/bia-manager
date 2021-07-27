@@ -35,7 +35,8 @@ export default props => {
         }
     }, [match, matchWithMesure,params,paramsWithMesure]);
 
-    // const patient =  useSelector(select_patient(params.id));
+
+
     useEffect(() => {
         if (!is_nil(patient_id)) {
             api.get_patient(patient_id).then(res => {

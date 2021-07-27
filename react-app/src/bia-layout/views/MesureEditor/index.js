@@ -68,7 +68,9 @@ const SafeDatePicker = ({date,handleChange}) => {
     let val = date;
 
     if(is_nil(date)){
+
         val= new Date();
+        
     }
     
     if( ! (val instanceof Date)){
@@ -93,15 +95,31 @@ const Editor = props => {
     const { className, gender, t, handleGoBack, mesure, ...rest } = getClasseNames(__base_class, props)
 
     const { values, handleChangeValue, inputProps, handleChange, assignValues } = useFieldValues(mesure);
-    const { values:electricalValues, handleChange:electricalHandleChange,replaceValues: replaceElectricalValues } = useFieldValues(mesure.data);
+ //   const { values:electricalValues, handleChange:electricalHandleChange,replaceValues: replaceElectricalValues } = useFieldValues(mesure.data);
+
+    
 
     useEffect(() => {
         console.log('reloading',mesure);
         
        assignValues(mesure);
-       replaceElectricalValues(mesure.data);
+ //      replaceElectricalValues(mesure.data);
     }, [mesure]);
 
+/*
+    useEffect(() => {
+        assignValues({data:electricalValues})        
+    }, [electricalValues]);
+*/
+
+    const electricalHandleChange = e => {
+        console.log(e.target.name,e.target.value);
+        assignValues({
+            data:{
+                [e.target.name]:e.target.value
+            }
+        })
+    }
     useEffect(() => {
         if (!is_nil(values.weight) && !is_nil(values.height)) {
             assignValues({
@@ -112,13 +130,14 @@ const Editor = props => {
 
     }, [values.weight, values.height, gender]);
 
- 
+   
 
     return (
         <LayoutFlex {...rest} className={className}>
             <LayoutFlexColumn>
-                <pre>{JSON.stringify(mesure,null,10)}</pre>
-                <pre>{JSON.stringify(values,null,10)}</pre>
+            <pre>{JSON.stringify(mesure,null,10)}
+            </pre>
+
                 <LayoutFlex wrap >
                     <Field label={t("Date d'Examen")}>
                         <SafeDatePicker
@@ -157,7 +176,7 @@ const Editor = props => {
 
                 </LayoutFlex>
                 <Container fit grow>
-                    <ElectricalDataForm handleChange={electricalHandleChange} values={electricalValues} />
+                    <ElectricalDataForm handleChange={electricalHandleChange} values={mesure.data} />
                 </Container>
 
                 <Container fit grow>
@@ -193,71 +212,8 @@ const Editor = props => {
 
                         <div>10</div>
                         <div>20</div>
-                        <div>39</div> <div className="row header">%Masse Maigre</div>
-
-                        <div>10</div>
                         <div>20</div>
-                        <div>39</div> <div className="row header">%Masse Maigre</div>
-
-                        <div>10</div>
-                        <div>20</div>
-                        <div>39</div> <div className="row header">%Masse Maigre</div>
-
-                        <div>10</div>
-                        <div>20</div>
-                        <div>39</div> <div className="row header">%Masse Maigre</div>
-
-                        <div>10</div>
-                        <div>20</div>
-                        <div>39</div> <div className="row header">%Masse Maigre</div>
-
-                        <div>10</div>
-                        <div>20</div>
-                        <div>39</div> <div className="row header">%Masse Maigre</div>
-
-                        <div>10</div>
-                        <div>20</div>
-                        <div>39</div> <div className="row header">%Masse Maigre</div>
-
-                        <div>10</div>
-                        <div>20</div>
-                        <div>39</div> <div className="row header">%Masse Maigre</div>
-
-                        <div>10</div>
-                        <div>20</div>
-                        <div>39</div> <div className="row header">%Masse Maigre</div>
-
-                        <div>10</div>
-                        <div>20</div>
-                        <div>39</div> <div className="row header">%Masse Maigre</div>
-
-                        <div>10</div>
-                        <div>20</div>
-                        <div>39</div> <div className="row header">%Masse Maigre</div>
-
-                        <div>10</div>
-                        <div>20</div>
-                        <div>39</div> <div className="row header">%Masse Maigre</div>
-
-                        <div>10</div>
-                        <div>20</div>
-                        <div>39</div> <div className="row header">%Masse Maigre</div>
-
-                        <div>10</div>
-                        <div>20</div>
-                        <div>39</div> <div className="row header">%Masse Maigre</div>
-
-                        <div>10</div>
-                        <div>20</div>
-                        <div>39</div> <div className="row header">%Masse Maigre</div>
-
-                        <div>10</div>
-                        <div>20</div>
-                        <div>39</div> <div className="row header">%Masse Maigre</div>
-
-                        <div>10</div>
-                        <div>20</div>
-                        <div>39</div>
+                    
                     </Grid>
                 </Container>
 

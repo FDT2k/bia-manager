@@ -4,10 +4,8 @@ import {withBaseClass,withModifiers,compose, bem,divElement,cEx,withBEM,makeBEM}
 import ToggleEditField from 'bia-layout/hoc/ToggleEdit'
 
 import Grid from 'bia-layout/layouts/Grid';
-import {ComponentWithArea,withGridArea} from 'bia-layout/hoc/grid/Area'
+import {withGridArea} from 'bia-layout/hoc/grid/Area'
 import Input from 'bia-layout/components/Form/Input'
-import {filterPropPresentIn} from 'bia-layout/utils';
-import {useFieldValues} from '@karsegard/react-hooks'
 import './style.scss';
 
 
@@ -34,7 +32,7 @@ const FieldGroup = props => {
 
 
 const UneditableInputWithArea = withGridArea(props=>{
-    const{value, ...rest} = props
+    const{value,onChange, ...rest} = props
     return (<div {...rest}>{value}</div>)
 });
 
@@ -50,10 +48,10 @@ const findGroupForField = groups=>fieldName=> Object.keys(groups).reduce( (resul
 
 const Component = props => {
 
-    let {className, handleChange,values,fieldName, validRange,...__props} = props;
-    const {columns,rows,groups, editedGroup:propEditedGroup,..._props} = __props;
+    let {className,handleChangeGroup, handleChange,values,fieldName, validRange,...__props} = props;
+    const {columns,rows,groups, editedGroup,..._props} = __props;
 
-    const [editedGroup, setEditedGroup] = useState(propEditedGroup);
+//    const [editedGroup, setEditedGroup] = useState(propEditedGroup);
 
     const findGroup = findGroupForField(groups);
 
@@ -81,7 +79,9 @@ const Component = props => {
     //make an array of all the EDITABLE fields in the form
     const fields = fieldsByGroup[editedGroup];
    
-  
+    const _handleChange =  e=> {
+        handleChange && handleChange(e)
+    }
 
 
     return (<Grid className={className} >
@@ -95,13 +95,14 @@ const Component = props => {
                             key={group}
                             group={group}
                             handleGroupFocus={
-                                setEditedGroup
+                                handleChangeGroup
                             }
 
                             editable={group == editedGroup}
                         >
                             {fieldsByGroup[group].map(name=>{
-                                const is_valid = values[name] >= validRange.min && values[name] <= validRange.max;
+                                const val = values[name];
+                                const is_valid = val && val >= validRange.min && val <= validRange.max;
                                 const bem = props.BEM.element('field');
                                 const classes = cEx([
                                     bem.current,
@@ -113,7 +114,7 @@ const Component = props => {
                                     area={name} 
                                     name={name} 
                                     value={values[name]}
-                                    onChange={handleChange}
+                                    onChange={_handleChange}
                                     />
                             }
                             )}
@@ -126,8 +127,9 @@ const Component = props => {
 
 Component.defaultProps = {
     fieldName:(row,col)=>{
-        return `f_${row}_${col}`
+        return `${row}${col}`
     },
+    values:{},
     validRange:{min:0,max:Infinity}
 }
 
