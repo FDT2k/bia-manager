@@ -18,6 +18,7 @@ import { bmi, ideal_weight } from 'references';
 import Input from 'bia-layout/components/Form/Input'
 import ToggleEditField from 'bia-layout/hoc/ToggleEdit'
 
+import formulas from 'references/formulas'
 
 import './style.scss'
 import "react-datepicker/dist/react-datepicker.css";

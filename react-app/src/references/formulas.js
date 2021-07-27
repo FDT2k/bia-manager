@@ -48,7 +48,7 @@ export default {
             name: 'mg',
             eval: '{weight} / {mng}'
         }
-    ]
+    ],
 
     
     kushner:[
@@ -75,7 +75,7 @@ export default {
             name: 'pct_mg',
             eval:"(4.95 / {density} - 4.5) * 100",
             cond: mesure => mesure.gender ==='M'
-        }
+        },
         {
             name: 'pct_mg',
             eval:"ABS (1-(0.3981 * pow( {height_meter},2) / res50 + (0.3066 * {weight}) + 0.0952999 * ({height_meter}-100) + 0.7414) / {weight}) x 100",
