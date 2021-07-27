@@ -94,7 +94,7 @@ const Editor = props => {
 
     const { className, gender, t, handleGoBack, mesure, ...rest } = getClasseNames(__base_class, props)
 
-    const { values, handleChangeValue, inputProps, handleChange, assignValues } = useFieldValues(mesure);
+    const { values, handleChangeValue, inputProps, handleChange, assignValues,replaceValues } = useFieldValues(mesure);
  //   const { values:electricalValues, handleChange:electricalHandleChange,replaceValues: replaceElectricalValues } = useFieldValues(mesure.data);
 
     
@@ -112,14 +112,42 @@ const Editor = props => {
     }, [electricalValues]);
 */
 
+
+    
+    const [editedGroup, setEditedGroup] = useState("a");
     const electricalHandleChange = e => {
-        console.log(e.target.name,e.target.value);
-        assignValues({
-            data:{
-                [e.target.name]:e.target.value
+        
+        replaceValues ( values => {
+
+            let newState= {
+                ...values,
+                data:{
+                    ...values.data,
+                    [e.target.name]:e.target.value
+                }
             }
+            return newState;
         })
+
     }
+
+    const electricalHandleValues = new_values => {
+        
+        replaceValues ( values => {
+
+            let newState= {
+                ...values,
+                data:{
+                    ...values.data,
+                    ...new_values
+                }
+            }
+            return newState;
+        })
+
+    }
+
+
     useEffect(() => {
         if (!is_nil(values.weight) && !is_nil(values.height)) {
             assignValues({
@@ -130,13 +158,13 @@ const Editor = props => {
 
     }, [values.weight, values.height, gender]);
 
-   
+    const handleGroupChange = g => {
+        setEditedGroup(g)
+    }
 
     return (
         <LayoutFlex {...rest} className={className}>
             <LayoutFlexColumn>
-            <pre>{JSON.stringify(mesure,null,10)}
-            </pre>
 
                 <LayoutFlex wrap >
                     <Field label={t("Date d'Examen")}>
@@ -176,7 +204,7 @@ const Editor = props => {
 
                 </LayoutFlex>
                 <Container fit grow>
-                    <ElectricalDataForm handleChange={electricalHandleChange} values={mesure.data} />
+                    <ElectricalDataForm handleGroupChange={handleGroupChange} handleComputedChange={electricalHandleValues} handleChange={electricalHandleChange} editedGroup={editedGroup} values={values.data} />
                 </Container>
 
                 <Container fit grow>

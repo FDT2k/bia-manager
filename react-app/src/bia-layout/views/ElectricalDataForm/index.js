@@ -1,7 +1,7 @@
 
 import React, { useEffect, useMemo, useState, useRef } from 'react';
-import { withBaseClass, withModifiers, withVariables, compose, bem, divElement ,filterPropPresentIn} from 'bia-layout/utils'
-import ImpedanceLayout,{ImpedanceHeader,ImpedanceLineHeader} from 'bia-layout/components/Views/ImpedanceLikeForm'
+import { withBaseClass, withModifiers, withVariables, compose, bem, divElement, filterPropPresentIn } from 'bia-layout/utils'
+import ImpedanceLayout, { ImpedanceHeader, ImpedanceLineHeader } from 'bia-layout/components/Views/ImpedanceLikeForm'
 import { ComponentWithArea, withGridArea } from 'bia-layout/hoc/grid/Area'
 import mexp from 'math-expression-evaluator';
 
@@ -45,7 +45,7 @@ const recomputeGroup = (conversionFunctions, groups, columns, rows) => (group, v
                         let result = evaluateEquation(vals, formula);
                         result = mexp.eval(result);
                         if (isNaN(result)) {
-                            result =  -1;
+                            result = -1;
                         }
                         newState[fieldKey] = (new Number(result)).toFixed(precision);
                     } catch (e) {
@@ -60,7 +60,7 @@ const recomputeGroup = (conversionFunctions, groups, columns, rows) => (group, v
         })
     });
 
-    return [values,newState];
+    return [values, newState];
 };
 
 const columns = [
@@ -82,101 +82,96 @@ const groups = {
 }
 
 const conversionFunctions = {
-    'z': {formula: 'root( ({res}^2) + ({rea}^2))', precision:0},
-    'a': {formula:'atan( {rea} / {res}) ', precision:1},
-    'res': {formula:'{z} * cos({a})', precision:0},
-    'rea': {formula:'{z} * sin({a})', precision:0},
+    'z': { formula: 'root( ({res}^2) + ({rea}^2))', precision: 0 },
+    'a': { formula: 'atan( {rea} / {res}) ', precision: 1 },
+    'res': { formula: '{z} * cos({a})', precision: 0 },
+    'rea': { formula: '{z} * sin({a})', precision: 0 },
 }
 
 
-const allFields = rows.reduce((carry,row)=> {
-    let fields = columns.reduce((carry,col)=>{
-            carry.push(fieldName(row,col));
-            return carry;
-        },[]);
-    return [...carry,...fields];
-},[])
+const allFields = rows.reduce((carry, row) => {
+    let fields = columns.reduce((carry, col) => {
+        carry.push(fieldName(row, col));
+        return carry;
+    }, []);
+    return [...carry, ...fields];
+}, [])
 
 
 const LineHeader = withGridArea(ImpedanceLineHeader);
 const Header = withGridArea(ImpedanceHeader);
 
-const findGroupForField = groups=>fieldName=> Object.keys(groups).reduce( (result,group)=> {
-    if(result == null){
-        result = groups[group].indexOf(fieldName) !==-1 ? group: null;
+const findGroupForField = groups => fieldName => Object.keys(groups).reduce((result, group) => {
+    if (result == null) {
+        result = groups[group].indexOf(fieldName) !== -1 ? group : null;
     }
     return result;
 
-},null);
+}, null);
 
-const ElectricalDataForm =  props => {
+const ElectricalDataForm = props => {
 
-    const {handleChangeGroup,values:initialValues, ...rest} = props;
-    const { values,handleChange,replaceValues,assignValues} = useFieldValues(initialValues);
-    const [editedGroup,setEditedGroup] = useState('a');
+    const {handleComputedChange,handleGroupChange, handleChange,handleFormBlur, values, editedGroup,...rest } = props;
+   
 
-    const findGroup = findGroupForField(groups);
+    
 
-    const fieldsByGroup = useMemo(()=>rows.reduce ((c,row)=>{
-        let groupId = findGroup(row);
-        if(!c[groupId]){
-            c[groupId] = [];
+   
+    const [unchanged, recomputed] = useMemo(() => {
+        return recomputeGroup(conversionFunctions, groups, columns, rows)(editedGroup, values)
+    }, [values,editedGroup]);
+
+    const _handleFormBlur = e => {
+
+        handleComputedChange && handleComputedChange(recomputed);
+        handleFormBlur && handleFormBlur(e)
+    }
+  
+
+    const handleValidation = (key,value)=>{
+
+        if(value > 0 ){
+            return true
         }
-        let items = columns.map (col=>{
-            let name= fieldName(row,col);
-    //        console.log('value',values[name],inputProps(name))
-        //     return (<InputWithArea  key={name} area={name} name={name} {...inputProps(name)}/> )
-            return name;
-        });
-
-        c[groupId].push( ... items);
-        return c;
-    },{}),[rows,columns,groups])
-
-
-    const [watchValues, recomputedValues] = filterPropPresentIn(fieldsByGroup[editedGroup],values)
-
-    console.log(watchValues,recomputedValues)
-    
-
-    useEffect(()=>{
-        replaceValues(initialValues);
-    },[initialValues])
-    
-    const [unchanged,recomputed] =  useMemo(()=>{
-        return  recomputeGroup(conversionFunctions, groups, columns, rows)(editedGroup, values)
-    },[watchValues]);
-    
-
-
+        return false;
+    }
 
     return (
         <>
-        <pre>{JSON.stringify(values,null,10)}</pre>
-        <ImpedanceLayout {...rest} fieldName={fieldName} columns={columns} handleChange={handleChange} handleChangeGroup={e=>setEditedGroup(e)} rows={rows} groups={groups} values={{...unchanged,...recomputed}} editedGroup={editedGroup} >
-            <Header area="h_5">5khz</Header>
-            <Header area="h_50">50khz</Header>
-            <Header area="h_100">100khz</Header>
-            <Header area="h_nor">Normes</Header>
-            <LineHeader area="h_res">Resistance</LineHeader>
-            <LineHeader area="h_a">Angle de phase</LineHeader>
-            <LineHeader area="h_rea">Reactance</LineHeader>
-            <LineHeader area="h_z">Impédance</LineHeader>
-            <ComponentWithArea area="f_res_nor"></ComponentWithArea>
-            <ComponentWithArea area="f_rea_nor"></ComponentWithArea>
-            <ComponentWithArea area="f_z_nor"></ComponentWithArea>
-            <ComponentWithArea area="f_a_nor">6.3-8.2</ComponentWithArea>
-        </ImpedanceLayout>
+            <ImpedanceLayout {...rest}
+                fieldName={fieldName}
+                columns={columns}
+                handleChange={handleChange}
+                rows={rows}
+                groups={groups}
+                handleFormBlur={_handleFormBlur}
+                values={{...unchanged,...recomputed}}
+                editedGroup={editedGroup}
+                handleValidation={handleValidation}
+                handleGroupChange={handleGroupChange} >
+                <Header area="h_5">5khz</Header>
+                <Header area="h_50">50khz</Header>
+                <Header area="h_100">100khz</Header>
+                <Header area="h_nor">Normes</Header>
+                <LineHeader area="h_res">Resistance</LineHeader>
+                <LineHeader area="h_a">Angle de phase</LineHeader>
+                <LineHeader area="h_rea">Reactance</LineHeader>
+                <LineHeader area="h_z">Impédance</LineHeader>
+                <ComponentWithArea area="f_res_nor"></ComponentWithArea>
+                <ComponentWithArea area="f_rea_nor"></ComponentWithArea>
+                <ComponentWithArea area="f_z_nor"></ComponentWithArea>
+                <ComponentWithArea area="f_a_nor">6.3-8.2</ComponentWithArea>
+            </ImpedanceLayout>
         </>
     )
 }
 
 ElectricalDataForm.defaultProps = {
-    values:allFields.reduce((carry,item)=>{
-        carry[item]=0;
+    values: allFields.reduce((carry, item) => {
+        carry[item] = 0;
         return carry;
-    },{}),
-    group:'a'
+    }, {}),
+    group: 'a'
 }
 
 export default withBaseClass('electrical-data-form')(ElectricalDataForm);
