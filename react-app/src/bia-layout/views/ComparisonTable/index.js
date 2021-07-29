@@ -23,10 +23,8 @@ const FormulaResultHeader = props => {
         carry[item['name']]=item;
         return carry;
     },{})
-    console.log(colByName,columns)
     return (<><div></div>
     {columns.map ( (col,idx) => {
-        console.log(colByName[col],col,columns)
         return (  
 
             <div className="row header">{

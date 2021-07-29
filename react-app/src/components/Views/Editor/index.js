@@ -10,7 +10,7 @@ import Editor from 'bia-layout/views/Editor'
 
 import { select_patient, edit_patient,select_edited_patient,select_edited_mesure } from 'Store';
 
-
+import {formulas,calculate} from 'references/formulas';
 
 export default props => {
     const [location, setLocation] = useLocation();
@@ -57,11 +57,17 @@ export default props => {
 
 
     const handleChange =  values =>{
-
-        console.log('refresh data',values);
+        if(values.data){
+        console.log(calculate({...patient,...values}));
+        }
     }
 
     return ( 
-        <Editor handleGoBack={_ => setLocation('/search')} handleChange={handleChange} data={patient}  handleMesureOpen={handleMesureOpen} mesure={mesure}/>
+        <Editor 
+            handleGoBack={_ => setLocation('/search')} 
+            handleChange={handleChange} 
+            data={patient}  
+            handleMesureOpen={handleMesureOpen} 
+            mesure={mesure}/>
     )
 }
