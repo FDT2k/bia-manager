@@ -56,7 +56,12 @@ export default props => {
     }
 
 
+    const handleChange =  values =>{
+
+        console.log('refresh data',values);
+    }
+
     return ( 
-        <Editor handleGoBack={_ => setLocation('/search')} data={patient}  handleMesureOpen={handleMesureOpen} mesure={mesure}/>
+        <Editor handleGoBack={_ => setLocation('/search')} handleChange={handleChange} data={patient}  handleMesureOpen={handleMesureOpen} mesure={mesure}/>
     )
 }

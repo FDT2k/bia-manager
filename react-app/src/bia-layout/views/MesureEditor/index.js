@@ -3,13 +3,14 @@ import DatePicker from 'react-datepicker';
 import { useFieldValues, useKeypress, useFocus } from '@karsegard/react-hooks';
 
 
-import { bem, compose, withModifiers, applyModifiers, withVariables, divElement, withBaseClass, getClasseNames } from 'bia-layout/utils'
+import { bem, compose, withModifiers, applyModifiers, withVariables, divElement, withBaseClass, getClasseNames, cEx } from 'bia-layout/utils'
 
 
 import LayoutFlex, { LayoutFlexColumn } from 'bia-layout/layouts/Flex'
 import Grid from 'bia-layout/layouts/Grid'
 import Container from 'bia-layout/containers/Container'
 import Field from 'bia-layout/components/Form/Fields'
+import Button from 'bia-layout/components/Form/Button'
 import ToggleSwitch from 'bia-layout/components/Form/ToggleSwitch'
 import { Save, Print, Stats } from 'bia-layout/components/Icons';
 
@@ -23,6 +24,8 @@ import formulas from 'references/formulas'
 import './style.scss'
 import "react-datepicker/dist/react-datepicker.css";
 import { is_nil } from '@karsegard/composite-js';
+
+import ComparisonTable  from 'bia-layout/views/ComparisonTable';
 
 
 const CustomInput = forwardRef(({ value, onClick }, ref) => (
@@ -64,28 +67,28 @@ const Editable = props => {
 const EditableTextInput = withBaseClass('editable-field')(Editable)
 
 
-const SafeDatePicker = ({date,handleChange}) => {
+const SafeDatePicker = ({ selected, handleChange }) => {
 
-    let val = date;
+    let val = selected;
 
-    if(is_nil(date)){
+    if (is_nil(selected)) {
 
-        val= new Date();
-        
+        val = new Date();
+
     }
-    
-    if( ! (val instanceof Date)){
+
+    if (!(val instanceof Date)) {
         val = new Date(val);
-        
+
     }
 
-    
+
     return (
         <DatePicker
-        selected={val}
-        onChange={handleChange}
-        customInput={<CustomInput tabindex="-1" />}
-    />
+            selected={val}
+            onChange={handleChange}
+            customInput={<CustomInput tabindex="-1" />}
+        />
     )
 }
 
@@ -95,39 +98,41 @@ const SafeDatePicker = ({date,handleChange}) => {
 const [__base_class, element, modifier] = bem('bia-mesure-editor')
 
 const Editor = props => {
+    const { className, gender, t, handleGoBack, handleChange: parentHandleChange, mesure, data, ...rest } = getClasseNames(__base_class, props)
 
-    const { className, gender, t, handleGoBack, mesure, ...rest } = getClasseNames(__base_class, props)
+    const { values, handleChangeValue, inputProps, handleChange, assignValues, replaceValues } = useFieldValues(mesure);
+    //   const { values:electricalValues, handleChange:electricalHandleChange,replaceValues: replaceElectricalValues } = useFieldValues(mesure.data);
 
-    const { values, handleChangeValue, inputProps, handleChange, assignValues,replaceValues } = useFieldValues(mesure);
- //   const { values:electricalValues, handleChange:electricalHandleChange,replaceValues: replaceElectricalValues } = useFieldValues(mesure.data);
 
-    
 
     useEffect(() => {
-        console.log('reloading',mesure);
-        
-       assignValues(mesure);
- //      replaceElectricalValues(mesure.data);
+        console.log('reloading', mesure);
+
+        assignValues(mesure);
+        //      replaceElectricalValues(mesure.data);
     }, [mesure]);
 
-/*
-    useEffect(() => {
-        assignValues({data:electricalValues})        
-    }, [electricalValues]);
-*/
+    /*
+        useEffect(() => {
+            assignValues({data:electricalValues})        
+        }, [electricalValues]);
+    */
 
 
-    
+    const _handleChange = v => {
+        parentHandleChange && parentHandleChange(v);
+    }
+
     const [editedGroup, setEditedGroup] = useState("a");
     const electricalHandleChange = e => {
-        
-        replaceValues ( values => {
 
-            let newState= {
+        replaceValues(values => {
+
+            let newState = {
                 ...values,
-                data:{
+                data: {
                     ...values.data,
-                    [e.target.name]:e.target.value
+                    [e.target.name]: e.target.value
                 }
             }
             return newState;
@@ -136,12 +141,12 @@ const Editor = props => {
     }
 
     const electricalHandleValues = new_values => {
-        
-        replaceValues ( values => {
 
-            let newState= {
+        replaceValues(values => {
+
+            let newState = {
                 ...values,
-                data:{
+                data: {
                     ...values.data,
                     ...new_values
                 }
@@ -151,6 +156,9 @@ const Editor = props => {
 
     }
 
+    useEffect(() => {
+        _handleChange(values);
+    }, [values]);
 
     useEffect(() => {
         if (!is_nil(values.weight) && !is_nil(values.height)) {
@@ -162,9 +170,14 @@ const Editor = props => {
 
     }, [values.weight, values.height, gender]);
 
+
+
     const handleGroupChange = g => {
         setEditedGroup(g)
     }
+
+
+
 
     return (
         <LayoutFlex {...rest} className={className}>
@@ -216,39 +229,15 @@ const Editor = props => {
                         gridTemplateColumns: "2fr 1fr 1fr 1fr",
                         gridAutoRows: "1fr"
                     }}>
-                        <div></div>
-                        <div className="row header">50khz</div>
-                        <div className="row header">Geneva</div>
-                        <div className="row header">Norme</div>
 
-                        <div className="row header">%Eau corporelle</div>
-                        <div>10</div>
-                        <div>20</div>
-                        <div>39</div>
+                        <ComparisonTable data={data}/>
 
-                        <div className="row header">Masse Maigre</div>
-                        <div>10</div>
-                        <div>20</div>
-                        <div>39</div>
-
-                        <div className="row header">%Masse Maigre</div>
-                        <div>10</div>
-                        <div>20</div>
-                        <div>39</div>
-                        <div className="row header">%Masse Maigre</div>
-
-                        <div>10</div>
-                        <div>20</div>
-                        <div>39</div>
-                        <div className="row header">%Masse Maigre</div>
-
-                        <div>10</div>
-                        <div>20</div>
-                        <div>20</div>
-                    
                     </Grid>
                 </Container>
-
+                <LayoutFlex>
+                    <Button>Enregistrer</Button>
+                    <Button>IMPRIMER</Button>
+                </LayoutFlex>
             </LayoutFlexColumn>
             <LayoutFlexColumn>
                 <Field label={t("Examinateur")}>
@@ -258,24 +247,20 @@ const Editor = props => {
                     <div>{values.machine}</div>
 
                 </Field>
-                <Field label={t("BMI Reference")}>
 
-                    <EditableTextInput value={values.bmi_ref} name="bmi_ref" onChange={handleChange} />
-                </Field>
-                <Field label={t("Poids Idéal")}>
-                    <div>{values.ideal_weight}</div>
+                <Field label={t("Poids Idéal (%)")}>
+                    <div>{values.ideal_weight} </div>
                 </Field>
                 <Field label={t("BMI Actuel")}>
                     <div>{values.bmi}</div>
                 </Field>
+                <Field label={t("BMI Reference")}>
+                    <EditableTextInput value={values.bmi_ref} name="bmi_ref" onChange={handleChange} />
+                </Field>
                 <Field label={t("Remarques / Interprétations")}>
                     <EditableTextInput value={values.comments} name="comments" onChange={handleChange} />
                 </Field>
-                <LayoutFlex justBetween>
-                    <button><Save /></button>
-                    <button><Print /></button>
-                    <button><Stats /></button>
-                </LayoutFlex>
+
             </LayoutFlexColumn>
         </LayoutFlex>
     )
@@ -298,7 +283,23 @@ Editor.defaultProps = {
 
     },
     gender: 'm',
-    t: x => x
+    t: x => x,
+    data: [
+        { label: 'bla', values: {
+            'norme':0,
+            'kushner':0,
+            'segal':0,
+            'gva':0,
+
+        }, limits: [] },
+        { label: 'bla', values: {
+            'norme':0,
+            'kushner':2,
+            'segal':4,
+            'gva':3,
+
+        }, limits: [] },
+    ],
 }
 
 

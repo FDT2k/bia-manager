@@ -29,7 +29,7 @@ const NavComponent = compose(
 
 const Editor =  props => {
 
-    const {className, t,handleGoBack,handleMesureOpen,data,mesure,...rest} = getClasseNames(__base_class,props);
+    const {className, t,handleGoBack,handleMesureOpen,handleChange,lines,data,mesure,...rest} = getClasseNames(__base_class,props);
     const [startDate, setStartDate] = useState(new Date());
     const ExampleCustomInput = forwardRef(({ value, onClick }, ref) => (
         <div className="example-custom-input" onClick={onClick} ref={ref}>
@@ -53,7 +53,7 @@ const Editor =  props => {
                         })}
                 </Area>
                 <ContainerWithArea className={element('form')} area="content" scrollable>
-                    <MesureEditor  mesure={mesure}/>
+                    <MesureEditor handleChange={handleChange} mesure={mesure} lines={lines}/>
                 </ContainerWithArea>
 
             </EditorLayout>
@@ -70,6 +70,7 @@ Editor.defaultProps= {
         birthdate:'N/A',
         age: 'N/A',
     },
+    
     t: x=>x
 }
 

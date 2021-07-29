@@ -1,6 +1,8 @@
 :root{
 
-    --template-area: ""
+    --template-area: "";
+
+    --color-invalid: red;
 }
 
 .impedance-form{
@@ -21,7 +23,7 @@
 
 
     &__field--invalid{
-        color:red;
+        color: var(--color-invalid);
     }
 
 
