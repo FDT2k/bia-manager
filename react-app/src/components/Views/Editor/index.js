@@ -58,7 +58,8 @@ export default props => {
 
     const handleChange =  values =>{
         if(values.data){
-        console.log(calculate({...patient,...values}));
+            let results = calculate({...patient,...values});
+            console.log(results);
         }
     }
 

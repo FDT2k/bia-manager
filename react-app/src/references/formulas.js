@@ -2,6 +2,8 @@ import { is_nil, is_type_function } from "@karsegard/composite-js";
 
 import {evaluateEquation} from 'references/expression';
 
+
+
 export const formulas =  {
 
     gva: [
@@ -14,20 +16,27 @@ export const formulas =  {
             fn: mesure=> mesure.gender ==='M' ? 1 : 0 
         },
         {   
-            name:'mng', 
+            name:'mm', 
             eval:"-4.104 + ((0.518 * root({height})) / {res}) +(0.231 * {weight}) + (4.229 * {gender_idx})"
         },
         {   
             name:'mg', 
-            eval:"{weight} - {mng}"
+            eval:"{weight} - {mm}"
         },
         {   
-            name:'pct_mng ',
-            eval: "{mng} *100 / {weight}"
+            name:'pct_mm',
+            eval: "{mm} *100 / {weight}"
         },
         {   
             name:'pct_mg',
             eval:"{mg} * 100 / {weight}"
+        },
+        
+      
+        {
+            //=W6/I6*100
+            name:'lf_ratio',
+            eval: '{mm} / {mg}'
         }
     ],
 
@@ -37,30 +46,56 @@ export const formulas =  {
             fn: mesure => mesure.data.res50
         },
         {
-            name: 'height_meter',
-            eval: "{height}/100"
+            name: 'ht2r',
+            eval: "({height}^2)/ {res}"
         },
         {   
-            name:'mng',
-            eval:"(0.00091186 * (pow({height_meter},2))) 	- (0.01486 * {res}) + (0.2999 * {weight})  - (0.07012 x {age}) + 9.37938",
+            name:'mm',
+            eval:"(0.00091186 * (pow({height},2)))-(0.01486*{res}) + (0.2999 * {weight})-(0.07012 * {age}) + 9.37938",
             cond: mesure => mesure.gender === 'F'
         },
         {   
-            name:'mng',
-            eval:"(0.0008858 * {height_meter}^2) - (0.02999 * {res}) + (0.42688 * {weight})  - (0.07002 * {age})+ 14.52435",
+            name:'mm',
+            eval:"(0.0008858 * {height}^2) - (0.02999 * {res}) + (0.42688 * {weight})-(0.07002 * {age})+ 14.52435",
             cond: mesure => mesure.gender === 'M'
         },
         {
             name: 'water',
-            eval: '0.73 * {mng}'
+            eval: '0.73 * {mm}'
         },
         {
-            name: 'mngs',
-            eval: '{mng} - {water}'
+            name: 'pct_water',
+            eval: '{water}/{weight} *100 '
+        },
+        {
+            name: 'net_mm',
+            eval: '{mm} - {water}'
         },
         {
             name: 'mg',
-            eval: '{weight} / {mng}'
+            eval: '{weight} - {mm}'
+        },
+        {
+
+            //Densité 	corporelle BIA 	= 1.1554 – ( 0.0841 ((poids (kg) x Résistance50 	kHz) / taille (m)2)))
+            name: 'density', 
+            eval:"1.1554 - ( 0.0841 * (({weight} * {res} ) / ( {height}^2)  ))" ,
+            cond: mesure => mesure.gender ==='M'
+        },
+        {
+            //=W6/I6*100
+            name:'pct_mm',
+            eval: '{mm}/{weight}*100'
+        },
+        {
+            //=W6/I6*100
+            name:'pct_d_mm',
+            eval: '{net_mm}/{weight}*100'
+        },
+        {
+            //=W6/I6*100
+            name:'lf_ratio',
+            eval: '{mm} / {mg}'
         }
     ],
 
@@ -71,37 +106,80 @@ export const formulas =  {
             fn: mesure => mesure.data.res50
         },
         {
-            name: 'height_meter',
-            eval: "{height}/100"
+            name: 'ht2r',
+            eval: "({height}^2)/ {res}"
         },
         {
             name: 'water', 
-            eval:"8.3148 + ( (0.3821 * pow( {height_meter},2) ) / {res}) + 0.1052 * {weight}" ,
+            eval:"8.3148 + ( (0.3821 * pow( {height},2) ) / {res}) + 0.1052 * {weight}" ,
             cond: mesure => mesure.gender ==='F'
         },
         {
             name: 'water', 
-            eval:"(0.3963 *  pow( {height_meter},2) / {res}) + (0.143 * {weight}) + 8.3999999" ,
+            eval:"(0.3963 *  ({height}^2) / {res}) + (0.143 * {weight}) + 8.3999999" ,
             cond: mesure => mesure.gender ==='M'
+        },
+        {
+            name: 'pct_water',
+            eval: '{water}/{weight} *100 '
         },
         {
 
             //Densité 	corporelle BIA 	= 1.1554 – ( 0.0841 ((poids (kg) x Résistance50 	kHz) / taille (m)2)))
             name: 'density', 
-            eval:"1.1554 - ( 0.0841 * (({weight} * {res} ) / ( {height_meter}* {height_meter})  ))" ,
+            eval:"1.1554 - ( 0.0841 * (({weight} * {res} ) / ( {height}^2)  ))" ,
             cond: mesure => mesure.gender ==='M'
+        },
+        {
+            //=1.1411-0.0763*I6*O6/(H6*H6)
+            name: 'density', 
+            eval:" 1.1411-0.0763*{weight}*{res}/({height}^2) " ,
+            cond: mesure => mesure.gender ==='F'
         },
         {
             name: 'pct_mg',
             eval:"(4.95 / {density} - 4.5) * 100",
             cond: mesure => mesure.gender ==='M'
         },
+
+      
+       
         {
+            //=ABS(1-(0.3981*S6+0.3066*I6+0.0952999*(H6-100)+0.7414)/I6)*100
             name: 'pct_mg',
-            eval:"ABS (1-(0.3981 * pow( {height_meter},2) / res + (0.3066 * {weight}) + 0.0952999 * ({height_meter}-100) + 0.7414) / {weight}) x 100",
+            eval:"ABS(1-(0.3981 * {ht2r} + (0.3066 * {weight}) + 0.0952999 * ({height}-100) + 0.7414) / {weight})*100",
             cond: mesure => mesure.gender ==='F'
+        },
+
+        {
+            name: 'mg',
+            eval: '{weight}*{pct_mg} /100 '
+        },
+        {
+            //=I6-I6*Z6/100
+            name: 'mm',
+            eval: '{weight}- ({weight}*{pct_mg}/100)'
+        },
+        {
+            //=I6-I6*Z6/100
+            name: 'net_mm',
+            eval: '{mm}-{water}'
+        },
+        {
+            //=W6/I6*100
+            name:'pct_mm',
+            eval: '{mm}/{weight}*100'
+        },
+        {
+            //=W6/I6*100
+            name:'pct_d_mm',
+            eval: '{net_mm}/{weight}*100'
+        },
+        {
+            //=W6/I6*100
+            name:'lf_ratio',
+            eval: '{mm} / {mg}'
         }
-        
     ]
 }
 
