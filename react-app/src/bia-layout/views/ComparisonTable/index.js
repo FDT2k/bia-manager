@@ -1,14 +1,27 @@
-import React from 'react';
+import React, { useState } from 'react';
 
 import { bem, compose, withModifiers, applyModifiers, withVariables, divElement, withBaseClass, getClasseNames, cEx } from 'bia-layout/utils'
 
 
 
 const FormulaHeaderSelect = props => {
-    const {options, defaultValue, ...rest} = props;
+    const {handleChange, disabled_col,options,idx, defaultValue, ...rest} = props;
 
-    return (<select defaultValue={defaultValue} {...rest}>
-        {options.filter(item=> item.selectable===true).map(option=> <option value={option.name}>{option.label}</option>)}
+
+    const _onChange = e=>{
+        
+        handleChange && handleChange(idx,e.target.value);
+
+    }
+    return (<select defaultValue={defaultValue}  onChange={_onChange} {...rest}>
+        {
+            options.filter(
+                    item=> item.selectable===true)
+                    .map(
+                            option=>{
+                                let is_disabled = disabled_col.indexOf(option.name) !== -1;
+                                return (<option disabled={is_disabled} key={option.name} value={option.name}>{option.label}</option>)
+                            })}
         
         </select>)
 
@@ -16,24 +29,28 @@ const FormulaHeaderSelect = props => {
 
 
 const FormulaResultHeader = props => {
+    
+    const {available_columns,columns,handleChange,selectable, ...rest} = props;
+   
 
-    const {available_columns,columns,selectable, ...rest} = props;
 
     let colByName = available_columns.reduce( function (carry,item){
         carry[item['name']]=item;
         return carry;
     },{})
-    return (<><div></div>
-    {columns.map ( (col,idx) => {
-        return (  
 
-            <div className="row header">{
-                selectable[idx] === true  ? <FormulaHeaderSelect defaultValue={col} options={available_columns}/> : colByName[col].label
-            }</div>
+    return (<>
+        <div></div>
+        {columns.map ( (col,idx) => {
+            return (  
 
-        )
+                <div key={idx} className="row header">{
+                    selectable[idx] === true  ? <FormulaHeaderSelect idx={idx} handleChange={handleChange} defaultValue={col} options={available_columns} disabled_col={columns}/> : colByName[col].label
+                }</div>
 
-    })}
+            )
+
+        })}
     </>);
 }
 
@@ -44,7 +61,7 @@ const FormulaResultRow = (props) => {
     return (<><div className="row header">{label}</div>
         {columns.map((col) => {
             let limit = limits[col];
-            let val = values[col];
+            let val = (new Number(values[col])).toFixed(2);
             let classes = className;
             if (limit) {
                 classes = cEx([
@@ -54,7 +71,7 @@ const FormulaResultRow = (props) => {
 
                 ])
             }
-            return (<div className={classes}>{val}</div>)
+            return (<div key={`${col}`} className={classes}>{!isNaN(val)? val : ''}</div>)
         })}
     </>);
 }
@@ -65,13 +82,29 @@ FormulaResultRow.defaultProps = {
 
 export const Component = props => {
 
+   
     const {data,available_columns,selectable,columns,...rest} = props;
+    const [state,setState] = useState(columns);
+
+
+    const handleChange = (idx,value)=>{
+        console.log(idx,value);
+
+        setState(state=> {
+            let newState = [...state];
+            newState[idx] = value
+            return newState;
+        })
+
+    }
+
+    console.log(state);
     return (
         <>
-            <FormulaResultHeader available_columns={available_columns} selectable={selectable} columns={columns} />
+            <FormulaResultHeader available_columns={available_columns} handleChange={handleChange} selectable={selectable} columns={state} />
 
-            {data.map(item =>
-                <FormulaResultRow label={item.label} values={item.values} columns={columns} limits={item.limits} />
+            {data.map((item,idx) =>
+                <FormulaResultRow key={idx} label={item.label} values={item.values} columns={state} limits={item.limits} />
 
             )}
 

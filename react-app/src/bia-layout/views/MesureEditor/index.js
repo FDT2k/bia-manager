@@ -110,7 +110,7 @@ const Editor = props => {
 
         assignValues(mesure);
         //      replaceElectricalValues(mesure.data);
-    }, [mesure]);
+    }, [mesure.date]);
 
     /*
         useEffect(() => {
@@ -230,7 +230,7 @@ const Editor = props => {
                         gridAutoRows: "1fr"
                     }}>
 
-                        <ComparisonTable data={data}/>
+                        <ComparisonTable data={mesure.bia}/>
 
                     </Grid>
                 </Container>

@@ -1,9 +1,10 @@
 
 import createReducer from 'Redux/utils/create-reducer'
 import {combineReducers} from 'redux'
-import {EDIT_PATIENT} from './actions';
+import {EDIT_PATIENT,EDIT_MESURE,RECOMPUTE_MESURE} from './actions';
 
 import {delFromList,addToListUniq,delObjectProp,updateProp} from 'Redux/utils/handlers';
+import { actions } from 'react-table/dist/react-table.development';
 
 export const machines = createReducer(['Nutriguard'],{
 
@@ -93,13 +94,25 @@ const EMPTY_MESURE= {
 }*/
 
 
-export const mesure = createReducer({},{
+export const mes = createReducer({},{
+    [RECOMPUTE_MESURE]: (state,{payload}) => updateProp('bia',state,payload),
+})
 
+
+export const mesure = createReducer({},{
+    [EDIT_MESURE]: (state,{payload})=> updateProp(payload.id,state,payload),
+    [RECOMPUTE_MESURE]: (state,{payload}) => updateProp(payload.id,state,{
+        ...state[payload.id],
+        mesure: {
+            ...state[payload.id].mesure,
+            bia:payload.bia
+        }
+    }),
 });
 
 
 export const patient = createReducer({},{
-    [EDIT_PATIENT]: (state,{payload})=> updateProp(payload.id,state,payload)
+    [EDIT_PATIENT]: (state,{payload})=> updateProp(payload.id,state,payload),
 })
 
 

@@ -8,9 +8,9 @@ import useBIAManager from 'hooks/useBIAManager';
 
 import Editor from 'bia-layout/views/Editor'
 
-import { select_patient, edit_patient,select_edited_patient,select_edited_mesure } from 'Store';
+import { select_patient, recompute_mesure,edit_patient,edit_mesure,select_edited_patient,select_edited_mesure,compute_formulas } from 'Store';
 
-import {formulas,calculate} from 'references/formulas';
+
 
 export default props => {
     const [location, setLocation] = useLocation();
@@ -25,6 +25,7 @@ export default props => {
     const [matchWithMesure, paramsWithMesure] = useRoute("/editor/:id/:mesure_id");
 
 
+    //if any of the url argument changes, update internal state
     useEffect(() => {
         if (match) {
             setPatientId(params.id);
@@ -36,30 +37,39 @@ export default props => {
     }, [match, matchWithMesure,params,paramsWithMesure]);
 
 
+    const patient = useSelector(select_edited_patient(patient_id));
+    const mesure =  useSelector(select_edited_mesure(patient_id))
+
+    //We load patient from the given url argument
 
     useEffect(() => {
         if (!is_nil(patient_id)) {
             api.get_patient(patient_id).then(res => {
                 dispatch(edit_patient(res));
+               
             });
         }
     }, [patient_id]);
 
+    useEffect(() => {
+        if (!is_nil(patient)) {
+           
+            if (!is_nil(mesure_id)) {
+                dispatch(edit_mesure(patient_id,mesure_id))
+            }
+        
+        }
+    }, [mesure_id,patient]);
 
-    const patient = useSelector(select_edited_patient(patient_id));
-    const mesure =  useSelector(select_edited_mesure(patient_id,mesure_id))
-
-    
 
     const handleMesureOpen = (value,idx)=> {
         setLocation(`/editor/${patient_id}/${idx}`);
     }
 
-
     const handleChange =  values =>{
         if(values.data){
-            let results = calculate({...patient,...values});
-            console.log(results);
+            dispatch(recompute_mesure(patient_id,values));
+
         }
     }
 

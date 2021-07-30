@@ -53,7 +53,7 @@ const Editor =  props => {
                         })}
                 </Area>
                 <ContainerWithArea className={element('form')} area="content" scrollable>
-                    <MesureEditor handleChange={handleChange} mesure={mesure} />
+                   {mesure &&  <MesureEditor handleChange={handleChange} mesure={mesure} />}
                 </ContainerWithArea>
 
             </EditorLayout>
