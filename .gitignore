@@ -24,4 +24,4 @@ yarn-error.log*
 datasample/*
 release/*
 
-public/*.hot-update.*
+*/public/*.hot-update.*

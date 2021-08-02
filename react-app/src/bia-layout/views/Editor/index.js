@@ -48,7 +48,7 @@ const Editor =  props => {
                 <Area className={element('patient')} area="patient"><PatientHeader data={data}/></Area>
                 <Area className={element('mesures')} area="mesures">
 
-                        <ListMesure title={t('Mesures')} itemLabelKey="date" handleClick={onMesureClick} data={[...data.mesures,{date:"<Nouvelle>"}]}
+                        <ListMesure selectedIndex={0} title={t('Mesures')} itemLabelKey="date" handleClick={onMesureClick} data={[...data.mesures,{date:"<Nouvelle>"}]}
                             renderActions={
                                 (data,item,idx)=> {
                                     if(idx < data.length-1){

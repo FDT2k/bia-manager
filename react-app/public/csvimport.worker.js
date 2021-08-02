@@ -61,7 +61,7 @@
 /******/
 /******/ 	var hotApplyOnUpdate = true;
 /******/ 	// eslint-disable-next-line no-unused-vars
-/******/ 	var hotCurrentHash = "8d3e1a06af9782bf12e9";
+/******/ 	var hotCurrentHash = "7471be75ba83ad5df639";
 /******/ 	var hotRequestTimeout = 10000;
 /******/ 	var hotCurrentModuleData = {};
 /******/ 	var hotCurrentChildModule;
@@ -3189,7 +3189,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "withBaseClass", function() { return withBaseClass; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "getClasseNames", function() { return getClasseNames; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "withBEM", function() { return withBEM; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "withBEMElement", function() { return withBEMElement; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "withModifiers", function() { return withModifiers; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "withBEMModifiers", function() { return withBEMModifiers; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "reduceVariables", function() { return reduceVariables; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "withVariables", function() { return withVariables; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "propsToCeX", function() { return propsToCeX; });
@@ -3230,9 +3232,10 @@ var _excluded = ["children"],
     _excluded6 = ["className"],
     _excluded7 = ["className"],
     _excluded8 = ["className"],
-    _excluded9 = ["className"],
-    _excluded10 = ["style"],
-    _excluded11 = ["className"];
+    _excluded9 = ["BEM", "className"],
+    _excluded10 = ["className"],
+    _excluded11 = ["style"],
+    _excluded12 = ["className"];
 
 function _toConsumableArray(arr) { return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _unsupportedIterableToArray(arr) || _nonIterableSpread(); }
 
@@ -3343,10 +3346,11 @@ var baseElement = Object(_karsegard_composite_js__WEBPACK_IMPORTED_MODULE_2__["c
   return e(_e, rest, children);
 });
 var modifiersToCeX = function modifiersToCeX(keyEnhancer, list, modifiers) {
+  var props = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : {};
   return list.reduce(function (acc, item) {
     var _type = _typeof(modifiers[item]);
 
-    acc[keyEnhancer(item, modifiers[item])] = function (_) {
+    acc[keyEnhancer(item, modifiers[item], props)] = function (_) {
       return _type !== 'undefined' && modifiers[item] !== false;
     };
 
@@ -3375,15 +3379,34 @@ var getClasseNames = function getClasseNames(BaseClass, props) {
     className: classes
   }, rest);
 };
-var withBEM = function withBEM(bem) {
+var withBEM = function withBEM(BEM) {
   return function (Component) {
     return function (props) {
       var className = props.className,
           rest = _objectWithoutProperties(props, _excluded8);
 
-      var classes = Object(_karsegard_cex__WEBPACK_IMPORTED_MODULE_4__["cEx"])([bem.current, className]);
-      rest.BEM = bem.make; //   return <Component {...rest} parentBEM={bem} className={classes} />
+      var classes = Object(_karsegard_cex__WEBPACK_IMPORTED_MODULE_4__["cEx"])([BEM.current, className]);
+      rest.BEM = BEM.make;
+      return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(Component, _extends({}, rest, {
+        className: classes
+      }));
+    };
+  };
+};
+var withBEMElement = function withBEMElement(element) {
+  return function (Component) {
+    return function (props) {
+      var BEM = props.BEM,
+          className = props.className,
+          rest = _objectWithoutProperties(props, _excluded9);
 
+      if (Object(_karsegard_composite_js__WEBPACK_IMPORTED_MODULE_2__["is_nil"])(BEM)) {
+        console.warn('withBEMElement used without parent BEM');
+      }
+
+      var _BEM = BEM.element('item');
+
+      var classes = Object(_karsegard_cex__WEBPACK_IMPORTED_MODULE_4__["cEx"])([_BEM.current, className]);
       return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(Component, _extends({}, rest, {
         className: classes
       }));
@@ -3394,7 +3417,7 @@ var withModifiers = function withModifiers(namer, modifiers) {
   return function (Component) {
     return function (props) {
       var className = props.className,
-          rest = _objectWithoutProperties(props, _excluded9); //ensure to preserve classNames
+          rest = _objectWithoutProperties(props, _excluded10); //ensure to preserve classNames
 
 
       var _spreadObjectPresentI = Object(_karsegard_composite_js_ReactUtils__WEBPACK_IMPORTED_MODULE_1__["spreadObjectPresentIn"])(modifiers, rest),
@@ -3402,12 +3425,22 @@ var withModifiers = function withModifiers(namer, modifiers) {
           presentModifiers = _spreadObjectPresentI2[0],
           _props = _spreadObjectPresentI2[1];
 
-      var classes = Object(_karsegard_cex__WEBPACK_IMPORTED_MODULE_4__["cEx"])([className, modifiersToCeX(namer, modifiers, presentModifiers)]);
+      var classes = Object(_karsegard_cex__WEBPACK_IMPORTED_MODULE_4__["cEx"])([className, modifiersToCeX(namer, modifiers, presentModifiers, props)]);
       return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(Component, _extends({
         className: classes
       }, _props));
     };
   };
+};
+/*
+apply a modifier class if modifiers's key is true
+*/
+
+var withBEMModifiers = function withBEMModifiers(modifiers) {
+  return withModifiers(function (modifier, _, _ref6) {
+    var BEM = _ref6.BEM;
+    return BEM.modifier(modifier).current;
+  }, modifiers);
 };
 var reduceVariables = function reduceVariables(keyEnhancer, valEnhancer, list, variables) {
   return list.reduce(function (acc, item) {
@@ -3422,7 +3455,7 @@ var withVariables = function withVariables(keyEnhancer, valEnhancer, variables) 
   return function (Component) {
     return function (props) {
       var style = props.style,
-          rest = _objectWithoutProperties(props, _excluded10); //ensure to preserve styles
+          rest = _objectWithoutProperties(props, _excluded11); //ensure to preserve styles
 
 
       var _style = style || {};
@@ -3455,7 +3488,7 @@ var withTransformedProps = function withTransformedProps(namer, modifiers) {
   return function (Component) {
     return function (props) {
       var className = props.className,
-          rest = _objectWithoutProperties(props, _excluded11); //ensure to preserve classNames
+          rest = _objectWithoutProperties(props, _excluded12); //ensure to preserve classNames
 
 
       var _spreadObjectPresentI5 = Object(_karsegard_composite_js_ReactUtils__WEBPACK_IMPORTED_MODULE_1__["spreadObjectPresentIn"])(modifiers, rest),

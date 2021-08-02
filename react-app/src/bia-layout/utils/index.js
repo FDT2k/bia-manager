@@ -1,7 +1,7 @@
 import React from 'react';
 
 import { spreadObjectPresentIn, spreadObjectBeginWith, forwardPropsRemovingHeader } from '@karsegard/composite-js/ReactUtils'
-import { curry, enlist,  compose } from '@karsegard/composite-js'
+import { curry, enlist,  compose, is_nil } from '@karsegard/composite-js'
 import {key} from '@karsegard/composite-js/ObjectUtils'
 import { cEx } from '@karsegard/cex'
 
@@ -43,10 +43,10 @@ export const asideElement = ({ children, ...rest }) => <aside {...rest}>{childre
 
 export const baseElement = curry((_e,  {children,...rest}) => e(_e,rest,children) )
 
-export const modifiersToCeX = (keyEnhancer, list, modifiers) => {
+export const modifiersToCeX = (keyEnhancer, list, modifiers,props={}) => {
     return list.reduce((acc, item) => {
         const _type = typeof modifiers[item]
-        acc[keyEnhancer(item,modifiers[item])] = _ => _type !== 'undefined' && modifiers[item]!==false ;
+        acc[keyEnhancer(item,modifiers[item],props)] = _ => _type !== 'undefined' && modifiers[item]!==false ;
         return acc
     }, {})
 }
@@ -71,30 +71,54 @@ export const getClasseNames = (BaseClass,props) => {
     return {className:classes,...rest}
 }
 
-export const withBEM = bem => Component => props=>{
+export const withBEM = BEM => Component => props=>{
     const { className, ...rest } = props;
     const classes = cEx([
-        bem.current,
+        BEM.current,
         className
     ]);
-    rest.BEM = bem.make;
- //   return <Component {...rest} parentBEM={bem} className={classes} />
+    rest.BEM = BEM.make;
     return <Component {...rest}  className={classes} />
 
 }
 
 
+export const withBEMElement = element => Component => props => {
+    const { BEM,className, ...rest } = props;
+
+    if(is_nil(BEM)){
+        console.warn('withBEMElement used without parent BEM')
+    }
+    
+
+    const _BEM = BEM.element('item');
+    const classes = cEx([
+        _BEM.current,
+        className
+    ])
+    return <Component {...rest}  className={classes} />
+
+}
+
+ 
 
 export const withModifiers = (namer, modifiers) => Component => props => {
     const { className, ...rest } = props; //ensure to preserve classNames
     const [presentModifiers, _props] = spreadObjectPresentIn(modifiers, rest)
     const classes = cEx([
         className,
-        modifiersToCeX(namer, modifiers, presentModifiers)
+        modifiersToCeX(namer, modifiers, presentModifiers,props)
     ]);
     return <Component className={classes} {..._props}/>
 }
 
+
+/*
+apply a modifier class if modifiers's key is true
+*/
+export const withBEMModifiers = (modifiers)=>  withModifiers((modifier,_,{BEM})=>  {
+    return  BEM.modifier(modifier).current
+}, modifiers)
 
 
 export const reduceVariables = (keyEnhancer,valEnhancer, list, variables) => {
