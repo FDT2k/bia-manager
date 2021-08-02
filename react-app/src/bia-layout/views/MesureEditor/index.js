@@ -165,6 +165,7 @@ const Editor = props => {
             assignValues({
                 bmi: bmi(values.weight, values.height),
                 ideal_weight: ideal_weight(gender, values.height)
+                
             });
         }
 
@@ -280,7 +281,8 @@ Editor.defaultProps = {
         smoker: false,
         comments: null,
         examinator: null,
-        machine: null
+        machine: null,
+        current_age:0
 
     },
     gender: 'm',

@@ -42,6 +42,15 @@ export const formulas = {
 
     segal: [
         {
+            name:"current_age",
+            display:false,
+            fn: data => {
+                var ageDifMs = (new Date(data.date)).getTime() - (new Date(data.birthdate)).getTime();
+                var ageDate = new Date(ageDifMs); // miliseconds from epoch
+                return Math.abs(ageDate.getUTCFullYear() - 1970);
+            }
+        },
+        {
             name: "res",
             fn: mesure => mesure.data.res50,
             display: false,
@@ -52,12 +61,12 @@ export const formulas = {
         },
         {
             name: 'mm',
-            eval: "(0.00091186 * (pow({height},2)))-(0.01486*{res}) + (0.2999 * {weight})-(0.07012 * {age}) + 9.37938",
+            eval: "(0.00091186 * (pow({height},2)))-(0.01486*{res}) + (0.2999 * {weight})-(0.07012 * {current_age}) + 9.37938",
             cond: mesure => mesure.gender === 'F'
         },
         {
             name: 'mm',
-            eval: "(0.0008858 * {height}^2) - (0.02999 * {res}) + (0.42688 * {weight})-(0.07002 * {age})+ 14.52435",
+            eval: "(0.0008858 * {height}^2) - (0.02999 * {res}) + (0.42688 * {weight})-(0.07002 * {current_age})+ 14.52435",
             cond: mesure => mesure.gender === 'M'
         },
         {
