@@ -2,6 +2,9 @@ import React,{useMemo} from 'react';
 import { bem,compose, withModifiers,applyModifiers, withVariables, divElement, withBaseClass, getClasseNames } from 'bia-layout/utils'
 import LayoutFlex,{LayoutFlexColumn} from 'bia-layout/layouts/Flex'
 
+import './style.scss'
+
+
 const Field= props=> {
     const {label, className} = props;
     return (

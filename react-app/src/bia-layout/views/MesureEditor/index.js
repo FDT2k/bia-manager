@@ -114,7 +114,7 @@ const Editor = props => {
 
     /*
         useEffect(() => {
-            assignValues({data:electricalValues})        
+            assignValues({data:electricalValues})
         }, [electricalValues]);
     */
 
@@ -193,7 +193,6 @@ const Editor = props => {
 
                     <Field label={t("Activité physique")}>
                         <select>
-
                             <option>abcd</option>
                         </select>
 

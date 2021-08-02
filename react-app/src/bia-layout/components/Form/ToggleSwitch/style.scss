@@ -1,15 +1,15 @@
 :root{
-
     --color-switch: white;
     --color-yes: black;
     --color-no: black;
     --color-text: white;
+    --color-focus: red;
 }
 
 .toggle-switch {
     min-width:60px;
     &--focus{
-        outline:2px solid red;
+        outline:2px solid var(--color-focus);
     }
     position: relative;
     overflow: hidden;
