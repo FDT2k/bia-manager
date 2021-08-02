@@ -22,7 +22,6 @@ export const evaluateEquation = (values, formula) => {
 
         let value = parseFloat(values[m[1]]);
         evaluator = evaluator.replace(m[0], value);
-        console.log(evaluator)
     }
-    return mexp.eval(evaluator);
+    return {result: mexp.eval(evaluator), log:evaluator }
 }

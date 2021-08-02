@@ -181,6 +181,7 @@ const Editor = props => {
 
     return (
         <LayoutFlex {...rest} className={className}>
+          
             <LayoutFlexColumn>
 
                 <LayoutFlex wrap >
