@@ -1,37 +1,4 @@
-@import "bia-layout/sass/theme/default/font-style";
+@import "bia-layout/sass/theme/default/proportional-width";
+
 @import "bia-layout/sass/theme/default/colors";
-
-
-button{
-    @extend %buttons;
-    padding:10px;
-    &:hover, &:active, &:focus{
-        @extend %colors-positive;
-    }
-}
-
-.input-group{
-    @extend %large-body;
-    label{
-        padding-bottom:7px;
-    }
-    padding-bottom:19px;
-    min-width:320px;
-}
-
-
-.bia-main{
-
-    .navbar{
-        @extend %colors-negative;
-    }
-}
-
-tr.selected, tr:hover{
-    @extend %large-body;
-
-}
-
-tr{
-    cursor:pointer;
-}
+@import "bia-layout/sass/theme/default/font-style";

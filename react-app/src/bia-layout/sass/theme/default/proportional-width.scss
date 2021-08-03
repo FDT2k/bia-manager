@@ -1,0 +1,37 @@
+
+$marge: 131;
+$ref_width : 1280 - ($marge * 2);
+
+
+
+$col_width: 49;
+$gut_width: 8;
+
+
+
+
+$col : $col_width * 100 / $ref_width;
+$gut : $gut_width * 100 / $ref_width;
+
+@function strip-unit($number) {
+  @if type-of($number) == "number" and not unitless($number) {
+    @return $number / ($number * 0 + 1);
+  }
+
+  @return $number;
+}
+
+
+@function px-to-vw-ref($number,$ref) {
+  @return (strip-unit($number) * 100 / $ref)+0vw;
+}
+@function px-to-vw($number) {
+  @return px-to-vw-ref($number,1280);
+}
+
+// $property: px-to-vw(32);
+
+
+:root{
+    --test-line-height: #{px-to-vw(8)};
+}
