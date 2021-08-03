@@ -61,7 +61,7 @@
 /******/
 /******/ 	var hotApplyOnUpdate = true;
 /******/ 	// eslint-disable-next-line no-unused-vars
-/******/ 	var hotCurrentHash = "7471be75ba83ad5df639";
+/******/ 	var hotCurrentHash = "3aa99930e0d04ae9cb25";
 /******/ 	var hotRequestTimeout = 10000;
 /******/ 	var hotCurrentModuleData = {};
 /******/ 	var hotCurrentChildModule;
@@ -3396,6 +3396,8 @@ var withBEM = function withBEM(BEM) {
 var withBEMElement = function withBEMElement(element) {
   return function (Component) {
     return function (props) {
+      console.log('withBEMElement', props);
+
       var BEM = props.BEM,
           className = props.className,
           rest = _objectWithoutProperties(props, _excluded9);
@@ -3404,9 +3406,11 @@ var withBEMElement = function withBEMElement(element) {
         console.warn('withBEMElement used without parent BEM');
       }
 
-      var _BEM = BEM.element('item');
+      var _BEM = BEM.element(element);
 
       var classes = Object(_karsegard_cex__WEBPACK_IMPORTED_MODULE_4__["cEx"])([_BEM.current, className]);
+      rest.BEM = _BEM;
+      Component.hasBEM = true;
       return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(Component, _extends({}, rest, {
         className: classes
       }));

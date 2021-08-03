@@ -84,6 +84,7 @@ export const withBEM = BEM => Component => props=>{
 
 
 export const withBEMElement = element => Component => props => {
+    console.log('withBEMElement',props);
     const { BEM,className, ...rest } = props;
 
     if(is_nil(BEM)){
@@ -91,12 +92,15 @@ export const withBEMElement = element => Component => props => {
     }
     
 
-    const _BEM = BEM.element('item');
+    const _BEM = BEM.element(element);
     const classes = cEx([
         _BEM.current,
         className
     ])
-    return <Component {...rest}  className={classes} />
+
+    rest.BEM=_BEM;
+    Component.hasBEM=true;
+    return <Component {...rest}   className={classes} />
 
 }
 
