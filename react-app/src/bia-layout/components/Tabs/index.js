@@ -1,8 +1,7 @@
-import { render } from '@testing-library/react'
-import React, { Children, cloneElement } from 'react'
+import React, { useRef,Children, cloneElement,useEffect,useState } from 'react'
 import { bem, compose, kebabize,filterPropPresentIn, baseElement, applyModifiers, withVariables, withModifiers, wrapComponent, asideElement, divElement, withBaseClass, cEx,withBEMElement,withBEM,makeBEM } from 'bia-layout/utils'
 import LayoutFlex from 'bia-layout/layouts/Flex';
-
+import {useFocus} from '@karsegard/react-hooks'
 import './style.scss'
 
 function makeTypeChecker(tabsRole) {
@@ -44,11 +43,14 @@ export function deepMap(children, callback) {
 const [main_class,element,modifier] = bem('tabs');
 
 export const TabListWrapper = withBaseClass(element('wrapper'))(divElement);
-export const TabListContainer = withBaseClass(element('container'))(LayoutFlex);
+export const TabListContainer = compose(
+                                            withBaseClass(element('container')),
+                                            applyModifiers({alignCenter:true})
+                                        )(LayoutFlex);
 export const TabListBackground = withBaseClass(element('background'))(divElement);
 
 export const TabList =  withBaseClass(element('list'))(props => {
-    const {children, ...rest} = props;
+    const {children, selectedTab,...rest} = props;
     return (
         <TabListWrapper>
             <TabListBackground/>
@@ -61,9 +63,15 @@ TabList.tabsRole= 'TabList';
 
 
 export const Tab =  withBaseClass(element('tab'))(props => {
-    const {children, ...rest} = props;
+    const {children,selected,className,selectedTab,handleFocus, ...rest} = props;
+    const ref = useRef();
+    const {hasFocus} =  useFocus({ref,handleOnFocus:handleFocus,debug:true});
+    const classe = cEx([
+        className,
+        _=> selected ? 'selected': ''
+    ])
     return (
-        <div {...rest}>{children}</div>
+        <div className={classe} {...rest} ref={ref}>{children}</div>
     )
 })
 Tab.tabsRole= 'Tab';
@@ -71,51 +79,114 @@ Tab.tabsRole= 'Tab';
 
 
 export const TabPanel  =  withBaseClass(element('panel'))(props => {
-    const {children, ...rest} = props;
+    const {children,idx,renderDisabledPanels,selectedTab,className, ...rest} = props;
+
+    const classes = cEx([
+        className,
+        _=> selectedTab === idx ? 'active': ''
+    ])
+    let display =  ((selectedTab === idx) && !renderDisabledPanels)  || ( selectedTab === idx && renderDisabledPanels )  ;
     return (
-        <div {...rest}>{children}</div>
+        <>
+        {display && <div className={classes} {...rest}>{children}</div>}
+        </>
     )
 })
 TabPanel.tabsRole= 'TabPanel';
 
-
+TabPanel.defaultProps= {
+    renderDisabledPanels:true
+}
 
 export const Tabs=  props => {
 
-    const {children: _children , ...rest} = props;
-    
+    const {children: _children, defaultTab,tabindexOffset,renderDisabledPanels , ...rest} = props;
+
+
+    const [hoverTab,setHoverTab] = useState(0);
+    const [selectedTab,setSelectedTab] = useState(defaultTab);
+
+
     const nodes = [];
 
+    const handleMouseOver = idx=> e=> {
+        console.log('over'+idx)
+       // setHoverTab(idx);
+    } 
+    const handleMouseOut = idx=> e=> {
+        console.log('over'+idx);
+        //setHoverTab(selectedTab);
+
+    }
+
+    const handleFocus = idx => e=> {
+
+        setSelectedTab(idx);
+    }
+
+    const handleClick = idx => e => {
+        setSelectedTab(idx)
+    }
+
+    let panelCount = 0;
     const callback = child=> {
+       
         if(isTabList(child)){
 
             const {children: childChildren, ...childProps} = child.props
-            return  cloneElement(child,{
+            let tabCount =0;
+            let clonedChild =  cloneElement(child,{
                 ...childProps,
                 children: deepMap(childChildren, node=> {
                     if(isTab(node)){
-                        return cloneElement(node,{
-                            onClick: _=> alert('hey')
-                        })
+
+                        let el = cloneElement(node,{
+                        //    onClick:  handleClick(tabCount),
+                            onMouseOver:  handleMouseOver(tabCount),
+                            onMouseOut:  handleMouseOut(tabCount),
+                            handleFocus: handleFocus(tabCount),
+                            tabIndex: tabindexOffset+tabCount,
+                            selected:selectedTab ==tabCount
+                        });
+
+                        tabCount++;
+                        return el;
                     }
 
                     return cloneElement(node,node.props)
                 }) 
 
             });
+           
+            return clonedChild
 
-        }else {
+        }else if(isTabPanel(child)){
 
-            return  cloneElement(child,{...child.props});
+            let el = cloneElement(child,{
+                ...child.props,
+                idx: panelCount,
+                selectedTab,
+                renderDisabledPanels
+            });
 
+            panelCount++;
+            return el;
+
+        }else{
+            return child;
         }
     }
 
     const children = deepMap(_children,callback);
    
-    return (<div {...rest}>{children}</div>)
+    return (<div style={{'--active-tab':`${selectedTab}`}} {...rest}>{children}</div>)
 }
 
 
+Tabs.defaultProps= {
+    tabindexOffset: 0,
+    renderDisabledPanels: false,
+    defaultTab:0
+}
 
 export default withBaseClass(main_class)(Tabs);

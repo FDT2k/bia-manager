@@ -2,6 +2,7 @@
 
       --secondary: #FFFFFF;
       --primary: #000000;
+      --tertiary: #F2F2F2;
 
 }
 
@@ -11,6 +12,9 @@
     color:var(--secondary);
     outline-color: var(--secondary);
     border-color: var(--secondary);
+    --selected-color: var(--primary);
+
+
 }
 
 
@@ -19,4 +23,5 @@
     color:var(--primary);
     outline-color: var(--secondary);
     border-color: var(--secondary);
+    --selected-color: var(--secondary);
 }

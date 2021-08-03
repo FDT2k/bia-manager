@@ -1,9 +1,22 @@
 @import 'bia-layout/sass/theme/default/main.scss';
 
 
+.tabs{
+    @extend %colors-positive;
 
+    &__tab.selected{
+        @extend %colors-positive;
+        background-color: transparent;
+    }
+   
+    &__wrapper{
+        width:100%;
+        background-color: var(--tertiary);
+    }
+}
 .bia-editor{
     @extend %base_font;
+    
     &__nav{
         padding-top:20px;
         cursor:pointer;
@@ -35,7 +48,7 @@
     &__form{
         padding-top: 17px;
         padding-left:70px;
-        padding-right:70px;
+       
     }
     &__mesures{
         padding-top:17px;

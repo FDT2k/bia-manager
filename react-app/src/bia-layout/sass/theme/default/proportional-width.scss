@@ -10,8 +10,8 @@ $gut_width: 8;
 
 
 
-$col : $col_width * 100 / $ref_width;
-$gut : $gut_width * 100 / $ref_width;
+$col : $col_width * 100 / $ref_width+0vw;
+$gut : $gut_width * 100 / $ref_width+0vw;
 
 @function strip-unit($number) {
   @if type-of($number) == "number" and not unitless($number) {
@@ -33,5 +33,6 @@ $gut : $gut_width * 100 / $ref_width;
 
 
 :root{
-    --test-line-height: #{px-to-vw(8)};
+    --gut-width: #{$gut};
+    --col-width: #{$col};
 }
