@@ -17,11 +17,7 @@
 .bia-editor{
     @extend %base_font;
     
-    &__nav{
-        padding-top:20px;
-        cursor:pointer;
-    }
-
+   
     &__patient{
 
         h1{
@@ -30,29 +26,23 @@
         .patient-header{
             padding-top:17px;
             border-bottom:1px solid black;
-        }
-        .patient-header__field{
-            b{
-                font-weight:bold;
+            &__field{
+                b{
+                    font-weight:bold;
+                }
+            }
+            &___fieldset{
+                padding-top:11px;
+                padding-bottom:17px;
             }
         }
         .patient-header__fieldset{
-            padding-top:11px;
-            padding-bottom:17px;
+          
         }
     }
-    &__editor{
-    }
+  
 
-
-    &__form{
-        padding-top: 17px;
-        padding-left:70px;
-       
-    }
-    &__mesures{
-        padding-top:17px;
-    }
+    
 }
 
 .editor-grid{

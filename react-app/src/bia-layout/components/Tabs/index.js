@@ -100,23 +100,25 @@ TabPanel.defaultProps= {
 
 export const Tabs=  props => {
 
-    const {children: _children, defaultTab,tabindexOffset,renderDisabledPanels , ...rest} = props;
+    const {children: _children, defaultTab,tabindexOffset,renderDisabledPanels ,style:existingStyle , ...rest} = props;
 
 
     const [hoverTab,setHoverTab] = useState(0);
     const [selectedTab,setSelectedTab] = useState(defaultTab);
 
 
+    const style = {
+        ...existingStyle,
+        '--active-tab':`${selectedTab}`
+    } ;
+
     const nodes = [];
 
     const handleMouseOver = idx=> e=> {
         console.log('over'+idx)
-       // setHoverTab(idx);
     } 
     const handleMouseOut = idx=> e=> {
         console.log('over'+idx);
-        //setHoverTab(selectedTab);
-
     }
 
     const handleFocus = idx => e=> {
@@ -179,7 +181,7 @@ export const Tabs=  props => {
 
     const children = deepMap(_children,callback);
    
-    return (<div style={{'--active-tab':`${selectedTab}`}} {...rest}>{children}</div>)
+    return (<div style={style} {...rest}>{children}</div>)
 }
 
 

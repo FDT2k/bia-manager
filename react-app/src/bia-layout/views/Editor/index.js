@@ -42,11 +42,16 @@ const Editor =  props => {
     }
 
     return (
-        <MainView className="bia-main--editor">
+        <MainView className="bia-main--editor" renderLeftNav={
+
+            _=>{ 
+                return ( <NavComponent className={element('nav')} area="nav" onClick={handleGoBack}>         
+                <ArrowBack/> <h3>Retour à la liste</h3>
+            </NavComponent>)
+            }
+        }>
             <EditorLayout  className={className}>
-                <NavComponent className={element('nav')} area="nav" onClick={handleGoBack}>         
-                    <ArrowBack/> <h3>Retour à la liste</h3>
-                </NavComponent>
+               
                 <Area className={element('patient')} area="patient"><PatientHeader data={data}/></Area>
                 <Area className={element('mesures')} area="mesures">
 

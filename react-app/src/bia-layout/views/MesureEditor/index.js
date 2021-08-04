@@ -7,6 +7,7 @@ import { bem, compose, withModifiers, applyModifiers, withVariables, divElement,
 
 
 import LayoutFlex, { LayoutFlexColumn } from 'bia-layout/layouts/Flex'
+import MesureEditorLayout from 'bia-layout/layouts/MesureEditor'
 import Grid from 'bia-layout/layouts/Grid'
 import Container from 'bia-layout/containers/Container'
 import Field from 'bia-layout/components/Form/Fields'
@@ -27,12 +28,17 @@ import { is_nil } from '@karsegard/composite-js';
 
 import ComparisonTable from 'bia-layout/views/ComparisonTable';
 import Tabs, { TabList, Tab, TabPanel } from 'bia-layout/components/Tabs'
+import { withGridArea } from 'bia-layout/hoc/grid/Area';
 
 const CustomInput = forwardRef(({ value, onClick }, ref) => (
     <div className="example-custom-input" onClick={onClick} ref={ref}>
         {value}
     </div>
 ));
+
+
+const LayoutFlexColumnWithArea = withGridArea(LayoutFlexColumn);
+const TabsWithArea = withGridArea(Tabs);
 
 
 
@@ -181,8 +187,8 @@ const Editor = props => {
 
 
     return (
-        <LayoutFlex {...rest} justBetween className={className}>
-            <Tabs >
+        <MesureEditorLayout {...rest}  className={className}>
+            <TabsWithArea area="mesure-editor-main">
                 <TabList>
                     <Tab>Mesures</Tab>
                     <Tab>Résultats</Tab>
@@ -190,7 +196,7 @@ const Editor = props => {
                     <Tab>Graphiques</Tab>
                 </TabList>
                 <TabPanel>
-                    <LayoutFlexColumn>
+                    <LayoutFlexColumnWithArea>
 
                         <LayoutFlex wrap >
                             <Field label={t("Date d'Examen")}>
@@ -234,10 +240,10 @@ const Editor = props => {
 
 
                         <LayoutFlex>
-                            <Button>Enregistrer</Button>
-                            <Button>IMPRIMER</Button>
+                            <Button onClick={_=>alert('it works')}>Enregistrer</Button>
+                            <Button onClick={_=>alert('brrrr. out of ink')}>IMPRIMER</Button>
                         </LayoutFlex>
-                    </LayoutFlexColumn>
+                    </LayoutFlexColumnWithArea>
                 </TabPanel>
                 <TabPanel>
                     <Container fit grow>
@@ -253,9 +259,9 @@ const Editor = props => {
                 </TabPanel>
                 <TabPanel><LayoutFlexColumn></LayoutFlexColumn></TabPanel>
                 <TabPanel><LayoutFlexColumn></LayoutFlexColumn></TabPanel>
-            </Tabs>
+            </TabsWithArea>
 
-            <LayoutFlexColumn style={{ justifySelf: 'flex-end' }}>
+            <LayoutFlexColumnWithArea area="mesure-editor-aside">
                 <Field label={t("Examinateur")}>
                     <EditableTextInput value={values.examinator} name="examinator" onChange={handleChange} />
                 </Field>
@@ -277,8 +283,8 @@ const Editor = props => {
                     <EditableTextInput value={values.comments} name="comments" onChange={handleChange} />
                 </Field>
 
-            </LayoutFlexColumn>
-        </LayoutFlex>
+            </LayoutFlexColumnWithArea>
+        </MesureEditorLayout>
     )
 
 }

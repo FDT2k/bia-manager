@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 import { bem, compose, withModifiers, applyModifiers, withVariables, divElement, withBaseClass, getClasseNames, cEx } from 'bia-layout/utils'
 
 
-import './ComparisonTable.scss';
+import './comparison-table.scss';
 
 
 const FormulaHeaderSelect = props => {

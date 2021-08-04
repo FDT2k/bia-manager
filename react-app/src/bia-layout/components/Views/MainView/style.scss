@@ -3,9 +3,20 @@
 
 .bia-main{
 
+    grid-template-columns: auto fit-content(var(--reference-width)) auto;
     grid-template-rows: 50px auto 50px;
+    grid-template-areas:
+        "header-mr header header-ml"
+        ". maincontent ."
+        "footer-mr footer footer-ml";
 
+    &__content{
+        min-width: var(--reference-width);
+    }
 
+    .navbar{
+        @extend %colors-negative;
+    }
 }
 
 
@@ -18,22 +29,7 @@ button{
     }
 }
 
-.input-group{
-    @extend %large-body;
-    label{
-        padding-bottom:7px;
-    }
-    padding-bottom:19px;
-    min-width:320px;
-}
 
-
-.bia-main{
-
-    .navbar{
-        @extend %colors-negative;
-    }
-}
 
 tr.selected, tr:hover{
     @extend %large-body;

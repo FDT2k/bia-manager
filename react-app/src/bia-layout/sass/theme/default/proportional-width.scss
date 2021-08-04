@@ -26,13 +26,14 @@ $gut : $gut_width * 100 / $ref_width+0vw;
   @return (strip-unit($number) * 100 / $ref)+0vw;
 }
 @function px-to-vw($number) {
-  @return px-to-vw-ref($number,1280);
+  @return px-to-vw-ref($number,$ref_width);
 }
 
 // $property: px-to-vw(32);
 
 
 :root{
+    --reference-width: #{$ref_width+0px};
     --gut-width: #{$gut};
     --col-width: #{$col};
 }

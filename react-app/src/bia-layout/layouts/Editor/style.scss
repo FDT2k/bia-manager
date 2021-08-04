@@ -1,17 +1,15 @@
 :root {
-    --editor-left-margin: 5%;
-    --editor-right-margin: 5%;
+    --mesures-list-width: calc( var(--gut-width) + (var(--col-width) * 2) );
 }
 
 .editor-grid-layout{
 
-    grid-template-columns: var(--editor-left-margin) 120px auto  var(--editor-right-margin) ;
-    grid-template-rows:  fit-content(50px) fit-content(200px) auto;
+    grid-template-columns: fit-content(var(--mesures-list-width)) auto   ;
+    grid-template-rows:   fit-content(200px) auto;
 
     grid-template-areas:
-        "margin nav nav margin2"
-        "margin patient patient margin2"
-        "margin mesures content margin2"
+        " patient patient "
+        " mesures content "
         ;
 
     justify-items: stretch;
