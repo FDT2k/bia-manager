@@ -2,7 +2,7 @@
 import create from 'Redux/utils/make-action'
 import {createAction} from '@reduxjs/toolkit'
 import {compare} from '@karsegard/composite-js/List'
-import createAsyncAction,{makePromiseDispatcher} from 'Redux/utils/async-dispatch'
+import {makePromiseDispatcher} from 'Redux/utils/async-dispatch'
 
 export const ADD_SEARCH_TAG='ADD_SEARCH_TAG';
 export const DEL_SEARCH_TAG='DEL_SEARCH_TAG';
