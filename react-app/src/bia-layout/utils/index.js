@@ -84,7 +84,6 @@ export const withBEM = BEM => Component => props=>{
 
 
 export const withBEMElement = element => Component => props => {
-    console.log('withBEMElement',props);
     const { BEM,className, ...rest } = props;
 
     if(is_nil(BEM)){

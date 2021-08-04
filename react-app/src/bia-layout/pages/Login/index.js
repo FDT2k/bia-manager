@@ -12,9 +12,9 @@ import './page-login.scss'
 
 
 export default props => {
-    const{handleSubmit, ...rest} = props;
+    const{handleSubmit,renderFooter, ...rest} = props;
     return (
-        <MainView>
+        <MainView renderFooter={renderFooter}>
             <LayoutFlex cover centered>
               <Container className="login-container">
                   <Login handleSubmit={handleSubmit}/>

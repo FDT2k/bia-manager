@@ -71,8 +71,15 @@ const parse = ({
             }
             if (typeof carry.data[index_key].mesures == "undefined") {
                 carry.data[index_key]['mesures'] = [];
+                carry.data[index_key]['mesures_dates'] = [];
             }
-            carry.data[index_key].mesures.push(enlist(mesure).reduce(remap(mesure,mapping.mesure),{}));
+
+
+            let remapped_mesure = enlist(mesure).reduce(remap(mesure,mapping.mesure),{});
+            
+            carry.data[index_key].mesures.push(remapped_mesure);
+            carry.data[index_key].mesures_dates.push(remapped_mesure.date);
+            
             carry.countMesure++;
 
             return carry;

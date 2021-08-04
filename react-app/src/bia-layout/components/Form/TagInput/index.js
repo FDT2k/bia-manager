@@ -1,69 +1,16 @@
 import React, { useState, useRef, useEffect } from 'react';
 import './style.scss';
 
-import useKeyPress from 'hooks/useKeypress';
-import useFocus from 'hooks/useFocus';
+import {useFocus,useKeypress} from '@karsegard/react-hooks';
 import classNames from 'classnames';
-/*
-export default props => {
-    const [input, setInput] = useState('');
-    const [tags, setTags] = useState([]);
-    const [isKeyReleased, setIsKeyReleased] = useState(false);
-    const onChange = (e) => {
-        const { value } = e.target;
-        setInput(value);
-    };
-    const onKeyDown = (e) => {
-        console.log('porout');
-        const { key } = e;
-        const trimmedInput = input.trim();
 
-        if (key === ',' && trimmedInput.length && !tags.includes(trimmedInput)) {
-            e.preventDefault();
-            setTags(prevState => [...prevState, trimmedInput]);
-            setInput('');
-        }
-
-        if (key === "Backspace" && !input.length && tags.length && isKeyReleased) {
-            const tagsCopy = [...tags];
-            const poppedTag = tagsCopy.pop();
-            e.preventDefault();
-            setTags(tagsCopy);
-            setInput(poppedTag);
-        }
-
-        setIsKeyReleased(false);
-    };
-
-    const onKeyUp = () => {
-        setIsKeyReleased(true);
-    }
-    const deleteTag = (index) => {
-        setTags(prevState => prevState.filter((tag, i) => i !== index))
-    }
-    return (<div className="tag-input">
-        {tags.map((tag, index) => (
-            <div className="tag">
-                {tag}
-                <button onClick={() => deleteTag(index)}>x</button>
-            </div>
-        ))}
-        <input
-            value={input}
-            placeholder="Enter a tag"
-            onKeyDown={onKeyDown}
-            onKeyUp={onKeyUp}
-            onChange={onChange}
-        />
-    </div>)
-}*/
 
 
 const AutoComplete = props => {
     const { options, style, search, visible, handleSelect,handleHoldFocus } = props;
 
-    const up = useKeyPress("ArrowUp");
-    const down = useKeyPress("ArrowDown");
+    const up = useKeypress("ArrowUp");
+    const down = useKeypress("ArrowDown");
 
 
     const _handleHoldFocus = _=> {
@@ -132,9 +79,9 @@ AutoComplete.defaultProps = {
 const TagInput = (props) => {
     const { handleChange, handleAddTag, handleRemoveTag, handleFocus: handleFocusChange, tags: initialTags, fields, ...rest } = props;
 
-    const backspacePressed = useKeyPress("Backspace");
-    const enterPressed = useKeyPress("Enter");
-    const escapePressed = useKeyPress("Escape");
+    const backspacePressed = useKeypress("Backspace");
+    const enterPressed = useKeypress("Enter");
+    const escapePressed = useKeypress("Escape");
 
     const ref = useRef();
 

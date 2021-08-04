@@ -8,7 +8,7 @@ export default name => {
     const db = new Dexie(name);
 
     db.version(1).stores({
-        patients: "++id,lastname,firstname,birthdate,groups.path,search_terms",
+        patients: "++id,lastname,firstname,birthdate,groups.path,search_terms,*mesures_dates",
         import_mapping:"++id,name"
     });
 
@@ -17,7 +17,7 @@ export default name => {
         if(obj.groups && obj.groups.path) {
             group = obj.groups.path;
         }
-       obj.search_terms = obj.lastname +' '+obj.firstname+' '+obj.birthdate+' '+group;
+       obj.search_terms = obj.lastname +' '+obj.firstname+' '+obj.birthdate+' '+group+ ' '+obj.firstname+' '+obj.lastname;
     }
     db.patients.hook("creating",hook );
 

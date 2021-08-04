@@ -42,7 +42,7 @@ const NavComponent = compose(
 
 const Editor =  props => {
 
-    const {className, t,handleGoBack,handleMesureOpen,handleChange,lines,data,mesure,...rest} = getClasseNames(__base_class,props);
+    const {className, renderFooter, t,handleGoBack,handleMesureOpen,handleChange,lines,data,mesure,...rest} = getClasseNames(__base_class,props);
     const [startDate, setStartDate] = useState(new Date());
     const ExampleCustomInput = forwardRef(({ value, onClick }, ref) => (
         <div className="example-custom-input" onClick={onClick} ref={ref}>
@@ -55,7 +55,7 @@ const Editor =  props => {
     }
 
     return (
-        <MainView className="bia-main--editor" renderLeftNav={
+        <MainView renderFooter={renderFooter} className="bia-main--editor" renderLeftNav={
 
             _=>{
                 return ( <NavComponent className={element('nav')} area="nav" onClick={handleGoBack}>

@@ -80,11 +80,30 @@ const get_patient = db=>  id=> {
     });
 }
 
+const count = db => _=> {
+    return db.open().then( db =>{
+        return db.patients.count();
+    });
+}
+
+const count_mesures = db => _=> {
+    let count = 0;
+    return db.open().then( db =>{
+        return db.patients.each(item=> {
+            count+= item.mesures.length;
+        }).then(_=> {return count});
+    });
+}
+
+const db_name = db => _=> {
+    return db.name;
+}
+
 const import_data = db => data => {
     return db.open().then( db =>{
         return db.patients.bulkAdd(data);
     });
 }
-const api = {getAll,search,import_data,get_patient}
+const api = {getAll,search,import_data,get_patient,count,db_name,count_mesures}
 
 export default spec(api)

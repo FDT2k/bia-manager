@@ -29,11 +29,12 @@ const [__base_class, element, modifier] = bem('bia-main');
 const Content = compose(
     withBaseClass(element('content')),
                             withGridArea
+
                         )(Container)
 
 const MainView = props => {
 
-    const { className, renderLeftNav, ...rest } = props;
+    const { className, renderFooter,renderLeftNav, ...rest } = props;
     const [location, setLocation] = useLocation();
 
 
@@ -46,18 +47,20 @@ const MainView = props => {
                 <LayoutFlex onClick={_=>setLocation("/import")} alignCenter><Person />User</LayoutFlex>
             </Nav>
             <Content area="maincontent">
+
                 {props.children}
+
             </Content>
             <Footer area="footer">
-                <div>
-                    <span> Base de données bia-test </span> -
-                    <span> Patients 12541235</span> -
-                    <span> Mesures: 31231 </span>
-                </div>
-            </Footer>
 
+                {renderFooter && renderFooter()}
+                
+            </Footer>
+          
         </MainLayout>
    )
 }
 
+
 export default withBaseClass(__base_class)(MainView);
+

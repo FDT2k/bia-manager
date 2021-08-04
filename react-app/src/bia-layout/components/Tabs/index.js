@@ -47,7 +47,15 @@ export const TabListContainer = compose(
                                             withBaseClass(element('container')),
                                             applyModifiers({alignCenter:true})
                                         )(LayoutFlex);
-export const TabListBackground = withBaseClass(element('background'))(divElement);
+
+
+
+export const TabListBackground = withBaseClass(element('background'))(props=>{
+    const {children,...rest} = props;
+    return (
+        <div {...rest}><div class="bg"/>{children}</div>
+    )
+});
 
 export const TabList =  withBaseClass(element('list'))(props => {
     const {children, selectedTab,...rest} = props;
@@ -71,7 +79,7 @@ export const Tab =  withBaseClass(element('tab'))(props => {
         _=> selected ? 'selected': ''
     ])
     return (
-        <div className={classe} {...rest} ref={ref}>{children}</div>
+        <div className={classe} {...rest} ref={ref}><div class="content">{children}</div></div>
     )
 })
 Tab.tabsRole= 'Tab';

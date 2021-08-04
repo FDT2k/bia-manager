@@ -1,5 +1,6 @@
 :root{
-    --tab-width : calc((var(--col-width) * 2) + var(--gut-width));
+   // --tab-width : calc((var(--col-width) * 2) + var(--gut-width));
+    --tab-width: 150px;
     --tab-height: 32px;
     --active-tab: 1;
     --selected-color: red;
@@ -13,12 +14,14 @@
     &__wrapper{
         position: relative;
         height:32px;
+        max-width:100%;
     }
 
     &__container{
         position:absolute;
         z-index:1;
         height: var(--tab-height);
+       
     }
 
     &__tab {
@@ -26,10 +29,13 @@
         max-width: var(--tab-width);
         overflow:hidden;
         cursor:pointer;
-        padding:3px;
-        margin-right: var(--gut-width);
+        
         &:focus{
             outline: 1px dashed var(--focused-color);
+        }
+
+        .content{
+            padding:3px;
         }
         text-overflow: ellipsis;
     }
@@ -45,13 +51,18 @@
 
     &__background{
         position: absolute;
-        margin: 3px;
+     
         z-index: 0;
         border-radius: 4px;;
         max-height:100%;
-        background-color:var(--selected-color);
+        .bg{
+            min-height:100%;
+            min-width:100%;
+            background-color:var(--selected-color);
+            margin:3px;
+        }
         height:26px;
-        width: calc((var(--col-width) * 2) + var(--gut-width));
+        width: var(--tab-width);
         transform: translateX(calc( var(--tab-width) * var(--active-tab) ));
         transition: 0.3s ease-in-out;
     }
