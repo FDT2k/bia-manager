@@ -14,9 +14,8 @@ import {ArrowDown,ArrowUp} from 'bia-layout/components/Icons'
 import Button from 'bia-layout/components/Form/Button'
 import {withGridArea,ComponentWithArea} from 'bia-layout/hoc/grid/Area'
 import {applyModifiers,compose,withBaseClass} from 'bia-layout/utils'
-import './style.scss'
-
 import useKeyPress from 'hooks/useKeypress';
+import './page-search.scss'
 
 export const SearchArea =  compose(
                                 withGridArea,

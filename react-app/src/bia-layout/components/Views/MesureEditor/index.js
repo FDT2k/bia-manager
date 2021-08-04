@@ -13,22 +13,24 @@ import Container from 'bia-layout/containers/Container'
 import Field from 'bia-layout/components/Form/Fields'
 import Button from 'bia-layout/components/Form/Button'
 import ToggleSwitch from 'bia-layout/components/Form/ToggleSwitch'
+import Tabs, { TabList, Tab, TabPanel } from 'bia-layout/components/Tabs'
 import { Save, Print, Stats } from 'bia-layout/components/Icons';
 
-import ElectricalDataForm from 'bia-layout/views/ElectricalDataForm';
 import { bmi, ideal_weight } from 'references';
 import Input from 'bia-layout/components/Form/Input'
 import ToggleEditField from 'bia-layout/hoc/ToggleEdit'
 
 import formulas from 'references/formulas'
 
-import './style.scss'
 import "react-datepicker/dist/react-datepicker.css";
 import { is_nil } from '@karsegard/composite-js';
 
-import ComparisonTable from 'bia-layout/views/ComparisonTable';
-import Tabs, { TabList, Tab, TabPanel } from 'bia-layout/components/Tabs'
+import ComparisonTable from 'bia-layout/components/Views/ComparisonTable';
+import ElectricalDataForm from 'bia-layout/components/Views/ElectricalDataForm';
+
 import { withGridArea } from 'bia-layout/hoc/grid/Area';
+
+import './mesure-editor.scss'
 
 const CustomInput = forwardRef(({ value, onClick }, ref) => (
     <div className="example-custom-input" onClick={onClick} ref={ref}>

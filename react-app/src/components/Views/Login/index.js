@@ -1,6 +1,6 @@
 import React from 'react';
 
-import LoginView from 'bia-layout/views/LoginView'
+import LoginView from 'bia-layout/pages/Login'
 
 import {useDispatch} from 'react-redux';
 import { useLocation } from "wouter";

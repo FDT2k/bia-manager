@@ -8,16 +8,20 @@
         @extend %colors-positive;
         background-color: transparent;
     }
-   
+
     &__wrapper{
         width:100%;
         background-color: var(--tertiary);
     }
+
+    
 }
+
+
 .bia-editor{
     @extend %base_font;
-    
-   
+
+
     &__patient{
 
         h1{
@@ -37,12 +41,12 @@
             }
         }
         .patient-header__fieldset{
-          
+
         }
     }
-  
 
-    
+
+
 }
 
 .editor-grid{

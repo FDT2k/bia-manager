@@ -5,7 +5,7 @@ import MainView from 'bia-layout/components/Views/MainView'
 import Login from 'bia-layout/components/Views/Login';
 import LayoutFlex from 'bia-layout/layouts/Flex';
 
-import './style.scss'
+import './page-login.scss'
 
 
 export default props => {

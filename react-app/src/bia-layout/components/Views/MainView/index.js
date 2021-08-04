@@ -1,4 +1,7 @@
 import React, { useState, useRef } from 'react';
+import { useLocation } from "wouter";
+
+
 import { bem, withBaseClass, divElement,compose } from 'bia-layout/utils'
 
 import Container from 'bia-layout/containers/Container';
@@ -8,10 +11,9 @@ import Grid from 'bia-layout/layouts/Grid';
 import {withGridArea} from 'bia-layout/hoc/grid/Area';
 
 import { Person } from 'bia-layout/components/Icons';
-import './style.scss';
 
-import { useLocation } from "wouter";
 
+import './main-view.scss';
 
 
 
@@ -27,7 +29,7 @@ const Footer = withGridArea(Navbar);
 const Content = compose(
     withBaseClass(element('content')),
                             withGridArea
-                           
+
                         )(Container)
 
 const MainView = props => {

@@ -6,7 +6,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useLocation, useRoute, useRouter } from "wouter";
 import useBIAManager from 'hooks/useBIAManager';
 
-import Editor from 'bia-layout/views/Editor'
+import Editor from 'bia-layout/pages/Editor'
 
 import { select_patient, recompute_mesure,edit_patient,edit_mesure,select_edited_patient,select_edited_mesure,compute_formulas } from 'Store';
 
@@ -20,7 +20,7 @@ export default props => {
     const [patient_id, setPatientId] = useState();
     const [mesure_id, setMesureId] = useState();
 
-
+  
     const [match, params] = useRoute("/editor/:id");
     const [matchWithMesure, paramsWithMesure] = useRoute("/editor/:id/:mesure_id");
 
@@ -46,18 +46,18 @@ export default props => {
         if (!is_nil(patient_id)) {
             api.get_patient(patient_id).then(res => {
                 dispatch(edit_patient(res));
-               
+
             });
         }
     }, [patient_id]);
 
     useEffect(() => {
         if (!is_nil(patient)) {
-           
+
             if (!is_nil(mesure_id)) {
                 dispatch(edit_mesure(patient_id,mesure_id))
             }
-        
+
         }
     }, [mesure_id,patient]);
 
@@ -73,12 +73,12 @@ export default props => {
         }
     }
 
-    return ( 
-        <Editor 
-            handleGoBack={_ => setLocation('/search')} 
-            handleChange={handleChange} 
-            data={patient}  
-            handleMesureOpen={handleMesureOpen} 
+    return (
+        <Editor
+            handleGoBack={_ => setLocation('/search')}
+            handleChange={handleChange}
+            data={patient}
+            handleMesureOpen={handleMesureOpen}
             mesure={mesure}/>
     )
 }
