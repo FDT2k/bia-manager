@@ -79,6 +79,7 @@ export default props => {
             handleChange={handleChange}
             data={patient}
             handleMesureOpen={handleMesureOpen}
+            selectedMesureIndex={mesure_id}
             mesure={mesure}/>
     )
 }
