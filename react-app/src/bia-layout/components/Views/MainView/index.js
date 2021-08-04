@@ -61,4 +61,6 @@ const MainView = props => {
    )
 }
 
-export default MainView;
+
+export default withBaseClass(__base_class)(MainView);
+

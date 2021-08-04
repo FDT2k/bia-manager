@@ -11,8 +11,10 @@ import Fullscreen from 'bia-layout/containers/Fullscreen'
 import useBIAManager from 'hooks/useBIAManager';
 
 export default props => {
+
     const [location, setLocation] = useLocation();
-    const {api} = useBIAManager();
+
+    const {api,patient_count,} = useBIAManager();
 
 
    
