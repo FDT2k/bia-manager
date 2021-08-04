@@ -1,34 +1,38 @@
 @import 'bia-layout/sass/theme/default/main.scss';
 
 /*ca va bouger, j'ai fait une betise (fabien) */
-.bia-main{
-
-    grid-template-columns: auto fit-content(var(--reference-width)) auto;
-    grid-template-rows: 50px auto 50px;
+.bia-main-layout{
+    grid-template-columns: 100%;
+    grid-template-rows: 52px auto 52px;
     grid-template-areas:
-        "header-mr header header-ml"
-        ". maincontent ."
-        "footer-mr footer footer-ml";
-
-    &__content{
-        min-width: var(--reference-width);
-    }
+      " header "
+      " maincontent "
+      " footer ";
 }
 
 
 .bia-main{
 
+    @extend %base_font;
 
+    &__content{
+        max-width:100%;
+        padding: 0px var(--marge-width);
+    }
 
     .navbar{
         @extend %colors-negative;
+        padding: 0px var(--marge-width);
+    }
+
+    .nav-main {
+
     }
 }
 
 
-button{
-    @extend %buttons;
-    padding:10px;
+button {
+    width: calc((var(--col-width) * 3) + (var(--gut-width) * 2));
     &:hover, &:active, &:focus{
         @extend %colors-positive;
     }

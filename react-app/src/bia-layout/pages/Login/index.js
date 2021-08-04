@@ -5,6 +5,9 @@ import MainView from 'bia-layout/components/Views/MainView'
 import Login from 'bia-layout/components/Views/Login';
 import LayoutFlex from 'bia-layout/layouts/Flex';
 
+import Container from 'bia-layout/containers/Container';
+
+
 import './page-login.scss'
 
 
@@ -13,7 +16,9 @@ export default props => {
     return (
         <MainView>
             <LayoutFlex cover centered>
-                <Login handleSubmit={handleSubmit}/>
+              <Container className="login-container">
+                  <Login handleSubmit={handleSubmit}/>
+              </Container>
             </LayoutFlex>
 
         </MainView>

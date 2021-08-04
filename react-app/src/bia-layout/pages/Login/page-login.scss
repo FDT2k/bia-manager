@@ -1,1 +1,10 @@
 @import 'bia-layout/sass/theme/default/main.scss';
+
+
+.login-container{
+    width: calc((var(--col-width) * 6 )  +  (var(--gut-width) * 5 ) );
+
+    h2 {
+        margin-bottom: 16px;
+    }
+}
