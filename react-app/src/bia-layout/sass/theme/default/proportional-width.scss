@@ -1,17 +1,20 @@
 
-$marge: 131;
-$ref_width : 1280 - ($marge * 2);
-
-
-
+$marge_width: 131;
 $col_width: 49;
 $gut_width: 8;
+$screen_width : 1280;
+
+$ref_width : 1280 - ($marge_width * 2);
 
 
+$col : $col_width * 100 / $screen_width+0vw;
+$gut : $gut_width * 100 / $screen_width+0vw;
+$marge : $marge_width * 100 / $screen_width+0vw;
+$ref : $ref_width * 100 / $screen_width+0vw;
 
+// $col : $col_width * 100 / $ref_width+0vw;
+// $gut : $gut_width * 100 / $ref_width+0vw;
 
-$col : $col_width * 100 / $ref_width+0vw;
-$gut : $gut_width * 100 / $ref_width+0vw;
 
 @function strip-unit($number) {
   @if type-of($number) == "number" and not unitless($number) {
@@ -33,7 +36,9 @@ $gut : $gut_width * 100 / $ref_width+0vw;
 
 
 :root{
-    --reference-width: #{$ref_width+0px};
+    // --reference-width: #{$ref_width+0px};
+    --reference-width: #{$ref};
     --gut-width: #{$gut};
     --col-width: #{$col};
+    --marge-width: #{$marge};
 }

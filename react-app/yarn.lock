@@ -1480,11 +1480,6 @@
     minimatch "^3.0.4"
     strip-json-comments "^3.1.1"
 
-"@geekagency/composite-js@^2.1.2":
-  version "2.1.2"
-  resolved "http://registry.lan:4873/@geekagency%2fcomposite-js/-/composite-js-2.1.2.tgz#cb9866a806b566b7206df0c40c5a0bc46d98fe95"
-  integrity sha512-5Wr8gv6Df2KkbNe7C+S4vWIiydH5LsECa64K4MqmuOq+qiNnwYlYQGkO0aKKdi9MZjSaWAyNBcjLL5W9kkTl3A==
-
 "@hapi/address@2.x.x":
   version "2.1.4"
   resolved "http://registry.lan:4873/@hapi%2faddress/-/address-2.1.4.tgz#5d67ed43f3fd41a69d4b9ff7b56e7c0d1d0a81e5"
