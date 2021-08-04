@@ -17,18 +17,15 @@ const ItemListItem = compose(
 
 export const Component =  props => {
     const {handleClick,  title, data, renderActions, selectedIndex,itemLabelKey,BEM, ...rest} = props;
-
+    console.log(props);
     return (
         <LayoutFlexColumn {...rest}>
             <HeaderListItem BEM={BEM}><b>{title}</b></HeaderListItem>
-
             {data && data.map( (item,idx)=> {
-              
-             
                 return <ItemListItem 
                             BEM={BEM}
                             key={idx} 
-                            selected={selectedIndex === idx }
+                            selected={selectedIndex == idx }
                             onClick={_=>handleClick(item,idx)}>
                                 {item[itemLabelKey]} {renderActions && renderActions(data,item,idx)}
                         </ItemListItem>
@@ -41,7 +38,6 @@ Components.defaultProps= {
     data: [],
     itemLabelKey:'date',
     selectedIndex:-1
-
 }
 
 

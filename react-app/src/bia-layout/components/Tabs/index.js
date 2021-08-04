@@ -53,7 +53,7 @@ export const TabListContainer = compose(
 export const TabListBackground = withBaseClass(element('background'))(props=>{
     const {children,...rest} = props;
     return (
-        <div {...rest}><div class="bg"/>{children}</div>
+        <div {...rest}><div className="bg"/>{children}</div>
     )
 });
 
@@ -79,7 +79,7 @@ export const Tab =  withBaseClass(element('tab'))(props => {
         _=> selected ? 'selected': ''
     ])
     return (
-        <div className={classe} {...rest} ref={ref}><div class="content">{children}</div></div>
+        <div className={classe} {...rest} ref={ref}><div className="content">{children}</div></div>
     )
 })
 Tab.tabsRole= 'Tab';

@@ -11,7 +11,7 @@ import {update_search_tags,makeSearch} from 'Redux/BIASearch/actions';
 
 import EditorReducer from 'Redux/Editor/reducer';
 import makeEditorSelectors from 'Redux/Editor/selectors';
-import {edit_patient,make_edit_mesure,make_recompute_mesure} from 'Redux/Editor/actions';
+import {edit_patient,make_actions,make_edit_mesure,make_recompute_mesure} from 'Redux/Editor/actions';
 
 const reducer= combineReducers({
     database:BIASearch,
@@ -27,9 +27,7 @@ export const search = makeSearch(baseSelector);
 // editor reducers
 export const {select_edited_patient,select_edited_mesure} = makeEditorSelectors(state=>state.editor);
 
-export const edit_mesure = make_edit_mesure(state=>state.editor)
-export const recompute_mesure = make_recompute_mesure(state=>state.editor)
-
+export const {edit_mesure,recompute_mesure,create_mesure} = make_actions(state=>state.editor)
 export {update_search_tags,edit_patient} ;
 
 

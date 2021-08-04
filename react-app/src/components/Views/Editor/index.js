@@ -8,7 +8,7 @@ import useBIAManager from 'hooks/useBIAManager';
 
 import Editor from 'bia-layout/pages/Editor'
 
-import { select_patient, recompute_mesure,edit_patient,edit_mesure,select_edited_patient,select_edited_mesure,compute_formulas } from 'Store';
+import { select_patient,create_mesure, recompute_mesure,edit_patient,edit_mesure,select_edited_patient,select_edited_mesure,compute_formulas } from 'Store';
 
 
 
@@ -19,6 +19,7 @@ export default props => {
 
     const [patient_id, setPatientId] = useState();
     const [mesure_id, setMesureId] = useState();
+    const [selectedMesureIdx, setSelectedMesureIdx] = useState(mesure_id);
 
   
     const [match, params] = useRoute("/editor/:id");
@@ -29,10 +30,11 @@ export default props => {
     useEffect(() => {
         if (match) {
             setPatientId(params.id);
-            setMesureId(-1);
+            //setMesureId(-1);
         } else if (matchWithMesure) {
             setPatientId(paramsWithMesure.id);
             setMesureId(paramsWithMesure.mesure_id);
+            setSelectedMesureIdx(paramsWithMesure.mesure_id)
         }
     }, [match, matchWithMesure,params,paramsWithMesure]);
 
@@ -55,15 +57,28 @@ export default props => {
         if (!is_nil(patient)) {
 
             if (!is_nil(mesure_id)) {
-                dispatch(edit_mesure(patient_id,mesure_id))
+                dispatch(edit_mesure(patient_id,mesure_id));
+            }else{
+                new_mesure(patient_id)
             }
 
         }
     }, [mesure_id,patient]);
 
+    const new_mesure = patient_id => {
+        Promise.resolve(dispatch(create_mesure(patient_id))).then(res => {
+            // setMesureId(res.payload.mesure_id);
+            setSelectedMesureIdx(res.payload.mesure_id)
+         });
+
+    }
 
     const handleMesureOpen = (value,idx)=> {
-        setLocation(`/editor/${patient_id}/${idx}`);
+        if(idx < patient.mesures.length){
+           setLocation(`/editor/${patient_id}/${idx}`);
+        }else{
+            setLocation(`/editor/${patient_id}`);
+        }
     }
 
     const handleChange =  values =>{
@@ -79,7 +94,7 @@ export default props => {
             handleChange={handleChange}
             data={patient}
             handleMesureOpen={handleMesureOpen}
-            selectedMesureIndex={mesure_id}
+            selectedMesureIndex={selectedMesureIdx}
             mesure={mesure}/>
     )
 }
