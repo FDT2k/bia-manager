@@ -34,7 +34,7 @@ const Content = compose(
 
 const MainView = props => {
 
-    const { className, renderFooter,renderLeftNav, ...rest } = props;
+    const { className, renderFooter,renderLeftNav,t, ...rest } = props;
     const [location, setLocation] = useLocation();
 
 
@@ -44,7 +44,7 @@ const MainView = props => {
             <Nav area="header" className="nav-main">
                 {renderLeftNav && renderLeftNav()}
                 {!renderLeftNav &&<h3>BIA Manager</h3>}
-                <LayoutFlex onClick={_=>setLocation("/import")} alignCenter><Person />User</LayoutFlex>
+                <LayoutFlex onClick={_=>setLocation("/import")} alignCenter><Person />{t(`Utilisateur`)}</LayoutFlex>
             </Nav>
             <Content area="maincontent">
 
@@ -54,13 +54,15 @@ const MainView = props => {
             <Footer area="footer">
 
                 {renderFooter && renderFooter()}
-                
+
             </Footer>
-          
+
         </MainLayout>
    )
 }
 
+MainView.defaultProps = {
+  t: x=>x
+}
 
 export default withBaseClass(__base_class)(MainView);
-
