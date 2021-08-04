@@ -1,15 +1,17 @@
 import React, { useState,useRef,useEffect } from 'react';
+import { useLocation } from "wouter";
 
 import LayoutFlex from 'bia-layout/layouts/Flex'
 import { useFieldValues,useWorker } from '@karsegard/react-hooks'
 import useDatabaseFromContext from 'hooks/useBIAManager';
 import { CircularProgressbar } from 'react-circular-progressbar';
 import 'react-circular-progressbar/dist/styles.css';
+import Button from 'bia-layout/components/Form/Button';
 
 
 export default props => {
 
-
+    const [location, setLocation] = useLocation();
     const [imported_data, setImportedData] = useState();
 
     const [parsing, setParsing] = useState();
@@ -127,10 +129,13 @@ export default props => {
             </LayoutFlex>
 
             <LayoutFlex justStretch>
-                {imported_data && ! importing && !imported && <button onClick={addPatients}>Importer</button>}
+                {imported_data && ! importing && !imported && <Button onClick={addPatients}>Importer</Button>}
 
-                {importing && <h1>importation en cours</h1>}
-                {imported && <h1>importation terminée</h1>}
+                {importing && <p>importation en cours</p>}
+                {imported && <>
+                                <p>importation terminée</p> <Button onClick={_=>setLocation('/')}>Terminé</Button>
+                             </>
+                                }
             </LayoutFlex>
 
         </LayoutFlex>
