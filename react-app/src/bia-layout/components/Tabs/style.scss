@@ -1,0 +1,59 @@
+:root{
+    --tab-width : calc((var(--col-width) * 2) + var(--gut-width));
+    --tab-height: 32px;
+    --active-tab: 1;
+    --selected-color: red;
+    --focused-color: blue;
+}
+
+.tabs{
+    &__list{
+        height:32px;
+    }
+    &__wrapper{
+        position: relative;
+        height:32px;
+    }
+
+    &__container{
+        position:absolute;
+        z-index:1;
+        height: var(--tab-height);
+    }
+
+    &__tab {
+        width: var(--tab-width);
+        max-width: var(--tab-width);
+        overflow:hidden;
+        cursor:pointer;
+        padding:3px;
+        margin-right: var(--gut-width);
+        &:focus{
+            outline: 1px dashed var(--focused-color);
+        }
+        text-overflow: ellipsis;
+    }
+
+    &__panel{
+        display:none;
+        
+    }
+    &__panel.active{
+        display:block;
+    }
+
+
+    &__background{
+        position: absolute;
+        margin: 3px;
+        z-index: 0;
+        border-radius: 4px;;
+        max-height:100%;
+        background-color:var(--selected-color);
+        height:26px;
+        width: calc((var(--col-width) * 2) + var(--gut-width));
+        transform: translateX(calc( var(--tab-width) * var(--active-tab) ));
+        transition: 0.3s ease-in-out;
+    }
+
+}

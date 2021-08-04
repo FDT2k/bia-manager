@@ -59,7 +59,8 @@ const reduce_results = (results )=> {
         r = items.reduce( (carry,item)=> {
            
             if(results[item][key]){
-                carry['values'][item] = results[item][key]
+                carry['values'][item] = results[item][key].value
+                carry['display'] =   results[item][key].display;
             }
 
             return carry;
@@ -86,6 +87,7 @@ export const make_recompute_mesure = baseSelector => (patient_id,values)=> {
             payload:{         
                 id: patient_id,   
                 bia: reduce_results(results),
+                raw_bia: results
             }
         })
 

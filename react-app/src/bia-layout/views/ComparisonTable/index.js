@@ -3,6 +3,8 @@ import React, { useState } from 'react';
 import { bem, compose, withModifiers, applyModifiers, withVariables, divElement, withBaseClass, getClasseNames, cEx } from 'bia-layout/utils'
 
 
+import './comparison-table.scss';
+
 
 const FormulaHeaderSelect = props => {
     const {handleChange, disabled_col,options,idx, defaultValue, ...rest} = props;
@@ -71,7 +73,7 @@ const FormulaResultRow = (props) => {
 
                 ])
             }
-            return (<div key={`${col}`} className={classes}>{!isNaN(val)? val : ''}</div>)
+            return (<div key={`${col}`}  className={classes}>{!isNaN(val)? val : ''}</div>)
         })}
     </>);
 }
@@ -83,12 +85,11 @@ FormulaResultRow.defaultProps = {
 export const Component = props => {
 
    
-    const {data,available_columns,selectable,columns,...rest} = props;
+    const {data,t,available_columns,selectable,columns,...rest} = props;
     const [state,setState] = useState(columns);
 
 
     const handleChange = (idx,value)=>{
-        console.log(idx,value);
 
         setState(state=> {
             let newState = [...state];
@@ -97,14 +98,12 @@ export const Component = props => {
         })
 
     }
-
-    console.log(state);
     return (
         <>
             <FormulaResultHeader available_columns={available_columns} handleChange={handleChange} selectable={selectable} columns={state} />
 
-            {data.map((item,idx) =>
-                <FormulaResultRow key={idx} label={item.label} values={item.values} columns={state} limits={item.limits} />
+            {data.filter(item=>item.display == true).map((item,idx) =>
+                <FormulaResultRow key={idx} label={t(item.label)} values={item.values} columns={state} limits={item.limits} />
 
             )}
 
@@ -124,6 +123,7 @@ Component.defaultProps = {
         { name: 'gva', label: 'Gva', selectable: true },
     ],
     columns:['norme', 'kushner', 'gva'],
-    selectable: [false, true, true]
+    selectable: [false, true, true],
+    t:x=>x
 }
 export default Component;
