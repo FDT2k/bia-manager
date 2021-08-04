@@ -1,4 +1,5 @@
 import React, { useState,useRef,useEffect } from 'react';
+import ReactLoading from 'react-loading';
 import { useLocation } from "wouter";
 
 import LayoutFlex from 'bia-layout/layouts/Flex'
@@ -7,6 +8,7 @@ import useDatabaseFromContext from 'hooks/useBIAManager';
 import { CircularProgressbar } from 'react-circular-progressbar';
 import 'react-circular-progressbar/dist/styles.css';
 import Button from 'bia-layout/components/Form/Button';
+import InputGroup from 'bia-layout/components/Form/InputGroup';
 
 
 export default props => {
@@ -110,10 +112,10 @@ export default props => {
     return (
         <LayoutFlex column>
             <LayoutFlex>
+                <InputGroup>
                 <label>Choisir un fichier</label>
-
                 <input ref={fileRef} type="file" onChange={onFileChange} disabled={parsing} />
-
+                </InputGroup>
             </LayoutFlex>
             <LayoutFlex>
 
@@ -129,13 +131,11 @@ export default props => {
             </LayoutFlex>
 
             <LayoutFlex justStretch>
-                {imported_data && ! importing && !imported && <Button onClick={addPatients}>Importer</Button>}
-
+                {imported_data && ! importing && !imported && <Button disabled={importing} onClick={addPatients}>Importer</Button>}
+                {importing && <ReactLoading type="spin" color="#000000"/>}
                 {importing && <p>importation en cours</p>}
-                {imported && <>
-                                <p>importation terminée</p> <Button onClick={_=>setLocation('/')}>Terminé</Button>
-                             </>
-                                }
+                {imported &&  <p>importation terminée</p> }
+                {imported && <Button onClick={_=>setLocation('/')}>Terminé</Button>}
             </LayoutFlex>
 
         </LayoutFlex>

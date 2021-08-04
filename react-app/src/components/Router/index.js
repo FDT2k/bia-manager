@@ -19,10 +19,13 @@ export default props => {
 
 
     useEffect(()=>{
-        if(patient_count==0 && location != "/setup"){
-            setLocation("/setup");
-        }
-    },[patient_count,loaded])
+        api.count().then(c=> {
+            if(c==0 && location != "/setup"){
+                setLocation("/setup");
+            }
+
+        })
+    },[])
     
 
     return (<Fullscreen>

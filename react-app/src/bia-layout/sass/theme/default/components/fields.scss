@@ -1,6 +1,7 @@
 .field{
-
-    label{
-        padding-bottom: var(--gut-width);
+    padding:10px;
+    
+    &__label{
+        padding-bottom: 8px;
     }
 }
