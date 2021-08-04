@@ -127,6 +127,9 @@ letter-spacing: var(--character-spacing-0);
     label {
       @extend %large-body;
     }
+    ::placeholder {
+        @extend %placeholder;
+    }
     button {
       @extend %buttons;
     }
