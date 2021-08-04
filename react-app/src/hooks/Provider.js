@@ -1,4 +1,4 @@
-import React, { createContext } from 'react'
+import React, { createContext,useEffect,useState } from 'react'
 import DexieAPI from './dexie/API';
 import PouchAPI from './pouch/API';
 
@@ -11,6 +11,10 @@ export { Context }
 
 export const Provider = ({ children,dbname,dbtype }) => {
     
+    const [patient_count,setPatientCount] = useState(0);
+    const [mesures_count, setMesureCount] = useState(0);
+    const [db_name, setDBName] = useState('');
+
     let db ;
 
     let API ;
@@ -26,9 +30,25 @@ export const Provider = ({ children,dbname,dbtype }) => {
   
 
     let api = API(db);
-    console.log(api);
+   
+ 
+    useEffect(()=>{
+
+        api.count().then(count => {
+            setPatientCount(count);
+            return api.count_mesures();
+
+        }).then(count=> {
+            setMesureCount(count);
+            return api.db_name();
+        }).then(name=> {
+            setDBName(name);
+        });
+
+    },[dbname]);
+
     return (
-        <Context.Provider value={{api}}>
+        <Context.Provider value={{api,patient_count,mesures_count,db_name}}>
             {children}
         </Context.Provider>
     )

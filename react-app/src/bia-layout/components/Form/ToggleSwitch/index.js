@@ -3,7 +3,7 @@ import React,{useEffect,useRef} from 'react';
 import './style.scss';
 import { bem, compose, kebabize,filterPropPresentIn, baseElement, applyModifiers, withVariables, withModifiers, wrapComponent, asideElement, divElement, withBaseClass, cEx } from 'bia-layout/utils'
 
-import useFocus from 'hooks/useFocus';
+import {useFocus,useKeyPress} from '@karsegard/react-hooks';
 
 const ToggleSwitch = props => {
 

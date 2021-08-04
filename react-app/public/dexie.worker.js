@@ -61,7 +61,7 @@
 /******/
 /******/ 	var hotApplyOnUpdate = true;
 /******/ 	// eslint-disable-next-line no-unused-vars
-/******/ 	var hotCurrentHash = "54df0fd6ae23312baafb";
+/******/ 	var hotCurrentHash = "3c876781b310c1648a32";
 /******/ 	var hotRequestTimeout = 10000;
 /******/ 	var hotCurrentModuleData = {};
 /******/ 	var hotCurrentChildModule;
@@ -880,7 +880,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony default export */ __webpack_exports__["default"] = (function (name) {
   var db = new dexie__WEBPACK_IMPORTED_MODULE_0__["default"](name);
   db.version(1).stores({
-    patients: "++id,lastname,firstname,birthdate,groups.path,search_terms",
+    patients: "++id,lastname,firstname,birthdate,groups.path,search_terms,*mesures_dates",
     import_mapping: "++id,name"
   });
 
@@ -891,7 +891,7 @@ __webpack_require__.r(__webpack_exports__);
       group = obj.groups.path;
     }
 
-    obj.search_terms = obj.lastname + ' ' + obj.firstname + ' ' + obj.birthdate + ' ' + group;
+    obj.search_terms = obj.lastname + ' ' + obj.firstname + ' ' + obj.birthdate + ' ' + group + ' ' + obj.firstname + ' ' + obj.lastname;
   };
 
   db.patients.hook("creating", hook);

@@ -61,7 +61,7 @@
 /******/
 /******/ 	var hotApplyOnUpdate = true;
 /******/ 	// eslint-disable-next-line no-unused-vars
-/******/ 	var hotCurrentHash = "3aa99930e0d04ae9cb25";
+/******/ 	var hotCurrentHash = "71b671c80ad72defe590";
 /******/ 	var hotRequestTimeout = 10000;
 /******/ 	var hotCurrentModuleData = {};
 /******/ 	var hotCurrentChildModule;
@@ -958,9 +958,12 @@ var parse = function parse(_ref) {
 
     if (typeof carry.data[index_key].mesures == "undefined") {
       carry.data[index_key]['mesures'] = [];
+      carry.data[index_key]['mesures_dates'] = [];
     }
 
-    carry.data[index_key].mesures.push(Object(_karsegard_composite_js__WEBPACK_IMPORTED_MODULE_0__["enlist"])(mesure).reduce(remap(mesure, mapping.mesure), {}));
+    var remapped_mesure = Object(_karsegard_composite_js__WEBPACK_IMPORTED_MODULE_0__["enlist"])(mesure).reduce(remap(mesure, mapping.mesure), {});
+    carry.data[index_key].mesures.push(remapped_mesure);
+    carry.data[index_key].mesures_dates.push(remapped_mesure.date);
     carry.countMesure++;
     return carry;
   }, {
@@ -3396,8 +3399,6 @@ var withBEM = function withBEM(BEM) {
 var withBEMElement = function withBEMElement(element) {
   return function (Component) {
     return function (props) {
-      console.log('withBEMElement', props);
-
       var BEM = props.BEM,
           className = props.className,
           rest = _objectWithoutProperties(props, _excluded9);

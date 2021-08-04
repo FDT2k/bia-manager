@@ -14,7 +14,7 @@ import {ArrowDown,ArrowUp} from 'bia-layout/components/Icons'
 import Button from 'bia-layout/components/Form/Button'
 import {withGridArea,ComponentWithArea} from 'bia-layout/hoc/grid/Area'
 import {applyModifiers,compose,withBaseClass} from 'bia-layout/utils'
-import useKeyPress from 'hooks/useKeypress';
+import {useKeypress} from '@karsegard/react-hooks';
 import './page-search.scss'
 
 export const SearchArea =  compose(
@@ -33,13 +33,13 @@ export const AdvancedSearch = compose(
 
 export const Component = props=> {
 
-    const arrowDownPressed = useKeyPress('ArrowDown');
-    const arrowUpPressed = useKeyPress('ArrowUp');
+    const arrowDownPressed = useKeypress('ArrowDown');
+    const arrowUpPressed = useKeypress('ArrowUp');
 
     const [selectedIndex, setSelectedIndex]=  useState(-1);
     const [searchBarFocused, setSearchBarFocused] = useState(false);
 
-    const {results,handleSearch,handleCreate,tags,handleSelectRow:_handleSelectRow } = props;
+    const {results,handleSearch,handleCreate,tags,renderFooter,handleSelectRow:_handleSelectRow } = props;
     useEffect(()=>{
         if(!searchBarFocused){
         if(arrowDownPressed){
@@ -112,7 +112,7 @@ export const Component = props=> {
 
 
     return (
-        <MainView>
+        <MainView renderFooter={renderFooter}>
             <SearchLayout>
                 <SearchArea area="search"><TagInput tags={tags}  handleFocus={v=>setSearchBarFocused(v)} handleChange={_handleSearch} fields={searchableFields}/><Button onClick={handleCreate}>Créer un nouveau Patient</Button></SearchArea>
                 <AdvancedSearch area="filter">recherche avancée <ArrowDown/></AdvancedSearch>

@@ -34,7 +34,7 @@ const Content = compose(
 
 const MainView = props => {
 
-    const { className, renderLeftNav, ...rest } = props;
+    const { className, renderFooter,renderLeftNav, ...rest } = props;
     const [location, setLocation] = useLocation();
 
 
@@ -52,13 +52,11 @@ const MainView = props => {
 
                 {props.children}
 
-            </Content>
+               </Content>
             <Footer area="footer">
-                <div>
-                    <span> Base de données bia-test </span> -
-                    <span> Patients 12541235</span> -
-                    <span> Mesures: 31231 </span>
-                </div>
+
+                {renderFooter && renderFooter()}
+                
             </Footer>
             <Nav area="footer-ml"></Nav>
             <Nav area="footer-mr"></Nav>
