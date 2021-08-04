@@ -40,7 +40,7 @@ export const Component = props=> {
     const [selectedIndex, setSelectedIndex]=  useState(-1);
     const [searchBarFocused, setSearchBarFocused] = useState(false);
 
-    const {results,handleSearch,handleCreate,tags,renderFooter,handleSelectRow:_handleSelectRow } = props;
+    const {results,handleSearch,handleCreate,tags, t, renderFooter,handleSelectRow:_handleSelectRow } = props;
     useEffect(()=>{
         if(!searchBarFocused){
         if(arrowDownPressed){
@@ -116,7 +116,7 @@ export const Component = props=> {
        <MainView renderFooter={renderFooter}>
             <SearchLayout className="page-search">
                 <SearchArea area="search">
-                    <TagInput tags={tags}  handleFocus={v=>setSearchBarFocused(v)} handleChange={_handleSearch} fields={searchableFields}/>
+                    <TagInput placeholder={t(`Recherche`)} tags={tags}  handleFocus={v=>setSearchBarFocused(v)} handleChange={_handleSearch} fields={searchableFields}/>
                     <Button className="button--big" onClick={handleCreate}>Créer un nouveau Patient</Button>
                 </SearchArea>
                 <AdvancedSearch area="filter">recherche avancée <ArrowDown/></AdvancedSearch>
@@ -139,6 +139,9 @@ Component.defaultProps= {
     results:[],
     handleSearch:_=>console.warn('search handler not implemented'),
     handleCreate:_=>console.warn('create handler not implemented'),
+}
+Component.defaultProps = {
+  t: x=>x
 }
 
 export default Component;
