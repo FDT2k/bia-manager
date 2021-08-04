@@ -73,7 +73,7 @@ TabList.tabsRole= 'TabList';
 export const Tab =  withBaseClass(element('tab'))(props => {
     const {children,selected,className,selectedTab,handleFocus, ...rest} = props;
     const ref = useRef();
-    const {hasFocus} =  useFocus({ref,handleOnFocus:handleFocus,debug:true});
+    const {hasFocus} =  useFocus({ref,handleOnFocus:handleFocus});
     const classe = cEx([
         className,
         _=> selected ? 'selected': ''
@@ -123,10 +123,8 @@ export const Tabs=  props => {
     const nodes = [];
 
     const handleMouseOver = idx=> e=> {
-        console.log('over'+idx)
     } 
     const handleMouseOut = idx=> e=> {
-        console.log('over'+idx);
     }
 
     const handleFocus = idx => e=> {
