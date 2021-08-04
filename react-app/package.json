@@ -4,7 +4,6 @@
   "private": true,
   "main": "electron/main.js",
   "dependencies": {
-    "@geekagency/composite-js": "^2.1.2",
     "@karsegard/cex": "^1.4.4",
     "@karsegard/composite-js": "^2.3.0",
     "@karsegard/react-hooks": "^1.5.1",

@@ -1480,11 +1480,6 @@
     minimatch "^3.0.4"
     strip-json-comments "^3.1.1"
 
-"@geekagency/composite-js@^2.1.2":
-  version "2.1.2"
-  resolved "http://registry.lan:4873/@geekagency%2fcomposite-js/-/composite-js-2.1.2.tgz#cb9866a806b566b7206df0c40c5a0bc46d98fe95"
-  integrity sha512-5Wr8gv6Df2KkbNe7C+S4vWIiydH5LsECa64K4MqmuOq+qiNnwYlYQGkO0aKKdi9MZjSaWAyNBcjLL5W9kkTl3A==
-
 "@hapi/address@2.x.x":
   version "2.1.4"
   resolved "http://registry.lan:4873/@hapi%2faddress/-/address-2.1.4.tgz#5d67ed43f3fd41a69d4b9ff7b56e7c0d1d0a81e5"
@@ -1722,9 +1717,9 @@
   integrity sha512-/rdxE1PaeuqZ/QTbmk64UA3/8GBwOGQ2qqiNbbslrYqtRAebbEp31DeT4GvVb9sc4pmFzb0yv4oWxO0DLJnkXw==
 
 "@karsegard/react-hooks@^1.5.1":
-  version "1.5.1"
-  resolved "https://registry.yarnpkg.com/@karsegard/react-hooks/-/react-hooks-1.5.1.tgz#9d0623e79d0e26a343f7d0caa0d4060ceb41a258"
-  integrity sha512-e8ff6cHEjCM+VlOGuSaVGuw2BWQTD651VLAuaLpn7XWUlu2Z2VSzRamJackRpYo+ZSzCAaIlmjvsDKRvVX6rBw==
+  version "1.5.3"
+  resolved "https://registry.yarnpkg.com/@karsegard/react-hooks/-/react-hooks-1.5.3.tgz#b0252c420d777e045818c0abb9e27d056ba499d5"
+  integrity sha512-7oUAL4S2MpLHti89n3Nhe6r7HB4zvJLMxbjRScymhe3WHKb12Vv9bB5weTIzYWcO2+dt3LntbHpLYl3y2g4Gag==
   dependencies:
     react "^17.0.2"
 
