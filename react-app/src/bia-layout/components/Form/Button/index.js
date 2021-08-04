@@ -13,7 +13,7 @@ const Component = props => {
 }
 
 const Button = compose(
-    withBaseClass('.button')
+    withBaseClass('button')
 )(Component);
 
 /*

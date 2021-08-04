@@ -1,6 +1,6 @@
 @import 'bia-layout/sass/theme/default/main.scss';
 
-
+/*ca va bouger, j'ai fait une betise (fabien) */
 .bia-main{
 
     grid-template-columns: auto fit-content(var(--reference-width)) auto;
@@ -13,12 +13,17 @@
     &__content{
         min-width: var(--reference-width);
     }
+}
+
+
+.bia-main{
+
+
 
     .navbar{
         @extend %colors-negative;
     }
 }
-
 
 
 button{
