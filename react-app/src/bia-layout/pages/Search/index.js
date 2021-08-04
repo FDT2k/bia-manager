@@ -15,6 +15,7 @@ import Button from 'bia-layout/components/Form/Button'
 import {withGridArea,ComponentWithArea} from 'bia-layout/hoc/grid/Area'
 import {applyModifiers,compose,withBaseClass} from 'bia-layout/utils'
 import {useKeypress} from '@karsegard/react-hooks';
+
 import './page-search.scss'
 
 export const SearchArea =  compose(
@@ -114,8 +115,9 @@ export const Component = props=> {
     return (
        <MainView renderFooter={renderFooter}>
             <SearchLayout className="page-search">
-                <SearchArea area="search"><TagInput tags={tags}  handleFocus={v=>setSearchBarFocused(v)} handleChange={_handleSearch} fields={searchableFields}/>
-                  <Button  onClick={handleCreate}>Créer un nouveau Patient</Button>
+                <SearchArea area="search">
+                    <TagInput tags={tags}  handleFocus={v=>setSearchBarFocused(v)} handleChange={_handleSearch} fields={searchableFields}/>
+                    <Button className="button--big" onClick={handleCreate}>Créer un nouveau Patient</Button>
                 </SearchArea>
                 <AdvancedSearch area="filter">recherche avancée <ArrowDown/></AdvancedSearch>
                 <ListWithArea
