@@ -112,9 +112,11 @@ export const Component = props=> {
 
 
     return (
-        <MainView renderFooter={renderFooter}>
-            <SearchLayout>
-                <SearchArea area="search"><TagInput tags={tags}  handleFocus={v=>setSearchBarFocused(v)} handleChange={_handleSearch} fields={searchableFields}/><Button onClick={handleCreate}>Créer un nouveau Patient</Button></SearchArea>
+       <MainView renderFooter={renderFooter}>
+            <SearchLayout className="page-search">
+                <SearchArea area="search"><TagInput tags={tags}  handleFocus={v=>setSearchBarFocused(v)} handleChange={_handleSearch} fields={searchableFields}/>
+                  <Button  onClick={handleCreate}>Créer un nouveau Patient</Button>
+                </SearchArea>
                 <AdvancedSearch area="filter">recherche avancée <ArrowDown/></AdvancedSearch>
                 <ListWithArea
                     SortUp={ArrowUp}
