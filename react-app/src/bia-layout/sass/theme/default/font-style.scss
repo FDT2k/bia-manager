@@ -29,7 +29,6 @@
     font-size: var(--font-size-40);
     line-height: var(--line-spacing-50);
     letter-spacing: var(--character-spacing-0);
-    color: var(--primary);
 }
 %title {
     font-family: var(--font-family-aktiv-grotesk);
@@ -38,7 +37,6 @@
     font-size: var(--font-size-30);
     line-height: var(--line-spacing-37-5);
     letter-spacing: var(--character-spacing-0);
-    color: var(--primary);
 }
 %subheader {
     font-family: var(--font-family-aktiv-grotesk);
@@ -47,7 +45,6 @@
     font-size: var(--font-size-20);
     line-height: var(--line-spacing-25);
     letter-spacing: var(--character-spacing-0);
-    color: var(--primary);
 }
 %quote {
     font-family: var(--font-family-aktiv-grotesk);
@@ -56,7 +53,6 @@
     font-size: var(--font-size-20);
     line-height: var(--line-spacing-25);
     letter-spacing: var(--character-spacing-0);
-    color: var(--primary);
 }
 %large-body {
     font-family: var(--font-family-aktiv-grotesk);
@@ -65,7 +61,6 @@
     font-size: var(--font-size-14);
     line-height: var(--line-spacing-17-5);
     letter-spacing: var(--character-spacing-0);
-    color: var(--primary);
 }
 %body{
     font-family: var(--font-family-aktiv-grotesk);
@@ -74,7 +69,6 @@
     font-size: var(--font-size-14);
     line-height: var(--line-spacing-17-5);
     letter-spacing: var(--character-spacing-0);
-    color: var(--primary);
 }
 %small-body-bold {
     font-family: var(--font-family-aktiv-grotesk);
@@ -83,7 +77,6 @@
     font-size: var(--font-size-12);
     line-height: var(--line-spacing-15);
     letter-spacing: var(--character-spacing-0);
-    color: var(--primary);
 }
 %small-body{
     font-family: var(--font-family-aktiv-grotesk);
@@ -92,7 +85,6 @@
     font-size: var(--font-size-12);
     line-height: var(--line-spacing-15);
     letter-spacing: var(--character-spacing-0);
-    color: var(--primary);
 }
 %placeholder {
     font-family: var(--font-family-aktiv-grotesk);
@@ -101,7 +93,6 @@
     font-size: var(--font-size-12);
     line-height: var(--line-spacing-15);
     letter-spacing: var(--character-spacing-0);
-    color: var(--color-000000);
 }
 %buttons {
     font-family: var(--font-family-aktiv-grotesk);
@@ -110,7 +101,6 @@
     font-size: var(--font-size-14);
     line-height: var(--line-spacing-17-5);
     letter-spacing: var(--character-spacing-0);
-    color: var(--secondary);
     text-transform: var(--text-transform-uppercase);
 }
 
@@ -119,12 +109,26 @@
 %base_font{
     font: var(--font-style-normal) normal var(--font-weight-normal) var(--font-size-14)/var(--line-spacing-17-5) var(--font-family-aktiv-grotesk);
 letter-spacing: var(--character-spacing-0);
-color: var(--primary);
     b,label{
-        font-weight:bold;
+        font-weight: var(--font-weight-bold);
+    }
+    h1 {
+     @extend %headline;
+    }
+    h2 {
+      @extend %title;
     }
     h3{
-        font-weight:bold;
+        @extend %subheader;
+    }
+    p {
+      @extend %body;
+    }
+    label {
+      @extend %large-body;
+    }
+    button {
+      @extend %buttons;
     }
 }
 

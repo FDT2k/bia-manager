@@ -2,7 +2,7 @@ import React, { useState, useRef } from 'react';
 import { useLocation } from "wouter";
 
 
-import { bem, withBaseClass, divElement,compose } from 'bia-layout/utils'
+import { bem, withBaseClass, divElement,compose,getClasseNames } from 'bia-layout/utils'
 
 import Container from 'bia-layout/containers/Container';
 import LayoutFlex from 'bia-layout/layouts/Flex';
@@ -17,15 +17,15 @@ import './main-view.scss';
 
 
 
-const [__base_class, element, modifier] = bem('bia-main')
-const MainLayout = withBaseClass(__base_class)(Grid);
+
+const MainLayout = withBaseClass('bia-main-layout')(Grid);
 
 
 const Nav = withGridArea(Navbar);
 const Footer = withGridArea(Navbar);
 
 
-
+const [__base_class, element, modifier] = bem('bia-main');
 const Content = compose(
     withBaseClass(element('content')),
                             withGridArea
@@ -41,25 +41,22 @@ const MainView = props => {
 
     return (
         <MainLayout  className={className}>
-            <Nav area="header-ml"></Nav>
-            <Nav area="header-mr"></Nav>
-            <Nav area="header">
+            <Nav area="header" className="nav-main">
                 {renderLeftNav && renderLeftNav()}
-                {!renderLeftNav &&<div>BIA Manager</div>}
+                {!renderLeftNav &&<h3>BIA Manager</h3>}
                 <LayoutFlex onClick={_=>setLocation("/import")} alignCenter><Person />User</LayoutFlex>
             </Nav>
             <Content area="maincontent">
 
                 {props.children}
 
-               </Content>
+            </Content>
             <Footer area="footer">
 
                 {renderFooter && renderFooter()}
                 
             </Footer>
-            <Nav area="footer-ml"></Nav>
-            <Nav area="footer-mr"></Nav>
+          
         </MainLayout>
    )
 }

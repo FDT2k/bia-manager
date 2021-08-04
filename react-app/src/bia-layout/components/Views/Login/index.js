@@ -13,7 +13,7 @@ import {useFieldValues} from '@karsegard/react-hooks'
 
 const LoginForm = props => {
 
-    const {className,handleSubmit, ...rest} = props
+    const {className,handleSubmit, t,...rest} = props
     const {inputProps,values} = useFieldValues({username:'',password:''})
     const classes = cEx(["login-form",className]);
     const _handleSubmit = e=>{
@@ -21,35 +21,24 @@ const LoginForm = props => {
     }
     return (
         <LayoutFlex className={classes} column justCenter {...rest}>
+            <h2>{t(`Se connecter`)}</h2>
             <InputGroup>
-                <Label>Login</Label>
-                <Input/>
+                <Label>{t(`Nom d'utilisateur`)}</Label>
+                <Input placeholder={t(`Nom d'utilisateur`)} />
             </InputGroup>
             <InputGroup>
-                <Label>Password</Label>
-                <Input/>
+                <Label>{t(`Mot de passe`)}</Label>
+                <Input placeholder={t(`Mot de passe`)} />
             </InputGroup>
             <LayoutFlex justEnd>
-                <Button onClick={_handleSubmit}>Se connecter</Button>
+                <Button onClick={_handleSubmit}>{t(`Se connecter`)}</Button>
             </LayoutFlex>
         </LayoutFlex>
     )
 
 }
-
-/*
-ToggleSwitch.defaultProps = {
-onChange: x=>x,
-id: 'toggle'
+LoginForm.defaultProps = {
+  t: x=>x
 }
-
-
-
-const WithColors =  withVariables(
-compose(x => `--${x}`, kebabize),
-x => `${x}`,
-['colorYes','colorNo']
-);
-*/
 
 export default LoginForm;
