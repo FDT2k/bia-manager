@@ -60,7 +60,7 @@ const Editor =  props => {
 
             _=>{
                 return ( <NavComponent className={element('nav')} area="nav" onClick={handleGoBack}>
-                <ArrowBack/> <h3>Retour à la liste</h3>
+                <ArrowBack/> <h4>Retour à la liste</h4>
             </NavComponent>)
             }
         }>
