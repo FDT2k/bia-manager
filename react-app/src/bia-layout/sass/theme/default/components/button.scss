@@ -12,7 +12,7 @@
     padding: 8px 16px;
     background-color: var(--primary);
     border: 1px solid var(--primary);
-    border-radius: 4px;
+    @extend %radius;
 
     &:hover{
         border: 1px solid var(--primary);

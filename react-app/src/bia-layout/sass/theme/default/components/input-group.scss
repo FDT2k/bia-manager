@@ -6,7 +6,7 @@
 
     input[type="text"]{
         height:32px;
-        border-radius: 4px;
+        @extend %radius;
         border: 1px solid var(--primary);
         padding: 0px 16px;
     }

@@ -23,7 +23,6 @@
 
 
     &__patient{
-
         h2{
             margin-bottom: 8px;
         }
@@ -44,6 +43,18 @@
         .patient-header__fieldset{
 
         }
+    }
+
+    &__mesures {
+        .list-mesure {
+            &__title {
+                margin-bottom: 4px;
+            }
+            &__item {
+                margin: 4px 0px;
+            }
+        }
+
     }
 
 
