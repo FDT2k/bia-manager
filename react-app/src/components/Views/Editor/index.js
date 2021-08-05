@@ -8,7 +8,7 @@ import useBIAManager from 'hooks/useBIAManager';
 
 import Editor from 'bia-layout/pages/Editor'
 
-import { select_patient,create_mesure, recompute_mesure,edit_patient,edit_mesure,select_edited_patient,select_edited_mesure,compute_formulas } from 'Store';
+import { select_patient, create_mesure, recompute_mesure, edit_patient, edit_mesure, select_edited_patient, select_edited_mesure, compute_formulas } from 'Store';
 
 
 
@@ -21,69 +21,80 @@ export default props => {
     const [mesure_id, setMesureId] = useState();
     const [selectedMesureIdx, setSelectedMesureIdx] = useState(mesure_id);
 
-  
+
     const [match, params] = useRoute("/editor/:id");
     const [matchWithMesure, paramsWithMesure] = useRoute("/editor/:id/:mesure_id");
 
+    //console.log('editor rendering')
 
     //if any of the url argument changes, update internal state
     useEffect(() => {
+      //  console.log('url changed',params,paramsWithMesure);
         if (match) {
-            setPatientId(params.id);
+            if (patient_id !== params.id) {
+                setPatientId(params.id);
+            }
             //setMesureId(-1);
         } else if (matchWithMesure) {
-            setPatientId(paramsWithMesure.id);
-            setMesureId(paramsWithMesure.mesure_id);
-            setSelectedMesureIdx(paramsWithMesure.mesure_id)
+            if (patient_id != paramsWithMesure.id) {
+                setPatientId(paramsWithMesure.id);
+            }
+            if (paramsWithMesure.mesure_id !== mesure_id) {
+                setMesureId(paramsWithMesure.mesure_id);
+                setSelectedMesureIdx(paramsWithMesure.mesure_id)
+            }
         }
-    }, [match, matchWithMesure,params,paramsWithMesure]);
+    }, [params, paramsWithMesure]);
 
 
     const patient = useSelector(select_edited_patient(patient_id));
-    const mesure =  useSelector(select_edited_mesure(patient_id))
+    const mesure = useSelector(select_edited_mesure(patient_id))
 
-    //We load patient from the given url argument
+    //We load patient from the currently setted patient_id if not already loaded
 
     useEffect(() => {
-        if (!is_nil(patient_id)) {
+     //   console.log('patient changed?',patient_id)
+        if (!is_nil(patient_id)  && ( (patient && patient_id != patient.id) || !patient)) {
             api.get_patient(patient_id).then(res => {
                 dispatch(edit_patient(res));
 
             });
         }
     }, [patient_id]);
-
+    
     useEffect(() => {
+      //  console.log('ba', mesure_id,patient)
         if (!is_nil(patient)) {
 
             if (!is_nil(mesure_id)) {
-                dispatch(edit_mesure(patient_id,mesure_id));
-            }else{
-                new_mesure(patient_id)
+                dispatch(edit_mesure(patient_id, mesure_id));
+            } else {
+                new_mesure(patient_id).then(res => {
+                    // setMesureId(res.payload.mesure_id);
+                    setSelectedMesureIdx(res.payload.mesure_id)
+                });
             }
 
         }
-    }, [mesure_id,patient]);
+    }, [mesure_id, patient]);
 
     const new_mesure = patient_id => {
-        Promise.resolve(dispatch(create_mesure(patient_id))).then(res => {
-            // setMesureId(res.payload.mesure_id);
-            setSelectedMesureIdx(res.payload.mesure_id)
-         });
+        return Promise.resolve(dispatch(create_mesure(patient_id)));
 
     }
 
-    const handleMesureOpen = (value,idx)=> {
-        if(idx < patient.mesures.length){
-           setLocation(`/editor/${patient_id}/${idx}`);
-        }else{
+    const handleMesureOpen = (value, idx) => {
+        if (idx < patient.mesures.length) {
+            setLocation(`/editor/${patient_id}/${idx}`);
+        } else {
             setLocation(`/editor/${patient_id}`);
         }
     }
 
-    const handleChange =  values =>{
-        if(values.data){
-            dispatch(recompute_mesure(patient_id,values));
+    const handleChange = values => {
+        console.log(values);
+        if (values.data) {
+            dispatch(recompute_mesure(patient_id, values));
 
         }
     }
@@ -95,6 +106,6 @@ export default props => {
             data={patient}
             handleMesureOpen={handleMesureOpen}
             selectedMesureIndex={selectedMesureIdx}
-            mesure={mesure}/>
+            mesure={mesure} />
     )
 }

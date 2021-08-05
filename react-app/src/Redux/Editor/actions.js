@@ -82,8 +82,18 @@ export const make_actions = spec({
 
 
 
-const reduce_results = (results )=> {
+const normes = {
 
+    'pct_water': [55.0,67.6],
+    'pct_mm': [73.2,89.0],
+    'pct_net_mm': [19.7,23.3],
+    'pct_mg': [11.0,26.8],
+    'fmi': [2.2,7.0],
+    'ffmi': [16.8,21.1],
+
+}
+
+const reduce_results = (results )=> {
 
     const items = Object.keys(results);    
 
@@ -105,11 +115,30 @@ const reduce_results = (results )=> {
         let r = [];
         r['label'] = key;
         r['values'] = {};
+        r['limits'] = {};
+        //temp // applying norms 
+        if(normes[key]){
+            const [min,max]= normes[key];
+            r['values']['norme'] = `${min}-${max}`;
+        }
+
+    
         r = items.reduce( (carry,item)=> {
            
             if(results[item][key]){
                 carry['values'][item] = results[item][key].value
                 carry['display'] =   results[item][key].display;
+                if(normes[key]){
+                    const [min,max] = normes[key];
+                    carry['limits'][item]= x => {
+                        if(x < min)
+                            return -1
+                        if(x > max) 
+                            return 1
+                        return 0
+                    };
+
+                }
             }
 
             return carry;

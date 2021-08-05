@@ -99,7 +99,7 @@ export const formulas = {
         },
         {
             //=W6/I6*100
-            name: 'pct_d_mm',
+            name: 'pct_net_mm',
             eval: '{net_mm}/{weight}*100'
         },
         {
@@ -184,7 +184,7 @@ export const formulas = {
         },
         {
             //=W6/I6*100
-            name: 'pct_d_mm',
+            name: 'pct_net_mm',
             eval: '{net_mm}/{weight}*100'
         },
         {
