@@ -10,7 +10,17 @@ const abs = {
     }
 }
 
-mexp.addToken([abs]);  
+
+const sqrt = {
+    type:0,
+    token:"SQRT",
+    show:"SQRT",
+    value:function(a){
+        return Math.sqrt(a);
+    }
+}
+
+mexp.addToken([abs,sqrt]);  
 
 
 export const evaluateEquation = (values, formula) => {

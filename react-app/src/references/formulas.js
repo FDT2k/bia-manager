@@ -18,12 +18,12 @@ export const formulas = {
             display: false,
         },
         {
-            name: 'mg',
-            eval: "-4.104 + ((0.518 * root({height})) / {res}) +(0.231 * {weight}) + (4.229 * {gender_idx})"
+            name: 'mm',
+            eval: "-4.104 + ((0.518 * ({height}^2) / {res}) +(0.231 * {weight}) + (4.229 * {gender_idx})"
         },
         {
-            name: 'mm',
-            eval: "{weight} - {mg}"
+            name: 'mg',
+            eval: "{weight} - {mm}"
         },
         {
             name: 'pct_mm',
@@ -37,6 +37,10 @@ export const formulas = {
             //=W6/I6*100
             name: 'lf_ratio',
             eval: '{mm} / {mg}'
+        },
+        {
+            name:'ffmi',
+            eval: '{weight} * ({pct_mg} / 100)'
         }
     ],
 
@@ -57,7 +61,7 @@ export const formulas = {
         },
         {
             name: 'ht2r',
-            eval: "({height}^2)/ {res}"
+            eval: "({height}^2)/ {res}",
         },
         {
             name: 'mm',
@@ -99,7 +103,7 @@ export const formulas = {
         },
         {
             //=W6/I6*100
-            name: 'pct_net_mm',
+            name: 'pct_net§ _mm',
             eval: '{net_mm}/{weight}*100'
         },
         {
@@ -111,6 +115,10 @@ export const formulas = {
             name: 'pct_mg',
             eval: "{mg} * 100 / {weight}"
         },
+        {
+            name:'ffmi',
+            eval: '{weight} * ({pct_mg} / 100)'
+        }
     ],
 
 
@@ -184,13 +192,17 @@ export const formulas = {
         },
         {
             //=W6/I6*100
-            name: 'pct_net_mm',
+            name: 'pct_net§ _mm',
             eval: '{net_mm}/{weight}*100'
         },
         {
             //=W6/I6*100
             name: 'lf_ratio',
             eval: '{mm} / {mg}'
+        },
+        {
+            name:'ffmi',
+            eval: '{weight} * ({pct_mg} / 100)'
         }
         
     ]

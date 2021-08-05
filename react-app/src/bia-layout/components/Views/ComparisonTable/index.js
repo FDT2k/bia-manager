@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-
+import Tooltip from 'bia-layout/hoc/Tooltip'
 import { bem, compose, withModifiers, applyModifiers, withVariables, divElement, withBaseClass, getClasseNames, cEx } from 'bia-layout/utils'
 
 
@@ -57,7 +57,7 @@ const FormulaResultHeader = props => {
 }
 
 const FormulaResultRow = (props) => {
-    const {columns, values, limits, available_columns,label } = props;
+    const {columns, values,logs, limits, available_columns,label } = props;
     let colByName = available_columns.reduce( function (carry,item){
         carry[item['name']]=item;
         return carry;
@@ -80,7 +80,8 @@ const FormulaResultRow = (props) => {
 
                     ])
                 }
-                return (<div key={`${col}`}  className={classes}>{!isNaN(val)? val : ''}</div>)
+                return (<div key={`${col}`}  className={classes}><Tooltip left tooltipText={logs[col]}>
+                    <span>{!isNaN(val)? val : ''}</span></Tooltip></div>)
             }else{
                 return (<div key={`${col}`} >{val}</div>)
 
@@ -114,7 +115,7 @@ export const Component = props => {
             <FormulaResultHeader available_columns={available_columns} handleChange={handleChange} selectable={selectable} columns={state} />
 
             {data.filter(item=>item.display == true).map((item,idx) =>
-                <FormulaResultRow key={idx} available_columns={available_columns} label={t(item.label)} values={item.values} columns={state} limits={item.limits} />
+                <FormulaResultRow key={idx} available_columns={available_columns} label={t(item.label)} values={item.values} logs={item.logs} columns={state} limits={item.limits} />
 
             )}
 

@@ -116,6 +116,8 @@ const reduce_results = (results )=> {
         r['label'] = key;
         r['values'] = {};
         r['limits'] = {};
+        r['logs'] = {};
+
         //temp // applying norms 
         if(normes[key]){
             const [min,max]= normes[key];
@@ -127,6 +129,7 @@ const reduce_results = (results )=> {
            
             if(results[item][key]){
                 carry['values'][item] = results[item][key].value
+                carry['logs'][item] = results[item][key].log
                 carry['display'] =   results[item][key].display;
                 if(normes[key]){
                     const [min,max] = normes[key];
@@ -134,8 +137,8 @@ const reduce_results = (results )=> {
                         if(x < min)
                             return -1
                         if(x > max) 
-                            return 1
-                        return 0
+                            return -1
+                        return 1
                     };
 
                 }
