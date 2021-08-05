@@ -53,7 +53,7 @@ export const TabListContainer = compose(
 export const TabListBackground = withBaseClass(element('background'))(props=>{
     const {children,...rest} = props;
     return (
-        <div {...rest}><div class="bg"/>{children}</div>
+        <div {...rest}><div className="bg"/>{children}</div>
     )
 });
 
@@ -71,15 +71,15 @@ TabList.tabsRole= 'TabList';
 
 
 export const Tab =  withBaseClass(element('tab'))(props => {
-    const {children,selected,className,selectedTab,handleFocus, ...rest} = props;
+    const {children,selected,className,selectedTab,handleFocus,BEM, ...rest} = props;
     const ref = useRef();
-    const {hasFocus} =  useFocus({ref,handleOnFocus:handleFocus,debug:true});
+    const {hasFocus} =  useFocus({ref,handleOnFocus:handleFocus});
     const classe = cEx([
         className,
         _=> selected ? 'selected': ''
     ])
     return (
-        <div className={classe} {...rest} ref={ref}><div class="content">{children}</div></div>
+        <div className={classe} {...rest} ref={ref}><div className="content">{children}</div></div>
     )
 })
 Tab.tabsRole= 'Tab';
@@ -123,10 +123,8 @@ export const Tabs=  props => {
     const nodes = [];
 
     const handleMouseOver = idx=> e=> {
-        console.log('over'+idx)
     } 
     const handleMouseOut = idx=> e=> {
-        console.log('over'+idx);
     }
 
     const handleFocus = idx => e=> {

@@ -1,4 +1,6 @@
 import { identity } from '@karsegard/composite-js';
+import Button from 'bia-layout/components/Form/Button';
+import { LayoutFlexRow } from 'bia-layout/layouts/Flex';
 import React from 'react';
 
 const Component =  props => {
@@ -6,26 +8,27 @@ const Component =  props => {
 
     const { gotoPage, previousPage, nextPage, setPageSize, canPreviousPage,canNextPage,pageCount,pageIndex,pageOptions,pageSize } = props;
 
-    return (<div className="pagination">
-        <button onClick={() => gotoPage(0)} disabled={!canPreviousPage}>
+    return (<LayoutFlexRow className="pagination">
+        <Button onClick={() => gotoPage(0)} disabled={!canPreviousPage}>
             {'<<'}
-        </button>{' '}
-        <button onClick={() => previousPage()} disabled={!canPreviousPage}>
+        </Button>{' '}
+        <Button onClick={() => previousPage()} disabled={!canPreviousPage}>
             {'<'}
-        </button>{' '}
-        <button onClick={() => nextPage()} disabled={!canNextPage}>
-            {'>'}
-        </button>{' '}
-        <button onClick={() => gotoPage(pageCount - 1)} disabled={!canNextPage}>
-            {'>>'}
-        </button>{' '}
+        </Button>{' '}
         <span>
             Page{' '}
             <strong>
                 {pageIndex + 1} of {pageOptions.length}
             </strong>{' '}
         </span>
-        <span>
+        <Button onClick={() => nextPage()} disabled={!canNextPage}>
+            {'>'}
+        </Button>{' '}
+        <Button onClick={() => gotoPage(pageCount - 1)} disabled={!canNextPage}>
+            {'>>'}
+        </Button>{' '}
+     
+        {/*<span>
             | Go to page:{' '}
             <input
                 type="number"
@@ -36,8 +39,8 @@ const Component =  props => {
                 }}
                 style={{ width: '100px' }}
             />
-        </span>{' '}
-        <select
+            </span>*/}
+       {/* <select
             value={pageSize}
             onChange={e => {
                 setPageSize(Number(e.target.value))
@@ -48,8 +51,9 @@ const Component =  props => {
                     Show {pageSize}
                 </option>
             ))}
-        </select>
-    </div>)
+            </select>*/}
+
+    </LayoutFlexRow>)
 }
 
 Component.defaultProps= {

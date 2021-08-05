@@ -3,7 +3,7 @@ import DatePicker from 'react-datepicker';
 import { useFieldValues, useKeypress, useFocus } from '@karsegard/react-hooks';
 
 
-import { bem, compose, withModifiers, applyModifiers, withVariables, divElement, withBaseClass, getClasseNames, cEx } from 'bia-layout/utils'
+import { bem, compose, withModifiers, applyModifiers, withVariables, divElement,withRemovedProps, withBaseClass, getClasseNames, cEx } from 'bia-layout/utils'
 
 
 import LayoutFlex, { LayoutFlexColumn } from 'bia-layout/layouts/Flex'
@@ -44,7 +44,7 @@ const TabsWithArea = withGridArea(Tabs);
 
 
 
-const Editable = props => {
+const EditableTextInput = withBaseClass('editable-field')(props => {
 
     const [editable, setEditable] = useState(false);
     const enterPressed = useKeypress('Enter');
@@ -70,9 +70,41 @@ const Editable = props => {
     </>
     )
 
-}
+})
 
-const EditableTextInput = withBaseClass('editable-field')(Editable)
+
+const EditableSelect = withBaseClass('editable-field')(props => {
+
+    const [editable, setEditable] = useState(false);
+    const enterPressed = useKeypress('Enter');
+    const ref = useRef()
+    const { hasFocus } = useFocus({ ref, debug: true });
+
+    const {children,...rest } = props;
+
+    useEffect(() => {
+        if (ref.current && enterPressed && hasFocus) {
+            setEditable(false);
+        }
+    }, [enterPressed, hasFocus])
+
+
+    useEffect(() => {
+        if (editable && ref.current) {
+            ref.current.focus();
+        }
+    }, [editable])
+
+    return (<>
+        {editable && <select ref={ref} onBlur={_ => setEditable(false)}  {...rest} >{children}</select>}
+        {!editable && <div className={props.className} onClick={_ => setEditable(true)}>{props.defaultValue}</div>}
+    </>
+    )
+
+})
+
+
+
 
 
 const SafeDatePicker = ({ selected, handleChange }) => {
@@ -111,7 +143,7 @@ const Editor = props => {
     const { values, handleChangeValue, inputProps, handleChange, assignValues, replaceValues } = useFieldValues(mesure);
     //   const { values:electricalValues, handleChange:electricalHandleChange,replaceValues: replaceElectricalValues } = useFieldValues(mesure.data);
 
-
+    console.log('MESURE',mesure)
 
     useEffect(() => {
         console.log('reloading', mesure);
@@ -210,13 +242,19 @@ const Editor = props => {
 
                             <Field className="activite-physique" label={t("Activité physique")}>
                                 <select>
-                                    <option>abcd</option>
+                                <option>faible</option>
+                                <option>modérée</option>
+                                <option>élevée </option>
+                                <option>très élevée </option>
                                 </select>
 
                             </Field>
                             <Field className="type-activite-physique" label={t("Type d'Activité physique")}>
-                                <select>
-                                    <option>abcd</option>
+                            <select>
+                                <option>endurance</option>
+                                <option>résistance></option>
+                                <option>autre</option>
+                                <option>inconnue</option>
                                 </select>
 
                             </Field>
@@ -267,7 +305,11 @@ const Editor = props => {
                     <EditableTextInput value={values.examinator} name="examinator" onChange={handleChange} />
                 </Field>
                 <Field label={t("BioImpédanceMètre")}>
-                    <div>{values.machine}</div>
+
+                    <EditableSelect defaultValue={values.machine}>
+                            <option value="BIO-Z">BIO-Z</option>
+                            <option value="NUTRIGUARD">NUTRIGUARD</option>
+                    </EditableSelect>
 
                 </Field>
 

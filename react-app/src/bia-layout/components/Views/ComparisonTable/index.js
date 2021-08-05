@@ -57,23 +57,34 @@ const FormulaResultHeader = props => {
 }
 
 const FormulaResultRow = (props) => {
-    const {columns, values, limits, label } = props;
+    const {columns, values, limits, available_columns,label } = props;
+    let colByName = available_columns.reduce( function (carry,item){
+        carry[item['name']]=item;
+        return carry;
+    },{})
     const [__base_class, element, modifier] = bem('result-row');
     const { className, ...rest } = getClasseNames(__base_class, props)
     return (<><div className="row header">{label}</div>
         {columns.map((col) => {
-            let limit = limits[col];
-            let val = (new Number(values[col])).toFixed(2);
-            let classes = className;
-            if (limit) {
-                classes = cEx([
-                    className,
-                    _ => limit(val) === -1 ? modifier('lesser') : '',
-                    _ => limit(val) === 1 ? modifier('upper') : '',
+            let type =colByName[col].type;
+           let val =values[col]
+            if(type !=='string'){
+                let limit = limits[col];
+                val = (new Number(val)).toFixed(2);
+                let classes = className;
+                if (limit) {
+                    classes = cEx([
+                        className,
+                        _ => limit(val) === -1 ? modifier('lesser') : '',
+                        _ => limit(val) === 1 ? modifier('upper') : '',
 
-                ])
+                    ])
+                }
+                return (<div key={`${col}`}  className={classes}>{!isNaN(val)? val : ''}</div>)
+            }else{
+                return (<div key={`${col}`} >{val}</div>)
+
             }
-            return (<div key={`${col}`}  className={classes}>{!isNaN(val)? val : ''}</div>)
         })}
     </>);
 }
@@ -103,7 +114,7 @@ export const Component = props => {
             <FormulaResultHeader available_columns={available_columns} handleChange={handleChange} selectable={selectable} columns={state} />
 
             {data.filter(item=>item.display == true).map((item,idx) =>
-                <FormulaResultRow key={idx} label={t(item.label)} values={item.values} columns={state} limits={item.limits} />
+                <FormulaResultRow key={idx} available_columns={available_columns} label={t(item.label)} values={item.values} columns={state} limits={item.limits} />
 
             )}
 
@@ -119,7 +130,7 @@ Component.defaultProps = {
     available_columns:[
         { name: 'kushner', label: 'Kushner', selectable: true },
         { name: 'segal', label: 'Segal', selectable: true },
-        { name: 'norme', label: 'Norme', selectable: false },
+        { name: 'norme', label: 'Norme', type:'string', selectable: false },
         { name: 'gva', label: 'Gva', selectable: true },
     ],
     columns:['norme', 'kushner', 'gva'],

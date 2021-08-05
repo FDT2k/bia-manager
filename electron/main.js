@@ -1,7 +1,7 @@
 
   const path = require('path')
   const glob = require('glob')
-  const {app, BrowserWindow} = require('electron')
+  const {app, BrowserWindow,protocol} = require('electron')
   const isDev = require('electron-is-dev');
   const debug = /--debug/.test(process.argv[2])
 
@@ -20,7 +20,8 @@
         height: 840,
         title: app.name,
         webPreferences: {
-          nodeIntegration: true
+          nodeIntegration: true,
+          nodeIntegrationInWorker: true,
         }
       }
   
@@ -30,10 +31,11 @@
   
       mainWindow = new BrowserWindow(windowOptions)
       
+      console.log(__dirname);
       mainWindow.loadURL(
         isDev
           ? 'http://azathoth.lan:3333'
-          : `file://${path.join(__dirname, '../build/index.html')}`
+          : `file://${path.join(__dirname, '../react-app/build/index.html')}`
       );
   
       // Launch fullscreen with DevTools open, usage: npm run debug
@@ -62,6 +64,23 @@
       if (mainWindow === null) {
         createWindow()
       }
+    })
+
+
+    app.whenReady().then(() => {
+      protocol.interceptFileProtocol('file', (request, callback) => {
+        
+        if(request.url.indexOf('file:///workers') !==-1) {
+          let filename= request.url.substr(8);
+
+          let newPath = path.resolve(__dirname,filename);
+          console.log('worker',__dirname,filename,newPath)
+
+       //   return callback({ path: path.resolve(__dirname,request.url.substr(8))});
+        }
+       
+      });
+
     })
   }
   

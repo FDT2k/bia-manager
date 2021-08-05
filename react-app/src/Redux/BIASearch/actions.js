@@ -46,7 +46,7 @@ export const search_in_database = makePromiseDispatcher(x=>({error:x.message}),e
 
 export const filter_results = (baseSelector) => (dispatch,getState)=>{
     const state = baseSelector(getState())
-
+// eslint-disable-next-line no-unused-vars
     const [first_tag,...other_tags] =state.tags;
 
 
@@ -65,7 +65,7 @@ export const filter_results = (baseSelector) => (dispatch,getState)=>{
 export const makeSearch = baseSelector => (dbsearchfn,tags) => (dispatch,getState)=> {
 
     const state = baseSelector(getState())
-
+// eslint-disable-next-line no-unused-vars
     const [first_tag,...other_tags] =tags;
 
     if( compare(state.tags,tags)){
@@ -78,7 +78,7 @@ export const makeSearch = baseSelector => (dbsearchfn,tags) => (dispatch,getStat
 
 
 
-    if(first_tag && tags.length==1 && first_tag != state.tags[0]){ // if the first tag did change, then refetch a preset from the database
+    if(first_tag && tags.length===1 && first_tag !== state.tags[0]){ // if the first tag did change, then refetch a preset from the database
         dispatch(fetching_from_db({}));
         const search = dispatch(search_in_database(dbsearchfn(first_tag)));
         return search.then(result=> {
