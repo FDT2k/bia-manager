@@ -81,7 +81,7 @@ export default props => {
         state: { pageIndex: pageProps.pageIndex, pageSize: pageProps.pageSize }
 
     } = tableInstance);
-    return (
+    return (<>
             <table className={cEx([__base_class])} {...getTableProps()} {...rest}>
                 <thead>
                     {headerGroups.map((headerGroup,idx) => (
@@ -123,7 +123,9 @@ export default props => {
                         )
                     })}
                 </tbody>
+                
             </table>
-
+    <Pagination {...pageProps}/>
+    </>
     )
 }
