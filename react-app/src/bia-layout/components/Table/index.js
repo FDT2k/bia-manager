@@ -92,10 +92,10 @@ export default props => {
                                         key={idx}
                                     >
                                         <div  {...column.getHeaderProps(column.getSortByToggleProps())}>
-                                            {column.render('Header')}</div>
-                                        <span>
-                                            {column.isSorted ? (column.isSortedDesc ? (SortUp? <SortUp/>: ' 🔽') : (SortDown? <SortDown/>:' 🔼')) : ''}
-                                        </span>
+                                            {column.render('Header')} <span>
+                                                {column.isSorted ? (column.isSortedDesc ? (SortUp? <SortUp/>: ' 🔽') : (SortDown? <SortDown/>:' 🔼')) : ''}
+                                            </span></div>
+
                                     </th>
                                 ))}
                             </tr>

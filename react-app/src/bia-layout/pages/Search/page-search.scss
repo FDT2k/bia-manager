@@ -13,6 +13,13 @@
             font-weight: var(--font-weight-bold);
         }
 
+        th > div {
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            justify-content: flex-start;
+        }
+
         tr > td, th {
             vertical-align: middle;
             text-align: left;

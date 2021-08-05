@@ -102,6 +102,7 @@
     line-height: var(--line-spacing-17-5);
     letter-spacing: var(--character-spacing-0);
     text-transform: var(--text-transform-uppercase);
+    cursor: pointer;
 }
 
 
@@ -121,6 +122,9 @@ letter-spacing: var(--character-spacing-0);
     h3{
         @extend %subheader;
     }
+    h4, button {
+      @extend %buttons;
+    }
     p {
       @extend %body;
     }
@@ -130,9 +134,7 @@ letter-spacing: var(--character-spacing-0);
     ::placeholder {
         @extend %placeholder;
     }
-    button {
-      @extend %buttons;
-    }
+
 }
 
 

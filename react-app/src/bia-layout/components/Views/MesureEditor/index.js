@@ -33,7 +33,7 @@ import { withGridArea } from 'bia-layout/hoc/grid/Area';
 import './mesure-editor.scss'
 
 const CustomInput = forwardRef(({ value, onClick }, ref) => (
-    <div className="example-custom-input" onClick={onClick} ref={ref}>
+    <div className="example-custom-input editable-field" onClick={onClick} ref={ref}>
         {value}
     </div>
 ));
@@ -201,37 +201,36 @@ const Editor = props => {
                     <LayoutFlexColumnWithArea>
 
                         <LayoutFlex wrap >
-                            <Field label={t("Date d'Examen")}>
+                            <Field className="date-examen" label={t("Date d'Examen")}>
                                 <SafeDatePicker
                                     selected={values.date}
                                     handleChange={handleChangeValue('date')}
                                 />
                             </Field>
 
-                            <Field label={t("Activité physique")}>
+                            <Field className="activite-physique" label={t("Activité physique")}>
                                 <select>
                                     <option>abcd</option>
                                 </select>
 
                             </Field>
-                            <Field label={t("Type d'Activité physique")}>
+                            <Field className="type-activite-physique" label={t("Type d'Activité physique")}>
                                 <select>
-
                                     <option>abcd</option>
                                 </select>
 
                             </Field>
-                            <Field label={t("Fumeur")}>
+                            <Field className="fumeur" label={t("Fumeur")}>
                                 <ToggleSwitch id="smoker" labelYes="Oui" labelNo="Non" name="smoker" onChange={handleChange} checked={values.smoker} />
                             </Field>
-                            <Field label={t("Coté mesuré")}>
+                            <Field className="cote-mesure" label={t("Coté mesuré")}>
                                 <ToggleSwitch labelYes="Gauche" labelNo="Droit" name="left_side" onChange={handleChange} id="left_side" checked={values.left_side} />
                             </Field>
-                            <Field label={t("Poids Actuel")} >
+                            <Field className="poids-actuel" label={t("Poids Actuel")} >
                                 <input type="text" {...inputProps('weight')} />
 
                             </Field>
-                            <Field label={t("Taille cm")}  >
+                            <Field className="taille" label={t("Taille cm")}  >
                                 <input type="text" {...inputProps('height')} />
                             </Field>
 

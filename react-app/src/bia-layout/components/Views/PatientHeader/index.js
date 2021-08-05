@@ -31,7 +31,7 @@ const PatientHeader = props => {
     const {data,t, ...rest} = props
     return(
         <LayoutFlexColumn {...rest}>
-            <h1>{data.firstname} {data.lastname}</h1>
+            <h2>{data.firstname} {data.lastname}</h2>
             <FieldSet>
                 {
                     enlist(fields).map( item => {

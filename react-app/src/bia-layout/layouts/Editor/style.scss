@@ -6,6 +6,7 @@
 
     grid-template-columns: fit-content(var(--mesures-list-width)) auto   ;
     grid-template-rows:   fit-content(200px) auto;
+    column-gap: calc( var(--col-width) + (var(--gut-width) * 2) );
 
     grid-template-areas:
         " patient patient "

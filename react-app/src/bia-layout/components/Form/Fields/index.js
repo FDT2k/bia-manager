@@ -10,10 +10,10 @@ const [__base_class,element,modifer] = bem('field');
 const Field= props=> {
     const {label, className} = props;
     return (
-        <LayoutFlexColumn className={className}>
+        <div className={className}>
             <label className={element('label')}>{label}</label>
             <div className={element('field')}>{props.children}</div>
-        </LayoutFlexColumn>
+        </div>
     )
 
 }
