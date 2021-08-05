@@ -13,13 +13,18 @@ export const formulas = {
             display: false,
         },
         {
+            name: "rea",
+            fn: mesure => mesure.data.rea50,
+            display: false,
+        },
+        {
             name: 'gender_idx',
             fn: mesure => mesure.gender === 'M' ? 1 : 0,
             display: false,
         },
         {
             name: 'mm',
-            eval: "-4.104 + ((0.518 * ({height}^2) / {res}) +(0.231 * {weight}) + (4.229 * {gender_idx})"
+            eval: "-4.104 + ((0.518 * ({height}^2) / {res}) +(0.231 * {weight}) + (0.130 * {rea}) + (4.229 * {gender_idx})"
         },
         {
             name: 'mg',
@@ -40,6 +45,10 @@ export const formulas = {
         },
         {
             name:'ffmi',
+            eval: '{weight} * ({pct_mg} / 100)'
+        },
+        {
+            name:'fmi',
             eval: '{weight} * ({pct_mg} / 100)'
         }
     ],
