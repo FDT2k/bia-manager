@@ -1,5 +1,4 @@
 import {createSelector} from 'reselect';
-import {spec} from '@karsegard/composite-js/ObjectUtils'
 
 
 /*
@@ -20,7 +19,7 @@ export const buildFilter = tags => item => {
 }
 */
 
-export default  baseSelector => {
+export const makeSelectors = baseSelector => {
 
    const select_patients= createSelector(baseSelector, state => state.patients);
    const select_tags= createSelector(baseSelector, state => state.tags);
@@ -29,7 +28,7 @@ export default  baseSelector => {
 
    const select_patients_list_filtered = createSelector(select_patients, (state) =>{
 
-       if(state.filtered.length == 0)
+       if(state.filtered.length === 0)
             return [];
 
        return state.filtered[state.filtered.length-1].ids.map(key=>state.byIds[key])
@@ -68,7 +67,6 @@ export default  baseSelector => {
 
    return {
        select_patients,
-       select_tags,
        select_patients_list,
        select_count_results,
        select_tags,
@@ -77,3 +75,4 @@ export default  baseSelector => {
    }
 
 }
+export default  makeSelectors

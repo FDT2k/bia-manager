@@ -1,10 +1,18 @@
 import React from 'react';
 
 import LayoutFlex,{LayoutFlexColumn} from 'bia-layout/layouts/Flex'
-import { bem,compose, withModifiers,applyModifiers, withVariables, divElement, withBaseClass, getClasseNames,makeBEM,withBEM, withBEMElement,withBEMModifiers,cEx } from 'bia-layout/utils'
+import { bem,compose, withModifiers,applyModifiers, withVariables,withRemovedProps, divElement, withBaseClass, getClasseNames,makeBEM,withBEM, withBEMElement,withBEMModifiers,cEx } from 'bia-layout/utils'
 import { Components } from 'stories/storybook-utils';
 
-const ListItem = applyModifiers({'alignCenter':true,'justBetween':true})(LayoutFlex);
+
+
+
+const ListItem = compose(
+                        withRemovedProps(['BEM']),
+                        applyModifiers({'alignCenter':true,'justBetween':true})
+
+                )
+                        (LayoutFlex);
 
 const HeaderListItem = withBEMElement('title')(ListItem)
 
@@ -17,7 +25,7 @@ const ItemListItem = compose(
 
 export const Component =  props => {
     const {handleClick,  title, data, renderActions, selectedIndex,itemLabelKey,BEM, ...rest} = props;
-    console.log(props);
+//    console.log(props);
     return (
         <LayoutFlexColumn {...rest}>
             <HeaderListItem BEM={BEM}><b>{title}</b></HeaderListItem>

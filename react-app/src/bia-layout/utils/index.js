@@ -203,6 +203,14 @@ const  makePropsFilter= (prefix)=> ([
 ])
 
 
+
+export const withRemovedProps = removeProps =>Component=> props=>{
+
+    const [_,rest] = spreadObjectPresentIn(removeProps,props);
+    return (<Component {...rest}/>)
+
+}
+
 export const kebabize = (str) => str.replace(/[A-Z]+(?![a-z])|[A-Z]/g, ($, ofs) => (ofs ? "-" : "") + $.toLowerCase())
 export const snakize = (str) => str.replace(/[A-Z]+(?![a-z])|[A-Z]/g, ($, ofs) => (ofs ? "_" : "") + $.toLowerCase())
 export const camelize = (text) => text.replace(/^([A-Z])|[\s-_]+(\w)/g, (_, p1, p2, __) =>  p2 ?  p2.toUpperCase() :  p1.toLowerCase());

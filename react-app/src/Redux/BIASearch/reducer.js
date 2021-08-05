@@ -2,9 +2,9 @@
 import createReducer from 'Redux/utils/create-reducer'
 import {combineReducers} from 'redux'
 import {ADD_SEARCH_TAG,DEL_SEARCH_TAG,UPDATE_SEARCH_TAGS} from './actions';
-import {SEARCH_PATIENT,FETCHED_PATIENTS,FILTER_PATIENTS,REMOVE_FILTER} from './actions';
+import {FETCHED_PATIENTS,FILTER_PATIENTS,REMOVE_FILTER} from './actions';
 
-import {delFromList,addToListUniq,delObjectProp,updateProp} from 'Redux/utils/handlers';
+import {delFromList,addToListUniq} from 'Redux/utils/handlers';
 
 export const tags = createReducer([],{
     [ADD_SEARCH_TAG]: addToListUniq,

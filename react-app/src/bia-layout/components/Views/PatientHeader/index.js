@@ -18,7 +18,7 @@ const FieldSet = compose(
 const Field = withBaseClass(element('field'))(LayoutFlexColumn)
 
 const PatientHeader = props => {
-    console.log('patientHeader',props);
+   // console.log('patientHeader',props);
     const fields = {
         'birthdate': 'Date de naissance',
         'age': 'Âge',

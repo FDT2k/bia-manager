@@ -71,7 +71,7 @@ TabList.tabsRole= 'TabList';
 
 
 export const Tab =  withBaseClass(element('tab'))(props => {
-    const {children,selected,className,selectedTab,handleFocus, ...rest} = props;
+    const {children,selected,className,selectedTab,handleFocus,BEM, ...rest} = props;
     const ref = useRef();
     const {hasFocus} =  useFocus({ref,handleOnFocus:handleFocus});
     const classe = cEx([

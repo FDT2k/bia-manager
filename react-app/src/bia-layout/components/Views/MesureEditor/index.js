@@ -3,7 +3,7 @@ import DatePicker from 'react-datepicker';
 import { useFieldValues, useKeypress, useFocus } from '@karsegard/react-hooks';
 
 
-import { bem, compose, withModifiers, applyModifiers, withVariables, divElement, withBaseClass, getClasseNames, cEx } from 'bia-layout/utils'
+import { bem, compose, withModifiers, applyModifiers, withVariables, divElement,withRemovedProps, withBaseClass, getClasseNames, cEx } from 'bia-layout/utils'
 
 
 import LayoutFlex, { LayoutFlexColumn } from 'bia-layout/layouts/Flex'
@@ -111,7 +111,7 @@ const Editor = props => {
     const { values, handleChangeValue, inputProps, handleChange, assignValues, replaceValues } = useFieldValues(mesure);
     //   const { values:electricalValues, handleChange:electricalHandleChange,replaceValues: replaceElectricalValues } = useFieldValues(mesure.data);
 
-
+    console.log('MESURE',mesure)
 
     useEffect(() => {
         console.log('reloading', mesure);
