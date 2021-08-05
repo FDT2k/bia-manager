@@ -40,7 +40,7 @@ export default props => {
     }
 
 
-    const [parse] = useWorker('./csvimport.worker.js', workerCallback);
+    const [parse] = useWorker('workers/csvimport.worker.js', workerCallback);
 
 
     const mappings = {

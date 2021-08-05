@@ -2,7 +2,7 @@ const path = require('path');
 const webpack = require('webpack');
 
 const src = path.resolve(__dirname, './src');
-const build = path.resolve(__dirname, './public'); // output worker.js to public folder
+const build = path.resolve(__dirname, './public/workers'); // output worker.js to public folder
 
 
 const tsLoader = {
