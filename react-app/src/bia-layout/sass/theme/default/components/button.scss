@@ -6,6 +6,7 @@
     @extend %colors-negative;
     &:hover, &:active, &:focus{
         @extend %colors-positive;
+        cursor: pointer;
     }
 
     padding: 8px 16px;

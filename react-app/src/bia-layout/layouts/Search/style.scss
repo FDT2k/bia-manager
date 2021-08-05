@@ -6,7 +6,7 @@
 .search-grid-layout{
 
     grid-template-columns: 100%;
-    grid-template-rows: 76px fit-content(200px) auto;
+    grid-template-rows: fit-content(62px) fit-content(200px) auto;
 
     grid-template-areas:
         "search"
