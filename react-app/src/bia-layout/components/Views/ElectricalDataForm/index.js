@@ -155,10 +155,10 @@ const ElectricalDataForm = props => {
                 <Header area="h_50">50khz</Header>
                 <Header area="h_100">100khz</Header>
                 <Header area="h_nor">Normes</Header>
-                <LineHeader area="h_res">Resistance</LineHeader>
-                <LineHeader area="h_a">Angle de phase</LineHeader>
-                <LineHeader area="h_rea">Reactance</LineHeader>
-                <LineHeader area="h_z">Impédance</LineHeader>
+                <LineHeader area="h_res">Resistance (Ω)</LineHeader>
+                <LineHeader area="h_a">Angle de phase (°)</LineHeader>
+                <LineHeader area="h_rea">Reactance (Ω)</LineHeader>
+                <LineHeader area="h_z">Impédance (Ω)</LineHeader>
                 <ComponentWithArea area="f_res_nor"></ComponentWithArea>
                 <ComponentWithArea area="f_rea_nor"></ComponentWithArea>
                 <ComponentWithArea area="f_z_nor"></ComponentWithArea>
