@@ -26,8 +26,8 @@ export const make_create_mesure = baseSelector => (patient_id,mesure_id)=> {
         let state = baseSelector(getState());
         let new_mesure = Object.assign({},EMPTY_MESURE,{
             date: new Date(),
-            weight:state.patient[patient_id].usual_weight,
-            height:state.patient[patient_id].usual_height
+            weight:'',
+            height:''
         });
         console.log(state.patient[patient_id],state,new_mesure);
         return dispatch({
