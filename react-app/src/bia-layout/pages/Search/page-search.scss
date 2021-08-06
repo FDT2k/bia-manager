@@ -7,7 +7,15 @@
 
 .search-grid-layout{
     @extend %base_font;
-
+    .pagination{
+        
+        padding-bottom:8px;
+        .button{
+            min-width: 64px;
+            max-width: 64px;
+            width:64px;
+        }
+    }
     .listing{
         thead{
             font-weight: var(--font-weight-bold);
@@ -93,3 +101,4 @@
         }
     }
 }
+

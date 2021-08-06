@@ -7,6 +7,7 @@ import createAsyncAction,{makePromiseDispatcher} from 'Redux/utils/async-dispatc
 import {formulas,calculate} from 'references/formulas';
 import { spec } from '@karsegard/composite-js/ObjectUtils';
 import EMPTY_MESURE from 'references/mesure-schema'
+import { patient } from './reducer';
 
 
 export const EDIT_PATIENT = 'EDIT_PATIENT';
@@ -23,11 +24,17 @@ export const make_create_mesure = baseSelector => (patient_id,mesure_id)=> {
 
     return (dispatch,getState)=>{
         let state = baseSelector(getState());
+        let new_mesure = Object.assign({},EMPTY_MESURE,{
+            date: new Date(),
+            weight:state.patient[patient_id].usual_weight,
+            height:state.patient[patient_id].usual_height
+        });
+        console.log(state.patient[patient_id],state,new_mesure);
         return dispatch({
             type:CREATE_MESURE,
             payload:{         
                 id: patient_id,   
-                mesure: EMPTY_MESURE,
+                mesure: new_mesure,
                 mesure_id:state.patient[patient_id].mesures.length
             }
         })
@@ -40,6 +47,9 @@ export const make_edit_mesure = baseSelector => (patient_id,mesure_id)=> {
 
     return (dispatch,getState)=>{
         let state = baseSelector(getState());
+
+
+
         return dispatch({
             type:EDIT_MESURE,
             payload:{         

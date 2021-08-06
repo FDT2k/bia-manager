@@ -6,6 +6,7 @@ import { filterPropStartingWith, forwardProps, bem, cEx, modifiersToCeX } from '
 import { matchSorter } from 'match-sorter'
 import DefaultFilter from './Filters/DefaultFilter'
 import './style.scss';
+import { LayoutFlexColumn } from 'bia-layout/layouts/Flex';
 
 
 const [__base_class, element, modifier] = bem('listing')
@@ -81,7 +82,7 @@ export default props => {
         state: { pageIndex: pageProps.pageIndex, pageSize: pageProps.pageSize }
 
     } = tableInstance);
-    return (<>
+    return (<LayoutFlexColumn justBetween cover>
             <table className={cEx([__base_class])} {...getTableProps()} {...rest}>
                 <thead  >
                     {headerGroups.map((headerGroup,idx) => (
@@ -125,7 +126,7 @@ export default props => {
                 </tbody>
                 
             </table>
-    <Pagination {...pageProps}/>
-    </>
+             <Pagination {...pageProps}/>
+    </LayoutFlexColumn>
     )
 }

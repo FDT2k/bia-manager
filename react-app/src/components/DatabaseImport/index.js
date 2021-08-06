@@ -20,6 +20,7 @@ export default props => {
     const [percentage, setPercentage] = useState(0);
     const [importing,setImporting] = useState(false);
     const [imported,setImported] = useState(false);
+    const [lines_count,setLineCount] = useState(0);
 
 
     const { values, inputProps, handleChange } = useFieldValues({ name: 'world' })
@@ -30,6 +31,9 @@ export default props => {
     const workerCallback = data=>{
         if(data.progress){
             setPercentage(data.progress);
+        }
+        if(data.total){
+            setLineCount(data.total);
         }
     //    console.log('progress',data)
         if(data.result){
@@ -123,7 +127,7 @@ export default props => {
                     <div style={{width:'50px',height:'50px'}}>
                         <CircularProgressbar value={percentage} text={`${percentage}%`} />
                     </div>
-                    <div>Conversion  en cours</div>
+                    <div>Conversion de {lines_count} lignes en cours (depuis CSV BIA Java)</div>
                 </LayoutFlex>}
                 {imported_data && <span>{imported_data.countPatient} patients et {imported_data.countMesure} mesures à importer</span>}
 

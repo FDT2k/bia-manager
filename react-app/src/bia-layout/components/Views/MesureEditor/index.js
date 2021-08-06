@@ -286,6 +286,9 @@ const Editor = props => {
                 </TabPanel>
                 <TabPanel>
                     <Container fit grow>
+                    <ElectricalDataForm handleGroupChange={handleGroupChange} handleComputedChange={electricalHandleValues} handleChange={electricalHandleChange} editedGroup={editedGroup} values={values.data} />
+
+                    <br/>
                         <Grid style={{
                             gridTemplateColumns: "2fr 1fr 1fr 1fr",
                             gridAutoRows: "1fr"

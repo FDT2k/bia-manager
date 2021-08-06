@@ -61,7 +61,7 @@
 /******/
 /******/ 	var hotApplyOnUpdate = true;
 /******/ 	// eslint-disable-next-line no-unused-vars
-/******/ 	var hotCurrentHash = "69f4b54b411fa07d5a76";
+/******/ 	var hotCurrentHash = "d87de7399d085caffda9";
 /******/ 	var hotRequestTimeout = 10000;
 /******/ 	var hotCurrentModuleData = {};
 /******/ 	var hotCurrentChildModule;
@@ -888,6 +888,12 @@ var progress = function progress(total, current) {
   });
 };
 
+var total_count = function total_count(total) {
+  return postMessage({
+    total: total
+  });
+};
+
 var remap = function remap(obj, mapping) {
   return function (carry, item) {
     var _key = Object(_karsegard_composite_js_ObjectUtils__WEBPACK_IMPORTED_MODULE_1__["key"])(item);
@@ -924,6 +930,7 @@ var parse = function parse(_ref) {
   var total = data.length;
   var report_every = 2000;
   var count = 0;
+  total_count(total);
   progress(total, 0);
   data.shift();
   data = data.map(function (line) {
@@ -3200,6 +3207,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "propsToCeX", function() { return propsToCeX; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "withTransformedProps", function() { return withTransformedProps; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "applyModifiers", function() { return applyModifiers; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "withRemovedProps", function() { return withRemovedProps; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "kebabize", function() { return kebabize; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "snakize", function() { return snakize; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "camelize", function() { return camelize; });
@@ -3544,6 +3552,18 @@ var makePropsFilter = function makePropsFilter(prefix) {
   return [Object(_karsegard_composite_js_ReactUtils__WEBPACK_IMPORTED_MODULE_1__["spreadObjectBeginWith"])(prefix), Object(_karsegard_composite_js_ReactUtils__WEBPACK_IMPORTED_MODULE_1__["forwardPropsRemovingHeader"])(prefix)];
 };
 
+var withRemovedProps = function withRemovedProps(removeProps) {
+  return function (Component) {
+    return function (props) {
+      var _spreadObjectPresentI7 = Object(_karsegard_composite_js_ReactUtils__WEBPACK_IMPORTED_MODULE_1__["spreadObjectPresentIn"])(removeProps, props),
+          _spreadObjectPresentI8 = _slicedToArray(_spreadObjectPresentI7, 2),
+          _ = _spreadObjectPresentI8[0],
+          rest = _spreadObjectPresentI8[1];
+
+      return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(Component, rest);
+    };
+  };
+};
 var kebabize = function kebabize(str) {
   return str.replace(/[A-Z]+(?![a-z])|[A-Z]/g, function ($, ofs) {
     return (ofs ? "-" : "") + $.toLowerCase();

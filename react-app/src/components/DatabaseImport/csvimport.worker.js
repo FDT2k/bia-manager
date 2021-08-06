@@ -4,6 +4,7 @@ import {filterPropPresentIn} from 'bia-layout/utils'
 
 
 const progress = (total,current) => postMessage({progress:Math.round(current*100/total)})
+const total_count = (total) => postMessage({total:total})
 
 
 const remap = (obj,mapping) =>  (carry,item)=>{
@@ -38,6 +39,7 @@ const parse = ({
         const total = data.length;
         const report_every = 2000;
         let count = 0;
+        total_count(total);
         progress(total,0);
 
         data.shift();
