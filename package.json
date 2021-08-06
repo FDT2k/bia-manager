@@ -1,76 +1,55 @@
 {
-  "name": "bia-manager",
-  "version": "0.1.0",
-  "private": true,
-  "dependencies": {
-    "@geekagency/composite-js": "^2.0.26",
-    "@geekagency/gen-classes": "^1.3.5",
-    "@geekagency/use-fields-value": "^1.0.1",
-    "@material-ui/core": "^4.11.4",
-    "@material-ui/icons": "^4.11.2",
-    "@reduxjs/toolkit": "^1.6.0",
-    "@storybook/addon-knobs": "^6.3.0",
-    "@testing-library/jest-dom": "^5.11.4",
-    "@testing-library/react": "^11.1.0",
-    "@testing-library/user-event": "^12.1.10",
-    "crypto-js": "^4.0.0",
-    "match-sorter": "^6.3.0",
-    "node-sass": "^6.0.1",
-    "react": "^17.0.2",
-    "react-dom": "^17.0.2",
-    "react-redux": "^7.2.4",
-    "react-scripts": "4.0.3",
-    "react-table": "^7.7.0",
-    "redux": "^4.1.0",
-    "redux-persist": "^6.0.0",
-    "redux-persist-transform-encrypt": "^3.0.1",
-    "web-vitals": "^1.0.1",
-    "wouter": "^2.7.4"
-  },
-  "scripts": {
-    "start": "BROWSER=false react-scripts start",
-    "build": "react-scripts build",
-    "test": "react-scripts test",
-    "eject": "react-scripts eject",
-    "storybook": "start-storybook -p 6006 -s public",
-    "build-storybook": "build-storybook -s public"
-  },
-  "eslintConfig": {
-    "extends": [
-      "react-app",
-      "react-app/jest"
-    ],
-    "overrides": [
-      {
-        "files": [
-          "**/*.stories.*"
-        ],
-        "rules": {
-          "import/no-anonymous-default-export": "off"
-        }
-      }
-    ]
-  },
-  "browserslist": {
-    "production": [
-      ">0.2%",
-      "not dead",
-      "not op_mini all"
-    ],
-    "development": [
-      "last 1 chrome version",
-      "last 1 firefox version",
-      "last 1 safari version"
-    ]
-  },
-  "devDependencies": {
-    "@storybook/addon-actions": "^6.3.0",
-    "@storybook/addon-essentials": "^6.3.0",
-    "@storybook/addon-links": "^6.3.0",
-    "@storybook/node-logger": "^6.3.0",
-    "@storybook/preset-create-react-app": "^3.1.7",
-    "@storybook/react": "^6.3.0",
-    "babel-plugin-inline-import": "^3.0.0",
-    "namor": "^2.0.3"
-  }
+    "name": "bia-manager-electron",
+    "main": "electron/main.js",
+    "version": "1.0.0",
+    "author": "Karsegard Digita Agency SäRL",
+    "scripts": {
+        "start": "cd react-app; yarn run start",
+        "storybook": "cd react-app; yarn run storybook",
+        "start-worker": "cd react-app; yarn run start-worker",
+        "build:react":"cd react-app;yarn run build:all;",
+        "pack": "electron-builder --dir",
+        "dist": "electron-builder",
+        "build:dist": "yarn run build:react; yarn run pack; yarn run dist",
+        "unpack:root":"npx asar extract dist/linux-unpacked/resources/app.asar dist/app.package"
+    },
+    "build": {
+        "appId": "ch.karsegard.bia-manager",
+        "files":[
+            
+            "!datasample",
+            "!**/node_modules/*/{CHANGELOG.md,README.md,README,readme.md,readme}",
+            "!**/node_modules/*/{test,__tests__,tests,powered-test,example,examples}",
+            "!**/node_modules/*.d.ts",
+            "!**/node_modules/.bin",
+            "!**/*.{iml,o,hprof,orig,pyc,pyo,rbc,swp,csproj,sln,xproj}",
+            "!.editorconfig",
+            "!**/._*",
+            "!**/{.DS_Store,.git,.hg,.svn,CVS,RCS,SCCS,.gitignore,.gitattributes}",
+            "!**/{__pycache__,thumbs.db,.flowconfig,.idea,.vs,.nyc_output}",
+            "!**/{appveyor.yml,.travis.yml,circle.yml}",
+            "!**/{npm-debug.log,yarn.lock,.yarn-integrity,.yarn-metadata.json}",
+            
+            {
+                "from": "react-app/build",
+                "to": ".",
+                "filter": ["**/*"]
+            },
+            {
+                "from": "electron/main.js",
+                "to": "eiectron/main.js",
+                "filter": ["**/*"]
+            }
+        ]
+    },
+    "devDependencies": {
+        "devtron": "^1.4.0",
+        "electron": "^13.1.8",
+        "electron-builder": "^22.11.7",
+        "electron-cli": "^0.2.8"
+    },
+    "dependencies": {
+        "electron-is-dev": "^2.0.0",
+        "glob": "^7.1.7"
+    }
 }

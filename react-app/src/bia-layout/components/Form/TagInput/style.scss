@@ -1,0 +1,38 @@
+.tag-input{
+  display:flex;
+  align-items: center;
+  position:relative;
+  max-width:100%;
+  cursor:text;
+  flex-wrap:wrap;
+  .tag{
+
+    border-radius:2px;
+    background-color: orange;
+    padding:2px;
+    margin: 5px;
+  }
+  input{
+    border: 0;
+  }
+  border: 1px solid black;
+}
+
+
+.autocomplete{
+  position:absolute;
+  display:none;
+  z-index:1000;
+
+  &--visible{
+    display:block;
+  }
+  &__item{
+      cursor:pointer;
+      min-height:30px;
+      background-color: white;
+    &--selected, &:hover{
+       background-color:pink;
+    }
+  }
+}

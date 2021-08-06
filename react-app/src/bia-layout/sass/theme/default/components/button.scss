@@ -1,0 +1,27 @@
+.button {
+    min-width: calc((var(--col-width) * 3) + (var(--gut-width) * 2));
+    width: auto;
+
+    @extend %buttons;
+    @extend %colors-negative;
+    &:hover, &:active, &:focus{
+        @extend %colors-positive;
+        cursor: pointer;
+    }
+
+    padding: 8px 16px;
+    background-color: var(--primary);
+    border: 1px solid var(--primary);
+    @extend %radius;
+
+    &:hover{
+        border: 1px solid var(--primary);
+    }
+
+
+    &--big {
+        height: 42px;
+        min-width: calc((var(--col-width) * 5) + (var(--gut-width) * 4));
+    }
+
+}

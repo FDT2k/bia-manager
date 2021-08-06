@@ -1,0 +1,35 @@
+:root{
+
+    --template-area: "";
+
+    --color-invalid: red;
+}
+
+.impedance-form{
+    min-height:auto;
+    height:auto;
+
+    grid-template-columns:auto fit-content(50px) fit-content(50px) fit-content(50px) auto ;
+    grid-template-rows:  fit-content(50px) fit-content(50px) fit-content(50px) fit-content(50px) fit-content(50px)  ;
+
+    align-items: center;
+
+    grid-template-areas: ". h_5 h_50 h_100 h_nor"
+    "h_res  res5 res50 res100 f_res_nor"
+    "h_rea rea5 rea50 rea100 f_rea_nor"
+    "h_z z5 z50 z100 f_z_nor"
+    "h_a a5 a50 a100 f_a_nor"
+    ;
+
+}
+
+.impedance-form{
+    &__field--invalid{
+        color: var(--color-invalid);
+    }
+
+
+    div.editable-field{
+        min-height:45px;
+    }
+}
