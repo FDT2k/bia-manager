@@ -41,7 +41,15 @@ button {
     }
 }
 
+input, select, .editable-field {
+    box-sizing:border-box;
+    @extend %radius;
+    padding: 0px 16px;
+}
 
+input, select {
+    border: 1px solid var(--primary);
+}
 
 tr.selected, tr:hover{
     @extend %large-body;

@@ -4,9 +4,9 @@
 
 .editor-grid-layout{
 
-    grid-template-columns: fit-content(var(--mesures-list-width)) auto   ;
+    grid-template-columns: var(--mesures-list-width) auto   ;
     grid-template-rows:   fit-content(200px) auto;
-    column-gap: calc( var(--col-width) + (var(--gut-width) * 2) );
+    column-gap: var(--mesure-editor-right-margin);
 
     grid-template-areas:
         " patient patient "

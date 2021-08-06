@@ -41,4 +41,9 @@ $ref : $ref_width * 100 / $screen_width+0vw;
     --gut-width: #{$gut};
     --col-width: #{$col};
     --marge-width: #{$marge};
+    --mesure-editor-right-margin: calc( var(--gut-width) * 2  + var(--col-width) );
+    --width--2-col: calc((var(--col-width) * 2) + (var(--gut-width) * 1));
+    --width--3-col: calc((var(--col-width) * 3) + (var(--gut-width) * 2));
+    --width--4-col: calc((var(--col-width) * 4) + (var(--gut-width) * 3));
+    --width--5-col: calc((var(--col-width) * 5) + (var(--gut-width) * 4));
 }

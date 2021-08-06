@@ -280,7 +280,7 @@ const Editor = props => {
 
                         <LayoutFlex>
                             <Button onClick={_=>alert('it works')}>Enregistrer</Button>
-                            <Button onClick={_=>alert('brrrr. out of ink')}>IMPRIMER</Button>
+                            <Button className="btn--secondary" onClick={_=>alert('brrrr. out of ink')}>IMPRIMER</Button>
                         </LayoutFlex>
                     </LayoutFlexColumnWithArea>
                 </TabPanel>
