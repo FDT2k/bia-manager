@@ -1,0 +1,23 @@
+.impedance-form{
+    &__line-header{
+        font-weight:bold;
+        text-align: left;
+    }
+    &__header{
+        font-weight:bold;
+    }
+
+
+    input{
+        width: 100%;
+        height: 100%;
+        text-align: center;
+        @extend %placeholder;
+        color: var(--tertiary--dark);
+        // @extend %radius;
+    }
+
+    .editable-field {
+        align-items: center;
+    }
+}
