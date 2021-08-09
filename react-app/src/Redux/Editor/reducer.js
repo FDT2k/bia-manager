@@ -1,7 +1,7 @@
 
 import createReducer from 'Redux/utils/create-reducer'
 import {combineReducers} from 'redux'
-import {EDIT_PATIENT,CREATE_MESURE,EDIT_MESURE,RECOMPUTE_MESURE} from './actions';
+import {EDIT_PATIENT,CREATE_MESURE,EDIT_MESURE,RECOMPUTE_MESURE,UPDATE_RECAP} from './actions';
 
 import {delFromList,addToListUniq,delObjectProp,updateProp} from 'Redux/utils/handlers';
 import { actions } from 'react-table/dist/react-table.development';
@@ -23,12 +23,6 @@ export const examinators = createReducer(['Fabien','Bob'],{
 });
 
 
-
-export const mes = createReducer({},{
-    [RECOMPUTE_MESURE]: (state,{payload}) => updateProp('bia',state,payload),
-})
-
-
 export const mesure = createReducer({},{
     [EDIT_MESURE]: (state,{payload})=> updateProp(payload.id,state,payload),
     [CREATE_MESURE]: (state,{payload})=> updateProp(payload.id,state,payload),
@@ -42,8 +36,36 @@ export const mesure = createReducer({},{
 });
 
 
+export const recap = createReducer([],{
+    [UPDATE_RECAP]: (state,action)=> {
+        return [...action.payload]
+    }
+});
+
+
 export const patient = createReducer({},{
     [EDIT_PATIENT]: (state,{payload})=> updateProp(payload.id,state,payload),
+})
+
+
+export const report_settings=createReducer({
+    order: [
+        'ht2r',
+        'density',
+        'water',
+        'pct_water',
+        'ffm',
+        'pct_ffm',
+        'ffmi',
+        'dffm',
+        'pct_dffm',
+        'fm',
+        'pct_ffm',
+        'fmi',
+        'lf_ratio'
+    ]
+},{
+
 })
 
 
@@ -53,8 +75,10 @@ export const reducer = combineReducers({
     examinators,
     mesure,
     patient,
+    recap,
     physical_act,
-    type_act
+    type_act,
+    report_settings
 
 });
 

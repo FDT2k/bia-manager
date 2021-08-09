@@ -2,6 +2,12 @@ import { is_nil, is_type_function } from "@karsegard/composite-js";
 
 import { evaluateEquation } from 'references/expression';
 
+/**
+ * 
+ * ffm : fat free mass
+ * dffm: dry fat free mass
+ * fm: fat mass
+ */
 
 
 export const formulas = {
@@ -23,33 +29,33 @@ export const formulas = {
             display: false,
         },
         {
-            name: 'mm',
+            name: 'ffm',
             eval: "-4.104 + ((0.518 * ({height}^2) / {res}) +(0.231 * {weight}) + (0.130 * {rea}) + (4.229 * {gender_idx})"
         },
         {
-            name: 'mg',
-            eval: "{weight} - {mm}"
+            name: 'fm',
+            eval: "{weight} - {ffm}"
         },
         {
-            name: 'pct_mm',
-            eval: "{mm} *100 / {weight}"
+            name: 'pct_ffm',
+            eval: "{ffm} *100 / {weight}"
         },
         {
-            name: 'pct_mg',
-            eval: "{mg} * 100 / {weight}"
+            name: 'pct_fm',
+            eval: "{fm} * 100 / {weight}"
         },
         {
             //=W6/I6*100
             name: 'lf_ratio',
-            eval: '{mm} / {mg}'
+            eval: '{ffm} / {fm}'
         },
         {
             name:'ffmi',
-            eval: '{mm} / (({height}/100)^2 )' // c'est la bonne
+            eval: '{ffm} / (({height}/100)^2 )' // c'est la bonne
         },
         {
             name:'fmi',
-            eval: '{mg} / (({height}/100)^2 )'
+            eval: '{fm} / (({height}/100)^2 )'
         }
     ],
 
@@ -73,30 +79,30 @@ export const formulas = {
             eval: "({height}^2)/ {res}",
         },
         {
-            name: 'mm',
+            name: 'ffm',
             eval: "(0.00091186 * (pow({height},2)))-(0.01486*{res}) + (0.2999 * {weight})-(0.07012 * {current_age}) + 9.37938",
             cond: mesure => mesure.gender === 'F'
         },
         {
-            name: 'mm',
+            name: 'ffm',
             eval: "(0.0008858 * {height}^2) - (0.02999 * {res}) + (0.42688 * {weight})-(0.07002 * {current_age})+ 14.52435",
             cond: mesure => mesure.gender === 'M'
         },
         {
             name: 'water',
-            eval: '0.73 * {mm}'
+            eval: '0.73 * {ffm}'
         },
         {
             name: 'pct_water',
             eval: '{water}/{weight} *100 '
         },
         {
-            name: 'net_mm',
-            eval: '{mm} - {water}'
+            name: 'dffm',
+            eval: '{ffm} - {water}'
         },
         {
-            name: 'mg',
-            eval: '{weight} - {mm}'
+            name: 'fm',
+            eval: '{weight} - {ffm}'
         },
         {
 
@@ -107,30 +113,30 @@ export const formulas = {
         },
         {
             //=W6/I6*100
-            name: 'pct_mm',
-            eval: '{mm}/{weight}*100'
+            name: 'pct_ffm',
+            eval: '{ffm}/{weight}*100'
         },
         {
             //=W6/I6*100
-            name: 'pct_net _mm',
-            eval: '{net_mm}/{weight}*100'
+            name: 'pct_dffm',
+            eval: '{dffm}/{weight}*100'
         },
         {
             //=W6/I6*100
             name: 'lf_ratio',
-            eval: '{mm} / {mg}'
+            eval: '{ffm} / {fm}'
         },
         {
-            name: 'pct_mg',
-            eval: "{mg} * 100 / {weight}"
+            name: 'pct_fm',
+            eval: "{fm} * 100 / {weight}"
         },
         {
             name:'ffmi',
-            eval: '{mm} / (({height}/100)^2 )' // c'est la bonne
+            eval: '{ffm} / (({height}/100)^2 )' // c'est la bonne
         },
         {
             name:'fmi',
-            eval: '{mg} / (({height}/100)^2 )'
+            eval: '{fm} / (({height}/100)^2 )'
         }
     ],
 
@@ -173,57 +179,61 @@ export const formulas = {
             cond: mesure => mesure.gender === 'F'
         },
         {
-            name: 'pct_mg',
+            name: 'pct_fm',
             eval: "(4.95 / {density} - 4.5) * 100",
             cond: mesure => mesure.gender === 'M'
         },
         {
             //=ABS(1-(0.3981*S6+0.3066*I6+0.0952999*(H6-100)+0.7414)/I6)*100
-            name: 'pct_mg',
+            name: 'pct_fm',
             eval: "ABS(1-(0.3981 * {ht2r} + (0.3066 * {weight}) + 0.0952999 * ({height}-100) + 0.7414) / {weight})*100",
             cond: mesure => mesure.gender === 'F'
         },
 
         {
-            name: 'mg',
-            eval: '{weight}*{pct_mg} /100 '
+            name: 'fm',
+            eval: '{weight}*{pct_fm} /100 '
         },
         {
             //=I6-I6*Z6/100
-            name: 'mm',
-            eval: '{weight}- ({weight}*{pct_mg}/100)'
+            name: 'ffm',
+            eval: '{weight}- ({weight}*{pct_fm}/100)'
         },
         {
             //=I6-I6*Z6/100
-            name: 'net_mm',
-            eval: '{mm}-{water}'
+            name: 'dffm',
+            eval: '{ffm}-{water}'
         },
         {
             //=W6/I6*100
-            name: 'pct_mm',
-            eval: '{mm}/{weight}*100'
+            name: 'pct_ffm',
+            eval: '{ffm}/{weight}*100'
         },
         {
             //=W6/I6*100
-            name: 'pct_net _mm',
-            eval: '{net_mm}/{weight}*100'
+            name: 'pct_dffm',
+            eval: '{dffm}/{weight}*100'
         },
         {
             //=W6/I6*100
             name: 'lf_ratio',
-            eval: '{mm} / {mg}'
+            eval: '{ffm} / {fm}'
         },
         {
             name:'ffmi',
-            eval: '{mm} / (({height}/100)^2 )' // c'est la bonne
+            eval: '{ffm} / (({height}/100)^2 )' // c'est la bonne
         },
         {
             name:'fmi',
-            eval: '{mg} / (({height}/100)^2 )'
+            eval: '{fm} / (({height}/100)^2 )'
         }
         
     ]
 }
+
+
+
+
 
 
 
@@ -269,7 +279,7 @@ export const calculate = (values) => {
                         res[varname]['log'] = log;
                         
                     } catch (e) {
-                        console.error(e);
+                        console.log(e);
                     }
                 }
             }

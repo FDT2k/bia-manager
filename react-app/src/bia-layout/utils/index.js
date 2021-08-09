@@ -140,7 +140,6 @@ export const withVariables = (keyEnhancer,valEnhancer, variables) => Component =
     const _style = style || {}
 
     const [presentVars, _props] = spreadObjectPresentIn(variables, rest)
-
     const styles = {
         ..._style,
         ...reduceVariables(keyEnhancer,valEnhancer, variables, presentVars)

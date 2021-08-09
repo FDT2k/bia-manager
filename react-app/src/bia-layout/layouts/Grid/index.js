@@ -1,6 +1,6 @@
 import React,{useState} from 'react'
 import {cEx} from '@karsegard/cex'
-import {withBaseClass,withModifiers,compose, bem,divElement} from 'bia-layout/utils'
+import {withBaseClass,withModifiers,withVariables,compose, bem,divElement, camelize} from 'bia-layout/utils'
 import './style.scss';/*
 export default props => {
 
@@ -20,17 +20,38 @@ export default props => {
       </>
   )
 }*/
+import { identity, is_array, ucfirst } from '@karsegard/composite-js';
 
 const modifiers = [
     'r3c1',
     'r3c3'
 ]
 
+const withTemplateAreas = withVariables(
+  _ => `gridTemplateAreas`,
+  x => {
+    if(is_array(x)){
+      return x.map(item=> `"${item}"`).join(' ')
+    }else {
+      return`"${x}"`;
+    }
+  },
+  ['templateAreas']
+)
+
+const withTemplateColRow = withVariables(
+  x=> camelize(`grid-${x}`),
+  identity,
+  ['templateColumns','templateRows','autoRows']
+)
+
 const [__base_class,element,modifier] = bem ('layout-grid')
 
 const Grid = compose(
-    withBaseClass(__base_class),
-    withModifiers(x => modifier(x), modifiers)
+    withTemplateAreas,
+    withTemplateColRow,
+    withModifiers(x => modifier(x), modifiers),
+    withBaseClass(__base_class)
 )(divElement)
 
 

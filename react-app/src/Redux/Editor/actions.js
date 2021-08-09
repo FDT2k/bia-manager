@@ -14,6 +14,8 @@ export const EDIT_PATIENT = 'EDIT_PATIENT';
 export const EDIT_MESURE = 'EDIT_MESURE';
 export const CREATE_MESURE = 'CREATE_MESURE';
 export const RECOMPUTE_MESURE = 'RECOMPUTE_MESURE';
+export const UPDATE_RECAP = 'UPDATE_RECAP';
+export const CHANGE_MESURE = 'CHANGE_MESURE';
 
 
 
@@ -63,12 +65,64 @@ export const make_edit_mesure = baseSelector => (patient_id,mesure_id)=> {
 };
 
 
+
+export const make_change_mesure = baseSelector => (patient_id,mesure_id,values)=> {
+
+    return (dispatch,getState)=>{
+        let state = baseSelector(getState());
+
+
+
+        return dispatch({
+            type:CHANGE_MESURE,
+            payload:{         
+                id: patient_id,   
+                mesure: values,
+                mesure_id
+            }
+        })
+
+    }
+};
+
+
+
+
+export const make_recap = baseSelector => (patient_id,mesure_id)=> {
+
+    return (dispatch,getState)=>{
+        let state = baseSelector(getState());
+
+        let edited_mesure;
+
+
+        const mesures = state.patient.mesures;
+        
+        edited_mesure = state.mesure[patient_id].mesure || null;
+
+        if(edited_mesure){
+
+        }
+
+        return dispatch({
+            type:UPDATE_RECAP,
+            payload:[],
+        })
+
+    }
+};
+
+
+
+
 export const make_recompute_mesure = baseSelector => (patient_id,values)=> {
 
     return (dispatch,getState)=>{
         let state = baseSelector(getState());
 
         const patient = state.patient[patient_id];
+        
+        const order = state.report_settings.order;
 
         let results = calculate({...patient,...values});
 
@@ -76,13 +130,15 @@ export const make_recompute_mesure = baseSelector => (patient_id,values)=> {
             type:RECOMPUTE_MESURE,
             payload:{         
                 id: patient_id,   
-                bia: reduce_results(results),
+                bia: reduce_results(results,order),
                 raw_bia: results
             }
         })
 
     }
 }
+
+
 
 export const make_actions = spec({
     edit_mesure: make_edit_mesure,
@@ -103,11 +159,11 @@ const normes = {
 
 }
 
-const reduce_results = (results )=> {
+const reduce_results = (results,order )=> {
 
     const items = Object.keys(results);    
 
-    const keys = Object.keys(results).reduce( (carry,key)=>{
+   /* const keys = Object.keys(results).reduce( (carry,key)=>{
         
         let k = Object.keys(results[key]);
         for(let i= 0 ; i < k.length; i++){
@@ -118,11 +174,11 @@ const reduce_results = (results )=> {
 
         return carry;
     },[] )
-    
+    */
 
-    return keys.map( key => {
+    return order.map( key => {
 
-        let r = [];
+        let r = {};
         r['label'] = key;
         r['values'] = {};
         r['limits'] = {};

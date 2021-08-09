@@ -16,7 +16,7 @@ import ToggleSwitch from 'bia-layout/components/Form/ToggleSwitch'
 import Tabs, { TabList, Tab, TabPanel } from 'bia-layout/components/Tabs'
 import { Save, Print, Stats } from 'bia-layout/components/Icons';
 
-import { bmi, ideal_weight } from 'references';
+import { bmi, ideal_weight,mostAccurateFormula } from 'references';
 import Input from 'bia-layout/components/Form/Input'
 import ToggleEditField from 'bia-layout/hoc/ToggleEdit'
 
@@ -30,13 +30,15 @@ import ElectricalDataForm from 'bia-layout/components/Views/ElectricalDataForm';
 
 import { withGridArea } from 'bia-layout/hoc/grid/Area';
 
-import './mesure-editor.scss'
+import SafeDatePicker from 'bia-layout/components/Form/Editable/Date';
+import EditableTextInput from 'bia-layout/components/Form/Editable/TextInput';
+import EditableSelect from 'bia-layout/components/Form/Editable/Select';
 
-const CustomInput = forwardRef(({ value, onClick }, ref) => (
-    <div className="example-custom-input editable-field" onClick={onClick} ref={ref}>
-        {value}
-    </div>
-));
+
+import './mesure-editor.scss'
+import { patient } from 'Redux/Editor/reducer';
+
+
 
 
 const LayoutFlexColumnWithArea = withGridArea(LayoutFlexColumn);
@@ -44,93 +46,8 @@ const TabsWithArea = withGridArea(Tabs);
 
 
 
-const EditableTextInput = withBaseClass('editable-field')(props => {
-
-    const [editable, setEditable] = useState(false);
-    const enterPressed = useKeypress('Enter');
-    const ref = useRef()
-    const { hasFocus } = useFocus({ ref, debug: true });
-
-    useEffect(() => {
-        if (ref.current && enterPressed && hasFocus) {
-            setEditable(false);
-        }
-    }, [enterPressed, hasFocus])
 
 
-    useEffect(() => {
-        if (editable && ref.current) {
-            ref.current.focus();
-        }
-    }, [editable])
-
-    return (<>
-        {editable && <input ref={ref} onBlur={_ => setEditable(false)} type="text" {...props} />}
-        {!editable && <div className={props.className} onClick={_ => setEditable(true)}>{props.value}</div>}
-    </>
-    )
-
-})
-
-
-const EditableSelect = withBaseClass('editable-field')(props => {
-
-    const [editable, setEditable] = useState(false);
-    const enterPressed = useKeypress('Enter');
-    const ref = useRef()
-    const { hasFocus } = useFocus({ ref, debug: true });
-
-    const {children,...rest } = props;
-
-    useEffect(() => {
-        if (ref.current && enterPressed && hasFocus) {
-            setEditable(false);
-        }
-    }, [enterPressed, hasFocus])
-
-
-    useEffect(() => {
-        if (editable && ref.current) {
-            ref.current.focus();
-        }
-    }, [editable])
-
-    return (<>
-        {editable && <select ref={ref} onBlur={_ => setEditable(false)}  {...rest} >{children}</select>}
-        {!editable && <div className={props.className} onClick={_ => setEditable(true)}>{props.defaultValue}</div>}
-    </>
-    )
-
-})
-
-
-
-
-
-const SafeDatePicker = ({ selected, handleChange }) => {
-
-    let val = selected;
-
-    if (is_nil(selected)) {
-
-        val = new Date();
-
-    }
-
-    if (!(val instanceof Date)) {
-        val = new Date(val);
-
-    }
-
-
-    return (
-        <DatePicker
-            selected={val}
-            onChange={handleChange}
-            customInput={<CustomInput tabindex="-1" />}
-        />
-    )
-}
 
 
 
@@ -143,7 +60,6 @@ const Editor = props => {
     const { values, handleChangeValue, inputProps, handleChange, assignValues, replaceValues } = useFieldValues(mesure);
     //   const { values:electricalValues, handleChange:electricalHandleChange,replaceValues: replaceElectricalValues } = useFieldValues(mesure.data);
 
-    console.log('MESURE',mesure)
 
     useEffect(() => {
         console.log('reloading', mesure);
@@ -202,16 +118,32 @@ const Editor = props => {
 
     useEffect(() => {
         if (!is_nil(values.weight) && !is_nil(values.height)) {
-            assignValues({
+
+            let calculated_fields=  {
                 bmi: bmi(values.weight, values.height),
                 ideal_weight: ideal_weight(gender, values.height)
 
-            });
+            };
+
+            assignValues(calculated_fields);
         }
 
     }, [values.weight, values.height, gender]);
 
 
+    useEffect(()=>{
+        console.log('BMI change', values.bmi,values.bmi_ref)
+        if (!isNaN(values.bmi)){
+
+            let use_bmi = values.bmi;
+            if(!isNaN(values.bmi_ref)){
+                use_bmi = values.bmi_ref;
+            }
+            assignValues({
+                most_accurate_formula: mostAccurateFormula(patient.gender,use_bmi)
+            })
+        }
+    },[values.bmi,values.bmi_ref])
 
     const handleGroupChange = g => {
         setEditedGroup(g)
@@ -288,18 +220,71 @@ const Editor = props => {
                     <Container fit grow>
                     <ElectricalDataForm handleGroupChange={handleGroupChange} handleComputedChange={electricalHandleValues} handleChange={electricalHandleChange} editedGroup={editedGroup} values={values.data} />
 
-                    <br/>
-                        <Grid style={{
-                            gridTemplateColumns: "2fr 1fr 1fr 1fr",
-                            gridAutoRows: "1fr"
-                        }}>
-
-                            <ComparisonTable data={mesure.bia} />
-
-                        </Grid>
+                    <br/>   
+                      <pre> {JSON.stringify( values,null,10)}</pre>
+                            <ComparisonTable data={mesure.bia} columns={['norme', values.most_accurate_formula, 'gva']}/>
+                       
                     </Container>
                 </TabPanel>
-                <TabPanel><LayoutFlexColumn></LayoutFlexColumn></TabPanel>
+                <TabPanel>
+                    <LayoutFlexColumn>
+                        <h1>Recapitulatif</h1>
+
+                        <Grid templateAreas={['label norme value value2 value3 value4 value5 ']}
+                            templateColumns="2fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr"
+                            autoRows="1fr"
+                        >
+
+
+            <div>Dates</div>
+            <div>Norme</div>
+            <div>05.12.12</div>
+            <div>05.12.12</div>
+            <div>05.12.12</div>
+            <div>05.12.12</div>
+            <div>05.12.12</div>
+            <div>05.12.12</div>
+
+
+            <div>label</div>
+            <div>norme</div>
+            <div>val</div>
+            <div>val</div>
+            <div>val</div>
+            <div>val</div>
+            <div >val</div>
+            <div>val</div>
+
+            <div>label</div>
+            <div>norme</div>
+            <div>val</div>
+            <div>val</div>
+            <div>val</div>
+            <div>val</div>
+            <div>val</div>
+            <div>val</div>
+
+            <div>label</div>
+            <div>norme</div>
+            <div>val</div>
+            <div>val</div>
+            <div>val</div>
+            <div>val</div>
+            <div>val</div>
+            <div>val</div>
+
+            <div>label</div>
+            <div>norme</div>
+            <div>val</div>
+            <div>val</div>
+            <div>val</div>
+            <div>val</div>
+            <div>val</div>
+            <div>val</div>
+
+                        </Grid>
+                    </LayoutFlexColumn>
+                </TabPanel>
                 <TabPanel><LayoutFlexColumn></LayoutFlexColumn></TabPanel>
             </TabsWithArea>
 
