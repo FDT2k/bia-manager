@@ -7,7 +7,7 @@ const progress = (total,current) => postMessage({progress:Math.round(current*100
 const total_count = (total) => postMessage({total:total})
 
 
-const remap = (obj,mapping) =>  (carry,item)=>{
+const remap = (obj,mapping,ref={}) =>  (carry,item)=>{
     let _key = key(item);
     let _mapped = mapping[_key];
     if(_mapped && is_type_string(_mapped)){
@@ -18,7 +18,7 @@ const remap = (obj,mapping) =>  (carry,item)=>{
             transform = eval(transform);
         }
 
-        carry[name]= transform(carry[name] ,obj);
+        carry[name]= transform(carry[name] ,obj,{...ref,...carry});
 
     }
     return carry;
@@ -77,7 +77,7 @@ const parse = ({
             }
 
 
-            let remapped_mesure = enlist(mesure).reduce(remap(mesure,mapping.mesure),{});
+            let remapped_mesure = enlist(mesure).reduce(remap(mesure,mapping.mesure, carry.data[index_key] ),{});
             
             carry.data[index_key].mesures.push(remapped_mesure);
             carry.data[index_key].mesures_dates.push(remapped_mesure.date);

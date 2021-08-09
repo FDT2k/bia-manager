@@ -9,7 +9,7 @@ import { CircularProgressbar } from 'react-circular-progressbar';
 import 'react-circular-progressbar/dist/styles.css';
 import Button from 'bia-layout/components/Form/Button';
 import InputGroup from 'bia-layout/components/Form/InputGroup';
-
+import { mostAccurateFormula } from 'references';
 
 export default props => {
 
@@ -47,6 +47,8 @@ export default props => {
     const [parse] = useWorker('workers/csvimport.worker.js', workerCallback);
 
 
+    
+
     const mappings = {
         BIAManager: {
             patient: {
@@ -63,6 +65,8 @@ export default props => {
             },
             mesure:{
                 'dateExam': 'date',
+                'bmiRef': 'bmi_ref',
+                'bmiAct': 'bmi',
                 'a100':{name:'data', transform: "(state={},value)=> ({...state,a100:value.a100})"},
                 'a5':{name:'data', transform: "(state={},value)=> ({...state,a5:value.a5})"},
                 'a50':{name:'data', transform: "(state={},value)=> ({...state,a50:value.a50})"},
@@ -78,12 +82,42 @@ export default props => {
                 'cote':{name:'left_side', transform: "(state={},value)=> ( value !=='D' ? true: false)"},
                 'poidsAct':'weight',
                 'taille' : 'height',
-                'appareil':'machine'
+                'appareil':'machine',
+                
+                't2R': {name:'bia', transform: "(state={},value)=>({...state,ht2r: value.t2R})"},
+                'dens': {name:'bia', transform: "(state={},value)=>({...state,density: value.dens})"},
+                'eau': {name:'bia', transform: "(state={},value)=>({...state,water: value.eau})"},
+                'pcEau': {name:'bia', transform: "(state={},value)=>({...state,pct_water: value.pcEau})"},
+                'mng': {name:'bia', transform: "(state={},value)=>({...state,ffm: value.mng})"},
+                'pcMng': {name:'bia', transform: "(state={},value)=>({...state,pct_ffm: value.pcMng})"},
+                'ffmi': {name:'bia', transform: "(state={},value)=>({...state,ffmi: value.ffmi})"},
+                'mngs': {name:'bia', transform: "(state={},value)=>({...state,dffm: value.mngs})"},
+                'pcMngs': {name:'bia', transform: "(state={},value)=>({...state,pct_dffm: value.pcMngs})"},
+                'mg': {name:'bia', transform: "(state={},value)=>({...state,fm: value.mg})"},
+                'pcMg': {name:'bia', transform: "(state={},value)=>({...state,pct_ffm: value.pcMg})"},
+                'fmi': {name:'bia', transform: "(state={},value)=>({...state,fmi: value.fmi})"},
+                'signe': {name:'most_accurate_bia_formula', transform: `(state={},value,values)=>{
+                    const accurate_formula = ${mostAccurateFormula.toString()};
+
+                    return accurate_formula(values.gender,values.bmi)
+                }`},
             }
         }
     }
 
-
+/* 'ht2r',
+        'density',
+        'water',
+        'pct_water',
+        'ffm',
+        'pct_ffm',
+        'ffmi',
+        'dffm',
+        'pct_dffm',
+        'fm',
+        'pct_ffm',
+        'fmi',
+        'lf_ratio' */
     const identifier = "PatientUuid";
 
     const separator= "|";

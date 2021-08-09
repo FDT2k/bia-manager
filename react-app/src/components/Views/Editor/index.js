@@ -8,7 +8,7 @@ import useBIAManager from 'hooks/useBIAManager';
 
 import Editor from 'bia-layout/pages/Editor'
 
-import { select_patient, create_mesure, recompute_mesure, edit_patient, edit_mesure, select_edited_patient, select_edited_mesure, compute_formulas } from 'Store';
+import { select_patient, create_mesure,refresh_recap, recompute_mesure, change_mesure,edit_patient, edit_mesure, select_edited_patient, select_edited_mesure, compute_formulas } from 'Store';
 
 
 
@@ -93,9 +93,10 @@ export default props => {
 
     const handleChange = values => {
         console.log(values);
-        if (values.data) {
-            dispatch(recompute_mesure(patient_id, values));
-
+        if (values.data && patient) {
+          //  dispatch(recompute_mesure(patient_id, values));
+            dispatch(change_mesure(patient,values))
+         // dispatch(refresh_recap(patient_id,mesure_id));
         }
     }
 

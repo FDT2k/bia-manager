@@ -21,6 +21,12 @@ function _iterableToArrayLimit(arr, i) { var _i = arr == null ? null : typeof Sy
 
 function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 
+function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) { symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); } keys.push.apply(keys, symbols); } return keys; }
+
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
 
 
 
@@ -38,6 +44,7 @@ var total_count = function total_count(total) {
 };
 
 var remap = function remap(obj, mapping) {
+  var ref = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : {};
   return function (carry, item) {
     var _key = Object(_karsegard_composite_js_ObjectUtils__WEBPACK_IMPORTED_MODULE_1__["key"])(item);
 
@@ -53,7 +60,7 @@ var remap = function remap(obj, mapping) {
         transform = eval(transform);
       }
 
-      carry[name] = transform(carry[name], obj, carry);
+      carry[name] = transform(carry[name], obj, _objectSpread(_objectSpread({}, ref), carry));
     }
 
     return carry;
@@ -111,7 +118,7 @@ var parse = function parse(_ref) {
       carry.data[index_key]['mesures_dates'] = [];
     }
 
-    var remapped_mesure = Object(_karsegard_composite_js__WEBPACK_IMPORTED_MODULE_0__["enlist"])(mesure).reduce(remap(mesure, mapping.mesure), {});
+    var remapped_mesure = Object(_karsegard_composite_js__WEBPACK_IMPORTED_MODULE_0__["enlist"])(mesure).reduce(remap(mesure, mapping.mesure, patient), {});
     carry.data[index_key].mesures.push(remapped_mesure);
     carry.data[index_key].mesures_dates.push(remapped_mesure.date);
     carry.countMesure++;

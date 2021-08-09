@@ -1716,10 +1716,10 @@
   resolved "http://registry.lan:4873/@karsegard%2fcomposite-js/-/composite-js-2.3.0.tgz#a7276f9b60cfeb287a291fc95bc097cddf7227cb"
   integrity sha512-/rdxE1PaeuqZ/QTbmk64UA3/8GBwOGQ2qqiNbbslrYqtRAebbEp31DeT4GvVb9sc4pmFzb0yv4oWxO0DLJnkXw==
 
-"@karsegard/react-hooks@^1.5.3":
-  version "1.5.3"
-  resolved "http://registry.lan:4873/@karsegard%2freact-hooks/-/react-hooks-1.5.3.tgz#b0252c420d777e045818c0abb9e27d056ba499d5"
-  integrity sha512-7oUAL4S2MpLHti89n3Nhe6r7HB4zvJLMxbjRScymhe3WHKb12Vv9bB5weTIzYWcO2+dt3LntbHpLYl3y2g4Gag==
+"@karsegard/react-hooks@^2.0.0":
+  version "2.0.0"
+  resolved "http://registry.lan:4873/@karsegard%2freact-hooks/-/react-hooks-2.0.0.tgz#fbd49b4a6853a9f94ad47d6fa12a1ad385f39ad4"
+  integrity sha512-qlsFFP+LZYzqiAnpulNqt7WT04ebkHKFZ6vdLGO36PVjqGMjoMTfnYDIm8N8SSbXw6d3zzatPCbBndGKdhWGEQ==
   dependencies:
     react "^17.0.2"
 
@@ -13115,11 +13115,7 @@ react-lifecycles-compat@^3.0.4:
 
 react-loading@^2.0.3:
   version "2.0.3"
-<<<<<<< HEAD
-  resolved "http://registry.lan:4873/react-loading/-/react-loading-2.0.3.tgz#e8138fb0c3e4674e481b320802ac7048ae14ffb9"
-=======
   resolved "https://registry.yarnpkg.com/react-loading/-/react-loading-2.0.3.tgz#e8138fb0c3e4674e481b320802ac7048ae14ffb9"
->>>>>>> design
   integrity sha512-Vdqy79zq+bpeWJqC+xjltUjuGApyoItPgL0vgVfcJHhqwU7bAMKzysfGW/ADu6i0z0JiOCRJjo+IkFNkRNbA3A==
 
 react-onclickoutside@^6.10.0:

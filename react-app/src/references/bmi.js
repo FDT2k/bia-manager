@@ -1,7 +1,6 @@
 // femme  ≥ 30 BMI ; hommes >26 BMI
 
 export const mostAccurateFormula= (gender,bmi) => {
-    console.log(gender,bmi)
     if(gender == 'F' && parseFloat(bmi) >= 30  || gender=='M' && parseFloat(bmi) >=26) {
         return 'segal'
     }

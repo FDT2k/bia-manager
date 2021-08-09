@@ -1,7 +1,7 @@
 
 import createReducer from 'Redux/utils/create-reducer'
 import {combineReducers} from 'redux'
-import {EDIT_PATIENT,CREATE_MESURE,EDIT_MESURE,RECOMPUTE_MESURE,UPDATE_RECAP} from './actions';
+import {EDIT_PATIENT,CHANGE_MESURE,CREATE_MESURE,EDIT_MESURE,RECOMPUTE_MESURE,UPDATE_RECAP} from './actions';
 
 import {delFromList,addToListUniq,delObjectProp,updateProp} from 'Redux/utils/handlers';
 import { actions } from 'react-table/dist/react-table.development';
@@ -33,6 +33,14 @@ export const mesure = createReducer({},{
             bia:payload.bia
         }
     }),
+    [CHANGE_MESURE]: (state,{payload}) => updateProp(payload.id,state,{
+        ...state[payload.id],
+        mesure: {
+            ...state[payload.id].mesure,
+            ...payload.mesure
+        }
+    }),
+
 });
 
 
@@ -49,7 +57,7 @@ export const patient = createReducer({},{
 
 
 export const report_settings=createReducer({
-    order: [
+    bia_result_columns: [
         'ht2r',
         'density',
         'water',

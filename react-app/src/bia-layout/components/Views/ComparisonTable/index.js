@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Tooltip from 'bia-layout/hoc/Tooltip'
 import { bem, compose, withModifiers, applyModifiers, withVariables, divElement, withBaseClass, getClasseNames, cEx } from 'bia-layout/utils'
 
@@ -16,7 +16,7 @@ const FormulaHeaderSelect = props => {
         handleChange && handleChange(idx, e.target.value);
 
     }
-    return (<select defaultValue={defaultValue} onChange={_onChange} {...rest}>
+    return (<select value={defaultValue}  onChange={_onChange} {...rest}>
         {
             options.filter(
                 item => item.selectable === true)
@@ -36,12 +36,10 @@ const FormulaResultHeader = props => {
     const { available_columns, columns, handleChange, selectable, ...rest } = props;
 
 
-
     let colByName = available_columns.reduce(function (carry, item) {
         carry[item['name']] = item;
         return carry;
     }, {})
-
     return (<>
         <div></div>
         {columns.map((col, idx) => {
@@ -100,7 +98,12 @@ export const Component = props => {
 
     const { data, t, available_columns, selectable, columns, ...rest } = props;
     const [state, setState] = useState(columns);
+   
 
+    useEffect(()=>{
+      
+        setState(columns);
+    },[columns])
 
     const handleChange = (idx, value) => {
 

@@ -7,16 +7,15 @@
         "start": "cd react-app; yarn run start",
         "storybook": "cd react-app; yarn run storybook",
         "start-worker": "cd react-app; yarn run start-worker",
-        "build:react":"cd react-app;yarn run build:all;",
+        "build:react": "cd react-app;yarn run build:all;",
         "pack": "electron-builder --dir",
         "dist": "electron-builder",
         "build:dist": "yarn run build:react; yarn run pack; yarn run dist",
-        "unpack:root":"npx asar extract dist/linux-unpacked/resources/app.asar dist/app.package"
+        "unpack:root": "npx asar extract dist/linux-unpacked/resources/app.asar dist/app.package"
     },
     "build": {
         "appId": "ch.karsegard.bia-manager",
-        "files":[
-            
+        "files": [
             "!datasample",
             "!**/node_modules/*/{CHANGELOG.md,README.md,README,readme.md,readme}",
             "!**/node_modules/*/{test,__tests__,tests,powered-test,example,examples}",
@@ -29,16 +28,19 @@
             "!**/{__pycache__,thumbs.db,.flowconfig,.idea,.vs,.nyc_output}",
             "!**/{appveyor.yml,.travis.yml,circle.yml}",
             "!**/{npm-debug.log,yarn.lock,.yarn-integrity,.yarn-metadata.json}",
-            
             {
                 "from": "react-app/build",
                 "to": ".",
-                "filter": ["**/*"]
+                "filter": [
+                    "**/*"
+                ]
             },
             {
                 "from": "electron/main.js",
                 "to": "eiectron/main.js",
-                "filter": ["**/*"]
+                "filter": [
+                    "**/*"
+                ]
             }
         ]
     },
@@ -49,6 +51,7 @@
         "electron-cli": "^0.2.8"
     },
     "dependencies": {
+        "@karsegard/react-hooks": "^2.0.0",
         "electron-is-dev": "^2.0.0",
         "glob": "^7.1.7"
     }

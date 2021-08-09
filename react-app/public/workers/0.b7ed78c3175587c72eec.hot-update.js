@@ -37,7 +37,7 @@ var total_count = function total_count(total) {
   });
 };
 
-var remap = function remap(obj, mapping) {
+var remap = function remap(obj, mapping, ref) {
   return function (carry, item) {
     var _key = Object(_karsegard_composite_js_ObjectUtils__WEBPACK_IMPORTED_MODULE_1__["key"])(item);
 
@@ -53,7 +53,7 @@ var remap = function remap(obj, mapping) {
         transform = eval(transform);
       }
 
-      carry[name] = transform(carry[name], obj, carry);
+      carry[name] = transform(carry[name], obj, ref);
     }
 
     return carry;

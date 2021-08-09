@@ -241,8 +241,8 @@ const normalize_item = item => {
 
     let newItem = {...item};
 
-    if(item.display !==false){
-        item.display = true;
+    if(is_nil(item.display) || item.display !==false){
+        newItem.display = true;
     }
     
     return newItem

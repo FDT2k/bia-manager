@@ -56,28 +56,27 @@ const [__base_class, element, modifier] = bem('bia-mesure-editor')
 
 const Editor = props => {
     const { className, gender, t, handleGoBack, handleChange: parentHandleChange, mesure, data, ...rest } = getClasseNames(__base_class, props)
-
-    const { values, handleChangeValue, inputProps, handleChange, assignValues, replaceValues } = useFieldValues(mesure);
-    //   const { values:electricalValues, handleChange:electricalHandleChange,replaceValues: replaceElectricalValues } = useFieldValues(mesure.data);
-
-
-    useEffect(() => {
-        console.log('reloading', mesure);
-
-        assignValues(mesure);
-        //      replaceElectricalValues(mesure.data);
-    }, [mesure.date]);
-
-    /*
-        useEffect(() => {
-            assignValues({data:electricalValues})
-        }, [electricalValues]);
-    */
-
-
+   
     const _handleChange = v => {
         parentHandleChange && parentHandleChange(v);
     }
+
+    const { values, handleChangeValue, inputProps, handleChange, assignValues, replaceValues } = useFieldValues(mesure,{handleValuesChange:_handleChange});
+ 
+
+    /* update internal state if we change the prop */
+    useEffect(() => {
+        assignValues(mesure);
+    }, [mesure]);
+
+    
+     /* temporary, update electrical data, should change to an handle function */
+
+    useEffect(() => {
+        _handleChange(values);
+    }, [values.data]);
+
+    
 
     const [editedGroup, setEditedGroup] = useState("a");
     const electricalHandleChange = e => {
@@ -112,44 +111,15 @@ const Editor = props => {
 
     }
 
-    useEffect(() => {
-        _handleChange(values);
-    }, [values]);
-
-    useEffect(() => {
-        if (!is_nil(values.weight) && !is_nil(values.height)) {
-
-            let calculated_fields=  {
-                bmi: bmi(values.weight, values.height),
-                ideal_weight: ideal_weight(gender, values.height)
-
-            };
-
-            assignValues(calculated_fields);
-        }
-
-    }, [values.weight, values.height, gender]);
+   
 
 
-    useEffect(()=>{
-        console.log('BMI change', values.bmi,values.bmi_ref)
-        if (!isNaN(values.bmi)){
-
-            let use_bmi = values.bmi;
-            if(!isNaN(values.bmi_ref)){
-                use_bmi = values.bmi_ref;
-            }
-            assignValues({
-                most_accurate_formula: mostAccurateFormula(patient.gender,use_bmi)
-            })
-        }
-    },[values.bmi,values.bmi_ref])
-
+   
     const handleGroupChange = g => {
         setEditedGroup(g)
     }
 
-
+    const result_columns = ['norme', values.most_accurate_formula || 'kuschner', 'gva'];
 
 
     return (
@@ -221,8 +191,8 @@ const Editor = props => {
                     <ElectricalDataForm handleGroupChange={handleGroupChange} handleComputedChange={electricalHandleValues} handleChange={electricalHandleChange} editedGroup={editedGroup} values={values.data} />
 
                     <br/>   
-                      <pre> {JSON.stringify( values,null,10)}</pre>
-                            <ComparisonTable data={mesure.bia} columns={['norme', values.most_accurate_formula, 'gva']}/>
+                     
+                            <ComparisonTable data={mesure.bia} columns={result_columns}/>
                        
                     </Container>
                 </TabPanel>
@@ -339,24 +309,7 @@ Editor.defaultProps = {
     gender: 'm',
     t: x => x,
     data: [
-        {
-            label: 'bla', values: {
-                'norme': 0,
-                'kushner': 0,
-                'segal': 0,
-                'gva': 0,
-
-            }, limits: []
-        },
-        {
-            label: 'bla', values: {
-                'norme': 0,
-                'kushner': 2,
-                'segal': 4,
-                'gva': 3,
-
-            }, limits: []
-        },
+       
     ],
 }
 
