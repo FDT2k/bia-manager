@@ -3,7 +3,7 @@ import DatePicker from 'react-datepicker';
 import { useFieldValues, useKeypress, useFocus } from '@karsegard/react-hooks';
 
 
-import { bem, compose, withModifiers, applyModifiers, withVariables, divElement,withRemovedProps, withBaseClass, getClasseNames, cEx } from 'bia-layout/utils'
+import { bem, compose, withModifiers, applyModifiers, withVariables, divElement, withRemovedProps, withBaseClass, getClasseNames, cEx } from 'bia-layout/utils'
 
 
 import LayoutFlex, { LayoutFlexColumn } from 'bia-layout/layouts/Flex'
@@ -16,7 +16,7 @@ import ToggleSwitch from 'bia-layout/components/Form/ToggleSwitch'
 import Tabs, { TabList, Tab, TabPanel } from 'bia-layout/components/Tabs'
 import { Save, Print, Stats } from 'bia-layout/components/Icons';
 
-import { bmi, ideal_weight,mostAccurateFormula } from 'references';
+import { bmi, ideal_weight, mostAccurateFormula } from 'references';
 import Input from 'bia-layout/components/Form/Input'
 import ToggleEditField from 'bia-layout/hoc/ToggleEdit'
 
@@ -34,10 +34,12 @@ import SafeDatePicker from 'bia-layout/components/Form/Editable/Date';
 import EditableTextInput from 'bia-layout/components/Form/Editable/TextInput';
 import EditableSelect from 'bia-layout/components/Form/Editable/Select';
 
+import { useDispatch, useSelector } from 'react-redux';
 
 import './mesure-editor.scss'
 import { patient } from 'Redux/Editor/reducer';
 
+import { select_patient, create_mesure, refresh_recap, recompute_mesure, change_mesure, edit_patient, edit_mesure, select_recap, select_mesures_dates, select_edited_patient, select_edited_mesure, compute_formulas } from 'Store';
 
 
 
@@ -56,27 +58,28 @@ const [__base_class, element, modifier] = bem('bia-mesure-editor')
 
 const Editor = props => {
     const { className, gender, t, handleGoBack, handleChange: parentHandleChange, mesure, data, ...rest } = getClasseNames(__base_class, props)
-   
+
+
     const _handleChange = v => {
         parentHandleChange && parentHandleChange(v);
     }
 
-    const { values, handleChangeValue, inputProps, handleChange, assignValues, replaceValues } = useFieldValues(mesure,{handleValuesChange:_handleChange});
- 
+    const { values, handleChangeValue, inputProps, handleChange, assignValues, replaceValues } = useFieldValues(mesure, { handleValuesChange: _handleChange });
+
 
     /* update internal state if we change the prop */
     useEffect(() => {
         assignValues(mesure);
     }, [mesure]);
 
-    
-     /* temporary, update electrical data, should change to an handle function */
+
+    /* temporary, update electrical data, should change to an handle function */
 
     useEffect(() => {
         _handleChange(values);
     }, [values.data]);
 
-    
+
 
     const [editedGroup, setEditedGroup] = useState("a");
     const electricalHandleChange = e => {
@@ -111,20 +114,21 @@ const Editor = props => {
 
     }
 
-   
 
 
-   
+
+
     const handleGroupChange = g => {
         setEditedGroup(g)
     }
 
     const result_columns = ['norme', values.most_accurate_formula || 'kuschner', 'gva'];
 
-
+    const recap = useSelector(select_recap);
+    const list_dates = useSelector(select_mesures_dates);
     return (
-        <MesureEditorLayout {...rest}  className={className}>
-            <TabsWithArea area="mesure-editor-main">
+        <MesureEditorLayout {...rest} className={className}>
+            <TabsWithArea tabindexOffset={10} area="mesure-editor-main">
                 <TabList>
                     <Tab>Mesures</Tab>
                     <Tab>Résultats</Tab>
@@ -144,19 +148,19 @@ const Editor = props => {
 
                             <Field className="activite-physique" label={t("Activité physique")}>
                                 <select>
-                                <option>faible</option>
-                                <option>modérée</option>
-                                <option>élevée </option>
-                                <option>très élevée </option>
+                                    <option>faible</option>
+                                    <option>modérée</option>
+                                    <option>élevée </option>
+                                    <option>très élevée </option>
                                 </select>
 
                             </Field>
                             <Field className="type-activite-physique" label={t("Type d'Activité physique")}>
-                            <select>
-                                <option>endurance</option>
-                                <option>résistance></option>
-                                <option>autre</option>
-                                <option>inconnue</option>
+                                <select>
+                                    <option>endurance</option>
+                                    <option>résistance></option>
+                                    <option>autre</option>
+                                    <option>inconnue</option>
                                 </select>
 
                             </Field>
@@ -181,76 +185,54 @@ const Editor = props => {
 
 
                         <LayoutFlex>
-                            <Button onClick={_=>alert('it works')}>Enregistrer</Button>
-                            <Button className="btn--secondary" onClick={_=>alert('brrrr. out of ink')}>IMPRIMER</Button>
+                            <Button onClick={_ => alert('it works')}>Enregistrer</Button>
+                            <Button className="btn--secondary" onClick={_ => alert('brrrr. out of ink')}>IMPRIMER</Button>
                         </LayoutFlex>
                     </LayoutFlexColumnWithArea>
                 </TabPanel>
                 <TabPanel>
                     <Container fit grow>
-                    <ElectricalDataForm handleGroupChange={handleGroupChange} handleComputedChange={electricalHandleValues} handleChange={electricalHandleChange} editedGroup={editedGroup} values={values.data} />
+                        <ElectricalDataForm handleGroupChange={handleGroupChange} handleComputedChange={electricalHandleValues} handleChange={electricalHandleChange} editedGroup={editedGroup} values={values.data} />
 
-                    <br/>   
-                     
-                            <ComparisonTable data={mesure.bia} columns={result_columns}/>
-                       
+                        <br />
+
+                        <ComparisonTable data={mesure.bia} columns={result_columns} />
+
                     </Container>
                 </TabPanel>
                 <TabPanel>
                     <LayoutFlexColumn>
                         <h1>Recapitulatif</h1>
 
-                        <Grid templateAreas={['label norme value value2 value3 value4 value5 ']}
+                        <Grid
                             templateColumns="2fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr"
-                            autoRows="1fr"
+                            templateRows="1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr"
                         >
 
 
-            <div>Dates</div>
-            <div>Norme</div>
-            <div>05.12.12</div>
-            <div>05.12.12</div>
-            <div>05.12.12</div>
-            <div>05.12.12</div>
-            <div>05.12.12</div>
-            <div>05.12.12</div>
+                            <div>Dates</div>
+                            <div>Norme</div>
+                            {
+
+                                list_dates.map(item => (<div>{item}</div>))
+                            }
 
 
-            <div>label</div>
-            <div>norme</div>
-            <div>val</div>
-            <div>val</div>
-            <div>val</div>
-            <div>val</div>
-            <div >val</div>
-            <div>val</div>
+                            {recap.map(line => {
+                                return (<>
+                                    <div>{t(line.label)}</div>
+                                    <div>{line.values['norme']}</div>
+                                    {list_dates.map(key => {
+                                        let val = line.values[key];
+                                        val = (new Number(val)).toFixed(1);
+                                        return (<div>{!isNaN(val) ? val : ''}</div>)
+                                    })}
 
-            <div>label</div>
-            <div>norme</div>
-            <div>val</div>
-            <div>val</div>
-            <div>val</div>
-            <div>val</div>
-            <div>val</div>
-            <div>val</div>
+                                </>)
 
-            <div>label</div>
-            <div>norme</div>
-            <div>val</div>
-            <div>val</div>
-            <div>val</div>
-            <div>val</div>
-            <div>val</div>
-            <div>val</div>
+                            })}
 
-            <div>label</div>
-            <div>norme</div>
-            <div>val</div>
-            <div>val</div>
-            <div>val</div>
-            <div>val</div>
-            <div>val</div>
-            <div>val</div>
+
 
                         </Grid>
                     </LayoutFlexColumn>
@@ -265,8 +247,8 @@ const Editor = props => {
                 <Field label={t("BioImpédanceMètre")}>
 
                     <EditableSelect defaultValue={values.machine}>
-                            <option value="BIO-Z">BIO-Z</option>
-                            <option value="NUTRIGUARD">NUTRIGUARD</option>
+                        <option value="BIO-Z">BIO-Z</option>
+                        <option value="NUTRIGUARD">NUTRIGUARD</option>
                     </EditableSelect>
 
                 </Field>
@@ -309,7 +291,7 @@ Editor.defaultProps = {
     gender: 'm',
     t: x => x,
     data: [
-       
+
     ],
 }
 

@@ -10,7 +10,8 @@ import 'react-circular-progressbar/dist/styles.css';
 import Button from 'bia-layout/components/Form/Button';
 import InputGroup from 'bia-layout/components/Form/InputGroup';
 import { mostAccurateFormula } from 'references';
-
+import {parse} from './parser'
+import { identity } from '@karsegard/composite-js';
 export default props => {
 
     const [location, setLocation] = useLocation();
@@ -44,7 +45,7 @@ export default props => {
     }
 
 
-    const [parse] = useWorker('workers/csvimport.worker.js', workerCallback);
+   // const [parse] = useWorker('workers/csvimport.worker.js', workerCallback);
 
 
     
@@ -84,7 +85,7 @@ export default props => {
                 'taille' : 'height',
                 'appareil':'machine',
                 
-                't2R': {name:'bia', transform: "(state={},value)=>({...state,ht2r: value.t2R})"},
+              /*  't2R': {name:'bia', transform: "(state={},value)=>({...state,ht2r: value.t2R})"},
                 'dens': {name:'bia', transform: "(state={},value)=>({...state,density: value.dens})"},
                 'eau': {name:'bia', transform: "(state={},value)=>({...state,water: value.eau})"},
                 'pcEau': {name:'bia', transform: "(state={},value)=>({...state,pct_water: value.pcEau})"},
@@ -95,29 +96,17 @@ export default props => {
                 'pcMngs': {name:'bia', transform: "(state={},value)=>({...state,pct_dffm: value.pcMngs})"},
                 'mg': {name:'bia', transform: "(state={},value)=>({...state,fm: value.mg})"},
                 'pcMg': {name:'bia', transform: "(state={},value)=>({...state,pct_ffm: value.pcMg})"},
-                'fmi': {name:'bia', transform: "(state={},value)=>({...state,fmi: value.fmi})"},
-                'signe': {name:'most_accurate_bia_formula', transform: `(state={},value,values)=>{
+                'fmi': {name:'bia', transform: "(state={},value)=>({...state,fmi: value.fmi})"},*/
+              /*  'signe': {name:'most_accurate_bia_formula', transform: `(state={},value,values)=>{
                     const accurate_formula = ${mostAccurateFormula.toString()};
 
                     return accurate_formula(values.gender,values.bmi)
-                }`},
+                }`},*/
             }
         }
     }
 
-/* 'ht2r',
-        'density',
-        'water',
-        'pct_water',
-        'ffm',
-        'pct_ffm',
-        'ffmi',
-        'dffm',
-        'pct_dffm',
-        'fm',
-        'pct_ffm',
-        'fmi',
-        'lf_ratio' */
+
     const identifier = "PatientUuid";
 
     const separator= "|";
@@ -129,7 +118,12 @@ export default props => {
         setImporting(false);
         setParsing(true);
         fileRef.current.files[0].text().then(text=> {
-            parse ({text,line_separator,separator,mapping: mappings.BIAManager,identifier})
+            return new Promise((resolve,reject)=>{
+
+                parse ({text,line_separator,separator,mapping: mappings.BIAManager,identifier},identity,identity,workerCallback);
+                resolve();
+            })
+            
         });
         //parse(fileRef.current.files[0].text());
 

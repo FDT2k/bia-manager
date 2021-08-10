@@ -8,7 +8,7 @@ import useBIAManager from 'hooks/useBIAManager';
 
 import Editor from 'bia-layout/pages/Editor'
 
-import { select_patient, create_mesure,refresh_recap, recompute_mesure, change_mesure,edit_patient, edit_mesure, select_edited_patient, select_edited_mesure, compute_formulas } from 'Store';
+import { select_patient, create_mesure,refresh_recap, recompute_mesure, change_mesure,edit_patient, edit_mesure,select_recap,select_mesures_dates, select_edited_patient, select_edited_mesure, compute_formulas } from 'Store';
 
 
 
@@ -47,8 +47,9 @@ export default props => {
     }, [params, paramsWithMesure]);
 
 
-    const patient = useSelector(select_edited_patient(patient_id));
-    const mesure = useSelector(select_edited_mesure(patient_id))
+    const patient = useSelector(select_edited_patient);
+    const mesure = useSelector(select_edited_mesure);
+  
 
     //We load patient from the currently setted patient_id if not already loaded
 
@@ -96,7 +97,7 @@ export default props => {
         if (values.data && patient) {
           //  dispatch(recompute_mesure(patient_id, values));
             dispatch(change_mesure(patient,values))
-         // dispatch(refresh_recap(patient_id,mesure_id));
+          dispatch(refresh_recap(patient_id,mesure_id));
         }
     }
 
@@ -107,6 +108,7 @@ export default props => {
             data={patient}
             handleMesureOpen={handleMesureOpen}
             selectedMesureIndex={selectedMesureIdx}
-            mesure={mesure} />
+            mesure={mesure}
+            />
     )
 }

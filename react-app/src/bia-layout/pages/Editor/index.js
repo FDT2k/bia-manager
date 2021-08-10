@@ -80,7 +80,7 @@ const Editor =  props => {
                     />
                 </Area>
                 <ContainerWithArea  className={element('form')} area="content" scrollable>
-                   {mesure &&  <MesureEditor handleChange={handleChange} mesure={mesure} />}
+                   {mesure &&  <MesureEditor  handleChange={handleChange} mesure={mesure} />}
                    {!mesure && <h1> ERREUR  !!!! Mesure introuvable</h1>}
                 </ContainerWithArea>
 

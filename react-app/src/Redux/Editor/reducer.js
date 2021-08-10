@@ -23,6 +23,15 @@ export const examinators = createReducer(['Fabien','Bob'],{
 });
 
 
+export const current_patient_id = createReducer(-1,{
+    [EDIT_PATIENT]: (state,{payload})=> payload.id
+});
+
+
+export const current_mesure_id = createReducer(-1,{
+    [EDIT_MESURE]: (state,{payload})=> payload.mesure_id
+});
+
 export const mesure = createReducer({},{
     [EDIT_MESURE]: (state,{payload})=> updateProp(payload.id,state,payload),
     [CREATE_MESURE]: (state,{payload})=> updateProp(payload.id,state,payload),
@@ -44,9 +53,11 @@ export const mesure = createReducer({},{
 });
 
 
-export const recap = createReducer([],{
+export const recap = createReducer({},{
     [UPDATE_RECAP]: (state,action)=> {
-        return [...action.payload]
+        return {
+            [action.payload.patient_id]: [...action.payload.recap]
+        }
     }
 });
 
@@ -71,6 +82,19 @@ export const report_settings=createReducer({
         'pct_ffm',
         'fmi',
         'lf_ratio'
+    ],
+    bia_report_columns:[
+        'water',
+        'pct_water',
+        'ffm',
+        'pct_ffm',
+        'ffmi',
+        'dffm',
+        'pct_dffm',
+        'fm',
+        'pct_ffm',
+        'fmi',
+     
     ]
 },{
 
@@ -79,6 +103,8 @@ export const report_settings=createReducer({
 
 
 export const reducer = combineReducers({
+    current_patient_id,
+    current_mesure_id,
     machines,
     examinators,
     mesure,

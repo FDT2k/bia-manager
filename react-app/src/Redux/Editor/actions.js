@@ -38,13 +38,15 @@ export const edit_patient = create(EDIT_PATIENT);
 
 
 export const make_create_mesure = baseSelector => (patient_id, mesure_id) => {
-
+    if(patient_id && mesure_id ){
     return (dispatch, getState) => {
         let state = baseSelector(getState());
         let new_mesure = Object.assign({}, EMPTY_MESURE, {
             date: new Date(),
             weight: '',
-            height: ''
+            height: '',
+            bmi_ref: '',
+            left_side: false
         });
         console.log(state.patient[patient_id], state, new_mesure);
         return dispatch({
@@ -57,6 +59,9 @@ export const make_create_mesure = baseSelector => (patient_id, mesure_id) => {
         })
 
     }
+}else{
+    return {type:'ERROR'}
+}
 };
 
 
@@ -128,8 +133,6 @@ const bmi_weight = ({ patient, mesure }) => {
 export const normalize_mesure = compose(best_formula, bmi_weight);
 
 export const make_change_mesure = baseSelector => (patient, mesure) => {
-
-
     const recompute_mesure = make_recompute_mesure(baseSelector);
     if (!patient || !mesure) {
         return {
@@ -157,35 +160,56 @@ export const make_change_mesure = baseSelector => (patient, mesure) => {
 
 
 export const make_refresh_recap = baseSelector => (patient_id, mesure_id) => {
-    return (dispatch, getState) => {
-        let state = baseSelector(getState());
 
-        let edited_mesure;
+    if (patient_id && mesure_id) {
 
 
-        let mesures = [...state.patient[patient_id].mesures];
+        return (dispatch, getState) => {
+            let state = baseSelector(getState());
 
-        edited_mesure = state.mesure[patient_id].mesure || null;
-        const bia_result_columns = state.report_settings.bia_result_columns;
-        if (edited_mesure) {
-            mesures = mesures.reduce((carry, item, idx) => {
-                if (idx == mesure_id) {
-                    carry.push(edited_mesure)
-                } else {
-                    carry.push(item);
+            let edited_mesure;
+
+            let patient = state.patient[patient_id]
+            let mesures = [...patient.mesures];
+
+            edited_mesure = state.mesure[patient_id].mesure || null;
+            const bia_report_columns = state.report_settings.bia_report_columns;
+            if (edited_mesure) {
+                mesures = mesures.reduce((carry, item, idx) => {
+                    if (idx == mesure_id) {
+                        carry.push(edited_mesure)
+                    } else {
+                        carry.push(item);
+                    }
+
+                    return carry;
+
+                }, [])
+            }
+
+
+            const results = mesures.map(mesure => {
+                const { mesure: normalized_mesure } = normalize_mesure({ patient, mesure })
+                return {
+                    ...normalized_mesure,
+                    bia: recompute(patient, normalized_mesure, bia_report_columns, normes)
                 }
 
-                return carry;
+            })
 
-            }, [])
+
+            return dispatch({
+                type: UPDATE_RECAP,
+                payload: {
+                    patient_id: patient.id,
+                    recap: bia_to_recap(results, bia_report_columns, normes),
+                }
+            })
+
         }
 
-
-        return dispatch({
-            type: UPDATE_RECAP,
-            payload: bia_to_recap(mesures, bia_result_columns, normes),
-        })
-
+    }else{
+        return {type:'ERROR'}
     }
 };
 
@@ -206,7 +230,6 @@ const bia_to_recap = (mesures, columns, normes) => {
 
 
         r = mesures.reduce((carry, mesure) => {
-            debugger;
             if (mesure.bia) {
                 const biaByKey = mesure.bia.reduce((result, field) => {
                     result[field['label']] = field;
@@ -224,7 +247,7 @@ const bia_to_recap = (mesures, columns, normes) => {
                                 return -1
                             return 1
                         };
-    
+
                     }
                 }
             }
@@ -254,6 +277,15 @@ const bia_to_recap = (mesures, columns, normes) => {
 }
 
 
+const recompute = (patient, mesure, bia_result_columns, normes) => {
+
+    let results = calculate({ ...patient, ...mesure });
+
+
+    return formula_result_to_bia_summary(results, bia_result_columns, normes);
+
+}
+
 
 export const make_recompute_mesure = baseSelector => (patient_id, values) => {
 
@@ -264,14 +296,12 @@ export const make_recompute_mesure = baseSelector => (patient_id, values) => {
 
         const bia_result_columns = state.report_settings.bia_result_columns;
 
-        let results = calculate({ ...patient, ...values });
 
         return dispatch({
             type: RECOMPUTE_MESURE,
             payload: {
                 id: patient_id,
-                bia: formula_result_to_bia_summary(results, bia_result_columns, normes),
-                raw_bia: results
+                bia: recompute(patient, values, bia_result_columns, normes),
             }
         })
 
