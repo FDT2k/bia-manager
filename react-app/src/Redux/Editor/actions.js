@@ -15,6 +15,7 @@ import { patient } from './reducer';
 
 export const EDIT_PATIENT = 'EDIT_PATIENT';
 export const EDIT_MESURE = 'EDIT_MESURE';
+export const SELECT_MESURE = 'SELECT_MESURE';
 export const CREATE_MESURE = 'CREATE_MESURE';
 export const RECOMPUTE_MESURE = 'RECOMPUTE_MESURE';
 export const UPDATE_RECAP = 'UPDATE_RECAP';
@@ -35,33 +36,43 @@ const normes = {
 
 
 export const edit_patient = create(EDIT_PATIENT);
-
-
-export const make_create_mesure = baseSelector => (patient_id, mesure_id) => {
-    if(patient_id && mesure_id ){
-    return (dispatch, getState) => {
-        let state = baseSelector(getState());
-        let new_mesure = Object.assign({}, EMPTY_MESURE, {
-            date: new Date(),
-            weight: '',
-            height: '',
-            bmi_ref: '',
-            left_side: false
-        });
-        console.log(state.patient[patient_id], state, new_mesure);
-        return dispatch({
-            type: CREATE_MESURE,
-            payload: {
-                id: patient_id,
-                mesure: new_mesure,
-                mesure_id: state.patient[patient_id].mesures.length
-            }
-        })
-
+export const select_mesure = createAction(SELECT_MESURE, arg => {
+    return {
+        payload: {
+            mesure_id: arg
+        }
     }
-}else{
-    return {type:'ERROR'}
-}
+});
+
+
+export const make_create_mesure = baseSelector => (patient_id) => {
+    if (patient_id) {
+        return (dispatch, getState) => {
+            let state = baseSelector(getState());
+            let new_mesure = Object.assign({}, EMPTY_MESURE, {
+                date: new Date(),
+                weight: '',
+                height: '',
+                bmi_ref: '',
+                left_side: false
+            });
+            console.log(state.patient[patient_id], state, new_mesure);
+
+            dispatch(select_mesure(state.patient[patient_id].mesures.length))
+
+            return dispatch({
+                type: CREATE_MESURE,
+                payload: {
+                    id: patient_id,
+                    mesure: new_mesure,
+                    mesure_id: state.patient[patient_id].mesures.length
+                }
+            })
+
+        }
+    } else {
+        return { type: 'ERROR_CREATE_MESURE' }
+    }
 };
 
 
@@ -156,15 +167,38 @@ export const make_change_mesure = baseSelector => (patient, mesure) => {
     }
 };
 
+const generate_recap_header = (mesure_id,mesures) => {
+    let arr = (new Array(6)).fill(' ');
+    let start =0 ;
+    let end = 0;
+    if(mesure_id <= 6){
+       start=0;
+       end = mesure_id+1;
+    }else {
+       start = mesure_id -5
+       end = mesure_id+1;
+    }
 
+   
+
+
+    let dates =  mesures.map(item=> item.date).slice(start,end);
+
+    for(let i = 0; i < dates.length; i++){
+       arr[i]= dates[i];
+    }
+    return arr;
+}
 
 
 export const make_refresh_recap = baseSelector => (patient_id, mesure_id) => {
 
-    if (patient_id && mesure_id) {
 
 
-        return (dispatch, getState) => {
+
+    return (dispatch, getState) => {
+        dispatch({ type: 'ATTEMPT_REFRESH_RECAP', patient_id, mesure_id });
+        if (patient_id && mesure_id) {
             let state = baseSelector(getState());
 
             let edited_mesure;
@@ -173,22 +207,29 @@ export const make_refresh_recap = baseSelector => (patient_id, mesure_id) => {
             let mesures = [...patient.mesures];
 
             edited_mesure = state.mesure[patient_id].mesure || null;
+            let edited_mesure_id = state.mesure[patient_id].mesure_id || null;
             const bia_report_columns = state.report_settings.bia_report_columns;
-            if (edited_mesure) {
-                mesures = mesures.reduce((carry, item, idx) => {
-                    if (idx == mesure_id) {
-                        carry.push(edited_mesure)
-                    } else {
-                        carry.push(item);
-                    }
 
-                    return carry;
 
-                }, [])
+            if (edited_mesure) { // replace edited mesure with the current edited mesure or addit if its a new one
+                if (edited_mesure_id < mesures.length) {
+                    mesures = mesures.reduce((carry, item, idx) => {
+                        if (idx == mesure_id) {
+                            carry.push(edited_mesure)
+                        } else {
+                            carry.push(item);
+                        }
+
+                        return carry;
+
+                    }, [])
+                }else{
+                    mesures.push(edited_mesure);
+                }
             }
 
-
             const results = mesures.map(mesure => {
+
                 const { mesure: normalized_mesure } = normalize_mesure({ patient, mesure })
                 return {
                     ...normalized_mesure,
@@ -197,20 +238,22 @@ export const make_refresh_recap = baseSelector => (patient_id, mesure_id) => {
 
             })
 
+            const recap = bia_to_recap(results, bia_report_columns, normes);
+            const dates = generate_recap_header(mesure_id,mesures);
 
             return dispatch({
                 type: UPDATE_RECAP,
                 payload: {
                     patient_id: patient.id,
-                    recap: bia_to_recap(results, bia_report_columns, normes),
+                    headers: dates,
+                    recap,
                 }
             })
-
+        } else {
+            dispatch({ type: 'ERROR_REFRESH_RECAP' });
         }
-
-    }else{
-        return {type:'ERROR'}
     }
+
 };
 
 

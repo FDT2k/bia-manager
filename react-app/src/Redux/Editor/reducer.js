@@ -1,7 +1,7 @@
 
 import createReducer from 'Redux/utils/create-reducer'
 import {combineReducers} from 'redux'
-import {EDIT_PATIENT,CHANGE_MESURE,CREATE_MESURE,EDIT_MESURE,RECOMPUTE_MESURE,UPDATE_RECAP} from './actions';
+import {EDIT_PATIENT,CHANGE_MESURE,CREATE_MESURE,EDIT_MESURE,SELECT_MESURE,RECOMPUTE_MESURE,UPDATE_RECAP} from './actions';
 
 import {delFromList,addToListUniq,delObjectProp,updateProp} from 'Redux/utils/handlers';
 import { actions } from 'react-table/dist/react-table.development';
@@ -29,7 +29,8 @@ export const current_patient_id = createReducer(-1,{
 
 
 export const current_mesure_id = createReducer(-1,{
-    [EDIT_MESURE]: (state,{payload})=> payload.mesure_id
+    [EDIT_MESURE]: (state,{payload})=> payload.mesure_id,
+    [SELECT_MESURE]:  (state,{payload})=> payload.mesure_id
 });
 
 export const mesure = createReducer({},{
@@ -53,10 +54,29 @@ export const mesure = createReducer({},{
 });
 
 
+export const recap_headers = createReducer([],{
+    [UPDATE_RECAP]: (state,{payload})=>{ 
+        return [...payload.headers.map(item=>item.toString())]
+        
+    }
+    
+})
+export const recap_list = createReducer([],{
+    [UPDATE_RECAP]: (state,{payload})=>{ 
+        return [...payload.recap]
+        
+    }
+})
+
+
 export const recap = createReducer({},{
+    [EDIT_PATIENT]: (state,{payload})=> updateProp(payload.id,state,{headers:[],list:[]}),
     [UPDATE_RECAP]: (state,action)=> {
         return {
-            [action.payload.patient_id]: [...action.payload.recap]
+            [action.payload.patient_id]: {
+                headers: recap_headers(state.headers,action),
+                list: recap_list(state.headers,action),
+            }
         }
     }
 });

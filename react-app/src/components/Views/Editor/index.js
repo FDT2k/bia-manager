@@ -8,7 +8,7 @@ import useBIAManager from 'hooks/useBIAManager';
 
 import Editor from 'bia-layout/pages/Editor'
 
-import { select_patient, create_mesure,refresh_recap, recompute_mesure, change_mesure,edit_patient, edit_mesure,select_recap,select_mesures_dates, select_edited_patient, select_edited_mesure, compute_formulas } from 'Store';
+import { select_patient,select_current_mesure_id, create_mesure,refresh_recap, recompute_mesure, change_mesure,edit_patient, edit_mesure,select_recap,select_mesures_dates, select_edited_patient, select_edited_mesure, compute_formulas } from 'Store';
 
 
 
@@ -19,7 +19,7 @@ export default props => {
 
     const [patient_id, setPatientId] = useState();
     const [mesure_id, setMesureId] = useState();
-    const [selectedMesureIdx, setSelectedMesureIdx] = useState(mesure_id);
+ //   const [selectedMesureIdx, setSelectedMesureIdx] = useState(mesure_id);
 
 
     const [match, params] = useRoute("/editor/:id");
@@ -41,7 +41,7 @@ export default props => {
             }
             if (paramsWithMesure.mesure_id !== mesure_id) {
                 setMesureId(paramsWithMesure.mesure_id);
-                setSelectedMesureIdx(paramsWithMesure.mesure_id)
+            //    setSelectedMesureIdx(paramsWithMesure.mesure_id)
             }
         }
     }, [params, paramsWithMesure]);
@@ -49,7 +49,7 @@ export default props => {
 
     const patient = useSelector(select_edited_patient);
     const mesure = useSelector(select_edited_mesure);
-  
+    const current_mesure_id = useSelector(select_current_mesure_id);
 
     //We load patient from the currently setted patient_id if not already loaded
 
@@ -65,14 +65,14 @@ export default props => {
     
     useEffect(() => {
       //  console.log('ba', mesure_id,patient)
-        if (!is_nil(patient)) {
+        if (!is_nil(patient) ) {
 
             if (!is_nil(mesure_id)) {
                 dispatch(edit_mesure(patient_id, mesure_id));
             } else {
-                new_mesure(patient_id).then(res => {
+                new_mesure(patient.id).then(res => {
                     // setMesureId(res.payload.mesure_id);
-                    setSelectedMesureIdx(res.payload.mesure_id)
+                //    setSelectedMesureIdx(res.payload.mesure_id)
                 });
             }
 
@@ -97,7 +97,7 @@ export default props => {
         if (values.data && patient) {
           //  dispatch(recompute_mesure(patient_id, values));
             dispatch(change_mesure(patient,values))
-          dispatch(refresh_recap(patient_id,mesure_id));
+          dispatch(refresh_recap(patient_id,current_mesure_id));
         }
     }
 
@@ -107,7 +107,7 @@ export default props => {
             handleChange={handleChange}
             data={patient}
             handleMesureOpen={handleMesureOpen}
-            selectedMesureIndex={selectedMesureIdx}
+            selectedMesureIndex={current_mesure_id}
             mesure={mesure}
             />
     )

@@ -39,7 +39,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import './mesure-editor.scss'
 import { patient } from 'Redux/Editor/reducer';
 
-import { select_patient, create_mesure, refresh_recap, recompute_mesure, change_mesure, edit_patient, edit_mesure, select_recap, select_mesures_dates, select_edited_patient, select_edited_mesure, compute_formulas } from 'Store';
+import { select_recap_list,select_recap_headers } from 'Store';
 
 
 
@@ -124,8 +124,8 @@ const Editor = props => {
 
     const result_columns = ['norme', values.most_accurate_formula || 'kuschner', 'gva'];
 
-    const recap = useSelector(select_recap);
-    const list_dates = useSelector(select_mesures_dates);
+    const recap = useSelector(select_recap_list);
+    const list_dates = useSelector(select_recap_headers);
     return (
         <MesureEditorLayout {...rest} className={className}>
             <TabsWithArea tabindexOffset={10} area="mesure-editor-main">
@@ -213,8 +213,7 @@ const Editor = props => {
                             <div>Dates</div>
                             <div>Norme</div>
                             {
-
-                                list_dates.map(item => (<div>{item}</div>))
+                                list_dates&& list_dates.map(item => (<div>{item}</div>))
                             }
 
 
@@ -222,7 +221,7 @@ const Editor = props => {
                                 return (<>
                                     <div>{t(line.label)}</div>
                                     <div>{line.values['norme']}</div>
-                                    {list_dates.map(key => {
+                                    {list_dates && list_dates.map(key => {
                                         let val = line.values[key];
                                         val = (new Number(val)).toFixed(1);
                                         return (<div>{!isNaN(val) ? val : ''}</div>)

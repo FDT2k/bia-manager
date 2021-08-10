@@ -53,9 +53,14 @@ export default  baseSelector => {
    const select_recap =  createSelector([current_patient,baseSelector], (current,state) => {
       if( state.recap && state.recap[current]){
          return state.recap[current];
-      } else{
-         return []
-      }
+      } 
+   });
+
+   const select_recap_list =  createSelector([select_recap], (recap) => {
+      return recap.list
+   });
+   const select_recap_headers =  createSelector([select_recap], (recap) => {
+      return recap.headers
    });
 
 
@@ -63,7 +68,10 @@ export default  baseSelector => {
       select_edited_patient,
       select_edited_mesure,
       select_mesures_dates,
-      select_recap
+      select_recap,
+      select_current_mesure_id:current_mesure,
+      select_recap_headers,
+      select_recap_list
    }
 
 }
