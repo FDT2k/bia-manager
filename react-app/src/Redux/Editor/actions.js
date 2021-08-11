@@ -12,6 +12,8 @@ import { spec } from '@karsegard/composite-js/ObjectUtils';
 import EMPTY_MESURE from 'references/mesure-schema'
 import { patient } from './reducer';
 
+import {generate_recap_header, recap_to_bar_chart,normalize_mesure,bia_to_recap,formula_result_to_bia_summary,recompute} from 'references/Mesure'
+
 
 export const EDIT_PATIENT = 'EDIT_PATIENT';
 export const EDIT_MESURE = 'EDIT_MESURE';
@@ -96,52 +98,6 @@ export const make_edit_mesure = baseSelector => (patient_id, mesure_id) => {
 };
 
 
-const best_formula = ({ patient, mesure }) => {
-
-    let use_bmi = mesure.bmi;
-    if (!isNaN(mesure.bmi_ref)) {
-        use_bmi = mesure.bmi_ref;
-    }
-
-
-    return {
-        patient,
-        mesure: {
-            ...mesure,
-            most_accurate_formula: mostAccurateFormula(patient.gender, use_bmi)
-        }
-    }
-}
-
-
-const bmi_weight = ({ patient, mesure }) => {
-    let calculated_fields = {};
-
-    if (mesure) {
-        if (!is_nil(mesure.weight) && !is_nil(mesure.height)) {
-
-            calculated_fields = {
-                bmi: bmi(mesure.weight, mesure.height),
-                ideal_weight: ideal_weight(patient.gender, mesure.height),
-
-            };
-
-
-        }
-    }
-
-
-    return {
-        patient,
-        mesure: {
-            ...mesure,
-            ...calculated_fields
-        }
-    }
-}
-
-
-export const normalize_mesure = compose(best_formula, bmi_weight);
 
 export const make_change_mesure = baseSelector => (patient, mesure) => {
     const recompute_mesure = make_recompute_mesure(baseSelector);
@@ -167,35 +123,9 @@ export const make_change_mesure = baseSelector => (patient, mesure) => {
     }
 };
 
-const generate_recap_header = (mesure_id,mesures) => {
-    let arr = (new Array(6)).fill(' ');
-    let start =0 ;
-    let end = 0;
-    if(mesure_id <= 6){
-       start=0;
-       end = mesure_id+1;
-    }else {
-       start = mesure_id -5
-       end = mesure_id+1;
-    }
-
-   
-
-
-    let dates =  mesures.map(item=> item.date).slice(start,end);
-
-    for(let i = 0; i < dates.length; i++){
-       arr[i]= dates[i];
-    }
-    return arr;
-}
 
 
 export const make_refresh_recap = baseSelector => (patient_id, mesure_id) => {
-
-
-
-
     return (dispatch, getState) => {
         dispatch({ type: 'ATTEMPT_REFRESH_RECAP', patient_id, mesure_id });
         if (patient_id && mesure_id) {
@@ -209,6 +139,7 @@ export const make_refresh_recap = baseSelector => (patient_id, mesure_id) => {
             edited_mesure = state.mesure[patient_id].mesure || null;
             let edited_mesure_id = state.mesure[patient_id].mesure_id || null;
             const bia_report_columns = state.report_settings.bia_report_columns;
+            const bia_report_chart_columns = state.report_settings.bia_report_chart_columns;
 
 
             if (edited_mesure) { // replace edited mesure with the current edited mesure or addit if its a new one
@@ -240,13 +171,14 @@ export const make_refresh_recap = baseSelector => (patient_id, mesure_id) => {
 
             const recap = bia_to_recap(results, bia_report_columns, normes);
             const dates = generate_recap_header(mesure_id,mesures);
-
+            const chart = recap_to_bar_chart(bia_to_recap(results, bia_report_chart_columns),dates)
             return dispatch({
                 type: UPDATE_RECAP,
                 payload: {
                     patient_id: patient.id,
                     headers: dates,
                     recap,
+                    chart
                 }
             })
         } else {
@@ -256,78 +188,6 @@ export const make_refresh_recap = baseSelector => (patient_id, mesure_id) => {
 
 };
 
-
-const bia_to_recap = (mesures, columns, normes) => {
-    return columns.map(column => {
-
-        let r = {};
-        r['label'] = column;
-        r['values'] = {};
-        r['limits'] = {};
-
-        //temp // applying norms 
-        if (normes[column]) {
-            const [min, max] = normes[column];
-            r['values']['norme'] = `${min}-${max}`;
-        }
-
-
-        r = mesures.reduce((carry, mesure) => {
-            if (mesure.bia) {
-                const biaByKey = mesure.bia.reduce((result, field) => {
-                    result[field['label']] = field;
-                    return result
-                }, {})
-
-                if (biaByKey) {
-                    carry.values[mesure.date] = biaByKey[column].values[mesure.most_accurate_formula];
-                    if (normes[column]) {
-                        const [min, max] = normes[column];
-                        carry['limits'] = x => {
-                            if (x < min)
-                                return -1
-                            if (x > max)
-                                return -1
-                            return 1
-                        };
-
-                    }
-                }
-            }
-            /*
-            if (mesures[item][column]) {
-                carry['values'][item] = mesures[item][column].value
-                carry['logs'][item] = mesures[item][column].log
-                carry['display'] = mesures[item][column].display;
-                if (normes[column]) {
-                    const [min, max] = normes[column];
-                    carry['limits'][item] = x => {
-                        if (x < min)
-                            return -1
-                        if (x > max)
-                            return -1
-                        return 1
-                    };
-
-                }
-            }*/
-
-            return carry;
-
-        }, r);
-        return r;
-    });
-}
-
-
-const recompute = (patient, mesure, bia_result_columns, normes) => {
-
-    let results = calculate({ ...patient, ...mesure });
-
-
-    return formula_result_to_bia_summary(results, bia_result_columns, normes);
-
-}
 
 
 export const make_recompute_mesure = baseSelector => (patient_id, values) => {
@@ -360,78 +220,5 @@ export const make_actions = spec({
     change_mesure: make_change_mesure,
     refresh_recap: make_refresh_recap
 })
-
-
-
-
-/**
- * Transforms a raw formula result into a consumable array in display order
- *  */
-
-const formula_result_to_bia_summary = (results, columns, normes) => {
-
-    const items = Object.keys(results);
-
-
-    let consumable_columns = columns;
-
-    if (!consumable_columns) {
-
-        consumable_columns = Object.keys(results).reduce((carry, key) => {
-
-            let k = Object.keys(results[key]);
-            for (let i = 0; i < k.length; i++) {
-                if (carry.indexOf(k[i]) === -1) {
-                    carry.push(k[i])
-                }
-            }
-
-            return carry;
-        }, [])
-
-    }
-
-
-    return consumable_columns.map(column => {
-
-        let r = {};
-        r['label'] = column;
-        r['values'] = {};
-        r['limits'] = {};
-        r['logs'] = {};
-
-        //temp // applying norms 
-        if (normes[column]) {
-            const [min, max] = normes[column];
-            r['values']['norme'] = `${min}-${max}`;
-        }
-
-
-        r = items.reduce((carry, item) => {
-
-            if (results[item][column]) {
-                carry['values'][item] = results[item][column].value
-                carry['logs'][item] = results[item][column].log
-                carry['display'] = results[item][column].display;
-                if (normes[column]) {
-                    const [min, max] = normes[column];
-                    carry['limits'][item] = x => {
-                        if (x < min)
-                            return -1
-                        if (x > max)
-                            return -1
-                        return 1
-                    };
-
-                }
-            }
-
-            return carry;
-
-        }, r);
-        return r;
-    });
-
-}
 
 

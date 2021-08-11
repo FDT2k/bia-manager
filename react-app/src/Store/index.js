@@ -26,7 +26,7 @@ export const search = makeSearch(baseSelector);
 
 // editor reducers
 export const {select_current_mesure_id, select_recap_headers,
-  select_recap_list,select_edited_patient,select_edited_mesure,select_recap,select_mesures_dates} = makeEditorSelectors(state=>state.editor);
+  select_recap_list,select_mass_chart,select_edited_patient,select_edited_mesure,select_recap,select_mesures_dates} = makeEditorSelectors(state=>state.editor);
 
 export const {edit_mesure,recompute_mesure,create_mesure,refresh_recap,change_mesure} = make_actions(state=>state.editor)
 export {update_search_tags,edit_patient} ;

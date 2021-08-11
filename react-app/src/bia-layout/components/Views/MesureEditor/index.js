@@ -39,8 +39,8 @@ import { useDispatch, useSelector } from 'react-redux';
 import './mesure-editor.scss'
 import { patient } from 'Redux/Editor/reducer';
 
-import { select_recap_list,select_recap_headers } from 'Store';
-
+import { select_recap_list,select_recap_headers,select_mass_chart } from 'Store';
+import {BarHorizontalStacked} from 'bia-layout/components/Charts'
 
 
 const LayoutFlexColumnWithArea = withGridArea(LayoutFlexColumn);
@@ -126,6 +126,7 @@ const Editor = props => {
 
     const recap = useSelector(select_recap_list);
     const list_dates = useSelector(select_recap_headers);
+    const mass_chart = useSelector(select_mass_chart);
     return (
         <MesureEditorLayout {...rest} className={className}>
             <TabsWithArea tabindexOffset={10} area="mesure-editor-main">
@@ -236,7 +237,10 @@ const Editor = props => {
                         </Grid>
                     </LayoutFlexColumn>
                 </TabPanel>
-                <TabPanel><LayoutFlexColumn></LayoutFlexColumn></TabPanel>
+                <TabPanel>
+
+                <BarHorizontalStacked data={mass_chart}/>
+                </TabPanel>
             </TabsWithArea>
 
             <LayoutFlexColumnWithArea area="mesure-editor-aside">

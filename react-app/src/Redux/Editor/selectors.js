@@ -62,6 +62,9 @@ export default  baseSelector => {
    const select_recap_headers =  createSelector([select_recap], (recap) => {
       return recap.headers
    });
+   const select_mass_chart =  createSelector([select_recap], (recap) => {
+      return recap.mass_chart
+   });
 
 
    return {
@@ -71,7 +74,8 @@ export default  baseSelector => {
       select_recap,
       select_current_mesure_id:current_mesure,
       select_recap_headers,
-      select_recap_list
+      select_recap_list,
+      select_mass_chart
    }
 
 }

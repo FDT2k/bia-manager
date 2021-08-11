@@ -68,6 +68,13 @@ export const recap_list = createReducer([],{
     }
 })
 
+export const recap_mass_chart = createReducer([],{
+    [UPDATE_RECAP]: (state,{payload})=>{ 
+        return [...payload.chart]
+        
+    }
+})
+
 
 export const recap = createReducer({},{
     [EDIT_PATIENT]: (state,{payload})=> updateProp(payload.id,state,{headers:[],list:[]}),
@@ -76,11 +83,11 @@ export const recap = createReducer({},{
             [action.payload.patient_id]: {
                 headers: recap_headers(state.headers,action),
                 list: recap_list(state.headers,action),
+                mass_chart: recap_mass_chart(state.mass_chart,action),
             }
         }
     }
 });
-
 
 export const patient = createReducer({},{
     [EDIT_PATIENT]: (state,{payload})=> updateProp(payload.id,state,payload),
@@ -113,6 +120,13 @@ export const report_settings=createReducer({
         'pct_dffm',
         'fm',
         'pct_ffm',
+        'fmi',
+     
+    ],
+    bia_report_chart_columns:[
+        'ffm',
+        'ffmi',
+        'fm',
         'fmi',
      
     ]

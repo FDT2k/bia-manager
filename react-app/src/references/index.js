@@ -1,9 +1,9 @@
-import bmi,{mostAccurateFormula} from './bmi'
-import ideal_weight  from './ideal_weight'
+import get_bmi,{get_most_accurate_formula} from './bmi'
+import get_ideal_weight  from './ideal_weight'
 
 
 export {
-    bmi,
-    ideal_weight,
-    mostAccurateFormula
+    get_bmi,
+    get_ideal_weight,
+    get_most_accurate_formula
 }
