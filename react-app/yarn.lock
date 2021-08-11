@@ -8793,6 +8793,11 @@ indent-string@^4.0.0:
   resolved "http://registry.lan:4873/indent-string/-/indent-string-4.0.0.tgz#624f8f4497d619b2d9768531d58f4122854d7251"
   integrity sha512-EdDDZu4A2OyIK7Lr/2zG+w5jmbuk1DVBnEwREQvBzspBJkCEbRa8GxU1lghYcaGJCnRWibjDXlq779X1/y5xwg==
 
+indexeddb-export-import@^2.1.2:
+  version "2.1.2"
+  resolved "http://registry.lan:4873/indexeddb-export-import/-/indexeddb-export-import-2.1.2.tgz#8ee951daf69f7c63c2b4a3b98ce2e3b2e752669c"
+  integrity sha512-IhN4PYAye54qjGaAeiMcs9aYstYFX9SyxxAChpc6zuq2G2qsAVmaxOPLBigHP27oKJn5LgbZS2R2ZzUoEuj/TA==
+
 indexes-of@^1.0.1:
   version "1.0.1"
   resolved "http://registry.lan:4873/indexes-of/-/indexes-of-1.0.1.tgz#f30f716c8e2bd346c7b67d3df3915566a7c05607"

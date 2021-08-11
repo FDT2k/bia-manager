@@ -37,7 +37,23 @@ const normes = {
 }
 
 
-export const edit_patient = create(EDIT_PATIENT);
+export const real_edit_patient = create(EDIT_PATIENT);
+
+//export const edit_patient = create(EDIT_PATIENT);
+
+export const edit_patient = patient => {
+    return (dispatch,getState)=> {
+
+        if(patient){
+            return dispatch(real_edit_patient(patient));
+        }else{
+            return dispatch({
+                type:'ERROR_EDIT_PATIENT_UNDEF'
+            });
+        }
+
+    }
+}
 export const select_mesure = createAction(SELECT_MESURE, arg => {
     return {
         payload: {

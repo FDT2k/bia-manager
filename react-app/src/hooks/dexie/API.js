@@ -1,6 +1,8 @@
 
 import {curry} from '@karsegard/composite-js'
 import {spec} from '@karsegard/composite-js/ObjectUtils'
+import IDBExport from 'indexeddb-export-import';
+
 import Promise from 'bluebird'
 
 const getAll = db => _ => {
@@ -99,11 +101,27 @@ const db_name = db => _=> {
     return db.name;
 }
 
+const export_database=  db => _=> {
+   return  db.open().then(_=> {
+        const idbDatabase = db.backendDB(); // get native IDBDatabase object from Dexie wrapper
+      
+        // export to JSON, clear database, and import from JSON
+        return new Promise ((resolve,reject)=>{
+            IDBExport.exportToJsonString(idbDatabase, function(err, jsonString) {
+                resolve(jsonString);
+            });
+
+        });
+      }).catch(function(e) {
+        console.error('Could not connect. ' + e);
+      });
+}
+
 const import_data = db => data => {
     return db.open().then( db =>{
         return db.patients.bulkAdd(data);
     });
 }
-const api = {getAll,search,import_data,get_patient,count,db_name,count_mesures}
+const api = {getAll,search,import_data,get_patient,count,db_name,export_database,count_mesures}
 
 export default spec(api)

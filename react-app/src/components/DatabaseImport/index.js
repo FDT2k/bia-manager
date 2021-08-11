@@ -36,11 +36,12 @@ export default props => {
         if(data.total){
             setLineCount(data.total);
         }
+
     //    console.log('progress',data)
         if(data.result){
             setParsing(false);
             setImportedData(data.result)
-            console.log(data.result.list[0])
+            console.log(data.result.list[5])
         }
     }
 
@@ -80,7 +81,8 @@ export default props => {
                 'rea100':{name:'data', transform: "(state={},value)=> ({...state,rea100:value.rea100})"},
                 'rea5':{name:'data', transform: "(state={},value)=> ({...state,rea5:value.rea5})"},
                 'rea50':{name:'data', transform: "(state={},value)=> ({...state,rea50:value.rea50})"},
-                'cote':{name:'left_side', transform: "(state={},value)=> ( value !=='D' ? true: false)"},
+                'cote':{name:'left_side', transform: "(state={},value)=> {return value.cote !='D' ? true: false}"},
+                'smoker':{name:'smoker', transform: "(state={},value)=> {return value.smoker ==='oui' ? true: false}"},
                 'poidsAct':'weight',
                 'taille' : 'height',
                 'appareil':'machine',
@@ -120,7 +122,8 @@ export default props => {
         fileRef.current.files[0].text().then(text=> {
             return new Promise((resolve,reject)=>{
 
-                parse ({text,line_separator,separator,mapping: mappings.BIAManager,identifier},identity,identity,workerCallback);
+                parse ({text,line_separator,separator,mapping: mappings.BIAManager,identifier},workerCallback,identity,workerCallback);
+                
                 resolve();
             })
             
@@ -153,9 +156,9 @@ export default props => {
 
                 {parsing && <LayoutFlex alignCenter>
                     <div style={{width:'50px',height:'50px'}}>
-                        <CircularProgressbar value={percentage} text={`${percentage}%`} />
+                    <ReactLoading type="spin" color="#000000"/>
                     </div>
-                    <div>Conversion de {lines_count} lignes en cours (depuis CSV BIA Java)</div>
+                    <div>Conversion en cours (depuis CSV BIA Java)</div>
                 </LayoutFlex>}
                 {imported_data && <span>{imported_data.countPatient} patients et {imported_data.countMesure} mesures à importer</span>}
 
