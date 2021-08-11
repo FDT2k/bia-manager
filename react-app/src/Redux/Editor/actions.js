@@ -128,12 +128,17 @@ export const make_change_mesure = baseSelector => (patient, mesure) => {
 export const make_refresh_recap = baseSelector => (patient_id, mesure_id) => {
     return (dispatch, getState) => {
         dispatch({ type: 'ATTEMPT_REFRESH_RECAP', patient_id, mesure_id });
-        if (patient_id && mesure_id) {
+        if (!is_nil(patient_id) && !is_nil(mesure_id)) {
             let state = baseSelector(getState());
 
             let edited_mesure;
 
             let patient = state.patient[patient_id]
+        
+            if(!patient){
+                return dispatch({type:'RECAP_PATIENT_NOT_LOADED'})
+            }
+
             let mesures = [...patient.mesures];
 
             edited_mesure = state.mesure[patient_id].mesure || null;

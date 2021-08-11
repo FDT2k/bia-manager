@@ -57,13 +57,24 @@ export default  baseSelector => {
    });
 
    const select_recap_list =  createSelector([select_recap], (recap) => {
-      return recap.list
+      if(recap)
+         return recap.list
+
+
+      return []
    });
    const select_recap_headers =  createSelector([select_recap], (recap) => {
-      return recap.headers
+      if(recap)
+         return recap.headers
+
+
+      return []
    });
    const select_mass_chart =  createSelector([select_recap], (recap) => {
-      return recap.mass_chart
+      if(recap )
+         return recap.mass_chart
+      
+      return []
    });
 
 

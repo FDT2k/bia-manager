@@ -96,8 +96,6 @@ export const patient = createReducer({},{
 
 export const report_settings=createReducer({
     bia_result_columns: [
-        'ht2r',
-        'density',
         'water',
         'pct_water',
         'ffm',

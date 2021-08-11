@@ -26,6 +26,8 @@ import "react-datepicker/dist/react-datepicker.css";
 import { is_nil } from '@karsegard/composite-js';
 
 import ComparisonTable from 'bia-layout/components/Views/ComparisonTable';
+import RecapGrid from 'bia-layout/components/Views/RecapGrid';
+
 import ElectricalDataForm from 'bia-layout/components/Views/ElectricalDataForm';
 
 import { withGridArea } from 'bia-layout/hoc/grid/Area';
@@ -37,10 +39,10 @@ import EditableSelect from 'bia-layout/components/Form/Editable/Select';
 import { useDispatch, useSelector } from 'react-redux';
 
 import './mesure-editor.scss'
-import { patient } from 'Redux/Editor/reducer';
+import { patient, recap_mass_chart } from 'Redux/Editor/reducer';
 
-import { select_recap_list,select_recap_headers,select_mass_chart } from 'Store';
-import {BarHorizontalStacked} from 'bia-layout/components/Charts'
+import { select_recap_list, select_recap_headers, select_mass_chart } from 'Store';
+import { BarHorizontalStacked } from 'bia-layout/components/Charts'
 
 
 const LayoutFlexColumnWithArea = withGridArea(LayoutFlexColumn);
@@ -202,44 +204,13 @@ const Editor = props => {
                     </Container>
                 </TabPanel>
                 <TabPanel>
-                    <LayoutFlexColumn>
-                        <h1>Recapitulatif</h1>
 
-                        <Grid
-                            templateColumns="2fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr"
-                            templateRows="1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr"
-                        >
-
-
-                            <div>Dates</div>
-                            <div>Norme</div>
-                            {
-                                list_dates&& list_dates.map(item => (<div>{item}</div>))
-                            }
-
-
-                            {recap.map(line => {
-                                return (<>
-                                    <div>{t(line.label)}</div>
-                                    <div>{line.values['norme']}</div>
-                                    {list_dates && list_dates.map(key => {
-                                        let val = line.values[key];
-                                        val = (new Number(val)).toFixed(1);
-                                        return (<div>{!isNaN(val) ? val : ''}</div>)
-                                    })}
-
-                                </>)
-
-                            })}
-
-
-
-                        </Grid>
-                    </LayoutFlexColumn>
+                       <RecapGrid data={recap} headers={list_dates}/>
                 </TabPanel>
                 <TabPanel>
 
-                <BarHorizontalStacked data={mass_chart}/>
+                    <BarHorizontalStacked
+                        data={mass_chart} />
                 </TabPanel>
             </TabsWithArea>
 

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState,useRef } from 'react';
 
 import { is_nil } from '@karsegard/composite-js';
 
@@ -10,20 +10,38 @@ import Editor from 'bia-layout/pages/Editor'
 
 import { select_patient,select_current_mesure_id, create_mesure,refresh_recap, recompute_mesure, change_mesure,edit_patient, edit_mesure,select_recap,select_mesures_dates, select_edited_patient, select_edited_mesure, compute_formulas } from 'Store';
 
+import { useReactToPrint } from 'react-to-print'
+import Component from 'bia-layout/components/Table/Pagination';
 
+import { select_recap_list, select_recap_headers, select_mass_chart } from 'Store';
+
+import { BarHorizontalStacked } from 'bia-layout/components/Charts'
+
+import RecapGrid from 'bia-layout/components/Views/RecapGrid';
 
 export default props => {
     const [location, setLocation] = useLocation();
     const dispatch = useDispatch();
     const { api } = useBIAManager();
+    const componentRef = useRef();
 
     const [patient_id, setPatientId] = useState();
     const [mesure_id, setMesureId] = useState();
+
+    const handlePrint = useReactToPrint({
+        content:() => componentRef.current
+    })
+
  //   const [selectedMesureIdx, setSelectedMesureIdx] = useState(mesure_id);
 
 
     const [match, params] = useRoute("/editor/:id");
     const [matchWithMesure, paramsWithMesure] = useRoute("/editor/:id/:mesure_id");
+
+    
+    const mass_chart = useSelector(select_mass_chart);
+    const recap = useSelector(select_recap_list);
+    const list_dates = useSelector(select_recap_headers);
 
     //console.log('editor rendering')
 
@@ -79,6 +97,8 @@ export default props => {
         }
     }, [mesure_id, patient]);
 
+
+   
     const new_mesure = patient_id => {
         return Promise.resolve(dispatch(create_mesure(patient_id)));
 
@@ -102,6 +122,7 @@ export default props => {
     }
 
     return (
+        <>
         <Editor
             handleGoBack={_ => setLocation('/search')}
             handleChange={handleChange}
@@ -110,5 +131,11 @@ export default props => {
             selectedMesureIndex={current_mesure_id}
             mesure={mesure}
             />
+
+        <div ref={componentRef}>
+            <RecapGrid data={recap} headers={list_dates}/>
+            <BarHorizontalStacked data={mass_chart} />
+        </div>
+        </>
     )
 }

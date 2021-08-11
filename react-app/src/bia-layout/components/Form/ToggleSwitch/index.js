@@ -25,7 +25,7 @@ const ToggleSwitch = props => {
             ref={ref}
             type="checkbox"
             className="toggle-switch-checkbox"
-            defaultChecked={checked}
+            checked={checked}
             {...formProps}
             onChange={onChange}
             />
