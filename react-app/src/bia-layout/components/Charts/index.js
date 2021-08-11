@@ -18,7 +18,12 @@ export const BarHorizontalStacked = props => {
             <BarChart
 
                 data={data}
-
+                padding={{
+                    top: 5,
+                    right: 30,
+                    left: 20,
+                    bottom: 5
+                  }}
             >
                 <XAxis dataKey="name" interval={0} tick={<CustomizedAxisTick />} label={{ rotate: 45 }} />
                 <YAxis  >
