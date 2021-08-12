@@ -105,7 +105,7 @@ export default props => {
     }
 
     const handleMesureOpen = (value, idx) => {
-        dispatch(fetch_physical_activities([]));
+        dispatch(fetch_physical_activities([{'id':1,'name':'endurance'}]));
         if (idx < patient.mesures.length) {
             setLocation(`/editor/${patient_id}/${idx}`);
         } else {

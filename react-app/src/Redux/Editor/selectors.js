@@ -1,21 +1,25 @@
 import {createSelector} from 'reselect';
-import {spec} from '@karsegard/composite-js/ObjectUtils'
-import { baseElement } from 'bia-layout/utils';
+import {defaultTo} from '@karsegard/composite-js'
 
 
 
-export default  baseSelector => {
+
+export default  getModule => {
+
+   const {baseSelector} = getModule();
+   const defaultToArray = defaultTo([]);
+   const defaultToObject = defaultTo({});
+   const module = {};
+
+   module.select_current_patient_id = createSelector(baseSelector, state=> state.current_patient_id);
+   module.select_current_mesure_id = createSelector(baseSelector, state=> parseInt(state.current_mesure_id));
+
+   module.select_edited_patient=  createSelector([module.select_current_patient_id,baseSelector], (current,state) => state.patient[current]);
 
 
-   const current_patient = createSelector(baseSelector, state=> state.current_patient_id);
-   const current_mesure = createSelector(baseSelector, state=> parseInt(state.current_mesure_id));
+   module.select_mesures = createSelector(module.select_edited_patient, state=> state.mesures);
 
-   const select_edited_patient=  createSelector([current_patient,baseSelector], (current,state) => state.patient[current]);
-
-
-   const select_mesures = createSelector(select_edited_patient, state=> state.mesures);
-
-   const select_edited_mesure=  createSelector([current_patient,baseSelector], (current_patient,state) => {
+   module.select_edited_mesure=  createSelector([module.select_current_patient_id,baseSelector], (current_patient,state) => {
       if( state.mesure && state.mesure[current_patient] && state.mesure[current_patient].mesure){
          return state.mesure[current_patient].mesure
       } 
@@ -24,7 +28,7 @@ export default  baseSelector => {
 
 
 
-   const select_mesures_dates =  createSelector([current_mesure,select_mesures], (mesure_id,state) =>{
+   module.select_mesures_dates =  createSelector([module.select_current_mesure_id,module.select_mesures], (mesure_id,state) =>{
 
       let arr = (new Array(6)).fill(' ');
       let start =0 ;
@@ -50,43 +54,47 @@ export default  baseSelector => {
 
 
 
-   const select_recap =  createSelector([current_patient,baseSelector], (current,state) => {
+   module.select_recap =  createSelector([module.select_current_patient_id,baseSelector], (current,state) => {
       if( state.recap && state.recap[current]){
          return state.recap[current];
       } 
    });
 
-   const select_recap_list =  createSelector([select_recap], (recap) => {
+   module.select_recap_list =  createSelector([module.select_recap], (recap) => {
       if(recap)
          return recap.list
 
 
       return []
    });
-   const select_recap_headers =  createSelector([select_recap], (recap) => {
+   module.select_recap_headers =  createSelector([module.select_recap], (recap) => {
       if(recap)
          return recap.headers
 
 
       return []
    });
-   const select_mass_chart =  createSelector([select_recap], (recap) => {
+   module.select_mass_chart =  createSelector([module.select_recap], (recap) => {
       if(recap )
          return recap.mass_chart
       
       return []
    });
 
+   module.settings = createSelector(baseSelector, state=> {
+      return state.report_settings
+   });
 
-   return {
-      select_edited_patient,
-      select_edited_mesure,
-      select_mesures_dates,
-      select_recap,
-      select_current_mesure_id:current_mesure,
-      select_recap_headers,
-      select_recap_list,
-      select_mass_chart
-   }
+   module.select_report_columns = createSelector([module.settings],(settings)=>{
+      return settings.bia_result_columns;
+   })
+
+   module.select_charts_columns = createSelector([module.settings],(settings)=>{
+      return settings.bia_report_chart_columns;
+   })
+
+
+  
+   return module;
 
 }

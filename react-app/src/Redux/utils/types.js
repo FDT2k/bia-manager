@@ -4,6 +4,9 @@ import { mergeAll } from '@karsegard/composite-js/List';
 import {key,value} from '@karsegard/composite-js/ObjectUtils'
 
 
+export const action_type_namespace = prefix=> x => `${prefix}_${x}`
+
+
 export const renameActionTypes = (action_types)=> (namefunction=identity)=>  {
 
     return mergeAll(enlist(action_types).map((obj)=>{
