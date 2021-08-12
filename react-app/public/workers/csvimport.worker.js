@@ -61,7 +61,7 @@
 /******/
 /******/ 	var hotApplyOnUpdate = true;
 /******/ 	// eslint-disable-next-line no-unused-vars
-/******/ 	var hotCurrentHash = "cc40dee9827f7893922c";
+/******/ 	var hotCurrentHash = "d67d547e730688ba4d45";
 /******/ 	var hotRequestTimeout = 10000;
 /******/ 	var hotCurrentModuleData = {};
 /******/ 	var hotCurrentChildModule;
@@ -861,7 +861,7 @@
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _parser__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(10);
+/* harmony import */ var _parser__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(1);
 
 
 var progress = function progress(total, current) {
@@ -882,6 +882,145 @@ onmessage = function onmessage(e) {
 
 /***/ }),
 /* 1 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "remap", function() { return remap; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "parse_promise", function() { return parse_promise; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "parse", function() { return parse; });
+/* harmony import */ var _karsegard_composite_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(2);
+/* harmony import */ var _karsegard_composite_js__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_karsegard_composite_js__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _karsegard_composite_js_ObjectUtils__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(3);
+/* harmony import */ var _karsegard_composite_js_ObjectUtils__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_karsegard_composite_js_ObjectUtils__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var bia_layout_utils__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(4);
+function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
+
+function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
+
+function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
+
+function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
+
+function _iterableToArrayLimit(arr, i) { var _i = arr == null ? null : typeof Symbol !== "undefined" && arr[Symbol.iterator] || arr["@@iterator"]; if (_i == null) return; var _arr = []; var _n = true; var _d = false; var _s, _e; try { for (_i = _i.call(arr); !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"] != null) _i["return"](); } finally { if (_d) throw _e; } } return _arr; }
+
+function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
+
+function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) { symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); } keys.push.apply(keys, symbols); } return keys; }
+
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+
+
+
+var remap = function remap(obj, mapping) {
+  var ref = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : {};
+  return function (carry, item) {
+    var _key = Object(_karsegard_composite_js_ObjectUtils__WEBPACK_IMPORTED_MODULE_1__["key"])(item);
+
+    var _mapped = mapping[_key];
+
+    if (_mapped && Object(_karsegard_composite_js__WEBPACK_IMPORTED_MODULE_0__["is_type_string"])(_mapped)) {
+      carry[_mapped] = Object(_karsegard_composite_js_ObjectUtils__WEBPACK_IMPORTED_MODULE_1__["value"])(item);
+    } else if (Object(_karsegard_composite_js__WEBPACK_IMPORTED_MODULE_0__["is_type_object"])(_mapped)) {
+      var name = _mapped.name,
+          transform = _mapped.transform;
+
+      if (!Object(_karsegard_composite_js__WEBPACK_IMPORTED_MODULE_0__["is_type_function"])(transform)) {
+        transform = eval(transform);
+      }
+
+      carry[name] = transform(carry[name], obj, _objectSpread(_objectSpread({}, ref), carry));
+    }
+
+    return carry;
+  };
+};
+
+function sleep(ms) {
+  return new Promise(function (resolve) {
+    return setTimeout(resolve, ms);
+  });
+}
+
+var parse_promise = function parse_promise(opts, progress, total, callback) {
+  return new Promise(function (resolve, reject) {
+    var result = parse(opts, progress, total, resolve);
+  });
+};
+var parse = function parse(_ref, progress, total_count, callback) {
+  var text = _ref.text,
+      line_separator = _ref.line_separator,
+      mapping = _ref.mapping,
+      separator = _ref.separator,
+      identifier = _ref.identifier;
+  console.log('parsing');
+  var data = text.split(line_separator);
+  var fields = data[0].split(separator);
+  console.log(fields);
+  var total = data.length;
+  var report_every = 2000;
+  var count = 0;
+  total_count(total);
+  progress(total, 0);
+  data.shift();
+  data = data.map(function (line) {
+    var values = line.split(separator);
+    return values.reduce(function (carry, item, key) {
+      carry[fields[key]] = item;
+      return carry;
+    }, {});
+  }).reduce(function (carry, item, idx) {
+    count++;
+
+    if (count > report_every) {
+      progress(total, idx);
+      count = 0;
+    } //console.log(item)
+
+
+    var patient_keys = Object.keys(mapping.patient);
+
+    var _filterPropPresentIn = Object(bia_layout_utils__WEBPACK_IMPORTED_MODULE_2__["filterPropPresentIn"])(patient_keys, item),
+        _filterPropPresentIn2 = _slicedToArray(_filterPropPresentIn, 2),
+        patient = _filterPropPresentIn2[0],
+        mesure = _filterPropPresentIn2[1];
+
+    var index_key = item[identifier];
+
+    if (typeof carry.data[index_key] == "undefined") {
+      var p = Object(_karsegard_composite_js__WEBPACK_IMPORTED_MODULE_0__["enlist"])(patient).reduce(remap(patient, mapping.patient), {});
+      carry.data[index_key] = p;
+      carry.list.push(p);
+      carry.countPatient++;
+    }
+
+    if (typeof carry.data[index_key].mesures == "undefined") {
+      carry.data[index_key]['mesures'] = [];
+      carry.data[index_key]['mesures_dates'] = [];
+    }
+
+    var remapped_mesure = Object(_karsegard_composite_js__WEBPACK_IMPORTED_MODULE_0__["enlist"])(mesure).reduce(remap(mesure, mapping.mesure, carry.data[index_key]), {});
+    carry.data[index_key].mesures.push(remapped_mesure);
+    carry.data[index_key].mesures_dates.push(remapped_mesure.date);
+    carry.countMesure++;
+    return carry;
+  }, {
+    data: {},
+    list: [],
+    countPatient: 0,
+    countMesure: 0
+  });
+  progress(total, 100);
+  callback({
+    result: data
+  });
+};
+
+/***/ }),
+/* 2 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2191,7 +2330,7 @@ exports.ucase = ucase;
 exports.ucfirst = ucfirst;
 
 /***/ }),
-/* 2 */
+/* 3 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -3074,7 +3213,7 @@ exports.spreadFilterByKey = spreadFilterByKey;
 exports.value = value;
 
 /***/ }),
-/* 3 */
+/* 4 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -3104,9 +3243,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "camelize", function() { return camelize; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "bem", function() { return bem; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "makePropsFilter", function() { return makePropsFilter; });
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(4);
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(5);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var _karsegard_composite_js_ReactUtils__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(7);
+/* harmony import */ var _karsegard_composite_js_ReactUtils__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(8);
 /* harmony import */ var _karsegard_composite_js_ReactUtils__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_karsegard_composite_js_ReactUtils__WEBPACK_IMPORTED_MODULE_1__);
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "filterPropStartingWith", function() { return _karsegard_composite_js_ReactUtils__WEBPACK_IMPORTED_MODULE_1__["spreadObjectBeginWith"]; });
 
@@ -3114,13 +3253,13 @@ __webpack_require__.r(__webpack_exports__);
 
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "forwardProps", function() { return _karsegard_composite_js_ReactUtils__WEBPACK_IMPORTED_MODULE_1__["forwardPropsRemovingHeader"]; });
 
-/* harmony import */ var _karsegard_composite_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(1);
+/* harmony import */ var _karsegard_composite_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(2);
 /* harmony import */ var _karsegard_composite_js__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_karsegard_composite_js__WEBPACK_IMPORTED_MODULE_2__);
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "compose", function() { return _karsegard_composite_js__WEBPACK_IMPORTED_MODULE_2__["compose"]; });
 
-/* harmony import */ var _karsegard_composite_js_ObjectUtils__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(2);
+/* harmony import */ var _karsegard_composite_js_ObjectUtils__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(3);
 /* harmony import */ var _karsegard_composite_js_ObjectUtils__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(_karsegard_composite_js_ObjectUtils__WEBPACK_IMPORTED_MODULE_3__);
-/* harmony import */ var _karsegard_cex__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(8);
+/* harmony import */ var _karsegard_cex__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(9);
 /* harmony import */ var _karsegard_cex__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(_karsegard_cex__WEBPACK_IMPORTED_MODULE_4__);
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "cEx", function() { return _karsegard_cex__WEBPACK_IMPORTED_MODULE_4__["cEx"]; });
 
@@ -3474,18 +3613,18 @@ var camelize = function camelize(text) {
 
 
 /***/ }),
-/* 4 */
+/* 5 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
 if (false) {} else {
-  module.exports = __webpack_require__(5);
+  module.exports = __webpack_require__(6);
 }
 
 /***/ }),
-/* 5 */
+/* 6 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -3505,7 +3644,7 @@ if (true) {
   (function () {
     'use strict';
 
-    var _assign = __webpack_require__(6); // TODO: this is special because it gets imported during build.
+    var _assign = __webpack_require__(7); // TODO: this is special because it gets imported during build.
 
 
     var ReactVersion = '17.0.2'; // ATTENTION
@@ -5776,7 +5915,7 @@ if (true) {
 }
 
 /***/ }),
-/* 6 */
+/* 7 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -5877,7 +6016,7 @@ module.exports = shouldUseNative() ? Object.assign : function (target, source) {
 };
 
 /***/ }),
-/* 7 */
+/* 8 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -6822,7 +6961,7 @@ exports.transformReplace = transformReplace;
 exports.updateProp = updateProp;
 
 /***/ }),
-/* 8 */
+/* 9 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -6832,7 +6971,7 @@ Object.defineProperty(exports, '__esModule', {
   value: true
 });
 
-var compositeJs = __webpack_require__(9);
+var compositeJs = __webpack_require__(10);
 /*
 Easy class concat
 */
@@ -6892,7 +7031,7 @@ exports.cEx = cEx;
 exports.uEx = uEx;
 
 /***/ }),
-/* 9 */
+/* 10 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -8200,145 +8339,6 @@ exports.trim = trim;
 exports.tryCatcher = tryCatcher;
 exports.ucase = ucase;
 exports.ucfirst = ucfirst;
-
-/***/ }),
-/* 10 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "remap", function() { return remap; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "parse_promise", function() { return parse_promise; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "parse", function() { return parse; });
-/* harmony import */ var _karsegard_composite_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(1);
-/* harmony import */ var _karsegard_composite_js__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_karsegard_composite_js__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var _karsegard_composite_js_ObjectUtils__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(2);
-/* harmony import */ var _karsegard_composite_js_ObjectUtils__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_karsegard_composite_js_ObjectUtils__WEBPACK_IMPORTED_MODULE_1__);
-/* harmony import */ var bia_layout_utils__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(3);
-function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
-
-function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
-
-function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
-
-function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
-
-function _iterableToArrayLimit(arr, i) { var _i = arr == null ? null : typeof Symbol !== "undefined" && arr[Symbol.iterator] || arr["@@iterator"]; if (_i == null) return; var _arr = []; var _n = true; var _d = false; var _s, _e; try { for (_i = _i.call(arr); !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"] != null) _i["return"](); } finally { if (_d) throw _e; } } return _arr; }
-
-function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
-
-function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) { symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); } keys.push.apply(keys, symbols); } return keys; }
-
-function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
-
-function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
-
-
-
-
-var remap = function remap(obj, mapping) {
-  var ref = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : {};
-  return function (carry, item) {
-    var _key = Object(_karsegard_composite_js_ObjectUtils__WEBPACK_IMPORTED_MODULE_1__["key"])(item);
-
-    var _mapped = mapping[_key];
-
-    if (_mapped && Object(_karsegard_composite_js__WEBPACK_IMPORTED_MODULE_0__["is_type_string"])(_mapped)) {
-      carry[_mapped] = Object(_karsegard_composite_js_ObjectUtils__WEBPACK_IMPORTED_MODULE_1__["value"])(item);
-    } else if (Object(_karsegard_composite_js__WEBPACK_IMPORTED_MODULE_0__["is_type_object"])(_mapped)) {
-      var name = _mapped.name,
-          transform = _mapped.transform;
-
-      if (!Object(_karsegard_composite_js__WEBPACK_IMPORTED_MODULE_0__["is_type_function"])(transform)) {
-        transform = eval(transform);
-      }
-
-      carry[name] = transform(carry[name], obj, _objectSpread(_objectSpread({}, ref), carry));
-    }
-
-    return carry;
-  };
-};
-
-function sleep(ms) {
-  return new Promise(function (resolve) {
-    return setTimeout(resolve, ms);
-  });
-}
-
-var parse_promise = function parse_promise(opts, progress, total, callback) {
-  return new Promise(function (resolve, reject) {
-    var result = parse(opts, progress, total, resolve);
-  });
-};
-var parse = function parse(_ref, progress, total_count, callback) {
-  var text = _ref.text,
-      line_separator = _ref.line_separator,
-      mapping = _ref.mapping,
-      separator = _ref.separator,
-      identifier = _ref.identifier;
-  console.log('parsing');
-  var data = text.split(line_separator);
-  var fields = data[0].split(separator);
-  console.log(fields);
-  var total = data.length;
-  var report_every = 2000;
-  var count = 0;
-  total_count(total);
-  progress(total, 0);
-  data.shift();
-  data = data.map(function (line) {
-    var values = line.split(separator);
-    return values.reduce(function (carry, item, key) {
-      carry[fields[key]] = item;
-      return carry;
-    }, {});
-  }).reduce(function (carry, item, idx) {
-    count++;
-
-    if (count > report_every) {
-      progress(total, idx);
-      count = 0;
-    } //console.log(item)
-
-
-    var patient_keys = Object.keys(mapping.patient);
-
-    var _filterPropPresentIn = Object(bia_layout_utils__WEBPACK_IMPORTED_MODULE_2__["filterPropPresentIn"])(patient_keys, item),
-        _filterPropPresentIn2 = _slicedToArray(_filterPropPresentIn, 2),
-        patient = _filterPropPresentIn2[0],
-        mesure = _filterPropPresentIn2[1];
-
-    var index_key = item[identifier];
-
-    if (typeof carry.data[index_key] == "undefined") {
-      var p = Object(_karsegard_composite_js__WEBPACK_IMPORTED_MODULE_0__["enlist"])(patient).reduce(remap(patient, mapping.patient), {});
-      carry.data[index_key] = p;
-      carry.list.push(p);
-      carry.countPatient++;
-    }
-
-    if (typeof carry.data[index_key].mesures == "undefined") {
-      carry.data[index_key]['mesures'] = [];
-      carry.data[index_key]['mesures_dates'] = [];
-    }
-
-    var remapped_mesure = Object(_karsegard_composite_js__WEBPACK_IMPORTED_MODULE_0__["enlist"])(mesure).reduce(remap(mesure, mapping.mesure, carry.data[index_key]), {});
-    carry.data[index_key].mesures.push(remapped_mesure);
-    carry.data[index_key].mesures_dates.push(remapped_mesure.date);
-    carry.countMesure++;
-    return carry;
-  }, {
-    data: {},
-    list: [],
-    countPatient: 0,
-    countMesure: 0
-  });
-  progress(total, 100);
-  callback({
-    result: data
-  });
-};
 
 /***/ })
 /******/ ]);

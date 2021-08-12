@@ -29,17 +29,7 @@ export const makePromiseDispatcher = curry((errorPayloadResolver,payloadResolver
         .then ( compose(dispatch,ResolvedActionCreator,payloadResolver) )
         .catch( compose(Promise.reject,prop('payload'),dispatch,RejectedActionCreator,errorPayloadResolver) )
     )
-  /*  try{
-
-      return promise()
-      .then(  compose(dispatch,ResolvedActionCreator,payloadResolver) )
-      .catch( compose(Promise.reject,prop('payload'),dispatch,RejectedActionCreator,errorPayloadResolver) );
-
-    }catch (error){ // always reject
-
-      return Promise.reject(dispatch(RejectedActionCreator(error)))
-
-    }*/
+ 
   }
 })
 

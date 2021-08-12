@@ -73,3 +73,11 @@ export const updateProp = curry((prop,obj,value)=> updateObject(obj, {[prop]: va
 export const updateListWhereCondIsMet = curry((cond,val,list,fn) => map(_either(cond(val),identity,fn))(list))
 
 export const updateListIfPropEqual =curry((prop,val,list,fn) => updateListWhereCondIsMet(propIsEqual(prop),val,list,fn)  )
+
+
+export const byProp = (key,list) => list.reduce((carry,item)=>{
+    carry[item[key]]=item;
+    return carry;
+},{})
+
+export const listProp = (key,list) => list.map(item=> item[key]);

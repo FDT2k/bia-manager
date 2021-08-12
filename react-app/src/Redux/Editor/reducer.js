@@ -4,7 +4,7 @@ import {combineReducers} from 'redux'
 import {EDIT_PATIENT,CHANGE_MESURE,CREATE_MESURE,EDIT_MESURE,SELECT_MESURE,RECOMPUTE_MESURE,UPDATE_RECAP} from './actions';
 
 import {delFromList,addToListUniq,delObjectProp,updateProp} from 'Redux/utils/handlers';
-import { actions } from 'react-table/dist/react-table.development';
+
 
 export const machines = createReducer(['Nutriguard'],{
 

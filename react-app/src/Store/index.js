@@ -4,6 +4,8 @@ import {makeStore} from 'store-dev';
 import {createSelector} from 'reselect';
 
 
+import ItemListModule from 'Redux/ItemList';
+
 import BIASearch from 'Redux/BIASearch/reducer';
 import makePatientSelectors from 'Redux/BIASearch/selectors';
 import {update_search_tags,makeSearch} from 'Redux/BIASearch/actions';
@@ -13,9 +15,14 @@ import EditorReducer from 'Redux/Editor/reducer';
 import makeEditorSelectors from 'Redux/Editor/selectors';
 import {edit_patient,make_actions,make_edit_mesure,make_recompute_mesure} from 'Redux/Editor/actions';
 
+
+
+export const PhysicalActivityModule = ItemListModule(state=>state.physicalAct,'');
+
 const reducer= combineReducers({
     database:BIASearch,
-    editor:EditorReducer
+    editor:EditorReducer,
+    physicalAct: PhysicalActivityModule.reducer
 })
 
 export const baseSelector = state=>state.database;
