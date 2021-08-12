@@ -48,9 +48,9 @@ export default (baseSelector = identity, prefix = '') => {
 export default createModule(
     {
         submodules: getModule => {
-            const module = getModule();
+            const {baseSelector,prefix} = getModule();
             return {
-                physicalActivity: ItemListModule(compose(state => state.physicalActivity, module.baseSelector), `${module.prefix}_EDITOR_`)
+                physicalActivity: ItemListModule(compose(state => state.physicalActivity, baseSelector), `${prefix}PHYSICAL_ACTIVITIES`)
             }
         },
         selectors: makeSelectors,
