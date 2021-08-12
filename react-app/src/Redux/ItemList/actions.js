@@ -4,7 +4,7 @@ import {renameActionTypes,createActionTypes} from 'Redux/utils/types'
 
 
 export const ACTIONS_TYPES = createActionTypes(
-    'FETCH',
+    'FETCHED',
     'EDIT',
     'DELETE'
 )
@@ -18,8 +18,7 @@ export default (actions_types,selectors) => {
 
     const actions = {};
 
-
-    actions.fetch =  create(actions_types.FETCH);
+    actions.fetch =  create(actions_types.FETCHED);
     actions.edit =  create(actions_types.EDIT);
     actions.delete =  create(actions_types.DELETE);
 

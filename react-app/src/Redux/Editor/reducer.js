@@ -6,6 +6,11 @@ import {EDIT_PATIENT,CHANGE_MESURE,CREATE_MESURE,EDIT_MESURE,SELECT_MESURE,RECOM
 import {delFromList,addToListUniq,delObjectProp,updateProp} from 'Redux/utils/handlers';
 
 
+import  PhysicalActivityModule from 'Redux/ItemList';
+
+
+/*
+
 export const machines = createReducer(['Nutriguard'],{
 
 });
@@ -13,6 +18,7 @@ export const machines = createReducer(['Nutriguard'],{
 export const physical_act = createReducer(['élevée'],{
 
 });
+
 export const type_act = createReducer(['endurance','muscu'],{
 
 });
@@ -21,7 +27,7 @@ export const type_act = createReducer(['endurance','muscu'],{
 export const examinators = createReducer(['Fabien','Bob'],{
 
 });
-
+*/
 
 export const current_patient_id = createReducer(-1,{
     [EDIT_PATIENT]: (state,{payload})=> payload.id
@@ -135,15 +141,15 @@ export const report_settings=createReducer({
 
 
 export const reducer = combineReducers({
+ /*   physical_act,
+    type_act,
+    machines,
+    examinators,*/
     current_patient_id,
     current_mesure_id,
-    machines,
-    examinators,
     mesure,
     patient,
     recap,
-    physical_act,
-    type_act,
     report_settings
 
 });

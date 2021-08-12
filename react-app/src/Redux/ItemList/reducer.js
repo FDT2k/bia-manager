@@ -8,7 +8,7 @@ export default actions_types => {
     const {FETCHED,EDIT,DELETE} = actions_types;
 
     
-    return createReducer({},{
+    return createReducer({byIds:{},allIds:[]},{
         [FETCHED]: (state,{payload})=> {
             return {
                 byIds: byProp('id',payload),

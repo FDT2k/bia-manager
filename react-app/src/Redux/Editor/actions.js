@@ -1,16 +1,11 @@
 
 import create from 'Redux/utils/make-action'
 import { is_nil, compose } from '@karsegard/composite-js';
-import { bmi, ideal_weight, mostAccurateFormula } from 'references';
 
 import { createAction } from '@reduxjs/toolkit'
-import { compare, item_prop_is_equal } from '@karsegard/composite-js/List'
-import createAsyncAction, { makePromiseDispatcher } from 'Redux/utils/async-dispatch'
 
-import { formulas, calculate } from 'references/formulas';
 import { spec } from '@karsegard/composite-js/ObjectUtils';
 import EMPTY_MESURE from 'references/mesure-schema'
-import { patient } from './reducer';
 
 import {generate_recap_header, recap_to_bar_chart,normalize_mesure,bia_to_recap,formula_result_to_bia_summary,recompute} from 'references/Mesure'
 
