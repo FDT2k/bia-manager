@@ -1,17 +1,17 @@
-import {combineReducers} from '@reduxjs/toolkit';
+import { combineReducers } from 'redux';
 import { createMigrate } from 'redux-persist'
-import {makeStore} from 'store-dev';
-import {createSelector} from 'reselect';
+import { makeStore } from 'store-dev';
+import { createSelector } from 'reselect';
 
 
 
-import EditorModule  from 'Redux/Editor';
+import EditorModule from 'Redux/Editor';
 
 
 
 import BIASearch from 'Redux/BIASearch/reducer';
 import makePatientSelectors from 'Redux/BIASearch/selectors';
-import {update_search_tags,makeSearch} from 'Redux/BIASearch/actions';
+import { update_search_tags, makeSearch } from 'Redux/BIASearch/actions';
 
 
 /*import EditorReducer from 'Redux/Editor/reducer';
@@ -22,10 +22,10 @@ import {edit_patient,make_actions,make_edit_mesure,make_recompute_mesure} from '
 
 
 
-export const baseSelector = state=>state.database;
-export const {select_patients_list,select_patients_list_filtered,select_count_results,select_tags,select_patient} = makePatientSelectors(baseSelector);
+export const baseSelector = state => state.database;
+export const { select_patients_list, select_patients_list_filtered, select_count_results, select_tags, select_patient } = makePatientSelectors(baseSelector);
 export const search = makeSearch(baseSelector);
-export {update_search_tags};
+export { update_search_tags };
 
 // editor reducers
 /*export const {select_current_mesure_id, select_recap_headers,
@@ -35,30 +35,39 @@ export const {edit_mesure,recompute_mesure,create_mesure,refresh_recap,change_me
 export {update_search_tags,edit_patient} ;
 */
 
-export const BIAEditorModule = EditorModule(state=>state.editor,'');
+
+/**
+ * Create the editor Store
+ */
+export const BIAEditorModule = EditorModule(state => state.editor, '');
 
 export const {
-    select_current_mesure_id, 
-    select_recap_headers,
-    select_recap_list,
-    select_mass_chart,
-    select_edited_patient,
-    select_edited_mesure,
-    select_recap,
-    select_mesures_dates} = BIAEditorModule.selectors;
+  select_current_mesure_id,
+  select_recap_headers,
+  select_recap_list,
+  select_mass_chart,
+  select_edited_patient,
+  select_edited_mesure,
+  select_recap,
+  select_mesures_dates } = BIAEditorModule.selectors;
 
 
-export const {edit_patient,edit_mesure,recompute_mesure,create_mesure,refresh_recap,change_mesure} = BIAEditorModule.actions;
+export const {
+  edit_patient,
+  edit_mesure,
+  recompute_mesure,
+  create_mesure,
+  refresh_recap,
+  change_mesure } = BIAEditorModule.actions;
+
+export const { fetch: fetch_physical_activities } = BIAEditorModule.submodules.physicalActivity.actions;
 
 
 
 
-export const {fetch :fetch_physical_activities} = BIAEditorModule.submodules.physicalActivity.actions;
 
-
-
-const reducer= combineReducers({
-  database:BIASearch,
+const reducer = combineReducers({
+  database: BIASearch,
   //editor:EditorReducer,
   editor: BIAEditorModule.reducer
 })
@@ -70,11 +79,11 @@ const migrations = {
 
     }
   },
-  
+
 }
 
 
-export default makeStore('root',reducer,{devTools:true},{
-    version:1,
-    migrate:createMigrate(migrations)
+export default makeStore('root', reducer, { devTools: true }, {
+  version: 1,
+  migrate: createMigrate(migrations)
 });
