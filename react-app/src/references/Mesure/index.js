@@ -1,11 +1,22 @@
 import { get_bmi, get_ideal_weight, get_most_accurate_formula } from 'references';
 import { is_nil, compose, enlist } from '@karsegard/composite-js';
-import EMPTY_MESURE from 'references/mesure-schema'
-import { formulas, calculate } from 'references/formulas';
-import { value } from '@karsegard/composite-js/ObjectUtils';
+import { calculate } from 'references/formulas';
+import {calc_age} from 'references/age';
 
 
 
+
+const mesure_age =  ({ patient, mesure }) => {
+
+
+    return {
+        patient,
+        mesure: {
+            ...mesure,
+            current_age:calc_age(patient.birthdate,mesure.date)
+        }
+    }
+}
 const clear_bmi_ref =  ({ patient, mesure }) => {
 
     let bmi_ref = mesure.bmi_ref;
@@ -72,7 +83,7 @@ const bmi_weight = ({ patient, mesure }) => {
 }
 
 
-export const normalize_mesure = compose(clear_bmi_ref,best_formula, bmi_weight);
+export const normalize_mesure = compose(mesure_age,clear_bmi_ref,best_formula, bmi_weight);
 
 
 export const recompute = (patient, mesure, bia_result_columns, normes) => {
@@ -126,7 +137,8 @@ export const recompute = (patient, mesure, bia_result_columns, normes) => {
         r['logs'] = {};
 
         //temp // applying norms 
-        if (normes[column]) {
+        if (normes && normes[column]) {
+
             const [min, max] = normes[column];
             r['values']['norme'] = `${min}-${max}`;
         }
@@ -138,7 +150,7 @@ export const recompute = (patient, mesure, bia_result_columns, normes) => {
                 carry['values'][item] = results[item][column].value
                 carry['logs'][item] = results[item][column].log
                 carry['display'] = results[item][column].display;
-                if (normes[column]) {
+                if (normes&&normes[column]) {
                     const [min, max] = normes[column];
                     carry['limits'][item] = x => {
                         if (x < min)

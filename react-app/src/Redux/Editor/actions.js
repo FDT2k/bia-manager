@@ -1,9 +1,9 @@
 
 
 import create from 'Redux/utils/make-action'
-import {renameActionTypes,createActionTypes} from 'Redux/utils/types'
+import {createPrefixableActionTypes,createActionTypes} from 'Redux/utils/types'
 
-
+import moment from 'moment';
 
 import { is_nil } from '@karsegard/composite-js';
 
@@ -12,19 +12,10 @@ import { createAction } from '@reduxjs/toolkit'
 import EMPTY_MESURE from 'references/mesure-schema'
 
 import {generate_recap_header, recap_to_bar_chart,normalize_mesure,bia_to_recap,formula_result_to_bia_summary,recompute} from 'references/Mesure'
+
+import {normalize as normalize_patient} from 'references/Patient'
 import { select_edited_mesure } from 'Store';
-
-
-const normes = {
-
-    'pct_water': [55.0, 67.6],
-    'pct_ffm': [73.2, 89.0],
-    'pct_dffm': [19.7, 23.3],
-    'pct_fm': [11.0, 26.8],
-    'fmi': [2.2, 7.0],
-    'ffmi': [16.8, 21.1],
-
-}
+import  normes, { find_norme} from 'references/Normes';
 
 export const ACTIONS_TYPES = createActionTypes(
     'EDIT_PATIENT',
@@ -35,13 +26,14 @@ export const ACTIONS_TYPES = createActionTypes(
     'UPDATE_RECAP',
     'CHANGE_MESURE',
     'ATTEMPT_REFRESH_RECAP',
-    'RECAP_PATIENT_NOT_LOADED'
+    'RECAP_PATIENT_NOT_LOADED',
+    'FETCHED_NORME'
 )
 
 
 
 
-export const makeActionTypes = renameActionTypes(ACTIONS_TYPES);
+export const makeActionTypes = createPrefixableActionTypes(ACTIONS_TYPES);
 
 
 export default (getModule) => {
@@ -50,15 +42,38 @@ export default (getModule) => {
     const actions = {};
 
 
-    const {select_mesures,select_edited_patient,select_report_columns,select_charts_columns} = selectors;
+    const {select_mesures,select_normes,select_edited_patient,select_report_columns,select_charts_columns} = selectors;
 
     actions.real_edit_patient = create(action_types.EDIT_PATIENT);
+    actions.fetched_norme = create(action_types.FETCHED_NORME)
+    actions.fetch_norme = (key,norme ) => (dispatch,getState)=> {
+        let s = getState();
+        const age = select_edited_mesure(getState()).current_age;
+        const patient = select_edited_patient(getState());
+        let _norme = norme[patient.gender];
+        const payload = {
+            patient_id: patient.id,
+            key,
+            values: find_norme(norme,patient.gender,age)
+        }
+        return dispatch(actions.fetched_norme(payload));
+    }
+
+    actions.fetch_normes = (  ) => (dispatch,getState)=> {
+        Object.keys(normes).map(key => {
+            dispatch(actions.fetch_norme(key,normes[key]))
+
+
+        })
+       
+    }
 
     actions.edit_patient = patient => {
         return (dispatch,getState)=> {
     
             if(patient){
-                return dispatch(actions.real_edit_patient(patient));
+                return dispatch(actions.real_edit_patient(normalize_patient(patient)));
+                
             }else{
                 return dispatch({
                     type:'ERROR_EDIT_PATIENT_UNDEF'
@@ -80,26 +95,31 @@ export default (getModule) => {
         if (patient_id) {
             return (dispatch, getState) => {
                 let mesures = select_mesures(getState());
+                const patient = select_edited_patient(getState());
                 let new_mesure_id = mesures.length;
                 let new_mesure = Object.assign({}, EMPTY_MESURE, {
-                    date: new Date(),
+                    date: moment().format('Y-m-d'),
                     weight: '',
                     height: '',
                     bmi_ref: '',
                     left_side: false
                 });
     
+                let {mesure }= normalize_mesure({patient,new_mesure});
                 dispatch(actions.set_current_mesure(new_mesure_id))
     
-                return dispatch({
+                
+                let r =  dispatch({
                     type: action_types.CREATE_MESURE,
                     payload: {
                         id: patient_id,
-                        mesure: new_mesure,
+                        mesure: mesure,
                         mesure_id: new_mesure_id
                     }
                 })
-    
+                dispatch(actions.fetch_normes());
+
+                return r;
             }
         } else {
             return { type: 'ERROR_CREATE_MESURE' }
@@ -111,15 +131,20 @@ export default (getModule) => {
     
         return (dispatch, getState) => {
             let mesures = select_mesures(getState());
-            return dispatch({
+            const patient = select_edited_patient(getState());
+            let {mesure} = normalize_mesure({ patient, mesure:mesures[mesure_id]});
+            let r = dispatch({
                 type: action_types.EDIT_MESURE,
                 payload: {
                     id: patient_id,
-                    mesure: mesures[mesure_id],
+                    mesure,
                     mesure_id
                 }
             })
+           
+            dispatch(actions.fetch_normes());
     
+            return r;
         }
     };
     
@@ -134,6 +159,7 @@ export default (getModule) => {
 
             const patient =select_edited_patient(getState());
             const bia_result_columns = select_report_columns(getState());
+            const normes = select_normes(getState())
     
             const results = recompute(patient, values, bia_result_columns, normes);
             
@@ -151,7 +177,7 @@ export default (getModule) => {
 
     actions.change_mesure = (patient, mesure) => {
       
-        if (!patient || !mesure) {
+        if (is_nil(patient) || is_nil(mesure)) {
             return {
                 type: 'GENERAL_ERROR'
             }
@@ -162,6 +188,8 @@ export default (getModule) => {
     
             const { mesure: normalized_mesure } = normalize_mesure({ patient, mesure })
             const new_mesure = { ...mesure, ...normalized_mesure };
+
+            
             dispatch({
                 type: action_types.CHANGE_MESURE,
                 payload: {
@@ -169,6 +197,7 @@ export default (getModule) => {
                     mesure: new_mesure,
                 }
             })
+            dispatch(actions.fetch_normes());
             return dispatch(actions.recompute_mesure(patient.id, new_mesure));
         }
     };
@@ -182,6 +211,7 @@ export default (getModule) => {
         return (dispatch, getState) => {
             
             dispatch(actions.attempt_refresh_recap ({ patient_id, mesure_id }));
+            const normes = select_normes(getState())
 
             if (!is_nil(patient_id) && !is_nil(mesure_id)) {
     

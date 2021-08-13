@@ -1,20 +1,24 @@
 
 import create from 'Redux/utils/make-action'
-import {renameActionTypes,createActionTypes} from 'Redux/utils/types'
+import {createPrefixableActionTypes,createActionTypes} from 'Redux/utils/types'
 
 
-export const ACTIONS_TYPES = createActionTypes(
+
+export const ACTION_TYPES = createActionTypes(
     'FETCHED',
     'EDIT',
     'DELETE'
 )
 
 
-export const makeActionTypes = renameActionTypes(ACTIONS_TYPES);
+
+
+
+export const makeActionTypes =  createPrefixableActionTypes(ACTION_TYPES);
+
 
 
 export default (actions_types,selectors) => {
-
 
     const actions = {};
 

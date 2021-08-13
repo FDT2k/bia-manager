@@ -11,12 +11,19 @@ const CustomizedAxisTick = props => {
         </g>
     );
 };
-export const BarHorizontalStacked = props => {
-    const { data } = props;
-    return (
-        <ResponsiveContainer width="100%" height={500}>
-            <BarChart
 
+const renderColorfulLegendText = (value: string, entry: any) => {
+    const { color } = entry;
+  
+    return <span style={{ color:"#000000" }}>{value}</span>;
+  };
+
+export const BarHorizontalStacked = props => {
+    const { data,width,height } = props;
+    return (
+            <BarChart
+                width={width}
+                height={height}
                 data={data}
                 padding={{
                     top: 5,
@@ -30,9 +37,13 @@ export const BarHorizontalStacked = props => {
                     <Label value="poids (kg)" position="insideLeft" angle={-90} />
                 </YAxis>
                 <Tooltip />
-                <Legend wrapperStyle={{ right: '0px' }} layout="vertical" />
+                <Legend wrapperStyle={{ right: '0px' }} layout="vertical" formatter={renderColorfulLegendText}/>
                 <Bar dataKey="ffm" name="masse maigre" stackId="a" fill="#fa8c8c" background={false} />
                 <Bar dataKey="fm" name="masse grasse" stackId="a" fill="#faef8c" background={false} />
             </BarChart>
-        </ResponsiveContainer>)
+      )
+}
+BarHorizontalStacked.defaultProps = {
+    width:400,
+    height:300
 }

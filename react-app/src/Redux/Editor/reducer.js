@@ -113,6 +113,25 @@ export default (getModule) => {
         [action_types.EDIT_PATIENT]: (state, { payload }) => updateProp(payload.id, state, payload),
     })
 
+/**
+ * 
+ * state = {
+ *  'key' => [values,values]
+ * }
+ */
+    module.norme = createReducer({},{
+        [action_types.FETCHED_NORME]:  (state, {payload}) =>  updateProp(payload.key,state,payload.values)
+
+    })
+
+    module.normes= createReducer({},{
+        [action_types.FETCHED_NORME]: (state,action) =>{
+            const {payload} = action;
+            const {patient_id} = payload;
+            const substate = module.norme(state[patient_id],action);
+            return updateProp(patient_id,state, substate);
+        }
+    });
 
     module.report_settings = createReducer({
         bia_result_columns: [
@@ -124,7 +143,7 @@ export default (getModule) => {
             'dffm',
             'pct_dffm',
             'fm',
-            'pct_ffm',
+            'pct_fm',
             'fmi',
             'lf_ratio'
         ],
@@ -165,7 +184,7 @@ export default (getModule) => {
         mesure: module.mesure,
         patient: module.patient,
         recap: module.recap,
-
+        normes:module.normes
     });
 
     return module;

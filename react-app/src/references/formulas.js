@@ -60,7 +60,7 @@ export const formulas = {
     ],
 
     segal: [
-        {
+       /* {
             name:"current_age",
             display:false,
             fn: data => {
@@ -68,7 +68,7 @@ export const formulas = {
                 var ageDate = new Date(ageDifMs); // miliseconds from epoch
                 return Math.abs(ageDate.getUTCFullYear() - 1970);
             }
-        },
+        },*/
         {
             name: "res",
             fn: mesure => mesure.data.res50,

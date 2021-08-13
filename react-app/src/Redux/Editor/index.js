@@ -54,7 +54,7 @@ export default createModule(
             }
         },
         selectors: makeSelectors,
-        action_types: getModule => makeActionTypes(action_type_namespace(getModule().prefix)),
+        action_types: getModule => makeActionTypes(getModule().prefix),
         actions: makeActions,
         reducers: makeReducer,
         reducer: getModule => getModule().reducers.reducer

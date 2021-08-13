@@ -35,7 +35,6 @@ const FormulaResultHeader = props => {
 
     const { available_columns, columns, handleChange, selectable, ...rest } = props;
 
-
     let colByName = available_columns.reduce(function (carry, item) {
         carry[item['name']] = item;
         return carry;
@@ -65,7 +64,10 @@ const FormulaResultRow = (props) => {
     const { className, ...rest } = getClasseNames(__base_class, props)
     return (<><div className="row header">{label}</div>
         {columns.map((col) => {
-            let type = colByName[col].type;
+            if(!colByName[col]){
+                return (<div>Error</div>)
+            }
+            let type = colByName[col].type || 'number';
             let val = values[col]
             if (type !== 'string') {
                 let limit = limits[col];
@@ -99,7 +101,6 @@ export const Component = props => {
     const { data, t, available_columns, selectable, columns, ...rest } = props;
     const [state, setState] = useState(columns);
    
-
     useEffect(()=>{
       
         setState(columns);

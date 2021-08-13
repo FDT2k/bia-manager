@@ -42,7 +42,7 @@ const NavComponent = compose(
 
 const Editor = props => {
 
-    const { className, renderFooter, t, handleGoBack, handleMesureOpen, handleChange, lines, data, mesure, selectedMesureIndex, ...rest } = getClasseNames(__base_class, props);
+    const { className, renderFooter, t, handleGoBack, handleMesureOpen, handleChange, lines, data, mesure, handlePrint, selectedMesureIndex, ...rest } = getClasseNames(__base_class, props);
     const [startDate, setStartDate] = useState(new Date());
     const ExampleCustomInput = forwardRef(({ value, onClick }, ref) => (
         <div className="example-custom-input" onClick={onClick} ref={ref}>
@@ -80,7 +80,7 @@ const Editor = props => {
                     />
                 </Area>
                 <ContainerWithArea className={element('form')} area="content" scrollable>
-                    {mesure && <MesureEditor handleChange={handleChange} mesure={mesure} />}
+                    {mesure && <MesureEditor handlePrint={handlePrint} handleChange={handleChange} mesure={mesure} />}
                     {!mesure && <h1> ERREUR  !!!! Mesure introuvable</h1>}
                 </ContainerWithArea>
 

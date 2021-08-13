@@ -2,6 +2,7 @@ import React, { useMemo, useState, forwardRef, useRef, useEffect } from 'react';
 import DatePicker from 'react-datepicker';
 import { useFieldValues, useKeypress, useFocus } from '@karsegard/react-hooks';
 
+import { useReactToPrint } from 'react-to-print'
 
 import { bem, compose, withModifiers, applyModifiers, withVariables, divElement, withRemovedProps, withBaseClass, getClasseNames, cEx } from 'bia-layout/utils'
 
@@ -35,7 +36,7 @@ import { withGridArea } from 'bia-layout/hoc/grid/Area';
 import SafeDatePicker from 'bia-layout/components/Form/Editable/Date';
 import EditableTextInput from 'bia-layout/components/Form/Editable/TextInput';
 import EditableSelect from 'bia-layout/components/Form/Editable/Select';
-
+import { ComponentWithArea } from 'bia-layout/hoc/grid/Area';
 import { useDispatch, useSelector } from 'react-redux';
 
 import './mesure-editor.scss'
@@ -43,6 +44,7 @@ import { patient, recap_mass_chart } from 'Redux/Editor/reducer';
 
 import { select_recap_list, select_recap_headers, select_mass_chart } from 'Store';
 import { BarHorizontalStacked } from 'bia-layout/components/Charts'
+import Printable from 'bia-layout/components/Printable';
 
 
 const LayoutFlexColumnWithArea = withGridArea(LayoutFlexColumn);
@@ -59,7 +61,7 @@ const TabsWithArea = withGridArea(Tabs);
 const [__base_class, element, modifier] = bem('bia-mesure-editor')
 
 const Editor = props => {
-    const { className, gender, t, handleGoBack, handleChange: parentHandleChange, mesure, data, ...rest } = getClasseNames(__base_class, props)
+    const { className, gender, t, handleGoBack, handlePrint,handleChange: parentHandleChange, mesure, data, ...rest } = getClasseNames(__base_class, props)
 
 
     const _handleChange = v => {
@@ -67,7 +69,10 @@ const Editor = props => {
     }
 
     const { values, handleChangeValue, inputProps, handleChange, assignValues, replaceValues } = useFieldValues(mesure, { handleValuesChange: _handleChange });
-
+    const componentRef = useRef();
+    const _handlePrint = useReactToPrint({
+        content:() => componentRef.current
+    })
 
     /* update internal state if we change the prop */
     useEffect(() => {
@@ -131,12 +136,13 @@ const Editor = props => {
     const mass_chart = useSelector(select_mass_chart);
     return (
         <MesureEditorLayout {...rest} className={className}>
-            <TabsWithArea tabindexOffset={10} area="mesure-editor-main">
+            <TabsWithArea tabindexOffset={10} renderDisabledPanels={true} area="mesure-editor-main">
                 <TabList>
                     <Tab>Mesures</Tab>
                     <Tab>Résultats</Tab>
                     <Tab>Récapitulatif</Tab>
                     <Tab>Graphiques</Tab>
+                    <Tab>Print</Tab>
                 </TabList>
                 <TabPanel>
                     <LayoutFlexColumnWithArea>
@@ -189,7 +195,7 @@ const Editor = props => {
 
                         <LayoutFlex>
                             <Button onClick={_ => alert('it works')}>Enregistrer</Button>
-                            <Button className="btn--secondary" onClick={_ => alert('brrrr. out of ink')}>IMPRIMER</Button>
+                            <Button className="btn--secondary" onClick={_ => _handlePrint()}>IMPRIMER</Button>
                         </LayoutFlex>
                     </LayoutFlexColumnWithArea>
                 </TabPanel>
@@ -211,6 +217,32 @@ const Editor = props => {
 
                     <BarHorizontalStacked
                         data={mass_chart} />
+                </TabPanel>
+                <TabPanel>
+                    <Printable ref={componentRef}>
+                        <Grid style={{
+                            maxWidth:'100%',
+                            maxHeight:'100%'
+                        }}
+                        
+                            templateRows="50% auto auto"
+                            templateColumns="auto auto"
+                            templateAreas={[
+                                'r r',
+                                'a a',
+                                'b c'
+                            ]}
+                        >
+                            
+                            <ComponentWithArea area="r">
+                                <RecapGrid data={recap} headers={list_dates}/>
+                            </ComponentWithArea>
+                            <ComponentWithArea area="a">
+                                <BarHorizontalStacked data={mass_chart} />
+                            </ComponentWithArea>
+                      
+                        </Grid>
+                        </Printable>
                 </TabPanel>
             </TabsWithArea>
 

@@ -93,7 +93,7 @@ export const TabPanel  =  withBaseClass(element('panel'))(props => {
         className,
         _=> selectedTab === idx ? 'active': ''
     ])
-    let display =  ((selectedTab === idx) && !renderDisabledPanels)  || ( selectedTab === idx && renderDisabledPanels )  ;
+    let display =  ((selectedTab === idx) && !renderDisabledPanels)  || ( renderDisabledPanels )  ;
     return (
         <>
         {display && <div className={classes} {...rest}>{children}</div>}

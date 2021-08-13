@@ -11,7 +11,7 @@ export default (baseSelector=identity,prefix='') => {
 
     module.selectors = makeSelectors(baseSelector);
 
-    module.actions_types = makeActionTypes(x=>`${prefix}${x}`);
+    module.actions_types = makeActionTypes(prefix);
 
     module.actions = makeActions(module.actions_types,module.selectors);
 

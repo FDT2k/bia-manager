@@ -1,10 +1,12 @@
 import Grid from 'bia-layout/layouts/Grid'
-
+import './recap-grid.scss'
 export const Component = props => {
     const {t,data,headers} = props;
+
     return ( <Grid
+        className="recap-grid"
         templateColumns="2fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr"
-        templateRows="1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr"
+        autoRows="30px"
     >
 
 

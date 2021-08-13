@@ -16,7 +16,7 @@ import Component from 'bia-layout/components/Table/Pagination';
 import { select_recap_list, select_recap_headers, select_mass_chart } from 'Store';
 
 import { BarHorizontalStacked } from 'bia-layout/components/Charts'
-
+import Printable from 'bia-layout/components/Printable';
 import RecapGrid from 'bia-layout/components/Views/RecapGrid';
 
 export default props => {
@@ -121,22 +121,22 @@ export default props => {
           dispatch(refresh_recap(patient_id,current_mesure_id));
         }
     }
-
     return (
         <>
         <Editor
             handleGoBack={_ => setLocation('/search')}
             handleChange={handleChange}
+            handlePrint={handlePrint}
             data={patient}
             handleMesureOpen={handleMesureOpen}
             selectedMesureIndex={current_mesure_id}
             mesure={mesure}
             />
 
-        <div ref={componentRef}>
+        <Printable ref={componentRef}>
             <RecapGrid data={recap} headers={list_dates}/>
             <BarHorizontalStacked data={mass_chart} />
-        </div>
+        </Printable>
         </>
     )
 }

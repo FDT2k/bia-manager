@@ -1723,6 +1723,14 @@
   resolved "http://registry.lan:4873/@karsegard%2fcomposite-js/-/composite-js-2.3.0.tgz#a7276f9b60cfeb287a291fc95bc097cddf7227cb"
   integrity sha512-/rdxE1PaeuqZ/QTbmk64UA3/8GBwOGQ2qqiNbbslrYqtRAebbEp31DeT4GvVb9sc4pmFzb0yv4oWxO0DLJnkXw==
 
+"@karsegard/react-compose@^1.0.4":
+  version "1.0.4"
+  resolved "http://registry.lan:4873/@karsegard%2freact-compose/-/react-compose-1.0.4.tgz#dd03db40598b33c9b92a832e7cf68ea4af97d228"
+  integrity sha512-XZdgJASb1YVaw1gdAdGdSIxSo4t8uDHFScymhwrI2+t/jUN/eMBY+4Z9A/sAaiQddZ28nhkoKmkhmSNKwdpLBw==
+  dependencies:
+    "@karsegard/cex" "^1.4.4"
+    react "^17.0.2"
+
 "@karsegard/react-hooks@^2.0.0":
   version "2.0.0"
   resolved "http://registry.lan:4873/@karsegard%2freact-hooks/-/react-hooks-2.0.0.tgz#fbd49b4a6853a9f94ad47d6fa12a1ad385f39ad4"

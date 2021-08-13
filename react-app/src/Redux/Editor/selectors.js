@@ -94,6 +94,9 @@ export default  getModule => {
    })
 
 
+   module.select_normes = createSelector([module.select_current_patient_id,baseSelector], (patient_id,state) => {
+      return state.normes[patient_id]
+   });
   
    return module;
 
