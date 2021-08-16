@@ -37,7 +37,7 @@ export const LineChart = props => {
                 bottom: 5
             }}
         >
-            <XAxis dataKey="age"  type="number" tick={5} domain={['dataMin-10', 'dataMax+5']} >
+            <XAxis dataKey="age"  type="number" tickCount={10} domain={['dataMin-10', 'dataMax+5']} >
             <Label value="Age" position="insideBottom" />
                 </XAxis>
             <YAxis type="number" domain={[min => Math.round(min-3), max=>Math.round(max+1)]} />
