@@ -42,10 +42,11 @@ import { useDispatch, useSelector } from 'react-redux';
 import './mesure-editor.scss'
 import { patient, recap_mass_chart } from 'Redux/Editor/reducer';
 
-import { select_recap_list, select_recap_headers,select_current_bia_values, select_mass_chart,select_normes_chart,select_normes_bygender } from 'Store';
+import { select_recap_list, select_recap_headers, select_current_bia_values, select_mass_chart, select_normes_chart, select_normes_bygender } from 'Store';
 import MassChart from 'bia-layout/components/Charts/Mass'
 import FFMIChart from 'bia-layout/components/Charts/FFMI'
 import Printable from 'bia-layout/components/Printable';
+import { Component } from 'react';
 
 
 const LayoutFlexColumnWithArea = withGridArea(LayoutFlexColumn);
@@ -62,7 +63,7 @@ const TabsWithArea = withGridArea(Tabs);
 const [__base_class, element, modifier] = bem('bia-mesure-editor')
 
 const Editor = props => {
-    const { className, gender, t, handleGoBack, handlePrint,handleChange: parentHandleChange, mesure, data, ...rest } = getClasseNames(__base_class, props)
+    const { className, gender, t, handleGoBack, handlePrint, handleChange: parentHandleChange, mesure, data, ...rest } = getClasseNames(__base_class, props)
 
 
     const _handleChange = v => {
@@ -72,7 +73,7 @@ const Editor = props => {
     const { values, handleChangeValue, inputProps, handleChange, assignValues, replaceValues } = useFieldValues(mesure, { handleValuesChange: _handleChange });
     const componentRef = useRef();
     const _handlePrint = useReactToPrint({
-        content:() => componentRef.current
+        content: () => componentRef.current
     })
 
     /* update internal state if we change the prop */
@@ -136,7 +137,7 @@ const Editor = props => {
     const list_dates = useSelector(select_recap_headers);
     const mass_chart = useSelector(select_mass_chart);
     const norm_chart = useSelector(select_normes_chart);
-    const current_bia = useSelector(select_current_bia_values(['fmi','ffmi']));
+    const current_bia = useSelector(select_current_bia_values(['fmi', 'ffmi']));
     return (
         <MesureEditorLayout {...rest} className={className}>
             <TabsWithArea tabindexOffset={10} renderDisabledPanels={true} area="mesure-editor-main">
@@ -214,41 +215,78 @@ const Editor = props => {
                 </TabPanel>
                 <TabPanel>
 
-                       <RecapGrid data={recap} headers={list_dates}/>
+                    <RecapGrid data={recap} headers={list_dates} />
                 </TabPanel>
                 <TabPanel>
 
                     <MassChart data={mass_chart} />
 
-                    <FFMIChart data={norm_chart} noi="ffmi" age={mesure.current_age} value={current_bia.ffmi}/>
-                    <FFMIChart data={norm_chart} noi="fmi" age={mesure.current_age} value={current_bia.fmi}/>
+                    <FFMIChart data={norm_chart} noi="ffmi" age={mesure.current_age} value={current_bia.ffmi} />
+                    <FFMIChart data={norm_chart} noi="fmi" age={mesure.current_age} value={current_bia.fmi} />
 
                 </TabPanel>
                 <TabPanel>
                     <Printable ref={componentRef}>
-                        <Grid style={{
-                            maxWidth:'100%',
-                            maxHeight:'100%'
-                        }}
-                        
-                            templateRows="50% auto auto"
+                        <Grid
+                            contained
+
+                            templateRows="auto auto auto auto auto 20px;"
                             templateColumns="auto auto"
                             templateAreas={[
+                                'header header',
                                 'r r',
+
+                                'z z',
                                 'a a',
-                                'b c'
+                                'y y',
+                                'b c',
+                                'footer footer'
                             ]}
                         >
-                            
-                            <ComponentWithArea area="r">
-                                <RecapGrid data={recap} headers={list_dates}/>
+                            <ComponentWithArea area="header" style={{ outline: '1px solid blue' }}>
+
+                                <h3>  Mesure de la composition corporelle par bio-impédance électrique</h3>
+
+                                <LayoutFlex justBetween>
+                                    <div>
+                                        <div>  Nom: </div>
+                                        <div>  Prénom: </div>
+                                    </div><div>  Date de naissance: </div>
+                                </LayoutFlex>
                             </ComponentWithArea>
-                            <ComponentWithArea area="a">
-                                <MassChart data={mass_chart} />
+
+                            <ComponentWithArea area="r"  style={{ outline: '1px solid blue' }}>
+                                <RecapGrid data={recap} headers={list_dates} />
                             </ComponentWithArea>
-                      
+                            <ComponentWithArea area="z"  style={{ outline: '1px solid blue' }}>
+                                <h2>Evolution de la composition corporelle</h2></ComponentWithArea>
+                            <ComponentWithArea area="a"  style={{ outline: '1px solid blue' }}>
+
+                                <MassChart width={700} data={mass_chart} />
+                            </ComponentWithArea>
+                            <ComponentWithArea area="y"  style={{ outline: '1px solid blue' }}>
+                                <h3>Votre position par rapport aux normes</h3></ComponentWithArea>
+                            <ComponentWithArea area="b"  style={{ outline: '1px solid blue' }}>
+
+                                <LayoutFlexColumn justCenter alignCenter>
+                                    <h4>Indice de masse maigre</h4>
+                                    <span>masse maigre / (taille * taille)</span>
+                                    <FFMIChart data={norm_chart} noi="ffmi" age={mesure.current_age} value={current_bia.ffmi} />
+                                </LayoutFlexColumn>
+                            </ComponentWithArea>
+                            <ComponentWithArea area="c"  style={{ outline: '1px solid blue' }}>
+                                <LayoutFlexColumn justCenter alignCenter>
+                                    <h4>Indice de masse grasse</h4>
+                                    <span>masse maigre / (taille * taille)</span>
+
+                                    <FFMIChart data={norm_chart} noi="fmi" age={mesure.current_age} value={current_bia.fmi} />
+                                </LayoutFlexColumn>
+                            </ComponentWithArea>
+                            <ComponentWithArea area="footer"  style={{ outline: '1px solid blue' }}>
+                               <span>Crée avec BioImpedanceManager. v2.0.2 le 11.08.2021</span>
+                            </ComponentWithArea>
                         </Grid>
-                        </Printable>
+                    </Printable>
                 </TabPanel>
             </TabsWithArea>
 

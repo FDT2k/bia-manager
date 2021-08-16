@@ -239,7 +239,7 @@ export default (getModule) => {
                 let mesures = [...patient.mesures];
 
                 edited_mesure = select_edited_mesure(getState())
-                let edited_mesure_id = select_edited_mesure(getState()).mesure_id
+                let edited_mesure_id = edited_mesure.mesure_id
                 const bia_report_columns = select_report_columns(getState());
                 const bia_report_chart_columns = select_charts_columns(getState());
 

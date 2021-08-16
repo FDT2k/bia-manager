@@ -1,6 +1,6 @@
 import React, { useEffect, useState,useRef } from 'react';
 
-import { is_nil } from '@karsegard/composite-js';
+import { is_nil,safe_path } from '@karsegard/composite-js';
 
 import { useDispatch, useSelector } from 'react-redux';
 import { useLocation, useRoute, useRouter } from "wouter";
@@ -8,7 +8,7 @@ import useBIAManager from 'hooks/useBIAManager';
 
 import Editor from 'bia-layout/pages/Editor'
 
-import { select_patient,select_current_mesure_id, create_mesure,refresh_recap, recompute_mesure, change_mesure,edit_patient, edit_mesure,select_recap,select_mesures_dates, select_edited_patient, select_edited_mesure, compute_formulas,fetch_physical_activities,fetch_normes } from 'Store';
+import { select_patient,select_current_mesure_id, create_mesure,refresh_recap, recompute_mesure, change_mesure,edit_patient, edit_mesure,select_recap,select_mesures_dates, select_edited_patient, select_edited_mesure, compute_formulas,select_normes_chart,select_current_bia_values,fetch_physical_activities,fetch_normes } from 'Store';
 
 import { useReactToPrint } from 'react-to-print'
 import Component from 'bia-layout/components/Table/Pagination';
@@ -19,6 +19,7 @@ import MassChart from 'bia-layout/components/Charts/Mass'
 
 import Printable from 'bia-layout/components/Printable';
 import RecapGrid from 'bia-layout/components/Views/RecapGrid';
+import FFMIChart from 'bia-layout/components/Charts/FFMI'
 
 export default props => {
     const [location, setLocation] = useLocation();
@@ -128,6 +129,9 @@ export default props => {
           dispatch(refresh_recap(patient_id,current_mesure_id));
         }
     }
+    const norm_chart = useSelector(select_normes_chart);
+    const current_bia = useSelector(select_current_bia_values(['fmi','ffmi']));
+    const current_age = safe_path(0,'current_age',mesure);
     return (
         <>
         <Editor
@@ -142,7 +146,11 @@ export default props => {
 
         <Printable ref={componentRef}>
             <RecapGrid data={recap} headers={list_dates}/>
+            <FFMIChart data={norm_chart} noi="ffmi" age={current_age} value={current_bia.ffmi}/>
+            <FFMIChart data={norm_chart} noi="fmi" age={current_age} value={current_bia.fmi}/>
             <MassChart data={mass_chart} />
+
+      
         </Printable>
         </>
     )

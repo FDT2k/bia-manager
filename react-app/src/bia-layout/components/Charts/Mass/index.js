@@ -27,7 +27,7 @@ export const BarHorizontalStacked = props => {
                 data={data}
                 padding={{
                     top: 5,
-                    right: 30,
+                    right: 100,
                     left: 20,
                     bottom: 5
                   }}
@@ -37,7 +37,7 @@ export const BarHorizontalStacked = props => {
                     <Label value="poids (kg)" position="insideLeft" angle={-90} />
                 </YAxis>
                 <Tooltip />
-                <Legend wrapperStyle={{ right: '0px' }} layout="vertical" formatter={renderColorfulLegendText}/>
+                <Legend wrapperStyle={{ right: '-110px', top:'50%' }} layout="vertical"  formatter={renderColorfulLegendText}/>
                 <Bar dataKey="ffm" name="masse maigre" stackId="a" fill="#fa8c8c" background={false} />
                 <Bar dataKey="fm" name="masse grasse" stackId="a" fill="#faef8c" background={false} />
             </BarChart>

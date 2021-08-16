@@ -11,20 +11,26 @@
     overflow: initial !important;
     -webkit-print-color-adjust: exact;
   }
-}
 
-@media print {
 
   .page-break {
     margin-top: 1rem;
     display: block;
     page-break-before: auto;
   }
+
+
+
+  .printable {
+    display: block;
+    max-height: 100vh; 
+  }
+
 }
 
 @page {
   size: A4 portrait;
-  margin: 20mm;
+  margin: 10mm;
 }
 
 @media screen {
@@ -34,12 +40,5 @@
     div {
         border:1px solid blue;
     }
-  }
-}
-
-@media print {
-  .printable {
-    display: block;
-    max-height: 100vh; 
   }
 }

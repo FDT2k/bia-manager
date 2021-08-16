@@ -1,14 +1,15 @@
 import {createSelector} from 'reselect';
-import {defaultTo} from '@karsegard/composite-js'
+import {defaultTo, prop, safe_path} from '@karsegard/composite-js'
 
 
 
 
 export default  getModule => {
-
    const {baseSelector} = getModule();
-   const defaultToArray = defaultTo([]);
+   const safe_array = safe_path([]);
+   const safe_object = safe_path({});
    const defaultToObject = defaultTo({});
+   const defaultToArray = defaultTo([]);
    const module = {};
 
    module.select_current_patient_id = createSelector(baseSelector, state=> state.current_patient_id);
@@ -104,12 +105,17 @@ export default  getModule => {
   
 
    module.select_normes_sampling = createSelector([module.select_edited_patient,baseSelector], (patient,state) => {
-      return defaultToObject(state.normes.chartSample[patient.gender]);
+
+      let result;
+      if (patient && patient.gender){
+         result = state.normes.chartSample[patient.gender]
+      }
+      return defaultToArray(result);
    });
   
 
 
-   module.select_bia = createSelector(module.select_edited_mesure,mesure=> defaultToArray(mesure.bia) )
+   module.select_bia = createSelector(module.select_edited_mesure,mesure=> safe_array('bia',mesure) )
    module.select_bia_by_key = createSelector(module.select_bia,bia=> bia.reduce((carry,item)=>{
       carry[item['label']]= item;
       return carry;

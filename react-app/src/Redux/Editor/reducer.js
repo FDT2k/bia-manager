@@ -157,7 +157,6 @@ export default (getModule) => {
             const [age_min, age_max] = norm.age_range;
            // for (let i = age_min; i <= age_max; i++) {
                 samples.push({ key, min,max, age: age_min, age_range:norm.age_range,gender })
-
            // }
         } else {
             samples.push({ key, min,max,  age: norm.age_min,gender })
@@ -241,7 +240,7 @@ export default (getModule) => {
                 ...state,
                 normes: action.payload.normes,
                 byGender: module.normeByGender(state.byGender, action),
-                chartSample: module.normeChartSampling(state.byGender, action)
+                chartSample: module.normeChartSampling(state.chartSample, action)
             }
         },
         [action_types.REFRESH_NORME]: (state, action) => {

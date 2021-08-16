@@ -2,6 +2,7 @@
     --color-invalid:red;
     --color-valid: green;
 }
+@import 'bia-layout/sass/theme/default/main.scss';
 
 .impedance-form{
     &__line-header{
@@ -38,3 +39,12 @@
         color:var(--color-invalid);
     }
 }
+
+
+    .printable{
+        @extend %base_font;
+        .recharts-text, .recharts-label{
+        @extend %base_font;
+
+        }
+    }
