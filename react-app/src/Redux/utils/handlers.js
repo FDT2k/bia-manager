@@ -81,3 +81,18 @@ export const byProp = (key,list) => list.reduce((carry,item)=>{
 },{})
 
 export const listProp = (key,list) => list.map(item=> item[key]);
+
+
+
+
+
+
+export const updateList = (condition,list,fn) => list.map((item)=>{
+    if(condition(item)===true){
+        return fn(item);
+    }
+
+    return item;
+});
+
+

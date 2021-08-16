@@ -34,6 +34,8 @@ export const find_norme = (norme, gender, age) => {
 
 }
 
+
+
 export const ffmi = {
     'M': [
         {
@@ -182,7 +184,7 @@ export const pct_fm = {
             'values': [15.5, 31.2]
         },
         {
-            'min': 85,
+            'age_min': 85,
             'values': [17.1, 33.4]
         },
     ],
@@ -217,7 +219,7 @@ export const pct_fm = {
             'values': [25.9, 45.2]
         },
         {
-            'min': 85,
+            'age_min': 85,
             'values': [22.6, 46.9]
         },
     ]
@@ -256,7 +258,7 @@ export const pct_ffm = {
             'values': [68.8, 84.5]
         },
         {
-            'min': 85,
+            'age_min': 85,
             'values': [66.6, 82.9]
         },
     ],
@@ -292,7 +294,7 @@ export const pct_ffm = {
             'values': [54.8, 74.1]
         },
         {
-            'min': 85,
+            'age_min': 85,
             'values': [53.1, 77.4]
         },
     ]

@@ -95,9 +95,39 @@ export default  getModule => {
 
 
    module.select_normes = createSelector([module.select_current_patient_id,baseSelector], (patient_id,state) => {
-      return state.normes[patient_id]
+      return defaultToObject(state.normes.byPatient[patient_id]);
    });
   
+   module.select_normes_bygender = createSelector([module.select_edited_patient,baseSelector], (patient,state) => {
+      return defaultToObject(state.normes.byGender[patient.gender]);
+   });
+  
+
+   module.select_normes_sampling = createSelector([module.select_edited_patient,baseSelector], (patient,state) => {
+      return defaultToObject(state.normes.chartSample[patient.gender]);
+   });
+  
+
+
+   module.select_bia = createSelector(module.select_edited_mesure,mesure=> defaultToArray(mesure.bia) )
+   module.select_bia_by_key = createSelector(module.select_bia,bia=> bia.reduce((carry,item)=>{
+      carry[item['label']]= item;
+      return carry;
+   },{}))
+
+   module.select_current_bia_values = keys=> createSelector([module.select_edited_mesure,module.select_bia_by_key],(mesure,bia)=>{
+
+      return keys.reduce((carry,item)=> {
+
+         if (bia[item]) {
+           carry[item] = bia[item].values[mesure.most_accurate_formula];
+         }
+         return carry;
+      },{})
+
+
+   })
+
    return module;
 
 }

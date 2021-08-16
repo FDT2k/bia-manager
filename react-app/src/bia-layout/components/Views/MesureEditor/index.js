@@ -42,8 +42,9 @@ import { useDispatch, useSelector } from 'react-redux';
 import './mesure-editor.scss'
 import { patient, recap_mass_chart } from 'Redux/Editor/reducer';
 
-import { select_recap_list, select_recap_headers, select_mass_chart } from 'Store';
-import { BarHorizontalStacked } from 'bia-layout/components/Charts'
+import { select_recap_list, select_recap_headers,select_current_bia_values, select_mass_chart,select_normes_chart,select_normes_bygender } from 'Store';
+import MassChart from 'bia-layout/components/Charts/Mass'
+import FFMIChart from 'bia-layout/components/Charts/FFMI'
 import Printable from 'bia-layout/components/Printable';
 
 
@@ -134,6 +135,8 @@ const Editor = props => {
     const recap = useSelector(select_recap_list);
     const list_dates = useSelector(select_recap_headers);
     const mass_chart = useSelector(select_mass_chart);
+    const norm_chart = useSelector(select_normes_chart);
+    const current_bia = useSelector(select_current_bia_values(['fmi','ffmi']));
     return (
         <MesureEditorLayout {...rest} className={className}>
             <TabsWithArea tabindexOffset={10} renderDisabledPanels={true} area="mesure-editor-main">
@@ -215,8 +218,11 @@ const Editor = props => {
                 </TabPanel>
                 <TabPanel>
 
-                    <BarHorizontalStacked
-                        data={mass_chart} />
+                    <MassChart data={mass_chart} />
+
+                    <FFMIChart data={norm_chart} noi="ffmi" age={mesure.current_age} value={current_bia.ffmi}/>
+                    <FFMIChart data={norm_chart} noi="fmi" age={mesure.current_age} value={current_bia.fmi}/>
+
                 </TabPanel>
                 <TabPanel>
                     <Printable ref={componentRef}>
@@ -238,7 +244,7 @@ const Editor = props => {
                                 <RecapGrid data={recap} headers={list_dates}/>
                             </ComponentWithArea>
                             <ComponentWithArea area="a">
-                                <BarHorizontalStacked data={mass_chart} />
+                                <MassChart data={mass_chart} />
                             </ComponentWithArea>
                       
                         </Grid>

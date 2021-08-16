@@ -8,14 +8,15 @@ import useBIAManager from 'hooks/useBIAManager';
 
 import Editor from 'bia-layout/pages/Editor'
 
-import { select_patient,select_current_mesure_id, create_mesure,refresh_recap, recompute_mesure, change_mesure,edit_patient, edit_mesure,select_recap,select_mesures_dates, select_edited_patient, select_edited_mesure, compute_formulas,fetch_physical_activities } from 'Store';
+import { select_patient,select_current_mesure_id, create_mesure,refresh_recap, recompute_mesure, change_mesure,edit_patient, edit_mesure,select_recap,select_mesures_dates, select_edited_patient, select_edited_mesure, compute_formulas,fetch_physical_activities,fetch_normes } from 'Store';
 
 import { useReactToPrint } from 'react-to-print'
 import Component from 'bia-layout/components/Table/Pagination';
 
 import { select_recap_list, select_recap_headers, select_mass_chart } from 'Store';
 
-import { BarHorizontalStacked } from 'bia-layout/components/Charts'
+import MassChart from 'bia-layout/components/Charts/Mass'
+
 import Printable from 'bia-layout/components/Printable';
 import RecapGrid from 'bia-layout/components/Views/RecapGrid';
 
@@ -42,6 +43,12 @@ export default props => {
     const mass_chart = useSelector(select_mass_chart);
     const recap = useSelector(select_recap_list);
     const list_dates = useSelector(select_recap_headers);
+
+
+
+    useEffect(()=>{
+        dispatch(fetch_normes())
+    },[]);
 
     //console.log('editor rendering')
 
@@ -135,7 +142,7 @@ export default props => {
 
         <Printable ref={componentRef}>
             <RecapGrid data={recap} headers={list_dates}/>
-            <BarHorizontalStacked data={mass_chart} />
+            <MassChart data={mass_chart} />
         </Printable>
         </>
     )

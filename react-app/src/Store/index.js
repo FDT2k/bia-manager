@@ -49,6 +49,10 @@ export const {
   select_edited_patient,
   select_edited_mesure,
   select_recap,
+  select_normes_sampling,
+  select_normes_bygender,
+  select_current_bia_values,
+  select_normes_sampling:select_normes_chart,
   select_mesures_dates } = BIAEditorModule.selectors;
 
 
@@ -57,6 +61,7 @@ export const {
   edit_mesure,
   recompute_mesure,
   create_mesure,
+  fetch_normes,
   refresh_recap,
   change_mesure } = BIAEditorModule.actions;
 
