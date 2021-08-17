@@ -114,7 +114,7 @@ export const Component = props=> {
 
     return (
        <MainView renderFooter={renderFooter}>
-            <SearchLayout className="page-search">
+            <SearchLayout cover contained className="page-search">
                 <SearchArea area="search">
                     <TagInput placeholder={t(`Recherche`)} tags={tags}  handleFocus={v=>setSearchBarFocused(v)} handleChange={_handleSearch} fields={searchableFields}/>
                     <Button className="button--big" onClick={handleCreate}>Créer un nouveau Patient</Button>

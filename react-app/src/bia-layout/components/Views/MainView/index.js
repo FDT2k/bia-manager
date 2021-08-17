@@ -40,7 +40,7 @@ const MainView = props => {
 
 
     return (
-        <MainLayout className={className}>
+        <MainLayout  className={className} contained cover>
             <Nav area="header" className="nav-main">
                 {renderLeftNav && renderLeftNav()}
                 {!renderLeftNav &&<h3>BIA Manager</h3>}

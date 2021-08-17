@@ -25,7 +25,11 @@ import { identity, is_array, ucfirst } from '@karsegard/composite-js';
 const modifiers = [
     'r3c1',
     'r3c3',
-    'cover'
+    'cover',
+    'grow',
+    'contained',
+    'scrollable',
+    'fit'
 ]
 
 const withTemplateAreas = withVariables(
