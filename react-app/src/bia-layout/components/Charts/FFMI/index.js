@@ -30,12 +30,6 @@ export const LineChart = props => {
             width={width}
             height={height}
             data={_data}
-            padding={{
-                top: 5,
-                right: 30,
-                left: 20,
-                bottom: 5
-            }}
         >
             <XAxis dataKey="age"  type="number" tickCount={10} domain={['dataMin-10', 'dataMax+5']} >
             <Label value="Age" position="insideBottom" />

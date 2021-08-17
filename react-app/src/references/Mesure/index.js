@@ -199,7 +199,12 @@ export const generate_recap_header = (mesure_id,mesures) => {
 
 
 
-export const bia_to_recap = (mesures, columns, normes={}) => {
+export const bia_to_recap = (mesures, _columns, normes={},mesure_columns=[]) => {
+    
+
+    const columns = [...mesure_columns,..._columns];
+
+
     return columns.map(column => {
 
         let r = {};
@@ -221,7 +226,8 @@ export const bia_to_recap = (mesures, columns, normes={}) => {
                     return result
                 }, {})
 
-                if (biaByKey) {
+                if (biaByKey &&  biaByKey[column]) {
+
                     carry.values[mesure.date] = biaByKey[column].values[mesure.most_accurate_formula];
                     if (normes &&normes[column]) {
                         const [min, max] = normes[column];
@@ -234,6 +240,8 @@ export const bia_to_recap = (mesures, columns, normes={}) => {
                         };
 
                     }
+                }else if(mesure[column]){
+                    carry.values[mesure.date]=mesure[column];
                 }
             }
 

@@ -43,7 +43,7 @@ export default (getModule) => {
     const actions = {};
 
 
-    const { select_mesures, select_normes_sampling,select_normes, select_edited_patient, select_report_columns, select_charts_columns } = selectors;
+    const { select_mesures, select_normes_sampling,select_result_columns,select_normes, select_edited_patient, select_report_columns, select_charts_columns } = selectors;
 
     actions.real_edit_patient = create(action_types.EDIT_PATIENT);
     actions.refresh_norme = create(action_types.REFRESH_NORME)
@@ -171,7 +171,7 @@ export default (getModule) => {
 
 
             const patient = select_edited_patient(getState());
-            const bia_result_columns = select_report_columns(getState());
+            const bia_result_columns = select_result_columns(getState());
             const normes = select_normes(getState())
 
             const results = recompute(patient, values, bia_result_columns, normes);
@@ -273,8 +273,7 @@ export default (getModule) => {
                     }
 
                 })
-
-                const recap = bia_to_recap(results, bia_report_columns, normes);
+                const recap = bia_to_recap(results, bia_report_columns, normes,['weight','ideal_weight','pct_ideal_weight','height']);
                 const dates = generate_recap_header(mesure_id, mesures);
                 const chart = recap_to_bar_chart(bia_to_recap(results, bia_report_chart_columns), dates)
 

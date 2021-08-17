@@ -7,7 +7,7 @@ const CustomizedAxisTick = props => {
 
     return (
         <g transform={`translate(${x},${y})`}>
-            <text x={0} y={0} dy={16} textAnchor="end" fill="#666" transform="rotate(-35)">{payload.value}</text>
+            <text x={0} y={0} dy={16} textAnchor="end" fontSize={9} fill="#000"  textAnchor="middle" >{payload.value}</text>
         </g>
     );
 };
@@ -32,7 +32,7 @@ export const BarHorizontalStacked = props => {
                     bottom: 5
                   }}
             >
-                <XAxis dataKey="name" interval={0} tick={<CustomizedAxisTick />} label={{ rotate: 45 }} />
+                <XAxis dataKey="name" interval={0} tick={<CustomizedAxisTick />} />
                 <YAxis  >
                     <Label value="poids (kg)" position="insideLeft" angle={-90} />
                 </YAxis>

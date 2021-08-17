@@ -1,7 +1,7 @@
 import React,{useState} from 'react'
 import {cEx} from '@karsegard/cex'
 import {withBaseClass,withModifiers,withVariables,compose, bem,divElement, camelize} from 'bia-layout/utils'
-import './style.scss';/*
+import './grid.scss';/*
 export default props => {
 
   const {className,layout3,layout2, ...rest} = props
@@ -24,7 +24,8 @@ import { identity, is_array, ucfirst } from '@karsegard/composite-js';
 
 const modifiers = [
     'r3c1',
-    'r3c3'
+    'r3c3',
+    'cover'
 ]
 
 const withTemplateAreas = withVariables(

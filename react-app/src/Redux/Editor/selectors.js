@@ -86,9 +86,14 @@ export default  getModule => {
       return state.report_settings
    });
 
-   module.select_report_columns = createSelector([module.settings],(settings)=>{
+   module.select_result_columns = createSelector([module.settings],(settings)=>{
       return settings.bia_result_columns;
    })
+
+   module.select_report_columns = createSelector([module.settings],(settings)=>{
+      return settings.bia_report_columns;
+   })
+
 
    module.select_charts_columns = createSelector([module.settings],(settings)=>{
       return settings.bia_report_chart_columns;

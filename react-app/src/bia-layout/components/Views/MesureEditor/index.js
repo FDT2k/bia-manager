@@ -9,22 +9,14 @@ import { bem, compose, withModifiers, applyModifiers, withVariables, divElement,
 
 import LayoutFlex, { LayoutFlexColumn } from 'bia-layout/layouts/Flex'
 import MesureEditorLayout from 'bia-layout/layouts/MesureEditor'
-import Grid from 'bia-layout/layouts/Grid'
 import Container from 'bia-layout/containers/Container'
 import Field from 'bia-layout/components/Form/Fields'
 import Button from 'bia-layout/components/Form/Button'
 import ToggleSwitch from 'bia-layout/components/Form/ToggleSwitch'
 import Tabs, { TabList, Tab, TabPanel } from 'bia-layout/components/Tabs'
-import { Save, Print, Stats } from 'bia-layout/components/Icons';
 
-import { bmi, ideal_weight, mostAccurateFormula } from 'references';
-import Input from 'bia-layout/components/Form/Input'
-import ToggleEditField from 'bia-layout/hoc/ToggleEdit'
-
-import formulas from 'references/formulas'
 
 import "react-datepicker/dist/react-datepicker.css";
-import { is_nil } from '@karsegard/composite-js';
 
 import ComparisonTable from 'bia-layout/components/Views/ComparisonTable';
 import RecapGrid from 'bia-layout/components/Views/RecapGrid';
@@ -36,18 +28,15 @@ import { withGridArea } from 'bia-layout/hoc/grid/Area';
 import SafeDatePicker from 'bia-layout/components/Form/Editable/Date';
 import EditableTextInput from 'bia-layout/components/Form/Editable/TextInput';
 import EditableSelect from 'bia-layout/components/Form/Editable/Select';
-import { ComponentWithArea } from 'bia-layout/hoc/grid/Area';
 import { useDispatch, useSelector } from 'react-redux';
 
 import './mesure-editor.scss'
-import { patient, recap_mass_chart } from 'Redux/Editor/reducer';
 
 import { select_recap_list, select_recap_headers, select_current_bia_values, select_mass_chart, select_normes_chart, select_normes_bygender } from 'Store';
 import MassChart from 'bia-layout/components/Charts/Mass'
 import FFMIChart from 'bia-layout/components/Charts/FFMI'
 import Printable from 'bia-layout/components/Printable';
-import { Component } from 'react';
-
+import PrintableReport from 'bia-layout/components/Views/PrintableReport';
 
 const LayoutFlexColumnWithArea = withGridArea(LayoutFlexColumn);
 const TabsWithArea = withGridArea(Tabs);
@@ -146,7 +135,6 @@ const Editor = props => {
                     <Tab>Résultats</Tab>
                     <Tab>Récapitulatif</Tab>
                     <Tab>Graphiques</Tab>
-                    <Tab>Print</Tab>
                 </TabList>
                 <TabPanel>
                     <LayoutFlexColumnWithArea>
@@ -225,69 +213,9 @@ const Editor = props => {
                     <FFMIChart data={norm_chart} noi="fmi" age={mesure.current_age} value={current_bia.fmi} />
 
                 </TabPanel>
-                <TabPanel>
-                    <Printable ref={componentRef}>
-                        <Grid
-                            contained
-
-                            templateRows="auto auto auto auto auto 20px;"
-                            templateColumns="auto auto"
-                            templateAreas={[
-                                'header header',
-                                'r r',
-
-                                'z z',
-                                'a a',
-                                'y y',
-                                'b c',
-                                'footer footer'
-                            ]}
-                        >
-                            <ComponentWithArea area="header" style={{ outline: '1px solid blue' }}>
-
-                                <h3>  Mesure de la composition corporelle par bio-impédance électrique</h3>
-
-                                <LayoutFlex justBetween>
-                                    <div>
-                                        <div>  Nom: </div>
-                                        <div>  Prénom: </div>
-                                    </div><div>  Date de naissance: </div>
-                                </LayoutFlex>
-                            </ComponentWithArea>
-
-                            <ComponentWithArea area="r"  style={{ outline: '1px solid blue' }}>
-                                <RecapGrid data={recap} headers={list_dates} />
-                            </ComponentWithArea>
-                            <ComponentWithArea area="z"  style={{ outline: '1px solid blue' }}>
-                                <h2>Evolution de la composition corporelle</h2></ComponentWithArea>
-                            <ComponentWithArea area="a"  style={{ outline: '1px solid blue' }}>
-
-                                <MassChart width={700} data={mass_chart} />
-                            </ComponentWithArea>
-                            <ComponentWithArea area="y"  style={{ outline: '1px solid blue' }}>
-                                <h3>Votre position par rapport aux normes</h3></ComponentWithArea>
-                            <ComponentWithArea area="b"  style={{ outline: '1px solid blue' }}>
-
-                                <LayoutFlexColumn justCenter alignCenter>
-                                    <h4>Indice de masse maigre</h4>
-                                    <span>masse maigre / (taille * taille)</span>
-                                    <FFMIChart data={norm_chart} noi="ffmi" age={mesure.current_age} value={current_bia.ffmi} />
-                                </LayoutFlexColumn>
-                            </ComponentWithArea>
-                            <ComponentWithArea area="c"  style={{ outline: '1px solid blue' }}>
-                                <LayoutFlexColumn justCenter alignCenter>
-                                    <h4>Indice de masse grasse</h4>
-                                    <span>masse maigre / (taille * taille)</span>
-
-                                    <FFMIChart data={norm_chart} noi="fmi" age={mesure.current_age} value={current_bia.fmi} />
-                                </LayoutFlexColumn>
-                            </ComponentWithArea>
-                            <ComponentWithArea area="footer"  style={{ outline: '1px solid blue' }}>
-                               <span>Crée avec BioImpedanceManager. v2.0.2 le 11.08.2021</span>
-                            </ComponentWithArea>
-                        </Grid>
-                    </Printable>
-                </TabPanel>
+                
+                  
+                
             </TabsWithArea>
 
             <LayoutFlexColumnWithArea area="mesure-editor-aside">
@@ -317,6 +245,9 @@ const Editor = props => {
                 </Field>
 
             </LayoutFlexColumnWithArea>
+            <Printable ref={componentRef}>
+                        <PrintableReport />
+                    </Printable>
         </MesureEditorLayout>
     )
 

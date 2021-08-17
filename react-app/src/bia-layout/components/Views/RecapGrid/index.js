@@ -6,7 +6,7 @@ export const Component = props => {
     return ( <Grid
         className="recap-grid"
         templateColumns="2fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr"
-        autoRows="30px"
+        autoRows="20px"
     >
 
 

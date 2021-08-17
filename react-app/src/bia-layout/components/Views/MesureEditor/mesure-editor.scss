@@ -1,50 +1,55 @@
-:root{
-    --color-invalid:red;
-    --color-valid: green;
+:root {
+  --color-invalid: red;
+  --color-valid: green;
 }
-@import 'bia-layout/sass/theme/default/main.scss';
+@import "bia-layout/sass/theme/default/main.scss";
 
-.impedance-form{
-    &__line-header{
-        font-weight:bold;
-        text-align: left;
-    }
-    &__header{
-        font-weight:bold;
-    }
+.impedance-form {
+  &__line-header {
+    font-weight: bold;
+    text-align: left;
+  }
+  &__header {
+    font-weight: bold;
+  }
 
-
-    input{
-        width:56px;
-    }
-}
-
-.bia-mesure-editor{
-    min-width:100%;
-    width:100%;
+  input {
+    width: 56px;
+  }
 }
 
-.bia-editor__form{
-
-    div.editable-field{
-        min-height:30px;
-        background-color: var(--tertiary);
-    }
-
-    .result-row--upper{
-        color: var(--color-valid);
-    }
-
-    .result-row--lesser{
-        color:var(--color-invalid);
-    }
+.bia-mesure-editor {
+  min-width: 100%;
+  width: 100%;
 }
 
+.bia-editor__form {
+  div.editable-field {
+    min-height: 30px;
+    background-color: var(--tertiary);
+  }
 
-    .printable{
-        @extend %base_font;
-        .recharts-text, .recharts-label{
-        @extend %base_font;
+  .result-row--upper {
+    color: var(--color-valid);
+  }
 
-        }
-    }
+  .result-row--lesser {
+    color: var(--color-invalid);
+  }
+}
+
+.printable {
+  //@extend %colors-positive;
+//  font-family: Arial, Helvetica, sans-serif;
+  
+  @extend %printable_fonts;
+  .recharts-text,
+  .recharts-label {
+  //   @extend %base_font;
+  }
+
+  .recap-grid{
+
+    
+  }
+}

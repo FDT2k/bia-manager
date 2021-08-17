@@ -267,7 +267,6 @@ export default (getModule) => {
             'fm',
             'pct_fm',
             'fmi',
-            'lf_ratio'
         ],
         bia_report_columns: [
             'water',
@@ -278,7 +277,7 @@ export default (getModule) => {
             'dffm',
             'pct_dffm',
             'fm',
-            'pct_ffm',
+            'pct_fm',
             'fmi',
 
         ],
