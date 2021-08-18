@@ -35,7 +35,7 @@
       mainWindow.loadURL(
         isDev
           ? 'http://azathoth.lan:3333'
-          : `file://${path.join(__dirname, '../react-app/build/index.html')}`
+          : `file://${path.join(__dirname, '../index.html')}`
       );
   
       // Launch fullscreen with DevTools open, usage: npm run debug
@@ -66,7 +66,7 @@
       }
     })
 
-
+/*
     app.whenReady().then(() => {
       protocol.interceptFileProtocol('file', (request, callback) => {
         
@@ -81,7 +81,7 @@
        
       });
 
-    })
+    })*/
   }
   
   // Make this app a single instance app.
