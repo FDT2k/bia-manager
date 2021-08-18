@@ -13,7 +13,7 @@ const CustomizedAxisTick = props => {
     );
 };
 
-const renderColorfulLegendText = (value: string, entry: any) => {
+const renderColorfulLegendText = (value, entry) => {
     const { color } = entry;
 
     return <span style={{ color: "#000000" }}>{value}</span>;
