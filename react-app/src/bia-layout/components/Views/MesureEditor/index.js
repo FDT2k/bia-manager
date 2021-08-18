@@ -159,7 +159,7 @@ const Editor = props => {
                             <Field className="type-activite-physique" label={t("Type d'Activité physique")}>
                                 <select>
                                     <option>endurance</option>
-                                    <option>résistance></option>
+                                    <option>résistance</option>
                                     <option>autre</option>
                                     <option>inconnue</option>
                                 </select>
