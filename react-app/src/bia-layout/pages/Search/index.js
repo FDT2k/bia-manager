@@ -1,22 +1,17 @@
-import React,{useMemo,useEffect,useState} from 'react';
-
-import Fullscreen from 'bia-layout/containers/Fullscreen'
-import Navbar from 'bia-layout/components/Navbar';
-import Grid from 'bia-layout/layouts/Grid';
-import {Person} from 'bia-layout/components/Icons';
+import { applyModifiers, compose, withBaseClass } from '@karsegard/react-compose';
+import { useKeypress } from '@karsegard/react-hooks';
+import Button from 'bia-layout/components/Form/Button';
+import TagInput from 'bia-layout/components/Form/TagInput';
+import { ArrowDown, ArrowUp } from 'bia-layout/components/Icons';
 import List from 'bia-layout/components/Table';
-import Container from 'bia-layout/containers/Container';
+import MainView from 'bia-layout/components/Views/MainView';
+import { withGridArea } from 'bia-layout/hoc/grid/Area';
 import LayoutFlex from 'bia-layout/layouts/Flex';
-import TagInput from 'bia-layout/components/Form/TagInput'
-import MainView from 'bia-layout/components/Views/MainView'
-import SearchLayout from 'bia-layout/layouts/Search'
-import {ArrowDown,ArrowUp} from 'bia-layout/components/Icons'
-import Button from 'bia-layout/components/Form/Button'
-import {withGridArea,ComponentWithArea} from 'bia-layout/hoc/grid/Area'
-import {applyModifiers,compose,withBaseClass} from 'bia-layout/utils'
-import {useKeypress} from '@karsegard/react-hooks';
+import SearchLayout from 'bia-layout/layouts/Search';
+import React, { useEffect, useMemo, useState } from 'react';
+import './page-search.scss';
 
-import './page-search.scss'
+
 
 export const SearchArea =  compose(
                                 withGridArea,

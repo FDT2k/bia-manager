@@ -324,16 +324,16 @@ export const alpha = {
         },
         {
             'age_range': [35, 54],
-            'values': [5.6,7.3]
+            'values': [5.6, 7.3]
         },
         {
             'age_range': [55, 74],
-            'values': [5.0,6.6]
+            'values': [5.0, 6.6]
         }
     ]
 }
 
-const normes =  {
+const normes = {
     ffmi,
     fmi,
     pct_ffm,

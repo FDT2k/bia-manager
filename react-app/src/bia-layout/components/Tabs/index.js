@@ -1,8 +1,8 @@
-import React, { useRef,Children, cloneElement,useEffect,useState } from 'react'
-import { bem, compose, kebabize,filterPropPresentIn, baseElement, applyModifiers, withVariables, withModifiers, wrapComponent, asideElement, divElement, withBaseClass, cEx,withBEMElement,withBEM,makeBEM } from 'bia-layout/utils'
+import { applyModifiers, bem, cEx, compose, divElement, withBaseClass } from '@karsegard/react-compose';
+import { useFocus } from '@karsegard/react-hooks';
 import LayoutFlex from 'bia-layout/layouts/Flex';
-import {useFocus} from '@karsegard/react-hooks'
-import './style.scss'
+import React, { Children, cloneElement, useRef, useState } from 'react';
+import './style.scss';
 
 function makeTypeChecker(tabsRole) {
     return (element) => !!element.type && element.type.tabsRole === tabsRole;

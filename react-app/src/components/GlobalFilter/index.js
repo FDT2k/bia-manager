@@ -1,5 +1,5 @@
 import React from 'react';
-import {useAsyncDebounce} from 'react-table';
+import { useAsyncDebounce } from 'react-table';
 
 export default ({
     preGlobalFilteredRows,

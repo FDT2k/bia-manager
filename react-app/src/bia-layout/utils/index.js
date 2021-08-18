@@ -1,9 +1,8 @@
+import { cEx } from '@karsegard/cex';
+import { compose, curry, is_nil } from '@karsegard/composite-js';
+import { forwardPropsRemovingHeader, spreadObjectBeginWith, spreadObjectPresentIn } from '@karsegard/composite-js/ReactUtils';
 import React from 'react';
 
-import { spreadObjectPresentIn, spreadObjectBeginWith, forwardPropsRemovingHeader } from '@karsegard/composite-js/ReactUtils'
-import { curry, enlist,  compose, is_nil } from '@karsegard/composite-js'
-import {key} from '@karsegard/composite-js/ObjectUtils'
-import { cEx } from '@karsegard/cex'
 
 
 export const e = React.createElement;
@@ -222,7 +221,8 @@ export {
     cEx,
     cEx as classNames,
     makePropsFilter
-}
+};
+export { compose };
 
 
-export { compose }
+

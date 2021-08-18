@@ -1,21 +1,21 @@
 
 
-import create from 'Redux/utils/make-action'
-import { createPrefixableActionTypes, createActionTypes } from 'Redux/utils/types'
-
-import moment from 'moment';
-
 import { is_nil } from '@karsegard/composite-js';
-
-import { createAction } from '@reduxjs/toolkit'
-
-import EMPTY_MESURE from 'references/mesure-schema'
-
-import { generate_recap_header, recap_to_bar_chart, normalize_mesure, bia_to_recap, formula_result_to_bia_summary, recompute } from 'references/Mesure'
-
-import { normalize as normalize_patient } from 'references/Patient'
-import { select_edited_mesure } from 'Store';
+import { createAction } from '@reduxjs/toolkit';
+import moment from 'moment';
+import create from 'Redux/utils/make-action';
+import { createActionTypes, createPrefixableActionTypes } from 'Redux/utils/types';
+import { bia_to_recap, generate_recap_header, normalize_mesure, recap_to_bar_chart, recompute } from 'references/Mesure';
+import EMPTY_MESURE from 'references/mesure-schema';
 import normes, { find_norme } from 'references/Normes';
+import { normalize as normalize_patient } from 'references/Patient';
+import { select_edited_mesure } from 'Store';
+
+
+
+
+
+
 
 export const ACTIONS_TYPES = createActionTypes(
     'EDIT_PATIENT',
@@ -43,7 +43,7 @@ export default (getModule) => {
     const actions = {};
 
 
-    const { select_mesures, select_normes_sampling,select_result_columns,select_normes, select_edited_patient, select_report_columns, select_charts_columns } = selectors;
+    const { select_mesures, select_normes_sampling, select_result_columns, select_normes, select_edited_patient, select_report_columns, select_charts_columns } = selectors;
 
     actions.real_edit_patient = create(action_types.EDIT_PATIENT);
     actions.refresh_norme = create(action_types.REFRESH_NORME)
@@ -67,14 +67,14 @@ export default (getModule) => {
 
         dispatch(actions.fetched_normes({
             normes,
-            genders:['M','F']
+            genders: ['M', 'F']
         }));
-       
+
 
     }
 
     actions.refresh_normes = () => (dispatch, getState) => {
-       
+
         Object.keys(normes).map(key => {
             dispatch(actions.do_refresh_norme(key, normes[key]))
         })
@@ -262,7 +262,7 @@ export default (getModule) => {
                 }
 
 
-                
+
 
                 const results = mesures.map(mesure => {
 
@@ -273,7 +273,7 @@ export default (getModule) => {
                     }
 
                 })
-                const recap = bia_to_recap(results, bia_report_columns, normes,['weight','ideal_weight','pct_ideal_weight','height']);
+                const recap = bia_to_recap(results, bia_report_columns, normes, ['weight', 'ideal_weight', 'pct_ideal_weight', 'height']);
                 const dates = generate_recap_header(mesure_id, mesures);
                 const chart = recap_to_bar_chart(bia_to_recap(results, bia_report_chart_columns), dates)
 

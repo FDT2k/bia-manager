@@ -1,12 +1,11 @@
-import React from 'react';
-import { useTable, useSortBy, useGlobalFilter, usePagination, useFilters } from 'react-table'
-import GlobalFilter from 'components/GlobalFilter';
+import { bem, cEx } from '@karsegard/react-compose';
 import Pagination from 'bia-layout/components/Table/Pagination';
-import { filterPropStartingWith, forwardProps, bem, cEx, modifiersToCeX } from 'bia-layout/utils'
-import { matchSorter } from 'match-sorter'
-import DefaultFilter from './Filters/DefaultFilter'
-import './style.scss';
 import { LayoutFlexColumn } from 'bia-layout/layouts/Flex';
+import { matchSorter } from 'match-sorter';
+import React from 'react';
+import { useFilters, useGlobalFilter, usePagination, useSortBy, useTable } from 'react-table';
+import DefaultFilter from './Filters/DefaultFilter';
+import './style.scss';
 
 
 const [__base_class, element, modifier] = bem('listing')

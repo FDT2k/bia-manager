@@ -1,10 +1,10 @@
-import {curry} from '@karsegard/composite-js'
+import { curry } from '@karsegard/composite-js';
 
 
 
-export const makeActionCreator = curry((action,payload)=>{
+export const makeActionCreator = curry((action, payload) => {
 
-  return {type:action,payload}
+  return { type: action, payload }
 })
 
 

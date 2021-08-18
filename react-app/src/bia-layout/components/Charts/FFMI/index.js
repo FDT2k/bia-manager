@@ -1,6 +1,6 @@
 import { is_nil } from "@karsegard/composite-js";
 import React from "react";
-import { ComposedChart, BarChart, Bar, Cell, Label, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer, Line, AreaChart, Area ,ReferenceDot} from 'recharts';
+import { Area, ComposedChart, Label, Line, ReferenceDot, Tooltip, XAxis, YAxis } from 'recharts';
 
 
 const CustomizedAxisTick = props => {

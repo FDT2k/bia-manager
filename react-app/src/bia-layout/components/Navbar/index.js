@@ -1,6 +1,5 @@
-import React from 'react';
-import LayoutFlex from 'bia-layout/layouts/Flex'
-import {compose,applyModifiers,withBaseClass} from 'bia-layout/utils';
+import { applyModifiers, compose, withBaseClass } from '@karsegard/react-compose';
+import LayoutFlex from 'bia-layout/layouts/Flex';
 import './style.scss';
 
 

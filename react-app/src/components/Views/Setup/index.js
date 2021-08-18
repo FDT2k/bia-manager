@@ -1,12 +1,11 @@
-import React,{useState} from 'react';
-
-import SetupView from 'bia-layout/pages/Setup'
-
-import {useDispatch} from 'react-redux';
+import Button from 'bia-layout/components/Form/Button';
+import SetupView from 'bia-layout/pages/Setup';
+import DatabaseImport from 'components/DatabaseImport';
+import React, { useState } from 'react';
 import { useLocation } from "wouter";
 
-import Button from 'bia-layout/components/Form/Button';
-import DatabaseImport from 'components/DatabaseImport';
+
+
 export default props => {
     const [location, setLocation] = useLocation();
 

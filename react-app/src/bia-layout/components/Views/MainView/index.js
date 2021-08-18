@@ -1,19 +1,19 @@
-import React, { useState, useRef } from 'react';
-import { useLocation } from "wouter";
-
-
-import { bem, withBaseClass, divElement,compose,getClasseNames } from 'bia-layout/utils'
-
-import Container from 'bia-layout/containers/Container';
-import LayoutFlex from 'bia-layout/layouts/Flex';
-import Navbar from 'bia-layout/components/Navbar';
-import Grid from 'bia-layout/layouts/Grid';
-import {withGridArea} from 'bia-layout/hoc/grid/Area';
-
+import { bem, compose, withBaseClass } from '@karsegard/react-compose';
 import { Person } from 'bia-layout/components/Icons';
-
-
+import Navbar from 'bia-layout/components/Navbar';
+import Container from 'bia-layout/containers/Container';
+import { withGridArea } from 'bia-layout/hoc/grid/Area';
+import LayoutFlex from 'bia-layout/layouts/Flex';
+import Grid from 'bia-layout/layouts/Grid';
+import React from 'react';
+import { useLocation } from "wouter";
 import './main-view.scss';
+
+
+
+
+
+
 
 
 

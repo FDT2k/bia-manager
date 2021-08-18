@@ -1,11 +1,11 @@
-import React from 'react';
-
-import { add, del, selectDatabases } from 'Stores/Databases';
-import { useSelector, useDispatch } from 'react-redux';
 import { Delete } from 'bia-layout/components/Icons';
-import Fullscreen from 'bia-layout/containers/Fullscreen'
-import Container from 'bia-layout/containers/Container'
-import LayoutFlex from 'bia-layout/layouts/Flex'
+import Container from 'bia-layout/containers/Container';
+import Fullscreen from 'bia-layout/containers/Fullscreen';
+import LayoutFlex from 'bia-layout/layouts/Flex';
+import React from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { add, del, selectDatabases } from 'Stores/Databases';
+
 
 export default props => {
 

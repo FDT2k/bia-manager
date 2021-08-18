@@ -1,7 +1,6 @@
-import React, { useMemo, useState, forwardRef, useRef, useEffect } from 'react';
-import DatePicker from 'react-datepicker';
-import { useFieldValues, useKeypress, useFocus } from '@karsegard/react-hooks';
-import { bem, compose, withModifiers, applyModifiers, withVariables, divElement,withRemovedProps, withBaseClass, getClasseNames, cEx } from 'bia-layout/utils'
+import { withBaseClass } from '@karsegard/react-compose';
+import { useFocus, useKeypress } from '@karsegard/react-hooks';
+import React, { useEffect, useRef, useState } from 'react';
 
 
 

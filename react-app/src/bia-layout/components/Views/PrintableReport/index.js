@@ -1,13 +1,13 @@
-import React from 'react';
-import Grid from 'bia-layout/layouts/Grid'
-import { ComponentWithArea } from 'bia-layout/hoc/grid/Area';
-import LayoutFlex, { LayoutFlexColumn } from 'bia-layout/layouts/Flex'
+import FFMIChart from 'bia-layout/components/Charts/FFMI';
+import MassChart from 'bia-layout/components/Charts/Mass';
 import RecapGrid from 'bia-layout/components/Views/RecapGrid';
-import MassChart from 'bia-layout/components/Charts/Mass'
-import FFMIChart from 'bia-layout/components/Charts/FFMI'
-import { select_recap_list, select_recap_headers, select_current_bia_values, select_mass_chart, select_normes_chart, select_normes_bygender,select_edited_mesure,select_edited_patient } from 'Store';
-import { useDispatch, useSelector } from 'react-redux';
-import './printable-report.scss'
+import { ComponentWithArea } from 'bia-layout/hoc/grid/Area';
+import LayoutFlex, { LayoutFlexColumn } from 'bia-layout/layouts/Flex';
+import Grid from 'bia-layout/layouts/Grid';
+import React from 'react';
+import { useSelector } from 'react-redux';
+import { select_current_bia_values, select_edited_mesure, select_edited_patient, select_mass_chart, select_normes_chart, select_recap_headers, select_recap_list } from 'Store';
+import './printable-report.scss';
 
 
 

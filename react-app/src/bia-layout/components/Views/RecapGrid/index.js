@@ -1,5 +1,5 @@
-import Grid from 'bia-layout/layouts/Grid'
-import './recap-grid.scss'
+import Grid from 'bia-layout/layouts/Grid';
+import './recap-grid.scss';
 export const Component = props => {
     const {t,data,headers} = props;
 

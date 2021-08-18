@@ -1,15 +1,14 @@
-import React from 'react';
-
-import SearchView from 'bia-layout/pages/Search'
-
-import { useDispatch, useSelector } from 'react-redux';
-import { useLocation } from "wouter";
-import useBIAManager from 'hooks/useBIAManager';
-
-
-import { update_search_tags, search } from 'Store';
-import { select_patients_list_filtered, select_tags, select_count_results } from 'Store';
 import LayoutFlex from 'bia-layout/layouts/Flex';
+import SearchView from 'bia-layout/pages/Search';
+import useBIAManager from 'hooks/useBIAManager';
+import React from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { search, select_count_results, select_patients_list_filtered, select_tags } from 'Store';
+import { useLocation } from "wouter";
+
+
+
+
 
 
 export default props => {

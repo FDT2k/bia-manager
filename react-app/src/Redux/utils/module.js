@@ -1,5 +1,3 @@
-import { identity,compose } from '@karsegard/composite-js';
-import {renameActionTypes,createActionTypes} from 'Redux/utils/types'
 
 
 const createModule = moduleParts => (baseSelector, prefix = '') => {

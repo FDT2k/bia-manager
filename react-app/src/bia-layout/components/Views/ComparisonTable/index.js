@@ -1,10 +1,10 @@
+import { bem, cEx, getClasseNames } from '@karsegard/react-compose';
+import Tooltip from 'bia-layout/hoc/Tooltip';
+import Grid from 'bia-layout/layouts/Grid';
 import React, { useEffect, useState } from 'react';
-import Tooltip from 'bia-layout/hoc/Tooltip'
-import { bem, compose, withModifiers, applyModifiers, withVariables, divElement, withBaseClass, getClasseNames, cEx } from 'bia-layout/utils'
-
-import Grid from 'bia-layout/layouts/Grid'
-
 import './comparison-table.scss';
+
+
 
 
 const FormulaHeaderSelect = props => {

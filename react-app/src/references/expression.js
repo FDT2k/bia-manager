@@ -2,25 +2,25 @@
 import mexp from 'math-expression-evaluator';
 
 const abs = {
-    type:0,
-    token:"ABS",
-    show:"ABS",
-    value:function(a){
+    type: 0,
+    token: "ABS",
+    show: "ABS",
+    value: function (a) {
         return Math.abs(a);
     }
 }
 
 
 const sqrt = {
-    type:0,
-    token:"SQRT",
-    show:"SQRT",
-    value:function(a){
+    type: 0,
+    token: "SQRT",
+    show: "SQRT",
+    value: function (a) {
         return Math.sqrt(a);
     }
 }
 
-mexp.addToken([abs,sqrt]);  
+mexp.addToken([abs, sqrt]);
 
 
 export const evaluateEquation = (values, formula) => {
@@ -33,5 +33,5 @@ export const evaluateEquation = (values, formula) => {
         let value = parseFloat(values[m[1]]);
         evaluator = evaluator.replace(m[0], value);
     }
-    return {result: mexp.eval(evaluator), log:evaluator }
+    return { result: mexp.eval(evaluator), log: evaluator }
 }

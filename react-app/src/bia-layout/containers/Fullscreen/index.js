@@ -1,9 +1,9 @@
-import React, { useState, useEffect, useRef } from 'react'
-
-import { filterPropStartingWith, forwardProps, bem, cEx, modifiersToCeX }  from 'bia-layout/utils'
-
-
+import { bem, cEx } from '@karsegard/react-compose';
+import React, { useEffect, useRef, useState } from 'react';
 import './style.scss';
+
+
+
 
 const [__base_class, element,modifier]= bem('container-fullscreen')
 

@@ -1,8 +1,7 @@
-import React,{useState} from 'react'
-import {withBaseClass,withModifiers,compose, bem,divElement} from 'bia-layout/utils'
-
+import { bem, compose, withBaseClass } from '@karsegard/react-compose';
 import Grid from '../Grid';
 import './style.scss';
+
 
 
 

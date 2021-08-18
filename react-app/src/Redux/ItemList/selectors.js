@@ -1,5 +1,5 @@
-import {createSelector} from 'reselect';
-import {defaultTo} from '@karsegard/composite-js'
+import { defaultTo } from '@karsegard/composite-js';
+import { createSelector } from 'reselect';
 
 
 export default baseSelector => {
@@ -9,7 +9,7 @@ export default baseSelector => {
     const module = {};
 
 
-    module.select_list = createSelector(baseSelector,state=> defaultToArray(state));
+    module.select_list = createSelector(baseSelector, state => defaultToArray(state));
 
 
 

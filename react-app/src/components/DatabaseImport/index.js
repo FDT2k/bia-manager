@@ -1,17 +1,15 @@
-import React, { useState,useRef,useEffect } from 'react';
-import ReactLoading from 'react-loading';
-import { useLocation } from "wouter";
-
-import LayoutFlex from 'bia-layout/layouts/Flex'
-import { useFieldValues,useWorker } from '@karsegard/react-hooks'
-import useDatabaseFromContext from 'hooks/useBIAManager';
-import { CircularProgressbar } from 'react-circular-progressbar';
-import 'react-circular-progressbar/dist/styles.css';
+import { identity } from '@karsegard/composite-js';
+import { useFieldValues } from '@karsegard/react-hooks';
 import Button from 'bia-layout/components/Form/Button';
 import InputGroup from 'bia-layout/components/Form/InputGroup';
-import { mostAccurateFormula } from 'references';
-import {parse} from './parser'
-import { identity } from '@karsegard/composite-js';
+import LayoutFlex from 'bia-layout/layouts/Flex';
+import useDatabaseFromContext from 'hooks/useBIAManager';
+import React, { useEffect, useRef, useState } from 'react';
+import 'react-circular-progressbar/dist/styles.css';
+import ReactLoading from 'react-loading';
+import { useLocation } from "wouter";
+import { parse } from './parser';
+
 export default props => {
 
     const [location, setLocation] = useLocation();

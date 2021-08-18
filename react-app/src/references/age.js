@@ -1,7 +1,7 @@
-import { is_nil} from '@karsegard/composite-js';
+import { is_nil } from '@karsegard/composite-js';
 
 
-export const calc_age = (birthdate,_date) => {
+export const calc_age = (birthdate, _date) => {
 
     let date = is_nil(_date) ? Date.now() : (new Date(_date)).getTime()
 

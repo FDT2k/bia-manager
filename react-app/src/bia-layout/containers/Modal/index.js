@@ -1,7 +1,7 @@
-import React, { useState, useEffect, useRef } from 'react'
-
-import { filterPropStartingWith, forwardProps, bem, cEx } from  'bia-layout/utils'
+import { bem, cEx } from '@karsegard/react-compose';
+import React, { useEffect, useRef } from 'react';
 import './style.scss';
+
 
 export const [__base_class, element, modifier] = bem('container-modal')
 

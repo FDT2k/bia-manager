@@ -1,5 +1,5 @@
 import react,{useState,useEffect,useRef} from 'react';
-import {withBaseClass,withModifiers,withVariables,compose, bem,divElement,cEx} from 'bia-layout/utils'
+import {withBaseClass,withModifiers,withVariables,compose, bem,divElement,cEx} from '@karsegard/react-compose'
 import useFocus from 'hooks/useFocus';
 
 

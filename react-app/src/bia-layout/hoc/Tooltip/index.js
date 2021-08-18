@@ -1,7 +1,7 @@
+import { cEx, withModifiers } from '@karsegard/react-compose'
 import React from 'react'
-import {withBaseClass,withModifiers,withVariables,compose, bem,divElement, cEx} from 'bia-layout/utils'
-
 import './tooltip.scss'
+
 
 
 export const withTooltip =  Component => props => {

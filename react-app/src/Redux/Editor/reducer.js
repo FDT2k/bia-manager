@@ -1,13 +1,12 @@
 
-import createReducer from 'Redux/utils/create-reducer'
-import { combineReducers } from 'redux'
-
-import { updateList, updateListIfPropEqual, updateProp } from 'Redux/utils/handlers';
-
-
-import ItemListModule from 'Redux/ItemList';
-import { enlist,is_nil } from '@karsegard/composite-js';
+import { enlist, is_nil } from '@karsegard/composite-js';
 import { key, value } from '@karsegard/composite-js/ObjectUtils';
+import { combineReducers } from 'redux';
+import createReducer from 'Redux/utils/create-reducer';
+import { updateList, updateProp } from 'Redux/utils/handlers';
+
+
+
 
 
 /*
@@ -149,17 +148,17 @@ export default (getModule) => {
     })
 
 
-    const sample_norm = (gender,key, norm) => {
+    const sample_norm = (gender, key, norm) => {
         let samples = [];
-        const [min,max] = norm.values;
-        
+        const [min, max] = norm.values;
+
         if (!is_nil(norm.age_range)) {
             const [age_min, age_max] = norm.age_range;
-           // for (let i = age_min; i <= age_max; i++) {
-                samples.push({ key, min,max, age: age_min, age_range:norm.age_range,gender })
-           // }
+            // for (let i = age_min; i <= age_max; i++) {
+            samples.push({ key, min, max, age: age_min, age_range: norm.age_range, gender })
+            // }
         } else {
-            samples.push({ key, min,max,  age: norm.age_min,gender })
+            samples.push({ key, min, max, age: norm.age_min, gender })
         }
         return samples;
     }
@@ -168,67 +167,67 @@ export default (getModule) => {
         [action_types.FETCHED_NORMES]: (state, action) => {
             let genders = action.payload.genders;
 
-            let samples= enlist(action.payload.normes).reduce((carry, item) => {
+            let samples = enlist(action.payload.normes).reduce((carry, item) => {
 
                 let _norm_key = key(item);
                 let _options = value(item);
 
                 carry = genders.reduce((result, gender) => {
-                   
 
-                    let _result =  _options[gender].reduce( (result,norm)=> {
-                        let sample =sample_norm(gender,_norm_key, norm)
 
-                       
-                      
+                    let _result = _options[gender].reduce((result, norm) => {
+                        let sample = sample_norm(gender, _norm_key, norm)
 
-                        result= [...result,...sample];
+
+
+
+                        result = [...result, ...sample];
                         return result;
-                        
-                    },[]);
 
-                    return [...result,..._result];
+                    }, []);
+
+                    return [...result, ..._result];
                 }, carry);
 
                 return carry;
             }, [])
 
-            return samples.reduce( (list,item)=>{
-                const {gender,age_range,age,key} = item;
-                if(!list[gender]){
-                    list[gender]= [];
+            return samples.reduce((list, item) => {
+                const { gender, age_range, age, key } = item;
+                if (!list[gender]) {
+                    list[gender] = [];
                 }
 
 
-                let existing = list[gender].find(item=> item.age===age);
+                let existing = list[gender].find(item => item.age === age);
 
-                if(!existing) {
+                if (!existing) {
 
-                    list[gender].push( {
+                    list[gender].push({
                         age,
                         age_range,
                         [`${key}_min`]: item.min,
                         [`${key}_max`]: item.max,
 
-                        [`${key}`]: [item.min,item.max]
-                    } );
-                }else{
+                        [`${key}`]: [item.min, item.max]
+                    });
+                } else {
 
-                    list[gender] = updateList(item=> item.age===age,list[gender],element=> {
+                    list[gender] = updateList(item => item.age === age, list[gender], element => {
 
                         return {
-                        ...element,
-                        [`${key}_min`]: item.min,
-                        [`${key}_max`]: item.max,
-                        [`${key}`]: [item.min,item.max]
+                            ...element,
+                            [`${key}_min`]: item.min,
+                            [`${key}_max`]: item.max,
+                            [`${key}`]: [item.min, item.max]
                         }
-                    }).sort((a,b)=>{
-                        return a.age-b.age;
+                    }).sort((a, b) => {
+                        return a.age - b.age;
                     });
                 }
 
                 return list;
-            },{})
+            }, {})
         }
     })
 

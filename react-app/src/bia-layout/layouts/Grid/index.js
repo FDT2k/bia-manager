@@ -1,7 +1,6 @@
-import React,{useState} from 'react'
-import {cEx} from '@karsegard/cex'
-import {withBaseClass,withModifiers,withVariables,compose, bem,divElement, camelize} from 'bia-layout/utils'
-import './grid.scss';/*
+import { identity, is_array } from '@karsegard/composite-js';
+import { bem, camelize, compose, divElement, withBaseClass, withModifiers, withVariables } from '@karsegard/react-compose';
+import './grid.scss'; /*
 export default props => {
 
   const {className,layout3,layout2, ...rest} = props
@@ -20,7 +19,6 @@ export default props => {
       </>
   )
 }*/
-import { identity, is_array, ucfirst } from '@karsegard/composite-js';
 
 const modifiers = [
     'r3c1',

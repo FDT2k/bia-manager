@@ -1,28 +1,26 @@
 // lib externes
-import React, { useMemo, useState, forwardRef } from 'react';
-import DatePicker from 'react-datepicker';
-
-
 //nos libs externes
-import { bem, compose, withModifiers, applyModifiers, withVariables, divElement, withBaseClass, getClasseNames } from 'bia-layout/utils'
-
-//nos libs internes
-import MainView from 'bia-layout/components/Views/MainView'
-import EditorLayout from 'bia-layout/layouts/Editor'
-import LayoutFlex, { LayoutFlexColumn } from 'bia-layout/layouts/Flex'
-import Grid from 'bia-layout/layouts/Grid'
-import Container from 'bia-layout/containers/Container'
-import PatientHeader from 'bia-layout/components/Views/PatientHeader'
-import { ComponentWithArea as Area, withGridArea } from 'bia-layout/hoc/grid/Area'
-import { Delete, ArrowBack } from 'bia-layout/components/Icons';
-import MesureEditor from 'bia-layout/components/Views/MesureEditor';
+import { applyModifiers, bem, compose, getClasseNames } from '@karsegard/react-compose';
+import { ArrowBack, Delete } from 'bia-layout/components/Icons';
 import ListMesure from 'bia-layout/components/ListMesure';
-
+//nos libs internes
+import MainView from 'bia-layout/components/Views/MainView';
+import MesureEditor from 'bia-layout/components/Views/MesureEditor';
+import PatientHeader from 'bia-layout/components/Views/PatientHeader';
+import Container from 'bia-layout/containers/Container';
+import { ComponentWithArea as Area, withGridArea } from 'bia-layout/hoc/grid/Area';
+import EditorLayout from 'bia-layout/layouts/Editor';
+import LayoutFlex from 'bia-layout/layouts/Flex';
+import React, { forwardRef, useState } from 'react';
 //styles externes
 import "react-datepicker/dist/react-datepicker.css";
-
 //styles
-import './page-editor.scss'
+import './page-editor.scss';
+
+
+
+
+
 
 
 

@@ -1,11 +1,11 @@
 import { identity } from '@karsegard/composite-js';
-import makeSelectors from './selectors';
-import makeActions,{makeActionTypes} from './actions';
+import makeActions, { makeActionTypes } from './actions';
 import makeReducer from './reducer';
+import makeSelectors from './selectors';
 
 
 
-export default (baseSelector=identity,prefix='') => {
+export default (baseSelector = identity, prefix = '') => {
     const module = {};
 
 
@@ -13,7 +13,7 @@ export default (baseSelector=identity,prefix='') => {
 
     module.actions_types = makeActionTypes(prefix);
 
-    module.actions = makeActions(module.actions_types,module.selectors);
+    module.actions = makeActions(module.actions_types, module.selectors);
 
     module.reducer = makeReducer(module.actions_types);
 

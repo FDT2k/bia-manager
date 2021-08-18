@@ -1,11 +1,10 @@
 
-import React, { useEffect, useMemo, useState, useRef } from 'react';
-import { withBaseClass, withModifiers, withVariables, compose, bem, divElement, filterPropPresentIn } from 'bia-layout/utils'
-import ImpedanceLayout, { ImpedanceHeader, ImpedanceLineHeader } from 'bia-layout/components/Views/ImpedanceLikeForm'
-import { ComponentWithArea, withGridArea } from 'bia-layout/hoc/grid/Area'
+import { withBaseClass } from '@karsegard/react-compose';
+import ImpedanceLayout, { ImpedanceHeader, ImpedanceLineHeader } from 'bia-layout/components/Views/ImpedanceLikeForm';
+import { ComponentWithArea, withGridArea } from 'bia-layout/hoc/grid/Area';
 import mexp from 'math-expression-evaluator';
+import React, { useMemo } from 'react';
 
-import { useFieldValues, useKeypress, useFocus } from '@karsegard/react-hooks';
 
 const fieldName = (row, col) => {
     return `${row}${col}`

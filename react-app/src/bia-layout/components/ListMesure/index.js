@@ -1,18 +1,18 @@
+import { applyModifiers, compose, makeBEM, withBEM, withBEMElement, withBEMModifiers, withRemovedProps } from '@karsegard/react-compose';
+import LayoutFlex, { LayoutFlexColumn } from 'bia-layout/layouts/Flex';
 import React from 'react';
-
-import LayoutFlex,{LayoutFlexColumn} from 'bia-layout/layouts/Flex'
-import { bem,compose, withModifiers,applyModifiers, withVariables,withRemovedProps, divElement, withBaseClass, getClasseNames,makeBEM,withBEM, withBEMElement,withBEMModifiers,cEx } from 'bia-layout/utils'
 import { Components } from 'stories/storybook-utils';
 
 
 
 
-const ListItem = compose(
-                        withRemovedProps(['BEM']),
-                        applyModifiers({'alignCenter':true,'justBetween':true})
 
-                )
-                        (LayoutFlex);
+const ListItem = compose(
+    withRemovedProps(['BEM']),
+    applyModifiers({ 'alignCenter': true, 'justBetween': true })
+
+)
+    (LayoutFlex);
 
 const HeaderListItem = withBEMElement('title')(ListItem)
 
@@ -23,29 +23,29 @@ const ItemListItem = compose(
 
 
 
-export const Component =  props => {
-    const {handleClick,  title, data, renderActions, selectedIndex,itemLabelKey,BEM, ...rest} = props;
-//    console.log(props);
+export const Component = props => {
+    const { handleClick, title, data, renderActions, selectedIndex, itemLabelKey, BEM, ...rest } = props;
+    //    console.log(props);
     return (
         <LayoutFlexColumn {...rest}>
             <HeaderListItem BEM={BEM}><b>{title}</b></HeaderListItem>
-            {data && data.map( (item,idx)=> {
-                return <ItemListItem 
-                            BEM={BEM}
-                            key={idx} 
-                            selected={selectedIndex == idx }
-                            onClick={_=>handleClick(item,idx)}>
-                                {item[itemLabelKey]} {renderActions && renderActions(data,item,idx)}
-                        </ItemListItem>
+            {data && data.map((item, idx) => {
+                return <ItemListItem
+                    BEM={BEM}
+                    key={idx}
+                    selected={selectedIndex == idx}
+                    onClick={_ => handleClick(item, idx)}>
+                    {item[itemLabelKey]} {renderActions && renderActions(data, item, idx)}
+                </ItemListItem>
             })}
         </LayoutFlexColumn>
     )
 }
 
-Components.defaultProps= {
+Components.defaultProps = {
     data: [],
-    itemLabelKey:'date',
-    selectedIndex:-1
+    itemLabelKey: 'date',
+    selectedIndex: -1
 }
 
 

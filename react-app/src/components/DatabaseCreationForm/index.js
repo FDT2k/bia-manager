@@ -1,6 +1,6 @@
+import LayoutFlex from 'bia-layout/layouts/Flex';
 import React from 'react';
 
-import LayoutFlex from 'bia-layout/layouts/Flex'
 
 export default props => {
 

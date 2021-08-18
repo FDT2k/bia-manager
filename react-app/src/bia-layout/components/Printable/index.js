@@ -1,8 +1,7 @@
-import React,{forwardRef} from 'react'
-
-import {compose,applyModifiers,withBaseClass,divElement} from '@karsegard/react-compose';
-
+import React, { forwardRef } from 'react';
 import './printable.scss';
+
+
 
 
 export default forwardRef((props,ref)=>{

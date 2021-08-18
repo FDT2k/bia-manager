@@ -1,10 +1,10 @@
+import { enlist } from '@karsegard/composite-js';
+import { key, value } from '@karsegard/composite-js/ObjectUtils';
+import { applyModifiers, bem, compose, withBaseClass } from '@karsegard/react-compose';
+import LayoutFlex, { LayoutFlexColumn } from 'bia-layout/layouts/Flex';
 import React from 'react';
-import { bem,compose, withModifiers,applyModifiers, withVariables, divElement, withBaseClass, cEx } from 'bia-layout/utils'
-import LayoutFlex,{LayoutFlexColumn} from 'bia-layout/layouts/Flex';
 import './style.scss';
 
-import {enlist} from '@karsegard/composite-js'
-import {key,value} from '@karsegard/composite-js/ObjectUtils'
 
 const [__base_class,element,modifier] = bem ('patient-header')
 

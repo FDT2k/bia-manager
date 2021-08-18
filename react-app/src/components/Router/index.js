@@ -1,16 +1,16 @@
 
-import React, { useEffect, useState }            from 'react';
-import { Route,useLocation }        from "wouter";
-
-import Login            from 'components/Views/Login'
-import Setup            from 'components/Views/Setup'
-import Database            from 'components/Views/Database'
-import Search           from 'components/Views/Search'
-import Editor           from 'components/Views/Editor'
-import DatabaseImport   from 'components/DatabaseImport'
-import Fullscreen from 'bia-layout/containers/Fullscreen'
-
+import Fullscreen from 'bia-layout/containers/Fullscreen';
+import DatabaseImport from 'components/DatabaseImport';
+import Database from 'components/Views/Database';
+import Editor from 'components/Views/Editor';
+import Login from 'components/Views/Login';
+import Search from 'components/Views/Search';
+import Setup from 'components/Views/Setup';
 import useBIAManager from 'hooks/useBIAManager';
+import React, { useEffect, useState } from 'react';
+import { Route, useLocation } from "wouter";
+
+
 
 export default props => {
 

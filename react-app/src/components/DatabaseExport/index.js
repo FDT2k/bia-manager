@@ -1,16 +1,12 @@
-import React, { useState,useRef,useEffect } from 'react';
-import ReactLoading from 'react-loading';
-import { useLocation } from "wouter";
-
-import LayoutFlex from 'bia-layout/layouts/Flex'
-import { useFieldValues,useWorker } from '@karsegard/react-hooks'
-import useDatabaseFromContext from 'hooks/useBIAManager';
-import { CircularProgressbar } from 'react-circular-progressbar';
-import 'react-circular-progressbar/dist/styles.css';
 import Button from 'bia-layout/components/Form/Button';
+import LayoutFlex from 'bia-layout/layouts/Flex';
+import useDatabaseFromContext from 'hooks/useBIAManager';
+import React, { useState } from 'react';
+import 'react-circular-progressbar/dist/styles.css';
+import ReactLoading from 'react-loading';
 
 
-import { identity } from '@karsegard/composite-js';
+
 
 function download(content, fileName, contentType) {
     var a = document.createElement("a");

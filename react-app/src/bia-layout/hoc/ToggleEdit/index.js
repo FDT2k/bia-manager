@@ -1,7 +1,7 @@
-import React,{useState} from 'react'
-import {withBaseClass,withModifiers,compose, bem,divElement,cEx,getClasseNames} from 'bia-layout/utils'
+import { cEx, getClasseNames } from '@karsegard/react-compose';
+import React from 'react';
+import './style.scss';
 
-import './style.scss'
 
 export const ToggleEditField = (EditableComponent,UnEditableComponent)=> props => {
     const {className: _className,editable, ...rest} = getClasseNames('editable-field',props);

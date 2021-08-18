@@ -1,8 +1,8 @@
-import React,{useState} from 'react'
-
-
-import { filterPropStartingWith,applyModifiers, forwardProps, bem, cEx } from 'bia-layout/utils'
+import { applyModifiers, bem, cEx } from '@karsegard/react-compose';
+import React from 'react';
 import './style.scss';
+
+
 
 export const [__base_class,element, modifier] = bem('layout-flex')
 

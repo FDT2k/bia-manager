@@ -1,5 +1,5 @@
 import React from "react";
-import { BarChart, Bar, Cell, Label, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts';
+import { Bar, BarChart, Label, Legend, Tooltip, XAxis, YAxis } from 'recharts';
 
 
 const CustomizedAxisTick = props => {

@@ -2,7 +2,7 @@
 import React, { useEffect,useMemo, useState, useRef } from 'react';
 import { makeThemeSelect, Containers, Annotate } from 'stories/storybook-utils'
 import makeData from 'seeders/makeData';
-import {withBaseClass,withModifiers,withVariables,compose, bem,divElement} from 'bia-layout/utils'
+import {withBaseClass,withModifiers,withVariables,compose, bem,divElement} from '@karsegard/react-compose'
 import EditorGrid from './index'
 import Container from 'bia-layout/containers/Container';
 

@@ -1,7 +1,7 @@
+import { compose, withBaseClass } from '@karsegard/react-compose';
 import React from 'react';
-
 import './style.scss';
-import { bem, compose, kebabize,filterPropPresentIn, baseElement, applyModifiers, withVariables, withModifiers, wrapComponent, asideElement, divElement, withBaseClass, cEx ,e} from 'bia-layout/utils'
+
 
 
 const Component = props => {

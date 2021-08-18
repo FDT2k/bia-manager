@@ -1,25 +1,23 @@
-import React, { useEffect, useState,useRef } from 'react';
-
-import { is_nil,safe_path } from '@karsegard/composite-js';
-
-import { useDispatch, useSelector } from 'react-redux';
-import { useLocation, useRoute, useRouter } from "wouter";
-import useBIAManager from 'hooks/useBIAManager';
-
-import Editor from 'bia-layout/pages/Editor'
-
-import { select_patient,select_current_mesure_id, create_mesure,refresh_recap, recompute_mesure, change_mesure,edit_patient, edit_mesure,select_recap,select_mesures_dates, select_edited_patient, select_edited_mesure, compute_formulas,select_normes_chart,select_current_bia_values,fetch_physical_activities,fetch_normes } from 'Store';
-
-import { useReactToPrint } from 'react-to-print'
-import Component from 'bia-layout/components/Table/Pagination';
-
-import { select_recap_list, select_recap_headers, select_mass_chart } from 'Store';
-
-import MassChart from 'bia-layout/components/Charts/Mass'
-
+import { is_nil, safe_path } from '@karsegard/composite-js';
+import FFMIChart from 'bia-layout/components/Charts/FFMI';
+import MassChart from 'bia-layout/components/Charts/Mass';
 import Printable from 'bia-layout/components/Printable';
 import RecapGrid from 'bia-layout/components/Views/RecapGrid';
-import FFMIChart from 'bia-layout/components/Charts/FFMI'
+import Editor from 'bia-layout/pages/Editor';
+import useBIAManager from 'hooks/useBIAManager';
+import React, { useEffect, useRef, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { useReactToPrint } from 'react-to-print';
+import { change_mesure, create_mesure, edit_mesure, edit_patient, fetch_normes, fetch_physical_activities, refresh_recap, select_current_bia_values, select_current_mesure_id, select_edited_mesure, select_edited_patient, select_mass_chart, select_normes_chart, select_recap_headers, select_recap_list } from 'Store';
+import { useLocation, useRoute } from "wouter";
+
+
+
+
+
+
+
+
 
 export default props => {
     const [location, setLocation] = useLocation();

@@ -1,42 +1,41 @@
-import React, { useMemo, useState, forwardRef, useRef, useEffect } from 'react';
-import DatePicker from 'react-datepicker';
-import { useFieldValues, useKeypress, useFocus } from '@karsegard/react-hooks';
-
-import { useReactToPrint } from 'react-to-print'
-
-import { bem, compose, withModifiers, applyModifiers, withVariables, divElement, withRemovedProps, withBaseClass, getClasseNames, cEx } from 'bia-layout/utils'
-
-
-import LayoutFlex, { LayoutFlexColumn } from 'bia-layout/layouts/Flex'
-import MesureEditorLayout from 'bia-layout/layouts/MesureEditor'
-import Container from 'bia-layout/containers/Container'
-import Field from 'bia-layout/components/Form/Fields'
-import Button from 'bia-layout/components/Form/Button'
-import ToggleSwitch from 'bia-layout/components/Form/ToggleSwitch'
-import Tabs, { TabList, Tab, TabPanel } from 'bia-layout/components/Tabs'
-
-
-import "react-datepicker/dist/react-datepicker.css";
-
-import ComparisonTable from 'bia-layout/components/Views/ComparisonTable';
-import RecapGrid from 'bia-layout/components/Views/RecapGrid';
-
-import ElectricalDataForm from 'bia-layout/components/Views/ElectricalDataForm';
-
-import { withGridArea } from 'bia-layout/hoc/grid/Area';
-
+import { bem, getClasseNames } from '@karsegard/react-compose';
+import { useFieldValues } from '@karsegard/react-hooks';
+import FFMIChart from 'bia-layout/components/Charts/FFMI';
+import MassChart from 'bia-layout/components/Charts/Mass';
+import Button from 'bia-layout/components/Form/Button';
 import SafeDatePicker from 'bia-layout/components/Form/Editable/Date';
-import EditableTextInput from 'bia-layout/components/Form/Editable/TextInput';
 import EditableSelect from 'bia-layout/components/Form/Editable/Select';
-import { useDispatch, useSelector } from 'react-redux';
-
-import './mesure-editor.scss'
-
-import { select_recap_list, select_recap_headers, select_current_bia_values, select_mass_chart, select_normes_chart, select_normes_bygender } from 'Store';
-import MassChart from 'bia-layout/components/Charts/Mass'
-import FFMIChart from 'bia-layout/components/Charts/FFMI'
+import EditableTextInput from 'bia-layout/components/Form/Editable/TextInput';
+import Field from 'bia-layout/components/Form/Fields';
+import ToggleSwitch from 'bia-layout/components/Form/ToggleSwitch';
 import Printable from 'bia-layout/components/Printable';
+import Tabs, { Tab, TabList, TabPanel } from 'bia-layout/components/Tabs';
+import ComparisonTable from 'bia-layout/components/Views/ComparisonTable';
+import ElectricalDataForm from 'bia-layout/components/Views/ElectricalDataForm';
 import PrintableReport from 'bia-layout/components/Views/PrintableReport';
+import RecapGrid from 'bia-layout/components/Views/RecapGrid';
+import Container from 'bia-layout/containers/Container';
+import { withGridArea } from 'bia-layout/hoc/grid/Area';
+import LayoutFlex, { LayoutFlexColumn } from 'bia-layout/layouts/Flex';
+import MesureEditorLayout from 'bia-layout/layouts/MesureEditor';
+import React, { useEffect, useRef, useState } from 'react';
+import "react-datepicker/dist/react-datepicker.css";
+import { useSelector } from 'react-redux';
+import { useReactToPrint } from 'react-to-print';
+import { select_current_bia_values, select_mass_chart, select_normes_chart, select_recap_headers, select_recap_list } from 'Store';
+import './mesure-editor.scss';
+
+
+
+
+
+
+
+
+
+
+
+
 
 const LayoutFlexColumnWithArea = withGridArea(LayoutFlexColumn);
 const TabsWithArea = withGridArea(Tabs);

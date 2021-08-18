@@ -1,14 +1,13 @@
-import React,{useMemo} from 'react';
-import { bem,compose, withModifiers,applyModifiers, withVariables, divElement, withBaseClass, getClasseNames } from 'bia-layout/utils'
-import LayoutFlex,{ LayoutFlexColumn} from 'bia-layout/layouts/Flex'
-
-import './style.scss'
+import { bem, withBaseClass } from '@karsegard/react-compose';
+import React from 'react';
+import './field.scss';
 
 
-const [__base_class,element,modifer] = bem('field');
 
-const Field= props=> {
-    const {label, className} = props;
+const [__base_class, element, modifer] = bem('field');
+
+const Field = props => {
+    const { label, className } = props;
     return (
         <div className={className}>
             <label className={element('label')}>{label}</label>
@@ -20,8 +19,8 @@ const Field= props=> {
 
 
 export const wrapField = Component => props => {
-    const {label, className, ...rest} = props;
-    return (<Field label={label} className={className}><Component {...rest}/></Field>)
+    const { label, className, ...rest } = props;
+    return (<Field label={label} className={className}><Component {...rest} /></Field>)
 }
 
 

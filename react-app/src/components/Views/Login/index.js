@@ -1,9 +1,8 @@
+import LoginView from 'bia-layout/pages/Login';
 import React from 'react';
-
-import LoginView from 'bia-layout/pages/Login'
-
-import {useDispatch} from 'react-redux';
 import { useLocation } from "wouter";
+
+
 export default props => {
     const [location, setLocation] = useLocation();
 

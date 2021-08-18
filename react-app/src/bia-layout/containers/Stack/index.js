@@ -3,8 +3,7 @@
     each children of the stack is presented on top of each other. The
 */
 import React from 'react';
-import Fullscreen from 'containers/Fullscreen'
-import { filterPropStartingWith, forwardProps, bem, cEx } from 'utils'
+import { bem, cEx } from '@karsegard/react-compose';
 
 
 const [__base_class,  element,modifier] = bem('container-stack')

@@ -1,12 +1,9 @@
-import createModule from 'Redux/utils/module'
-import {action_type_namespace} from 'Redux/utils/types';
-import { identity, compose, enlist } from '@karsegard/composite-js';
-import makeSelectors from './selectors';
+import { compose } from '@karsegard/composite-js';
+import ItemListModule from 'Redux/ItemList';
+import createModule from 'Redux/utils/module';
 import makeActions, { makeActionTypes } from './actions';
 import makeReducer from './reducer';
-import ItemListModule from 'Redux/ItemList';
-import { mergeAll } from '@karsegard/composite-js/List';
-import { key, spec, value } from '@karsegard/composite-js/ObjectUtils';
+import makeSelectors from './selectors';
 
 /*
 export default (baseSelector = identity, prefix = '') => {
@@ -48,7 +45,7 @@ export default (baseSelector = identity, prefix = '') => {
 export default createModule(
     {
         submodules: getModule => {
-            const {baseSelector,prefix} = getModule();
+            const { baseSelector, prefix } = getModule();
             return {
                 physicalActivity: ItemListModule(compose(state => state.physicalActivity, baseSelector), `${prefix}PHYSICAL_ACTIVITIES`)
             }
