@@ -79,6 +79,8 @@ export default props => {
                 'rea100':{name:'data', transform: "(state={},value)=> ({...state,rea100:value.rea100})"},
                 'rea5':{name:'data', transform: "(state={},value)=> ({...state,rea5:value.rea5})"},
                 'rea50':{name:'data', transform: "(state={},value)=> ({...state,rea50:value.rea50})"},
+                'typeActPhys':{name:'sport', transform: "(state={},value)=> ({...state,type:value.typeActPhys})"},
+                'actPhys':{name:'sport', transform: "(state={},value)=> ({...state,rate:value.actPhys})"},
                 'cote':{name:'left_side', transform: "(state={},value)=> {return value.cote !='D' ? true: false}"},
                 'smoker':{name:'smoker', transform: "(state={},value)=> {return value.smoker ==='oui' ? true: false}"},
                 'poidsAct':'weight',
