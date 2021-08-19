@@ -1,4 +1,4 @@
-
+import { format } from 'date-fns'
 
 import { is_nil } from '@karsegard/composite-js';
 import { createAction } from '@reduxjs/toolkit';
@@ -43,7 +43,7 @@ export default (getModule) => {
     const actions = {};
 
 
-    const { select_mesures, select_normes_sampling, select_result_columns, select_normes, select_edited_patient, select_report_columns, select_charts_columns } = selectors;
+    const { select_mesures, select_empty_mesure,select_normes_sampling, select_result_columns, select_normes, select_edited_patient, select_report_columns, select_charts_columns } = selectors;
 
     actions.real_edit_patient = create(action_types.EDIT_PATIENT);
     actions.refresh_norme = create(action_types.REFRESH_NORME)
@@ -110,15 +110,17 @@ export default (getModule) => {
                 let mesures = select_mesures(getState());
                 const patient = select_edited_patient(getState());
                 let new_mesure_id = mesures.length;
-                let new_mesure = Object.assign({}, EMPTY_MESURE, {
-                    date: moment().format('Y-m-d'),
+                /*let new_mesure = Object.assign({}, EMPTY_MESURE, {
+                    date: format(new Date(),'yyyy-MM-dd'),
                     weight: '',
                     height: '',
                     bmi_ref: '',
                     left_side: false
-                });
+                });*/
 
-                let { mesure } = normalize_mesure({ patient, new_mesure });
+                let new_mesure = select_empty_mesure(getState());
+
+                let { mesure } = normalize_mesure({ patient, mesure:new_mesure });
                 dispatch(actions.set_current_mesure(new_mesure_id))
 
 

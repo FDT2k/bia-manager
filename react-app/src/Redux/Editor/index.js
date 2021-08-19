@@ -47,7 +47,9 @@ export default createModule(
         submodules: getModule => {
             const { baseSelector, prefix } = getModule();
             return {
-                physicalActivity: ItemListModule(compose(state => state.physicalActivity, baseSelector), `${prefix}PHYSICAL_ACTIVITIES`)
+                sportRate: ItemListModule(compose(state => state.options.sportRate.data, baseSelector), `${prefix}_SPORT_RATE`),
+                sportType: ItemListModule(compose(state => state.options.sportType.data, baseSelector), `${prefix}_SPORT_TYPE`),
+                machines: ItemListModule(compose(state => state.options.machines.data, baseSelector), `${prefix}_MACHINE`)
             }
         },
         selectors: makeSelectors,

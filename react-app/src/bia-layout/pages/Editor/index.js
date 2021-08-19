@@ -93,7 +93,7 @@ Editor.defaultProps = {
         mesures: [],
         lastname: 'N/A',
         firstname: 'N/A',
-        birthdate: 'N/A',
+        birthdate: '1970-01-01',
         age: 'N/A',
     },
     selectedMesureIndex: 0,

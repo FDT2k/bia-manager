@@ -139,6 +139,9 @@ export default getModule => {
 
    })
 
+
+   module.select_empty_mesure = createSelector(baseSelector,state => state.empty_mesure.current);
+
    return module;
 
 }

@@ -1,5 +1,5 @@
 export default {
-    date: null,
+    date: new Date(),
     height: 0,
     weight: 0,
     left_side: false,

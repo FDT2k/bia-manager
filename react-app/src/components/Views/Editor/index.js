@@ -1,14 +1,11 @@
 import { is_nil, safe_path } from '@karsegard/composite-js';
-import FFMIChart from 'bia-layout/components/Charts/FFMI';
-import MassChart from 'bia-layout/components/Charts/Mass';
-import Printable from 'bia-layout/components/Printable';
-import RecapGrid from 'bia-layout/components/Views/RecapGrid';
+
 import Editor from 'bia-layout/pages/Editor';
 import useBIAManager from 'hooks/useBIAManager';
 import React, { useEffect, useRef, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useReactToPrint } from 'react-to-print';
-import { change_mesure, create_mesure, edit_mesure, edit_patient, fetch_normes, fetch_physical_activities, refresh_recap, select_current_bia_values, select_current_mesure_id, select_edited_mesure, select_edited_patient, select_mass_chart, select_normes_chart, select_recap_headers, select_recap_list } from 'Store';
+import { change_mesure, create_mesure, edit_mesure, edit_patient, fetch_normes, populate_sporttype,populate_sportrate, refresh_recap, select_current_bia_values, select_current_mesure_id, select_edited_mesure, select_edited_patient, select_mass_chart, select_normes_chart, select_recap_headers, select_recap_list, populate_machines } from 'Store';
 import { useLocation, useRoute } from "wouter";
 
 
@@ -46,6 +43,24 @@ export default props => {
 
 
     useEffect(()=>{
+        dispatch(populate_sportrate([
+            {'id':'low','name':'faible'},
+            {'id':'average','name':'modérée', default:true},
+            {'id':'high','name':'élevée'},
+            {'id':'very_high','name':'très élevée'},
+        ]));
+
+        dispatch(populate_sporttype([
+            {'id':'endu','name':'endurance'},
+            {'id':'res','name':'résistance'},
+            {'id':'other','name':'autre'},
+            {'id':'unknown','name':'inconnue', default:true},
+        ]));
+        dispatch(populate_machines([
+            {'id':'BIO-Z','name':'BIO-Z'},
+            {'id':'NUTRIGUARD','name':'Nutriguard'},
+            {'id':'ZX-1000','name':'ZX-1000',default:true},
+        ]));
         dispatch(fetch_normes())
     },[]);
 
@@ -111,7 +126,6 @@ export default props => {
     }
 
     const handleMesureOpen = (value, idx) => {
-        dispatch(fetch_physical_activities([{'id':1,'name':'endurance'}]));
         if (idx < patient.mesures.length) {
             setLocation(`/editor/${patient_id}/${idx}`);
         } else {
@@ -127,9 +141,7 @@ export default props => {
           dispatch(refresh_recap(patient_id,current_mesure_id));
         }
     }
-    const norm_chart = useSelector(select_normes_chart);
-    const current_bia = useSelector(select_current_bia_values(['fmi','ffmi']));
-    const current_age = safe_path(0,'current_age',mesure);
+
     return (
         <>
         <Editor
@@ -142,14 +154,7 @@ export default props => {
             mesure={mesure}
             />
 
-        <Printable ref={componentRef}>
-            <RecapGrid data={recap} headers={list_dates}/>
-            <FFMIChart data={norm_chart} noi="ffmi" age={current_age} value={current_bia.ffmi}/>
-            <FFMIChart data={norm_chart} noi="fmi" age={current_age} value={current_bia.fmi}/>
-            <MassChart data={mass_chart} />
-
       
-        </Printable>
         </>
     )
 }

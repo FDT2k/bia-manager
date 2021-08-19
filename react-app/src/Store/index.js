@@ -53,6 +53,7 @@ export const {
   select_normes_bygender,
   select_current_bia_values,
   select_normes_sampling:select_normes_chart,
+  select_empty_mesure,
   select_mesures_dates } = BIAEditorModule.selectors;
 
 
@@ -65,7 +66,14 @@ export const {
   refresh_recap,
   change_mesure } = BIAEditorModule.actions;
 
-export const { fetch: fetch_physical_activities } = BIAEditorModule.submodules.physicalActivity.actions;
+export const { fetch: populate_sportrate } = BIAEditorModule.submodules.sportRate.actions;
+export const { fetch: populate_sporttype } = BIAEditorModule.submodules.sportType.actions;
+export const { fetch: populate_machines } = BIAEditorModule.submodules.machines.actions;
+
+
+export const { select_list: select_machines } = BIAEditorModule.submodules.machines.selectors;
+export const { select_list: select_sportrates } = BIAEditorModule.submodules.sportRate.selectors;
+export const { select_list: select_sporttypes } = BIAEditorModule.submodules.sportType.selectors;
 
 
 

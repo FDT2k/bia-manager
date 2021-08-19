@@ -22,7 +22,7 @@ import React, { useEffect, useRef, useState } from 'react';
 import "react-datepicker/dist/react-datepicker.css";
 import { useSelector } from 'react-redux';
 import { useReactToPrint } from 'react-to-print';
-import { select_current_bia_values, select_mass_chart, select_normes_chart, select_recap_headers, select_recap_list } from 'Store';
+import { select_current_bia_values, select_machines, select_sporttypes, select_sportrates, select_mass_chart, select_normes_chart, select_recap_headers, select_recap_list } from 'Store';
 import './mesure-editor.scss';
 
 
@@ -58,7 +58,7 @@ const Editor = props => {
         parentHandleChange && parentHandleChange(v);
     }
 
-    const { values, handleChangeValue, inputProps, handleChange, assignValues, replaceValues } = useFieldValues(mesure, { handleValuesChange: _handleChange });
+    const { values, handleChangeValue, inputProps, handleChange, assignValues, replaceValues } = useFieldValues(mesure, { handleValuesChange: _handleChange, usePath: true });
     const componentRef = useRef();
     const _handlePrint = useReactToPrint({
         content: () => componentRef.current
@@ -126,6 +126,13 @@ const Editor = props => {
     const mass_chart = useSelector(select_mass_chart);
     const norm_chart = useSelector(select_normes_chart);
     const current_bia = useSelector(select_current_bia_values(['fmi', 'ffmi']));
+
+    const machines = useSelector(select_machines);
+    const sporttypes = useSelector(select_sporttypes);
+    const sportrates = useSelector(select_sportrates);
+
+    const map_itemlist_as_option = item => (<option value={item.id}>{item.name}</option>)
+
     return (
         <MesureEditorLayout {...rest} className={className}>
             <TabsWithArea tabindexOffset={10} renderDisabledPanels={true} area="mesure-editor-main">
@@ -147,20 +154,14 @@ const Editor = props => {
                             </Field>
 
                             <Field className="activite-physique" label={t("Activité physique")}>
-                                <select>
-                                    <option>faible</option>
-                                    <option>modérée</option>
-                                    <option>élevée </option>
-                                    <option>très élevée </option>
+                                <select {...inputProps('sport.rate')}>
+                                    {sportrates.map(map_itemlist_as_option)}
                                 </select>
 
                             </Field>
                             <Field className="type-activite-physique" label={t("Type d'Activité physique")}>
-                                <select>
-                                    <option>endurance</option>
-                                    <option>résistance</option>
-                                    <option>autre</option>
-                                    <option>inconnue</option>
+                                <select {...inputProps('sport.type')}>
+                                    {sporttypes.map(map_itemlist_as_option)}
                                 </select>
 
                             </Field>
@@ -212,9 +213,9 @@ const Editor = props => {
                     <FFMIChart data={norm_chart} noi="fmi" age={mesure.current_age} value={current_bia.fmi} />
 
                 </TabPanel>
-                
-                  
-                
+
+
+
             </TabsWithArea>
 
             <LayoutFlexColumnWithArea area="mesure-editor-aside">
@@ -223,9 +224,8 @@ const Editor = props => {
                 </Field>
                 <Field label={t("BioImpédanceMètre")}>
 
-                    <EditableSelect defaultValue={values.machine}>
-                        <option value="BIO-Z">BIO-Z</option>
-                        <option value="NUTRIGUARD">NUTRIGUARD</option>
+                    <EditableSelect {...inputProps('machine')}>
+                        {machines.map(machine => (<option value={machine.id}>{machine.name}</option>))}
                     </EditableSelect>
 
                 </Field>
@@ -245,8 +245,8 @@ const Editor = props => {
 
             </LayoutFlexColumnWithArea>
             <Printable ref={componentRef}>
-                        <PrintableReport />
-                    </Printable>
+                <PrintableReport />
+            </Printable>
         </MesureEditorLayout>
     )
 

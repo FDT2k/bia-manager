@@ -1,15 +1,14 @@
-import { defaultTo } from '@karsegard/composite-js';
+import { safe_path } from '@karsegard/composite-js';
 import { createSelector } from 'reselect';
 
 
 export default baseSelector => {
 
-    const defaultToArray = defaultTo([]);
-    const defaultToObject = defaultTo({});
     const module = {};
 
+    const safePathArray = safe_path([])
 
-    module.select_list = createSelector(baseSelector, state => defaultToArray(state));
+    module.select_list = createSelector(baseSelector, state =>safePathArray('list',state));
 
 
 

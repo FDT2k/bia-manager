@@ -1,10 +1,11 @@
 
-import { enlist, is_nil } from '@karsegard/composite-js';
-import { key, value } from '@karsegard/composite-js/ObjectUtils';
+import { as_safe_path, enlist, is_nil, map, safe_path } from '@karsegard/composite-js';
+import { key, value,keyval } from '@karsegard/composite-js/ObjectUtils';
 import { combineReducers } from 'redux';
 import createReducer from 'Redux/utils/create-reducer';
 import { updateList, updateProp } from 'Redux/utils/handlers';
 
+import EMPTY_MESURE from 'references/mesure-schema';
 
 
 
@@ -292,13 +293,63 @@ export default (getModule) => {
     })
 
 
+    module.option_reducer = (path, reducer) => (state = { path, data: {} }, action) => {
+        const data = reducer(state.data, action);
+        const list = safe_path([], 'list', data);
+        const default_value = list.reduce((carry, item) => {
+            if (item.default === true) {
+                carry = item.id;
+            }
+            return carry;
+        }, null);
+        return {
+            path,
+            data,
+            default: default_value
+        }
+    }
+
+
+
+
+    module.editor_options = combineReducers({
+        sportType: module.option_reducer('sport.type', submodules.sportType.reducer),
+        sportRate: module.option_reducer('sport.rate', submodules.sportRate.reducer),
+        machines: module.option_reducer('machine', submodules.machines.reducer),
+    });
+
+
+
+    module.empty_mesure = (state = {empty:EMPTY_MESURE,current:{},editor_options:{}}, action) => {
+        const editor_options = module.editor_options(state.editor_options,action);
+
+        
+        let current = {
+            ...state.empty,
+        }
+
+        map(item => {
+            let [_,option] = keyval(item);
+
+            current = as_safe_path(option.path,current,option.default)
+        })(enlist(editor_options));
+
+        return {
+            ...state,
+            current,
+            editor_options
+        }
+    };
+
+
     module.reducer = combineReducers({
         /*   physical_act,
            type_act,
            machines,
            examinators,*/
+        empty_mesure: module.empty_mesure,
         report_settings: module.report_settings,
-        physicalActivities: submodules.physicalActivity.reducer,
+        options: module.editor_options,
         current_patient_id: module.current_patient_id,
         current_mesure_id: module.current_mesure_id,
         mesure: module.mesure,

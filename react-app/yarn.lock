@@ -1736,7 +1736,12 @@
   resolved "https://registry.yarnpkg.com/@karsegard/composite-js/-/composite-js-2.4.0.tgz#03703a3324a590095dc98f203ab2cf1cec4adfd1"
   integrity sha512-4s1VXfFZSAqnu0S41enpuot8LQJIiiQQmIEtuIYNo+1HjJvCSNU9WLBClAtZss4JEkmwtSkWIH9syBxWbJ10ig==
 
-"@karsegard/react-compose@^1.0.4":
+"@karsegard/composite-js@^2.7.0":
+  version "2.7.0"
+  resolved "https://registry.yarnpkg.com/@karsegard/composite-js/-/composite-js-2.7.0.tgz#88b95e7694cc80d897af71017c13bfb7e74bbaad"
+  integrity sha512-8ioO4yK8ozBf0P6AOgFik5/rSK6k6h/iogfYrvcm8///bBqH2xP2cxzLdrKZovm0Mm0dfMQ02z5e8xfdxwz6EQ==
+
+"@karsegard/react-compose@^1.0.4", "@karsegard/react-compose@^1.1.0":
   version "1.1.0"
   resolved "https://registry.yarnpkg.com/@karsegard/react-compose/-/react-compose-1.1.0.tgz#9699d52c67e5c75ef621dcc0b06973effdc579d0"
   integrity sha512-fwAjZEvcnhrzWKuNsdWDnhT5HjchsyoRyGZDXkB78MdIIOWYEMFD29CsbjGCTwCog7h0s15Uty1j+cvonZ4xpQ==
@@ -1744,11 +1749,21 @@
     "@karsegard/cex" "^1.4.4"
     react "^17.0.2"
 
-"@karsegard/react-hooks@^2.0.0":
-  version "2.0.0"
-  resolved "https://registry.yarnpkg.com/@karsegard/react-hooks/-/react-hooks-2.0.0.tgz#fbd49b4a6853a9f94ad47d6fa12a1ad385f39ad4"
-  integrity sha512-qlsFFP+LZYzqiAnpulNqt7WT04ebkHKFZ6vdLGO36PVjqGMjoMTfnYDIm8N8SSbXw6d3zzatPCbBndGKdhWGEQ==
+"@karsegard/react-core-layout@^1.1.1":
+  version "1.1.1"
+  resolved "https://registry.yarnpkg.com/@karsegard/react-core-layout/-/react-core-layout-1.1.1.tgz#d1c8146b881b0779c96caa356837a20bd1a593f7"
+  integrity sha512-i2wpm4letJnmkUh3kEVudFwnXJuYocfCNIP4SHcL244FxmiExSj4UH4UYtSOjnMcyUCV6Nwah/TgCiMQeec2Fw==
   dependencies:
+    "@karsegard/composite-js" "^2.4.0"
+    "@karsegard/react-compose" "^1.1.0"
+    rollup-plugin-terser "^7.0.2"
+
+"@karsegard/react-hooks@^2.1.0":
+  version "2.1.0"
+  resolved "https://registry.yarnpkg.com/@karsegard/react-hooks/-/react-hooks-2.1.0.tgz#4aab85f703f5520b2ef19ee6a32030cb7655bcbf"
+  integrity sha512-IfAaLk7cAGDb+GJmYL0lUBnMiz0PdEdgH1f7/oWLWTROs1aO1DGTuAWfPdVeLtydu/MVXWGcf1uTJR50632UhA==
+  dependencies:
+    "@karsegard/composite-js" "^2.7.0"
     react "^17.0.2"
 
 "@malept/cross-spawn-promise@^1.1.0":
@@ -6092,7 +6107,7 @@ data-urls@^2.0.0:
     whatwg-mimetype "^2.3.0"
     whatwg-url "^8.0.0"
 
-date-fns@^2.0.1:
+date-fns@^2.0.1, date-fns@^2.23.0:
   version "2.23.0"
   resolved "http://registry.lan:4873/date-fns/-/date-fns-2.23.0.tgz#4e886c941659af0cf7b30fafdd1eaa37e88788a9"
   integrity sha512-5ycpauovVyAk0kXNZz6ZoB9AYMZB4DObse7P3BPWmyEjXNORTI8EJ6X0uaSAq4sCHzM1uajzrkr6HnsLQpxGXA==
@@ -9893,7 +9908,7 @@ jest-worker@^24.9.0:
     merge-stream "^2.0.0"
     supports-color "^6.1.0"
 
-jest-worker@^26.5.0, jest-worker@^26.6.2:
+jest-worker@^26.2.1, jest-worker@^26.5.0, jest-worker@^26.6.2:
   version "26.6.2"
   resolved "http://registry.lan:4873/jest-worker/-/jest-worker-26.6.2.tgz#7f72cbc4d643c365e27b9fd775f9d0eaa9c7a8ed"
   integrity sha512-KWYVV1c4i+jbMpaBC+U++4Va0cp8OisU185o73T1vo99hqi7w8tSJfUXYswwqqrjzwxa6KpRK54WhPvwf5w6PQ==
@@ -14155,6 +14170,16 @@ rollup-plugin-terser@^5.3.1:
     serialize-javascript "^4.0.0"
     terser "^4.6.2"
 
+rollup-plugin-terser@^7.0.2:
+  version "7.0.2"
+  resolved "http://registry.lan:4873/rollup-plugin-terser/-/rollup-plugin-terser-7.0.2.tgz#e8fbba4869981b2dc35ae7e8a502d5c6c04d324d"
+  integrity sha512-w3iIaU4OxcF52UUXiZNsNeuXIMDvFrr+ZXK6bFZ0Q60qyVfq4uLptoS4bbq3paG3x216eQllFZX7zt6TIImguQ==
+  dependencies:
+    "@babel/code-frame" "^7.10.4"
+    jest-worker "^26.2.1"
+    serialize-javascript "^4.0.0"
+    terser "^5.0.0"
+
 rollup-pluginutils@^2.8.1, rollup-pluginutils@^2.8.2:
   version "2.8.2"
   resolved "http://registry.lan:4873/rollup-pluginutils/-/rollup-pluginutils-2.8.2.tgz#72f2af0748b592364dbd3389e600e5a9444a351e"
@@ -15327,7 +15352,7 @@ terser@^4.1.2, terser@^4.6.2, terser@^4.6.3:
     source-map "~0.6.1"
     source-map-support "~0.5.12"
 
-terser@^5.3.4:
+terser@^5.0.0, terser@^5.3.4:
   version "5.7.1"
   resolved "http://registry.lan:4873/terser/-/terser-5.7.1.tgz#2dc7a61009b66bb638305cb2a824763b116bf784"
   integrity sha512-b3e+d5JbHAe/JSjwsC3Zn55wsBIM7AsHLjKxT31kGCldgbpFePaFo+PiddtO6uwRZWRw7sPXmAN8dTW61xmnSg==

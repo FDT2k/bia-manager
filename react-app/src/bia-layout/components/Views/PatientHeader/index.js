@@ -1,47 +1,87 @@
-import { enlist } from '@karsegard/composite-js';
+import { enlist, identity,safe_path } from '@karsegard/composite-js';
+import { useFieldValues } from '@karsegard/react-hooks';
+
 import { key, value } from '@karsegard/composite-js/ObjectUtils';
 import { applyModifiers, bem, compose, withBaseClass } from '@karsegard/react-compose';
 import LayoutFlex, { LayoutFlexColumn } from 'bia-layout/layouts/Flex';
-import React from 'react';
+import React, { useEffect } from 'react';
 import './style.scss';
+import SafeDatePicker from 'bia-layout/components/Form/Editable/Date';
 
-
-const [__base_class,element,modifier] = bem ('patient-header')
+import EditableSelect from 'bia-layout/components/Form/Editable/Select';
+import EditableTextInput from 'bia-layout/components/Form/Editable/TextInput';
+import Field from 'bia-layout/components/Form/Fields';
+const [__base_class, element, modifier] = bem('patient-header')
 
 
 const FieldSet = compose(
-        withBaseClass(element('fieldset')),
-        applyModifiers({justBetween:true})
-    )(LayoutFlex)
+    withBaseClass(element('fieldset')),
+    applyModifiers({ justBetween: true })
+)(LayoutFlex)
 
 
-const Field = withBaseClass(element('field'))(LayoutFlexColumn)
 
 const PatientHeader = props => {
-   // console.log('patientHeader',props);
+    // console.log('patientHeader',props);
     const fields = {
-        'birthdate': 'Date de naissance',
-        'age': 'Âge',
-        'gender': 'Sexe',
-        'usual_height': 'Taille',
-        'usual_weight': 'Poids habituel',
-        'groups.path': 'Groupe pathologique',
-        'data_count': 'Nombre de mesures'
+        'birthdate': { type: 'date', editable: true, label: 'Date de naissance' },
+        'age': { type: 'date', editable: false, label: 'Âge' },
+        'gender': { type: 'select', editable: true, label: 'Sexe',options:['M','F'] },
+        'usual_height': { type: 'text', editable: true, label: 'Taille' },
+        'usual_weight': { type: 'text', editable: true, label: 'Poids habituel' },
+        'groups.path': { type: 'select', editable: true, label: 'Groupe pathologique', options:['a','b'] },
+        'mesure_count': { type: 'date', editable: false, label: 'Nombre de mesures' }
     }
-    const {data,t, ...rest} = props
-    return(
+    const { data, t, ...rest } = props
+
+    useEffect(() => {
+        replaceValues(data);
+    }, [data])
+
+
+    const handleValuesChange = values => {
+       // console.log(values);
+    }
+
+    const { values, handleChangeValue, inputProps, handleChange, assignValues, replaceValues } = useFieldValues(data, { handleValuesChange,usePath:true });
+
+
+
+    return (
         <LayoutFlexColumn {...rest}>
             <h2>{data.firstname} {data.lastname}</h2>
             <FieldSet>
                 {
-                    enlist(fields).map( item => {
+                    enlist(fields).map(_item => {
+                        const item = value(_item)
+                        const field = key(_item);
+                        const label = t(item.label);
+                        const editable = item.editable;
+                        const type = item.type;
+                        const val = safe_path('',field,values);
+                        const options = item.options;
+                     //   console.log(label, editable, field, type, val)
+                        let Component = _ => (val);
 
-                            return (
-                                <Field key={key(item)}>
-                                    <b>{t(value(item))}</b>
-                                    {data[key(item)]}
-                                </Field>
-                            )
+                        if (editable === true) {
+                            switch (type) {
+                                case 'text':
+                                    Component = EditableTextInput;
+                                    break;
+                            }
+                        }
+                        return (
+                            <Field key={key(_item)} label={label}>
+
+                                {editable && type === "select" && <EditableSelect {...inputProps(field)} options={options}/>}
+                                {editable && type === "text" && <EditableTextInput value={values[field]} name={field} onChange={handleChange} />}
+                                {editable && type === "date" && <SafeDatePicker
+                                    selected={values.birthdate}
+                                    handleChange={handleChangeValue('birthdate')}
+                                />}
+                                {!editable && val}
+                            </Field>
+                        )
                     })
                 }
 
@@ -52,15 +92,15 @@ const PatientHeader = props => {
 }
 
 PatientHeader.defaultProps = {
-    t:x=>x,
-    data:{
-        birthdate:'1970-01-25',
-        age:'120',
-        gender:'female',
-        height:'177',
-        usual_weight:'70',
-        'groups.12345':'VENS2019',
-        data_count:'12',
+    t: identity,
+    data: {
+        birthdate: '1970-01-25',
+        age: '120',
+        gender: 'female',
+        height: '177',
+        usual_weight: '70',
+        'groups.12345': 'VENS2019',
+        data_count: '12',
     }
 }
 
