@@ -30,7 +30,8 @@ export const ACTIONS_TYPES = createActionTypes(
     'RECAP_PATIENT_NOT_LOADED',
     'REFRESH_NORME',
     'FETCHED_NORMES',
-    'ERROR_EDIT_PATIENT_UNDEF'
+    'ERROR_EDIT_PATIENT_UNDEF',
+    'SAVE'
 )
 
 
@@ -73,6 +74,19 @@ export default (getModule) => {
         }));
 
 
+    }
+
+    actions.save= ()=>(dispatch,getState) => {
+
+        const patient_id = select_current_patient_id(getState());
+        const mesure = select_edited_mesure(getState());
+        const mesure_id = select_current_mesure_id(getState());
+        return dispatch(create(action_types.SAVE,{
+            patient_id,
+            mesure,
+            mesure_id
+
+        }));
     }
 
     actions.refresh_normes = () => (dispatch, getState) => {

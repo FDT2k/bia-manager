@@ -41,7 +41,7 @@ const NavComponent = compose(
 
 const Editor = props => {
 
-    const { className, renderFooter, t, handleGoBack, handleMesureOpen, handleSubjectChange,handleChange, lines, data, mesure, handlePrint, selectedMesureIndex, ...rest } = getClasseNames(__base_class, props);
+    const { className, renderFooter, handleClickSave, t, handleGoBack, handleMesureOpen, handleSubjectChange,handleChange, lines, data, mesure, handlePrint, selectedMesureIndex, ...rest } = getClasseNames(__base_class, props);
     const [startDate, setStartDate] = useState(new Date());
     const ExampleCustomInput = forwardRef(({ value, onClick }, ref) => (
         <div className="example-custom-input" onClick={onClick} ref={ref}>
@@ -79,7 +79,7 @@ const Editor = props => {
                     />
                 </Area>
                 <ContainerWithArea className={element('form')} area="content" scrollable>
-                    {mesure && <MesureEditor handlePrint={handlePrint} handleChange={handleChange} mesure={mesure} />}
+                    {mesure && <MesureEditor  handleClickSave={handleClickSave} handlePrint={handlePrint} handleChange={handleChange} mesure={mesure} />}
                     {!mesure && <ReactLoading type="spin" color="#000000"/>}
                 </ContainerWithArea>
 

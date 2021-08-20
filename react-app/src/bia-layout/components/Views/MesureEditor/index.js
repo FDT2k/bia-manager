@@ -51,7 +51,7 @@ const TabsWithArea = withGridArea(Tabs);
 const [__base_class, element, modifier] = bem('bia-mesure-editor')
 
 const Editor = props => {
-    const { className, gender, t, handleGoBack, handlePrint, handleChange: parentHandleChange, mesure, data, ...rest } = getClasseNames(__base_class, props)
+    const { handleClickSave, className, gender, t, handleGoBack, handlePrint, handleChange: parentHandleChange, mesure, data, ...rest } = getClasseNames(__base_class, props)
 
 
     const _handleChange = v => {
@@ -135,7 +135,7 @@ const Editor = props => {
 
     return (
         <MesureEditorLayout {...rest} className={className}>
-            <TabsWithArea tabindexOffset={10} renderDisabledPanels={true} area="mesure-editor-main">
+            <TabsWithArea tabindexOffset={20} renderDisabledPanels={true} area="mesure-editor-main">
                 <TabList>
                     <Tab>Mesures</Tab>
                     <Tab>Résultats</Tab>
@@ -154,40 +154,40 @@ const Editor = props => {
                             </Field>
 
                             <Field className="activite-physique" label={t("Activité physique")}>
-                                <select {...inputProps('sport.rate')}>
+                                <select tabindex={1} {...inputProps('sport.rate')}>
                                     {sportrates.map(map_itemlist_as_option)}
                                 </select>
 
                             </Field>
                             <Field className="type-activite-physique" label={t("Type d'Activité physique")}>
-                                <select {...inputProps('sport.type')}>
+                                <select tabindex={2}  {...inputProps('sport.type')}>
                                     {sporttypes.map(map_itemlist_as_option)}
                                 </select>
 
                             </Field>
                             <Field className="fumeur" label={t("Fumeur")}>
-                                <ToggleSwitch id="smoker" labelYes="Oui" labelNo="Non" name="smoker" onChange={handleChange} checked={values.smoker} />
+                                <ToggleSwitch tabindex={3}  id="smoker" labelYes="Oui" labelNo="Non" name="smoker" onChange={handleChange} checked={values.smoker} />
                             </Field>
                             <Field className="cote-mesure" label={t("Coté mesuré")}>
-                                <ToggleSwitch labelYes="Gauche" labelNo="Droit" name="left_side" onChange={handleChange} id="left_side" checked={values.left_side} />
+                                <ToggleSwitch tabindex={4}  labelYes="Gauche" labelNo="Droit" name="left_side" onChange={handleChange} id="left_side" checked={values.left_side} />
                             </Field>
                             <Field className="poids-actuel" label={t("Poids Actuel")} >
-                                <input type="text" {...inputProps('weight')} />
+                                <input type="text" tabindex={5}  {...inputProps('weight')} />
 
                             </Field>
                             <Field className="taille" label={t("Taille cm")}  >
-                                <input type="text" {...inputProps('height')} />
+                                <input type="text"  tabindex={6}  {...inputProps('height')} />
                             </Field>
 
                         </LayoutFlex>
                         <Container fit grow>
-                            <ElectricalDataForm handleGroupChange={handleGroupChange} handleComputedChange={electricalHandleValues} handleChange={electricalHandleChange} editedGroup={editedGroup} values={values.data} />
+                            <ElectricalDataForm tabindexOffset={7}  handleGroupChange={handleGroupChange} handleComputedChange={electricalHandleValues} handleChange={electricalHandleChange} editedGroup={editedGroup} values={values.data} />
                         </Container>
 
 
                         <LayoutFlex>
-                            <Button onClick={_ => alert('it works')}>Enregistrer</Button>
-                            <Button className="btn--secondary" onClick={_ => _handlePrint()}>IMPRIMER</Button>
+                            <Button tabindex={13} onClick={handleClickSave}>Enregistrer</Button>
+                            <Button tabindex={14} className="btn--secondary" onClick={_ => _handlePrint()}>IMPRIMER</Button>
                         </LayoutFlex>
                     </LayoutFlexColumnWithArea>
                 </TabPanel>

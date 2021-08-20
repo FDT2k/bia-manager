@@ -1,5 +1,6 @@
+import {format} from 'date-fns'
 export default {
-    date: new Date(),
+    date: format(new Date(),'yyyy-MM-dd'),
     height: 0,
     weight: 0,
     left_side: false,

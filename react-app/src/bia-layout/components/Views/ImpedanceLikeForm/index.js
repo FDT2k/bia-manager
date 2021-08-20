@@ -32,7 +32,7 @@ const FieldGroup = props => {
 
 
 const UneditableInputWithArea = withGridArea(props => {
-    const { value, onChange, ...rest } = props
+    const { value, onChange,tabindex, ...rest } = props
     return (<div {...rest}>{value}</div>)
 });
 
@@ -48,7 +48,7 @@ const findGroupForField = groups => fieldName => Object.keys(groups).reduce((res
 
 const Component = props => {
 
-    let { className, handleChangeGroup, handleChange, handleGroupChange, handleFormBlur, values, fieldName, validRange, ...__props } = props;
+    let { className, handleChangeGroup, tabindexOffset,handleChange, handleGroupChange, handleFormBlur, values, fieldName, validRange, ...__props } = props;
     const { columns, rows, groups, handleValidation, editedGroup: initialEditedGroup, ..._props } = __props;
 
     const [editedGroup, setEditedGroup] = useState(initialEditedGroup);
@@ -91,6 +91,8 @@ const Component = props => {
         setEditedGroup(v);
         handleGroupChange && handleGroupChange(v);
     }
+    let tabindex =0;
+
     return (<Grid className={className} >
 
 
@@ -115,15 +117,18 @@ const Component = props => {
                             bem.current,
                             _ => is_valid ? bem.modifier('valid') : bem.modifier('invalid')
                         ]);
-                        return <InputWithArea
+                        let component= <InputWithArea
                             className={classes}
                             key={name}
+                            tabindex={tabindexOffset+tabindex}
                             area={name}
                             name={name}
                             value={values[name]}
                             onBlur={_handleFormBlur}
                             onChange={_handleChange}
                         />
+                        tabindex++;
+                        return component;
                     }
                     )}
                 </FieldGroup>
@@ -138,6 +143,7 @@ Component.defaultProps = {
         return `${row}${col}`
     },
     editedGroup: "a",
+    tabindexOffset:0,
     values: {},
     handleValidation: (key, value) => true
 }

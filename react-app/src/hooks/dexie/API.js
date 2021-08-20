@@ -117,6 +117,8 @@ const export_database=  db => _=> {
       });
 }
 
+
+
 const import_data = db => data => {
     return db.open().then( db =>{
         return db.patients.bulkAdd(data);

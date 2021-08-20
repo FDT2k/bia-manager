@@ -27,8 +27,7 @@ export default props => {
 
         })
     },[])
-    
-
+   
     return (<Fullscreen>
                 <Route path="/"><Login /></Route>
                 <Route path="/setup"><Setup /></Route>

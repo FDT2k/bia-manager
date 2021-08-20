@@ -86,12 +86,11 @@ export const listProp = (key, list) => list.map(item => item[key]);
 
 
 
-export const updateList = (condition, list, fn) => list.map((item) => {
-    if (condition(item) === true) {
+export const updateList = curry((condition, list, fn) => list.map((item,idx) => {
+    if (condition(item,idx) === true) {
         return fn(item);
     }
 
     return item;
-});
-
+}));
 

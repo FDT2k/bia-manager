@@ -1,6 +1,6 @@
 import { spreadObjectPresentIn, spreadObjectBeginWith, forwardPropsRemovingHeader } from '@karsegard/composite-js/ReactUtils'
 import { as_safe_path, enlist, is_nil, map, safe_path } from '@karsegard/composite-js';
-import { key, value,keyval } from '@karsegard/composite-js/ObjectUtils';
+import { key, value, keyval } from '@karsegard/composite-js/ObjectUtils';
 import { combineReducers } from 'redux';
 import createReducer from 'Redux/utils/create-reducer';
 import { updateList, updateProp } from 'Redux/utils/handlers';
@@ -57,13 +57,13 @@ export default (getModule) => {
 
     module.mesure = createReducer({}, {
         [action_types.EDIT_MESURE]: (state, { payload }) => {
-            const [bia,mesure] = spreadObjectPresentIn(['bia'],payload.mesure);
+            const [bia, mesure] = spreadObjectPresentIn(['bia'], payload.mesure);
             return updateProp(payload.id, state, {
-                ...safe_path({},payload.id,state),
-                mesure:{    
-                    ...safe_path({},`${payload.id}.mesure`,state),
+                ...safe_path({}, payload.id, state),
+                mesure: {
+                    ...safe_path({}, `${payload.id}.mesure`, state),
                     ...mesure
-                    
+
                 }
             })
         },
@@ -88,7 +88,7 @@ export default (getModule) => {
 
     module.recap_headers = createReducer([], {
         [action_types.UPDATE_RECAP]: (state, { payload }) => {
-            return [...payload.headers.map(item => item.toString())]
+            return [...payload.headers]
 
         }
 
@@ -121,14 +121,40 @@ export default (getModule) => {
         }
     });
 
+
+    module.patient_mesures = createReducer([], {
+        [action_types.SAVE]: (state, action) => {
+            const {payload} = action;
+            if(payload.mesure_id >= state.length){
+                return [...state,payload.mesure];
+            }
+            return updateList((_,idx)=> idx==action.payload.mesure_id,state,_=>action.payload.mesure)
+        }
+    });
+
     module.patient = createReducer({}, {
         [action_types.EDIT_PATIENT]: (state, { payload }) => updateProp(payload.id, state, payload),
         [action_types.CHANGE_SUBJECT]: (state, { payload }) => {
-            const [rest,patient] = spreadObjectPresentIn(['mesures','mesures_dates'],payload.patient);
+            const [rest, patient] = spreadObjectPresentIn(['mesures', 'mesures_dates'], payload.patient);
             return updateProp(payload.id, state, {
                 ...state[payload.id],
                 ...patient
             })
+        },
+        [action_types.SAVE]: (state, action) => {
+
+            const {payload} = action;
+            const {patient_id} = payload;
+            const patient = safe_path({},`${patient_id}`,state);
+            const mesures = safe_path([],`mesures`,patient);
+            let res =  updateProp(patient_id, state, 
+                {
+                    ...patient,
+                    mesures: module.patient_mesures(mesures,action)
+                }
+            )
+
+            return res
         }
     })
 
@@ -337,18 +363,18 @@ export default (getModule) => {
 
 
 
-    module.empty_mesure = (state = {empty:EMPTY_MESURE,current:{},editor_options:{}}, action) => {
-        const editor_options = module.editor_options(state.editor_options,action);
+    module.empty_mesure = (state = { empty: EMPTY_MESURE, current: {}, editor_options: {} }, action) => {
+        const editor_options = module.editor_options(state.editor_options, action);
 
-        
+
         let current = {
             ...state.empty,
         }
 
         map(item => {
-            let [_,option] = keyval(item);
+            let [_, option] = keyval(item);
 
-            current = as_safe_path(option.path,current,option.default)
+            current = as_safe_path(option.path, current, option.default)
         })(enlist(editor_options));
 
         return {
@@ -358,8 +384,8 @@ export default (getModule) => {
         }
     };
 
-    module.errors = createReducer({has_error:false,message:""},{
-        [action_types.ERROR_EDIT_PATIENT_UNDEF]: (state,action)=> ({has_error:true,message:"subject not found"})
+    module.errors = createReducer({ has_error: false, message: "" }, {
+        [action_types.ERROR_EDIT_PATIENT_UNDEF]: (state, action) => ({ has_error: true, message: "subject not found" })
     })
 
 
@@ -368,7 +394,7 @@ export default (getModule) => {
            type_act,
            machines,
            examinators,*/
-        error:module.errors,
+        error: module.errors,
         empty_mesure: module.empty_mesure,
         report_settings: module.report_settings,
         options: module.editor_options,
