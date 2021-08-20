@@ -3,6 +3,7 @@ import Fullscreen from 'bia-layout/containers/Fullscreen';
 import DatabaseImport from 'components/DatabaseImport';
 import Database from 'components/Views/Database';
 import Editor from 'components/Views/Editor';
+import CreatePatient from 'bia-layout/Pages/CreatePatient';
 import Login from 'components/Views/Login';
 import Search from 'components/Views/Search';
 import Setup from 'components/Views/Setup';
@@ -34,6 +35,7 @@ export default props => {
                 <Route path="/database"><Database /></Route>
                 <Route path="/import"><DatabaseImport /></Route>
                 <Route path="/search"><Search /></Route>
+                <Route path="/create_subject"><CreatePatient /></Route>
                 <Route path="/editor/:id"><Editor /></Route>
                 <Route path="/editor/:id/:mesure_id"><Editor /></Route>
             </Fullscreen>);

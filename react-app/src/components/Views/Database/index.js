@@ -1,4 +1,4 @@
-import DatabaseView from 'bia-layout/pages/Database';
+import DatabaseView from 'bia-layout/Pages/Database';
 import DatabaseExport from 'components/DatabaseExport';
 import DatabaseImport from 'components/DatabaseImport';
 import React, { useState } from 'react';

@@ -1,4 +1,4 @@
-import LoginView from 'bia-layout/pages/Login';
+import LoginView from 'bia-layout/Pages/Login';
 import React from 'react';
 import { useLocation } from "wouter";
 

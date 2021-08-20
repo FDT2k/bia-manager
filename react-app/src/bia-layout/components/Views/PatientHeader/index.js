@@ -1,16 +1,18 @@
-import { enlist, identity,safe_path } from '@karsegard/composite-js';
-import { useFieldValues } from '@karsegard/react-hooks';
-
+import { enlist, identity, safe_path } from '@karsegard/composite-js';
 import { key, value } from '@karsegard/composite-js/ObjectUtils';
 import { applyModifiers, bem, compose, withBaseClass } from '@karsegard/react-compose';
-import LayoutFlex, { LayoutFlexColumn } from 'bia-layout/layouts/Flex';
-import React, { useEffect } from 'react';
-import './style.scss';
+import { useFieldValues } from '@karsegard/react-hooks';
 import SafeDatePicker from 'bia-layout/components/Form/Editable/Date';
-
 import EditableSelect from 'bia-layout/components/Form/Editable/Select';
 import EditableTextInput from 'bia-layout/components/Form/Editable/TextInput';
 import Field from 'bia-layout/components/Form/Fields';
+import PageHeader from 'bia-layout/components/PageHeader';
+import LayoutFlex from 'bia-layout/layouts/Flex';
+import React, { useEffect } from 'react';
+import './style.scss';
+
+
+
 const [__base_class, element, modifier] = bem('patient-header')
 
 
@@ -49,8 +51,7 @@ const PatientHeader = props => {
 
 
     return (
-        <LayoutFlexColumn {...rest}>
-            <h2>{data.firstname} {data.lastname}</h2>
+        <PageHeader label={`${data.firstname} ${data.lastname}`} {...rest}>
             <FieldSet>
                 {
                     enlist(fields).map(_item => {
@@ -88,7 +89,7 @@ const PatientHeader = props => {
 
             </FieldSet>
 
-        </LayoutFlexColumn>
+        </PageHeader>
     )
 }
 

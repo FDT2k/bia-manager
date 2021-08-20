@@ -1,6 +1,6 @@
 import { is_nil, safe_path } from '@karsegard/composite-js';
 
-import Editor from 'bia-layout/pages/Editor';
+import Editor from 'bia-layout/Pages/Editor';
 import useBIAManager from 'hooks/useBIAManager';
 import React, { useEffect, useRef, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';

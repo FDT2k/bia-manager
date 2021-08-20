@@ -1,5 +1,5 @@
 import LayoutFlex from 'bia-layout/layouts/Flex';
-import SearchView from 'bia-layout/pages/Search';
+import SearchView from 'bia-layout/Pages/Search';
 import useBIAManager from 'hooks/useBIAManager';
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';

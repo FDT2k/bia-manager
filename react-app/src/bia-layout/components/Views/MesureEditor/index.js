@@ -18,7 +18,7 @@ import Container from 'bia-layout/containers/Container';
 import { withGridArea } from 'bia-layout/hoc/grid/Area';
 import LayoutFlex, { LayoutFlexColumn } from 'bia-layout/layouts/Flex';
 import MesureEditorLayout from 'bia-layout/layouts/MesureEditor';
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useMemo, useRef, useState } from 'react';
 import "react-datepicker/dist/react-datepicker.css";
 import { useSelector } from 'react-redux';
 import { useReactToPrint } from 'react-to-print';
@@ -119,7 +119,7 @@ const Editor = props => {
         setEditedGroup(g)
     }
 
-    const result_columns = ['norme', values.most_accurate_formula || 'kuschner', 'gva'];
+    const result_columns = useMemo(()=> ['norme', values.most_accurate_formula || 'kuschner', 'gva'],[values.most_accurate_formula]);
 
     const recap = useSelector(select_recap_list);
     const list_dates = useSelector(select_recap_headers);

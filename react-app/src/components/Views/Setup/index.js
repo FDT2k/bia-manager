@@ -1,5 +1,5 @@
 import Button from 'bia-layout/components/Form/Button';
-import SetupView from 'bia-layout/pages/Setup';
+import SetupView from 'bia-layout/Pages/Setup';
 import DatabaseImport from 'components/DatabaseImport';
 import React, { useState } from 'react';
 import { useLocation } from "wouter";

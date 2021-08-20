@@ -43,7 +43,7 @@ const best_formula = ({ patient, mesure }) => {
 
     let use_bmi = mesure.bmi;
 
-    if (!isNaN(mesure.bmi_ref)) {
+    if (!isNaN(mesure.bmi_ref) && mesure.bmi_ref !=="") {
         use_bmi = mesure.bmi_ref;
     }
 

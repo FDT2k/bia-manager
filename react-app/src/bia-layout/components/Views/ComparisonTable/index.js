@@ -102,7 +102,6 @@ export const Component = props => {
     const [state, setState] = useState(columns);
    
     useEffect(()=>{
-      
         setState(columns);
     },[columns])
 
