@@ -1,7 +1,7 @@
 import { is_nil } from '@karsegard/composite-js';
 import React, { forwardRef } from 'react';
 import DatePicker from 'react-datepicker';
-
+import { format } from 'date-fns'
 
 const CustomInput = forwardRef(({ value, onClick }, ref) => (
     <div className="example-custom-input editable-field" onClick={onClick} ref={ref}>
@@ -11,6 +11,12 @@ const CustomInput = forwardRef(({ value, onClick }, ref) => (
 
 const SafeDatePicker = ({ selected, handleChange }) => {
 
+
+    const _handleChange = date=>{
+
+        handleChange(format(date,'yyyy-MM-dd'))
+
+    };
     let val = selected;
 
     if (is_nil(selected)) {
@@ -28,7 +34,7 @@ const SafeDatePicker = ({ selected, handleChange }) => {
     return (
         <DatePicker
             selected={val}
-            onChange={handleChange}
+            onChange={_handleChange}
             customInput={<CustomInput tabindex="-1" />}
         />
     )

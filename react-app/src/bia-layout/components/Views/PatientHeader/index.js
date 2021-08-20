@@ -32,7 +32,7 @@ const PatientHeader = props => {
         'groups.path': { type: 'select', editable: true, label: 'Groupe pathologique', options:['a','b'] },
         'mesure_count': { type: 'date', editable: false, label: 'Nombre de mesures' }
     }
-    const { data, t, ...rest } = props
+    const { data, t, handleChange:handleParentChange, ...rest } = props
 
     useEffect(() => {
         replaceValues(data);
@@ -41,6 +41,7 @@ const PatientHeader = props => {
 
     const handleValuesChange = values => {
        // console.log(values);
+       handleParentChange && handleParentChange(values);
     }
 
     const { values, handleChangeValue, inputProps, handleChange, assignValues, replaceValues } = useFieldValues(data, { handleValuesChange,usePath:true });

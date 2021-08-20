@@ -25,6 +25,7 @@ export const ACTIONS_TYPES = createActionTypes(
     'RECOMPUTE_MESURE',
     'UPDATE_RECAP',
     'CHANGE_MESURE',
+    'CHANGE_SUBJECT',
     'ATTEMPT_REFRESH_RECAP',
     'RECAP_PATIENT_NOT_LOADED',
     'REFRESH_NORME',
@@ -44,7 +45,7 @@ export default (getModule) => {
     const actions = {};
 
 
-    const { select_mesures, select_empty_mesure,select_normes_sampling, select_result_columns, select_normes, select_edited_patient, select_report_columns, select_charts_columns } = selectors;
+    const { select_mesures, select_empty_mesure,select_normes_sampling,select_current_mesure_id,select_current_patient_id, select_result_columns, select_normes, select_edited_patient, select_report_columns, select_charts_columns } = selectors;
 
     actions.real_edit_patient = create(action_types.EDIT_PATIENT);
     actions.refresh_norme = create(action_types.REFRESH_NORME)
@@ -144,7 +145,6 @@ export default (getModule) => {
 
 
     actions.edit_mesure = (patient_id, mesure_id) => {
-
         return (dispatch, getState) => {
             let mesures = select_mesures(getState());
             const patient = select_edited_patient(getState());
@@ -165,7 +165,14 @@ export default (getModule) => {
     };
 
 
+    actions.recompute_current_mesure = () => {
+        return (dispatch, getState) => {
 
+            const patient = select_edited_patient(getState()).id;
+            const mesure = select_edited_mesure(getState());
+            return dispatch(actions.recompute_mesure(patient,mesure));
+        }
+    }
 
 
     actions.recompute_mesure = (patient_id, values) => {
@@ -219,10 +226,50 @@ export default (getModule) => {
     };
 
 
+    actions.normalize_current_mesure = () => {
+        return (dispatch,getState)=>{
+            const patient = select_edited_patient(getState());
+            const mesure = select_edited_mesure(getState());
+
+            dispatch(actions.change_mesure(patient,mesure));
+        }
+    }
+
+    actions.change_subject = (patient_id,patient)=>{
+
+
+        if (is_nil(patient) ) {
+            return {
+                type: 'GENERAL_ERROR'
+            }
+        }
+        return (dispatch, getState) => {
+
+            const mesure = select_edited_patient(getState());
+
+            dispatch({
+                type: action_types.CHANGE_SUBJECT,
+                payload: {
+                    id:patient_id,
+                   patient:normalize_patient(patient)
+                }
+            })
+            dispatch(actions.normalize_current_mesure());
+            dispatch(actions.refresh_current_recap());
+        } 
+    }
+
     actions.attempt_refresh_recap = create(action_types.ATTEMPT_REFRESH_RECAP)
     actions.recap_error_patient_fail = create(action_types.RECAP_PATIENT_NOT_LOADED)
 
+    actions.refresh_current_recap = () => {
+        return (dispatch,getState)=>{
+            const patient_id = select_current_patient_id(getState());
+            const mesure_id = select_current_mesure_id(getState());
+            dispatch(actions.refresh_recap(patient_id,mesure_id))
+        }
 
+    }
     actions.refresh_recap = (patient_id, mesure_id) => {
         return (dispatch, getState) => {
 

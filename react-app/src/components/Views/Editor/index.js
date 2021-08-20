@@ -5,7 +5,7 @@ import useBIAManager from 'hooks/useBIAManager';
 import React, { useEffect, useRef, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useReactToPrint } from 'react-to-print';
-import { change_mesure, create_mesure, edit_mesure, edit_patient, fetch_normes, populate_sporttype, populate_sportrate, refresh_recap, select_current_bia_values, select_current_mesure_id, select_edited_mesure, select_edited_patient, select_mass_chart, has_error, error_message, select_recap_headers, select_recap_list, populate_machines } from 'Store';
+import { change_mesure, create_mesure, edit_mesure, edit_patient, fetch_normes, populate_sporttype, populate_sportrate, refresh_recap, select_current_bia_values, select_current_mesure_id, select_edited_mesure, select_edited_patient,change_subject, select_mass_chart, has_error, error_message, select_recap_headers, select_recap_list, populate_machines } from 'Store';
 import { useLocation, useRoute } from "wouter";
 
 
@@ -143,11 +143,16 @@ export default props => {
         }
     }
 
+    const handleSubjectChange = values=>{
+        dispatch(change_subject(patient_id,values));
+    }
+
     return (
         <>
             {!error && <Editor
                 handleGoBack={_ => setLocation('/search')}
                 handleChange={handleChange}
+                handleSubjectChange={handleSubjectChange}
                 handlePrint={handlePrint}
                 data={patient}
                 handleMesureOpen={handleMesureOpen}

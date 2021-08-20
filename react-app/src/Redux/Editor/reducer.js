@@ -1,4 +1,4 @@
-
+import { spreadObjectPresentIn, spreadObjectBeginWith, forwardPropsRemovingHeader } from '@karsegard/composite-js/ReactUtils'
 import { as_safe_path, enlist, is_nil, map, safe_path } from '@karsegard/composite-js';
 import { key, value,keyval } from '@karsegard/composite-js/ObjectUtils';
 import { combineReducers } from 'redux';
@@ -56,7 +56,17 @@ export default (getModule) => {
     });
 
     module.mesure = createReducer({}, {
-        [action_types.EDIT_MESURE]: (state, { payload }) => updateProp(payload.id, state, payload),
+        [action_types.EDIT_MESURE]: (state, { payload }) => {
+            const [bia,mesure] = spreadObjectPresentIn(['bia'],payload.mesure);
+            return updateProp(payload.id, state, {
+                ...safe_path({},payload.id,state),
+                mesure:{    
+                    ...safe_path({},`${payload.id}.mesure`,state),
+                    ...mesure
+                    
+                }
+            })
+        },
         [action_types.CREATE_MESURE]: (state, { payload }) => updateProp(payload.id, state, payload),
         [action_types.RECOMPUTE_MESURE]: (state, { payload }) => updateProp(payload.id, state, {
             ...state[payload.id],
@@ -113,6 +123,13 @@ export default (getModule) => {
 
     module.patient = createReducer({}, {
         [action_types.EDIT_PATIENT]: (state, { payload }) => updateProp(payload.id, state, payload),
+        [action_types.CHANGE_SUBJECT]: (state, { payload }) => {
+            const [rest,patient] = spreadObjectPresentIn(['mesures','mesures_dates'],payload.patient);
+            return updateProp(payload.id, state, {
+                ...state[payload.id],
+                ...patient
+            })
+        }
     })
 
     /**

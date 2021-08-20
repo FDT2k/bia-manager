@@ -43,6 +43,7 @@ export const BIAEditorModule = EditorModule(state => state.editor, '');
 
 export const {
   select_current_mesure_id,
+  select_current_patient_id,
   select_recap_headers,
   select_recap_list,
   select_mass_chart,
@@ -63,6 +64,8 @@ export const {
   edit_mesure,
   recompute_mesure,
   create_mesure,
+  change_subject,
+
   fetch_normes,
   refresh_recap,
   change_mesure } = BIAEditorModule.actions;

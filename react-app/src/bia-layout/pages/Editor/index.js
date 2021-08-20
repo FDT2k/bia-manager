@@ -41,7 +41,7 @@ const NavComponent = compose(
 
 const Editor = props => {
 
-    const { className, renderFooter, t, handleGoBack, handleMesureOpen, handleChange, lines, data, mesure, handlePrint, selectedMesureIndex, ...rest } = getClasseNames(__base_class, props);
+    const { className, renderFooter, t, handleGoBack, handleMesureOpen, handleSubjectChange,handleChange, lines, data, mesure, handlePrint, selectedMesureIndex, ...rest } = getClasseNames(__base_class, props);
     const [startDate, setStartDate] = useState(new Date());
     const ExampleCustomInput = forwardRef(({ value, onClick }, ref) => (
         <div className="example-custom-input" onClick={onClick} ref={ref}>
@@ -63,7 +63,7 @@ const Editor = props => {
         }>
             <EditorLayout className={className}>
 
-                <Area className={element('patient')} area="patient"><PatientHeader data={data} /></Area>
+                <Area className={element('patient')} area="patient"><PatientHeader handleChange={handleSubjectChange} data={data} /></Area>
                 <Area className={element('mesures')} area="mesures">
 
                     <ListMesure selectedIndex={selectedMesureIndex} title={t('Mesures')} itemLabelKey="date" handleClick={onMesureClick} data={[...data.mesures, { date: "<Nouvelle>" }]}
