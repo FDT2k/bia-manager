@@ -15,7 +15,7 @@ export default Annotate({
 
 export const Simple = () => {
     return (
-        <Tabs tabindexOffset={10}>
+        <Tabs tabIndexOffset={10}>
             <TabList>
                 <Tab>Super tartine</Tab>
                 <Tab>HyperConcombre</Tab>

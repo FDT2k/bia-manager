@@ -32,7 +32,7 @@ const FieldGroup = props => {
 
 
 const UneditableInputWithArea = withGridArea(props => {
-    const { value, onChange,tabindex, ...rest } = props
+    const { value, onChange,tabIndex, ...rest } = props
     return (<div {...rest}>{value}</div>)
 });
 
@@ -48,7 +48,7 @@ const findGroupForField = groups => fieldName => Object.keys(groups).reduce((res
 
 const Component = props => {
 
-    let { className, handleChangeGroup, tabindexOffset,handleChange, handleGroupChange, handleFormBlur, values, fieldName, validRange, ...__props } = props;
+    let { className, handleChangeGroup, tabIndexOffset,handleChange, handleGroupChange, handleFormBlur, values, fieldName, validRange, ...__props } = props;
     const { columns, rows, groups, handleValidation, editedGroup: initialEditedGroup, ..._props } = __props;
 
     const [editedGroup, setEditedGroup] = useState(initialEditedGroup);
@@ -91,7 +91,7 @@ const Component = props => {
         setEditedGroup(v);
         handleGroupChange && handleGroupChange(v);
     }
-    let tabindex =0;
+    let tabIndex =0;
 
     return (<Grid className={className} >
 
@@ -120,14 +120,14 @@ const Component = props => {
                         let component= <InputWithArea
                             className={classes}
                             key={name}
-                            tabindex={tabindexOffset+tabindex}
+                            tabIndex={tabIndexOffset+tabIndex}
                             area={name}
                             name={name}
                             value={values[name]}
                             onBlur={_handleFormBlur}
                             onChange={_handleChange}
                         />
-                        tabindex++;
+                        tabIndex++;
                         return component;
                     }
                     )}
@@ -143,7 +143,7 @@ Component.defaultProps = {
         return `${row}${col}`
     },
     editedGroup: "a",
-    tabindexOffset:0,
+    tabIndexOffset:0,
     values: {},
     handleValidation: (key, value) => true
 }

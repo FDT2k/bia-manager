@@ -131,11 +131,11 @@ const Editor = props => {
     const sporttypes = useSelector(select_sporttypes);
     const sportrates = useSelector(select_sportrates);
 
-    const map_itemlist_as_option = item => (<option value={item.id}>{item.name}</option>)
+    const map_itemlist_as_option = item => (<option key={item.id} value={item.id}>{item.name}</option>)
 
     return (
         <MesureEditorLayout {...rest} className={className}>
-            <TabsWithArea tabindexOffset={20} renderDisabledPanels={true} area="mesure-editor-main">
+            <TabsWithArea tabIndexOffset={20} renderDisabledPanels={true} area="mesure-editor-main">
                 <TabList>
                     <Tab>Mesures</Tab>
                     <Tab>Résultats</Tab>
@@ -154,40 +154,40 @@ const Editor = props => {
                             </Field>
 
                             <Field className="activite-physique" label={t("Activité physique")}>
-                                <select tabindex={1} {...inputProps('sport.rate')}>
+                                <select tabIndex={1} {...inputProps('sport.rate')}>
                                     {sportrates.map(map_itemlist_as_option)}
                                 </select>
 
                             </Field>
                             <Field className="type-activite-physique" label={t("Type d'Activité physique")}>
-                                <select tabindex={2}  {...inputProps('sport.type')}>
+                                <select tabIndex={2}  {...inputProps('sport.type')}>
                                     {sporttypes.map(map_itemlist_as_option)}
                                 </select>
 
                             </Field>
                             <Field className="fumeur" label={t("Fumeur")}>
-                                <ToggleSwitch tabindex={3}  id="smoker" labelYes="Oui" labelNo="Non" name="smoker" onChange={handleChange} checked={values.smoker} />
+                                <ToggleSwitch tabIndex={3}  id="smoker" labelYes="Oui" labelNo="Non" name="smoker" onChange={handleChange} checked={values.smoker} />
                             </Field>
                             <Field className="cote-mesure" label={t("Coté mesuré")}>
-                                <ToggleSwitch tabindex={4}  labelYes="Gauche" labelNo="Droit" name="left_side" onChange={handleChange} id="left_side" checked={values.left_side} />
+                                <ToggleSwitch tabIndex={4}  labelYes="Gauche" labelNo="Droit" name="left_side" onChange={handleChange} id="left_side" checked={values.left_side} />
                             </Field>
                             <Field className="poids-actuel" label={t("Poids Actuel")} >
-                                <input type="text" tabindex={5}  {...inputProps('weight')} />
+                                <input type="text" tabIndex={5}  {...inputProps('weight')} />
 
                             </Field>
                             <Field className="taille" label={t("Taille cm")}  >
-                                <input type="text"  tabindex={6}  {...inputProps('height')} />
+                                <input type="text"  tabIndex={6}  {...inputProps('height')} />
                             </Field>
 
                         </LayoutFlex>
                         <Container fit grow>
-                            <ElectricalDataForm tabindexOffset={7}  handleGroupChange={handleGroupChange} handleComputedChange={electricalHandleValues} handleChange={electricalHandleChange} editedGroup={editedGroup} values={values.data} />
+                            <ElectricalDataForm tabIndexOffset={7}  handleGroupChange={handleGroupChange} handleComputedChange={electricalHandleValues} handleChange={electricalHandleChange} editedGroup={editedGroup} values={values.data} />
                         </Container>
 
 
                         <LayoutFlex>
-                            <Button tabindex={13} onClick={handleClickSave}>Enregistrer</Button>
-                            <Button tabindex={14} className="btn--secondary" onClick={_ => _handlePrint()}>IMPRIMER</Button>
+                            <Button tabIndex={13} onClick={handleClickSave}>Enregistrer</Button>
+                            <Button tabIndex={14} className="btn--secondary" onClick={_ => _handlePrint()}>IMPRIMER</Button>
                         </LayoutFlex>
                     </LayoutFlexColumnWithArea>
                 </TabPanel>
@@ -202,19 +202,13 @@ const Editor = props => {
                     </Container>
                 </TabPanel>
                 <TabPanel>
-
                     <RecapGrid data={recap} headers={list_dates} />
                 </TabPanel>
                 <TabPanel>
-
                     <MassChart data={mass_chart} />
-
                     <FFMIChart data={norm_chart} noi="ffmi" age={mesure.current_age} value={current_bia.ffmi} />
                     <FFMIChart data={norm_chart} noi="fmi" age={mesure.current_age} value={current_bia.fmi} />
-
                 </TabPanel>
-
-
 
             </TabsWithArea>
 
@@ -225,7 +219,7 @@ const Editor = props => {
                 <Field label={t("BioImpédanceMètre")}>
 
                     <EditableSelect {...inputProps('machine')}>
-                        {machines.map(machine => (<option value={machine.id}>{machine.name}</option>))}
+                        {machines.map(machine => (<option value={machine.id} key={machine.id}>{machine.name}</option>))}
                     </EditableSelect>
 
                 </Field>

@@ -108,7 +108,7 @@ TabPanel.defaultProps= {
 
 export const Tabs=  props => {
 
-    const {children: _children, defaultTab,tabindexOffset,renderDisabledPanels ,style:existingStyle , ...rest} = props;
+    const {children: _children, defaultTab,tabIndexOffset,renderDisabledPanels ,style:existingStyle , ...rest} = props;
 
 
     const [hoverTab,setHoverTab] = useState(0);
@@ -153,7 +153,7 @@ export const Tabs=  props => {
                             onMouseOver:  handleMouseOver(tabCount),
                             onMouseOut:  handleMouseOut(tabCount),
                             handleFocus: handleFocus(tabCount),
-                            tabIndex: tabindexOffset+tabCount,
+                            tabIndex: tabIndexOffset+tabCount,
                             selected:selectedTab ==tabCount
                         });
 
@@ -192,7 +192,7 @@ export const Tabs=  props => {
 
 
 Tabs.defaultProps= {
-    tabindexOffset: 0,
+    tabIndexOffset: 0,
     renderDisabledPanels: false,
     defaultTab:0
 }

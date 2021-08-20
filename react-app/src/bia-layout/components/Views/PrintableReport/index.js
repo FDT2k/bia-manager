@@ -24,7 +24,7 @@ export default props => {
         <Grid
             contained
 
-            templateRows="auto auto auto auto auto 20px;"
+            templateRows="auto auto auto auto auto 20px"
             templateColumns="auto auto"
             templateAreas={[
                 'header header',

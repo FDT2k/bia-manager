@@ -35,7 +35,7 @@ const SafeDatePicker = ({ selected, handleChange }) => {
         <DatePicker
             selected={val}
             onChange={_handleChange}
-            customInput={<CustomInput tabindex="-1" />}
+            customInput={<CustomInput tabIndex="-1" />}
         />
     )
 }
