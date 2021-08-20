@@ -341,12 +341,17 @@ export default (getModule) => {
         }
     };
 
+    module.errors = createReducer({has_error:false,message:""},{
+        [action_types.ERROR_EDIT_PATIENT_UNDEF]: (state,action)=> ({has_error:true,message:"subject not found"})
+    })
+
 
     module.reducer = combineReducers({
         /*   physical_act,
            type_act,
            machines,
            examinators,*/
+        error:module.errors,
         empty_mesure: module.empty_mesure,
         report_settings: module.report_settings,
         options: module.editor_options,

@@ -142,6 +142,9 @@ export default getModule => {
 
    module.select_empty_mesure = createSelector(baseSelector,state => state.empty_mesure.current);
 
+   module.has_error = createSelector(baseSelector,state=> state.error.has_error)
+   module.error_message = createSelector(baseSelector,state=> state.error.message)
+
    return module;
 
 }

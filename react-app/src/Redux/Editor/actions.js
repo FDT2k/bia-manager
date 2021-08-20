@@ -28,7 +28,8 @@ export const ACTIONS_TYPES = createActionTypes(
     'ATTEMPT_REFRESH_RECAP',
     'RECAP_PATIENT_NOT_LOADED',
     'REFRESH_NORME',
-    'FETCHED_NORMES'
+    'FETCHED_NORMES',
+    'ERROR_EDIT_PATIENT_UNDEF'
 )
 
 
@@ -89,7 +90,7 @@ export default (getModule) => {
 
             } else {
                 return dispatch({
-                    type: 'ERROR_EDIT_PATIENT_UNDEF'
+                    type: action_types.ERROR_EDIT_PATIENT_UNDEF
                 });
             }
 

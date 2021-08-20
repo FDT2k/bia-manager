@@ -11,8 +11,9 @@ import Container from 'bia-layout/containers/Container';
 import { ComponentWithArea as Area, withGridArea } from 'bia-layout/hoc/grid/Area';
 import EditorLayout from 'bia-layout/layouts/Editor';
 import LayoutFlex from 'bia-layout/layouts/Flex';
+import ReactLoading from 'react-loading'
 import React, { forwardRef, useState } from 'react';
-//styles externes
+
 import "react-datepicker/dist/react-datepicker.css";
 //styles
 import './page-editor.scss';
@@ -79,7 +80,7 @@ const Editor = props => {
                 </Area>
                 <ContainerWithArea className={element('form')} area="content" scrollable>
                     {mesure && <MesureEditor handlePrint={handlePrint} handleChange={handleChange} mesure={mesure} />}
-                    {!mesure && <h1> ERREUR  !!!! Mesure introuvable</h1>}
+                    {!mesure && <ReactLoading type="spin" color="#000000"/>}
                 </ContainerWithArea>
 
             </EditorLayout>
