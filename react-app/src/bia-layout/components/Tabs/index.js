@@ -2,7 +2,7 @@ import { applyModifiers, bem, cEx, compose, divElement, withBaseClass } from '@k
 import { useFocus } from '@karsegard/react-hooks';
 import LayoutFlex from 'bia-layout/layouts/Flex';
 import React, { Children, cloneElement, useRef, useState } from 'react';
-import './style.scss';
+import './tabs.scss';
 
 function makeTypeChecker(tabsRole) {
     return (element) => !!element.type && element.type.tabsRole === tabsRole;

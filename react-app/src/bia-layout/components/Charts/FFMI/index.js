@@ -31,10 +31,10 @@ export const LineChart = props => {
             height={height}
             data={_data}
         >
-            <XAxis dataKey="age"  type="number" tickCount={10} domain={['dataMin-10', 'dataMax+5']} >
-            <Label value="Age" position="insideBottom" />
-                </XAxis>
-            <YAxis type="number" domain={[min => Math.round(min-3), max=>Math.round(max+1)]} />
+            <XAxis dataKey="age" type="number" tickCount={10} domain={['dataMin-10', 'dataMax+5']} >
+                <Label value="Age" offset={40} position="insideBottom"/>
+            </XAxis>
+            <YAxis type="number" domain={[min => Math.round(min - 3), max => Math.round(max + 1)]} />
 
             <Line dataKey={
                 item => {
@@ -43,10 +43,10 @@ export const LineChart = props => {
             } dot={false} stroke="#45f542" />
 
             <ReferenceDot x={age} y={value} r={5} fill="grey" stroke="none" >
-            <Label value={(new Number(value)).toFixed(1)} position="right" />
-                </ReferenceDot>
+                <Label value={(new Number(value)).toFixed(1)} position="right" />
+            </ReferenceDot>
             <Area dataKey={noi} type="linear" fillOpacity="0" stroke="#8884d8" />
-            <Tooltip/>
+            <Tooltip />
         </ComposedChart>
     )
 }

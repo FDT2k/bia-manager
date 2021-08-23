@@ -1,4 +1,5 @@
 import { is_nil, safe_path } from '@karsegard/composite-js';
+//import { useKeypress } from '@karsegard/react-hooks';
 
 import Editor from 'bia-layout/Pages/Editor';
 import useBIAManager from 'hooks/useBIAManager';
@@ -14,6 +15,32 @@ import { useLocation, useRoute } from "wouter";
 
 
 
+const useKeypress =(targetKey) => {
+    const [keyPressed, setKeyPressed] = useState(false);
+    function downHandler({ key }) {
+        console.log(key)
+      if (key === targetKey) {
+        setKeyPressed(true);
+      }
+    }
+
+    const upHandler = ({ key }) => {
+      if (key === targetKey) {
+        setKeyPressed(false);
+      }
+    };
+
+    useEffect(() => {
+      window.addEventListener("keydown", downHandler);
+      window.addEventListener("keyup", upHandler);
+      return () => {
+        window.removeEventListener("keydown", downHandler);
+        window.removeEventListener("keyup", upHandler);
+      };
+    }, []); 
+    return keyPressed;
+  }
+
 
 
 export default props => {
@@ -21,6 +48,11 @@ export default props => {
     const dispatch = useDispatch();
     const { api } = useBIAManager();
     const componentRef = useRef();
+
+    const debugPrint = useKeypress('l');
+    
+
+
 
     const [patient_id, setPatientId] = useState();
     const [mesure_id, setMesureId] = useState();
@@ -41,7 +73,12 @@ export default props => {
     const list_dates = useSelector(select_recap_headers);
 
 
-
+    useEffect(()=>{
+        if(debugPrint){
+            document.querySelector('#printWindow').style = 'position:absolute;top:0px;left:0px;width:100%;height:100%;background-color:white;'
+        }
+    },[debugPrint]);
+    
     useEffect(() => {
         dispatch(populate_sportrate([
             { 'id': 'low', 'name': 'faible' },
@@ -102,6 +139,9 @@ export default props => {
             });
         }
     }, [patient_id]);
+
+
+    
 
     useEffect(() => {
         //  console.log('ba', mesure_id,patient)

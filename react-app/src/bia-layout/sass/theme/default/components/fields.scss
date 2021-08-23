@@ -49,12 +49,16 @@
 }
 
 .editable-field {
-    height: 100%;
+  //  height: 100%;
     border: 1px solid var(--tertiary);
     display: flex;
     justify-content: center;
     flex-direction: column;
     align-items: flex-start;
+    &.edited{
+        display:inline-block;
+    }
+    
 }
 
 .editable {

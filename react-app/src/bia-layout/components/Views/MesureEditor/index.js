@@ -9,10 +9,11 @@ import EditableTextInput from 'bia-layout/components/Form/Editable/TextInput';
 import Field from 'bia-layout/components/Form/Fields';
 import ToggleSwitch from 'bia-layout/components/Form/ToggleSwitch';
 import Printable from 'bia-layout/components/Printable';
+import PrintableReport from 'bia-layout/components/Views/PrintableReport';
 import Tabs, { Tab, TabList, TabPanel } from 'bia-layout/components/Tabs';
 import ComparisonTable from 'bia-layout/components/Views/ComparisonTable';
 import ElectricalDataForm from 'bia-layout/components/Views/ElectricalDataForm';
-import PrintableReport from 'bia-layout/components/Views/PrintableReport';
+
 import RecapGrid from 'bia-layout/components/Views/RecapGrid';
 import Container from 'bia-layout/containers/Container';
 import { withGridArea } from 'bia-layout/hoc/grid/Area';

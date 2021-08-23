@@ -111,11 +111,15 @@ export default getModule => {
 
    module.select_normes_sampling = createSelector([module.select_edited_patient, baseSelector], (patient, state) => {
 
-      let result;
+      /*let result;
       if (patient && patient.gender) {
          result = state.normes.chartSample[patient.gender]
       }
       return defaultToArray(result);
+*/
+
+      return safe_array(`normes.chartSample.${patient.gender}`,state);
+
    });
 
 

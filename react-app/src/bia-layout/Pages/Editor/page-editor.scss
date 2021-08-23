@@ -2,6 +2,7 @@
 
 
 .tabs{
+    --tab-width : calc((var(--col-width) * 2) + var(--gut-width));
     @extend %colors-positive;
 
     &__tab.selected{
@@ -10,17 +11,26 @@
     }
 
     &__wrapper{
-        width:100%;
+        width: calc(var(--tab-width) * 4);
+        border-radius: 4px;
         background-color: var(--tertiary);
+
     }
 
+    .tabs__panel{
+        padding-top: var(--gut-width);
+    }
+}
 
+.page-header{
+
+    margin-bottom: calc( var(--gut-width) * 2);
 }
 
 
 .bia-editor{
     @extend %base_font;
-
+    
 
     &__patient{
         h2{

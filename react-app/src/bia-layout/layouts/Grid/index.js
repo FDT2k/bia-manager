@@ -45,7 +45,7 @@ const withTemplateAreas = withVariables(
 const withTemplateColRow = withVariables(
   x=> camelize(`grid-${x}`),
   identity,
-  ['templateColumns','templateRows','autoRows']
+  ['templateColumns','templateRows','autoRows','rowGap']
 )
 
 const [__base_class,element,modifier] = bem ('layout-grid')

@@ -10,7 +10,7 @@ import Setup from 'components/Views/Setup';
 import useBIAManager from 'hooks/useBIAManager';
 import React, { useEffect, useState } from 'react';
 import { Route, useLocation } from "wouter";
-
+import DebugPrint from 'bia-layout/Pages/DebugPrint';
 
 
 export default props => {
@@ -33,6 +33,10 @@ export default props => {
                 <Route path="/"><Login /></Route>
                 <Route path="/setup"><Setup /></Route>
                 <Route path="/database"><Database /></Route>
+                <Route path="/print/:id/:mesure_id">
+                   <DebugPrint/>
+
+                </Route>
                 <Route path="/import"><DatabaseImport /></Route>
                 <Route path="/search"><Search /></Route>
                 <Route path="/create_subject"><CreatePatient /></Route>

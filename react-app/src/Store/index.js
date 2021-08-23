@@ -67,6 +67,8 @@ export const {
   change_subject,
   save,
   fetch_normes,
+  recompute_current_mesure,
+  refresh_current_recap,
   refresh_recap,
   change_mesure } = BIAEditorModule.actions;
 
