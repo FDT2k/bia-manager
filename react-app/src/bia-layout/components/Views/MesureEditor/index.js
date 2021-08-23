@@ -26,6 +26,8 @@ import { useReactToPrint } from 'react-to-print';
 import { select_current_bia_values, select_machines, select_sporttypes, select_sportrates, select_mass_chart, select_normes_chart, select_recap_headers, select_recap_list } from 'Store';
 import './mesure-editor.scss';
 
+import {oneDecimal,oneDecimalPct} from 'references/format'
+
 
 
 
@@ -160,24 +162,26 @@ const Editor = props => {
                                 <select tabIndex={1} {...inputProps('sport.rate')}>
                                     {sportrates.map(map_itemlist_as_option)}
                                 </select>
-
                             </Field>
+
                             <Field className="type-activite-physique" label={t("Type d'Activité physique")}>
                                 <select tabIndex={2}  {...inputProps('sport.type')}>
                                     {sporttypes.map(map_itemlist_as_option)}
                                 </select>
-
                             </Field>
+
                             <Field className="fumeur" label={t("Fumeur")}>
                                 <ToggleSwitch tabIndex={3}  id="smoker" labelYes="Oui" labelNo="Non" name="smoker" onChange={handleChange} checked={values.smoker} />
                             </Field>
+
                             <Field className="cote-mesure" label={t("Coté mesuré")}>
                                 <ToggleSwitch tabIndex={4}  labelYes="Gauche" labelNo="Droit" name="left_side" onChange={handleChange} id="left_side" checked={values.left_side} />
                             </Field>
+
                             <Field className="poids-actuel" label={t("Poids Actuel")} >
                                 <input type="text" tabIndex={5}  {...inputProps('weight')} />
-
                             </Field>
+
                             <Field className="taille" label={t("Taille cm")}  >
                                 <input type="text"  tabIndex={6}  {...inputProps('height')} />
                             </Field>
@@ -228,7 +232,7 @@ const Editor = props => {
                 </Field>
 
                 <Field label={t("Poids Idéal (%)")}>
-                    <div>{values.ideal_weight} </div>
+                    <div>{oneDecimal(values.ideal_weight)} ({oneDecimalPct(values.pct_ideal_weight)})</div>
                 </Field>
                 <Field label={t("BMI Actuel")}>
                     <div>{values.bmi}</div>

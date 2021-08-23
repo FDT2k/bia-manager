@@ -9,7 +9,11 @@ const EditableTextInput = withBaseClass('editable-field')(props => {
     const [editable, setEditable] = useState(false);
     const enterPressed = useKeypress('Enter');
     const ref = useRef()
-    const { hasFocus } = useFocus({ ref, debug: true });
+
+    const _disableEditable = _ => {
+        setEditable(false)
+    }
+    const { hasFocus } = useFocus({ ref, debug: true, handleOnBlur: _disableEditable });
 
     useEffect(() => {
         if (ref.current && enterPressed && hasFocus) {
@@ -24,8 +28,10 @@ const EditableTextInput = withBaseClass('editable-field')(props => {
         }
     }, [editable])
 
+
+
     return (<>
-        {editable && <input ref={ref} onBlur={_ => setEditable(false)} type="text" {...props} />}
+        {editable && <input ref={ref} onBlur={_disableEditable} type="text" {...props} />}
         {!editable && <div className={props.className} onClick={_ => setEditable(true)}>{props.value}</div>}
     </>
     )

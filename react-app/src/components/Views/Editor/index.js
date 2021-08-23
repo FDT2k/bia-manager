@@ -135,7 +135,6 @@ export default props => {
     }
 
     const handleMesureOpen = (value, idx) => {
-        debugger;
         if (idx < patient.mesures.length) {
             setLocation(`/editor/${patient_id}/${idx}`);
         } else {
