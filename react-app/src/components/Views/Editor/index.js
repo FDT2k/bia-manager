@@ -14,43 +14,12 @@ import { useLocation, useRoute } from "wouter";
 
 
 
-
-const useKeypress =(targetKey) => {
-    const [keyPressed, setKeyPressed] = useState(false);
-    function downHandler({ key }) {
-        console.log(key)
-      if (key === targetKey) {
-        setKeyPressed(true);
-      }
-    }
-
-    const upHandler = ({ key }) => {
-      if (key === targetKey) {
-        setKeyPressed(false);
-      }
-    };
-
-    useEffect(() => {
-      window.addEventListener("keydown", downHandler);
-      window.addEventListener("keyup", upHandler);
-      return () => {
-        window.removeEventListener("keydown", downHandler);
-        window.removeEventListener("keyup", upHandler);
-      };
-    }, []); 
-    return keyPressed;
-  }
-
-
-
 export default props => {
     const [location, setLocation] = useLocation();
     const dispatch = useDispatch();
     const { api } = useBIAManager();
     const componentRef = useRef();
 
-    const debugPrint = useKeypress('l');
-    
 
 
 
@@ -73,11 +42,6 @@ export default props => {
     const list_dates = useSelector(select_recap_headers);
 
 
-    useEffect(()=>{
-        if(debugPrint){
-            document.querySelector('#printWindow').style = 'position:absolute;top:0px;left:0px;width:100%;height:100%;background-color:white;'
-        }
-    },[debugPrint]);
     
     useEffect(() => {
         dispatch(populate_sportrate([
@@ -105,6 +69,7 @@ export default props => {
 
     //if any of the url argument changes, update internal state
     useEffect(() => {
+        debugger;
         //  console.log('url changed',params,paramsWithMesure);
         if (match) {
             if (patient_id !== params.id) {
@@ -167,6 +132,7 @@ export default props => {
     }
 
     const handleMesureOpen = (value, idx) => {
+        debugger;
         if (idx < patient.mesures.length) {
             setLocation(`/editor/${patient_id}/${idx}`);
         } else {
@@ -191,7 +157,7 @@ export default props => {
     const handleClickSave= _=> {
         let res = dispatch(save());
 
-        
+        debugger;
         if(current_mesure_id >= patient.mesures.length ){
             setLocation(`/editor/${patient_id}/${current_mesure_id}`);
         }
