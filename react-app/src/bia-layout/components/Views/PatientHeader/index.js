@@ -26,7 +26,7 @@ const FieldSet = compose(
 const PatientHeader = props => {
     // console.log('patientHeader',props);
     const fields = {
-        'birthdate': { type: 'date', editable: true, label: 'Date de naissance' },
+        'birthdate': { type: 'date', editable: true, label: 'Date de naissance', className:'birthdate' },
         'age': { type: 'date', editable: false, label: 'Âge' },
         'gender': { type: 'select', editable: true, label: 'Sexe',options:['M','F'] },
         'usual_height': { type: 'text', editable: true, label: 'Taille' },
@@ -60,11 +60,11 @@ const PatientHeader = props => {
                         const label = t(item.label);
                         const editable = item.editable;
                         const type = item.type;
+                        const className = item.className || '';
                         const val = safe_path('',field,values);
                         const options = item.options;
                      //   console.log(label, editable, field, type, val)
                         let Component = _ => (val);
-
                         if (editable === true) {
                             switch (type) {
                                 case 'text':
@@ -73,11 +73,11 @@ const PatientHeader = props => {
                             }
                         }
                         return (
-                            <Field key={key(_item)} label={label}>
+                            <Field key={key(_item)} label={label} className={className}>
 
-                                {editable && type === "select" && <EditableSelect {...inputProps(field)} options={options}/>}
+                                {editable && type === "select" && <EditableSelect {...inputProps(field)}  options={options}/>}
                                 {editable && type === "text" && <EditableTextInput value={values[field]} name={field} onChange={handleChange} />}
-                                {editable && type === "date" && <SafeDatePicker
+                                {editable && type === "date" && <SafeDatePicker 
                                     selected={values.birthdate}
                                     handleChange={handleChangeValue('birthdate')}
                                 />}

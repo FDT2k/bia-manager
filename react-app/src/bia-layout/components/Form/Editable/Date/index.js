@@ -4,7 +4,7 @@ import DatePicker from 'react-datepicker';
 import { format } from 'date-fns'
 
 const CustomInput = forwardRef(({ value, onClick }, ref) => (
-    <div className="example-custom-input editable-field" onClick={onClick} ref={ref}>
+    <div className="editable-field" onClick={onClick} ref={ref}>
         {value}
     </div>
 ));

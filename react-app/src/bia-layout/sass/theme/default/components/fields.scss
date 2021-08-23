@@ -14,9 +14,9 @@
     &__field {
 
         width: 100%;
-
         & > * {
             width: 100%;
+            
             height: 32px;
             @extend %radius;
         }
@@ -27,11 +27,17 @@
         }
     }
 
+    
+    .editable-field {
+        min-height: 30px;
+        background-color: var(--tertiary);
+      }
 
     &--calculated {
 
     }
     &.date-examen,
+    &.birthdate,
     &.activite-physique,
     &.type-activite-physique,
     &.poids-actuel {
