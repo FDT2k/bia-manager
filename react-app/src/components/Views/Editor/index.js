@@ -22,9 +22,12 @@ export default props => {
 
 
 
+    const {patient_id,mesure_id} = props.params;
 
+    /*
     const [patient_id, setPatientId] = useState();
     const [mesure_id, setMesureId] = useState();
+*/
 
     const handlePrint = useReactToPrint({
         content: () => componentRef.current
@@ -33,8 +36,8 @@ export default props => {
     //   const [selectedMesureIdx, setSelectedMesureIdx] = useState(mesure_id);
 
 
-    const [match, params] = useRoute("/editor/:id");
-    const [matchWithMesure, paramsWithMesure] = useRoute("/editor/:id/:mesure_id");
+  //  const [match, params] = useRoute("/editor/:id");
+   // const [matchWithMesure, paramsWithMesure] = useRoute("/editor/:id/:mesure_id");
 
 
     const mass_chart = useSelector(select_mass_chart);
@@ -68,7 +71,7 @@ export default props => {
     //console.log('editor rendering')
 
     //if any of the url argument changes, update internal state
-    useEffect(() => {
+   /* useEffect(() => {
         debugger;
         //  console.log('url changed',params,paramsWithMesure);
         if (match) {
@@ -85,8 +88,8 @@ export default props => {
                 //    setSelectedMesureIdx(paramsWithMesure.mesure_id)
             }
         }
-    }, [params, paramsWithMesure]);
-
+    }, []);
+*/
 
     const patient = useSelector(select_edited_patient);
     const mesure = useSelector(select_edited_mesure);
@@ -157,7 +160,7 @@ export default props => {
     const handleClickSave= _=> {
         let res = dispatch(save());
 
-        debugger;
+   //     debugger;
         if(current_mesure_id >= patient.mesures.length ){
             setLocation(`/editor/${patient_id}/${current_mesure_id}`);
         }

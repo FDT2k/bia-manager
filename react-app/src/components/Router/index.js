@@ -41,7 +41,7 @@ export default props => {
                 <Route path="/import"><DatabaseImport /></Route>
                 <Route path="/search"><Search /></Route>
                 <Route path="/create_subject"><CreatePatient /></Route>
-                <Route path="/editor/:id"><Editor /></Route>
-                <Route path="/editor/:id/:mesure_id"><Editor /></Route>
+                <Route path="/editor/:patient_id" component={Editor}></Route>
+                <Route path="/editor/:patient_id/:mesure_id" component={Editor}></Route>
             </Fullscreen>);
 }
