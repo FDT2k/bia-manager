@@ -1,10 +1,10 @@
 import { bem, compose, withBaseClass } from '@karsegard/react-compose';
 import { Person } from 'bia-layout/components/Icons';
 import Navbar from 'bia-layout/components/Navbar';
-import Container from 'bia-layout/containers/Container';
-import { withGridArea } from 'bia-layout/hoc/grid/Area';
-import LayoutFlex from 'bia-layout/layouts/Flex';
-import Grid from 'bia-layout/layouts/Grid';
+
+
+
+import {Grid,LayoutFlex,Container,withGridArea} from '@karsegard/react-core-layout'
 import React from 'react';
 import { useLocation } from "wouter";
 import './main-view.scss';

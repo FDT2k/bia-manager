@@ -1,6 +1,7 @@
 import { identity } from '@karsegard/composite-js';
 import Button from 'bia-layout/components/Form/Button';
-import { LayoutFlexRow } from 'bia-layout/layouts/Flex';
+import {LayoutFlexRow} from '@karsegard/react-core-layout'
+
 import React from 'react';
 
 

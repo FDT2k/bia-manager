@@ -4,7 +4,8 @@ import Button from 'bia-layout/components/Form/Button';
 import Input from 'bia-layout/components/Form/Input';
 import InputGroup from 'bia-layout/components/Form/InputGroup';
 import Label from 'bia-layout/components/Form/Label';
-import LayoutFlex from 'bia-layout/layouts/Flex';
+import {LayoutFlex} from '@karsegard/react-core-layout'
+
 import React from 'react';
 import './style.scss';
 

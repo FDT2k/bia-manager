@@ -1,5 +1,5 @@
 import { bem, compose, withBaseClass } from '@karsegard/react-compose';
-import Grid from '../Grid';
+import {Grid} from '@karsegard/react-core-layout'
 import './mesure-editor-layout.scss';
 
 

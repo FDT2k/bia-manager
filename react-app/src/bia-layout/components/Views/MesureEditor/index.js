@@ -15,9 +15,9 @@ import ComparisonTable from 'bia-layout/components/Views/ComparisonTable';
 import ElectricalDataForm from 'bia-layout/components/Views/ElectricalDataForm';
 
 import RecapGrid from 'bia-layout/components/Views/RecapGrid';
-import Container from 'bia-layout/containers/Container';
-import { withGridArea } from 'bia-layout/hoc/grid/Area';
-import LayoutFlex, { LayoutFlexColumn } from 'bia-layout/layouts/Flex';
+
+import {Container,LayoutFlex,LayoutFlexColumn,withGridArea} from '@karsegard/react-core-layout'
+
 import MesureEditorLayout from 'bia-layout/layouts/MesureEditor';
 import React, { useEffect, useMemo, useRef, useState } from 'react';
 import "react-datepicker/dist/react-datepicker.css";
@@ -25,6 +25,8 @@ import { useSelector } from 'react-redux';
 import { useReactToPrint } from 'react-to-print';
 import { select_current_bia_values, select_machines, select_sporttypes, select_sportrates, select_mass_chart, select_normes_chart, select_recap_headers, select_recap_list } from 'Store';
 import './mesure-editor.scss';
+
+
 
 
 

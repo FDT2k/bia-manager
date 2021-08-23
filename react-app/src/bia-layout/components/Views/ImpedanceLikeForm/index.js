@@ -2,7 +2,7 @@ import { cEx, compose, divElement, makeBEM, withBaseClass, withBEM } from '@kars
 import Input from 'bia-layout/components/Form/Input';
 import { withGridArea } from 'bia-layout/hoc/grid/Area';
 import ToggleEditField from 'bia-layout/hoc/ToggleEdit';
-import Grid from 'bia-layout/layouts/Grid';
+import {Grid} from '@karsegard/react-core-layout'
 import React, { useMemo, useState } from 'react';
 import './style.scss';
 

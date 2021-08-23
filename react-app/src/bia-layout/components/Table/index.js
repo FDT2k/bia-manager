@@ -1,6 +1,7 @@
 import { bem, cEx } from '@karsegard/react-compose';
 import Pagination from 'bia-layout/components/Table/Pagination';
-import { LayoutFlexColumn } from 'bia-layout/layouts/Flex';
+
+import {LayoutFlexColumn} from '@karsegard/react-core-layout'
 import { matchSorter } from 'match-sorter';
 import React from 'react';
 import { useFilters, useGlobalFilter, usePagination, useSortBy, useTable } from 'react-table';

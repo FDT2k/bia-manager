@@ -1,4 +1,4 @@
-import Grid from 'bia-layout/layouts/Grid';
+import {Grid} from '@karsegard/react-core-layout'
 import './recap-grid.scss';
 export const Component = props => {
     const {t,data,headers} = props;

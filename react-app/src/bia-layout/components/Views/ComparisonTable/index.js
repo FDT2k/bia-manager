@@ -1,6 +1,6 @@
 import { bem, cEx, getClasseNames } from '@karsegard/react-compose';
 import Tooltip from 'bia-layout/hoc/Tooltip';
-import Grid from 'bia-layout/layouts/Grid';
+import {Grid} from '@karsegard/react-core-layout'
 import React, { useEffect, useState } from 'react';
 import './comparison-table.scss';
 

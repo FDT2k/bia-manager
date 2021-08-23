@@ -7,7 +7,8 @@ import EditableSelect from 'bia-layout/components/Form/Editable/Select';
 import EditableTextInput from 'bia-layout/components/Form/Editable/TextInput';
 import Field from 'bia-layout/components/Form/Fields';
 import PageHeader from 'bia-layout/components/PageHeader';
-import LayoutFlex from 'bia-layout/layouts/Flex';
+import {LayoutFlex} from '@karsegard/react-core-layout'
+
 import React, { useEffect } from 'react';
 import './style.scss';
 

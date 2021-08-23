@@ -1,5 +1,6 @@
 import Button from 'bia-layout/components/Form/Button';
-import LayoutFlex from 'bia-layout/layouts/Flex';
+import {LayoutFlex} from '@karsegard/react-core-layout'
+
 import useDatabaseFromContext from 'hooks/useBIAManager';
 import React, { useState } from 'react';
 import 'react-circular-progressbar/dist/styles.css';

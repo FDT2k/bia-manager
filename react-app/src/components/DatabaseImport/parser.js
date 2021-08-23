@@ -1,6 +1,6 @@
 import { enlist, is_type_string, is_type_object, is_type_function } from '@karsegard/composite-js';
 import { key, value } from '@karsegard/composite-js/ObjectUtils';
-import { filterPropPresentIn } from 'bia-layout/utils'
+import { filterPropPresentIn } from '@karsegard/react-core-layout'
 
 export const remap = (obj, mapping, ref = {}) => (carry, item) => {
     let _key = key(item);

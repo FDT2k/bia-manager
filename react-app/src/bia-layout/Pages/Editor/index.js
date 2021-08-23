@@ -7,10 +7,10 @@ import ListMesure from 'bia-layout/components/ListMesure';
 import MainView from 'bia-layout/components/Views/MainView';
 import MesureEditor from 'bia-layout/components/Views/MesureEditor';
 import PatientHeader from 'bia-layout/components/Views/PatientHeader';
-import Container from 'bia-layout/containers/Container';
+
 import { ComponentWithArea as Area, withGridArea } from 'bia-layout/hoc/grid/Area';
 import EditorLayout from 'bia-layout/layouts/Editor';
-import LayoutFlex from 'bia-layout/layouts/Flex';
+
 import ReactLoading from 'react-loading'
 import React, { forwardRef, useState } from 'react';
 
@@ -18,6 +18,7 @@ import "react-datepicker/dist/react-datepicker.css";
 //styles
 import './page-editor.scss';
 
+import {Container,LayoutFlex} from '@karsegard/react-core-layout'
 
 
 

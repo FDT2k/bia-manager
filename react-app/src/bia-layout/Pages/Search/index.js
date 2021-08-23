@@ -6,7 +6,8 @@ import { ArrowDown, ArrowUp } from 'bia-layout/components/Icons';
 import List from 'bia-layout/components/Table';
 import MainView from 'bia-layout/components/Views/MainView';
 import { withGridArea } from 'bia-layout/hoc/grid/Area';
-import LayoutFlex from 'bia-layout/layouts/Flex';
+import {LayoutFlex} from '@karsegard/react-core-layout'
+
 import SearchLayout from 'bia-layout/layouts/Search';
 import React, { useEffect, useMemo, useState } from 'react';
 import './page-search.scss';

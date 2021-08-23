@@ -3,8 +3,9 @@ import FFMIChart from 'bia-layout/components/Charts/FFMI';
 import MassChart from 'bia-layout/components/Charts/Mass';
 import RecapGrid from 'bia-layout/components/Views/RecapGrid';
 import { ComponentWithArea } from 'bia-layout/hoc/grid/Area';
-import LayoutFlex, { LayoutFlexColumn } from 'bia-layout/layouts/Flex';
-import Grid from 'bia-layout/layouts/Grid';
+import {LayoutFlex,LayoutFlexColumn} from '@karsegard/react-core-layout'
+
+import {Grid} from '@karsegard/react-core-layout'
 import React from 'react';
 import { useSelector } from 'react-redux';
 import { select_current_bia_values, select_edited_mesure, select_edited_patient, select_mass_chart, select_normes_chart, select_recap_headers, select_recap_list } from 'Store';

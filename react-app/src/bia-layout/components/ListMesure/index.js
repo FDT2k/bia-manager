@@ -1,5 +1,7 @@
 import { applyModifiers, compose, makeBEM, withBEM, withBEMElement, withBEMModifiers, withRemovedProps } from '@karsegard/react-compose';
-import LayoutFlex, { LayoutFlexColumn } from 'bia-layout/layouts/Flex';
+
+import {LayoutFlex,LayoutFlexColumn} from '@karsegard/react-core-layout'
+
 import React from 'react';
 import { Components } from 'stories/storybook-utils';
 

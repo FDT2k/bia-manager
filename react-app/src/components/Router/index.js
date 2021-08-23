@@ -1,5 +1,6 @@
 
-import Fullscreen from 'bia-layout/containers/Fullscreen';
+import {Fullscreen} from '@karsegard/react-core-layout'
+
 import DatabaseImport from 'components/DatabaseImport';
 import Database from 'components/Views/Database';
 import Editor from 'components/Views/Editor';

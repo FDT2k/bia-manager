@@ -1,9 +1,10 @@
-import React from 'react';
+import { applyModifiers, compose, withBaseClass } from '@karsegard/react-compose';
+
+import {LayoutFlex} from '@karsegard/react-core-layout'
 
 import './style.scss';
-import { bem, compose, kebabize,filterPropPresentIn, baseElement, applyModifiers, withVariables, withModifiers, wrapComponent, asideElement, divElement, withBaseClass, cEx } from '@karsegard/react-compose'
 
-import LayoutFlex from 'bia-layout/layouts/Flex';
+
 
 
 const InputGroup = compose (

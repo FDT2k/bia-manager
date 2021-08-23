@@ -1,6 +1,6 @@
 import MainView from 'bia-layout/components/Views/MainView';
-import Container from 'bia-layout/containers/Container';
-import LayoutFlex from 'bia-layout/layouts/Flex';
+import {Container,LayoutFlex} from '@karsegard/react-core-layout'
+
 import React from 'react';
 import './page-setup.scss';
 

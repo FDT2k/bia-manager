@@ -1,6 +1,7 @@
 import { applyModifiers, bem, cEx, compose, divElement, withBaseClass } from '@karsegard/react-compose';
 import { useFocus } from '@karsegard/react-hooks';
-import LayoutFlex from 'bia-layout/layouts/Flex';
+import {LayoutFlex} from '@karsegard/react-core-layout'
+
 import React, { Children, cloneElement, useRef, useState } from 'react';
 import './tabs.scss';
 

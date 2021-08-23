@@ -2,7 +2,8 @@ import { identity } from '@karsegard/composite-js';
 import { useFieldValues } from '@karsegard/react-hooks';
 import Button from 'bia-layout/components/Form/Button';
 import InputGroup from 'bia-layout/components/Form/InputGroup';
-import LayoutFlex from 'bia-layout/layouts/Flex';
+import {LayoutFlex} from '@karsegard/react-core-layout'
+
 import useDatabaseFromContext from 'hooks/useBIAManager';
 import React, { useEffect, useRef, useState } from 'react';
 import 'react-circular-progressbar/dist/styles.css';
