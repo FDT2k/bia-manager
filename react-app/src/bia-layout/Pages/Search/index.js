@@ -101,9 +101,8 @@ export const Component = props=> {
         'prenom'
     ]
 
-    const handleSelectRow = index=>{
-
-        _handleSelectRow && _handleSelectRow(index)
+    const handleSelectRow = (index,row)=>{
+        _handleSelectRow && _handleSelectRow(index,row.original)
     }
 
 

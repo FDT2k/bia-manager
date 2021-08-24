@@ -40,13 +40,12 @@ export default props => {
 
     const tags = useSelector(select_tags)
     console.log(tags);
-    const handleSelectRow = index => {
-        console.log(index, patients[index]);
-        setLocation("/editor/" + patients[index].id);
+    const handleSelectRow = (index,patient) => {
+        setLocation("/editor/" + patient.id);
     }
 
     const handleCreate = _ => {
-        alert('tbd');
+        setLocation("/create_subject");
     }
     return (
         <>

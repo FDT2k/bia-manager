@@ -1,7 +1,7 @@
 import { bem, cEx } from '@karsegard/react-compose';
 import Pagination from 'bia-layout/components/Table/Pagination';
 
-import {LayoutFlexColumn} from '@karsegard/react-core-layout'
+import { LayoutFlexColumn } from '@karsegard/react-core-layout'
 import { matchSorter } from 'match-sorter';
 import React from 'react';
 import { useFilters, useGlobalFilter, usePagination, useSortBy, useTable } from 'react-table';
@@ -14,7 +14,7 @@ const [__base_class, element, modifier] = bem('listing')
 export default props => {
 
 
-    const { data, columns,selectedIndex, handleSelect, Tools, SortUp, SortDown, ...rest } = props;
+    const { data, columns, selectedIndex, handleSelect, Tools, SortUp, SortDown, ...rest } = props;
 
     function fuzzyTextFilterFn(rows, id, filterValue) {
         console.log(rows, id, filterValue)
@@ -66,7 +66,6 @@ export default props => {
         preGlobalFilteredRows,
         setGlobalFilter,
     } = tableInstance
-
     const pageProps = {};
 
     ({
@@ -83,50 +82,56 @@ export default props => {
 
     } = tableInstance);
     return (<LayoutFlexColumn justBetween cover>
-            <table className={cEx([__base_class])} {...getTableProps()} {...rest}>
-                <thead  >
-                    {headerGroups.map((headerGroup,idx) => (
-                       
-                            <tr key={idx} {...headerGroup.getHeaderGroupProps()}>
-                                {headerGroup.headers.map((column,idx) => (
-                                    <th
-                                        key={idx}
+        <table className={cEx([__base_class])} {...getTableProps()} {...rest}>
+            <thead  >
+                {headerGroups.map((headerGroup, idx) => (
+
+                    <tr key={idx} {...headerGroup.getHeaderGroupProps()}>
+                        {headerGroup.headers.map((column, idx) => (
+                            <th
+                                key={idx}
+                            >
+                                <div  {...column.getHeaderProps(column.getSortByToggleProps())}>
+                                    {column.render('Header')} <span>
+                                        {column.isSorted ? (column.isSortedDesc ? (SortUp ? <SortUp /> : ' 🔽') : (SortDown ? <SortDown /> : ' 🔼')) : ''}
+                                    </span></div>
+
+                            </th>
+                        ))}
+                    </tr>
+
+
+                ))}
+            </thead>
+            <tbody {...getTableBodyProps()}>
+                {page.length == 0 && <td colspan={visibleColumns.length} align="center">Aucun résultat</td>}
+                {page.map((row, idx) => {
+                    prepareRow(row)
+                    return (
+                        <tr
+                            key={idx}
+                            {...row.getRowProps()}
+                            className={cEx([
+                                { 'selected': _ => selectedIndex == idx }
+                            ])}
+                            onClick={_ => handleSelect(idx,row)}
+                        >
+                            {row.cells.map(cell => {
+                                return (
+                                    <td
+                                        {...cell.getCellProps()}
                                     >
-                                        <div  {...column.getHeaderProps(column.getSortByToggleProps())}>
-                                            {column.render('Header')} <span>
-                                                {column.isSorted ? (column.isSortedDesc ? (SortUp? <SortUp/>: ' 🔽') : (SortDown? <SortDown/>:' 🔼')) : ''}
-                                            </span></div>
+                                        {cell.render('Cell')}
+                                    </td>
+                                )
+                            })}
+                        </tr>
+                    )
+                })}
+            </tbody>
 
-                                    </th>
-                                ))}
-                            </tr>
-
-                       
-                    ))}
-                </thead>
-                <tbody {...getTableBodyProps()}>
-                    {page.map((row,idx) => {
-                        prepareRow(row)
-                        return (
-                            <tr key={idx} {...row.getRowProps()} className={cEx([
-                                    {'selected': _=>selectedIndex ==idx}
-                                ])} onClick={_=>handleSelect(idx)}>
-                                {row.cells.map(cell => {
-                                    return (
-                                        <td
-                                            {...cell.getCellProps()}
-                                        >
-                                            {cell.render('Cell')}
-                                        </td>
-                                    )
-                                })}
-                            </tr>
-                        )
-                    })}
-                </tbody>
-                
-            </table>
-             <Pagination {...pageProps}/>
+        </table>
+        <Pagination {...pageProps} />
     </LayoutFlexColumn>
     )
 }

@@ -1,45 +1,12 @@
 import { is_nil } from '@karsegard/composite-js';
 import React, { forwardRef } from 'react';
-import DatePicker from 'react-datepicker';
-import { format } from 'date-fns'
-import EditableTextInput  from '../TextInput';
 
-const CustomInput = forwardRef(({ value, onClick }, ref) => (
-    <div className="editable-field" onClick={onClick} ref={ref}>
-        {value}
-    </div>
-));
+import SafeDatePicker from 'bia-layout/components/Form/DatePicker';
 
-const SafeDatePicker = ({ selected, handleChange }) => {
+import EditableTextInput  from 'bia-layout/components/Form/Editable/TextInput'; 
 
-
-    const _handleChange = date=>{
-
-        handleChange(format(date,'yyyy-MM-dd'))
-
-    };
-    let val = selected;
-
-    if (is_nil(selected)) {
-
-        val = new Date();
-
-    }
-
-    if (!(val instanceof Date)) {
-        val = new Date(val);
-
-    }
-
-
-    return (
-        <DatePicker
-            selected={val}
-            onChange={_handleChange}
-            dateFormat="dd/MM/yyyy"
-            customInput={<EditableTextInput tabIndex="-1" />}
-        />
-    )
+SafeDatePicker.defaultProps={
+    CustomInput: EditableTextInput
 }
 
 export default SafeDatePicker;
