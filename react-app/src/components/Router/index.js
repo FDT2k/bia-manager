@@ -4,7 +4,7 @@ import {Fullscreen} from '@karsegard/react-core-layout'
 import DatabaseImport from 'components/DatabaseImport';
 import Database from 'components/Views/Database';
 import Editor from 'components/Views/Editor';
-import CreatePatient from 'bia-layout/Pages/CreatePatient';
+import CreatePatient from 'components/Views/CreatePatient';
 import Login from 'components/Views/Login';
 import Search from 'components/Views/Search';
 import Setup from 'components/Views/Setup';

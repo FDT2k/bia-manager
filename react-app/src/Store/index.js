@@ -6,6 +6,7 @@ import { createSelector } from 'reselect';
 
 
 import EditorModule from 'Redux/Editor';
+import PatientModule from 'Redux/Patient';
 
 
 
@@ -82,13 +83,21 @@ export const { select_list: select_sportrates } = BIAEditorModule.submodules.spo
 export const { select_list: select_sporttypes } = BIAEditorModule.submodules.sportType.selectors;
 
 
+export const BIAPatientEditor = PatientModule(state => state.patient, '');
+
+export const { fetch: populate_genders } = BIAPatientEditor.submodules.genders.actions;
+export const { fetch: populate_ethno_groups } = BIAPatientEditor.submodules.ethno_groups.actions;
+
+export const { select_list: select_ethno_group } = BIAPatientEditor.submodules.ethno_groups.selectors;
+export const { select_list: select_genders } = BIAPatientEditor.submodules.genders.selectors;
 
 
 
 const reducer = combineReducers({
   database: BIASearch,
   //editor:EditorReducer,
-  editor: BIAEditorModule.reducer
+  editor: BIAEditorModule.reducer,
+  patient:BIAPatientEditor.reducer
 })
 
 const migrations = {

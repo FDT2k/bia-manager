@@ -6,6 +6,7 @@ import { is_type_object } from '@karsegard/composite-js';
 export default props => {
     const { children, options, ...rest } = props
     const renderChildren = is_nil(options);
+
     return (<select {...rest} >
         {renderChildren && children}
         {!renderChildren && options.map((option, idx) => {

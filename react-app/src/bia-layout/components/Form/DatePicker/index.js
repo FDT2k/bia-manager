@@ -9,7 +9,7 @@ const CustomInput = forwardRef(({ value, onClick }, ref) => (
     </div>
 ));
 
-const SafeDatePicker = ({ selected, handleChange,CustomInputComponent }) => {
+const SafeDatePicker = ({ selected, handleChange,tabIndex,CustomInputComponent }) => {
 
 
     const _handleChange = date=>{
@@ -36,6 +36,7 @@ const SafeDatePicker = ({ selected, handleChange,CustomInputComponent }) => {
     return (
         <DatePicker
             selected={val}
+            tabIndex={tabIndex}
             onChange={_handleChange}
             dateFormat="dd/MM/yyyy"
             {...attrs}
