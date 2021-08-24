@@ -114,8 +114,7 @@ export default props => {
     useEffect(() => {
         //  console.log('ba', mesure_id,patient)
         if (!is_nil(patient)) {
-
-            if (!is_nil(mesure_id)) {
+            if (!is_nil(mesure_id) && mesure_id< patient.mesures.length) {
                 dispatch(edit_mesure(patient_id, mesure_id));
             } else {
                 new_mesure(patient.id).then(res => {

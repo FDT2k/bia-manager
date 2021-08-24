@@ -1741,7 +1741,7 @@
   resolved "https://registry.yarnpkg.com/@karsegard/composite-js/-/composite-js-2.7.0.tgz#88b95e7694cc80d897af71017c13bfb7e74bbaad"
   integrity sha512-8ioO4yK8ozBf0P6AOgFik5/rSK6k6h/iogfYrvcm8///bBqH2xP2cxzLdrKZovm0Mm0dfMQ02z5e8xfdxwz6EQ==
 
-"@karsegard/react-compose@^1.0.4", "@karsegard/react-compose@^1.1.0":
+"@karsegard/react-compose@^1.0.4":
   version "1.1.0"
   resolved "https://registry.yarnpkg.com/@karsegard/react-compose/-/react-compose-1.1.0.tgz#9699d52c67e5c75ef621dcc0b06973effdc579d0"
   integrity sha512-fwAjZEvcnhrzWKuNsdWDnhT5HjchsyoRyGZDXkB78MdIIOWYEMFD29CsbjGCTwCog7h0s15Uty1j+cvonZ4xpQ==
@@ -1749,13 +1749,21 @@
     "@karsegard/cex" "^1.4.4"
     react "^17.0.2"
 
-"@karsegard/react-core-layout@^1.1.1":
-  version "1.1.1"
-  resolved "https://registry.yarnpkg.com/@karsegard/react-core-layout/-/react-core-layout-1.1.1.tgz#d1c8146b881b0779c96caa356837a20bd1a593f7"
-  integrity sha512-i2wpm4letJnmkUh3kEVudFwnXJuYocfCNIP4SHcL244FxmiExSj4UH4UYtSOjnMcyUCV6Nwah/TgCiMQeec2Fw==
+"@karsegard/react-compose@^1.2.0":
+  version "1.2.0"
+  resolved "https://registry.yarnpkg.com/@karsegard/react-compose/-/react-compose-1.2.0.tgz#2cddcb9e23bf1c1eaf52af9bbe883cc960b208cb"
+  integrity sha512-2WnXDL5SxEilDrPSzLvRV9pf7XtQuF69G4Gllnb/nXhHByCleAh9TJcBtA62BXyZoqdASg/pY98FkVdMh3Sa1w==
+  dependencies:
+    "@karsegard/cex" "^1.4.4"
+    react "^17.0.2"
+
+"@karsegard/react-core-layout@^1.3.0":
+  version "1.3.0"
+  resolved "https://registry.yarnpkg.com/@karsegard/react-core-layout/-/react-core-layout-1.3.0.tgz#2f6129ad96edbdc4b6b349ca928cf9626d63fc63"
+  integrity sha512-r/tfiz4a9V57gNSYbLziMaNQnOfLxW5xJaipOFkMT8g3pfV5kxtJQXUIgJ5xnaxhcU7oVqnG21robdZPxVLKbg==
   dependencies:
     "@karsegard/composite-js" "^2.4.0"
-    "@karsegard/react-compose" "^1.1.0"
+    "@karsegard/react-compose" "^1.2.0"
     rollup-plugin-terser "^7.0.2"
 
 "@karsegard/react-hooks@^2.1.0":

@@ -48,11 +48,7 @@
   @extend %printable_fonts;
   .recharts-text,
   .recharts-label {
-     @extend %base_font;
+    @extend %printable_fonts;
   }
 
-  .recap-grid{
-
-    font-size:11px;
-  }
 }

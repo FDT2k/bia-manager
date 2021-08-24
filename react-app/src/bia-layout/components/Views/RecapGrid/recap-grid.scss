@@ -4,11 +4,11 @@
     &>div {
         border-top: 1px solid #dfdfdf;
         border-left: 1px solid #dfdfdf;
-        &:nth-child(-n+2) {
+     /*   &:nth-child(-n+2) {
           border-top: none;
         }
         &:nth-child(odd) {
           border-left: none;
-        }
+        }*/
       }
 }

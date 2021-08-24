@@ -23,6 +23,7 @@ export default props => {
        const {id,mesure_id} = paramsWithMesure;
        if(curr_patient_id == -1){
        api.get_patient(id).then(res => {
+            dispatch(fetch_normes())
             dispatch(edit_patient(res));
             dispatch(edit_mesure(id, mesure_id));        
             dispatch(recompute_current_mesure());        

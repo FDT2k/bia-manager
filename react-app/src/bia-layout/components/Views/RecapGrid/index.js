@@ -1,9 +1,11 @@
-import {Grid} from '@karsegard/react-core-layout'
+import { Grid } from '@karsegard/react-core-layout'
+
+import { dateSysToHuman, oneDecimal } from 'references/format';
 import './recap-grid.scss';
 export const Component = props => {
-    const {t,data,headers} = props;
+    const { t, data, headers } = props;
 
-    return ( <Grid
+    return (<Grid
         className="recap-grid"
         templateColumns="2fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr"
         autoRows="20px"
@@ -13,7 +15,10 @@ export const Component = props => {
         <div>Dates</div>
         <div>Norme</div>
         {
-            headers && headers.map(item => (<div>{item}</div>))
+            headers && headers.map((item, idx) => {
+                return <div>{item.trim()!='' ? dateSysToHuman(new Date(item)) : item}</div>
+            }
+            )
         }
 
 
@@ -23,7 +28,7 @@ export const Component = props => {
                 <div>{line.values['norme']}</div>
                 {headers && headers.map(key => {
                     let val = line.values[key];
-                    val = (new Number(val)).toFixed(1);
+                    val = oneDecimal(val);
                     return (<div>{!isNaN(val) ? val : ''}</div>)
                 })}
 
@@ -38,7 +43,7 @@ export const Component = props => {
 
 
 Component.defaultProps = {
-    t: x=>x
+    t: x => x
 }
 
 export default Component

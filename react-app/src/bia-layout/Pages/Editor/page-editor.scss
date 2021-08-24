@@ -70,3 +70,9 @@
 .editor-grid{
     grid-gap: 10px;
 }
+
+
+
+.recap-grid{
+    @extend %small-body ;
+  }

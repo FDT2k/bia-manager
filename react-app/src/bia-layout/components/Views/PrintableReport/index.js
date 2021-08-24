@@ -25,7 +25,7 @@ export default props => {
     const safe_string = safe_path('');
     return (
         <Grid
-            contained
+            contained   
             templateRows="fit-content(10px) fit-content(10px) fit-content(10px) fit-content(10px)  fit-content(10px)  fit-content(10px) 20px"
             templateColumns="auto auto"
             style={{minHeight:'100%'}}
