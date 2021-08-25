@@ -39,9 +39,6 @@ import {oneDecimal,oneDecimalPct} from 'references/format'
 
 
 
-
-
-
 const LayoutFlexColumnWithArea = withGridArea(LayoutFlexColumn);
 const TabsWithArea = withGridArea(Tabs);
 

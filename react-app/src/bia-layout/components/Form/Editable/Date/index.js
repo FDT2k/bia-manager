@@ -5,8 +5,8 @@ import SafeDatePicker from 'bia-layout/components/Form/DatePicker';
 
 import EditableTextInput  from 'bia-layout/components/Form/Editable/TextInput'; 
 
-SafeDatePicker.defaultProps={
-    CustomInput: EditableTextInput
+const Picker = props => {
+    return <SafeDatePicker CustomInputComponent={<EditableTextInput/>} {...props}/>
 }
 
-export default SafeDatePicker;
+export default Picker;

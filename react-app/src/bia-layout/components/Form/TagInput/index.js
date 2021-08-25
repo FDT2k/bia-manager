@@ -77,7 +77,7 @@ AutoComplete.defaultProps = {
 }
 
 const TagInput = (props) => {
-    const { handleChange, handleAddTag, handleRemoveTag, handleFocus: handleFocusChange, tags: initialTags, fields, ...rest } = props;
+    const { handleChange, handleAddTag, tabIndex, handleRemoveTag, handleFocus: handleFocusChange, tags: initialTags, fields, ...rest } = props;
 
     const backspacePressed = useKeypress("Backspace");
     const enterPressed = useKeypress("Enter");
@@ -165,7 +165,7 @@ const TagInput = (props) => {
                 ))}
                 <input
                     ref={ref}
-
+                    tabIndex={tabIndex}
                     type="text"
                     value={typedTag}
                     onChange={(e) => setTypedTag(e.target.value)}

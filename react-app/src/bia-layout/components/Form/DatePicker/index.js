@@ -28,10 +28,10 @@ const SafeDatePicker = ({ selected, handleChange,tabIndex,CustomInputComponent }
 
     const attrs = {}
 
-
     if (!is_nil(CustomInputComponent)){
         attrs.customInput = CustomInputComponent;
     }
+
 
     return (
         <DatePicker
@@ -44,9 +44,5 @@ const SafeDatePicker = ({ selected, handleChange,tabIndex,CustomInputComponent }
     )
 }
 
-
-SafeDatePicker.defaultProps={
-    CustomInputComponent: CustomInput
-}
 
 export default SafeDatePicker;

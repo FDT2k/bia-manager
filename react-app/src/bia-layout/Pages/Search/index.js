@@ -6,47 +6,76 @@ import { ArrowDown, ArrowUp } from 'bia-layout/components/Icons';
 import List from 'bia-layout/components/Table';
 import MainView from 'bia-layout/components/Views/MainView';
 import { withGridArea } from 'bia-layout/hoc/grid/Area';
-import {LayoutFlex} from '@karsegard/react-core-layout'
+import { LayoutFlex } from '@karsegard/react-core-layout'
 
 import SearchLayout from 'bia-layout/layouts/Search';
-import React, { useEffect, useMemo, useState } from 'react';
+import React, { useEffect, useMemo, useState, useRef } from 'react';
 import './page-search.scss';
 
 
 
-export const SearchArea =  compose(
-                                withGridArea,
-                                withBaseClass('search')
-                            )
-                            (LayoutFlex)
-export const ListWithArea = withGridArea(List)
+const withForwardRef = Component =>(props,ref)=> {
+   
+    return <Component {...props} forwardedRef={ref}/>
+}
+
+
+
+const traceProps = Component => (props,ref) => {
+
+    console.log(props,ref);
+    return <Component {...props} ref={ref}/>;
+}
+
+export const SearchArea = compose(
+    withGridArea,
+    withBaseClass('search')
+)
+    (LayoutFlex)
+
+    /*
+export const ListWithArea = React.forwardRef((props,ref)=> {
+    const Component = compose(withGridArea)(List);
+    return <Component {...props} forwardedRef={ref}/>
+})*/
+
+export const ListWithArea =compose(withForwardRef,withGridArea)(List);
+export const ListWithAreaWithRef = React.forwardRef(ListWithArea);
 export const AdvancedSearch = compose(
-                                withGridArea,
-                                withBaseClass('advanced-filters'),
-                                applyModifiers({alignCenter:true}),
+    withGridArea,
+    withBaseClass('advanced-filters'),
+    applyModifiers({ alignCenter: true }),
 
-                            )(LayoutFlex)
+)(LayoutFlex)
 
 
-export const Component = props=> {
+export const Component = props => {
 
     const arrowDownPressed = useKeypress('ArrowDown');
     const arrowUpPressed = useKeypress('ArrowUp');
+    const enterPressed = useKeypress('Enter');
 
-    const [selectedIndex, setSelectedIndex]=  useState(-1);
+    const [selectedIndex, setSelectedIndex] = useState(-1);
     const [searchBarFocused, setSearchBarFocused] = useState(false);
 
-    const {results,handleSearch,handleCreate,tags, t, renderFooter,handleSelectRow:_handleSelectRow } = props;
-    useEffect(()=>{
-        if(!searchBarFocused){
-        if(arrowDownPressed){
-            setSelectedIndex(idx => (idx == results.length-1 ? 0: idx+1));
+
+
+
+    const { results, handleSearch, handleCreate, tags, t, renderFooter, handleSelectRow: _handleSelectRow } = props;
+    useEffect(() => {
+        if (!searchBarFocused) {
+            if (arrowDownPressed) {
+                setSelectedIndex(idx => (idx == results.length - 1 ? 0 : idx + 1));
+            }
+            if (arrowUpPressed) {
+                setSelectedIndex(idx => idx > 0 ? idx - 1 : results.length - 1);
+            }
+            if(enterPressed && selectedIndex >=0){
+                _handleSelectRow(selectedIndex, data[selectedIndex])
+            }
+
         }
-        if(arrowUpPressed){
-            setSelectedIndex(idx => idx >0 ? idx-1: results.length-1);
-        }
-        }
-    },[arrowDownPressed,arrowUpPressed,searchBarFocused]);
+    }, [arrowDownPressed, arrowUpPressed, searchBarFocused,enterPressed]);
 
 
 
@@ -67,12 +96,12 @@ export const Component = props=> {
             {
                 Header: 'Nom',
                 accessor: 'lastname',
-                filter:'text'
+                filter: 'text'
             },
             {
                 Header: 'Prenom',
                 accessor: 'firstname',
-                filter:'fuzzyText'
+                filter: 'fuzzyText'
             },
             {
                 Header: 'Date de naissance',
@@ -90,7 +119,7 @@ export const Component = props=> {
             },
             {
                 Header: 'Mesures',
-                accessor: v=> v.mesures.length,
+                accessor: v => v.mesures.length,
             },
         ],
         []
@@ -101,21 +130,22 @@ export const Component = props=> {
         'prenom'
     ]
 
-    const handleSelectRow = (index,row)=>{
-        _handleSelectRow && _handleSelectRow(index,row.original)
+    const handleSelectRow = (index, row) => {
+        _handleSelectRow && _handleSelectRow(index, row.original)
     }
 
 
-
     return (
-       <MainView renderFooter={renderFooter}>
+        <MainView renderFooter={renderFooter}>
             <SearchLayout cover contained className="page-search">
                 <SearchArea area="search">
-                    <TagInput placeholder={t(`Recherche`)} tags={tags}  handleFocus={v=>setSearchBarFocused(v)} handleChange={_handleSearch} fields={searchableFields}/>
-                    <Button className="button--big" onClick={handleCreate}>Créer un nouveau Patient</Button>
+                    <TagInput tabIndex={1} placeholder={t(`Recherche`)} tags={tags} handleFocus={v => setSearchBarFocused(v)} handleChange={_handleSearch} fields={searchableFields} />
+                    <Button tabIndex={5} className="button--big" onClick={handleCreate}>Créer un nouveau Patient</Button>
                 </SearchArea>
-                <AdvancedSearch area="filter">recherche avancée <ArrowDown/></AdvancedSearch>
-                <ListWithArea
+                <AdvancedSearch area="filter">recherche avancée <ArrowDown /></AdvancedSearch>
+                <ListWithAreaWithRef
+                  
+                    tabIndex={2}
                     SortUp={ArrowUp}
                     SortDown={ArrowDown}
                     handleSelect={handleSelectRow}
@@ -130,13 +160,13 @@ export const Component = props=> {
 
 }
 
-Component.defaultProps= {
-    results:[],
-    handleSearch:_=>console.warn('search handler not implemented'),
-    handleCreate:_=>console.warn('create handler not implemented'),
+Component.defaultProps = {
+    results: [],
+    handleSearch: _ => console.warn('search handler not implemented'),
+    handleCreate: _ => console.warn('create handler not implemented'),
 }
 Component.defaultProps = {
-  t: x=>x
+    t: x => x
 }
 
 export default Component;
