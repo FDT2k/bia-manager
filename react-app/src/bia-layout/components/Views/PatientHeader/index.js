@@ -82,7 +82,7 @@ const PatientHeader = props => {
                                     selected={values.birthdate}
                                     handleChange={handleChangeValue('birthdate')}
                                 />}
-                                {!editable && val}
+                                {!editable && <div>{val}</div>}
                             </Field>
                         )
                     })

@@ -3,7 +3,7 @@ import { createMigrate } from 'redux-persist'
 import { makeStore } from 'store-dev';
 import { createSelector } from 'reselect';
 
-import { suffix_key,exportModule } from 'Redux/utils/module';
+import { suffix_key, exportModule } from 'Redux/utils/module';
 
 import EditorModule from 'Redux/Editor';
 import PatientModule from 'Redux/Patient';
@@ -11,23 +11,9 @@ import PatientModule from 'Redux/Patient';
 
 /* Search Module */
 
-import SearchModule from 'Redux/BIASearch';/*
-import makePatientSelectors from 'Redux/BIASearch/selectors';
-import { update_search_tags, makeSearch } from 'Redux/BIASearch/actions';
+import SearchModule from 'Redux/BIASearch';
 
-
-
-
-
-export const baseSelector = state => state.database;
-export const { select_patients_list, select_patients_list_filtered, select_count_results, select_tags, select_patient } = makePatientSelectors(baseSelector);
-export const search = makeSearch(baseSelector);
-export { update_search_tags };
-
-*/
-
-
-export const BIASearchModule = SearchModule(state=> state.search,'');
+export const BIASearchModule = SearchModule(state => state.search, '');
 
 export const {
   search
@@ -35,15 +21,15 @@ export const {
 
 
 export const {
-   select_patients_list, 
-   select_patients_list_filtered, 
-   select_count_results, 
-   select_tags, 
-   select_patient 
-  } = BIASearchModule.selectors
+  select_patients_list,
+  select_patients_list_filtered,
+  select_count_results,
+  select_tags,
+  select_patient
+} = BIASearchModule.selectors
 
 /**
- * Create the editor Store
+ * Create the editor Module
  */
 export const BIAEditorModule = EditorModule(state => state.editor, '');
 
@@ -59,10 +45,10 @@ export const {
   select_normes_sampling,
   select_normes_bygender,
   select_current_bia_values,
-  select_normes_sampling:select_normes_chart,
+  select_normes_sampling: select_normes_chart,
   select_empty_mesure,
   select_mesures_dates,
-has_error,error_message } = BIAEditorModule.selectors;
+  has_error, error_message } = BIAEditorModule.selectors;
 
 
 export const {
@@ -92,8 +78,8 @@ export const { select_list: select_sporttypes } = BIAEditorModule.submodules.spo
 
 export const BIAPatientEditor = PatientModule(state => state.patient, '');
 
-export const {select_subject_form,select_empty_subject } = BIAPatientEditor.selectors;
-export const {edit_subject,create_subject } = BIAPatientEditor.actions;
+export const { select_subject_form, select_empty_subject } = BIAPatientEditor.selectors;
+export const { edit_subject, create_subject } = BIAPatientEditor.actions;
 
 export const { fetch: populate_genders } = BIAPatientEditor.submodules.genders.actions;
 export const { fetch: populate_ethno_groups } = BIAPatientEditor.submodules.ethno_groups.actions;
@@ -101,14 +87,14 @@ export const { fetch: populate_ethno_groups } = BIAPatientEditor.submodules.ethn
 export const { select_list: select_ethno_group } = BIAPatientEditor.submodules.ethno_groups.selectors;
 export const { select_list: select_genders } = BIAPatientEditor.submodules.genders.selectors;
 
-export const {select_list_pathological_groups} = exportModule(suffix_key('pathological_groups'),'submodules.pathological_groups.selectors',BIAPatientEditor);
-export const { fetch_pathological_groups } = exportModule(suffix_key('pathological_groups'),'submodules.pathological_groups.actions',BIAPatientEditor);
+export const { select_list_pathological_groups } = exportModule(suffix_key('pathological_groups'), 'submodules.pathological_groups.selectors', BIAPatientEditor);
+export const { fetch_pathological_groups } = exportModule(suffix_key('pathological_groups'), 'submodules.pathological_groups.actions', BIAPatientEditor);
 
 
 const reducer = combineReducers({
   search: BIASearchModule.reducer,
   editor: BIAEditorModule.reducer,
-  patient:BIAPatientEditor.reducer
+  patient: BIAPatientEditor.reducer
 })
 
 const migrations = {

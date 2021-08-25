@@ -18,7 +18,7 @@ const SafeDatePicker = ({ selected, handleChange,tabIndex,CustomInputComponent }
     
     let val = selected;
 
-    if (is_nil(selected)) {
+    if (is_nil(selected) || selected =="") {
         val = new Date();
     }
 
