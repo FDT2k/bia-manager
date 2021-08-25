@@ -9,16 +9,12 @@ import EditorModule from 'Redux/Editor';
 import PatientModule from 'Redux/Patient';
 
 
+/* Search Module */
 
-import BIASearch from 'Redux/BIASearch/reducer';
+import SearchModule from 'Redux/BIASearch';/*
 import makePatientSelectors from 'Redux/BIASearch/selectors';
 import { update_search_tags, makeSearch } from 'Redux/BIASearch/actions';
 
-
-/*import EditorReducer from 'Redux/Editor/reducer';
-import makeEditorSelectors from 'Redux/Editor/selectors';
-import {edit_patient,make_actions,make_edit_mesure,make_recompute_mesure} from 'Redux/Editor/actions';
-*/
 
 
 
@@ -28,6 +24,23 @@ export const { select_patients_list, select_patients_list_filtered, select_count
 export const search = makeSearch(baseSelector);
 export { update_search_tags };
 
+*/
+
+
+export const BIASearchModule = SearchModule(state=> state.search,'');
+
+export const {
+  search
+} = BIASearchModule.actions;
+
+
+export const {
+   select_patients_list, 
+   select_patients_list_filtered, 
+   select_count_results, 
+   select_tags, 
+   select_patient 
+  } = BIASearchModule.selectors
 
 /**
  * Create the editor Store
@@ -93,7 +106,7 @@ export const { fetch_pathological_groups } = exportModule(suffix_key('pathologic
 
 
 const reducer = combineReducers({
-  database: BIASearch,
+  search: BIASearchModule.reducer,
   editor: BIAEditorModule.reducer,
   patient:BIAPatientEditor.reducer
 })

@@ -4,89 +4,81 @@ import { createAction } from '@reduxjs/toolkit';
 import { makePromiseDispatcher } from 'Redux/utils/async-dispatch';
 import create from 'Redux/utils/make-action';
 
-export const ADD_SEARCH_TAG = 'ADD_SEARCH_TAG';
-export const DEL_SEARCH_TAG = 'DEL_SEARCH_TAG';
-export const UPDATE_SEARCH_TAGS = 'UPDATE_SEARCH_TAGS';
 
-export const FETCHED_PATIENTS = 'FETCHED_PATIENTS';
-export const FETCHED_PATIENTS_FAIL = 'FETCHED_PATIENTS_FAIL';
-export const SEARCH_PATIENT = 'SEARCH_PATIENT';
-export const CREATE_PATIENT = 'CREATE_PATIENT';
-export const UPDATE_PATIENT = 'UPDATE_PATIENT';
-export const DELETE_PATIENT = 'DELETE_PATIENT';
-export const FETCHING_FROM_DATABASE = 'FETCHING_FROM_DATABASE';
-export const FILTER_PATIENTS = 'FILTER_PATIENTS';
-export const REMOVE_FILTER = 'REMOVE_FILTER';
+export default (getModule) => {
 
 
-
-export const add_search_tag = create(ADD_SEARCH_TAG);
-export const update_search_tags = createAction(UPDATE_SEARCH_TAGS);
-export const del_search_tag = create(DEL_SEARCH_TAG);
-export const search_patient = create(SEARCH_PATIENT);
-export const create_patient = create(CREATE_PATIENT);
-export const update_patient = create(UPDATE_PATIENT);
-export const delete_patient = create(DELETE_PATIENT);
-export const fetched_patient = create(FETCHED_PATIENTS);
-export const fetched_patient_fail = create(FETCHED_PATIENTS_FAIL);
-
-export const fetching_from_db = create(FETCHING_FROM_DATABASE);
-export const filter_patients = create(FILTER_PATIENTS);
-export const remove_filter = create(REMOVE_FILTER);
+    const { action_types, baseSelector } = getModule()
+    const actions = {};
 
 
-export const ensure_array = x => {
-    if (typeof x === 'undefined' || x === null) {
-        return []
-    }
-    return x;
-}
-export const search_in_database = makePromiseDispatcher(x => ({ error: x.message }), ensure_array, fetched_patient_fail, fetched_patient);
+    actions.add_search_tag = create(action_types.ADD_SEARCH_TAG);
+    actions.update_search_tags = create(action_types.UPDATE_SEARCH_TAGS);
+    actions.del_search_tag = create(action_types.DEL_SEARCH_TAG);
+    actions.search_patient = create(action_types.SEARCH_PATIENT);
+    actions.fetched_patient = create(action_types.FETCHED_PATIENTS);
+    actions.fetched_patient_fail = create(action_types.FETCHED_PATIENTS_FAIL);
+
+    actions.fetching_from_db = create(action_types.FETCHING_FROM_DATABASE);
+    actions.filter_patients = create(action_types.FILTER_PATIENTS);
+    actions.remove_filter = create(action_types.REMOVE_FILTER);
 
 
-export const filter_results = (baseSelector) => (dispatch, getState) => {
-    const state = baseSelector(getState())
-    // eslint-disable-next-line no-unused-vars
-    const [first_tag, ...other_tags] = state.tags;
-
-
-    if (state.tags.length >= 1 && state.tags.length < state.patients.filtered.length) {
-        dispatch(remove_filter(null));
-
+    const ensure_array = x => {
+        if (typeof x === 'undefined' || x === null) {
+            return []
+        }
+        return x;
     }
 
 
-    other_tags.map(
-        tag => dispatch(filter_patients(tag))
-    )
-
-}
-
-export const makeSearch = baseSelector => (dbsearchfn, tags) => (dispatch, getState) => {
-
-    const state = baseSelector(getState())
-    // eslint-disable-next-line no-unused-vars
-    const [first_tag, ...other_tags] = tags;
-
-    if (compare(state.tags, tags)) {
-        console.log('tag did not changed')
-        return;
-    }
+    actions.search_in_database = makePromiseDispatcher(x => ({ error: x.message }), ensure_array, actions.fetched_patient_fail, actions.fetched_patient);
 
 
-    dispatch(update_search_tags(tags));
+    actions.filter_results = _=>  (dispatch, getState) => {
+        const state = baseSelector(getState())
+        // eslint-disable-next-line no-unused-vars
+        const [first_tag, ...other_tags] = state.tags;
 
 
+        if (state.tags.length >= 1 && state.tags.length < state.patients.filtered.length) {
+            dispatch(actions.remove_filter(null));
 
-    if (first_tag && tags.length === 1 && first_tag !== state.tags[0]) { // if the first tag did change, then refetch a preset from the database
-        dispatch(fetching_from_db({}));
-        const search = dispatch(search_in_database(dbsearchfn(first_tag)));
-        return search.then(result => {
-            dispatch(filter_results(baseSelector));
-        });
-    } else {
-        dispatch(filter_results(baseSelector));
-        //    return dispatch(filter_patients(tags));
+        }
+
+
+        other_tags.map(
+            tag => dispatch(actions.filter_patients(tag))
+        )
 
     }
+
+    actions.search = (dbsearchfn, tags) => (dispatch, getState) => {
+
+        const state = baseSelector(getState())
+        // eslint-disable-next-line no-unused-vars
+        const [first_tag, ...other_tags] = tags;
+
+        if (compare(state.tags, tags)) {
+            console.log('tag did not changed')
+            return;
+        }
+
+        dispatch(actions.update_search_tags(tags));
+
+        if (first_tag && tags.length === 1 && first_tag !== state.tags[0]) { // if the first tag did change, then refetch a preset from the database
+            dispatch(actions.fetching_from_db({}));
+            const search = dispatch(actions.search_in_database(dbsearchfn(first_tag)));
+            return search.then(result => {
+                dispatch(actions.filter_results());
+            });
+        } else {
+            dispatch(actions.filter_results());
+            //    return dispatch(actions.filter_patients(tags));
+
+        }
+    }
+    
+
+    return actions
 }

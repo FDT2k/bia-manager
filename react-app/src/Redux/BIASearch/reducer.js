@@ -2,118 +2,93 @@
 import { combineReducers } from 'redux';
 import createReducer from 'Redux/utils/create-reducer';
 import { addToListUniq, delFromList } from 'Redux/utils/handlers';
-import { ADD_SEARCH_TAG, DEL_SEARCH_TAG, FETCHED_PATIENTS, FILTER_PATIENTS, REMOVE_FILTER, UPDATE_SEARCH_TAGS } from './actions';
 
 
-export const tags = createReducer([], {
-    [ADD_SEARCH_TAG]: addToListUniq,
-    [UPDATE_SEARCH_TAGS]: (state, action) => [...action.payload],
-    [DEL_SEARCH_TAG]: delFromList
-});
+
+export default (getModule) => {
+
+    const { submodules, action_types } = getModule()
 
 
-export const patients = createReducer({ byIds: {}, allIds: [], filtered: [] }, {
-    [FETCHED_PATIENTS]: (state, action) => {
-        const patients = action.payload.map(item => item.id);
-        return {
-            byIds: action.payload.reduce((carry, item) => {
-                carry[item.id] = item;
-                return carry;
-            }, {}),
-            allIds: patients,
-            filtered: [{ tag: '', ids: patients }]
-        }
-    },
-    [FILTER_PATIENTS]: (state, action) => {
-        let tag = action.payload;
+    const module = {};
 
 
-        let patients = state.byIds
 
-        let items = state.filtered.length > 0 ? state.filtered[state.filtered.length - 1].ids : [];
+    module.tags = createReducer([], {
+        [action_types.ADD_SEARCH_TAG]: addToListUniq,
+        [action_types.UPDATE_SEARCH_TAGS]: (state, action) => [...action.payload],
+        [action_types.DEL_SEARCH_TAG]: delFromList
+    });
 
-        let result = items.reduce((carry, id) => {
-            let patient = patients[id];
-            let hasField = tag.indexOf(':') !== -1;
-            if (hasField) {
-                let fieldpos = tag.indexOf(':');
-                let key = tag.substr(0, fieldpos).trim();
-                let value = tag.substr(fieldpos + 1).trim();
 
-                let re = new RegExp(`${value}`, "gmi");
-                if (re.test(patient[key])) {
-                    carry.ids.push(id)
-                }
-            } else {
-                if ((new RegExp(`${tag}`, "gmi")).test(patient['search_terms'])) {
-                    carry.ids.push(id)
-                }
+    module.patients = createReducer({ byIds: {}, allIds: [], filtered: [] }, {
+        [action_types.FETCHED_PATIENTS]: (state, action) => {
+            const patients = action.payload.map(item => item.id);
+            return {
+                byIds: action.payload.reduce((carry, item) => {
+                    carry[item.id] = item;
+                    return carry;
+                }, {}),
+                allIds: patients,
+                filtered: [{ tag: '', ids: patients }]
             }
-            return carry;
-        }, { tag, ids: [] });
+        },
+        [action_types.FILTER_PATIENTS]: (state, action) => {
+            let tag = action.payload;
 
-        return {
-            ...state,
-            filtered: [...state.filtered, result]
-        };
-    },
-    [REMOVE_FILTER]: (state, action) => {
-        return {
-            ...state,
-            filtered: [state.filtered[0]]
-        }
-    }
-    /*[FILTER_PATIENTS]: (state,action)=> {
-        let tags = action.payload;
-        let filtered = [...state.allIds];
-        let result = [];
-        for(let tag of tags){
-            console.log(tag);
-            result = filtered.reduce( (carry,id)=> {
-                let patient = state.byIds[id];
-                let hasField = tag.indexOf(':') !==-1;
-                if(hasField){
+
+            let patients = state.byIds
+
+            let items = state.filtered.length > 0 ? state.filtered[state.filtered.length - 1].ids : [];
+
+            let result = items.reduce((carry, id) => {
+                let patient = patients[id];
+                let hasField = tag.indexOf(':') !== -1;
+                if (hasField) {
                     let fieldpos = tag.indexOf(':');
-                    let key = tag.substr(0,fieldpos).trim();
-                    let value = tag.substr(fieldpos+1).trim();
-                    //collection = buildFieldQuery(collection)(key,value);
+                    let key = tag.substr(0, fieldpos).trim();
+                    let value = tag.substr(fieldpos + 1).trim();
 
-                    let re = new RegExp(`${value}`,"gmi");
-                //    console.log(`${value}`);
-                //    console.log(key,value,patient[key],re.test(patient[key]));
-                    if (re.test(patient[key])){
-                        carry.push(id)
+                    let re = new RegExp(`${value}`, "gmi");
+                    if (re.test(patient[key])) {
+                        carry.ids.push(id)
                     }
-                }else{
-                    if ((new RegExp(`${tag}`,"gmi")).test(patient['search_terms'])){
-                        carry.push(id)
+                } else {
+                    if ((new RegExp(`${tag}`, "gmi")).test(patient['search_terms'])) {
+                        carry.ids.push(id)
                     }
                 }
                 return carry;
-            },result );
+            }, { tag, ids: [] });
+
+            return {
+                ...state,
+                filtered: [...state.filtered, result]
+            };
+        },
+        [action_types.REMOVE_FILTER]: (state, action) => {
+            return {
+                ...state,
+                filtered: [state.filtered[0]]
+            }
         }
-        if(tags.length==0){
-            result = filtered
-        }
-        return {
-            ...state,
-            filteredIds:result
-        };
-    },*/
-    /*[CREATE_PATIENT]: (state,action)=> updateProp(action.id,state,action.payload),
-    [UPDATE_PATIENT]: (state,action)=> updateProp(action.id,state,action.payload),
-    [DELETE_PATIENT]: (state,action)=> delObjectProp(state,action.id)*/
-});
+
+    });
 
 
 
 
 
 
-export const reducer = combineReducers({
-    tags,
-    patients
-});
+    module.reducer = combineReducers({
+        tags: module.tags,
+        patients: module.patients
+    });
 
 
-export default reducer;
+
+
+
+    return module;
+}
+
