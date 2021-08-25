@@ -131,7 +131,7 @@ export default props => {
             </tbody>
 
         </table>
-        <Pagination {...pageProps} />
+        {pageProps.pageCount > 1 && <Pagination {...pageProps} />}
     </LayoutFlexColumn>
     )
 }
