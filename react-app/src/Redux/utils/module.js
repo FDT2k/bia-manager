@@ -1,3 +1,6 @@
+import { enlist, map, safe_path,compose } from "@karsegard/composite-js";
+import { keyval } from "@karsegard/composite-js/ObjectUtils";
+import { mergeAll } from "@karsegard/composite-js/List";
 
 
 const createModule = moduleParts => (baseSelector, prefix = '') => {
@@ -31,5 +34,34 @@ const createModule = moduleParts => (baseSelector, prefix = '') => {
 
 
 }
+
+
+export const exportModule = (keyenhancer,path,module)=>{
+
+    const modulePart = safe_path({},path,module);
+
+    const enhanceKey = item=> {
+        const [key,value] = keyval(item);
+        return {[keyenhancer(key)]:value}
+    }
+
+    const _export = compose (mergeAll,map(enhanceKey),enlist)
+
+    return _export(modulePart);
+}
+
+
+
+export const suffix_key = suffix => key => {
+    return `${key}_${suffix}`;
+}
+
+
+
+export const prefix_key = suffix => key => {
+    return `${suffix}_${key}`;
+}
+
+
 
 export default createModule;

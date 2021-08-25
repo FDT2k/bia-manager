@@ -3,7 +3,7 @@ import { createMigrate } from 'redux-persist'
 import { makeStore } from 'store-dev';
 import { createSelector } from 'reselect';
 
-
+import { suffix_key,exportModule } from 'Redux/utils/module';
 
 import EditorModule from 'Redux/Editor';
 import PatientModule from 'Redux/Patient';
@@ -27,14 +27,6 @@ export const baseSelector = state => state.database;
 export const { select_patients_list, select_patients_list_filtered, select_count_results, select_tags, select_patient } = makePatientSelectors(baseSelector);
 export const search = makeSearch(baseSelector);
 export { update_search_tags };
-
-// editor reducers
-/*export const {select_current_mesure_id, select_recap_headers,
-  select_recap_list,select_mass_chart,select_edited_patient,select_edited_mesure,select_recap,select_mesures_dates} = makeEditorSelectors(state=>state.editor);
-
-export const {edit_mesure,recompute_mesure,create_mesure,refresh_recap,change_mesure} = make_actions(state=>state.editor)
-export {update_search_tags,edit_patient} ;
-*/
 
 
 /**
@@ -83,7 +75,12 @@ export const { select_list: select_sportrates } = BIAEditorModule.submodules.spo
 export const { select_list: select_sporttypes } = BIAEditorModule.submodules.sportType.selectors;
 
 
+/* Subject's Managment module */
+
 export const BIAPatientEditor = PatientModule(state => state.patient, '');
+
+export const {select_subject_form,select_empty_subject } = BIAPatientEditor.selectors;
+export const {edit_subject,create_subject } = BIAPatientEditor.actions;
 
 export const { fetch: populate_genders } = BIAPatientEditor.submodules.genders.actions;
 export const { fetch: populate_ethno_groups } = BIAPatientEditor.submodules.ethno_groups.actions;
@@ -91,11 +88,12 @@ export const { fetch: populate_ethno_groups } = BIAPatientEditor.submodules.ethn
 export const { select_list: select_ethno_group } = BIAPatientEditor.submodules.ethno_groups.selectors;
 export const { select_list: select_genders } = BIAPatientEditor.submodules.genders.selectors;
 
+export const {select_list_pathological_groups} = exportModule(suffix_key('pathological_groups'),'submodules.pathological_groups.selectors',BIAPatientEditor);
+export const { fetch_pathological_groups } = exportModule(suffix_key('pathological_groups'),'submodules.pathological_groups.actions',BIAPatientEditor);
 
 
 const reducer = combineReducers({
   database: BIASearch,
-  //editor:EditorReducer,
   editor: BIAEditorModule.reducer,
   patient:BIAPatientEditor.reducer
 })

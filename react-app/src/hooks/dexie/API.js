@@ -1,6 +1,6 @@
 
-import {curry} from '@karsegard/composite-js'
-import {spec} from '@karsegard/composite-js/ObjectUtils'
+import { curry } from '@karsegard/composite-js'
+import { spec } from '@karsegard/composite-js/ObjectUtils'
 import IDBExport from 'indexeddb-export-import';
 
 import Promise from 'bluebird'
@@ -14,116 +14,122 @@ const getAll = db => _ => {
 
 const buildQuery = collection => tag => {
     const searchableColumns = [
-        'firstname','lastname','birthdate','groups.path'
+        'firstname', 'lastname', 'birthdate', 'groups.path'
     ];
 
     let method = 'where';
-    return searchableColumns.reduce( (collection, key) => {
+    return searchableColumns.reduce((collection, key) => {
         console.log(collection);
-        collection =  collection[method](key).startsWithIgnoreCase(tag);
-        method='or';
+        collection = collection[method](key).startsWithIgnoreCase(tag);
+        method = 'or';
         return collection;
     }, collection);
 
 
 }
 
-const buildFieldQuery = collection => (key,value)=> {
+const buildFieldQuery = collection => (key, value) => {
     return collection.where(key).startsWithIgnoreCase(value);
 }
 
-const search = db => tags=> {
+const search = db => tags => {
 
     //const worker = new Worker("dexie.worker.js");
     //worker.postMessage('coucou');
     //worker.onmessage = console.error;
-        return db.open().then( db =>{
+    return db.open().then(db => {
 
-            let collection = db.patients;
+        let collection = db.patients;
 
-            for(let i =0; i < tags.length;i++){
+        for (let i = 0; i < tags.length; i++) {
 
-                const tag = tags[i];
+            const tag = tags[i];
 
-                let hasField = tag.indexOf(':') !==-1;
+            let hasField = tag.indexOf(':') !== -1;
 
-                if(hasField){
-                    let fieldpos = tag.indexOf(':');
-                    let key = tag.substr(0,fieldpos).trim();
-                    let value = tag.substr(fieldpos+1).trim();
-                    console.log('specific search:',key,value);
-                    collection = buildFieldQuery(collection)(key,value);
-                }else{
-                    console.log('globalsearch',tag);
-                    collection=buildQuery(collection)(tag);
-                }
-
-
+            if (hasField) {
+                let fieldpos = tag.indexOf(':');
+                let key = tag.substr(0, fieldpos).trim();
+                let value = tag.substr(fieldpos + 1).trim();
+                console.log('specific search:', key, value);
+                collection = buildFieldQuery(collection)(key, value);
+            } else {
+                console.log('globalsearch', tag);
+                collection = buildQuery(collection)(tag);
             }
-            return collection.toArray();
-    /*
-            let result =  db.patients
-                .where('nom').startsWithIgnoreCase('Fabien')
-                .or('prenom').startsWithIgnoreCase('Fabien')
 
-                .toArray();
-    */
+
+        }
+        return collection.toArray();
+        /*
+                let result =  db.patients
+                    .where('nom').startsWithIgnoreCase('Fabien')
+                    .or('prenom').startsWithIgnoreCase('Fabien')
+    
+                    .toArray();
+        */
         //    console.log ( collection.toArray() );
 
 
-        } );
+    });
 
 
 }
 
-const get_patient = db=>  id=> {
-    return db.open().then( db =>{
+const get_patient = db => id => {
+    return db.open().then(db => {
         return db.patients.get(parseInt(id));
     });
 }
 
-const count = db => _=> {
-    return db.open().then( db =>{
+const count = db => _ => {
+    return db.open().then(db => {
         return db.patients.count();
     });
 }
 
-const count_mesures = db => _=> {
+const count_mesures = db => _ => {
     let count = 0;
-    return db.open().then( db =>{
-        return db.patients.each(item=> {
-            count+= item.mesures.length;
-        }).then(_=> {return count});
+    return db.open().then(db => {
+        return db.patients.each(item => {
+            count += item.mesures.length;
+        }).then(_ => { return count });
     });
 }
 
-const db_name = db => _=> {
+const db_name = db => _ => {
     return db.name;
 }
 
-const export_database=  db => _=> {
-   return  db.open().then(_=> {
+const all_pahological_groups = db => _ => {
+    return db.open().then(db => {
+        return db.patients.orderBy('groups.path').uniqueKeys();
+    });
+}
+
+const export_database = db => _ => {
+    return db.open().then(_ => {
         const idbDatabase = db.backendDB(); // get native IDBDatabase object from Dexie wrapper
-      
+
         // export to JSON, clear database, and import from JSON
-        return new Promise ((resolve,reject)=>{
-            IDBExport.exportToJsonString(idbDatabase, function(err, jsonString) {
+        return new Promise((resolve, reject) => {
+            IDBExport.exportToJsonString(idbDatabase, function (err, jsonString) {
                 resolve(jsonString);
             });
 
         });
-      }).catch(function(e) {
+    }).catch(function (e) {
         console.error('Could not connect. ' + e);
-      });
+    });
 }
 
 
 
 const import_data = db => data => {
-    return db.open().then( db =>{
+    return db.open().then(db => {
         return db.patients.bulkAdd(data);
     });
 }
-const api = {getAll,search,import_data,get_patient,count,db_name,export_database,count_mesures}
+const api = { getAll, search, import_data, get_patient, count, db_name, export_database, count_mesures ,all_pahological_groups}
 
 export default spec(api)

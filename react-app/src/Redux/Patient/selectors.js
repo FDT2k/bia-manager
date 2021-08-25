@@ -14,6 +14,8 @@ export default getModule => {
 
    module.select_available_options = key => createSelector(baseSelector,state=> state.options[key])
 
+   module.select_subject_form = createSelector(baseSelector,state=>state.subject_form)
+   module.select_empty_subject = createSelector(baseSelector,state=>state.empty_subject.current)
    return module;
 
 }

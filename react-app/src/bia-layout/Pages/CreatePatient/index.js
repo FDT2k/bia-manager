@@ -9,13 +9,15 @@ import Select from 'bia-layout/components/Form/Select'
 import { useFieldValues } from '@karsegard/react-hooks';
 import { keyval } from '@karsegard/composite-js/ObjectUtils';
 import DatePicker from 'bia-layout/components/Form/DatePicker'
+import { useLocation, useRoute } from "wouter";
 
 const mapItemListAsoption = (item)=>{
     return {[item.id]:item.name}
 }
 export const Page = props => {
     
-    const {available_options, t, ...rest } = props;
+    const {available_options, t, patient,handleChange,...rest } = props;
+    const [location, setLocation] = useLocation();
 
 
     const fields = {
@@ -24,14 +26,13 @@ export const Page = props => {
         'birthdate': { type: 'date', label: 'Date de naissance' },
         'gender': { type: 'select', label: 'Sexe', options: available_options.genders.map(mapItemListAsoption)},
 
-        'groups.path': { type: 'select', label: 'Groupe pathologique', options:  available_options.genders.map(mapItemListAsoption) },
+        'groups.path': { type: 'select', label: 'Groupe pathologique', options:  available_options.patho_groups.map(mapItemListAsoption) },
         'groups.ethno': { type: 'select', label: 'Groupe ethnique', options:  available_options.etno_groups.map(mapItemListAsoption) },
         'usual_height': { type: 'text', label: 'Taille' },
         'usual_weight': { type: 'text', label: 'Poids habituel' },
         'diag': { type: 'textarea', label: 'Diagnostic' },
     }
-
-    const {values, inputProps,handleChangeValue} = useFieldValues({},{usePath:true})
+    const {values, inputProps,handleChangeValue} = useFieldValues(patient,{usePath:true,handleValuesChange:handleChange})
 
     return (
         <MainView className="page-create-subject">
@@ -72,7 +73,7 @@ export const Page = props => {
                         })}
 
                         <ComponentWithArea tabIndex={30} area="btsave"><Button>Enregistrer</Button></ComponentWithArea>
-                        <ComponentWithArea tabIndex={99} area="btcancel"><Button>Annuler</Button></ComponentWithArea>
+                        <ComponentWithArea tabIndex={99} area="btcancel"><Button onClick={_=>setLocation('/search')}>Annuler</Button></ComponentWithArea>
 
                     </Grid>
             </Grid>
@@ -85,7 +86,8 @@ export const Page = props => {
 
 Page.defaultProps = {
 
-    t: identity
+    t: identity,
+    patient:{}
 }
 
 

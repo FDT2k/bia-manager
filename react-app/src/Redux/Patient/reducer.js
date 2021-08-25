@@ -46,7 +46,7 @@ export default (getModule) => {
 
 
 
-    module.empty_mesure = (state = { empty: EMPTY_SUBJECT, current: {}, editor_options: {} }, action) => {
+    module.empty_subject = (state = { empty: EMPTY_SUBJECT, current: {}, editor_options: {} }, action) => {
         const editor_options = module.editor_options(state.editor_options, action);
 
 
@@ -54,6 +54,7 @@ export default (getModule) => {
             ...state.empty,
         }
 
+        //assign defaults values to schema
         map(item => {
             let [_, option] = keyval(item);
 
@@ -67,8 +68,15 @@ export default (getModule) => {
         }
     };
 
+
+    module.subject_form = createReducer({},{
+        [action_types.CHANGE]: (state,{payload})=> ({...payload})
+    });
+
     module.reducer = combineReducers({
         options: module.editor_options,
+        empty_subject:module.empty_subject,
+        subject_form: module.subject_form
     });
 
     return module;

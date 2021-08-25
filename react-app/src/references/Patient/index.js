@@ -14,10 +14,9 @@ const age = (patient) => {
 
 const count_mesures = (patient) => {
 
-
     return {
         ...patient,
-        mesure_count: patient.mesures.length
+        mesure_count: patient.mesures ? patient.mesures.length: 0
     }
 }
 
