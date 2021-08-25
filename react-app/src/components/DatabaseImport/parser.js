@@ -1,6 +1,6 @@
 import { enlist, is_type_string, is_type_object, is_type_function } from '@karsegard/composite-js';
 import { key, value } from '@karsegard/composite-js/ObjectUtils';
-import { filterPropPresentIn } from '@karsegard/react-core-layout'
+import { filterPropPresentIn } from '@karsegard/react-compose'
 
 export const remap = (obj, mapping, ref = {}) => (carry, item) => {
     let _key = key(item);
@@ -25,12 +25,8 @@ function sleep(ms) {
 }
 
 
-export const parse_promise = (opts,progress,total,callback)=> {
 
-    return new Promise((resolve,reject)=>{
-        const result = parse(opts,progress,total,resolve);
-    });
-}
+
 export const parse = ({
     text, line_separator, mapping, separator, identifier
 }, progress, total_count, callback) => {
@@ -67,7 +63,6 @@ export const parse = ({
         }
         //console.log(item)
         const patient_keys = Object.keys(mapping.patient);
-
         const [patient, mesure] = filterPropPresentIn(patient_keys, item);
         const index_key = item[identifier];
         if (typeof carry.data[index_key] == "undefined") {
