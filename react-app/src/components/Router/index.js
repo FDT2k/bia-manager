@@ -39,7 +39,6 @@ export default props => {
 
     useEffect(() => {
         api.count().then(c => {
-            debugger;
             if (c == 0 && location != "#/setup") {
                 setLocation("#/setup");
             }

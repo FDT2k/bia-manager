@@ -36,7 +36,7 @@ export default props => {
             setLineCount(data.total);
         }
 
-    //    console.log('progress',data)
+        console.log('progress',data)
         if(data.result){
             setParsing(false);
             setImportedData(data.result)
