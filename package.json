@@ -2,7 +2,7 @@
     "name": "bia-manager-electron",
     "main": "electron/main.js",
     "version": "1.0.0",
-    "author": "Karsegard Digita Agency SäRL",
+    "author": "Karsegard Digital Agency",
     "scripts": {
         "start": "cd react-app; yarn run start",
         "storybook": "cd react-app; yarn run storybook",
@@ -42,7 +42,10 @@
                     "**/*"
                 ]
             }
-        ]
+        ],
+        "win":{
+            "target":"nsis"
+        }
     },
     "devDependencies": {
         "devtron": "^1.4.0",
