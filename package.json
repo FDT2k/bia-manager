@@ -9,8 +9,8 @@
         "start-worker": "cd react-app; yarn run start-worker",
         "build:react": "cd react-app;yarn run build:all;",
         "pack": "electron-builder --dir",
-        "dist": "electron-builder",
-        "build:dist": "yarn run build:react; yarn run pack; yarn run dist",
+        "dist": "electron-builder -wl",
+        "build:dist": "yarn run build:react && yarn run pack && yarn run dist",
         "unpack:root": "npx asar extract dist/linux-unpacked/resources/app.asar dist/app.package"
     },
     "build": {

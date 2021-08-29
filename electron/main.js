@@ -15,8 +15,8 @@
   
     function createWindow () {
       const windowOptions = {
-        width: 1080,
-        minWidth: 680,
+        width: 1280,
+        minWidth: 1000,
         height: 840,
         title: app.name,
         webPreferences: {
@@ -66,22 +66,22 @@
       }
     })
 
-/*
+
     app.whenReady().then(() => {
       protocol.interceptFileProtocol('file', (request, callback) => {
-        
+        console.log(request.url);
         if(request.url.indexOf('file:///workers') !==-1) {
           let filename= request.url.substr(8);
 
-          let newPath = path.resolve(__dirname,filename);
+          let newPath = path.resolve(__dirname,'..',filename);
           console.log('worker',__dirname,filename,newPath)
-
-       //   return callback({ path: path.resolve(__dirname,request.url.substr(8))});
+          debugger;
+          return callback({ path: path.resolve(__dirname,request.url.substr(8))});
         }
-       
+        return callback(request);
       });
 
-    })*/
+    })
   }
   
   // Make this app a single instance app.

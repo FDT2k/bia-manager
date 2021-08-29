@@ -1,5 +1,5 @@
 import { identity } from '@karsegard/composite-js';
-import { useFieldValues } from '@karsegard/react-hooks';
+import { useFieldValues,useWorker } from '@karsegard/react-hooks';
 import Button from 'bia-layout/components/Form/Button';
 import InputGroup from 'bia-layout/components/Form/InputGroup';
 import {LayoutFlex} from '@karsegard/react-core-layout'
@@ -9,7 +9,7 @@ import React, { useEffect, useRef, useState } from 'react';
 import 'react-circular-progressbar/dist/styles.css';
 import ReactLoading from 'react-loading';
 import { useLocation } from "wouter";
-import { parse } from './parser';
+import { parse as parse_previous_database } from './parser';
 
 export default props => {
 
@@ -45,7 +45,7 @@ export default props => {
     }
 
 
-   // const [parse] = useWorker('workers/csvimport.worker.js', workerCallback);
+    const [parse] = useWorker('workers/csvimport.worker.js', workerCallback);
 
 
     
@@ -121,12 +121,9 @@ export default props => {
         setImporting(false);
         setParsing(true);
         fileRef.current.files[0].text().then(text=> {
-            return new Promise((resolve,reject)=>{
-
-                parse ({text,line_separator,separator,mapping: mappings.BIAManager,identifier},workerCallback,identity,workerCallback);
-                
-                resolve();
-            })
+                const payload= {text,line_separator,separator,mapping: mappings.BIAManager,identifier};
+                //parse_previous_database (payload,workerCallback,identity,workerCallback);
+                parse(payload);
             
         });
         //parse(fileRef.current.files[0].text());
@@ -136,7 +133,7 @@ export default props => {
 
     const addPatients = _=> {
         setImporting(true)
-        api.import_data(imported_data.list).then(_=>{setImporting(false); setImported(true);});
+        api.import_data(imported_data.list).then(_=>{setImporting(false); setImported(true);}).catch(err=> console.error(err));
 
     }
 
