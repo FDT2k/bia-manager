@@ -1,4 +1,3 @@
-
 import { Fullscreen } from '@karsegard/react-core-layout'
 
 import DatabaseImport from 'components/DatabaseImport';
@@ -15,6 +14,7 @@ import DebugPrint from 'bia-layout/Pages/DebugPrint';
 
 
 export default props => {
+
 
     const [location, setLocation] = useLocation();
     const [loaded, setLoaded] = useState();
