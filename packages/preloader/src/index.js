@@ -1,4 +1,4 @@
-const {camelize} = require('@karesgard/composite-js')
+import {camelize} from '@karsegard/composite-js'
 const { contextBridge, ipcRenderer } = require('electron')
 console.log('hello from preload')
 
@@ -17,9 +17,9 @@ const invokeOnMainProcess = channel => (...args) =>  ipcRenderer.invoke(channel,
 contextBridge.exposeInMainWorld(
     'electron',
     {
-      handleOpenFile: clientListen('file-open'),
-      handleSaveRequest: clientListen('trigger-save'),
-      handleLocationChange :clientListen('location-change') ,
+      handleOpenFile: clientAddListener('file-open'),
+      handleSaveRequest: clientAddListener('trigger-save'),
+      handleLocationChange :clientAddListener('location-change') ,
       save:invokeOnMainProcess('file-save')
     }
   )

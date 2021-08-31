@@ -1,0 +1,78 @@
+@import '@/bia-layout/sass/theme/default/main.scss';
+
+
+.tabs{
+    --tab-width : calc((var(--col-width) * 2) + var(--gut-width));
+    @extend %colors-positive;
+
+    &__tab.selected{
+        @extend %colors-positive;
+        background-color: transparent;
+    }
+
+    &__wrapper{
+        width: calc(var(--tab-width) * 4);
+        border-radius: 4px;
+        background-color: var(--tertiary);
+
+    }
+
+    .tabs__panel{
+        padding-top: var(--gut-width);
+    }
+}
+
+.page-header{
+
+    margin-bottom: calc( var(--gut-width) * 2);
+}
+
+
+.bia-editor{
+    @extend %base_font;
+    
+
+    &__patient{
+        h2{
+            margin-bottom: 8px;
+        }
+        .patient-header{
+           
+            &__field{
+                b {
+                    margin-bottom: 4px;
+                }
+            }
+            &___fieldset{
+                padding-top:11px;
+                padding-bottom:17px;
+            }
+        }
+      
+    }
+
+    &__mesures {
+        .list-mesure {
+            &__title {
+                margin-bottom: 4px;
+            }
+            &__item {
+                margin: 4px 0px;
+            }
+        }
+
+    }
+
+
+
+}
+
+.editor-grid{
+    grid-gap: 10px;
+}
+
+
+
+.recap-grid{
+    @extend %small-body ;
+  }

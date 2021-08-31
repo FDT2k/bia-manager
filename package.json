@@ -1,63 +1,69 @@
 {
-    "name": "bia-manager-electron",
-    "main": "electron/main.js",
-    "version": "1.0.0",
-    "author": "Karsegard Digital Agency",
-    "scripts": {
-        "start": "cd react-app; yarn run start",
-        "storybook": "cd react-app; yarn run storybook",
-        "start-worker": "cd react-app; yarn run start-worker",
-        "build:react": "cd react-app;yarn run build:all;",
-        "pack": "electron-builder --dir",
-        "dist": "electron-builder -wl",
-        "build:dist": "yarn run build:react && yarn run pack && yarn run dist",
-        "unpack:root": "npx asar extract dist/linux-unpacked/resources/app.asar dist/app.package"
-    },
-    "build": {
-        "appId": "ch.karsegard.bia-manager",
-        "files": [
-            "!datasample",
-            "!**/node_modules/*/{CHANGELOG.md,README.md,README,readme.md,readme}",
-            "!**/node_modules/*/{test,__tests__,tests,powered-test,example,examples}",
-            "!**/node_modules/*.d.ts",
-            "!**/node_modules/.bin",
-            "!**/*.{iml,o,hprof,orig,pyc,pyo,rbc,swp,csproj,sln,xproj}",
-            "!.editorconfig",
-            "!**/._*",
-            "!**/{.DS_Store,.git,.hg,.svn,CVS,RCS,SCCS,.gitignore,.gitattributes}",
-            "!**/{__pycache__,thumbs.db,.flowconfig,.idea,.vs,.nyc_output}",
-            "!**/{appveyor.yml,.travis.yml,circle.yml}",
-            "!**/{npm-debug.log,yarn.lock,.yarn-integrity,.yarn-metadata.json}",
-            {
-                "from": "react-app/build",
-                "to": ".",
-                "filter": [
-                    "**/*"
-                ]
-            },
-            {
-                "from": "electron/main.js",
-                "to": "eiectron/main.js",
-                "filter": [
-                    "**/*"
-                ]
-            }
-        ],
-        "win": {
-            "target": "nsis"
-        }
-    },
-    "devDependencies": {
-        "devtron": "^1.4.0",
-        "electron": "^13.1.8",
-        "electron-builder": "^22.11.7",
-        "electron-cli": "^0.2.8",
-        "vite": "^2.5.2"
-    },
-    "dependencies": {
-        "@karsegard/composite-js": "^2.7.0",
-        "@karsegard/react-hooks": "^2.0.0",
-        "electron-is-dev": "^2.0.0",
-        "glob": "^7.1.7"
+  "name": "bia-manager-electron",
+  "main": "packages/electron/dist/index.cjs",
+  "version": "1.0.0",
+  "author": "Karsegard Digital Agency",
+  "scripts": {
+    "build": "node scripts/build.js",
+    "precompile": "cross-env MODE=production npm run build"
+  },
+  "build": {
+    "appId": "ch.karsegard.bia-manager",
+    "files": [
+      "!datasample",
+      "!**/node_modules/*/{CHANGELOG.md,README.md,README,readme.md,readme}",
+      "!**/node_modules/*/{test,__tests__,tests,powered-test,example,examples}",
+      "!**/node_modules/*.d.ts",
+      "!**/node_modules/.bin",
+      "!**/*.{iml,o,hprof,orig,pyc,pyo,rbc,swp,csproj,sln,xproj}",
+      "!.editorconfig",
+      "!**/._*",
+      "!**/{.DS_Store,.git,.hg,.svn,CVS,RCS,SCCS,.gitignore,.gitattributes}",
+      "!**/{__pycache__,thumbs.db,.flowconfig,.idea,.vs,.nyc_output}",
+      "!**/{appveyor.yml,.travis.yml,circle.yml}",
+      "!**/{npm-debug.log,yarn.lock,.yarn-integrity,.yarn-metadata.json}",
+      {
+        "from": "react-app/build",
+        "to": ".",
+        "filter": [
+          "**/*"
+        ]
+      },
+      {
+        "from": "electron/main.js",
+        "to": "eiectron/main.js",
+        "filter": [
+          "**/*"
+        ]
+      }
+    ],
+    "win": {
+      "target": "nsis"
     }
+  },
+  "devDependencies": {
+    "@rollup/plugin-dynamic-import-vars": "^1.4.0",
+    "@vitejs/plugin-react-refresh": "^1.3.6",
+    "cross-env": "^7.0.3",
+    "devtron": "^1.4.0",
+    "electron": "^13.1.8",
+    "electron-builder": "^22.11.7",
+    "electron-cli": "^0.2.8",
+    "vite": "^2.5.2",
+    "vite-react-jsx": "^1.1.2"
+  },
+  "dependencies": {
+    "@karsegard/composite-js": "^2.7.0",
+    "@karsegard/react-hooks": "^2.0.0",
+    "electron-devtools-installer": "^3.2.0",
+    "electron-is-dev": "^2.0.0",
+    "electron-updater": "^4.3.9",
+    "glob": "^7.1.7",
+    "react": "^17.0.2",
+    "react-dom": "^17.0.2",
+    "sass": "^1.38.2"
+  },
+  "browserslist": [
+    "Chrome 91"
+  ]
 }
