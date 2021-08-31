@@ -1,6 +1,9 @@
 name: Build/release
 
-on: push
+on: 
+  push:
+    branches:
+      - master
 
 jobs:
   release:
@@ -18,6 +21,8 @@ jobs:
         uses: actions/setup-node@v1
         with:
           node-version: 14
+
+          
       - name: Get yarn cache directory path
         id: yarn-cache-dir-path
         run: echo "::set-output name=dir::$(yarn config get cacheFolder)"
