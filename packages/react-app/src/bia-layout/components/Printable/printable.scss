@@ -1,0 +1,46 @@
+@media all {
+  .page-break {
+    display: none;
+  }
+}
+
+@media print {
+  html,
+  body {
+    height: initial !important;
+    overflow: initial !important;
+    -webkit-print-color-adjust: exact;
+  }
+
+
+  .page-break {
+    margin-top: 1rem;
+    display: block;
+    page-break-before: auto;
+  }
+
+
+
+  .printable {
+    display: block;
+    max-height: 100vh; 
+  }
+
+
+
+}
+
+@page {
+  size: A4 portrait;
+  margin: 10mm;
+}
+
+@media screen {
+  .printable {
+    page-break-inside: avoid;
+    display: none;
+    div {
+        display:block;
+    }
+  }
+}

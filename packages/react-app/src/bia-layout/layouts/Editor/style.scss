@@ -1,0 +1,18 @@
+:root {
+    --mesures-list-width: calc( var(--gut-width) + (var(--col-width) * 2) );
+}
+
+.editor-grid-layout{
+
+    grid-template-columns: var(--mesures-list-width) auto   ;
+    grid-template-rows:   fit-content(200px) auto;
+    column-gap: var(--mesure-editor-right-margin);
+
+    grid-template-areas:
+        " patient patient "
+        " mesures content "
+        ;
+
+    justify-items: stretch;
+
+}

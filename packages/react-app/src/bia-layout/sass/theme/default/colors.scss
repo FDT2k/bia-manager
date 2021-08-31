@@ -1,0 +1,30 @@
+:root{
+
+      --secondary: #FFFFFF;
+      --primary: #000000;
+      --tertiary: #F2F2F2;
+      --tertiary--dark: #7F7F7F;
+      --valid: #42D15D;
+      
+
+}
+
+
+%colors-negative{
+    background-color: var(--primary);
+    color:var(--secondary);
+    outline-color: var(--secondary);
+    border-color: var(--secondary);
+    --selected-color: var(--primary);
+
+
+}
+
+
+%colors-positive{
+    background-color: var(--secondary);
+    color:var(--primary);
+    outline-color: var(--secondary);
+    border-color: var(--secondary);
+    --selected-color: var(--secondary);
+}
