@@ -17,10 +17,24 @@ const config = {
     'packages/**/dist/**',
   ],
   win:{
-    target:"nsis"
+    target:"nsis",
+    publish: [
+      "github"
+    ]
+  },
+  mac:{
+    publish: [
+      "github"
+    ],
+    target:"dmg",
+    category: "public.app-category.utilities"
   },
   linux:{
-    target:"AppImage"
+    target:"AppImage",
+    category: "Utility",
+    publish: [
+      "github"
+    ]
   },
   extraMetadata: {
     version: process.env.VITE_APP_VERSION,
