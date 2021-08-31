@@ -8,7 +8,7 @@
     "postinstall": "electron-builder install-app-deps",
     "precompile": "cross-env MODE=production npm run build",
     "compile": "electron-builder build --config electron-builder.config.js --dir --config.asar=false",
-    "release": "electron-builder --mac  --config electron-builder.config.js --windows --linux --publish always",
+    "release": "electron-builder --config electron-builder.config.js  --mac --windows --linux --publish always",
     "pretest": "cross-env MODE=test npm run build"
   },
  
