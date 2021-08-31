@@ -1,13 +1,14 @@
 {
   "name": "bia-manager-electron",
   "main": "packages/electron/dist/index.cjs",
-  "version": "0.0.9",
+  "version": "0.0.10",
   "author": "Karsegard Digital Agency",
   "scripts": {
     "build": "node scripts/build.js",
+    "postinstall": "electron-builder install-app-deps",
     "precompile": "cross-env MODE=production npm run build",
     "compile": "electron-builder build --config electron-builder.config.js --dir --config.asar=false",
-    "release": "electron-builder build --config electron-builder.config.js --config.asar=false",
+    "release": "electron-builder --mac  --config electron-builder.config.js --windows --linux --publish always",
     "pretest": "cross-env MODE=test npm run build"
   },
  
