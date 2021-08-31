@@ -16,6 +16,12 @@ const config = {
   files: [
     'packages/**/dist/**',
   ],
+  win:{
+    target:"nsis"
+  },
+  linux:{
+    target:"AppImage"
+  },
   extraMetadata: {
     version: process.env.VITE_APP_VERSION,
   },
