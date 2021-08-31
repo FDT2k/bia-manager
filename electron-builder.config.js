@@ -36,9 +36,9 @@ const config = {
       "github"
     ]
   },
-  extraMetadata: {
+ /* extraMetadata: {
     version: process.env.VITE_APP_VERSION,
-  },
+  },*/
 };
 
 module.exports = config;
