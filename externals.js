@@ -51,6 +51,7 @@ module.exports.external = [
     'v8',
     'vm',
     'zlib',
+    
   ];
   
   module.exports.default = [

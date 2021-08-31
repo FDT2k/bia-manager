@@ -7,6 +7,8 @@ const PACKAGE_ROOT = __dirname;
 
 console.log ( 'ALIAS',resolve(PACKAGE_ROOT, 'src'))
 module.exports = {
+  base: '',
+
   esbuild: {
     loader: "jsx",
     include: /src\/.*\.jsx?$/,
@@ -40,9 +42,8 @@ module.exports = {
   build: {
     target: `chrome${chrome}`,
     polyfillDynamicImport: false,
-    base: '',
     outDir: 'dist',
-    assetsDir: '.',
+    assetsDir: './assets',
     rollupOptions: {
       external: require('../../externals').default,
     },

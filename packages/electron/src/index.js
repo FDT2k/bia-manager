@@ -203,7 +203,7 @@ const createWindow = async () => {
    */
   const pageUrl = import.meta.env.MODE === 'development' && import.meta.env.VITE_DEV_SERVER_URL !== undefined
     ? import.meta.env.VITE_DEV_SERVER_URL
-    : new URL('../renderer/dist/index.html', 'file://' + __dirname).toString();
+    : new URL('../react-app/dist/index.html', 'file://' + __dirname).toString();
 
 
   await mainWindow.loadURL(pageUrl);

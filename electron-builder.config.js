@@ -11,6 +11,7 @@ const config = {
   directories: {
     output: 'dist',
     buildResources: 'buildResources',
+    
   },
   files: [
     'packages/**/dist/**',
