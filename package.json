@@ -1,7 +1,7 @@
 {
   "name": "bia-manager-electron",
   "main": "packages/electron/dist/index.cjs",
-  "version": "1.0.0",
+  "version": "0.0.2",
   "author": "Karsegard Digital Agency",
   "scripts": {
     "build": "node scripts/build.js",
