@@ -43,17 +43,19 @@
                 ]
             }
         ],
-        "win":{
-            "target":"nsis"
+        "win": {
+            "target": "nsis"
         }
     },
     "devDependencies": {
         "devtron": "^1.4.0",
         "electron": "^13.1.8",
         "electron-builder": "^22.11.7",
-        "electron-cli": "^0.2.8"
+        "electron-cli": "^0.2.8",
+        "vite": "^2.5.2"
     },
     "dependencies": {
+        "@karsegard/composite-js": "^2.7.0",
         "@karsegard/react-hooks": "^2.0.0",
         "electron-is-dev": "^2.0.0",
         "glob": "^7.1.7"
