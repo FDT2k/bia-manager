@@ -17,7 +17,7 @@ const config = {
     'packages/**/dist/**',
   ],
   win:{
-    target:"nsis",
+    target:["nsis"],
     publish: [
       "github"
     ]
@@ -26,11 +26,11 @@ const config = {
     publish: [
       "github"
     ],
-    target:"dmg",
+    target: ["dmg"],
     category: "public.app-category.utilities"
   },
   linux:{
-    target:"AppImage",
+    target:["AppImage"],
     category: "Utility",
     publish: [
       "github"
