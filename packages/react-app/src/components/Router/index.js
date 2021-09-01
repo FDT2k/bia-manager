@@ -15,7 +15,6 @@ import DebugPrint from '@/bia-layout/Pages/DebugPrint';
 
 export default props => {
 
-
     const [location, setLocation] = useLocation();
     const [loaded, setLoaded] = useState();
     const { api, patient_count } = useBIAManager();

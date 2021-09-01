@@ -144,9 +144,10 @@ ipcMain.handle('file-save',  (event, filename,data) => {
 })
 initialize()
 */
-import {app, BrowserWindow} from 'electron';
+import {app,ipcMain, BrowserWindow,Menu,dialog} from 'electron';
 import {join} from 'path';
 import {URL} from 'url';
+import fs from 'fs/promises';
 
 console.log('MODE',import.meta.env.MODE);
 const isSingleInstance = app.requestSingleInstanceLock();
@@ -162,11 +163,10 @@ app.disableHardwareAcceleration();
 if (import.meta.env.MODE === 'development') {
   app.whenReady()
     .then(() => import('electron-devtools-installer'))
-    .then(({default: installExtension, VUEJS3_DEVTOOLS}) => installExtension(VUEJS3_DEVTOOLS, {
-      loadExtensionOptions: {
-        allowFileAccess: true,
-      },
-    }))
+    .then(({default: installExtension, REACT_DEVELOPER_TOOLS,REDUX_DEVTOOLS}) => {
+      installExtension(REACT_DEVELOPER_TOOLS)
+      installExtension(REDUX_DEVTOOLS)
+    })
     .catch(e => console.error('Failed install extension:', e));
 }
 
@@ -190,7 +190,6 @@ const createWindow = async () => {
    */
   mainWindow.on('ready-to-show', () => {
     mainWindow?.show();
-
     if (import.meta.env.MODE === 'development') {
       mainWindow?.webContents.openDevTools();
     }
@@ -206,9 +205,48 @@ const createWindow = async () => {
     : new URL('../react-app/dist/index.html', 'file://' + __dirname).toString();
 
 
+    var menu = Menu.buildFromTemplate([
+      {
+        label: 'Menu',
+        submenu: [
+          {
+            label: 'Ouvrir',
+            click() {
+              dialog.showOpenDialog({ properties: ['openFile', 'multiSelections'] }).then(res=>{
+                console.log(res);
+              })
+            }
+          },
+          { 
+            label: 'Enregistrer',
+            click(){
+              mainWindow.webContents.send('trigger-save');
+            }
+          },
+          {
+            label: 'Exit',
+            click() {
+              app.quit()
+            }
+          }
+        ]
+      }
+    ])
+    Menu.setApplicationMenu(menu);
   await mainWindow.loadURL(pageUrl);
 };
 
+ipcMain.handle('file-save', async  (event, content,filename='') => {
+  
+  console.log('want to write file',content,filename);
+  let {canceled,filePath} =  await dialog.showSaveDialog({defaultPath:filename});
+  if(!canceled){
+    console.log('saving');
+    const result = await fs.writeFile(filePath,content)
+    return typeof result ==='undefined';
+  }
+  return false;
+})
 
 app.on('second-instance', () => {
   // Someone tried to run a second instance, we should focus our window.
@@ -238,4 +276,3 @@ if (import.meta.env.PROD) {
     .then(({autoUpdater}) => autoUpdater.checkForUpdatesAndNotify())
     .catch((e) => console.error('Failed check updates:', e));
 }
-
