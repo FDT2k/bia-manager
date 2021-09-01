@@ -1,40 +1,46 @@
-import { useEffect, useRef } from 'react';
+import {useState, useEffect, useRef } from 'react';
 
-
+import { is_nil } from '@karsegard/composite-js';
 /**
  * Custom React Hook that listen to channel. When a new message arrives `listener` would be called with `listener(event, args...)`
  * @param {string} channel - The name of the channel
  * @param {Function} listener - The handler function
  */
-const useElectron = (channel, listener) => {
-    const savedHandler = useRef();
-    if(window.electron){
-        window.electron.handleSaveRequest(args => console.log('trigerred save ', args))
-    }
+const useElectron = (api, { onSaveRequest, onOpenRequest }) => {
+    const electron_api = useRef();
+    useEffect(() => {
+        if (api !== undefined) {
+            electron_api.current = api;
+        }
+
+    }, [api]);
+
 
     useEffect(() => {
-        savedHandler.current = listener;
-    }, [listener]);
+       
+        if (!is_nil(electron_api.current)) {
 
-    useEffect(() => {
-        if (window.electron) {
-            if (window.electron.ipcRenderer) {
+            function handleOpen (){
+                return onOpenRequest(electron_api.current);
+            }
+            function handleSave () {
+                return onSaveRequest(electron_api.current);
+            }
+            electron_api.current.handleSaveRequest(handleSave);
+            electron_api.current.handleOpenRequest(handleOpen);
 
-                const eventHandler = (event, ...rest) => savedHandler.current(event, ...rest);
 
-                window.electron.ipcRenderer.on(channel, eventHandler);
+            return () => {
 
-                return () => {
-                    window.electron.ipcRenderer.removeListener(channel, eventHandler);
-                    
-                };
-            } else {
-                console.warn(`[electron] ${channel} not registred`)
+                electron_api.current.revokeSaveRequest(handleSave);
+                electron_api.current.revokeOpenRequest(handleOpen);
+
             }
         }
-    },
-        [channel],
-    );
+
+    }, [])
+
+    return {...electron_api.current}
 };
 
 export default useElectron;

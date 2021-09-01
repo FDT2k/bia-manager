@@ -144,12 +144,12 @@ ipcMain.handle('file-save',  (event, filename,data) => {
 })
 initialize()
 */
-import {app,ipcMain, BrowserWindow,Menu,dialog} from 'electron';
-import {join} from 'path';
-import {URL} from 'url';
+import { app, ipcMain, BrowserWindow, Menu, dialog } from 'electron';
+import { join } from 'path';
+import { URL } from 'url';
 import fs from 'fs/promises';
 
-console.log('MODE',import.meta.env.MODE);
+console.log('MODE', import.meta.env.MODE);
 const isSingleInstance = app.requestSingleInstanceLock();
 
 if (!isSingleInstance) {
@@ -163,7 +163,7 @@ app.disableHardwareAcceleration();
 if (import.meta.env.MODE === 'development') {
   app.whenReady()
     .then(() => import('electron-devtools-installer'))
-    .then(({default: installExtension, REACT_DEVELOPER_TOOLS,REDUX_DEVTOOLS}) => {
+    .then(({ default: installExtension, REACT_DEVELOPER_TOOLS, REDUX_DEVTOOLS }) => {
       installExtension(REACT_DEVELOPER_TOOLS)
       installExtension(REDUX_DEVTOOLS)
     })
@@ -195,58 +195,90 @@ const createWindow = async () => {
     }
   });
 
+  return mainWindow
+};
+
+const loadContent = mainWindow => {
   /**
-   * URL for main window.
-   * Vite dev server for development.
-   * `file://../renderer/index.html` for production and test
-   */
+    * URL for main window.
+    * Vite dev server for development.
+    * `file://../renderer/index.html` for production and test
+    */
   const pageUrl = import.meta.env.MODE === 'development' && import.meta.env.VITE_DEV_SERVER_URL !== undefined
     ? import.meta.env.VITE_DEV_SERVER_URL
     : new URL('../react-app/dist/index.html', 'file://' + __dirname).toString();
 
 
-    var menu = Menu.buildFromTemplate([
-      {
-        label: 'Menu',
-        submenu: [
-          {
-            label: 'Ouvrir',
-            click() {
-              dialog.showOpenDialog({ properties: ['openFile', 'multiSelections'] }).then(res=>{
-                console.log(res);
-              })
-            }
-          },
-          { 
-            label: 'Enregistrer',
-            click(){
-              mainWindow.webContents.send('trigger-save');
-            }
-          },
-          {
-            label: 'Exit',
-            click() {
-              app.quit()
-            }
-          }
-        ]
-      }
-    ])
-    Menu.setApplicationMenu(menu);
-  await mainWindow.loadURL(pageUrl);
-};
 
-ipcMain.handle('file-save', async  (event, content,filename='') => {
-  
-  console.log('want to write file',content,filename);
-  let {canceled,filePath} =  await dialog.showSaveDialog({defaultPath:filename});
-  if(!canceled){
-    console.log('saving');
-    const result = await fs.writeFile(filePath,content)
-    return typeof result ==='undefined';
+  return mainWindow.loadURL(pageUrl);
+}
+
+const createMenu = window => {
+  var menu = Menu.buildFromTemplate([
+    {
+      label: 'Menu',
+      submenu: [
+        {
+          label: 'Ouvrir',
+          click() {
+            window.webContents.send('trigger-open');
+          }
+        },
+        {
+          label: 'Enregistrer',
+          click() {
+            window.webContents.send('trigger-save');
+          }
+        },
+        {
+          label: 'Exit',
+          click() {
+            app.quit()
+          }
+        }
+      ]
+    }
+  ])
+  Menu.setApplicationMenu(menu);
+}
+
+const setupAutoUpdate = _ => {
+  if (import.meta.env.PROD) {
+
+    return import('electron-updater')
+      .then(({ autoUpdater }) => autoUpdater.checkForUpdatesAndNotify())
+      .catch((e) => console.error('Failed check updates:', e));
   }
   return false;
-})
+}
+
+
+ipcMain.handle('file-save', async (event, content, filename = '') => {
+
+  console.log('want to write file', content.length, filename);
+  let { canceled, filePath } = await dialog.showSaveDialog({ defaultPath: filename });
+  if (!canceled) {
+    console.log('saving');
+    return fs.writeFile(filePath, content).then (res =>typeof result === 'undefined' );
+  }
+  return false;
+});
+
+
+ipcMain.handle('file-open', async (event, filename ) => {
+
+  console.log('want to open file', filename);
+  let {canceled, filePaths} = await dialog.showOpenDialog({defaultPath:filename});
+
+  if (!canceled) {
+    console.log('reading');
+    return fs.readFile(filePaths[0],{encoding:'utf8'});
+  }
+  
+  return false;
+});
+
+
 
 app.on('second-instance', () => {
   // Someone tried to run a second instance, we should focus our window.
@@ -266,13 +298,9 @@ app.on('window-all-closed', () => {
 
 app.whenReady()
   .then(createWindow)
+  .then(window => {
+    createMenu(window);
+    loadContent(window);
+  })
   .catch((e) => console.error('Failed create window:', e));
 
-
-// Auto-updates
-if (import.meta.env.PROD) {
-  app.whenReady()
-    .then(() => import('electron-updater'))
-    .then(({autoUpdater}) => autoUpdater.checkForUpdatesAndNotify())
-    .catch((e) => console.error('Failed check updates:', e));
-}

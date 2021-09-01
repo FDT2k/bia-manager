@@ -4,24 +4,34 @@ console.log('hello from preload')
 
 
 const clientAddListener = channel => callback =>  ipcRenderer.on(channel,callback)
-const clientRemoveListener = channel => callback => ipcRenderer.removeListener(channel,callback);
+const clientRemoveListener = channel => callback => {
+  console.log('removing ',channel,callback)
+  ipcRenderer.removeListener(channel,callback)
+};
 
 const clientEvent = (key,channel) => ({
-    [`revoke${camelize(key)}`]: clientRemoveListener(channel),
-    [`handle${camelize(key)}`]: clientAddListener(channel),
+    [camelize(`revoke-${key}`)]: clientRemoveListener(channel),
+    [camelize(`handle-${key}`)]: clientAddListener(channel),
 
 })
 
 const invokeOnMainProcess = channel => (...args) =>  ipcRenderer.invoke(channel,...args)
 
+
+const electronAPI = {
+  //handleOpenFile: clientAddListener('file-open'),
+  ...clientEvent('saveRequest','trigger-save'),
+  ...clientEvent('openRequest','trigger-open'),
+  ...clientEvent('importRequest','trigger-import'),
+  ...clientEvent('locationChange','location-change'),
+  save:invokeOnMainProcess('file-save'),
+  open:invokeOnMainProcess('file-open')
+};
+
+console.log(electronAPI)
 contextBridge.exposeInMainWorld(
     'electron',
-    {
-      handleOpenFile: clientAddListener('file-open'),
-      handleSaveRequest: clientAddListener('trigger-save'),
-      handleLocationChange :clientAddListener('location-change') ,
-      save:invokeOnMainProcess('file-save')
-    }
+    electronAPI
   )
 
 

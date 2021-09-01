@@ -21,7 +21,6 @@ import { PersistGate } from 'redux-persist/integration/react'
 
 export const makeStore = (persistKey,reducer,options={},persistMigration={version:1}) => props=> {
 
-
     const store = configureStore({
         ...options,
         reducer: reducer,
