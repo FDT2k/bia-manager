@@ -148,8 +148,11 @@ import { app, ipcMain, BrowserWindow, Menu, dialog } from 'electron';
 import { join } from 'path';
 import { URL } from 'url';
 import fs from 'fs/promises';
+import {is_nil} from '@karsegard/composite-js';
 
-console.log('MODE', import.meta.env.MODE);
+
+let openedFilePath;
+
 const isSingleInstance = app.requestSingleInstanceLock();
 
 if (!isSingleInstance) {
@@ -256,10 +259,17 @@ const setupAutoUpdate = _ => {
 ipcMain.handle('file-save', async (event, content, filename = '') => {
 
   console.log('want to write file', content.length, filename);
-  let { canceled, filePath } = await dialog.showSaveDialog({ defaultPath: filename });
-  if (!canceled) {
-    console.log('saving');
-    return fs.writeFile(filePath, content).then (res =>typeof result === 'undefined' );
+
+  let shouldAskForName  = is_nil(openedFilePath) || openedFilePath == ""
+  if(shouldAskForName){
+    let { canceled, filePath } = await dialog.showSaveDialog({ defaultPath: filename });
+    if (!canceled) {
+      console.log('saving');
+      return fs.writeFile(filePath, content).then (res =>typeof result === 'undefined' );
+    }
+  }else{
+    console.log(`saving to ${openedFilePath}`)
+    fs.writeFile(openedFilePath, content).then (res =>typeof result === 'undefined' );
   }
   return false;
 });
@@ -272,6 +282,7 @@ ipcMain.handle('file-open', async (event, filename ) => {
 
   if (!canceled) {
     console.log('reading');
+    openedFilePath = filePaths[0];
     return fs.readFile(filePaths[0],{encoding:'utf8'});
   }
   

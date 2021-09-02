@@ -1,6 +1,7 @@
 import {camelize} from '@karsegard/composite-js'
-const { contextBridge, ipcRenderer } = require('electron')
-console.log('hello from preload')
+const { contextBridge, ipcRenderer,app } = require('electron')
+console.log('hello from preload',app)
+
 
 
 const clientAddListener = channel => callback =>  ipcRenderer.on(channel,callback)

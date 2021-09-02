@@ -16,23 +16,23 @@ export const Component = props => {
         <div>Norme</div>
         {
             headers && headers.map((item, idx) => {
-                return <div>{item.trim()!='' ? dateSysToHuman(new Date(item)) : item}</div>
+                return <div key={idx}>{item.trim()!='' ? dateSysToHuman(new Date(item)) : item}</div>
             }
             )
         }
 
 
-        {data.map(line => {
-            return (<>
+        {data.map((line,idx) => {
+            return (<React.Fragment key={idx}>
                 <div>{t(line.label)}</div>
                 <div>{line.values['norme']}</div>
-                {headers && headers.map(key => {
+                {headers && headers.map((key,idx) => {
                     let val = line.values[key];
                     val = oneDecimal(val);
-                    return (<div>{!isNaN(val) ? val : ''}</div>)
+                    return (<div key={idx}>{!isNaN(val) ? val : ''}</div>)
                 })}
 
-            </>)
+            </React.Fragment>)
 
         })}
 

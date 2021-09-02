@@ -2,13 +2,18 @@ const { join,resolve } = require('path');
 import reactRefresh from '@vitejs/plugin-react-refresh';
 const { chrome } = require('../../electron-vendors.config.json');
 import fs from 'fs/promises';
+import pkg from './package.json';
+import mainpkg from '../../package.json';
 
 const PACKAGE_ROOT = __dirname;
 
 console.log ( 'ALIAS',resolve(PACKAGE_ROOT, 'src'))
 module.exports = {
   base: '',
-
+  define: {
+    "process.env.RENDERER_VERSION": `"${pkg.version}"`,
+    "process.env.ELECTRON_VERSION": `"${mainpkg.version}"`
+  },
   esbuild: {
     loader: "jsx",
     include: /src\/.*\.jsx?$/,

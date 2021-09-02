@@ -1749,10 +1749,10 @@
     "@karsegard/cex" "^1.4.4"
     react "^17.0.2"
 
-"@karsegard/react-core-layout@^1.3.1":
-  version "1.3.1"
-  resolved "https://registry.yarnpkg.com/@karsegard/react-core-layout/-/react-core-layout-1.3.1.tgz#a9e9b212f20c316ea762b3b8db73c05888baf31e"
-  integrity sha512-8rBhITGvdTQMmWyJLCjdGHKTpjEnpLc5sc8spBWFNLac0NUP5H+SSElNHuYKXpJBh8qI4aGi17wEs4+/WUQx8g==
+"@karsegard/react-core-layout@^1.4.0":
+  version "1.4.0"
+  resolved "https://registry.yarnpkg.com/@karsegard/react-core-layout/-/react-core-layout-1.4.0.tgz#f3f90192c40e1245de2ab76502b024c8b0d4b4d6"
+  integrity sha512-E6wLlmRC6bnZGggbR9VuH+MRTUoqq9tEZwgmzyxt83Uqi/X718V9ulDAYD2wGR9IREY1fZV6CtyJ1QAHrtbKNg==
   dependencies:
     "@karsegard/composite-js" "^2.4.0"
     "@karsegard/react-compose" "^1.2.0"

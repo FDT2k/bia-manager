@@ -1,8 +1,8 @@
 import React from 'react';
-import Home from '@/views/Home';
+import BIAManager from '@/components/BIAManager';
 function App() {
   return (
-        <Home/>
+        <BIAManager/>
   );
   
 }

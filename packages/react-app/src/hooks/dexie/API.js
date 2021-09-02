@@ -124,12 +124,31 @@ const export_database = db => _ => {
 }
 
 
+const import_database = db => data=> {
+    return db.open().then(_ => {
+        const idbDatabase = db.backendDB(); // get native IDBDatabase object from Dexie wrapper
+        return new Promise((resolve,reject)=>  {
+
+            IDBExport.clearDatabase(idbDatabase, function(err) {
+                if (!err) { // cleared data successfully
+                 IDBExport.importFromJsonString(idbDatabase, data, function(err) {
+                    resolve();
+                 });
+                }
+            });
+
+        });
+       
+    }).catch(function (e) {
+        console.error('Could not connect. ' + e);
+    });
+}
 
 const import_data = db => data => {
     return db.open().then(db => {
         return db.patients.bulkAdd(data);
     });
 }
-const api = { getAll, search, import_data, get_patient, count, db_name, export_database, count_mesures ,all_pahological_groups}
+const api = { getAll, search, import_data, get_patient, count, db_name, export_database,import_database, count_mesures ,all_pahological_groups}
 
 export default spec(api)

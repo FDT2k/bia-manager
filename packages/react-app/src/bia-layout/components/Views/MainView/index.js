@@ -33,36 +33,30 @@ const Content = compose(
                         )(Container)
 
 const MainView = props => {
-
-    const { className, renderFooter,renderLeftNav,t, ...rest } = props;
+    const { className, renderFooter,renderLeftNav,t, showUser, ...rest } = props;
     const [location, setLocation] = useLocation();
-
-
 
     return (
         <MainLayout  className={className} contained cover>
             <Nav area="header" className="nav-main">
                 {renderLeftNav && renderLeftNav()}
                 {!renderLeftNav &&<h3>BIA Manager</h3>}
-                <LayoutFlex onClick={_=>setLocation("/import")} alignCenter><Person />{t(`Utilisateur`)}</LayoutFlex>
+                {showUser && <LayoutFlex onClick={_=>setLocation("/import")} alignCenter><Person />{t(`Utilisateur`)}</LayoutFlex>}
             </Nav>
             <Content area="maincontent">
-
                 {props.children}
-
             </Content>
             <Footer area="footer">
-
                 {renderFooter && renderFooter()}
-
+                renderer: v{process.env.RENDERER_VERSION} / host: v{process.env.ELECTRON_VERSION} - {import.meta.env.MODE}
             </Footer>
-
         </MainLayout>
    )
 }
 
 MainView.defaultProps = {
-  t: x=>x
+  t: x=>x,
+  showUser:false
 }
 
 export default withBaseClass(__base_class)(MainView);
