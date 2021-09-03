@@ -5,14 +5,14 @@ import Router from '@/components/Router'
 import Store from '@/Store';
 
 
-export default props => {
+export const BIAManager =  props => {
 
-   
+    const {dbname,dbtype} = props;
 
     return (
         <>
         {
-            <Provider dbname="bia" dbtype="dexie">
+            <Provider dbname={dbname} dbtype={dbtype}>
                 <Store>
                     <Router appLocation="/setup"/>
                 </Store>
@@ -22,3 +22,10 @@ export default props => {
     )
 
 }
+
+BIAManager.defaultProps = {
+    dbname:'bia',
+    dbtype:'dexie'
+}
+
+export default BIAManager;

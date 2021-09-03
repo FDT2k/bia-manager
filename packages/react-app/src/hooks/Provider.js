@@ -16,15 +16,13 @@ export const Provider = ({ children,dbname,dbtype }) => {
     const [db_name, setDBName] = useState('');
 
     let db ;
-
-    let API ;
+    let API ={};
     if(dbtype=='dexie'){
         db = DexieDB(dbname);
         API = DexieAPI;
     }/*else{
         db = PouchDB(dbname);
         API = PouchAPI;
-
     }*/
 
   
