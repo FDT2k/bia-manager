@@ -1,11 +1,11 @@
 import {useState, useEffect, useRef } from 'react';
 
 import { is_nil } from '@karsegard/composite-js';
-/**
- * Custom React Hook that listen to channel. When a new message arrives `listener` would be called with `listener(event, args...)`
- * @param {string} channel - The name of the channel
- * @param {Function} listener - The handler function
- */
+
+
+
+
+
 const useElectron = (api, { onSaveRequest, onOpenRequest }) => {
     const electron_api = useRef();
     useEffect(() => {

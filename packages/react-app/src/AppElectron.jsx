@@ -17,7 +17,7 @@ function App() {
   const [loading, setLoading] = useState(false);
   const [message, setMessage] = useState('Chargement');
   
-  
+  /*
   useEffect(() => {
     setLoading(true);
     setMessage('cleaning up database');
@@ -26,8 +26,8 @@ function App() {
 
     });
   }, []);
-
-
+*/
+/*
   useElectron(window.electron, {
 
     onSaveRequest: (electron) => {
@@ -46,6 +46,7 @@ function App() {
         if (res) {
           api.import_database(res)
             .then(_ => {
+
               window.location.hash = '#/search'
               setLoading(false);
             })
@@ -55,12 +56,14 @@ function App() {
         }
       })
     },
-  });
+  });*/
+
+  
 
   return (
     <>
       {loading && <LoadingScreen label={message} />}
-      <BIAManager dbname="electron" appLocation={location} />
+      <BIAManager dbname="electron"  />
     </>
   );
 

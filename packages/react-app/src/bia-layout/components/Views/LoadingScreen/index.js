@@ -12,7 +12,7 @@ export default props => {
         <Grid className="modal-content-box" >
           <LayoutFlex cover centered >
             <LayoutFlexColumn alignCenter justBetween>
-              <h1>{label}</h1>
+              <div className="title"><h1>{label}</h1></div>
               <Loading type="spin" color="#000000" />
             </LayoutFlexColumn>
           </LayoutFlex>
