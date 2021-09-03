@@ -13,6 +13,7 @@ export default name => {
     });
 
     const hook = function (primKey, obj, trans) {
+        debugger;
         let group = '';
         if(obj.groups && obj.groups.path) {
             group = obj.groups.path;
@@ -21,6 +22,16 @@ export default name => {
     }
     db.patients.hook("creating",hook );
 
-    db.patients.hook("updating", hook);
+
+
+    const hook2 = function (updated,primKey, obj, trans) {
+        let group = '';
+        if(obj.groups && obj.groups.path) {
+            group = obj.groups.path;
+        }
+        updated.search_terms = obj.lastname +' '+obj.firstname+' '+obj.birthdate+' '+group+ ' '+obj.firstname+' '+obj.lastname;
+        debugger;
+    }
+    db.patients.hook("updating", hook2);
     return db;
 }

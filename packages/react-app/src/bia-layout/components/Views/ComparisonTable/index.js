@@ -74,10 +74,18 @@ const FormulaResultRow = (props) => {
                 val = (new Number(val)).toFixed(2);
                 let classes = className;
                 if (limit) {
+                    const [min,max] = limit;
+                    const _limit =  x => {
+                        if (x < min)
+                            return -1
+                        if (x > max)
+                            return -1
+                        return 1
+                    };
                     classes = cEx([
                         className,
-                        _ => limit(val) === -1 ? modifier('lesser') : '',
-                        _ => limit(val) === 1 ? modifier('upper') : '',
+                        _ => _limit(val) === -1 ? modifier('lesser') : '',
+                        _ => _limit(val) === 1 ? modifier('upper') : '',
 
                     ])
                 }

@@ -82,6 +82,31 @@ const get_patient = db => id => {
     });
 }
 
+
+const update_patient = db => (id, patient,mesure,mesure_id) => {
+
+    
+    if(mesure_id >= patient.mesures.length){
+        patient.mesures.push(mesure);
+    }else{
+
+        patient.mesures = patient.mesures.map((item,idx)=>{
+
+            if(idx == mesure_id){
+                return mesure
+            }
+
+            return item;
+
+        } );
+
+    }
+debugger;
+    return db.open().then(db => {
+        return db.patients.update(id, patient);
+    });
+}
+
 const count = db => _ => {
     return db.open().then(db => {
         return db.patients.count();
@@ -123,22 +148,35 @@ const export_database = db => _ => {
     });
 }
 
-
-const import_database = db => data=> {
+const wipe_database = db=> _=> {
     return db.open().then(_ => {
         const idbDatabase = db.backendDB(); // get native IDBDatabase object from Dexie wrapper
-        return new Promise((resolve,reject)=>  {
-
-            IDBExport.clearDatabase(idbDatabase, function(err) {
+        return new Promise((resolve, reject) => {
+            IDBExport.clearDatabase(idbDatabase, function (err) {
                 if (!err) { // cleared data successfully
-                 IDBExport.importFromJsonString(idbDatabase, data, function(err) {
-                    resolve();
-                 });
+                    resolve(idbDatabase);
+                }else{
+                    reject(err)
                 }
             });
-
         });
-       
+    });
+}
+
+
+const import_database = db => data => {
+    return db.open().then(_ => {
+        const idbDatabase = db.backendDB(); // get native IDBDatabase object from Dexie wrapper
+        return new Promise((resolve, reject) => {
+            IDBExport.clearDatabase(idbDatabase, function (err) {
+                if (!err) { // cleared data successfully
+                    IDBExport.importFromJsonString(idbDatabase, data, function (err) {
+                        resolve();
+                    });
+                }
+            });
+        });
+
     }).catch(function (e) {
         console.error('Could not connect. ' + e);
     });
@@ -149,6 +187,6 @@ const import_data = db => data => {
         return db.patients.bulkAdd(data);
     });
 }
-const api = { getAll, search, import_data, get_patient, count, db_name, export_database,import_database, count_mesures ,all_pahological_groups}
+const api = { getAll,  wipe_database,search, import_data, get_patient, count, db_name, export_database, import_database, count_mesures, all_pahological_groups ,update_patient}
 
 export default spec(api)

@@ -152,13 +152,15 @@ export const formula_result_to_bia_summary = (results, columns, normes) => {
                 carry['display'] = results[item][column].display;
                 if (normes && normes[column]) {
                     const [min, max] = normes[column];
-                    carry['limits'][item] = x => {
+                    carry['limits'][item] = [min,max];
+                   /*  @ TODO move thise
+                   carry['limits'][item] = x => {
                         if (x < min)
                             return -1
                         if (x > max)
                             return -1
                         return 1
-                    };
+                    };*/
 
                 }
             }

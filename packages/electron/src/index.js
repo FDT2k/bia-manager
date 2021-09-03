@@ -252,6 +252,10 @@ const createMenu = window => {
           }
         },
         {
+          label: 'Fermer',
+          enabled:false
+        },
+        {
           label: 'Exit',
           click() {
             app.quit()
@@ -320,7 +324,6 @@ if (import.meta.env.MODE === 'development') {
 
   ipcMain.handle('collect-translation', async (event, content) => {
     console.log('translation collecting',content)
-
     
     return fs.readFile(langCollectionFile).then(res=>{
       return JSON.parse(res);

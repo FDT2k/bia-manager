@@ -1,38 +1,34 @@
-@import '@/bia-layout/sass/theme/default/main.scss';
+@import "@/bia-layout/sass/theme/default/main.scss";
 
 /*ca va bouger, j'ai fait une betise (fabien) */
-.bia-main-layout{
-    grid-template-columns: 100%;
-    grid-template-rows: 52px auto 52px;
-    grid-template-areas:
-      " header "
-      " maincontent "
-      " footer ";
+.bia-main-layout {
+  grid-template-columns: 100%;
+  grid-template-rows: 52px auto 52px;
+  grid-template-areas:
+    " header "
+    " maincontent "
+    " footer ";
 }
 
+.bia-main {
+  @extend %base_font;
 
-.bia-main{
+  &__content {
+    max-width: 100%;
+    padding: 0px var(--marge-width);
+  }
 
-    @extend %base_font;
+  .navbar {
+    @extend %colors-negative;
+    padding: 0px var(--marge-width);
+  }
 
-    &__content{
-        max-width:100%;
-        padding: 0px var(--marge-width);
-    }
-
-    .navbar{
-        @extend %colors-negative;
-        padding: 0px var(--marge-width);
-    }
-
-    .nav-main {
-
-    }
-    &__content{
-        overflow-y : auto;
-    }
+  .nav-main {
+  }
+  &__content {
+    overflow-y: auto;
+  }
 }
-
 
 button {
   //  width: calc((var(--col-width) * 3) + (var(--gut-width) * 2));
@@ -41,21 +37,42 @@ button {
     }*/
 }
 
-input, select, .editable-field {
-    box-sizing:border-box;
-    @extend %radius;
-    padding: 0px 16px;
+input,
+select,
+.editable-field {
+  box-sizing: border-box;
+  @extend %radius;
+  padding: 0px 16px;
 }
 
-input, select {
-    border: 1px solid var(--primary);
+input,
+select {
+  border: 1px solid var(--primary);
 }
 
-tr.selected, tr:hover{
-    @extend %large-body;
-
+tr.selected,
+tr:hover {
+  @extend %large-body;
 }
 
-tr{
-    cursor:pointer;
+tr {
+  cursor: pointer;
+}
+
+.modal-overlay {
+  background-color: var(--primary);
+  opacity:0.3;
+}
+.modal-content{
+  z-index:100000;
+  @extend %base_font;
+  background-color: var(--secondary);
+
+  
+}
+
+.modal-content-box{
+  z-index:100001;
+  min-width: 300px;
+  min-height: 300px;
 }

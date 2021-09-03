@@ -24,20 +24,11 @@ export default props => {
 
     const {patient_id,mesure_id} = props.params;
 
-    /*
-    const [patient_id, setPatientId] = useState();
-    const [mesure_id, setMesureId] = useState();
-*/
+   
 
     const handlePrint = useReactToPrint({
         content: () => componentRef.current
     })
-
-    //   const [selectedMesureIdx, setSelectedMesureIdx] = useState(mesure_id);
-
-
-  //  const [match, params] = useRoute("/editor/:id");
-   // const [matchWithMesure, paramsWithMesure] = useRoute("/editor/:id/:mesure_id");
 
 
     const mass_chart = useSelector(select_mass_chart);
@@ -68,28 +59,7 @@ export default props => {
         dispatch(fetch_normes())
     }, []);
 
-    //console.log('editor rendering')
-
-    //if any of the url argument changes, update internal state
-   /* useEffect(() => {
-        debugger;
-        //  console.log('url changed',params,paramsWithMesure);
-        if (match) {
-            if (patient_id !== params.id) {
-                setPatientId(params.id);
-            }
-            //setMesureId(-1);
-        } else if (matchWithMesure) {
-            if (patient_id != paramsWithMesure.id) {
-                setPatientId(paramsWithMesure.id);
-            }
-            if (paramsWithMesure.mesure_id !== mesure_id) {
-                setMesureId(paramsWithMesure.mesure_id);
-                //    setSelectedMesureIdx(paramsWithMesure.mesure_id)
-            }
-        }
-    }, []);
-*/
+  
 
     const patient = useSelector(select_edited_patient);
     const mesure = useSelector(select_edited_mesure);
@@ -156,12 +126,21 @@ export default props => {
 
 
     const handleClickSave= _=> {
-        let res = dispatch(save());
 
-   //     debugger;
-        if(current_mesure_id >= patient.mesures.length ){
-            setLocation(`/editor/${patient_id}/${current_mesure_id}`);
+        
+        let res = dispatch(save());
+        api.update_patient(patient.id,patient,mesure,current_mesure_id).then(res=> {
+            if(current_mesure_id >= patient.mesures.length ){
+                setLocation(`/editor/${patient_id}/${current_mesure_id}`);
+            }
+        }).catch(res=> {
+            alert('erreur ')
+            debugger;
+            console.error(res)
+
         }
+        );
+       
         
     }
     return (

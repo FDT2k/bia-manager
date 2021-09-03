@@ -1,4 +1,5 @@
 import React, { createContext,useEffect,useState } from 'react'
+import API from './dexie/API';
 import DexieAPI from './dexie/API';
 //import PouchAPI from './pouch/API';
 
@@ -8,6 +9,8 @@ import DexieDB from './dexie/db';
 const Context = createContext(null)
 export { Context }
 
+
+export const makeAPI = dbname => API(DexieDB(dbname))
 
 export const Provider = ({ children,dbname,dbtype }) => {
     

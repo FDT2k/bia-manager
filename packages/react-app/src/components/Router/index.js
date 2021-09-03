@@ -14,7 +14,6 @@ import { Route, useLocation, Router } from "wouter";
 import DebugPrint from '@/bia-layout/Pages/DebugPrint';
 import { is_nil } from '@karsegard/composite-js';
 
-import useElectron from '@/hooks/useElectron'
 
 
 
@@ -27,22 +26,7 @@ export default props => {
     const { api, patient_count } = useBIAManager();
 
 
-    useElectron(window.electron, {
-        onSaveRequest: (electron) => {
-            api.export_database().then(content => {
-                electron.save(content);
-            });
-        },
-        onOpenRequest: (electron) => {
-           
-            electron.open().then(res => {
-                if (res) {
-                    console.log(res.length)
-                    api.import_database(res).then(_ => console.log('imported')).catch(console.error)
-                }
-            })
-        },
-    });
+   
 
 
     const currentLoc = () => window.location.hash.replace("#", "") || "/";
