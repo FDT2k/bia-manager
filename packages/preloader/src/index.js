@@ -19,20 +19,27 @@ const clientEvent = (key,channel) => ({
 const invokeOnMainProcess = channel => (...args) =>  ipcRenderer.invoke(channel,...args)
 
 
-const electronAPI = {
+let electronAPI = {
   //handleOpenFile: clientAddListener('file-open'),
   ...clientEvent('saveRequest','trigger-save'),
   ...clientEvent('openRequest','trigger-open'),
   ...clientEvent('importRequest','trigger-import'),
   ...clientEvent('locationChange','location-change'),
   save:invokeOnMainProcess('file-save'),
-  open:invokeOnMainProcess('file-open')
+  open:invokeOnMainProcess('file-open'),
+  get_settings:invokeOnMainProcess('read-settings')
 };
 
+if (import.meta.env.MODE === 'development') {
+  electronAPI.collect_translation =invokeOnMainProcess('collect-translation')
+}
 console.log(electronAPI)
 contextBridge.exposeInMainWorld(
     'electron',
     electronAPI
   )
 
-
+  contextBridge.exposeInMainWorld(
+    'isElectron',
+    true
+  )

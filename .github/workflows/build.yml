@@ -39,7 +39,11 @@ jobs:
 
       - name: Install React package deps
      #   if: steps.yarn-react-cache.outputs.cache-hit != 'true'
-        run: cd packages/react-app && yarn 
+        run: |
+          cd packages/react-app;
+          yarn ;
+        env: 
+          CI: true
 
       - name: Electron Builder Action
         uses: samuelmeuli/action-electron-builder@v1.6.0

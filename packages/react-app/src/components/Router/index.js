@@ -21,7 +21,7 @@ import useElectron from '@/hooks/useElectron'
 export default props => {
 
     const { appLocation } = props;
-    const [location, setLocation] = useLocation();
+    const [location, setLocation] = useLocation(appLocation);
     const [loaded, setLoaded] = useState();
 
     const { api, patient_count } = useBIAManager();

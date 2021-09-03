@@ -1,31 +1,40 @@
 import React from 'react';
-import {Provider} from '@/hooks/Provider'
+import { Provider } from '@/hooks/Provider'
 import Router from '@/components/Router'
 
 import Store from '@/Store';
 
 
-export const BIAManager =  props => {
+if (navigator.storage && navigator.storage.persist) {
+    navigator.storage.persist().then(function (persistent) {
+        if (persistent)
+            console.log("Storage will not be cleared except by explicit user action");
+        else
+            console.log("Storage may be cleared by the UA under storage pressure.");
+    });
+}
 
-    const {dbname,dbtype} = props;
+export const BIAManager = props => {
+
+    const { dbname, dbtype } = props;
 
     return (
         <>
-        {
-            <Provider dbname={dbname} dbtype={dbtype}>
-                <Store>
-                    <Router appLocation="/setup"/>
-                </Store>
-            </Provider>
-        }
+            {
+                <Provider dbname={dbname} dbtype={dbtype}>
+                    <Store>
+                        <Router />
+                    </Store>
+                </Provider>
+            }
         </>
     )
 
 }
 
 BIAManager.defaultProps = {
-    dbname:'bia',
-    dbtype:'dexie'
+    dbname: 'bia',
+    dbtype: 'dexie'
 }
 
 export default BIAManager;
