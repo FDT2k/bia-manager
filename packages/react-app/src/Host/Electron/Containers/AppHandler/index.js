@@ -3,17 +3,18 @@ import BIAManager from '@/components/BIAManager';
 
 import { makeAPI } from '@/hooks/Provider';
 
-import LoadingScreen from '@/bia-layout/components/Views/LoadingScreen'
 
 import { useElectron } from '@/Providers/ElectronProvider';
 import {useAppState} from '@/Providers/Stores/ElectronApp';
+
+
 const api = makeAPI('electron')
 
 
 function App() {
 
     const { open, onOpenRequest,onSaveRequest } = useElectron();
-    const {open_file: dispatch_open,is_loading,start_loading,stop_loading,loading_message} = useAppState();
+    const {open_file: dispatch_open,start_loading,stop_loading} = useAppState();
     const handleFileOpen = _ => {
         start_loading("Waiting on user confirmation");
         dispatch_open(open).then(res => {
@@ -78,7 +79,6 @@ function App() {
 
     return (
         <>
-            {is_loading && <LoadingScreen label={loading_message} />} {/**move this elsewhere */}
             <BIAManager dbname="electron" />
         </>
     );
