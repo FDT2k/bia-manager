@@ -30,7 +30,6 @@ export default name => {
             group = obj.groups.path;
         }
         updated.search_terms = obj.lastname +' '+obj.firstname+' '+obj.birthdate+' '+group+ ' '+obj.firstname+' '+obj.lastname;
-        debugger;
     }
     db.patients.hook("updating", hook2);
     return db;

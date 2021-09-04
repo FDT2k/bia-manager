@@ -16,14 +16,14 @@ if (navigator.storage && navigator.storage.persist) {
 
 export const BIAManager = props => {
 
-    const { dbname, dbtype } = props;
+    const { dbname, dbtype,handleSave } = props;
 
     return (
         <>
             {
-                <Provider dbname={dbname} dbtype={dbtype}>
+                <Provider dbname={dbname} dbtype={dbtype} events={{handleSave}}>
                     <Store>
-                        <Router />
+                        <Router/>
                     </Store>
                 </Provider>
             }

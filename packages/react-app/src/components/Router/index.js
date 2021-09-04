@@ -63,8 +63,14 @@ export default props => {
             <Route path="/setup"><Setup /></Route>
             <Route path="/database"><Database /></Route>
             <Route path="/import"><DatabaseImport /></Route>
-            <Route path="/editor/:patient_id" component={Editor}/>
-            <Route path="/editor/:patient_id/:mesure_id" component={Editor}/>
+            <Route path="/editor/:patient_id">{params => { 
+                return (<Editor params={params}/>)
+            }
+            }</Route>
+            <Route path="/editor/:patient_id/:mesure_id">{params => { 
+                return (<Editor params={params}/>)
+            }
+            }</Route>
             <Route path="/search" component={Search}/>
             <Route path="/create_subject"  component={CreatePatient}/>
 

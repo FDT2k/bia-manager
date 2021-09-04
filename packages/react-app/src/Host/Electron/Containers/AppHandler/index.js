@@ -7,14 +7,14 @@ import { makeAPI } from '@/hooks/Provider';
 import { useElectron } from '@/Providers/ElectronProvider';
 import {useAppState} from '@/Providers/Stores/ElectronApp';
 
-
+import {is_nil} from '@karsegard/composite-js'
 const api = makeAPI('electron')
 
 
 function App() {
 
     const { open, onOpenRequest,onSaveRequest } = useElectron();
-    const {open_file: dispatch_open,start_loading,stop_loading} = useAppState();
+    const {open_file: dispatch_open,start_loading,stop_loading,current_file} = useAppState();
     const handleFileOpen = _ => {
         start_loading("Waiting on user confirmation");
         dispatch_open(open).then(res => {
@@ -75,11 +75,21 @@ function App() {
 
 
 
+    const handleSave = _=>{
+        if(!is_nil(current_file) && current_file!=""){
+           // debugger;
 
+            api.export_database().then(content => {
+                return electron.save(content);
+            })
+
+        }
+        console.log('should save to file');
+    }
 
     return (
         <>
-            <BIAManager dbname="electron" />
+            <BIAManager dbname="electron" handleSave={handleSave} />
         </>
     );
 

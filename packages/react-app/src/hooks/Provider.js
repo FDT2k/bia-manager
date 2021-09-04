@@ -12,8 +12,7 @@ export { Context }
 
 export const makeAPI = dbname => API(DexieDB(dbname))
 
-export const Provider = ({ children,dbname,dbtype }) => {
-    
+export const Provider = ({ children,dbname,dbtype,events }) => {
     const [patient_count,setPatientCount] = useState(0);
     const [mesures_count, setMesureCount] = useState(0);
     const [db_name, setDBName] = useState('');
@@ -29,8 +28,7 @@ export const Provider = ({ children,dbname,dbtype }) => {
     }*/
 
   
-
-    let api = API(db);
+    let api = API(db,events);
    
  
     useEffect(()=>{
