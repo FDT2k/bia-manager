@@ -27,7 +27,7 @@
     "vite-react-jsx": "^1.1.2"
   },
   "dependencies": {
-    "@karsegard/composite-js": "^2.7.0",
+    "@karsegard/composite-js": "^2.9.0",
     "@karsegard/react-core-layout": "^1.5.1",
     "@karsegard/react-hooks": "^2.0.0",
     "electron-devtools-installer": "^3.2.0",

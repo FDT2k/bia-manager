@@ -171,7 +171,7 @@ const import_database = db => data => {
             IDBExport.clearDatabase(idbDatabase, function (err) {
                 if (!err) { // cleared data successfully
                     IDBExport.importFromJsonString(idbDatabase, data, function (err) {
-                        resolve();
+                        resolve(true);
                     });
                 }
             });

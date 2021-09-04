@@ -1,38 +1,31 @@
-import React, { Children, useReducer,createContext, useEffect, useMemo, useState, useContext, useRef } from 'react'
+import React, { Children, useReducer, createContext, useEffect, useMemo, useState, useContext, useRef } from 'react'
 
-const Context = createContext(null)
+export const Context = createContext(null)
 
+export const makeBindEvent =_=> {
+    let bound = {
 
-export { Context }
+    }
 
-
-
-
-let bound = {
-
-}
-
-const bindEvent = (api,key, fn)=> {
-    if(!bound[key]){
-        bound[key] = fn;
-        api.current[key](bound[key])
-    }else{
-        console.warn('tried to register unique event again');
+    return (api, key, fn) => {
+        if (!bound[key]) {
+            bound[key] = fn;
+            api.current[key](bound[key])
+        } else {
+            console.warn('tried to register unique event again');
+        }
     }
 }
 
 
-
-export const Provider = props  => {
-    const {children} = props;
+export const makeProvider = (Context,bindEvent) => props => {
+    const { children } = props;
     const api = useRef(props.api);
 
-
-    
     const provider = useMemo(_ => ({
         ...api.current,
-        onOpenRequest: fn=> bindEvent(api,'handleOpenRequest',fn),
-        onSaveRequest: fn=> bindEvent(api,'handleSaveRequest',fn),
+        onOpenRequest: fn => bindEvent(api, 'handleOpenRequest', fn),
+        onSaveRequest: fn => bindEvent(api, 'handleSaveRequest', fn),
     }), []);
 
 
@@ -46,13 +39,21 @@ export const Provider = props  => {
 }
 
 
-
-
-export const useElectron = _ => {
+export const makeUseElectron = Context => _ => {
     const context = useContext(Context);
 
-    if(context === undefined){
+    if (context === undefined) {
         throw new Error('useElectron must be used within a provider');
     }
     return context;
 }
+
+export const bindEvent = makeBindEvent();
+
+export const Provider = makeProvider(Context,bindEvent);
+export const useElectron = makeUseElectron(Context);
+
+
+
+
+

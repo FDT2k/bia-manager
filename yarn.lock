@@ -430,6 +430,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@karsegard/composite-js@npm:^2.9.0":
+  version: 2.9.0
+  resolution: "@karsegard/composite-js@npm:2.9.0"
+  checksum: 56ffd4657b3136697cc45ccd6a7b6f2e02f70f192dc5b3ae7b421868e4594b5d20eb937b8ecc52a07478e494c45a342336cd69a4633d98b2f0a7a7dc9ac0f7e1
+  languageName: node
+  linkType: hard
+
 "@karsegard/react-compose@npm:^1.2.0":
   version: 1.2.0
   resolution: "@karsegard/react-compose@npm:1.2.0"
@@ -1261,7 +1268,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "bia-manager-electron@workspace:."
   dependencies:
-    "@karsegard/composite-js": ^2.7.0
+    "@karsegard/composite-js": ^2.9.0
     "@karsegard/react-core-layout": ^1.5.1
     "@karsegard/react-hooks": ^2.0.0
     "@rollup/plugin-dynamic-import-vars": ^1.4.0

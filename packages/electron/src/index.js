@@ -305,7 +305,13 @@ ipcMain.handle('file-open', async (event, filename ) => {
   if (!canceled) {
     console.log('reading');
     openedFilePath = filePaths[0];
-    return fs.readFile(filePaths[0],{encoding:'utf8'});
+    let content = await fs.readFile(filePaths[0],{encoding:'utf8'});
+
+    return {
+      content,
+      file: filePaths[0],
+      
+    }
   }
   
   return false;

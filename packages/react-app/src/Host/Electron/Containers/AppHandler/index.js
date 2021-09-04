@@ -6,18 +6,34 @@ import { makeAPI } from '@/hooks/Provider';
 import LoadingScreen from '@/bia-layout/components/Views/LoadingScreen'
 
 import { useElectron } from '@/Providers/ElectronProvider';
-
+import {useAppState} from '@/Providers/Stores/ElectronApp';
 const api = makeAPI('electron')
 
 
 function App() {
 
-    const [loading, setLoading] = useState(false);
-    const [message, setMessage] = useState('Chargement');
     const { open, onOpenRequest,onSaveRequest } = useElectron();
-
+    const {open_file: dispatch_open,is_loading,start_loading,stop_loading,loading_message} = useAppState();
     const handleFileOpen = _ => {
-        setLoading(true);
+        start_loading("Waiting on user confirmation");
+        dispatch_open(open).then(res => {
+            start_loading("importing data");
+            if (res && res.content) {
+                return api.import_database(res.content)
+
+            } else {
+                return false;
+            }
+        })
+        .then( result => {
+            stop_loading()
+            if(result){
+                window.location.hash = '#/search'
+            }
+          
+        })
+        .catch(console.error);
+        /*
         open()
             .then(res => {
                 setMessage('opening database');
@@ -33,7 +49,7 @@ function App() {
                 window.location.hash = '#/search'
                 setLoading(false);
             })
-            .catch(console.error);
+            .catch(console.error);*/
     }
 
 
@@ -62,7 +78,7 @@ function App() {
 
     return (
         <>
-            {loading && <LoadingScreen label={message} />} {/**move this elsewhere */}
+            {is_loading && <LoadingScreen label={loading_message} />} {/**move this elsewhere */}
             <BIAManager dbname="electron" />
         </>
     );
