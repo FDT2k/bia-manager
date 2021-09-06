@@ -43,7 +43,7 @@ const MainView = props => {
                 {!renderLeftNav &&<h3>BIA Manager</h3>}
                 {showUser && <LayoutFlex onClick={_=>setLocation("/import")} alignCenter><Person />{t(`Utilisateur`)}</LayoutFlex>}
             </Nav>
-            <Content area="maincontent">
+            <Content scrollable area="maincontent">
                 {props.children}
             </Content>
             <Footer area="footer">
