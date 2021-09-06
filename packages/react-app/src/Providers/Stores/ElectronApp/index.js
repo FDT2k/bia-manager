@@ -45,7 +45,7 @@ const migrations = {
 }
 
 
-export const Store = makeStore('electron', reducer, { devTools: {name:'App'} }, {
+export const Store = makeStore('electron', reducer, { devTools: { name: 'App' } }, {
   version: 1,
   migrate: createMigrate(migrations)
 });
@@ -53,21 +53,26 @@ export const Store = makeStore('electron', reducer, { devTools: {name:'App'} }, 
 export const Context = createContext();
 
 
-const mapStateToProps =  (state => ({
-  is_loading:is_loading(state),
+
+export const ConnectApp = connect(state => ({
+  is_loading: is_loading(state),
   loading_message: loading_message(state),
   current_file: current_file(state)
-}))
-
-const mapDispatchToProps = {
+}),  {
   start_loading,
   stop_loading,
-  open_file,
+  dispatch_open:open_file,
   save_file
-};
+});
 
-export const Connect = connect(mapStateToProps, mapDispatchToProps);
 
+
+export const ConnectLoading = connect(state => ({
+  is_loading: is_loading(state),
+  loading_message: loading_message(state),
+}));
+
+/*
 export const Provider = Connect(props => {
   const { children, ...redux } = props;
   return (
@@ -76,23 +81,34 @@ export const Provider = Connect(props => {
     </Context.Provider>
   )
 })
-
-
+*/
+/*
 export const useAppState = () => {
   const context = useContext(Context);
 
-    if(context === undefined){
-        throw new Error('useAppState must be used within its Provider');
-    }
-    return context;
-}
-
+  if (context === undefined) {
+    throw new Error('useAppState must be used within its Provider');
+  }
+  return context;
+}*/
+/*
 export default props => {
   return (
     <Store>
       <Provider>
         {props.children}
       </Provider>
+    </Store>
+  )
+}*/
+
+//export default Provider;
+
+
+export default props => {
+  return (
+    <Store>
+        {props.children}
     </Store>
   )
 }

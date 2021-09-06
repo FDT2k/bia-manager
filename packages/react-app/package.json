@@ -87,6 +87,7 @@
   },
   "devDependencies": {
     "namor": "^2.0.3",
+    "vite": "^2.5.3",
     "webpack-cli": "^4.7.2"
   }
 }

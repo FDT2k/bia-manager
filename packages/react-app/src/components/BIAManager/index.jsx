@@ -15,7 +15,6 @@ if (navigator.storage && navigator.storage.persist) {
 }
 
 export const BIAManager = props => {
-
     const { dbname, dbtype,handleSave } = props;
 
     return (

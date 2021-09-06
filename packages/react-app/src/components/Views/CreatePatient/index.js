@@ -1,6 +1,6 @@
 import CreatePatient from '@/bia-layout/Pages/CreatePatient';
 import useBIAManager from '@/hooks/useBIAManager';
-import { create_subject, edit_subject, fetch_pathological_groups, populate_ethno_groups, populate_genders, select_ethno_group, select_genders, select_list_pathological_groups, select_subject_form } from '@/Store';
+import { create_subject, edit_subject, fetch_pathological_groups, populate_ethno_groups, populate_genders, select_ethno_group, select_genders, select_list_pathological_groups, select_subject_form,create_patient } from '@/Store';
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useLocation } from "wouter";
@@ -51,7 +51,14 @@ export default props => {
     }
 
     const handleSave = values => {
-        console.log(values)
+     
+       dispatch(create_patient(api.create_patient,values,false)).then(res=>{
+            setLocation('/editor/'+res.id)
+       }).catch(res=>{
+
+            alert('error')
+       });
+        
     }
 
     

@@ -13,7 +13,6 @@ export default name => {
     });
 
     const hook = function (primKey, obj, trans) {
-        debugger;
         let group = '';
         if(obj.groups && obj.groups.path) {
             group = obj.groups.path;

@@ -42,12 +42,12 @@ const PatientHeader = props => {
     }, [data])
 
 
-    const handleValuesChange = values => {
+    const onValuesChange = values => {
        // console.log(values);
        handleParentChange && handleParentChange(values);
     }
 
-    const { values, handleChangeValue, inputProps, handleChange, assignValues, replaceValues } = useFieldValues(data, { handleValuesChange,usePath:true });
+    const { values, handleChangeValue, inputProps, handleChange, assignValues, replaceValues } = useFieldValues(data, { onValuesChange,usePath:true });
 
 
 

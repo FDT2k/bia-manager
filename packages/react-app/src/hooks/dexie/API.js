@@ -114,6 +114,15 @@ export default (db, events={}) => {
         });
     }
 
+    module.create_patient = (patient)=>{
+        return db.open().then(db=> {
+
+            return db.patients.add(patient);
+        }).then(id=> {
+            return module.get_patient(id)
+        })
+    }
+
     module.count = _ => {
         return db.open().then(db => {
             return db.patients.count();

@@ -60,7 +60,7 @@ const Editor = props => {
         parentHandleChange && parentHandleChange(v);
     }
 
-    const { values, handleChangeValue, inputProps, handleChange, assignValues, replaceValues } = useFieldValues(mesure, { handleValuesChange: _handleChange, usePath: true });
+    const { values, handleChangeValue, inputProps, handleChange, assignValues, replaceValues } = useFieldValues(mesure, { onValuesChange: _handleChange, usePath: true });
     const componentRef = useRef();
     const _handlePrint = useReactToPrint({
         content: () => componentRef.current
