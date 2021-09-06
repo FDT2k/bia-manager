@@ -133,6 +133,7 @@ export default (getModule) => {
     });
 
     module.patient = createReducer({}, {
+        [action_types.ADDED_PATIENT]: (state, { payload }) => updateProp(payload.id, state, payload),
         [action_types.EDIT_PATIENT]: (state, { payload }) => updateProp(payload.id, state, payload),
         [action_types.CHANGE_SUBJECT]: (state, { payload }) => {
             const [rest, patient] = spreadObjectPresentIn(['mesures', 'mesures_dates'], payload.patient);

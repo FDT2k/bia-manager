@@ -16,7 +16,7 @@ makePromiseDispatcher = FN<PayloadResolver> => FN <PayloadResolver> => <ActionCr
 
 */
 
-import { compose, curry, identity, prop, tryCatcher } from '@karsegard/composite-js'
+import { compose, curry, identity, prop, run_or_yield, tryCatcher } from '@karsegard/composite-js'
 import Promise from 'bluebird'
 
 export const makePromiseDispatcher = curry((errorPayloadResolver, payloadResolver, RejectedActionCreator, ResolvedActionCreator) => (promise,args,returnaction=false) => {
@@ -25,12 +25,14 @@ export const makePromiseDispatcher = curry((errorPayloadResolver, payloadResolve
   
   return (dispatch, getState) => {
     const success =  compose(dispatch, ResolvedActionCreator, payloadResolver);
-    const run = args => promise(args)
+    const rejection = compose(Promise.reject, prop('payload'), dispatch, RejectedActionCreator, errorPayloadResolver)
+    
+    const run = args => promise(run_or_yield(args))
                           .then(res => {
                             let action = success(res);
                             return (returnaction === true) ? action:  res;
                           })
-                          .catch(compose(Promise.reject, prop('payload'), dispatch, RejectedActionCreator, errorPayloadResolver))
+                          .catch(rejection)
 
     return tryCatcher(
       Promise.reject,

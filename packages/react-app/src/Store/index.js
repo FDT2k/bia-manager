@@ -61,6 +61,7 @@ export const {
   recompute_current_mesure,
   refresh_current_recap,
   refresh_recap,
+  create_patient,
   change_mesure } = BIAEditorModule.actions;
 
 export const { fetch: populate_sportrate } = BIAEditorModule.submodules.sportRate.actions;

@@ -4,33 +4,36 @@ import { is_nil } from "@karsegard/composite-js";
 export const find_norme = (norme, gender, age) => {
     let _n = norme[gender];
 
-    let picked;
-    for (let i = 0; i < _n.length; i++) {
+    if (_n && _n.length > 0) {
+        let picked;
+        for (let i = 0; i < _n.length; i++) {
 
-        let item = _n[i];
+            let item = _n[i];
 
-        if (!is_nil(item.age_range)) {
-            let [min, max] = item.age_range;
+            if (!is_nil(item.age_range)) {
+                let [min, max] = item.age_range;
 
-            if (age >= min && age <= max) {
-                picked = _n[i].values;
-                break;
-            } else {
-                continue;
+                if (age >= min && age <= max) {
+                    picked = _n[i].values;
+                    break;
+                } else {
+                    continue;
+                }
+            } else if (!is_nil(item.age_min)) {
+
+                if (age >= item.age_min) {
+                    picked = _n[i].values;
+                    break;
+                } else {
+                    continue;
+                }
             }
-        } else if (!is_nil(item.age_min)) {
 
-            if (age >= item.age_min) {
-                picked = _n[i].values;
-                break;
-            } else {
-                continue;
-            }
         }
 
+        return picked;
     }
-
-    return picked;
+    return null
 
 }
 

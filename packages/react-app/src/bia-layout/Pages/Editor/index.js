@@ -12,7 +12,7 @@ import { ComponentWithArea as Area, withGridArea } from '@/bia-layout/hoc/grid/A
 import EditorLayout from '@/bia-layout/layouts/Editor';
 
 import ReactLoading from 'react-loading'
-import React, { forwardRef, useState } from 'react';
+import React, { forwardRef, useState,useMemo } from 'react';
 
 import "react-datepicker/dist/react-datepicker.css";
 //styles
@@ -41,7 +41,6 @@ const NavComponent = compose(
 )(LayoutFlex);
 
 const Editor = props => {
-
     const { className, renderFooter, handleClickSave, t, handleGoBack, handleMesureOpen, handleSubjectChange,handleChange, lines, data, mesure, handlePrint, selectedMesureIndex, ...rest } = getClasseNames(__base_class, props);
     const [startDate, setStartDate] = useState(new Date());
     const ExampleCustomInput = forwardRef(({ value, onClick }, ref) => (
@@ -54,6 +53,13 @@ const Editor = props => {
         handleMesureOpen && handleMesureOpen(d, idx)
     }
 
+
+    const mesures = useMemo(()=>{
+        if(data.mesures && data.mesures.length>0){
+            return [...data.mesures, { date: "<Nouvelle>" }]
+        }
+        return [{ date: "<Nouvelle>" }]
+    },[data])
     return (
         <MainView renderFooter={renderFooter} className="bia-main--editor" renderLeftNav={
             _ => {

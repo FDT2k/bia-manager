@@ -11,7 +11,7 @@ import normes, { find_norme } from '@/references/Normes';
 import { normalize as normalize_patient } from '@/references/Patient';
 import { select_edited_mesure } from '@/Store';
 
-
+import createAsync from '@/Redux/utils/async-dispatch'
 
 
 
@@ -19,6 +19,7 @@ import { select_edited_mesure } from '@/Store';
 
 export const ACTIONS_TYPES = createActionTypes(
     'EDIT_PATIENT',
+    'ADDED_PATIENT',
     'EDIT_MESURE',
     'SELECT_MESURE',
     'CREATE_MESURE',
@@ -31,6 +32,7 @@ export const ACTIONS_TYPES = createActionTypes(
     'REFRESH_NORME',
     'FETCHED_NORMES',
     'ERROR_EDIT_PATIENT_UNDEF',
+    'ERROR_ADD_PATIENT_UNDEF',
     'SAVE'
 )
 
@@ -49,9 +51,10 @@ export default (getModule) => {
     const { select_mesures, select_empty_mesure,select_normes_sampling,select_current_mesure_id,select_current_patient_id, select_result_columns, select_normes, select_edited_patient, select_report_columns, select_charts_columns } = selectors;
 
     actions.real_edit_patient = create(action_types.EDIT_PATIENT);
+    actions.added_patient = create(action_types.ADDED_PATIENT);
+    actions.add_patient_failed = create(action_types.ERROR_ADD_PATIENT_UNDEF);
     actions.refresh_norme = create(action_types.REFRESH_NORME)
     actions.fetched_normes = create(action_types.FETCHED_NORMES)
-
     actions.do_refresh_norme = (key, norme) => (dispatch, getState) => {
         let s = getState();
         const age = select_edited_mesure(getState()).current_age;
@@ -96,6 +99,23 @@ export default (getModule) => {
         })
 
     }
+
+    actions.create_patient = createAsync(actions.add_patient_failed,actions.added_patient)/*promise => {
+        return (dispatch, getState) => {
+
+            if (patient) {
+                return dispatch(actions.real_add_patient(normalize_patient(patient)));
+
+            } else {
+                return dispatch({
+                    type: action_types.ERROR_ADD_PATIENT_UNDEF
+                });
+            }
+
+        }
+
+
+    }*/
 
     actions.edit_patient = patient => {
         return (dispatch, getState) => {
@@ -299,8 +319,8 @@ export default (getModule) => {
                 if (!patient) {
                     return dispatch(actions.recap_error_patient_fail({}))
                 }
-
-                let mesures = [...patient.mesures];
+                
+                let mesures = select_mesures(getState())
 
                 edited_mesure = select_edited_mesure(getState())
                 let edited_mesure_id = edited_mesure.mesure_id
