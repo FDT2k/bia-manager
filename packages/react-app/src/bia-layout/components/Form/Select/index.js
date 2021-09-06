@@ -7,6 +7,7 @@ export default props => {
     const { children, options, ...rest } = props
     const renderChildren = is_nil(options);
 
+
     return (<select {...rest} >
         {renderChildren && children}
         {!renderChildren && options.map((option, idx) => {
@@ -16,7 +17,7 @@ export default props => {
             if (is_type_object(option)) {
                 [value, label] = keyval(option);
             }
-
+          
             return (<option key={idx} value={value}>{label}</option>)
         }
         )}

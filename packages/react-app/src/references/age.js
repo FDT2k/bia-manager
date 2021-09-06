@@ -7,5 +7,7 @@ export const calc_age = (birthdate, _date) => {
 
     var ageDifMs = date - (new Date(birthdate)).getTime();
     var ageDate = new Date(ageDifMs); // miliseconds from epoch
-    return Math.abs(ageDate.getUTCFullYear() - 1970);
+    let res =  Math.abs(ageDate.getUTCFullYear() - 1970);
+
+    return isNaN(res) ? 0: res;
 }

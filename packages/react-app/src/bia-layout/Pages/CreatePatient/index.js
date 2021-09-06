@@ -1,12 +1,12 @@
-import React from 'react';
+import React, { useEffect,useMemo } from 'react';
 import MainView from "@/bia-layout/components/Views/MainView"
 import PageHeader from '@/bia-layout/components/PageHeader';
 import { Container, Grid, LayoutFlex,ComponentWithArea } from '@karsegard/react-core-layout';
 import Field from '@/bia-layout/components/Form/Fields';
 import Button from '@/bia-layout/components/Form/Button';
-import { enlist, identity ,safe_path,repeat} from '@karsegard/composite-js';
+import { enlist,is_nil, identity ,safe_path,repeat} from '@karsegard/composite-js';
 import Select from '@/bia-layout/components/Form/Select'
-import { useFieldValues } from '@karsegard/react-hooks';
+import { useFieldValues,useForm } from '@karsegard/react-hooks';
 import { keyval } from '@karsegard/composite-js/ObjectUtils';
 import DatePicker from '@/bia-layout/components/Form/DatePicker'
 import { useLocation, useRoute } from "wouter";
@@ -16,7 +16,7 @@ const mapItemListAsoption = (item)=>{
 }
 export const Page = props => {
     
-    const {available_options, t, patient,handleChange,...rest } = props;
+    const {available_options, t, patient,handleChange,handleSave,...rest } = props;
     const [location, setLocation] = useLocation();
 
 
@@ -32,8 +32,46 @@ export const Page = props => {
         'usual_weight': { type: 'text', label: 'Poids habituel' },
         'diag': { type: 'textarea', label: 'Diagnostic' },
     }
-    const {values, inputProps,handleChangeValue} = useFieldValues(patient,{usePath:true,handleValuesChange:handleChange})
 
+    const relevantFields = useMemo(()=> {
+        const {age,mesures,mesure_count,...result} = patient
+        return result;
+    },[patient])
+
+    useEffect(_=>{
+        replaceValues(relevantFields)
+    },[relevantFields])
+    
+
+
+  
+    const {values,inputProps,handleChangeValue} = useForm(relevantFields,_handleSubmit,validate_field,'name',true)
+
+
+    //const {values, inputProps,handleChangeValue,replaceValues} = useFieldValues(relevantFields,{usePath:true,handleValuesChange:handleChange})
+
+    
+
+/*
+    const validate_field = (key,value) => {
+        switch(key){
+
+            default: 
+                return !is_nil(value)&&value !=="";
+        }
+        return false;
+    }
+    const validate = ()=>{
+        return enlist(values).map(item=>validate_fields(...keyval(item))).reduce((carry,item)=> {
+            return  carry && item;
+        },true);
+
+    }
+    const _handleSubmit = _=>{
+       if(validate()){
+           handleSave(values);
+       }
+    }*/
     return (
         <MainView className="page-create-subject">
             <Grid>
@@ -72,7 +110,7 @@ export const Page = props => {
                             </Field></ComponentWithArea>)
                         })}
 
-                        <ComponentWithArea tabIndex={30} area="btsave"><Button>Enregistrer</Button></ComponentWithArea>
+                        <ComponentWithArea tabIndex={30} area="btsave"><Button onClick={_handleSubmit}>Enregistrer</Button></ComponentWithArea>
                         <ComponentWithArea tabIndex={99} area="btcancel"><Button onClick={_=>setLocation('/search')}>Annuler</Button></ComponentWithArea>
 
                     </Grid>
@@ -87,6 +125,7 @@ export const Page = props => {
 Page.defaultProps = {
 
     t: identity,
+    handleSave: _=> console.warn('save handler not setup'),
     patient:{}
 }
 

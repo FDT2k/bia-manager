@@ -249,7 +249,8 @@ const createMenu = window => {
           label: 'Enregistrer',
           click() {
             window.webContents.send('trigger-save');
-          }
+          },
+          enabled: !is_nil(openedFilePath)&& openedFilePath!="" 
         },
         {
           label: 'Fermer',

@@ -17,6 +17,8 @@ export default props => {
     const dispatch = useDispatch();
 
     useEffect(()=>{
+        dispatch(create_subject())
+
         dispatch(populate_genders([
             { 'id': 'M', 'name': 'Male',default:true },
             { 'id': 'F', 'name': 'Female' },
@@ -35,7 +37,6 @@ export default props => {
         })
 
         
-        dispatch(create_subject())
     },[])
  
     const genders = useSelector(select_genders);
@@ -49,11 +50,15 @@ export default props => {
         dispatch(edit_subject(values));
     }
 
+    const handleSave = _ => {
+        console.log(patient)
+    }
+
 
 
     return (
         <>
-            <CreatePatient handleChange={handleChange} patient={patient} available_options={{genders,etno_groups,patho_groups}}/>
+            <CreatePatient handleChange={handleChange} patient={patient} handleSave={handleSave} available_options={{genders,etno_groups,patho_groups}}/>
         </>
     )
 }

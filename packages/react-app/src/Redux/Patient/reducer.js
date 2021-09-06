@@ -69,7 +69,7 @@ export default (getModule) => {
     };
 
 
-    module.subject_form = createReducer({},{
+    module.subject_form = createReducer(EMPTY_SUBJECT,{
         [action_types.CHANGE]: (state,{payload})=> ({...payload})
     });
 
