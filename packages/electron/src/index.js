@@ -150,7 +150,14 @@ import { URL } from 'url';
 import fs from 'fs/promises';
 import {is_nil,deep_merge} from '@karsegard/composite-js';
 
+//import createAPI from './BIADatabase';
 
+//const Database = require('better-sqlite3');
+
+
+/*console.log(resolve('./test.sqlite'));
+const API = createAPI(Database,resolve('./test.sqlite'))
+*/
 let openedFilePath;
 
 const isSingleInstance = app.requestSingleInstanceLock();

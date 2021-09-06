@@ -1,8 +1,9 @@
 import {format} from 'date-fns'
+import {dateHumanToSys} from '@/references/format'
 export default {
     lastname:'',
     firstname:'',
-    birthdate:'',
+    birthdate:dateHumanToSys(new Date()),
     age:0,
     usual_height: 0,
     usual_weight: 0,

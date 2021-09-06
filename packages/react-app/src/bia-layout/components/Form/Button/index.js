@@ -12,6 +12,10 @@ const Component = props => {
 
 }
 
+Component.defaultProps={
+    type:"button"
+}
+
 const Button = compose(
     withBaseClass('button')
 )(Component);

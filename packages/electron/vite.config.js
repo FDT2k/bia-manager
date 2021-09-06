@@ -35,7 +35,13 @@ const config = {
       entry: 'src/index.js',
       formats: ['cjs'],
     },
+    commonjsOptions: {
+      dynamicRequireTargets: [
+        'better_sqlite3'
+      ]
+    },
     rollupOptions: {
+     
       external: [
         'electron',
         'electron-devtools-installer',

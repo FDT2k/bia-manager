@@ -1,14 +1,14 @@
-import React, { useEffect, useState } from 'react';
 import CreatePatient from '@/bia-layout/Pages/CreatePatient';
+import useBIAManager from '@/hooks/useBIAManager';
+import { create_subject, edit_subject, fetch_pathological_groups, populate_ethno_groups, populate_genders, select_ethno_group, select_genders, select_list_pathological_groups, select_subject_form } from '@/Store';
+import React, { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { useLocation } from "wouter";
 
-import useBIAManager from '@/hooks/useBIAManager';
-import {useDispatch, useSelector} from 'react-redux'; 
 
-import {populate_genders,select_genders,populate_ethno_groups,select_ethno_group
-,select_subject_form ,select_empty_subject,create_subject,
-    fetch_pathological_groups,select_list_pathological_groups, edit_subject} from '@/Store';
 
+
+    
 export default props => {
     const {api} = useBIAManager();
 
@@ -50,11 +50,11 @@ export default props => {
         dispatch(edit_subject(values));
     }
 
-    const handleSave = _ => {
-        console.log(patient)
+    const handleSave = values => {
+        console.log(values)
     }
 
-
+    
 
     return (
         <>
