@@ -63,6 +63,7 @@ export const {
   refresh_recap,
   create_patient,
   delete_mesure,
+  delete_mesure_from_db,
   change_mesure } = BIAEditorModule.actions;
 
   

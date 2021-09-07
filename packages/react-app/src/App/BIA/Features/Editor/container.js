@@ -5,7 +5,7 @@ import useBIAManager from '@/hooks/useBIAManager';
 import React, { useEffect, useRef, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useReactToPrint } from 'react-to-print';
-import { change_mesure, create_mesure, edit_mesure, edit_patient, fetch_normes, populate_sporttype, populate_sportrate, refresh_recap, select_current_bia_values, select_current_mesure_id, delete_mesure, select_edited_mesure, select_edited_patient, change_subject, select_mass_chart, has_error, error_message, select_recap_headers, select_recap_list, populate_machines, save } from '@/Store';
+import { change_mesure, create_mesure, edit_mesure, edit_patient, fetch_normes, populate_sporttype, populate_sportrate, refresh_recap, select_current_bia_values, select_current_mesure_id, delete_mesure, select_edited_mesure, select_edited_patient,delete_mesure_from_db, change_subject, select_mass_chart, has_error, error_message, select_recap_headers, select_recap_list, populate_machines, save } from '@/Store';
 import { useLocation, useRoute } from "wouter";
 
 export default Component => props => {
@@ -140,11 +140,17 @@ export default Component => props => {
 
     }
 
-    const handleMesureDelete = _ => {
+    const handleMesureDelete = index => {
         if (confirm('Sur? ')) {
-            dispatch(delete_mesure(patient.id, current_mesure_id));
-            
-           /* api.update_patient(patient.id, patient).then(res => {
+            let result = dispatch(delete_mesure(patient.id, index));
+             // dispatch(save());
+                console.log(result)
+                debugger;
+
+            dispatch(delete_mesure_from_db(api.update_patient)).then(res=> {
+                debugger;
+            })
+          /*  api.update_patient(patient.id, patient).then(res => {
                 debugger;
                 setLocation(`/editor/${patient_id}/0`);
             });*/

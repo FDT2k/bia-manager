@@ -243,6 +243,7 @@ const loadContent = mainWindow => {
 
 const createMenu = window => {
   var menu = Menu.buildFromTemplate([
+    
     {
       label: 'Menu',
       submenu: [
@@ -257,7 +258,7 @@ const createMenu = window => {
           click() {
             window.webContents.send('trigger-save');
           },
-          enabled: !is_nil(openedFilePath)&& openedFilePath!="" 
+          //enabled: !is_nil(openedFilePath)&& openedFilePath!="" 
         },
         {
           label: 'Fermer',
@@ -269,6 +270,22 @@ const createMenu = window => {
             app.quit()
           }
         }
+      ]
+    },{
+      label: 'Debug',
+      submenu: [
+        {
+          label: 'Import',
+          click() {
+            window.webContents.send('location-change','#/setup');
+          }
+        },
+        {
+          label: 'Base',
+          click() {
+            window.webContents.send('location-change','#/search');
+          }
+        },
       ]
     }
   ])

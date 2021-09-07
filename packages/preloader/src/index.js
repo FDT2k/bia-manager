@@ -4,7 +4,9 @@ console.log('hello from preload',app)
 
 
 
-const clientAddListener = channel => callback =>  ipcRenderer.on(channel,callback)
+const clientAddListener = channel => callback =>  ipcRenderer.on(channel, (...args) => {
+  return  callback(...args)
+});
 const clientRemoveListener = channel => callback => {
   console.log('removing ',channel,callback)
   ipcRenderer.removeListener(channel,callback)

@@ -26,6 +26,7 @@ export const makeProvider = (Context,bindEvent) => props => {
         ...api.current,
         onOpenRequest: fn => bindEvent(api, 'handleOpenRequest', fn),
         onSaveRequest: fn => bindEvent(api, 'handleSaveRequest', fn),
+        onLocationChange: fn => bindEvent(api, 'handleLocationChange', fn),
     }), []);
 
 

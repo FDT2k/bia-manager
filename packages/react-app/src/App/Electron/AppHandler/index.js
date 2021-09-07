@@ -8,12 +8,14 @@ import { useElectron } from '@/Providers/ElectronProvider';
 import {ConnectApp} from '@/Providers/Stores/ElectronApp';
 
 import {is_nil} from '@karsegard/composite-js'
+
+
 const api = makeAPI('electron')
 
 
 export const Component = props =>  {
 
-    const { open, onOpenRequest,onSaveRequest } = useElectron();
+    const { open, onOpenRequest,onSaveRequest,onLocationChange } = useElectron();
     
     const {dispatch_open,start_loading,stop_loading, current_file} = props;
     const handleFileOpen = _ => {
@@ -71,6 +73,9 @@ export const Component = props =>  {
        // setLoading(true);
       //  setMessage('Loading Desktop Version');
         onOpenRequest(handleFileOpen);
+        onLocationChange((sender,arg)=>{
+            window.location.href=arg;
+        });
         onSaveRequest(handleFileSave);
     }, []);
 

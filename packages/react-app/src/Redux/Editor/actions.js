@@ -134,6 +134,15 @@ export default (getModule) => {
         }
     })
 
+    actions.delete_mesure_from_db = (apifn)=> (dispatch,getState)=> {
+        const patient_id = select_current_patient_id(getState())
+        const patient = select_edited_patient(getState())
+
+        return apifn(patient_id,patient).then(_=> {
+            return {type:'SAVED_IN_DB'}
+        })
+    }
+
 
 
     actions.create_mesure = (patient_id) => {
