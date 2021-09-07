@@ -2,7 +2,7 @@ import { Fullscreen } from '@karsegard/react-core-layout'
 
 import DatabaseImport from '@/components/DatabaseImport';
 import Database from '@/components/Views/Database';
-import Editor from '@/components/Views/Editor';
+import Editor from '@/App/BIA/Features/Editor';
 import CreatePatient from '@/components/Views/CreatePatient';
 import Login from '@/components/Views/Login';
 import Idle from '@/bia-layout/Pages/Idle';

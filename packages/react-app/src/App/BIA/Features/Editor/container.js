@@ -1,7 +1,6 @@
 import { is_nil, safe_path } from '@karsegard/composite-js';
 //import { useKeypress } from '@karsegard/react-hooks';
 
-import Editor from '@/bia-layout/Pages/Editor';
 import useBIAManager from '@/hooks/useBIAManager';
 import React, { useEffect, useRef, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
@@ -9,12 +8,7 @@ import { useReactToPrint } from 'react-to-print';
 import { change_mesure, create_mesure, edit_mesure, edit_patient, fetch_normes, populate_sporttype, populate_sportrate, refresh_recap, select_current_bia_values, select_current_mesure_id, select_edited_mesure, select_edited_patient,change_subject, select_mass_chart, has_error, error_message, select_recap_headers, select_recap_list, populate_machines,save } from '@/Store';
 import { useLocation, useRoute } from "wouter";
 
-
-
-
-
-
-export default props => {
+export default Component =>  props => {
     const [location, setLocation] = useLocation();
     const dispatch = useDispatch();
     const { api } = useBIAManager();
@@ -82,6 +76,7 @@ export default props => {
     
 
     useEffect(() => {
+
         //  console.log('ba', mesure_id,patient)
         if (!is_nil(patient)) {
             if (!is_nil(mesure_id) && mesure_id< patient.mesures.length) {
@@ -102,7 +97,6 @@ export default props => {
         return Promise.resolve(dispatch(create_mesure(patient_id)));
 
     }
-
     const handleMesureOpen = (value, idx) => {
         if (idx < patient.mesures.length) {
             setLocation(`/editor/${patient_id}/${idx}`);
@@ -126,8 +120,6 @@ export default props => {
 
 
     const handleClickSave= _=> {
-
-        
         let res = dispatch(save());
         api.update_patient(patient.id,patient,mesure,current_mesure_id).then(res=> {
             if(current_mesure_id >= patient.mesures.length ){
@@ -140,12 +132,11 @@ export default props => {
 
         }
         );
-       
         
     }
     return (
         <>
-            {!error && <Editor
+            {!error && <Component
                 handleGoBack={_ => setLocation('/search')}
                 handleChange={handleChange}
                 handleSubjectChange={handleSubjectChange}

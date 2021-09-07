@@ -26,7 +26,6 @@ const ItemListItem = compose(
 
 export const Component = props => {
     const { handleClick, title, data, renderActions, selectedIndex, itemLabelKey, BEM, ...rest } = props;
-    //    console.log(props);
     return (
         <LayoutFlexColumn {...rest}>
             <HeaderListItem BEM={BEM}><b>{title}</b></HeaderListItem>

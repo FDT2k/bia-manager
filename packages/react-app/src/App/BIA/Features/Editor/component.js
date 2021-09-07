@@ -2,10 +2,10 @@
 //nos libs externes
 import { applyModifiers, bem, compose, getClasseNames } from '@karsegard/react-compose';
 import { ArrowBack, Delete } from '@/bia-layout/components/Icons';
-import ListMesure from '@/bia-layout/components/ListMesure';
 //nos libs internes
 import MainView from '@/bia-layout/components/Views/MainView';
-import MesureEditor from '@/bia-layout/components/Views/MesureEditor';
+
+
 import PatientHeader from '@/bia-layout/components/Views/PatientHeader';
 
 import { ComponentWithArea as Area, withGridArea } from '@/bia-layout/hoc/grid/Area';
@@ -19,21 +19,12 @@ import "react-datepicker/dist/react-datepicker.css";
 import './page-editor.scss';
 
 import {Container,LayoutFlex} from '@karsegard/react-core-layout'
-
-
-
-
-
-
-
+import MesureEditor from './Mesure';
+import ListMesure from './ListMesure';
 
 const ContainerWithArea = withGridArea(Container);
 
-
-
-
 const [__base_class, element, modifier] = bem('bia-editor')
-
 
 const NavComponent = compose(
     applyModifiers({ 'alignCenter': true }),
@@ -43,6 +34,7 @@ const NavComponent = compose(
 const Editor = props => {
     const { className, renderFooter, handleClickSave, t, handleGoBack, handleMesureOpen, handleSubjectChange,handleChange, lines, data, mesure, handlePrint, selectedMesureIndex, ...rest } = getClasseNames(__base_class, props);
     const [startDate, setStartDate] = useState(new Date());
+   
     const ExampleCustomInput = forwardRef(({ value, onClick }, ref) => (
         <div className="example-custom-input" onClick={onClick} ref={ref}>
             {value}
@@ -54,12 +46,6 @@ const Editor = props => {
     }
 
 
-    const mesures = useMemo(()=>{
-        if(data.mesures && data.mesures.length>0){
-            return [...data.mesures, { date: "<Nouvelle>" }]
-        }
-        return [{ date: "<Nouvelle>" }]
-    },[data])
     return (
         <MainView renderFooter={renderFooter} className="bia-main--editor" renderLeftNav={
             _ => {
@@ -73,7 +59,7 @@ const Editor = props => {
                 <Area className={element('patient')} area="patient"><PatientHeader handleChange={handleSubjectChange} data={data} /></Area>
                 <Area className={element('mesures')} area="mesures">
 
-                    <ListMesure selectedIndex={selectedMesureIndex} title={t('Mesures')} itemLabelKey="date" handleClick={onMesureClick} data={mesures}
+                    <ListMesure selectedIndex={selectedMesureIndex} title={t('Mesures')} itemLabelKey="date" handleClick={handleMesureOpen} data={ [...data.mesures, { date: "<Nouvelle>" }]}
                         renderActions={
                             (data, item, idx) => {
                                 if (idx < data.length - 1) {
@@ -105,6 +91,7 @@ Editor.defaultProps = {
         age: 'N/A',
     },
     selectedMesureIndex: 0,
+    handleMesureOpen:x=> console.warn('no handler set for handleMesureOpen'),
     t: x => x
 }
 
