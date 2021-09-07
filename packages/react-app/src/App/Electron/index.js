@@ -2,8 +2,8 @@ import React from 'react';
 
 import { Provider as ElectronProvider } from '@/Providers/ElectronProvider'
 
-import AppHandler from '@/Host/Electron/Containers/AppHandler'
-import Loading from '@/Host/Electron/Containers/Loading'
+import AppHandler from '@/App/Electron/AppHandler'
+import Loading from '@/App/Electron//Loading'
 
 
 import Provider from '@/Providers/Stores/ElectronApp';

@@ -1,19 +1,16 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import App from '@/App';
-import Electron from '@/AppElectron';
-import MainElectron from '@/Host/Electron/Containers/Main';
+
 
 import reportWebVitals from './reportWebVitals';
 import '@karsegard/react-core-layout/dist/index.css'
 
 
-const isElectron =  window.isElectron === true;
 
 ReactDOM.render(
   <>
-    {!isElectron  && <App />}
-    {isElectron && <MainElectron/>}
+    <App/>
   </>,
   document.getElementById('root')
 );
