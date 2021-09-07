@@ -36,7 +36,7 @@ const Editor = props => {
 
     const {className, ...handlers} = getClasseNames(__base_class, props);
 
-    const {handleGoBack,handlePrint, handleMesureOpen,handleMesureDelete, handleSubjectChange,handleChange,handleClickSave, ...renderers} = handlers;
+    const {handleGoBack,handlePrint,handleMesureCreate, handleMesureOpen,handleMesureDelete, handleSubjectChange,handleChange,handleClickSave, ...renderers} = handlers;
 
 
     const {renderFooter, ...remaining} = renderers;
@@ -51,9 +51,7 @@ const Editor = props => {
         </div>
     ));
 
-    const onMesureClick = (d, idx) => {
-        handleMesureOpen && handleMesureOpen(d, idx)
-    }
+
 
 
     return (
@@ -69,14 +67,12 @@ const Editor = props => {
                 <Area className={element('patient')} area="patient"><PatientHeader handleChange={handleSubjectChange} data={data} /></Area>
                 <Area className={element('mesures')} area="mesures">
 
-                    <ListMesure selectedIndex={selectedMesureIndex} title={t('Mesures')} itemLabelKey="date" handleClick={handleMesureOpen} data={ [...data.mesures, { date: "<Nouvelle>" }]}
+                    <ListMesure selectedIndex={selectedMesureIndex} title={t('Mesures')} itemLabelKey="date" handleItemListClick={handleMesureOpen} handleCreateClick={
+                        handleMesureCreate
+                    } data={data.mesures}
                         renderActions={
                             (data, item, idx) => {
-                                if (idx < data.length - 1) {
-                                    return (<Delete onClick={_=> handleMesureDelete(idx)}/>)
-                                } else {
-                                    return (<></>)
-                                }
+                                return (<Delete className="action-icon" onClick={_=> handleMesureDelete(idx)}/>)
                             }
                         }
                     />

@@ -23,7 +23,11 @@
         height: 42px;
         min-width: calc((var(--col-width) * 5) + (var(--gut-width) * 4));
     }
-
+    &--small{
+        height: 21px;
+        padding:0px;
+        max-width:100%;
+    }
     &.btn--primary {
 
     }

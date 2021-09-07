@@ -33,7 +33,8 @@ export const ACTIONS_TYPES = createActionTypes(
     'FETCHED_NORMES',
     'ERROR_EDIT_PATIENT_UNDEF',
     'ERROR_ADD_PATIENT_UNDEF',
-    'SAVE'
+    'SAVE',
+    'DELETE_MESURE'
 )
 
 
@@ -125,6 +126,14 @@ export default (getModule) => {
             }
         }
     });
+
+    actions.delete_mesure = create(action_types.DELETE_MESURE,(id,arg)=> {
+        return {
+            patient_id:id,
+            mesure_id:arg
+        }
+    })
+
 
 
     actions.create_mesure = (patient_id) => {

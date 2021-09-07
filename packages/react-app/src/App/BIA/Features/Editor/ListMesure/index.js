@@ -1,7 +1,7 @@
 import { applyModifiers, compose, makeBEM, withBEM, withBEMElement, withBEMModifiers, withRemovedProps } from '@karsegard/react-compose';
 
 import {LayoutFlex,LayoutFlexColumn} from '@karsegard/react-core-layout'
-
+import Button from '@/bia-layout/components/Form/Button'
 import React from 'react';
 
 
@@ -25,7 +25,7 @@ const ItemListItem = compose(
 
 
 export const Component = props => {
-    const { handleClick, title, data, renderActions, selectedIndex, itemLabelKey, BEM, ...rest } = props;
+    const { handleCreateClick ,handleItemListClick, title, data, renderActions, selectedIndex, itemLabelKey, BEM, ...rest } = props;
     return (
         <LayoutFlexColumn {...rest}>
             <HeaderListItem BEM={BEM}><b>{title}</b></HeaderListItem>
@@ -34,10 +34,11 @@ export const Component = props => {
                     BEM={BEM}
                     key={idx}
                     selected={selectedIndex == idx}
-                    onClick={_ => handleClick(item, idx)}>
+                    onClick={_ => handleItemListClick(item, idx)}>
                     {item[itemLabelKey]} {renderActions && renderActions(data, item, idx)}
                 </ItemListItem>
             })}
+            <Button small onClick={handleCreateClick}>Créer</Button>
         </LayoutFlexColumn>
     )
 }

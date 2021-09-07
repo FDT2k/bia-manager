@@ -5,10 +5,10 @@ import useBIAManager from '@/hooks/useBIAManager';
 import React, { useEffect, useRef, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useReactToPrint } from 'react-to-print';
-import { change_mesure, create_mesure, edit_mesure, edit_patient, fetch_normes, populate_sporttype, populate_sportrate, refresh_recap, select_current_bia_values, select_current_mesure_id, select_edited_mesure, select_edited_patient,change_subject, select_mass_chart, has_error, error_message, select_recap_headers, select_recap_list, populate_machines,save } from '@/Store';
+import { change_mesure, create_mesure, edit_mesure, edit_patient, fetch_normes, populate_sporttype, populate_sportrate, refresh_recap, select_current_bia_values, select_current_mesure_id, delete_mesure, select_edited_mesure, select_edited_patient, change_subject, select_mass_chart, has_error, error_message, select_recap_headers, select_recap_list, populate_machines, save } from '@/Store';
 import { useLocation, useRoute } from "wouter";
 
-export default Component =>  props => {
+export default Component => props => {
     const [location, setLocation] = useLocation();
     const dispatch = useDispatch();
     const { api } = useBIAManager();
@@ -16,9 +16,9 @@ export default Component =>  props => {
 
 
 
-    const {patient_id,mesure_id} = props.params;
+    const { patient_id, mesure_id } = props.params;
 
-   
+
 
     const handlePrint = useReactToPrint({
         content: () => componentRef.current
@@ -30,7 +30,7 @@ export default Component =>  props => {
     const list_dates = useSelector(select_recap_headers);
 
 
-    
+
     useEffect(() => {
         dispatch(populate_sportrate([
             { 'id': 'low', 'name': 'faible' },
@@ -53,7 +53,7 @@ export default Component =>  props => {
         dispatch(fetch_normes())
     }, []);
 
-  
+
 
     const patient = useSelector(select_edited_patient);
     const mesure = useSelector(select_edited_mesure);
@@ -73,13 +73,13 @@ export default Component =>  props => {
     }, [patient_id]);
 
 
-    
+
 
     useEffect(() => {
 
         //  console.log('ba', mesure_id,patient)
         if (!is_nil(patient)) {
-            if (!is_nil(mesure_id) && mesure_id< patient.mesures.length) {
+            if (!is_nil(mesure_id) && mesure_id < patient.mesures.length) {
                 dispatch(edit_mesure(patient_id, mesure_id));
             } else {
                 new_mesure(patient.id).then(res => {
@@ -105,6 +105,11 @@ export default Component =>  props => {
         }
     }
 
+    const handleMesureCreate =_  => {
+            setLocation(`/editor/${patient_id}`);
+       
+    }
+
     const handleChange = values => {
         console.log(values);
         if (values.data && patient) {
@@ -114,30 +119,36 @@ export default Component =>  props => {
         }
     }
 
-    const handleSubjectChange = values=>{
-        dispatch(change_subject(patient_id,values));
+    const handleSubjectChange = values => {
+        dispatch(change_subject(patient_id, values));
     }
 
 
-    const handleClickSave= _=> {
+    const handleClickSave = _ => {
         let res = dispatch(save());
-        api.update_patient(patient.id,patient,mesure,current_mesure_id).then(res=> {
-            if(current_mesure_id >= patient.mesures.length ){
+        api.update_patient(patient.id, patient, mesure, current_mesure_id).then(res => {
+            if (current_mesure_id <= patient.mesures.length) {
                 setLocation(`/editor/${patient_id}/${current_mesure_id}`);
             }
-        }).catch(res=> {
+        }).catch(res => {
             alert('erreur ')
             debugger;
             console.error(res)
 
         }
         );
-        
+
     }
 
-    const handleMesureDelete=_=>{
-        debugger;
-        
+    const handleMesureDelete = _ => {
+        if (confirm('Sur? ')) {
+            dispatch(delete_mesure(patient.id, current_mesure_id));
+            
+           /* api.update_patient(patient.id, patient).then(res => {
+                debugger;
+                setLocation(`/editor/${patient_id}/0`);
+            });*/
+        }
     }
     return (
         <>
@@ -149,6 +160,7 @@ export default Component =>  props => {
                 data={patient}
                 handleClickSave={handleClickSave}
                 handleMesureOpen={handleMesureOpen}
+                handleMesureCreate={handleMesureCreate}
                 handleMesureDelete={handleMesureDelete}
 
                 selectedMesureIndex={current_mesure_id}

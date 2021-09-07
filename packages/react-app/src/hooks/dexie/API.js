@@ -1,16 +1,16 @@
 
-import { curry } from '@karsegard/composite-js'
+import { curry, is_nil } from '@karsegard/composite-js'
 import { spec } from '@karsegard/composite-js/ObjectUtils'
 import IDBExport from 'indexeddb-export-import';
 
 import Promise from 'bluebird'
 
 
-export default (db, events={}) => {
+export default (db, events = {}) => {
 
-    const {handleSave} = events;
+    const { handleSave } = events;
     const module = {};
-    module.getAll =  _ => {
+    module.getAll = _ => {
 
         console.log(db);
         return db.patients.toArray();
@@ -37,7 +37,7 @@ export default (db, events={}) => {
         return collection.where(key).startsWithIgnoreCase(value);
     }
 
-    module.search =  tags => {
+    module.search = tags => {
 
         //const worker = new Worker("dexie.worker.js");
         //worker.postMessage('coucou');
@@ -89,36 +89,38 @@ export default (db, events={}) => {
 
 
     module.update_patient = (id, patient, mesure, mesure_id) => {
+        if (!is_nil(mesure)) {
+            if (mesure_id >= patient.mesures.length) {
+                patient.mesures.push(mesure);
+            } else {
 
-        debugger
-        if (mesure_id >= patient.mesures.length) {
-            patient.mesures.push(mesure);
-        } else {
+                patient.mesures = patient.mesures.map((item, idx) => {
 
-            patient.mesures = patient.mesures.map((item, idx) => {
+                    if (idx == mesure_id) {
+                        return mesure
+                    }
 
-                if (idx == mesure_id) {
-                    return mesure
-                }
+                    return item;
 
-                return item;
+                });
 
-            });
-
+            }
         }
+        debugger;
         return db.open().then(db => {
             return db.patients.update(id, patient)
-                        .then (res => {
-                            handleSave && handleSave()
-                        });
+                .then(res => {
+                    handleSave && handleSave()
+                });
         });
     }
 
-    module.create_patient = (patient)=>{
-        return db.open().then(db=> {
+   
+    module.create_patient = (patient) => {
+        return db.open().then(db => {
 
             return db.patients.add(patient);
-        }).then(id=> {
+        }).then(id => {
             return module.get_patient(id)
         })
     }
@@ -129,7 +131,7 @@ export default (db, events={}) => {
         });
     }
 
-    module.count_mesures =  _ => {
+    module.count_mesures = _ => {
         let count = 0;
         return db.open().then(db => {
             return db.patients.each(item => {
@@ -138,11 +140,11 @@ export default (db, events={}) => {
         });
     }
 
-    module.db_name =  _ => {
+    module.db_name = _ => {
         return db.name;
     }
 
-    module.all_pahological_groups =  _ => {
+    module.all_pahological_groups = _ => {
         return db.open().then(db => {
             return db.patients.orderBy('groups.path').uniqueKeys();
         });
@@ -164,7 +166,7 @@ export default (db, events={}) => {
         });
     }
 
-    module.wipe_database =  _ => {
+    module.wipe_database = _ => {
         return db.open().then(_ => {
             const idbDatabase = db.backendDB(); // get native IDBDatabase object from Dexie wrapper
             return new Promise((resolve, reject) => {
@@ -180,7 +182,7 @@ export default (db, events={}) => {
     }
 
 
-    module.import_database =  data => {
+    module.import_database = data => {
         return db.open().then(_ => {
             const idbDatabase = db.backendDB(); // get native IDBDatabase object from Dexie wrapper
             return new Promise((resolve, reject) => {

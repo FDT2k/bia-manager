@@ -3,6 +3,15 @@ import { assign2, curry, filter, identity, isStrictlyNotEqual, map, _either } fr
 
 
 
+export const delete_from_list_by_index = (list,index) => list.reduce((carry,item,idx)=>{
+    
+    if(idx !== index){
+        carry.push(item);
+    }
+    return carry;
+},[])
+
+
 export const delFromList = curry((list, val) => filter(isStrictlyNotEqual(val), list))
 
 export const addToListUniq = curry((list, val) => add(del(list, val), val))

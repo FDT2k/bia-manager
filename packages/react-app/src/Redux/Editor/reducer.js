@@ -3,7 +3,7 @@ import { as_safe_path, enlist, is_nil, map, safe_path } from '@karsegard/composi
 import { key, value, keyval } from '@karsegard/composite-js/ObjectUtils';
 import { combineReducers } from 'redux';
 import createReducer from '@/Redux/utils/create-reducer';
-import { updateList, updateProp } from '@/Redux/utils/handlers';
+import { updateList, updateProp,delete_from_list_by_index } from '@/Redux/utils/handlers';
 
 import EMPTY_MESURE from '@/references/mesure-schema';
 
@@ -129,7 +129,7 @@ export default (getModule) => {
                 return [...state,payload.mesure];
             }
             return updateList((_,idx)=> idx==action.payload.mesure_id,state,_=>action.payload.mesure)
-        }
+        },
     });
 
     module.patient = createReducer({}, {
@@ -156,7 +156,22 @@ export default (getModule) => {
             )
 
             return res
+        },
+        [action_types.DELETE_MESURE]: (state, action) => {
+
+            const {payload} = action;
+            const {patient_id} = payload;
+            const patient = safe_path({},`${patient_id}`,state);
+            const mesures = safe_path([],`mesures`,patient);
+            let res =  updateProp(patient_id, state, 
+                {
+                    ...patient,
+                    mesures:  delete_from_list_by_index(mesures,action.payload.mesure_id)
+                }
+            )
+            return res
         }
+        
     })
 
     /**

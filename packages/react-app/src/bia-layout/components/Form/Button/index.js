@@ -1,4 +1,4 @@
-import { compose, withBaseClass } from '@karsegard/react-compose';
+import { compose, withBaseClass,withModifiers } from '@karsegard/react-compose';
 import React from 'react';
 import './style.scss';
 
@@ -17,6 +17,7 @@ Component.defaultProps={
 }
 
 const Button = compose(
+    withModifiers((x)=>`button--${x}`,['small','big']),
     withBaseClass('button')
 )(Component);
 
@@ -34,5 +35,7 @@ const WithColors =  withVariables(
     ['colorYes','colorNo']
 );
 */
+
+
 
 export default Button;
