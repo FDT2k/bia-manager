@@ -100,22 +100,9 @@ export default (getModule) => {
 
     }
 
-    actions.create_patient = createAsync(actions.add_patient_failed,actions.added_patient)/*promise => {
-        return (dispatch, getState) => {
-
-            if (patient) {
-                return dispatch(actions.real_add_patient(normalize_patient(patient)));
-
-            } else {
-                return dispatch({
-                    type: action_types.ERROR_ADD_PATIENT_UNDEF
-                });
-            }
-
-        }
+    actions.create_patient = createAsync(actions.add_patient_failed,actions.added_patient)
 
 
-    }*/
 
     actions.edit_patient = patient => {
         return (dispatch, getState) => {
@@ -320,7 +307,7 @@ export default (getModule) => {
                     return dispatch(actions.recap_error_patient_fail({}))
                 }
                 
-                let mesures = select_mesures(getState())
+                let mesures = [...patient.mesures] // NO selector here
 
                 edited_mesure = select_edited_mesure(getState())
                 let edited_mesure_id = edited_mesure.mesure_id

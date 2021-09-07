@@ -32,7 +32,17 @@ const NavComponent = compose(
 )(LayoutFlex);
 
 const Editor = props => {
-    const { className, renderFooter, handleClickSave, t, handleGoBack, handleMesureOpen, handleSubjectChange,handleChange, lines, data, mesure, handlePrint, selectedMesureIndex, ...rest } = getClasseNames(__base_class, props);
+    //const { className, renderFooter, handleClickSave, t,  lines, data, mesure, handlePrint, selectedMesureIndex, ...rest } = getClasseNames(__base_class, props);
+
+    const {className, ...handlers} = getClasseNames(__base_class, props);
+
+    const {handleGoBack,handlePrint, handleMesureOpen,handleMesureDelete, handleSubjectChange,handleChange,handleClickSave, ...renderers} = handlers;
+
+
+    const {renderFooter, ...remaining} = renderers;
+    const {t,  lines, data, mesure,selectedMesureIndex, ...rest} = remaining
+
+
     const [startDate, setStartDate] = useState(new Date());
    
     const ExampleCustomInput = forwardRef(({ value, onClick }, ref) => (
@@ -63,7 +73,7 @@ const Editor = props => {
                         renderActions={
                             (data, item, idx) => {
                                 if (idx < data.length - 1) {
-                                    return (<Delete />)
+                                    return (<Delete onClick={_=> handleMesureDelete(idx)}/>)
                                 } else {
                                     return (<></>)
                                 }
@@ -92,6 +102,7 @@ Editor.defaultProps = {
     },
     selectedMesureIndex: 0,
     handleMesureOpen:x=> console.warn('no handler set for handleMesureOpen'),
+    handleMesureDelete:x=>console.warn('no handler set for handleMesureDelete'),
     t: x => x
 }
 

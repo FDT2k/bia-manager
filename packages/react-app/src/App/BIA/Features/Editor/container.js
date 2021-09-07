@@ -134,6 +134,11 @@ export default Component =>  props => {
         );
         
     }
+
+    const handleMesureDelete=_=>{
+        debugger;
+        
+    }
     return (
         <>
             {!error && <Component
@@ -144,6 +149,8 @@ export default Component =>  props => {
                 data={patient}
                 handleClickSave={handleClickSave}
                 handleMesureOpen={handleMesureOpen}
+                handleMesureDelete={handleMesureDelete}
+
                 selectedMesureIndex={current_mesure_id}
                 mesure={mesure}
             />}

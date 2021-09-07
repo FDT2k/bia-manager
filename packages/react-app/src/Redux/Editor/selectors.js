@@ -18,7 +18,7 @@ export default getModule => {
    module.select_edited_patient = createSelector([module.select_current_patient_id, baseSelector], (current, state) => state.patient[current]);
 
 
-   module.select_mesures = createSelector(module.select_edited_patient, state => safe_array('mesures',state));
+   module.select_mesures = createSelector(module.select_edited_patient, state => state.mesures);
 
    module.select_edited_mesure = createSelector([module.select_current_patient_id, baseSelector], (current_patient, state) => {
       if (state.mesure && state.mesure[current_patient] && state.mesure[current_patient].mesure) {
