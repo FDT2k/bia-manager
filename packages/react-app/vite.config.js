@@ -50,7 +50,7 @@ module.exports = {
     outDir: 'dist',
     assetsDir: './assets',
     rollupOptions: {
-      external: require('../../externals').default,
+   //   external: require('../../externals').default,
     },
     emptyOutDir: true,
   },

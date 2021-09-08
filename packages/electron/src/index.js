@@ -285,6 +285,12 @@ const createMenu = window => {
             window.webContents.send('location-change','#/search');
           }
         },
+        {
+          label: 'DevTools',
+          click(){
+            window.webContents.openDevTools()
+          }
+        }
       ]
     }
   ])

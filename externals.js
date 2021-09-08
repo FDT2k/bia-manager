@@ -54,11 +54,9 @@ module.exports.external = [
     
   ];
 
-  module.ownPackages= ['@karsegard/react-redux','@karsegard/react-compose']
   
   module.exports.default = [
     ...module.exports.builtins,
     ...module.exports.external,
-    ...module.ownPackages
   ];
   

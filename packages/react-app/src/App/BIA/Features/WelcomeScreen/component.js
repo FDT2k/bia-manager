@@ -31,7 +31,7 @@ Page.defaultProps = {
 
     t: identity,
     patient: {},
-    handleCreateDatabase:_=> console.log('missing handler for create'),
+    handleCreateDatabase:_=> alert('Pas encore implémenté'),
     handleOpenDatabase:_=> console.log('missing handler for open'),
 }
 

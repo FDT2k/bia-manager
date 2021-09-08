@@ -2069,7 +2069,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@karsegard/react-compose@npm:^1.0.4, @karsegard/react-compose@npm:^1.2.0":
+"@karsegard/react-compose@npm:^1.2.0":
   version: 1.2.0
   resolution: "@karsegard/react-compose@npm:1.2.0"
   dependencies:
@@ -4350,7 +4350,7 @@ __metadata:
   dependencies:
     "@karsegard/cex": ^1.4.4
     "@karsegard/composite-js": ^2.9.0
-    "@karsegard/react-compose": ^1.0.4
+    "@karsegard/react-compose": ^1.2.0
     "@karsegard/react-core-layout": ^1.5.1
     "@karsegard/react-hooks": ^2.3.3
     "@karsegard/react-redux": ^1.1.5
