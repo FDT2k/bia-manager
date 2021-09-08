@@ -2108,6 +2108,26 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@karsegard/react-redux@npm:^1.1.5":
+  version: 1.1.5
+  resolution: "@karsegard/react-redux@npm:1.1.5"
+  dependencies:
+    "@karsegard/composite-js": ^2.9.0
+    "@reduxjs/toolkit": ^1.6.1
+    bluebird: ^3.7.2
+    react-redux: ^7.2.5
+    redux: ^4.1.1
+    redux-logger: ^3.0.6
+    redux-persist: ^6.0.0
+    redux-thunk: ^2.3.0
+    reselect: ^4.0.0
+  peerDependencies:
+    react: "*"
+    react-dom: "*"
+  checksum: d1b55a746d1b5e41dbaaac12060794cbccaf90afbed3c70b12ab79092ef1f71c285d1657b2dc511e5cd45429415f09b8c82ecd80e2e2fccd2ea6d87b1dfd16ea
+  languageName: node
+  linkType: hard
+
 "@material-ui/core@npm:^4.11.4":
   version: 4.12.3
   resolution: "@material-ui/core@npm:4.12.3"
@@ -2318,7 +2338,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@reduxjs/toolkit@npm:^1.6.0":
+"@reduxjs/toolkit@npm:^1.6.0, @reduxjs/toolkit@npm:^1.6.1":
   version: 1.6.1
   resolution: "@reduxjs/toolkit@npm:1.6.1"
   dependencies:
@@ -4333,6 +4353,7 @@ __metadata:
     "@karsegard/react-compose": ^1.0.4
     "@karsegard/react-core-layout": ^1.5.1
     "@karsegard/react-hooks": ^2.3.3
+    "@karsegard/react-redux": ^1.1.5
     "@material-ui/core": ^4.11.4
     "@material-ui/icons": ^4.11.2
     "@reduxjs/toolkit": ^1.6.0
@@ -4405,7 +4426,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"bluebird@npm:^3.5.5":
+"bluebird@npm:^3.5.5, bluebird@npm:^3.7.2":
   version: 3.7.2
   resolution: "bluebird@npm:3.7.2"
   checksum: 869417503c722e7dc54ca46715f70e15f4d9c602a423a02c825570862d12935be59ed9c7ba34a9b31f186c017c23cac6b54e35446f8353059c101da73eac22ef
@@ -13943,6 +13964,27 @@ fsevents@^1.2.7:
   languageName: node
   linkType: hard
 
+"react-redux@npm:^7.2.5":
+  version: 7.2.5
+  resolution: "react-redux@npm:7.2.5"
+  dependencies:
+    "@babel/runtime": ^7.12.1
+    "@types/react-redux": ^7.1.16
+    hoist-non-react-statics: ^3.3.2
+    loose-envify: ^1.4.0
+    prop-types: ^15.7.2
+    react-is: ^16.13.1
+  peerDependencies:
+    react: ^16.8.3 || ^17
+  peerDependenciesMeta:
+    react-dom:
+      optional: true
+    react-native:
+      optional: true
+  checksum: 04ac4a4178067cbcfc05506dfea9f7e01730093a5752f050567f7ae4a38c03c96da9d8fed051f8ab1ecede5ea8a15ee41c5f6c5eeb7f04f37e4d13e431ec7830
+  languageName: node
+  linkType: hard
+
 "react-refresh@npm:^0.8.3":
   version: 0.8.3
   resolution: "react-refresh@npm:0.8.3"
@@ -14339,7 +14381,7 @@ fsevents@^1.2.7:
   languageName: node
   linkType: hard
 
-"redux@npm:^4.0.0, redux@npm:^4.1.0":
+"redux@npm:^4.0.0, redux@npm:^4.1.0, redux@npm:^4.1.1":
   version: 4.1.1
   resolution: "redux@npm:4.1.1"
   dependencies:

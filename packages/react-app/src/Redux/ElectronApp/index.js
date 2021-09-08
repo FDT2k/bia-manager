@@ -1,6 +1,5 @@
 import { compose } from '@karsegard/composite-js';
-import ItemListModule from '@/Redux/ItemList';
-import createModule from '@/Redux/utils/module';
+import {createModule} from '@karsegard/react-redux';
 
 
 import makeActionTypes from './types';

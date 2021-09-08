@@ -1,6 +1,5 @@
-import { defaultTo, safe_path } from '@karsegard/composite-js';
-import { createSelector } from 'reselect';
-
+import { safe_path } from '@karsegard/composite-js';
+import { createSelector } from '@karsegard/react-redux';
 
 
 

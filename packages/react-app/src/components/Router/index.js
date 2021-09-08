@@ -2,11 +2,9 @@ import { Fullscreen } from '@karsegard/react-core-layout'
 
 import DatabaseImport from '@/components/DatabaseImport';
 import Database from '@/components/Views/Database';
-import Editor from '@/App/BIA/Features/Editor';
 import CreatePatient from '@/components/Views/CreatePatient';
 import Login from '@/components/Views/Login';
 import Idle from '@/bia-layout/Pages/Idle';
-import Search from '@/components/Views/Search';
 import Setup from '@/components/Views/Setup';
 import useBIAManager from '@/hooks/useBIAManager';
 import React, { useEffect, useState, useCallback } from 'react';
@@ -15,6 +13,10 @@ import DebugPrint from '@/bia-layout/Pages/DebugPrint';
 import { is_nil } from '@karsegard/composite-js';
 
 
+
+
+import Editor from '@/App/BIA/Features/Editor';
+import Search from '@/App/BIA/Features/Search';
 
 
 export default props => {

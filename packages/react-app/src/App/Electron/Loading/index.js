@@ -1,18 +1,7 @@
-import React from 'react'
-
-import {ConnectLoading} from '@/Providers/Stores/ElectronApp';
-import LoadingScreen from '@/bia-layout/components/Views/LoadingScreen'
-
-
-export const Component=  props => {
-  const {is_loading,loading_message} = props;
-    return (<>
-      {is_loading && <LoadingScreen label={loading_message} />} 
-      </>)
-
-}
+import Container from "@/App/Electron/Loading/container";
+import Component from "@/App/Electron/Loading/component";
+import {ConnectLoading as connect} from '@/Providers/Stores/ElectronApp';
+import { compose } from "@karsegard/composite-js";
 
 
-export const Loading = ConnectLoading(Component);
-
-export default Loading
+export default compose (connect,Container)(Component)

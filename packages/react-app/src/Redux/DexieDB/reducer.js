@@ -1,11 +1,4 @@
-import { spreadObjectPresentIn, spreadObjectBeginWith, forwardPropsRemovingHeader } from '@karsegard/composite-js/ReactUtils'
-import { as_safe_path, enlist, is_nil, map, safe_path } from '@karsegard/composite-js';
-import { key, value, keyval } from '@karsegard/composite-js/ObjectUtils';
-import { combineReducers } from 'redux';
-import createReducer from '@/Redux/utils/create-reducer';
-import { updateList, updateProp } from '@/Redux/utils/handlers';
-
-import EMPTY_SUBJECT from '@/references/subject-schema';
+import {combineReducers, createReducer} from '@karsegard/react-redux';
 
 
 export default (getModule) => {
@@ -17,11 +10,9 @@ export default (getModule) => {
 
 
 
-    module.reducer = combineReducers({
-        options: module.editor_options,
-        empty_subject:module.empty_subject,
-        subject_form: module.subject_form
-    });
+    module.reducer = createReducer({db_name:"default"},{
+        [action_types.SET_DB_NAME]: (state,{payload}) => payload
+    })
 
     return module;
 }

@@ -1,4 +1,6 @@
 .list-mesure{
     min-height: 30px;
-    
+    &__item{
+        cursor:pointer;
+    }
 }

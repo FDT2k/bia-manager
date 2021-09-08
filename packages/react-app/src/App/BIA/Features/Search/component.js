@@ -10,7 +10,6 @@ import { LayoutFlex } from '@karsegard/react-core-layout'
 
 import SearchLayout from '@/bia-layout/layouts/Search';
 import React, { useEffect, useMemo, useState, useRef } from 'react';
-import './page-search.scss';
 
 
 

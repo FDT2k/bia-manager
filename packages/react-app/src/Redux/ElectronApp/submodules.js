@@ -1,11 +1,13 @@
-
+import DexieModule from '@/Redux/DexieDB'
+import { compose } from '@karsegard/composite-js';
 
 export const createSubModules = getModule => {
     const { baseSelector, prefix } = getModule();
 
-    const module = {}
+    const module = {backends:{}}
+
     
-   // module.myTodoList=TestModule(compose(state => state.todoList, baseSelector), `${prefix}_TODO_LIST`)
+    module.backends.dexie=  DexieModule(compose(state => state.dexie, baseSelector), `${prefix}_DEXIE`);
     
     return module
 }

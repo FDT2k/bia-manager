@@ -1,23 +1,13 @@
-import createAction from '@/Redux/utils/make-action';
-import { createActionTypes, createPrefixableActionTypes } from '@/Redux/utils/types';
-import { normalize as normalize_subject } from '@/references/Patient';
+import {createAction, createAsyncAction}from '@karsegard/react-redux';
 
-export const ACTIONS_TYPES = createActionTypes(
-    'SAVE_PATIENT',
-    'CREATE_PATIENT',
-    'CREATE_MESURE',
-    'DELETE_MESURE',
-    'SAVE_MESURE',
-    'DELETE_PATIENT'
-)
-
-export const makeActionTypes = createPrefixableActionTypes(ACTIONS_TYPES);
 
 export default (getModule) => {
 
     const { action_types, selectors } = getModule()
     const actions = {};
 
+
+    actions.set_db = createAction(action_types.SET_DB_NAME)
    
 
     return actions;

@@ -1,17 +1,16 @@
-import SearchView from '@/bia-layout/Pages/Search';
-import useBIAManager from '@/hooks/useBIAManager';
 import React from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { search, select_count_results, select_patients_list_filtered, select_tags } from '@/Store';
 import { useLocation } from "wouter";
 
+import useBIAManager from '@/hooks/useBIAManager';
+import { useDispatch, useSelector } from 'react-redux';
+import { search, select_count_results, select_patients_list_filtered, select_tags } from '@/Store';
 import {LayoutFlex} from '@karsegard/react-core-layout'
 
 
 
 
 
-export default props => {
+export default Component => props => {
     const [location, setLocation] = useLocation();
     const dispatch = useDispatch();
     const { api,patient_count,mesures_count,db_name } = useBIAManager();
@@ -49,7 +48,7 @@ export default props => {
     }
     return (
         <>
-            <SearchView
+            <Component
                 renderFooter={
                     _=> {
                         return (

@@ -1,11 +1,5 @@
-import { spreadObjectPresentIn, spreadObjectBeginWith, forwardPropsRemovingHeader } from '@karsegard/composite-js/ReactUtils'
-import { as_safe_path, enlist, is_nil, map, safe_path } from '@karsegard/composite-js';
-import { key, value, keyval } from '@karsegard/composite-js/ObjectUtils';
-import { combineReducers } from 'redux';
-import createReducer from '@/Redux/utils/create-reducer';
-import { updateList, updateProp } from '@/Redux/utils/handlers';
+import {combineReducers, createReducer} from '@karsegard/react-redux';
 
-import EMPTY_SUBJECT from '@/references/subject-schema';
 
 
 export default (getModule) => {
@@ -35,9 +29,14 @@ export default (getModule) => {
     });
 
 
+    module.backends = combineReducers({
+        dexie:submodules.backends.dexie.reducer
+    })
+
     module.reducer = combineReducers({
         loading:module.loadingReducer,
-        fileStatus:module.fileReducer
+        fileStatus:module.fileReducer,
+        backends:module.backends
     })
 
     return module;

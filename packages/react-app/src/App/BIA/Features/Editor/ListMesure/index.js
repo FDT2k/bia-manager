@@ -5,7 +5,7 @@ import Button from '@/bia-layout/components/Form/Button'
 import React from 'react';
 
 
-
+import './style.scss';
 
 
 const ListItem = compose(
@@ -38,7 +38,7 @@ export const Component = props => {
                     {item[itemLabelKey]} {renderActions && renderActions(data, item, idx)}
                 </ItemListItem>
             })}
-            <Button small onClick={handleCreateClick}>Créer</Button>
+            <ItemListItem  BEM={BEM}  selected={selectedIndex >= data.length} onClick={handleCreateClick}>Créer</ItemListItem>
         </LayoutFlexColumn>
     )
 }

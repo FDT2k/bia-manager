@@ -1,5 +1,7 @@
-import createAsync from '@/Redux/utils/async-dispatch'
-import create from '@/Redux/utils/make-action'
+import {createAction, createAsyncAction}from '@karsegard/react-redux';
+
+import api from '@/Backends/Electron'
+
 
 export default (getModule) => {
 
@@ -8,37 +10,49 @@ export default (getModule) => {
 
     const actions = {};
 
-  //  const {select_empty_subject,select_subject_form} = selectors;
+/* start_loading("Waiting on user confirmation");
+        dispatch_open(open).then(res => {
+            start_loading("importing data");
+            if (res && res.content) {
+                return api.import_database(res.content)
 
-   /* actions.create_subject = ()=> {
-        return (dispatch,getState)=>{
-            dispatch({type:action_types.CREATE})
-            const subject = select_empty_subject(getState());
+            } else {
+                return false;
+            }
+        })
+        .then( result => {
+            stop_loading()
+            if(result){
+                window.location.hash = '#/search'
+            }
+          
+        })
+        .catch(console.error); */
 
-            return dispatch(actions.edit_subject(subject));
-        }
-    }
-
-
-    actions.edit_subject = values => {
-        return (dispatch,getState)=>{
-            const patient = normalize_subject(select_subject_form(getState()));
-            return dispatch(createAction(action_types.CHANGE,{...patient,...values}));
-        }
-    }
-*/
-
-    const openFileFails = create(action_types.OPEN_FILE_FAILS);
-    const openFileSuccess = create(action_types.OPEN_FILE_SUCCESS,arg => {
+    const openFileFails = createAction(action_types.OPEN_FILE_FAILS);
+    const openFileSuccess = createAction(action_types.OPEN_FILE_SUCCESS,arg => {
         const {content,...rest} = arg;
         return rest;
     });
 
 
-    actions.start_loading = create(action_types.LOADING);
-    actions.stop_loading = create(action_types.LOADING_DONE);
+    actions.start_loading = createAction(action_types.LOADING);
+    actions.stop_loading = createAction(action_types.LOADING_DONE);
 
-    actions.open_file = createAsync(openFileFails,openFileSuccess);
+    actions.open_file = file => (dispatch,getState)=> {
+        
+        return createAsyncAction(openFileFails,openFileSuccess)(api.open).then(({content,filename}) => {
+            
+            
+
+        })
+
+    } 
+
+
+
+
+
     actions.save_file = promise => {
         
     }

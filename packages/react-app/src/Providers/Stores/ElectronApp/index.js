@@ -1,8 +1,13 @@
 import React, { createContext, useContext } from 'react';
+
+/*
 import { combineReducers } from 'redux';
 import { createMigrate } from 'redux-persist'
 import { connect } from 'react-redux';
 import { makeStore } from '@/Redux/utils/create-store';
+*/
+
+import { combineReducers,createMigrate,connect,makeStore } from '@karsegard/react-redux';
 
 import Electron from '@/Redux/ElectronApp';
 
@@ -71,38 +76,6 @@ export const ConnectLoading = connect(state => ({
   is_loading: is_loading(state),
   loading_message: loading_message(state),
 }));
-
-/*
-export const Provider = Connect(props => {
-  const { children, ...redux } = props;
-  return (
-    <Context.Provider value={redux}>
-      {children}
-    </Context.Provider>
-  )
-})
-*/
-/*
-export const useAppState = () => {
-  const context = useContext(Context);
-
-  if (context === undefined) {
-    throw new Error('useAppState must be used within its Provider');
-  }
-  return context;
-}*/
-/*
-export default props => {
-  return (
-    <Store>
-      <Provider>
-        {props.children}
-      </Provider>
-    </Store>
-  )
-}*/
-
-//export default Provider;
 
 
 export default props => {
