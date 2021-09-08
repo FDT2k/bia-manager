@@ -21,7 +21,7 @@ export default getModule => {
 
    module.current_file = createSelector(module.fileStatus,state=>state.file);
 
-
+   module.select_backend = createSelector(baseSelector,state => state.backend)
    return module;
 
 }

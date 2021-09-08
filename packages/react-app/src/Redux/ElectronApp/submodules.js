@@ -4,10 +4,13 @@ import { compose } from '@karsegard/composite-js';
 export const createSubModules = getModule => {
     const { baseSelector, prefix } = getModule();
 
-    const module = {backends:{}}
+    const module = {
+        backends:{
+            dexie:  DexieModule(compose(state => state.backends.dexie, baseSelector), `${prefix}_DEXIE`)
+        }
+    }
 
     
-    module.backends.dexie=  DexieModule(compose(state => state.dexie, baseSelector), `${prefix}_DEXIE`);
     
     return module
 }

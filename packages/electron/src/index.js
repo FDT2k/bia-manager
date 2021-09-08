@@ -193,7 +193,6 @@ if (import.meta.env.MODE === 'development') {
     .then(() => import('electron-devtools-installer'))
     .then(({ default: installExtension, REACT_DEVELOPER_TOOLS, REDUX_DEVTOOLS }) => {
       installExtension(REACT_DEVELOPER_TOOLS)
-      installExtension(REDUX_DEVTOOLS)
     })
     .catch(e => console.error('Failed install extension:', e));
 }

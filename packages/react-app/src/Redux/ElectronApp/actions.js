@@ -1,12 +1,18 @@
-import {createAction, createAsyncAction}from '@karsegard/react-redux';
+import {createAction, createAsyncAction,bindSelectors}from '@karsegard/react-redux';
 
 import api from '@/Backends/Electron'
 
 
 export default (getModule) => {
 
-    const { action_types, selectors } = getModule()
+    const { action_types, selectors,submodules } = getModule()
 
+
+    const getBackend = (getState)=> {
+        const {backend} = bindSelectors({backend: selectors.select_backend},getState());
+        
+        return submodules.backends[backend].actions;
+    }
 
     const actions = {};
 
@@ -38,13 +44,12 @@ export default (getModule) => {
 
     actions.start_loading = createAction(action_types.LOADING);
     actions.stop_loading = createAction(action_types.LOADING_DONE);
-
-    actions.open_file = file => (dispatch,getState)=> {
-        
-        return createAsyncAction(openFileFails,openFileSuccess)(api.open).then(({content,filename}) => {
-            
-            
-
+    actions.async_open = createAsyncAction(openFileFails,openFileSuccess)
+    actions.open_file = _ => (dispatch,getState)=> {
+        const backend_actions= getBackend(getState);
+       
+        return dispatch(actions.async_open(api.open)).then((result) => {
+            return dispatch(backend_actions.open_file(result));
         })
 
     } 

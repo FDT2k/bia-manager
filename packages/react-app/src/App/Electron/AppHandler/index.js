@@ -10,24 +10,25 @@ import {ConnectApp} from '@/Providers/Stores/ElectronApp';
 import {is_nil} from '@karsegard/composite-js'
 
 
-const api = makeAPI('electron')
+//const api = makeAPI('electron')
 
 
 export const Component = props =>  {
 
-    const { open, onOpenRequest,onSaveRequest,onLocationChange } = useElectron();
+    const { onOpenRequest,onSaveRequest,onLocationChange } = useElectron();
     
     const {dispatch_open,start_loading,stop_loading, current_file} = props;
     const handleFileOpen = _ => {
         start_loading("Waiting on user confirmation");
         dispatch_open(open).then(res => {
-            start_loading("importing data");
+          /*  start_loading("importing data");
+            debugger;
             if (res && res.content) {
                 return api.import_database(res.content)
 
             } else {
                 return false;
-            }
+            }*/
         })
         .then( result => {
             stop_loading()
@@ -60,13 +61,13 @@ export const Component = props =>  {
     const handleFileSave = _ => {
      //   setLoading(true);
        // setMessage('saving database');
-        api.export_database().then(content => {
+       /* api.export_database().then(content => {
             return electron.save(content);
         })
         .then (res=> {
          //   setLoading(false);
 
-        });
+        });*/
     }
 
     useEffect(() => {

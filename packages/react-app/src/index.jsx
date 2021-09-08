@@ -7,7 +7,6 @@ import reportWebVitals from './reportWebVitals';
 import '@karsegard/react-core-layout/dist/index.css'
 
 
-
 ReactDOM.render(
   <>
     <App/>

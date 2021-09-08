@@ -14,6 +14,7 @@ import Electron from '@/Redux/ElectronApp';
 
 export const ElectronModule = Electron(state => state.app, '');
 
+import  devToolsEnhancer from'remote-redux-devtools';
 
 const reducer = combineReducers({
   app: ElectronModule.reducer
@@ -49,8 +50,13 @@ const migrations = {
 
 }
 
-
+/*
 export const Store = makeStore('electron', reducer, { devTools: { name: 'App' } }, {
+  version: 1,
+  migrate: createMigrate(migrations)
+});
+*/
+export const Store = makeStore('electron', reducer, { devTools: false,enhancers: [devToolsEnhancer({secure:false, hostname:'localhost',port:8000,realtime: import.meta.env.DEV})] }, {
   version: 1,
   migrate: createMigrate(migrations)
 });

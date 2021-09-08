@@ -2,7 +2,20 @@ import { createActionTypes, createPrefixableActionTypes } from '@karsegard/react
 
 
 export const ACTIONS_TYPES = createActionTypes(
+
+    'ADD_ERROR',
+
+    'API_CALL_SUCCESS',
+    'API_CALL_ERROR',
+    'API_CALL_STARTED',
+
     'SET_DB_NAME',
+
+
+    'CLEAR_DATABASE',
+    'IMPORT_DATABASE',
+
+
     'SAVE_PATIENT',
     'CREATE_PATIENT',
     'DELETE_PATIENT',

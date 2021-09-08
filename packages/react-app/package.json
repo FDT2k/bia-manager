@@ -88,6 +88,7 @@
   },
   "devDependencies": {
     "namor": "^2.0.3",
+    "remote-redux-devtools": "^0.5.16",
     "vite": "^2.5.3",
     "webpack-cli": "^4.7.2"
   }

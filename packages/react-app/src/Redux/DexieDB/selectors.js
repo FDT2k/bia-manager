@@ -10,6 +10,8 @@ export default getModule => {
    
    const module = {};
 
+
+   module.select_db_name = createSelector(baseSelector, state=> state.db_name )
   
    return module;
 

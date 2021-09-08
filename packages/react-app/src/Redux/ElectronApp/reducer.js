@@ -33,7 +33,10 @@ export default (getModule) => {
         dexie:submodules.backends.dexie.reducer
     })
 
+    module.backend = createReducer("dexie",{})
+
     module.reducer = combineReducers({
+        backend:module.backend,
         loading:module.loadingReducer,
         fileStatus:module.fileReducer,
         backends:module.backends
