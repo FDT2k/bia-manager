@@ -71,7 +71,13 @@ export default (getModule) => {
         const backend_actions= getBackend(getState);
        
         return dispatch(actions.async_open(api.open)).then((result) => {
-            return dispatch(backend_actions.open_file(result));
+                debugger;
+            if(result && ! result.canceled){
+                return dispatch(backend_actions.open_file(result));
+            }else if(result && result.canceled){
+                dispatch({type:action_types.OPEN_CANCELED_BY_USER})
+            }
+
         })
 
     } 

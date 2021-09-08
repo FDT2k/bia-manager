@@ -338,13 +338,14 @@ ipcMain.handle('file-open', async (event, filename ) => {
     let content = await fs.readFile(filePaths[0],{encoding:'utf8'});
 
     return {
+      canceled:false,
       content,
       file: filePaths[0],
       
     }
   }
   
-  return false;
+  return {canceled:true};
 });
 
 ipcMain.handle('read-settings',async (event, ) => {

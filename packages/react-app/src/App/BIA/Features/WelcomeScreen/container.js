@@ -14,7 +14,7 @@ export default Component => props => {
                 }
 
             })
-            .catch(console.error);
+            .catch(res=>{ stop_loading()});
     }
 
     return (<Component handleOpenDatabase={handleOpen} />)
