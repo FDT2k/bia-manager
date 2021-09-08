@@ -17,19 +17,10 @@ export const Component = props =>  {
 
     const { onOpenRequest,onSaveRequest,onLocationChange } = useElectron();
     
-    const {dispatch_open,start_loading,stop_loading, current_file} = props;
+    const {open_file,save_to_file,start_loading,stop_loading, current_file} = props;
     const handleFileOpen = _ => {
         start_loading("Waiting on user confirmation");
-        dispatch_open(open).then(res => {
-          /*  start_loading("importing data");
-            debugger;
-            if (res && res.content) {
-                return api.import_database(res.content)
-
-            } else {
-                return false;
-            }*/
-        })
+        open_file(open)
         .then( result => {
             stop_loading()
             if(result){
@@ -83,6 +74,8 @@ export const Component = props =>  {
 
 
     const handleSave = _=>{
+        save_to_file();
+        /*
         if(!is_nil(current_file) && current_file!=""){
            // debugger;
 
@@ -91,12 +84,12 @@ export const Component = props =>  {
             })
 
         }
-        console.log('should save to file');
+        console.log('should save to file');*/
     }
 
     return (
         <>
-            <BIAManager dbname="electron" handleSave={handleSave} />
+            <BIAManager dbname="default" handleSave={handleSave} />
         </>
     );
 

@@ -4,7 +4,6 @@ import DatabaseImport from '@/components/DatabaseImport';
 import Database from '@/components/Views/Database';
 import CreatePatient from '@/components/Views/CreatePatient';
 import Login from '@/components/Views/Login';
-import Idle from '@/bia-layout/Pages/Idle';
 import Setup from '@/components/Views/Setup';
 import useBIAManager from '@/hooks/useBIAManager';
 import React, { useEffect, useState, useCallback } from 'react';
@@ -17,6 +16,8 @@ import { is_nil } from '@karsegard/composite-js';
 
 import Editor from '@/App/BIA/Features/Editor';
 import Search from '@/App/BIA/Features/Search';
+import WelcomeScreen from '@/App/BIA/Features/WelcomeScreen';
+
 
 
 export default props => {
@@ -78,7 +79,7 @@ export default props => {
 
 
 
-            <Route path="/"><Idle /></Route>
+            <Route path="/"><WelcomeScreen /></Route>
         </Router>
     </Fullscreen>);
 }

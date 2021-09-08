@@ -42,6 +42,28 @@ export default (getModule) => {
     });
 
 
+    actions.api_call_started = createAction(action_types.API_CALL_STARTED)
+    actions.api_call_success = createAction(action_types.API_CALL_SUCCESS)
+    actions.api_call_error = createAction(action_types.API_CALL_ERROR)
+    actions.call_api = createAsyncAction( actions.api_call_error,actions.api_call_success)
+
+    actions.async_api = (fn_name,...args) => (dispatch,getState)=>{
+       
+        dispatch(actions.api_call_started(fn_name))
+        return dispatch(actions.call_api(api[fn_name],...args))
+    }
+
+    actions.save_to_file = _=> (dispatch,getState)=> {
+        const backend_actions= getBackend(getState);
+        const filename = selectors.current_file(getState());
+        dispatch(backend_actions.export_data()).then(data => {
+            debugger;
+            dispatch(actions.async_api('save',data))
+        });
+        
+    }
+
+
     actions.start_loading = createAction(action_types.LOADING);
     actions.stop_loading = createAction(action_types.LOADING_DONE);
     actions.async_open = createAsyncAction(openFileFails,openFileSuccess)

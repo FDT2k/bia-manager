@@ -23,9 +23,9 @@ const reducer = combineReducers({
 
 export const {
   open_file,
-  save_file,
   start_loading,
   stop_loading,
+  save_to_file
 } = ElectronModule.actions;
 
 
@@ -72,8 +72,8 @@ export const ConnectApp = connect(state => ({
 }),  {
   start_loading,
   stop_loading,
-  dispatch_open:open_file,
-  save_file
+  open_file,
+  save_to_file
 });
 
 

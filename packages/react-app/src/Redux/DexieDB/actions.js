@@ -46,13 +46,15 @@ export default (getModule) => {
     actions.imported_database = createAction(action_types.IMPORT_DATABASE)
 
     actions.import_data = data=> (dispatch,getState)=> {
-
-
         return dispatch(actions.async_api('import_database',data)).then(res => {
             return dispatch(actions.imported_database(selectors.select_db_name(getState())));
         })
-
     } 
+
+    actions.export_data = data => (dispatch,getState)=> {
+
+        return dispatch(actions.async_api('export_database'));
+    }
 
     actions.open_file = ({content})=> (dispatch,getState)=> {
         let dexie = get_backend(getState);
