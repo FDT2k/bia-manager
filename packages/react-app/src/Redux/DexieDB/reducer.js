@@ -10,9 +10,20 @@ export default (getModule) => {
 
 
 
-    module.reducer = createReducer({db_name:"default"},{
-        [action_types.SET_DB_NAME]: (state,{payload}) => payload
+    module.name = createReducer("default",{
+        [action_types.SET_DB_NAME]: (state,{payload}) => payload.db_name
     })
 
+
+
+    module.stats = createReducer({},{
+        [action_types.UPDATE_STAT] : (state,{payload}) => ({...state,[payload.key]:payload.value})
+
+    })
+
+    module.reducer = combineReducers({
+        db_name: module.name,
+        stats: module.stats
+    })
     return module;
 }

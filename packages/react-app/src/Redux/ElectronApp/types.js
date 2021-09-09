@@ -11,7 +11,8 @@ export const ACTIONS_TYPES = createActionTypes(
     'SAVE',
     'SAVE_AS',
     'LOADING',
-    'LOADING_DONE'
+    'LOADING_DONE',
+    'INIT'
 )
 
 export const makeActionTypes = createPrefixableActionTypes(ACTIONS_TYPES);

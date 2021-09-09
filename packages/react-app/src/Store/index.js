@@ -97,7 +97,8 @@ export const { fetch_pathological_groups } = exportModule(suffix_key('pathologic
 const reducer = combineReducers({
   search: BIASearchModule.reducer,
   editor: BIAEditorModule.reducer,
-  patient: BIAPatientEditor.reducer
+  patient: BIAPatientEditor.reducer,
+  
 })
 
 const migrations = {

@@ -17,7 +17,7 @@ export const Component = props =>  {
 
     const { onOpenRequest,onSaveRequest,onLocationChange } = useElectron();
     
-    const {open_file,save_to_file,start_loading,stop_loading, current_file} = props;
+    const {open_file,save_to_file,start_loading,stop_loading, current_file,init_app} = props;
     const handleFileOpen = _ => {
         start_loading("Waiting on user confirmation");
         open_file(open)
@@ -50,6 +50,7 @@ export const Component = props =>  {
 
 
     const handleFileSave = _ => {
+        debugger;
      //   setLoading(true);
        // setMessage('saving database');
        /* api.export_database().then(content => {
@@ -62,6 +63,7 @@ export const Component = props =>  {
     }
 
     useEffect(() => {
+        init_app();
        // setLoading(true);
       //  setMessage('Loading Desktop Version');
         onOpenRequest(handleFileOpen);

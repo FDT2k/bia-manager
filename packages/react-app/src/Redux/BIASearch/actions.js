@@ -1,8 +1,6 @@
-
+import {createAction, createAsyncAction,bindSelectors}from '@karsegard/react-redux';
 import { compare } from '@karsegard/composite-js/List';
-import { createAction } from '@reduxjs/toolkit';
 import { makePromiseDispatcher } from '@/Redux/utils/async-dispatch';
-import create from '@/Redux/utils/make-action';
 
 
 export default (getModule) => {
@@ -12,16 +10,16 @@ export default (getModule) => {
     const actions = {};
 
 
-    actions.add_search_tag = create(action_types.ADD_SEARCH_TAG);
-    actions.update_search_tags = create(action_types.UPDATE_SEARCH_TAGS);
-    actions.del_search_tag = create(action_types.DEL_SEARCH_TAG);
-    actions.search_patient = create(action_types.SEARCH_PATIENT);
-    actions.fetched_patient = create(action_types.FETCHED_PATIENTS);
-    actions.fetched_patient_fail = create(action_types.FETCHED_PATIENTS_FAIL);
+    actions.add_search_tag = createAction(action_types.ADD_SEARCH_TAG);
+    actions.update_search_tags = createAction(action_types.UPDATE_SEARCH_TAGS);
+    actions.del_search_tag = createAction(action_types.DEL_SEARCH_TAG);
+    actions.search_patient = createAction(action_types.SEARCH_PATIENT);
+    actions.fetched_patient = createAction(action_types.FETCHED_PATIENTS);
+    actions.fetched_patient_fail = createAction(action_types.FETCHED_PATIENTS_FAIL);
 
-    actions.fetching_from_db = create(action_types.FETCHING_FROM_DATABASE);
-    actions.filter_patients = create(action_types.FILTER_PATIENTS);
-    actions.remove_filter = create(action_types.REMOVE_FILTER);
+    actions.fetching_from_db = createAction(action_types.FETCHING_FROM_DATABASE);
+    actions.filter_patients = createAction(action_types.FILTER_PATIENTS);
+    actions.remove_filter = createAction(action_types.REMOVE_FILTER);
 
 
     const ensure_array = x => {
@@ -32,7 +30,6 @@ export default (getModule) => {
     }
 
 
-    actions.search_in_database = makePromiseDispatcher(x => ({ error: x.message }), ensure_array, actions.fetched_patient_fail, actions.fetched_patient);
 
 
     actions.filter_results = _=>  (dispatch, getState) => {
@@ -52,6 +49,10 @@ export default (getModule) => {
         )
 
     }
+
+    actions.search_in_database = makePromiseDispatcher(x => ({ error: x.message }), ensure_array, actions.fetched_patient_fail, actions.fetched_patient);
+
+
 
     actions.search = (dbsearchfn, tags) => (dispatch, getState) => {
 

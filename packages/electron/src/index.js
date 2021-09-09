@@ -311,7 +311,6 @@ const setupAutoUpdate = _ => {
 ipcMain.handle('file-save', async (event, content, filename = '') => {
 
   console.log('want to write file', content.length, filename);
-
   let shouldAskForName  = is_nil(openedFilePath) || openedFilePath == ""
   if(shouldAskForName){
     let { canceled, filePath } = await dialog.showSaveDialog({ defaultPath: filename });
@@ -350,6 +349,12 @@ ipcMain.handle('file-open', async (event, filename ) => {
 
 ipcMain.handle('read-settings',async (event, ) => {
    return getSettings();
+});
+
+
+ipcMain.handle('current-filename',async (event, ) => {
+  console.log('requested last opened filename')
+  return openedFilePath;
 });
 
 ipcMain.handle('save-settings', async (event, content) => {

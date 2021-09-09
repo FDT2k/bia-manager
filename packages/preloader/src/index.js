@@ -29,7 +29,8 @@ let electronAPI = {
   ...clientEvent('locationChange','location-change'),
   save:invokeOnMainProcess('file-save'),
   open:invokeOnMainProcess('file-open'),
-  get_settings:invokeOnMainProcess('read-settings')
+  get_settings:invokeOnMainProcess('read-settings'),
+  current_filename:invokeOnMainProcess('current-filename'),
 };
 
 if (import.meta.env.MODE === 'development') {

@@ -40,7 +40,6 @@ export default (db, events = {}) => {
     }
 
     module.search = tags => {
-
         //const worker = new Worker("dexie.worker.js");
         //worker.postMessage('coucou');
         //worker.onmessage = console.error;

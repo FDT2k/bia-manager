@@ -19,6 +19,9 @@ export default (getModule) => {
     }
 
 
+  
+    actions.update_stat = createAction(action_types.UPDATE_STAT)
+
     actions.set_db = createAction(action_types.SET_DB_NAME)
 
     actions.api = (fn_name,args)=>  (dispatch,getState)=> {
@@ -48,8 +51,19 @@ export default (getModule) => {
     actions.import_data = data=> (dispatch,getState)=> {
         return dispatch(actions.async_api('import_database',data)).then(res => {
             return dispatch(actions.imported_database(selectors.select_db_name(getState())));
+        }).then(_=> {
+            return dispatch(actions.refresh_stats());
         })
     } 
+
+    actions.refresh_stats= _=> (dispatch,getState)=>{
+        return dispatch(actions.async_api('count')).then (res=> {
+            dispatch(actions.update_stat({key:'count',value:res}));
+            return dispatch(actions.async_api('count_mesures'));
+        }).then(res=>{
+            return dispatch(actions.update_stat({key:'count_mesures',value:res}));
+        })
+    }
 
     actions.export_data = data => (dispatch,getState)=> {
 
@@ -59,6 +73,12 @@ export default (getModule) => {
     actions.open_file = ({content})=> (dispatch,getState)=> {
         let dexie = get_backend(getState);
         return dispatch(actions.import_data(content));
+    }
+
+    actions.search = tag => (dispatch,getState)=> {
+
+        let dexie = get_backend(getState);
+        return dispatch(actions.async_api('search',tag))
     }
 
     return actions;

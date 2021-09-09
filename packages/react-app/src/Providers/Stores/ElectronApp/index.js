@@ -7,14 +7,14 @@ import { connect } from 'react-redux';
 import { makeStore } from '@/Redux/utils/create-store';
 */
 
-import { combineReducers,createMigrate,connect,makeStore } from '@karsegard/react-redux';
-
+import { combineReducers,createMigrate,connect,makeStore,exportModule} from '@karsegard/react-redux';
+import {identity} from '@karsegard/composite-js'
 import Electron from '@/Redux/ElectronApp';
+import  devToolsEnhancer from'remote-redux-devtools';
 
 
 export const ElectronModule = Electron(state => state.app, '');
 
-import  devToolsEnhancer from'remote-redux-devtools';
 
 const reducer = combineReducers({
   app: ElectronModule.reducer
@@ -25,7 +25,9 @@ export const {
   open_file,
   start_loading,
   stop_loading,
-  save_to_file
+  save_to_file,
+  search,
+  init_app,
 } = ElectronModule.actions;
 
 
@@ -35,9 +37,14 @@ export const {
   is_loading,
   loading_message,
   current_file,
+  get_backend_stats
 } = ElectronModule.selectors;
 
 
+export const {
+  select_patients_list_filtered,
+  
+} = exportModule(identity,'features.search.selectors',ElectronModule.submodules)
 
 
 const migrations = {
@@ -73,6 +80,7 @@ export const ConnectApp = connect(state => ({
   start_loading,
   stop_loading,
   open_file,
+  init_app,
   save_to_file
 });
 

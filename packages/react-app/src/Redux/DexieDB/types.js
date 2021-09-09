@@ -11,6 +11,8 @@ export const ACTIONS_TYPES = createActionTypes(
 
     'SET_DB_NAME',
 
+    'UPDATE_STAT',
+
 
     'CLEAR_DATABASE',
     'IMPORT_DATABASE',

@@ -20,8 +20,10 @@ export default getModule => {
    module.loading_message = createSelector(module.loadingState,state=> state.message);
 
    module.current_file = createSelector(module.fileStatus,state=>state.file);
-
    module.select_backend = createSelector(baseSelector,state => state.backend)
+   module.current_backend = createSelector(module.select_backend,baseSelector,(backend,state) => state.backends[backend])
+
+   module.get_backend_stats= createSelector(module.current_backend,state => state.stats)
    return module;
 
 }
