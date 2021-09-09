@@ -145,9 +145,15 @@ export default (db, events = {}) => {
         return db.name;
     }
 
-    module.all_pahological_groups = _ => {
+    module.all_pathological_groups = _ => {
         return db.open().then(db => {
             return db.patients.orderBy('groups.path').uniqueKeys();
+        });
+    }
+
+    module.all_ethnological_groups = _ => {
+        return db.open().then(db => {
+            return db.patients.orderBy('groups.ethno').uniqueKeys();
         });
     }
 

@@ -29,6 +29,8 @@ export const {
   save_to_file,
   search,
   init_app,
+  refresh_editor_lists,
+  close
 } = ElectronModule.actions;
 
 
@@ -83,7 +85,8 @@ export const ConnectApp = connect(state => ({
   stop_loading,
   open_file,
   init_app,
-  save_to_file
+  save_to_file,
+  close
 });
 
 

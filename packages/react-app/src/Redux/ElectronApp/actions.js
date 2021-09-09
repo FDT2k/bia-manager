@@ -10,6 +10,9 @@ export default (getModule) => {
 
 
     const getBackend = (getState)=> {
+        console.log(getState())
+debugger;
+
         const {backend} = bindSelectors({backend: selectors.select_backend},getState());
         
         return submodules.backends[backend].actions;
@@ -25,11 +28,11 @@ export default (getModule) => {
         })
         dispatch(actions.refresh_backend_stats());
     }
+    
     actions.refresh_backend_stats = () => (dispatch,getState)=> {
         const backend_actions= getBackend(getState);
         return dispatch (backend_actions.refresh_stats())
     }
-
 
 
     actions.openFileFails = createAction(action_types.OPEN_FILE_FAILS);
@@ -55,7 +58,6 @@ export default (getModule) => {
         return dispatch(backend_actions.export_data()).then(data => {
             return dispatch(actions.async_api('save',data))
         });
-        
     }
 
 
@@ -77,16 +79,20 @@ export default (getModule) => {
     } 
 
 
+    actions.close_file = createAction(action_types.CLOSE_FILE)
+
+    actions.close = _=> (dispatch,getState)=> {
+        const backend_actions= getBackend(getState);
+        dispatch(actions.close_file());
+        return dispatch (backend_actions.clear_database())
+    }
+
     actions.create_database = _=> (dispatch,getState)=> {
         const backend_actions= getBackend(getState);
         return dispatch(backend_actions.clear_database()).then(res=>{
             return dispatch(actions.async_api('clear_opened_filename'))
         });
     }
-
-
-
-
 
     actions.search_in_database = (tag) => (dispatch,getState)=> {
         const backend_actions= getBackend(getState);
@@ -108,8 +114,6 @@ export default (getModule) => {
             return;
         }
 
-        
-
         dispatch(update_search_tags(tags));
 
         if (first_tag && tags.length === 1 && first_tag !== current_tags[0]) { // if the first tag did change, then refetch a preset from the database
@@ -125,9 +129,12 @@ export default (getModule) => {
     }
 
 
-    actions.save_file = promise => {
-        
+    actions.refresh_editor_lists = _=> (dispatch,getState)=> {
+debugger;
+        const backend_actions= getBackend(getState);
+        return dispatch (backend_actions.refresh_data_list())        
     }
+
 
     return actions;
 }

@@ -75,14 +75,18 @@ export default (getModule) => {
     }
 
     actions.open_file = ({content})=> (dispatch,getState)=> {
-        let dexie = get_backend(getState);
         return dispatch(actions.import_data(content));
     }
 
     actions.search = tag => (dispatch,getState)=> {
 
-        let dexie = get_backend(getState);
         return dispatch(actions.async_api('search',tag))
+    }
+
+
+    actions.refresh_data_list = _=> (dispatch,getState)=>{
+        return actions.async_api ('all_pathological_groups')
+        return actions.async_api ('all_ethnological_groups')
     }
 
     return actions;

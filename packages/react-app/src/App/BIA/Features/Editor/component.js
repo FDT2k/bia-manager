@@ -6,7 +6,6 @@ import { ArrowBack, Delete } from '@/bia-layout/components/Icons';
 import MainView from '@/bia-layout/components/Views/MainView';
 
 
-import PatientHeader from '@/bia-layout/components/Views/PatientHeader';
 
 import { ComponentWithArea as Area, withGridArea } from '@/bia-layout/hoc/grid/Area';
 import EditorLayout from '@/bia-layout/layouts/Editor';
@@ -20,6 +19,8 @@ import './page-editor.scss';
 
 import {Container,LayoutFlex} from '@karsegard/react-core-layout'
 import MesureEditor from './Mesure';
+import PatientHeader from './PatientHeader';
+
 import ListMesure from './ListMesure';
 
 const ContainerWithArea = withGridArea(Container);

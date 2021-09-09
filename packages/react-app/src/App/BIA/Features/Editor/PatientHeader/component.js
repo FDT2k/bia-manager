@@ -10,7 +10,6 @@ import PageHeader from '@/bia-layout/components/PageHeader';
 import {LayoutFlex} from '@karsegard/react-core-layout'
 
 import React, { useEffect } from 'react';
-import './style.scss';
 
 
 
@@ -32,14 +31,18 @@ const PatientHeader = props => {
         'gender': { type: 'select', editable: true, label: 'Sexe',options:['M','F'] },
         'usual_height': { type: 'text', editable: true, label: 'Taille' },
         'usual_weight': { type: 'text', editable: true, label: 'Poids habituel' },
-        'groups.path': { type: 'select', editable: true, label: 'Groupe pathologique', options:['a','b'] },
+        'groups.path': { type: 'select', editable: true, label: 'Groupe pathologique', options:[] },
         'mesure_count': { type: 'date', editable: false, label: 'Nombre de mesures' }
     }
-    const { data, t, handleChange:handleParentChange, ...rest } = props
+    const { data, t,refresh_editor_lists, handleChange:handleParentChange, ...rest } = props
 
     useEffect(() => {
         replaceValues(data);
     }, [data])
+    
+    useEffect(()=>{
+        refresh_editor_lists()
+    },[]);
 
 
     const onValuesChange = values => {

@@ -8,7 +8,7 @@ export default name => {
     const db = new Dexie(name);
 
     db.version(1).stores({
-        patients: "++id,lastname,firstname,birthdate,groups.path,search_terms,*mesures_dates",
+        patients: "++id,lastname,firstname,birthdate,groups.path,groups.ethno,search_terms,*mesures_dates",
         import_mapping:"++id,name"
     });
 

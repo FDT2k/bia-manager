@@ -17,7 +17,7 @@ export const Component = props => {
 
     const { onOpenRequest, onSaveRequest, onLocationChange,onCloseRequest } = useElectron();
 
-    const { open_file, save_to_file, start_loading, stop_loading, current_file, init_app } = props;
+    const { open_file, save_to_file, start_loading, stop_loading, current_file, close,init_app } = props;
     const handleFileOpen = _ => {
         start_loading("Waiting on user confirmation");
         open_file()
@@ -29,23 +29,7 @@ export const Component = props => {
 
             })
             .catch(console.error);
-        /*
-        open()
-            .then(res => {
-                setMessage('opening database');
-                if (res) {
-                    return api.import_database(res)
-
-                } else {
-                    setLoading(false);
-                }
-            })
-            .then(_ => {
-
-                window.location.hash = '#/search'
-                setLoading(false);
-            })
-            .catch(console.error);*/
+       
     }
 
 
@@ -58,23 +42,18 @@ export const Component = props => {
                 }
             }
         )
-        /* api.export_database().then(content => {
-             return electron.save(content);
-         })
-         .then (res=> {
-          //   setLoading(false);
- 
-         });*/
+      
     }
 
     const handleClose =_=> {
-        window.location.hash = '#/'
+        close().then(res=>{
+            window.location.hash = '#/'
+
+        })
     }
 
     useEffect(() => {
         init_app();
-        // setLoading(true);
-        //  setMessage('Loading Desktop Version');
         onOpenRequest(handleFileOpen);
         onCloseRequest(handleClose);
         onLocationChange((sender, arg) => {
@@ -84,19 +63,10 @@ export const Component = props => {
     }, []);
 
 
-
+    //silent save
     const handleSave = _ => {
         save_to_file();
-        /*
-        if(!is_nil(current_file) && current_file!=""){
-           // debugger;
-
-            api.export_database().then(content => {
-                return electron.save(content);
-            })
-
-        }
-        console.log('should save to file');*/
+      
     }
 
     return (
