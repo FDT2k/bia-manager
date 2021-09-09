@@ -1,6 +1,6 @@
 import {combineReducers, createReducer} from '@karsegard/react-redux';
 
-
+import { is_nil } from '@karsegard/composite-js';
 
 export default (getModule) => {
 
@@ -25,7 +25,7 @@ export default (getModule) => {
 
 
     module.fileReducer = createReducer({ file: null }, {
-        [action_types.OPEN_FILE_SUCCESS]: (state, { payload }) => ({ ...state, ...payload })
+        [action_types.OPEN_FILE_SUCCESS]: (state, { payload }) => ({ ...state, file: (is_nil(payload.file))? '': payload.file })
     });
 
 

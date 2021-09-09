@@ -11,6 +11,15 @@ const age = (patient) => {
 }
 
 
+const mesures = (patient) => {
+
+    return {
+        ...patient,
+        mesures:  patient.mesures ? patient.mesures: []
+    }
+}
+
+
 const count_mesures = (patient) => {
 
     return {
@@ -19,5 +28,5 @@ const count_mesures = (patient) => {
     }
 }
 
-export const normalize = compose(age,count_mesures);
+export const normalize = compose(age,count_mesures,mesures);
 

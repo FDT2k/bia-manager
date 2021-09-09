@@ -5,7 +5,7 @@ import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useLocation } from "wouter";
 
-
+import {normalize as normalize_patient} from '@/references/Patient'
 
 
     
@@ -52,7 +52,7 @@ export default props => {
 
     const handleSave = values => {
      
-       dispatch(create_patient(api.create_patient,values,false)).then(res=>{
+       dispatch(create_patient(api.create_patient,normalize_patient(values),false)).then(res=>{
             setLocation('/editor/'+res.id)
        }).catch(res=>{
 

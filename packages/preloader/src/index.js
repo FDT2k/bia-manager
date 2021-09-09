@@ -26,11 +26,13 @@ let electronAPI = {
   ...clientEvent('saveRequest','trigger-save'),
   ...clientEvent('openRequest','trigger-open'),
   ...clientEvent('importRequest','trigger-import'),
+  ...clientEvent('closeRequest','trigger-close'),
   ...clientEvent('locationChange','location-change'),
   save:invokeOnMainProcess('file-save'),
   open:invokeOnMainProcess('file-open'),
   get_settings:invokeOnMainProcess('read-settings'),
   current_filename:invokeOnMainProcess('current-filename'),
+  clear_opened_filename:invokeOnMainProcess('clear-filename'),
 };
 
 if (import.meta.env.MODE === 'development') {

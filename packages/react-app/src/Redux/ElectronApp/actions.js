@@ -52,8 +52,8 @@ export default (getModule) => {
     actions.save_to_file = _=> (dispatch,getState)=> {
         const backend_actions= getBackend(getState);
         const filename = selectors.current_file(getState());
-        dispatch(backend_actions.export_data()).then(data => {
-            dispatch(actions.async_api('save',data))
+        return dispatch(backend_actions.export_data()).then(data => {
+            return dispatch(actions.async_api('save',data))
         });
         
     }
@@ -75,6 +75,16 @@ export default (getModule) => {
         })
 
     } 
+
+
+    actions.create_database = _=> (dispatch,getState)=> {
+        const backend_actions= getBackend(getState);
+        return dispatch(backend_actions.clear_database()).then(res=>{
+            return dispatch(actions.async_api('clear_opened_filename'))
+        });
+    }
+
+
 
 
 

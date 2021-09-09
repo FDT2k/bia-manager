@@ -168,7 +168,7 @@ export default props => {
                 {importing && <ReactLoading type="spin" color="#000000"/>}
                 {importing && <p>importation en cours</p>}
                 {imported &&  <p>importation terminée</p> }
-                {imported && <Button onClick={_=>setLocation('/')}>Terminé</Button>}
+                {imported && <Button onClick={_=>setLocation('/search')}>Terminé</Button>}
             </LayoutFlex>
 
         </LayoutFlex>

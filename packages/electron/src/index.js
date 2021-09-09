@@ -261,7 +261,9 @@ const createMenu = window => {
         },
         {
           label: 'Fermer',
-          enabled:false
+          click() {
+            window.webContents.send('trigger-close');
+          },
         },
         {
           label: 'Exit',
@@ -320,7 +322,7 @@ ipcMain.handle('file-save', async (event, content, filename = '') => {
     }
   }else{
     console.log(`saving to ${openedFilePath}`)
-    fs.writeFile(openedFilePath, content).then (res =>typeof result === 'undefined' );
+    return fs.writeFile(openedFilePath, content).then (res =>typeof result === 'undefined' );
   }
   return false;
 });
@@ -355,6 +357,12 @@ ipcMain.handle('read-settings',async (event, ) => {
 ipcMain.handle('current-filename',async (event, ) => {
   console.log('requested last opened filename')
   return openedFilePath;
+});
+
+ipcMain.handle('clear-filename',async (event, ) => {
+  console.log('cleared filename')
+  openedFilePath = "";
+  return true
 });
 
 ipcMain.handle('save-settings', async (event, content) => {

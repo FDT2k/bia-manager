@@ -70,6 +70,10 @@ export default (getModule) => {
         return dispatch(actions.async_api('export_database'));
     }
 
+    actions.clear_database = _=> (dispatch,getSTate)=>{
+        return dispatch(actions.async_api('wipe_database'));
+    }
+
     actions.open_file = ({content})=> (dispatch,getState)=> {
         let dexie = get_backend(getState);
         return dispatch(actions.import_data(content));

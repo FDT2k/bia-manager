@@ -38,6 +38,7 @@ export const Component = props => {
                     {item[itemLabelKey]} {renderActions && renderActions(data, item, idx)}
                 </ItemListItem>
             })}
+            {(!data || data.length ===0) && <i>aucune mesure</i>}
             <ItemListItem  BEM={BEM}  selected={selectedIndex >= data.length} onClick={handleCreateClick}>Créer</ItemListItem>
         </LayoutFlexColumn>
     )

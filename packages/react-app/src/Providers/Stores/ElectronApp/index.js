@@ -23,6 +23,7 @@ const reducer = combineReducers({
 
 export const {
   open_file,
+  create_database,
   start_loading,
   stop_loading,
   save_to_file,
@@ -77,6 +78,7 @@ export const ConnectApp = connect(state => ({
   loading_message: loading_message(state),
   current_file: current_file(state)
 }),  {
+  create_database,
   start_loading,
   stop_loading,
   open_file,

@@ -1,6 +1,7 @@
 import Button from '@/bia-layout/components/Form/Button';
 import SetupView from '@/bia-layout/Pages/Setup';
 import DatabaseImport from '@/components/DatabaseImport';
+import { LayoutFlexColumn } from '@karsegard/react-core-layout';
 import React, { useState } from 'react';
 import { useLocation } from "wouter";
 
@@ -9,22 +10,26 @@ import { useLocation } from "wouter";
 export default props => {
     const [location, setLocation] = useLocation();
 
-    const [doimport,setImport]=useState(false);
+    const [doimport, setImport] = useState(false);
 
-    const handleSubmit = values=>{
+    const handleSubmit = values => {
         setLocation("/search");
     }
 
     return (
         <SetupView >
+            <LayoutFlexColumn justCenter alignCenter>
             {!doimport && <>
-                <h3>Attention</h3>
-                <p>Aucune base n'a été trouvée</p>
+                <h2>Attention</h2>
 
-                <Button onClick={_=>setImport(true)}>Importer une base</Button>
+                <p style={{textAlign:"center"}}>       L'importation ne fonctionne qu'avec des exports CSV de la version précédente de BIA Manager(java)</p>
+
+                <Button onClick={_ => setImport(true)}>Importer un fichier</Button>
             </>}
 
-            {doimport && <DatabaseImport/>}
+           
+            </LayoutFlexColumn>
+            {doimport && <DatabaseImport />}
         </SetupView>
 
     )
