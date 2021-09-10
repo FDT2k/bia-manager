@@ -2,7 +2,6 @@ import { Fullscreen } from '@karsegard/react-core-layout'
 
 import DatabaseImport from '@/components/DatabaseImport';
 import Database from '@/components/Views/Database';
-import CreatePatient from '@/components/Views/CreatePatient';
 import Login from '@/components/Views/Login';
 import Setup from '@/components/Views/Setup';
 import useBIAManager from '@/hooks/useBIAManager';
@@ -17,6 +16,7 @@ import { is_nil } from '@karsegard/composite-js';
 import Editor from '@/App/BIA/Features/Editor';
 import Search from '@/App/BIA/Features/Search';
 import WelcomeScreen from '@/App/BIA/Features/WelcomeScreen';
+import CreatePatient from '@/App/BIA/Features/CreatePatient';
 
 
 

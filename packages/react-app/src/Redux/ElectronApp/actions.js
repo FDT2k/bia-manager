@@ -11,7 +11,6 @@ export default (getModule) => {
 
     const getBackend = (getState)=> {
         console.log(getState())
-debugger;
 
         const {backend} = bindSelectors({backend: selectors.select_backend},getState());
         
@@ -130,7 +129,6 @@ debugger;
 
 
     actions.refresh_editor_lists = _=> (dispatch,getState)=> {
-debugger;
         const backend_actions= getBackend(getState);
         return dispatch (backend_actions.refresh_data_list())        
     }

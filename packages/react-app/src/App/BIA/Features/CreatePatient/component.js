@@ -58,20 +58,22 @@ export const Page = props => {
     });
 
     const validate = (name, value, values) => {
-        const r = ['lastname','firstname','birthdate']
+        const r = ['lastname', 'firstname', 'birthdate']
+
         if (r.includes(name)) {
             return required(4, 0, value)
         }
         return true;
     }
 
-    const { fields: values, inputProps, formProps, handleChangeValue, fieldValidation, replaceValues } = useForm(relevantFields, { validate,onSubmit:handleSubmit })
-
+    const { fields: values, inputProps, formProps, handleChangeValue, fieldValidation, replaceValues } = useForm(relevantFields, { validate, onSubmit: handleSubmit })
     useEffect(_ => {
         replaceValues(relevantFields)
     }, [relevantFields])
 
 
+    console.log(values)
+    
     return (
         <MainView className="page-create-subject">
             <Grid>
@@ -106,7 +108,9 @@ export const Page = props => {
                                 {type === "textarea" && <textarea tabIndex={tabIndex} {...inputProps(fieldKey)} options={options}></textarea>}
                                 {type === "date" && <DatePicker tabIndex={tabIndex}
                                     selected={values[fieldKey]}
-                                    handleChange={handleChangeValue(fieldKey)} />}
+                                    handleChange={x => {
+                                        handleChangeValue(fieldKey,x)
+                                    }} />}
                                 {fieldValidation(fieldKey, ({ error, touched, valid }) => {
 
                                     return (<>

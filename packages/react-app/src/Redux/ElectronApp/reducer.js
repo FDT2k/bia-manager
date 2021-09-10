@@ -34,7 +34,8 @@ export default (getModule) => {
     })
 
     module.features = combineReducers({
-        search:submodules.features.search.reducer
+        search:submodules.features.search.reducer,
+        create:submodules.features.create.reducer
     })
 
     

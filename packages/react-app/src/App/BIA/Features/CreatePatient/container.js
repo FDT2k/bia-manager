@@ -1,6 +1,5 @@
-import CreatePatient from '@/bia-layout/Pages/CreatePatient';
 import useBIAManager from '@/hooks/useBIAManager';
-import { create_subject, edit_subject, fetch_pathological_groups, populate_ethno_groups, populate_genders, select_ethno_group, select_genders, select_list_pathological_groups, select_subject_form,create_patient } from '@/Store';
+
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useLocation } from "wouter";
@@ -9,14 +8,14 @@ import {normalize as normalize_patient} from '@/references/Patient'
 
 
     
-export default props => {
+export default Component=> props => {
     const {api} = useBIAManager();
 
     const [location, setLocation] = useLocation();
 
     const dispatch = useDispatch();
 
-    useEffect(()=>{
+   /* useEffect(()=>{
         dispatch(create_subject())
 
         dispatch(populate_genders([
@@ -38,7 +37,7 @@ export default props => {
 
         
     },[])
- 
+ */
     const genders = useSelector(select_genders);
     const etno_groups =useSelector(select_ethno_group);
     const patho_groups =useSelector(select_list_pathological_groups);
@@ -65,7 +64,7 @@ export default props => {
 
     return (
         <>
-            <CreatePatient handleChange={handleChange} patient={patient} handleSave={handleSave} available_options={{genders,etno_groups,patho_groups}}/>
+            <Component handleChange={handleChange} patient={patient} handleSave={handleSave} available_options={{genders,etno_groups,patho_groups}}/>
         </>
     )
 }

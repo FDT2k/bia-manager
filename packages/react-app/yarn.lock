@@ -2095,16 +2095,16 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@karsegard/react-hooks@npm:^2.3.3":
-  version: 2.3.3
-  resolution: "@karsegard/react-hooks@npm:2.3.3"
+"@karsegard/react-hooks@npm:^2.3.4":
+  version: 2.3.4
+  resolution: "@karsegard/react-hooks@npm:2.3.4"
   dependencies:
     "@karsegard/composite-js": ^2.9.0
     "@karsegard/react-core-layout": ^1.5.1
   peerDependencies:
     react: "*"
     react-dom: "*"
-  checksum: db08df107b1d307b78290978145669bba78d8b584b09378ef0e3d344053e10096119014d550ca340aa21c9f1b4a5be186bc4b581e68d276c72bfe0f6836a300d
+  checksum: 20e3ed9bda5803a0e5230e0649cdc404a00eb07345fb18b343a3348fa4cdde700648989b059eb392c4081983d5553af27649c2cdf906937e2e9d5767b99e8dd9
   languageName: node
   linkType: hard
 
@@ -4352,7 +4352,7 @@ __metadata:
     "@karsegard/composite-js": ^2.9.0
     "@karsegard/react-compose": ^1.2.0
     "@karsegard/react-core-layout": ^1.5.1
-    "@karsegard/react-hooks": ^2.3.3
+    "@karsegard/react-hooks": ^2.3.4
     "@karsegard/react-redux": ^1.1.5
     "@material-ui/core": ^4.11.4
     "@material-ui/icons": ^4.11.2
@@ -4375,6 +4375,7 @@ __metadata:
     react-datepicker: ^4.1.1
     react-dom: ^17.0.2
     react-dump: ^0.3.3
+    react-input-mask: ^2.0.4
     react-ionicons: ^4.2.0
     react-loading: ^2.0.3
     react-popper: ^2.2.5
@@ -9022,6 +9023,15 @@ fsevents@^1.2.7:
   version: 2.2.0
   resolution: "interpret@npm:2.2.0"
   checksum: f51efef7cb8d02da16408ffa3504cd6053014c5aeb7bb8c223727e053e4235bf565e45d67028b0c8740d917c603807aa3c27d7bd2f21bf20b6417e2bb3e5fd6e
+  languageName: node
+  linkType: hard
+
+"invariant@npm:^2.2.4":
+  version: 2.2.4
+  resolution: "invariant@npm:2.2.4"
+  dependencies:
+    loose-envify: ^1.0.0
+  checksum: cc3182d793aad82a8d1f0af697b462939cb46066ec48bbf1707c150ad5fad6406137e91a262022c269702e01621f35ef60269f6c0d7fd178487959809acdfb14
   languageName: node
   linkType: hard
 
@@ -13900,6 +13910,19 @@ fsevents@^1.2.7:
   version: 3.2.0
   resolution: "react-fast-compare@npm:3.2.0"
   checksum: 8ef272c825ae329f61633ce4ce7f15aa5b84e5214d88bc0823880236e03e985a13195befa2c7a4eda7db3b017dc7985729152d88445823f652403cf36c2b86aa
+  languageName: node
+  linkType: hard
+
+"react-input-mask@npm:^2.0.4":
+  version: 2.0.4
+  resolution: "react-input-mask@npm:2.0.4"
+  dependencies:
+    invariant: ^2.2.4
+    warning: ^4.0.2
+  peerDependencies:
+    react: ">=0.14.0"
+    react-dom: ">=0.14.0"
+  checksum: 429b46c54c9572fe2d4856c399c41c3b02b3ac398adde88e6f8f5f6dd95999528551d84222e0925a538eec775b2330e7b56c40dd79549addfe8b10e901ed4446
   languageName: node
   linkType: hard
 

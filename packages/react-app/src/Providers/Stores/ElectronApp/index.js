@@ -60,6 +60,9 @@ const migrations = {
 
 }
 
+
+
+
 /*
 export const Store = makeStore('electron', reducer, { devTools: { name: 'App' } }, {
   version: 1,
