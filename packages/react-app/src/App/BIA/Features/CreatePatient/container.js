@@ -1,7 +1,6 @@
 import useBIAManager from '@/hooks/useBIAManager';
 
 import React, { useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
 import { useLocation } from "wouter";
 
 import {normalize as normalize_patient} from '@/references/Patient'
@@ -10,11 +9,22 @@ import {normalize as normalize_patient} from '@/references/Patient'
     
 export default Component=> props => {
     const {api} = useBIAManager();
+    const {
+        refresh_editor_lists,
+        default_subject_form_options,
+        subject_form_available_options,
+        create_subject,edited_subject,
+        edit_subject
+    } = props;
+    //const {select_genders,select_ethno_group,select_list_pathological_groups,patient} = props
+    //const [location, setLocation] = useLocation();
+    useEffect(()=>{
+        refresh_editor_lists().then(
+            res => create_subject(default_subject_form_options)
+        );
 
-    const [location, setLocation] = useLocation();
-
-    const dispatch = useDispatch();
-
+        
+    },[])
    /* useEffect(()=>{
         dispatch(create_subject())
 
@@ -38,25 +48,22 @@ export default Component=> props => {
         
     },[])
  */
-    const genders = useSelector(select_genders);
-    const etno_groups =useSelector(select_ethno_group);
-    const patho_groups =useSelector(select_list_pathological_groups);
-    const patient = useSelector(select_subject_form)
+    
 
 
     const handleChange = values => {
-        
-        dispatch(edit_subject(values));
+      //  debugger;
+       /// edit_subject(values);
     }
 
     const handleSave = values => {
      
-       dispatch(create_patient(api.create_patient,normalize_patient(values),false)).then(res=>{
+      /* dispatch(create_patient(api.create_patient,normalize_patient(values),false)).then(res=>{
             setLocation('/editor/'+res.id)
        }).catch(res=>{
 
             alert('error')
-       });
+       });*/
         
     }
 
@@ -64,7 +71,7 @@ export default Component=> props => {
 
     return (
         <>
-            <Component handleChange={handleChange} patient={patient} handleSave={handleSave} available_options={{genders,etno_groups,patho_groups}}/>
+            <Component /*handleChange={handleChange}  handleSave={handleSave} available_options={{genders:[],etno_groups:[],patho_groups:[]}}*/ handleChange={handleChange} patient={edited_subject}  available_options={subject_form_available_options}/>
         </>
     )
 }

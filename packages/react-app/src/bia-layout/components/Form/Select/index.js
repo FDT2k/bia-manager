@@ -10,14 +10,17 @@ export default props => {
 
     return (<select {...rest} >
         {renderChildren && children}
+        
         {!renderChildren && options.map((option, idx) => {
+            
             let value = option;
-            let label = option;
+            let label = option; 
+
 
             if (is_type_object(option)) {
                 [value, label] = keyval(option);
             }
-          
+            
             return (<option key={idx} value={value}>{label}</option>)
         }
         )}

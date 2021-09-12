@@ -20,6 +20,8 @@ export default (getModule) => {
     const actions = {};
 
     actions.init_started= createAction(action_types.INIT)
+
+
     actions.init_app = () => (dispatch,getState)=> {
         dispatch(actions.init_started());
         dispatch(actions.async_api('current_filename')).then(res=>{
@@ -70,12 +72,22 @@ export default (getModule) => {
             if(result && ! result.canceled){
                 return dispatch(backend_actions.open_file(result));
             }else if(result && result.canceled){
-                dispatch({type:action_types.OPEN_CANCELED_BY_USER})
+                return dispatch({type:action_types.OPEN_CANCELED_BY_USER})
             }
 
+        }).then(previous => {
+            if(previous.type && previous.type !==action_types.OPEN_CANCELED_BY_USER){
+                 dispatch(actions.opened_file());
+                return true
+            }
         })
 
     } 
+
+    actions.opened_file = _=> (dispatch,getState)=>{
+        dispatch(actions.refresh_editor_lists())
+
+    }
 
 
     actions.close_file = createAction(action_types.CLOSE_FILE)
@@ -130,7 +142,11 @@ export default (getModule) => {
 
     actions.refresh_editor_lists = _=> (dispatch,getState)=> {
         const backend_actions= getBackend(getState);
-        return dispatch (backend_actions.refresh_data_list())        
+        //api.all_pahological_groups()
+        return dispatch (backend_actions.refresh_data_list())
+        .then(result => {
+            return dispatch(submodules.features.options.actions.fetch_options(result))
+        })
     }
 
 

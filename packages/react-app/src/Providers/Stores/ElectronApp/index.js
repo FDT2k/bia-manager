@@ -30,7 +30,7 @@ export const {
   search,
   init_app,
   refresh_editor_lists,
-  close
+  close,
 } = ElectronModule.actions;
 
 
@@ -40,14 +40,34 @@ export const {
   is_loading,
   loading_message,
   current_file,
-  get_backend_stats
+  get_backend_stats,
+  default_subject_form_options,
+  subject_form_available_options,
+  edited_subject,
 } = ElectronModule.selectors;
 
+
+export const {
+  create_subject,
+  edit_subject,
+} =  ElectronModule.submodules.features.create.actions;
 
 export const {
   select_patients_list_filtered,
   
 } = exportModule(identity,'features.search.selectors',ElectronModule.submodules)
+
+
+export const {
+  select_subject_form
+} = exportModule(identity,'features.create.selectors',ElectronModule.submodules)
+
+/*
+export const { select_list: select_ethno_group } = ElectronModule.submodules.features.create.submodules.ethno_groups.selectors;
+export const { select_list: select_genders } = ElectronModule.submodules.features.create.submodules.genders.selectors;
+export const { select_list: select_list_pathological_groups } =ElectronModule.submodules.features.create.submodules.pathological_groups.selectors
+*/
+
 
 
 const migrations = {

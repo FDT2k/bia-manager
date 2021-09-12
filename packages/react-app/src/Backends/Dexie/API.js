@@ -157,6 +157,12 @@ export default (db, events = {}) => {
         });
     }
 
+    module.all_genders = _ => {
+        return db.open().then(db => {
+            return db.patients.orderBy('gender').uniqueKeys();
+        })
+    }
+
     module.export_database = _ => {
         return db.open().then(_ => {
             const idbDatabase = db.backendDB(); // get native IDBDatabase object from Dexie wrapper

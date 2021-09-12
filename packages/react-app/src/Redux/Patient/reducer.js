@@ -17,7 +17,7 @@ export default (getModule) => {
 
 
 
-
+/*
   
     module.option_reducer = (path, reducer) => (state = { path, data: {} }, action) => {
         const data = reducer(state.data, action);
@@ -39,15 +39,15 @@ export default (getModule) => {
 
 
     module.editor_options = combineReducers({
-        pathological_groups: module.option_reducer('groups.patho', submodules.pathological_groups.reducer),
-        ethno_groups: module.option_reducer('groups.ethno', submodules.ethno_groups.reducer),
-        genders: module.option_reducer('gender', submodules.genders.reducer),
+        pathological_groups: module.option_reducer('groups.patho', submodules.options.patho.reducer),
+        ethno_groups: module.option_reducer('groups.ethno', submodules.options.ethno.reducer),
+        genders: module.option_reducer('gender', submodules.options.genders.reducer),
     });
-
+*/
 
 
     module.empty_subject = (state = { empty: EMPTY_SUBJECT, current: {}, editor_options: {} }, action) => {
-        const editor_options = module.editor_options(state.editor_options, action);
+       /* const editor_options = module.editor_options(state.editor_options, action);
 
 
         let current = {
@@ -65,17 +65,30 @@ export default (getModule) => {
             ...state,
             current,
             editor_options
-        }
+        }*/
+        return state;
     };
 
 
     module.subject_form = createReducer(EMPTY_SUBJECT,{
+        [action_types.CREATE]: (state,{payload}) => {
+            
+            let current = {...state}
+            map(item => {
+                let [_, option] = keyval(item);
+    
+                current = as_safe_path(option.path, current, option.default)
+            })(enlist(payload.options));
+            debugger;
+            return current
+
+        },
         [action_types.CHANGE]: (state,{payload})=> ({...payload})
     });
 
     module.reducer = combineReducers({
-        options: module.editor_options,
-        empty_subject:module.empty_subject,
+     //   options: module.editor_options,
+    //    empty_subject:module.empty_subject,
         subject_form: module.subject_form
     });
 

@@ -78,7 +78,7 @@ export const { select_list: select_sporttypes } = BIAEditorModule.submodules.spo
 
 
 /* Subject's Managment module */
-
+/*
 export const BIAPatientEditor = PatientModule(state => state.patient, '');
 
 export const { select_subject_form, select_empty_subject } = BIAPatientEditor.selectors;
@@ -93,11 +93,11 @@ export const { select_list: select_genders } = BIAPatientEditor.submodules.gende
 export const { select_list_pathological_groups } = exportModule(suffix_key('pathological_groups'), 'submodules.pathological_groups.selectors', BIAPatientEditor);
 export const { fetch_pathological_groups } = exportModule(suffix_key('pathological_groups'), 'submodules.pathological_groups.actions', BIAPatientEditor);
 
-
+*/
 const reducer = combineReducers({
   search: BIASearchModule.reducer,
   editor: BIAEditorModule.reducer,
-  patient: BIAPatientEditor.reducer,
+  //patient: BIAPatientEditor.reducer,
   
 })
 

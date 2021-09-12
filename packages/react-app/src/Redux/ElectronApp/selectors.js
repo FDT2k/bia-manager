@@ -5,7 +5,7 @@ import { createSelector } from '@karsegard/react-redux';
 
 
 export default getModule => {
-   const { baseSelector } = getModule();
+   const { baseSelector,submodules } = getModule();
    const safe_array = safe_path([]);
    const safe_object = safe_path({});
    
@@ -24,6 +24,15 @@ export default getModule => {
    module.current_backend = createSelector(module.select_backend,baseSelector,(backend,state) => state.backends[backend])
 
    module.get_backend_stats= createSelector(module.current_backend,state => state.stats)
+
+
+
+
+   module.default_subject_form_options =submodules.features.options.selectors.default_values;
+   module.subject_form_available_options =submodules.features.options.selectors.available_options;
+
+   module.edited_subject = submodules.features.create.selectors.select_subject_form;
+
    return module;
 
 }

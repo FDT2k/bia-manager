@@ -1,14 +1,34 @@
-import { connect } from '@karsegard/react-redux'
+import { bindSelectors, connect } from '@karsegard/react-redux'
+//import { /*create_subject, edit_subject, fetch_pathological_groups, populate_ethno_groups, populate_genders, select_ethno_group, select_genders, select_list_pathological_groups, select_subject_form,create_patient*/    select_genders,
+/*  select_ethno_group,
+  select_list_pathological_groups,
+  select_subject_form} from '@/Providers/Stores/ElectronApp';
 
 
-const mapStateToProps = state => {
-    return{}
-}
+*/
+
+import {
+  create_subject,
+  subject_form_available_options,
+  refresh_editor_lists,
+  default_subject_form_options,
+  edited_subject,
+  edit_subject
+} from '@/Providers/Stores/ElectronApp';
+
+
+const mapStateToProps = bindSelectors({
+  default_subject_form_options,
+  subject_form_available_options,
+  edited_subject
+})
 
 const mapDispatchToProps = {
-
+  refresh_editor_lists,
+  create_subject,
+  edit_subject
 
 }
 
 
-export default  connect(mapStateToProps,mapDispatchToProps);
+export default connect(mapStateToProps, mapDispatchToProps);

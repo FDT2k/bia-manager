@@ -13,14 +13,14 @@ export const makeActionTypes = createPrefixableActionTypes(ACTIONS_TYPES);
 
 export default (getModule) => {
 
-    const { action_types, selectors } = getModule()
+    const { action_types, selectors,submodules } = getModule()
     const actions = {};
 
     const {select_empty_subject,select_subject_form} = selectors;
 
-    actions.create_subject = ()=> {
+    actions.create_subject = (options={})=> {
         return (dispatch,getState)=>{
-            dispatch({type:action_types.CREATE})
+            dispatch({type:action_types.CREATE,payload:{options}})
             const subject = select_empty_subject(getState());
 
             return dispatch(actions.edit_subject(subject));
@@ -36,6 +36,9 @@ export default (getModule) => {
     }
 
 
+    
+
+   
     return actions;
 }
 
