@@ -221,7 +221,7 @@ const createWindow = async () => {
   mainWindow.on('ready-to-show', () => {
     mainWindow?.show();
     if (import.meta.env.MODE === 'development') {
-      mainWindow?.webContents.openDevTools();
+      mainWindow.webContents.openDevTools();
     }
   });
 
@@ -398,22 +398,41 @@ app.on('second-instance', () => {
     mainWindow.focus();
   }
 });
+
+/*
 app.on('before-quit', () => {
   ipcMain.removeAllListeners();
   mainWindow.removeAllListeners('close');
 });
 
 
-app.on('window-all-closed', () => {
- //if (process.platform !== 'darwin') {
-  ipcMain.removeAllListeners();
-  mainWindow.removeAllListeners('close');
-    app.quit();
-    app.exit();
-   console.log('exiting app')
- // }
-});
 
+app.on('will-quit', () => {
+  //if (process.platform !== 'darwin') {
+  ipcMain.removeAllListeners();
+  mainWindow.removeAllListeners();
+  app.quit();
+  app.exit();
+  console.log('quitting app')
+  // }
+});
+app.on('window-all-closed', () => {
+  //if (process.platform !== 'darwin') {
+  ipcMain.removeAllListeners();
+  mainWindow.removeAllListeners();
+  app.quit();
+  app.exit();
+  process.exit(0);
+  console.log('exiting app')
+  // }
+});*/
+
+
+app.on('window-all-closed', () => {
+  if (process.platform !== 'darwin') {
+    console.log('quit app')
+  }
+});
 
 app.whenReady()
   .then(createWindow)
