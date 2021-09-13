@@ -1,5 +1,6 @@
 import React from 'react';
-import BIAManager from '@/components/BIAManager';
+import BIAManager from '@/App/BIA/Features/BIAManager';
+
 function App() {
   return (
         <BIAManager/>

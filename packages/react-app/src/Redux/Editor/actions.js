@@ -1,46 +1,13 @@
-import { format } from 'date-fns'
 
 import { is_nil } from '@karsegard/composite-js';
 import { createAction } from '@reduxjs/toolkit';
-import moment from 'moment';
 import create from '@/Redux/utils/make-action';
-import { createActionTypes, createPrefixableActionTypes } from '@/Redux/utils/types';
 import { bia_to_recap, generate_recap_header, normalize_mesure, recap_to_bar_chart, recompute } from '@/references/Mesure';
-import EMPTY_MESURE from '@/references/mesure-schema';
 import normes, { find_norme } from '@/references/Normes';
 import { normalize as normalize_patient } from '@/references/Patient';
-import { select_edited_mesure } from '@/Store';
+//import { select_edited_mesure } from '@/Store';
 
 import createAsync from '@/Redux/utils/async-dispatch'
-
-
-
-
-
-export const ACTIONS_TYPES = createActionTypes(
-    'EDIT_PATIENT',
-    'ADDED_PATIENT',
-    'EDIT_MESURE',
-    'SELECT_MESURE',
-    'CREATE_MESURE',
-    'RECOMPUTE_MESURE',
-    'UPDATE_RECAP',
-    'CHANGE_MESURE',
-    'CHANGE_SUBJECT',
-    'ATTEMPT_REFRESH_RECAP',
-    'RECAP_PATIENT_NOT_LOADED',
-    'REFRESH_NORME',
-    'FETCHED_NORMES',
-    'ERROR_EDIT_PATIENT_UNDEF',
-    'ERROR_ADD_PATIENT_UNDEF',
-    'SAVE',
-    'DELETE_MESURE'
-)
-
-
-
-
-export const makeActionTypes = createPrefixableActionTypes(ACTIONS_TYPES);
 
 
 export default (getModule) => {
@@ -48,8 +15,7 @@ export default (getModule) => {
     const { action_types, selectors } = getModule()
     const actions = {};
 
-
-    const { select_mesures, select_empty_mesure,select_normes_sampling,select_current_mesure_id,select_current_patient_id, select_result_columns, select_normes, select_edited_patient, select_report_columns, select_charts_columns } = selectors;
+    const { select_mesures, select_empty_mesure,select_normes_sampling,select_current_mesure_id,select_current_patient_id, select_result_columns, select_normes, select_edited_patient, select_report_columns, select_charts_columns,select_edited_mesure } = selectors;
 
     actions.real_edit_patient = create(action_types.EDIT_PATIENT);
     actions.added_patient = create(action_types.ADDED_PATIENT);
@@ -104,21 +70,6 @@ export default (getModule) => {
     actions.create_patient = createAsync(actions.add_patient_failed,actions.added_patient)
 
 
-
-    actions.edit_patient = patient => {
-        return (dispatch, getState) => {
-
-            if (patient) {
-                return dispatch(actions.real_edit_patient(normalize_patient(patient)));
-
-            } else {
-                return dispatch({
-                    type: action_types.ERROR_EDIT_PATIENT_UNDEF
-                });
-            }
-
-        }
-    }
     actions.set_current_mesure = createAction(action_types.SELECT_MESURE, arg => {
         return {
             payload: {
@@ -148,6 +99,8 @@ export default (getModule) => {
     actions.create_mesure = (patient_id) => {
         if (patient_id) {
             return (dispatch, getState) => {
+       // debugger;
+
                 let mesures = select_mesures(getState());
                 const patient = select_edited_patient(getState());
                 let new_mesure_id = mesures.length;
@@ -162,7 +115,6 @@ export default (getModule) => {
                 let new_mesure = select_empty_mesure(getState());
 
                 let { mesure } = normalize_mesure({ patient, mesure:new_mesure });
-                dispatch(actions.set_current_mesure(new_mesure_id))
 
 
                 let r = dispatch({
@@ -174,6 +126,7 @@ export default (getModule) => {
                     }
                 })
                 dispatch(actions.refresh_normes());
+                dispatch(actions.set_current_mesure(new_mesure_id))
 
                 return r;
             }
@@ -383,6 +336,25 @@ export default (getModule) => {
         }
 
     };
+
+
+
+
+    //reviewed
+    actions.edit_patient = patient => {
+        return (dispatch, getState) => {
+
+            if (patient) {
+                return dispatch(actions.real_edit_patient(normalize_patient(patient)));
+
+            } else {
+                return dispatch({
+                    type: action_types.ERROR_EDIT_PATIENT_UNDEF
+                });
+            }
+
+        }
+    }
 
     return actions;
 }

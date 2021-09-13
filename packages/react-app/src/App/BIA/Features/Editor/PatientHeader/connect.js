@@ -1,5 +1,4 @@
-import { bindSelectors } from "@karsegard/react-redux";
-import { connect } from "react-redux";
+import { connect,bindSelectors } from "@karsegard/react-redux";
 import { refresh_editor_lists } from "@/Providers/Stores/ElectronApp";
 
 

@@ -8,20 +8,20 @@ import {LayoutFlex,LayoutFlexColumn} from '@karsegard/react-core-layout'
 import {Grid} from '@karsegard/react-core-layout'
 import React from 'react';
 import { useSelector } from 'react-redux';
-import { select_current_bia_values, select_edited_mesure, select_edited_patient, select_mass_chart, select_normes_chart, select_recap_headers, select_recap_list } from '@/Store';
-import './printable-report.scss';
-
 
 
 export default props => {
 
-    const mesure = useSelector(select_edited_mesure)
-    const patient = useSelector(select_edited_patient)
-    const recap = useSelector(select_recap_list);
-    const list_dates = useSelector(select_recap_headers);
-    const mass_chart = useSelector(select_mass_chart);
-    const norm_chart = useSelector(select_normes_chart);
-    const current_bia = useSelector(select_current_bia_values(['fmi', 'ffmi']));
+    const {
+     mesure   ,
+     patient   ,
+     recap   ,
+     list_dates   ,
+     mass_chart   ,
+     norm_chart   ,
+     current_bia   ,
+    } = props;
+    
     const safe_string = safe_path('');
     return (
         <Grid

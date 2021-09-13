@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import BIAManager from '@/components/BIAManager';
+import BIAManager from '@/App/BIA/Features/BIAManager';
 
 import { makeAPI } from '@/hooks/Provider';
 

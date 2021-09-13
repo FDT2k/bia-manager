@@ -12,7 +12,10 @@ export default getModule => {
    const defaultToArray = defaultTo([]);
    const module = {};
 
-   module.select_current_patient_id = createSelector(baseSelector, state => state.current_patient_id);
+   module.select_current_patient_id = createSelector(baseSelector, state =>{
+   //   debugger;
+      return state.current_patient_id
+   });
    module.select_current_mesure_id = createSelector(baseSelector, state => parseInt(state.current_mesure_id));
 
    module.select_edited_patient = createSelector([module.select_current_patient_id, baseSelector], (current, state) => state.patient[current]);
@@ -130,7 +133,7 @@ export default getModule => {
       return carry;
    }, {}))
 
-   module.select_current_bia_values = keys => createSelector([module.select_edited_mesure, module.select_bia_by_key], (mesure, bia) => {
+   module.select_current_bia_values = state=> keys => createSelector([module.select_edited_mesure, module.select_bia_by_key], (mesure, bia) => {
 
       return keys.reduce((carry, item) => {
 
@@ -141,7 +144,7 @@ export default getModule => {
       }, {})
 
 
-   })
+   })(state);
 
 
    module.select_empty_mesure = createSelector(baseSelector,state => state.empty_mesure.current);

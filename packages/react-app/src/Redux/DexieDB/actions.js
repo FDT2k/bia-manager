@@ -86,7 +86,10 @@ export default (getModule) => {
 
         return dispatch(actions.async_api('create_patient', patient))
     }
+    actions.get_patient = id => (dispatch, getState) => {
 
+        return dispatch(actions.async_api('get_patient', id))
+    }
 
     actions.refresh_data_list = _ => (dispatch, getState) => {
 

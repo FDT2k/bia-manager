@@ -3,72 +3,68 @@ import { is_nil, safe_path } from '@karsegard/composite-js';
 
 import useBIAManager from '@/hooks/useBIAManager';
 import React, { useEffect, useRef, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
 import { useReactToPrint } from 'react-to-print';
-import { change_mesure, create_mesure, edit_mesure, edit_patient, fetch_normes, populate_sporttype, populate_sportrate, refresh_recap, select_current_bia_values, select_current_mesure_id, delete_mesure, select_edited_mesure, select_edited_patient,delete_mesure_from_db, change_subject, select_mass_chart, has_error, error_message, select_recap_headers, select_recap_list, populate_machines, save } from '@/Store';
+
 import { useLocation, useRoute } from "wouter";
 
 export default Component => props => {
     const [location, setLocation] = useLocation();
-    const dispatch = useDispatch();
     const { api } = useBIAManager();
     const componentRef = useRef();
 
-
-
     const { patient_id, mesure_id } = props.params;
 
-
+    const { patient, mesure, current_mesure_id, error, err_message } = props;
+    const { populate_sportrate, populate_sporttype, populate_machines, fetch_normes } = props;
+    const { edit_patient, edit_mesure, create_mesure } = props;
 
     const handlePrint = useReactToPrint({
         content: () => componentRef.current
     })
 
 
+    /*
     const mass_chart = useSelector(select_mass_chart);
     const recap = useSelector(select_recap_list);
     const list_dates = useSelector(select_recap_headers);
-
+*/
 
 
     useEffect(() => {
-        dispatch(populate_sportrate([
+        populate_sportrate([
             { 'id': 'low', 'name': 'faible' },
             { 'id': 'average', 'name': 'modérée', default: true },
             { 'id': 'high', 'name': 'élevée' },
             { 'id': 'very_high', 'name': 'très élevée' },
-        ]));
+        ]);
 
-        dispatch(populate_sporttype([
+        populate_sporttype([
             { 'id': 'endu', 'name': 'endurance' },
             { 'id': 'res', 'name': 'résistance' },
             { 'id': 'other', 'name': 'autre' },
             { 'id': 'unknown', 'name': 'inconnue', default: true },
-        ]));
-        dispatch(populate_machines([
+        ]);
+        populate_machines([
             { 'id': 'BIO-Z', 'name': 'BIO-Z' },
             { 'id': 'NUTRIGUARD', 'name': 'Nutriguard' },
             { 'id': 'ZX-1000', 'name': 'ZX-1000', default: true },
-        ]));
-        dispatch(fetch_normes())
+        ]);
+        fetch_normes()
     }, []);
 
 
 
-    const patient = useSelector(select_edited_patient);
-    const mesure = useSelector(select_edited_mesure);
-    const current_mesure_id = useSelector(select_current_mesure_id);
-    const error = useSelector(has_error);
-    const err_message = useSelector(error_message);
+
     //We load patient from the currently setted patient_id if not already loaded
 
     useEffect(() => {
         //   console.log('patient changed?',patient_id)
         if (!is_nil(patient_id) && ((patient && patient_id != patient.id) || !patient)) {
-            api.get_patient(patient_id).then(res => {
-                dispatch(edit_patient(res));
-
-            });
+            /*  api.get_patient(patient_id).then(res => {
+                  dispatch(edit_patient(res));
+  
+              });*/
+            edit_patient(patient_id);
         }
     }, [patient_id]);
 
@@ -80,12 +76,13 @@ export default Component => props => {
         //  console.log('ba', mesure_id,patient)
         if (!is_nil(patient)) {
             if (!is_nil(mesure_id) && mesure_id < patient.mesures.length) {
-                dispatch(edit_mesure(patient_id, mesure_id));
+                edit_mesure(patient_id, mesure_id);
             } else {
-                new_mesure(patient.id).then(res => {
-                    // setMesureId(res.payload.mesure_id);
-                    //    setSelectedMesureIdx(res.payload.mesure_id)
-                });
+                // new_mesure(patient.id).then(res => {
+                // setMesureId(res.payload.mesure_id);
+                //    setSelectedMesureIdx(res.payload.mesure_id)
+                // });
+                create_mesure(patient_id)
             }
 
         }
@@ -94,9 +91,9 @@ export default Component => props => {
 
 
     const new_mesure = patient_id => {
-        return Promise.resolve(dispatch(create_mesure(patient_id)));
-
+        return Promise.resolve(create_mesure(patient_id));
     }
+    
     const handleMesureOpen = (value, idx) => {
         if (idx < patient.mesures.length) {
             setLocation(`/editor/${patient_id}/${idx}`);
@@ -105,11 +102,11 @@ export default Component => props => {
         }
     }
 
-    const handleMesureCreate =_  => {
-            setLocation(`/editor/${patient_id}`);
-       
-    }
+    const handleMesureCreate = _ => {
+        setLocation(`/editor/${patient_id}`);
 
+    }
+/*
     const handleChange = values => {
         console.log(values);
         if (values.data && patient) {
@@ -139,36 +136,36 @@ export default Component => props => {
         );
 
     }
-
-    const handleMesureDelete = index => {
-        if (confirm('Sur? ')) {
-            let result = dispatch(delete_mesure(patient.id, index));
-             // dispatch(save());
+*/
+    /*    const handleMesureDelete = index => {
+            if (confirm('Sur? ')) {
+                let result = dispatch(delete_mesure(patient.id, index));
+                // dispatch(save());
                 console.log(result)
                 debugger;
-
-            dispatch(delete_mesure_from_db(api.update_patient)).then(res=> {
-                debugger;
-            })
-          /*  api.update_patient(patient.id, patient).then(res => {
-                debugger;
-                setLocation(`/editor/${patient_id}/0`);
-            });*/
-        }
-    }
+    
+                dispatch(delete_mesure_from_db(api.update_patient)).then(res => {
+                    debugger;
+                })
+            }
+        }*/
     return (
         <>
+
+
             {!error && <Component
-                handleGoBack={_ => setLocation('/search')}
-                handleChange={handleChange}
-                handleSubjectChange={handleSubjectChange}
-                handlePrint={handlePrint}
-                data={patient}
-                handleClickSave={handleClickSave}
+                 handleGoBack={_ => setLocation('/search')}
+                //  handleChange={handleChange}
+                // handleSubjectChange={handleSubjectChange}
+                //    handleClickSave={handleClickSave}
+                //
+                //
+                //handleMesureDelete={handleMesureDelete}
+                //    handlePrint={handlePrint}
+
                 handleMesureOpen={handleMesureOpen}
                 handleMesureCreate={handleMesureCreate}
-                handleMesureDelete={handleMesureDelete}
-
+                data={patient}
                 selectedMesureIndex={current_mesure_id}
                 mesure={mesure}
             />}

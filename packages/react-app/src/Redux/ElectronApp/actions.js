@@ -158,6 +158,19 @@ export default (getModule) => {
     }
 
 
+    /* Editor actions */
+    const editorModule = submodules.features.editor;
+
+
+    actions.edit_patient = id => (dispatch,getState)=> {
+        const api= getBackend(getState);
+        const {actions} = editorModule
+        return dispatch( api.get_patient (id)).then(res=> {
+            return dispatch(actions.edit_patient(res));
+        })
+
+    }
+
     return actions;
 }
 

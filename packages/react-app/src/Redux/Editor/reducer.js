@@ -67,7 +67,10 @@ export default (getModule) => {
                 }
             })
         },
-        [action_types.CREATE_MESURE]: (state, { payload }) => updateProp(payload.id, state, payload),
+        [action_types.CREATE_MESURE]: (state, { payload }) => {
+            let result =  updateProp(payload.id, state, payload)
+            return result;
+        },
         [action_types.RECOMPUTE_MESURE]: (state, { payload }) => updateProp(payload.id, state, {
             ...state[payload.id],
             mesure: {

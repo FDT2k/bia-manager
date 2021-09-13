@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import Printable from '@/bia-layout/components/Printable';
-import PrintableReport from '@/bia-layout/components/Views/PrintableReport';
+import PrintableReport from '@/App/BIA/Features/Editor/Mesure/PrintableReport';
+
 import { useDispatch, useSelector } from 'react-redux';
 import { useLocation, useRoute } from "wouter";
 

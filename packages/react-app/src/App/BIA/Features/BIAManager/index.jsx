@@ -2,7 +2,6 @@ import React from 'react';
 import { Provider } from '@/hooks/Provider'
 import Router from '@/components/Router'
 
-import Store from '@/Store';
 
 
 if (navigator.storage && navigator.storage.persist) {
@@ -21,9 +20,7 @@ export const BIAManager = props => {
         <>
             {
                 <Provider dbname={dbname} dbtype={dbtype} events={{handleSave}}>
-                    <Store>
                         <Router/>
-                    </Store>
                 </Provider>
             }
         </>

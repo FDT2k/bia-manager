@@ -16,10 +16,6 @@ import  devToolsEnhancer from'remote-redux-devtools';
 export const ElectronModule = Electron(state => state.app, '');
 
 
-const reducer = combineReducers({
-  app: ElectronModule.reducer
-})
-
 
 export const {
   open_file,
@@ -64,13 +60,73 @@ export const {
   select_subject_form
 } = exportModule(identity,'features.create.selectors',ElectronModule.submodules)
 
-/*
-export const { select_list: select_ethno_group } = ElectronModule.submodules.features.create.submodules.ethno_groups.selectors;
-export const { select_list: select_genders } = ElectronModule.submodules.features.create.submodules.genders.selectors;
-export const { select_list: select_list_pathological_groups } =ElectronModule.submodules.features.create.submodules.pathological_groups.selectors
-*/
 
 
+
+
+/**
+ * Create the editor Module
+ */
+ export const BIAEditorModule = ElectronModule.submodules.features.editor;
+
+ export const {
+   select_current_mesure_id,
+   select_current_patient_id,
+   select_recap_headers,
+   select_recap_list,
+   select_mass_chart,
+   select_edited_patient,
+   select_edited_mesure,
+   select_recap,
+   select_normes_sampling,
+   select_normes_bygender,
+   select_current_bia_values,
+   select_normes_sampling: select_normes_chart,
+   select_empty_mesure,
+   select_mesures_dates,
+   has_error, error_message } = BIAEditorModule.selectors;
+ 
+ 
+  
+ export const {
+   
+   edit_mesure,
+   recompute_mesure,
+   create_mesure,
+   change_subject,
+   save,
+   fetch_normes,
+   recompute_current_mesure,
+   refresh_current_recap,
+   refresh_recap,
+   delete_mesure,
+   delete_mesure_from_db,
+   change_mesure } = BIAEditorModule.actions;
+ 
+export const {
+  edit_patient
+}= ElectronModule.actions
+   
+ export const { fetch: populate_sportrate } = BIAEditorModule.submodules.sportRate.actions;
+ export const { fetch: populate_sporttype } = BIAEditorModule.submodules.sportType.actions;
+ export const { fetch: populate_machines } = BIAEditorModule.submodules.machines.actions;
+ 
+ 
+ export const { select_list: select_machines } = BIAEditorModule.submodules.machines.selectors;
+ export const { select_list: select_sportrates } = BIAEditorModule.submodules.sportRate.selectors;
+ export const { select_list: select_sporttypes } = BIAEditorModule.submodules.sportType.selectors;
+ 
+/*end editor module */
+
+
+
+/* main store reducer */
+
+
+
+const reducer = combineReducers({
+  app: ElectronModule.reducer
+})
 
 const migrations = {
   0: (state) => {
