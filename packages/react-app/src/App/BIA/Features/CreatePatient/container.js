@@ -14,17 +14,19 @@ export default Component=> props => {
         default_subject_form_options,
         subject_form_available_options,
         create_subject,edited_subject,
-        edit_subject
+        form_options_loaded,
+        create_patient
     } = props;
     //const {select_genders,select_ethno_group,select_list_pathological_groups,patient} = props
-    //const [location, setLocation] = useLocation();
-    useEffect(()=>{
-        refresh_editor_lists().then(
-            res => create_subject(default_subject_form_options)
-        );
+    const [location, setLocation] = useLocation();
 
-        
+    useEffect(()=>{
+        refresh_editor_lists();
     },[])
+
+    useEffect(()=>{
+        create_subject(default_subject_form_options)
+    },[form_options_loaded])
    /* useEffect(()=>{
         dispatch(create_subject())
 
@@ -64,14 +66,19 @@ export default Component=> props => {
 
             alert('error')
        });*/
-        
+        create_patient(values).then(res=> {
+            debugger;
+            setLocation('/editor/'+res.id)
+        }).catch(res=>{
+
+            alert('error',res.toString())
+       });
     }
 
-    
 
     return (
         <>
-            <Component /*handleChange={handleChange}  handleSave={handleSave} available_options={{genders:[],etno_groups:[],patho_groups:[]}}*/ handleChange={handleChange} patient={edited_subject}  available_options={subject_form_available_options}/>
+            <Component /*handleChange={handleChange}  handleSave={handleSave} available_options={{genders:[],etno_groups:[],patho_groups:[]}}*/ handleChange={handleChange} patient={edited_subject}  available_options={subject_form_available_options}  handleSave={handleSave} />
         </>
     )
 }

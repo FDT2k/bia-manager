@@ -4,6 +4,8 @@ import api from '@/Backends/Electron'
 import { compare } from '@karsegard/composite-js/List';
 
 
+import {normalize as normalize_patient} from '@/references/Patient'
+
 export default (getModule) => {
 
     const { action_types, selectors,submodules } = getModule()
@@ -108,6 +110,12 @@ export default (getModule) => {
     actions.search_in_database = (tag) => (dispatch,getState)=> {
         const backend_actions= getBackend(getState);
         return dispatch (backend_actions.search(tag))
+    }
+
+
+    actions.create_patient = values => (dispatch,getState)=> {
+        const backend_actions= getBackend(getState);
+        return dispatch(backend_actions.create_patient(normalize_patient(values)));
     }
 
   

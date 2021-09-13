@@ -23,7 +23,10 @@ export default getModule => {
 
       return result;
    });
-   module.available_options = createSelector(baseSelector,state=> state.options);
+   module.available_options = createSelector(baseSelector,state=> state.available_options);
+
+   module.options= createSelector(baseSelector,state=> state.options);
+   module.loaded= createSelector(baseSelector,state=> state.loaded);
    return module;
 
 }

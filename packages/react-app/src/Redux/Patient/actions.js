@@ -21,9 +21,9 @@ export default (getModule) => {
     actions.create_subject = (options={})=> {
         return (dispatch,getState)=>{
             dispatch({type:action_types.CREATE,payload:{options}})
-            const subject = select_empty_subject(getState());
+          //  const subject = select_empty_subject(getState());
 
-            return dispatch(actions.edit_subject(subject));
+            //return dispatch(actions.edit_subject(subject));
         }
     }
 

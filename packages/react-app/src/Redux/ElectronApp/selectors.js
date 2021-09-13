@@ -29,7 +29,8 @@ export default getModule => {
 
 
    module.default_subject_form_options =submodules.features.options.selectors.default_values;
-   module.subject_form_available_options =submodules.features.options.selectors.available_options;
+   module.subject_form_available_options =submodules.features.options.selectors.options;
+   module.form_options_loaded =submodules.features.options.selectors.loaded;
 
    module.edited_subject = submodules.features.create.selectors.select_subject_form;
 

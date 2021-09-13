@@ -42,7 +42,6 @@ export const Page = props => {
         const {path,default_value,data} = available_options[item];
 
         if(data && data.byIds){
-
             carry[path] = { type: 'select', label: t(path), options:data.allIds.map(item=> ({[item]:data.byIds[item].name}))}
         }
         return carry;

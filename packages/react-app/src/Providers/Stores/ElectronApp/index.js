@@ -31,6 +31,7 @@ export const {
   init_app,
   refresh_editor_lists,
   close,
+  create_patient
 } = ElectronModule.actions;
 
 
@@ -44,6 +45,7 @@ export const {
   default_subject_form_options,
   subject_form_available_options,
   edited_subject,
+  form_options_loaded
 } = ElectronModule.selectors;
 
 

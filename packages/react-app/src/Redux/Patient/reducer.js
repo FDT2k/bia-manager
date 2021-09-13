@@ -72,14 +72,12 @@ export default (getModule) => {
 
     module.subject_form = createReducer(EMPTY_SUBJECT,{
         [action_types.CREATE]: (state,{payload}) => {
-            
+            // apply default options if existing
             let current = {...state}
             map(item => {
                 let [_, option] = keyval(item);
-    
-                current = as_safe_path(option.path, current, option.default)
+                current = as_safe_path(option.path, current, option.default_value)
             })(enlist(payload.options));
-            debugger;
             return current
 
         },

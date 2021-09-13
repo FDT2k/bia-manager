@@ -9,7 +9,7 @@ export const createSubModules = getModule => {
             options: {
                 patho: ItemListModule(compose(state => state.options.patho.data, baseSelector), `${prefix}_PATHO`),
                 ethno: ItemListModule(compose(state => state.options.ethno.data, baseSelector), `${prefix}_ETHNO`),
-                genders: ItemListModule(compose(state => state.options.gender.data, trace('test'), baseSelector), `${prefix}_GENDER`)
+                gender: ItemListModule(compose(state => state.options.gender.data, trace('test'), baseSelector), `${prefix}_GENDER`)
             }
         }
     

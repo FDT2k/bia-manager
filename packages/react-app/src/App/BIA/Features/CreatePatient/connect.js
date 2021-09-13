@@ -13,20 +13,24 @@ import {
   refresh_editor_lists,
   default_subject_form_options,
   edited_subject,
-  edit_subject
+  edit_subject,
+  create_patient,
+  form_options_loaded
 } from '@/Providers/Stores/ElectronApp';
 
 
 const mapStateToProps = bindSelectors({
   default_subject_form_options,
   subject_form_available_options,
-  edited_subject
+  edited_subject,
+  form_options_loaded
 })
 
 const mapDispatchToProps = {
   refresh_editor_lists,
   create_subject,
-  edit_subject
+  edit_subject,
+  create_patient
 
 }
 
