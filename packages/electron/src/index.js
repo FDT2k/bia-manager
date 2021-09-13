@@ -145,10 +145,10 @@ ipcMain.handle('file-save',  (event, filename,data) => {
 initialize()
 */
 import { app, ipcMain, BrowserWindow, Menu, dialog } from 'electron';
-import { join,resolve } from 'path';
+import { join, resolve } from 'path';
 import { URL } from 'url';
 import fs from 'fs/promises';
-import {is_nil,deep_merge} from '@karsegard/composite-js';
+import { is_nil, deep_merge } from '@karsegard/composite-js';
 
 //import createAPI from './BIADatabase';
 
@@ -166,20 +166,20 @@ if (!isSingleInstance) {
   app.quit();
   process.exit(0);
 }
-const createFileIfNeeded = (file,content) => fs.stat(file).catch(_=> {
-  fs.writeFile(file,content,{encoding:'utf8'})
+const createFileIfNeeded = (file, content) => fs.stat(file).catch(_ => {
+  fs.writeFile(file, content, { encoding: 'utf8' })
 });
 
 
-const settingsFile =  (import.meta.env.MODE === 'development') ? join(__dirname,'../.bim-settings.json'):join(app.getPath('home'),'.bim-settings.json')
+const settingsFile = (import.meta.env.MODE === 'development') ? join(__dirname, '../.bim-settings.json') : join(app.getPath('home'), '.bim-settings.json')
 
-const langCollectionFile =resolve(__dirname,'../.langs');
-createFileIfNeeded(settingsFile,'{"lang":"fr"}');
-
-
+const langCollectionFile = resolve(__dirname, '../.langs');
+createFileIfNeeded(settingsFile, '{"lang":"fr"}');
 
 
-const getSettings = _=>  fs.readFile(settingsFile,{encoding:'utf8'}).then(res=> JSON.parse(res));
+
+
+const getSettings = _ => fs.readFile(settingsFile, { encoding: 'utf8' }).then(res => JSON.parse(res));
 
 
 
@@ -187,7 +187,7 @@ app.disableHardwareAcceleration();
 
 // Install "Vue.js devtools"
 if (import.meta.env.MODE === 'development') {
-  createFileIfNeeded(langCollectionFile,'{}');
+  createFileIfNeeded(langCollectionFile, '{}');
 
   app.whenReady()
     .then(() => import('electron-devtools-installer'))
@@ -201,6 +201,9 @@ let mainWindow = null;
 
 const createWindow = async () => {
   mainWindow = new BrowserWindow({
+    width: 1280,
+    minWidth: 1000,
+    height: 840,
     show: false, // Use 'ready-to-show' event to show window
     webPreferences: {
       preload: join(__dirname, '../../preloader/dist/index.cjs'),
@@ -242,7 +245,7 @@ const loadContent = mainWindow => {
 
 const createMenu = window => {
   var menu = Menu.buildFromTemplate([
-    
+
     {
       label: 'Menu',
       submenu: [
@@ -272,24 +275,24 @@ const createMenu = window => {
           }
         }
       ]
-    },{
+    }, {
       label: 'Debug',
       submenu: [
         {
           label: 'Import',
           click() {
-            window.webContents.send('location-change','#/setup');
+            window.webContents.send('location-change', '#/setup');
           }
         },
         {
           label: 'Base',
           click() {
-            window.webContents.send('location-change','#/search');
+            window.webContents.send('location-change', '#/search');
           }
         },
         {
           label: 'DevTools',
-          click(){
+          click() {
             window.webContents.openDevTools()
           }
         }
@@ -313,53 +316,53 @@ const setupAutoUpdate = _ => {
 ipcMain.handle('file-save', async (event, content, filename = '') => {
 
   console.log('want to write file', content.length, filename);
-  let shouldAskForName  = is_nil(openedFilePath) || openedFilePath == ""
-  if(shouldAskForName){
+  let shouldAskForName = is_nil(openedFilePath) || openedFilePath == ""
+  if (shouldAskForName) {
     let { canceled, filePath } = await dialog.showSaveDialog({ defaultPath: filename });
     if (!canceled) {
       console.log('saving');
-      return fs.writeFile(filePath, content).then (res =>typeof result === 'undefined' );
+      return fs.writeFile(filePath, content).then(res => typeof result === 'undefined');
     }
-  }else{
+  } else {
     console.log(`saving to ${openedFilePath}`)
-    return fs.writeFile(openedFilePath, content).then (res =>typeof result === 'undefined' );
+    return fs.writeFile(openedFilePath, content).then(res => typeof result === 'undefined');
   }
   return false;
 });
 
 
-ipcMain.handle('file-open', async (event, filename ) => {
+ipcMain.handle('file-open', async (event, filename) => {
 
   console.log('want to open file', filename);
-  let {canceled, filePaths} = await dialog.showOpenDialog({defaultPath:filename});
+  let { canceled, filePaths } = await dialog.showOpenDialog({ defaultPath: filename });
 
   if (!canceled) {
     console.log('reading');
     openedFilePath = filePaths[0];
-    let content = await fs.readFile(filePaths[0],{encoding:'utf8'});
+    let content = await fs.readFile(filePaths[0], { encoding: 'utf8' });
 
     return {
-      canceled:false,
+      canceled: false,
       content,
       file: filePaths[0],
-      
+
     }
   }
-  
-  return {canceled:true};
+
+  return { canceled: true };
 });
 
-ipcMain.handle('read-settings',async (event, ) => {
-   return getSettings();
+ipcMain.handle('read-settings', async (event,) => {
+  return getSettings();
 });
 
 
-ipcMain.handle('current-filename',async (event, ) => {
+ipcMain.handle('current-filename', async (event,) => {
   console.log('requested last opened filename')
   return openedFilePath;
 });
 
-ipcMain.handle('clear-filename',async (event, ) => {
+ipcMain.handle('clear-filename', async (event,) => {
   console.log('cleared filename')
   openedFilePath = "";
   return true
@@ -367,24 +370,24 @@ ipcMain.handle('clear-filename',async (event, ) => {
 
 ipcMain.handle('save-settings', async (event, content) => {
   let filecontent = JSON.stringify(content);
-  return fs.writeFile(settingsFile, filecontent).then (res =>typeof result === 'undefined' );
+  return fs.writeFile(settingsFile, filecontent).then(res => typeof result === 'undefined');
 });
 
 if (import.meta.env.MODE === 'development') {
 
   ipcMain.handle('collect-translation', async (event, content) => {
-    console.log('translation collecting',content)
-    
-    return fs.readFile(langCollectionFile).then(res=>{
+    console.log('translation collecting', content)
+
+    return fs.readFile(langCollectionFile).then(res => {
       return JSON.parse(res);
-    }).then(trans=> {
-      return deep_merge(trans,content);
-    }).then(res=> {
-      return fs.writeFile(langCollectionFile, JSON.stringify(res)).then (res =>typeof result === 'undefined' );
+    }).then(trans => {
+      return deep_merge(trans, content);
+    }).then(res => {
+      return fs.writeFile(langCollectionFile, JSON.stringify(res)).then(res => typeof result === 'undefined');
     });
 
   });
-  
+
 
 }
 
@@ -395,12 +398,20 @@ app.on('second-instance', () => {
     mainWindow.focus();
   }
 });
+app.on('before-quit', () => {
+  ipcMain.removeAllListeners();
+  mainWindow.removeAllListeners('close');
+});
 
 
 app.on('window-all-closed', () => {
-  if (process.platform !== 'darwin') {
+ //if (process.platform !== 'darwin') {
+  ipcMain.removeAllListeners();
+  mainWindow.removeAllListeners('close');
     app.quit();
-  }
+    app.exit();
+   console.log('exiting app')
+ // }
 });
 
 
