@@ -89,7 +89,7 @@ export default (db, events = {}) => {
     }
 
 
-    module.update_patient = (id, patient, mesure, mesure_id) => {
+    module.update_patient = ({id, patient, mesure, mesure_id}) => {
         if (!is_nil(mesure)) {
             if (mesure_id >= patient.mesures.length) {
                 patient.mesures.push(mesure);

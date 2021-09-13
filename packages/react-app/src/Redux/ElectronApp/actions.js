@@ -171,6 +171,16 @@ export default (getModule) => {
 
     }
 
+
+    actions.update_patient = (id, patient, mesure, mesure_id) => (dispatch,getState)=>{
+        const api= getBackend(getState);
+        const {actions} = editorModule
+        return dispatch( api.update_patient ({id, patient, mesure, mesure_id}))/*.then(res=> {
+            return dispatch(actions.update_patient(res));
+        })*/
+
+    }
+
     return actions;
 }
 

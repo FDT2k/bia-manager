@@ -35,8 +35,22 @@ const TabsWithArea = withGridArea(Tabs);
 const [__base_class, element, modifier] = bem('bia-mesure-editor')
 
 const Editor = props => {
-    const { handleClickSave, className, gender, t, handleGoBack, handlePrint, handleChange: parentHandleChange, mesure, data, ...rest } = getClasseNames(__base_class, props)
+    const { handleClickSave, className, gender, t, handleGoBack, handlePrint, handleChange: parentHandleChange, mesure, data, ...rest2 } = getClasseNames(__base_class, props)
 
+
+    const {
+        recap ,
+        list_dates ,
+        mass_chart ,
+        norm_chart ,
+        get_current_bia ,
+        machines ,
+        sporttypes ,
+        sportrates ,
+        ...rest
+       } = rest2;
+
+    const current_bia = get_current_bia(['fmi','ffmi'])
     const _handleChange = v => {
         parentHandleChange && parentHandleChange(v);
     }
@@ -104,16 +118,7 @@ const Editor = props => {
 
     const result_columns = useMemo(()=> ['norme', values.most_accurate_formula || 'kuschner', 'gva'],[values.most_accurate_formula]);
 
-    const {
-     recap ,
-     list_dates ,
-     mass_chart ,
-     norm_chart ,
-     current_bia ,
-     machines ,
-     sporttypes ,
-     sportrates ,
-    } = props;
+   
     const map_itemlist_as_option = item => (<option key={item.id} value={item.id}>{item.name}</option>)
 
     return (
@@ -224,7 +229,7 @@ const Editor = props => {
 
             </LayoutFlexColumnWithArea>
             <Printable ref={componentRef}>
-                <PrintableReport />
+            {/*    <PrintableReport />*/}
             </Printable>
         </MesureEditorLayout>
     )

@@ -7,7 +7,6 @@ import {LayoutFlex,LayoutFlexColumn} from '@karsegard/react-core-layout'
 
 import {Grid} from '@karsegard/react-core-layout'
 import React from 'react';
-import { useSelector } from 'react-redux';
 
 
 export default props => {
@@ -21,7 +20,6 @@ export default props => {
      norm_chart   ,
      current_bia   ,
     } = props;
-    
     const safe_string = safe_path('');
     return (
         <Grid

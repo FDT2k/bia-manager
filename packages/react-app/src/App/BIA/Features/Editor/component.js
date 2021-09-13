@@ -51,7 +51,7 @@ const Editor = props => {
         }>
             <EditorLayout className={className}>
 
-                {/*<Area className={element('patient')} area="patient"><PatientHeader handleChange={handleSubjectChange} data={data} /></Area>*/}
+                {<Area className={element('patient')} area="patient"><PatientHeader handleChange={handleSubjectChange} data={data} /></Area>}
                 <Area className={element('mesures')} area="mesures">
 
                     <ListMesure selectedIndex={selectedMesureIndex} title={t('Mesures')} itemLabelKey="date" handleItemListClick={handleMesureOpen} handleCreateClick={
@@ -65,7 +65,7 @@ const Editor = props => {
                     />
                 </Area>
                 <ContainerWithArea className={element('form')} area="content" scrollable>
-                    {/*mesure && <MesureEditor  handleClickSave={handleClickSave} handlePrint={handlePrint} handleChange={handleChange} mesure={mesure} />*/}
+                    {mesure && <MesureEditor  handleClickSave={handleClickSave} handlePrint={handlePrint} handleChange={handleChange} mesure={mesure} />}
                     {!mesure && <ReactLoading type="spin" color="#000000"/>}
                 </ContainerWithArea>
 

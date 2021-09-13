@@ -18,7 +18,6 @@ function App() {
 
     return (
         <Provider>
-            youou
             <ElectronProvider api={window.electron}>
                 <Loading/>
                 <AppHandler />

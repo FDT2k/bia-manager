@@ -13,7 +13,7 @@ import {
 
 
 const mapStateToProps = bindSelectors({
-    current_bia: select_current_bia_values,//selector creator
+    get_current_bia: select_current_bia_values,//selector creator
     machines:select_machines,
     sporttypes: select_sporttypes,
     sportrates:select_sportrates,

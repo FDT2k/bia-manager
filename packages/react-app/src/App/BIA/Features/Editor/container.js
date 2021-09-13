@@ -16,7 +16,7 @@ export default Component => props => {
 
     const { patient, mesure, current_mesure_id, error, err_message } = props;
     const { populate_sportrate, populate_sporttype, populate_machines, fetch_normes } = props;
-    const { edit_patient, edit_mesure, create_mesure } = props;
+    const { edit_patient, edit_mesure, create_mesure,change_mesure,refresh_recap,change_subject,update_patient,save } = props;
 
     const handlePrint = useReactToPrint({
         content: () => componentRef.current
@@ -106,24 +106,24 @@ export default Component => props => {
         setLocation(`/editor/${patient_id}`);
 
     }
-/*
+
     const handleChange = values => {
         console.log(values);
         if (values.data && patient) {
             //  dispatch(recompute_mesure(patient_id, values));
-            dispatch(change_mesure(patient, values))
-            dispatch(refresh_recap(patient_id, current_mesure_id));
+            change_mesure(patient, values)
+            refresh_recap(patient_id, current_mesure_id);
         }
     }
 
     const handleSubjectChange = values => {
-        dispatch(change_subject(patient_id, values));
+        change_subject(patient_id, values);
     }
 
 
     const handleClickSave = _ => {
-        let res = dispatch(save());
-        api.update_patient(patient.id, patient, mesure, current_mesure_id).then(res => {
+        let res = save();
+        update_patient(patient.id, patient, mesure, current_mesure_id).then(res => {
             if (current_mesure_id <= patient.mesures.length) {
                 setLocation(`/editor/${patient_id}/${current_mesure_id}`);
             }
@@ -136,7 +136,7 @@ export default Component => props => {
         );
 
     }
-*/
+
     /*    const handleMesureDelete = index => {
             if (confirm('Sur? ')) {
                 let result = dispatch(delete_mesure(patient.id, index));
@@ -155,13 +155,11 @@ export default Component => props => {
 
             {!error && <Component
                  handleGoBack={_ => setLocation('/search')}
-                //  handleChange={handleChange}
-                // handleSubjectChange={handleSubjectChange}
-                //    handleClickSave={handleClickSave}
-                //
-                //
+                handleChange={handleChange}
+                handleSubjectChange={handleSubjectChange}
+                handleClickSave={handleClickSave}
                 //handleMesureDelete={handleMesureDelete}
-                //    handlePrint={handlePrint}
+                //handlePrint={handlePrint}
 
                 handleMesureOpen={handleMesureOpen}
                 handleMesureCreate={handleMesureCreate}

@@ -30,7 +30,7 @@ export default (getModule) => {
             return carry;
         }, null);
         if (is_nil(default_value)) {
-            default_value = data.list[0].id;
+            default_value = data.list[0] ? data.list[0].id : '';
         }
         return {
             path,
@@ -58,7 +58,6 @@ export default (getModule) => {
     module.options = createReducer({}, {
         [types.FETCHED_OPTIONS]: (state = {}, action) => {
             const { payload: { available_options } } = action;
-
             return   mergeAll(enlist(action.payload.subactions).map(item => {
                     const [key, value] = keyval(item);
 

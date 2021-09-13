@@ -8,7 +8,7 @@ import {
     select_normes_chart,
     select_recap_headers,
     select_recap_list
-} from '@/Store';
+}  from '@/Providers/Stores/ElectronApp';
 
 
 

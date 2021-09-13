@@ -1,10 +1,6 @@
 import React from 'react';
 import { useLocation } from "wouter";
-/*
-import useBIAManager from '@/hooks/useBIAManager';
-import { useDispatch, useSelector } from 'react-redux';
-import { search, select_count_results, select_patients_list_filtered, select_tags } from '@/Store';
-*/
+
 import { LayoutFlex } from '@karsegard/react-core-layout'
 
 

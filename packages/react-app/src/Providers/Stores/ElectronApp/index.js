@@ -84,7 +84,9 @@ export const {
    select_normes_sampling: select_normes_chart,
    select_empty_mesure,
    select_mesures_dates,
-   has_error, error_message } = BIAEditorModule.selectors;
+   has_error, 
+   error_message 
+  } = BIAEditorModule.selectors;
  
  
   
@@ -101,10 +103,14 @@ export const {
    refresh_recap,
    delete_mesure,
    delete_mesure_from_db,
-   change_mesure } = BIAEditorModule.actions;
+   change_mesure ,
+   save:save_editor
+  } = BIAEditorModule.actions;
  
 export const {
-  edit_patient
+  edit_patient,
+  update_patient
+  
 }= ElectronModule.actions
    
  export const { fetch: populate_sportrate } = BIAEditorModule.submodules.sportRate.actions;

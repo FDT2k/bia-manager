@@ -5,7 +5,6 @@ import create from '@/Redux/utils/make-action';
 import { bia_to_recap, generate_recap_header, normalize_mesure, recap_to_bar_chart, recompute } from '@/references/Mesure';
 import normes, { find_norme } from '@/references/Normes';
 import { normalize as normalize_patient } from '@/references/Patient';
-//import { select_edited_mesure } from '@/Store';
 
 import createAsync from '@/Redux/utils/async-dispatch'
 

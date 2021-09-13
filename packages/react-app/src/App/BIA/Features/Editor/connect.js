@@ -26,6 +26,8 @@ import {
     select_mass_chart,
     select_recap_headers,
     select_recap_list,
+    update_patient,
+    save_editor
 } from '@/Providers/Stores/ElectronApp';
 
 
@@ -55,7 +57,8 @@ const mapDispatchToProps = {
     change_subject,
 
     populate_machines,
-    save
+    update_patient,
+    save:save_editor
 }
 
 
