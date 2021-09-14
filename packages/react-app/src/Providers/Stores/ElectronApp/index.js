@@ -101,15 +101,15 @@ export const {
    recompute_current_mesure,
    refresh_current_recap,
    refresh_recap,
-   delete_mesure,
-   delete_mesure_from_db,
+
    change_mesure ,
    save:save_editor
   } = BIAEditorModule.actions;
  
 export const {
   edit_patient,
-  update_patient
+  update_patient,
+  delete_mesure
   
 }= ElectronModule.actions
    

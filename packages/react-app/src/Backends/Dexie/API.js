@@ -107,7 +107,6 @@ export default (db, events = {}) => {
 
             }
         }
-        debugger;
         return db.open().then(db => {
             return db.patients.update(id, patient)
                 .then(res => {

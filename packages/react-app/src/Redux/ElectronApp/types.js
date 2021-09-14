@@ -7,6 +7,7 @@ export const ACTIONS_TYPES = createActionTypes(
     'OPEN_CANCELED_BY_USER',
     'OPEN_FILE',
     'OPEN_FILE_SUCCESS',
+    'SAVE_FILE_SUCCESS',
     'OPEN_FILE_FAILS',
     'SAVE',
     'SAVE_AS',

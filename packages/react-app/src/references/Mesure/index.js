@@ -17,6 +17,20 @@ const mesure_age = ({ patient, mesure }) => {
         }
     }
 }
+
+
+const null_keys = ({ patient, mesure }) => {
+
+
+    return {
+        patient,
+        mesure: {
+            ...mesure,
+            examinator: is_nil(mesure.examinator) ? "" : mesure.examinator,
+            comments: is_nil(mesure.comments) ? "" : mesure.comments
+        }
+    }
+}
 const clear_bmi_ref = ({ patient, mesure }) => {
 
     let bmi_ref = mesure.bmi_ref;
@@ -24,7 +38,7 @@ const clear_bmi_ref = ({ patient, mesure }) => {
 
 
 
-    if (bmi_ref === bmi) {
+    if (bmi_ref === bmi || is_nil(bmi_ref)) {
         bmi_ref = "";
     }
 
@@ -83,7 +97,7 @@ const bmi_weight = ({ patient, mesure }) => {
 }
 
 
-export const normalize_mesure = compose(mesure_age, clear_bmi_ref, best_formula, bmi_weight);
+export const normalize_mesure = compose(mesure_age, clear_bmi_ref, best_formula,null_keys, bmi_weight);
 
 
 export const recompute = (patient, mesure, bia_result_columns, normes) => {

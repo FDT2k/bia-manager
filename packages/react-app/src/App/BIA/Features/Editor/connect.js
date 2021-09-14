@@ -10,7 +10,6 @@ import {
     populate_sportrate,
     refresh_recap,
     delete_mesure,
-    delete_mesure_from_db,
     change_subject,
     has_error,
     error_message,
@@ -53,7 +52,7 @@ const mapDispatchToProps = {
     populate_sportrate,
     refresh_recap,
     delete_mesure,
-    delete_mesure_from_db,
+   // delete_mesure_from_db,
     change_subject,
 
     populate_machines,

@@ -36,7 +36,9 @@ export const Component = props => {
     const handleFileSave = _ => {
         start_loading('saving');
         save_to_file().then(
+            
             result => {
+                stop_loading();
                 if(result){
                     stop_loading();
                 }

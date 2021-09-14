@@ -229,7 +229,7 @@ const Editor = props => {
 
             </LayoutFlexColumnWithArea>
             <Printable ref={componentRef}>
-            {/*    <PrintableReport />*/}
+            {    <PrintableReport />}
             </Printable>
         </MesureEditorLayout>
     )

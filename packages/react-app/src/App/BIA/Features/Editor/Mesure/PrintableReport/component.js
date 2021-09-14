@@ -18,8 +18,10 @@ export default props => {
      list_dates   ,
      mass_chart   ,
      norm_chart   ,
-     current_bia   ,
+     get_current_bia   ,
     } = props;
+
+    const current_bia = get_current_bia(['fmi','ffmi'])
     const safe_string = safe_path('');
     return (
         <Grid

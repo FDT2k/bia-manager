@@ -321,11 +321,20 @@ ipcMain.handle('file-save', async (event, content, filename = '') => {
     let { canceled, filePath } = await dialog.showSaveDialog({ defaultPath: filename });
     if (!canceled) {
       console.log('saving');
-      return fs.writeFile(filePath, content).then(res => typeof result === 'undefined');
+      return fs.writeFile(filePath, content).then(res => {
+        openedFilePath = filePath;
+        return {
+          result: (typeof result === 'undefined'),
+          file: filePath
+        }
+      });
     }
   } else {
     console.log(`saving to ${openedFilePath}`)
-    return fs.writeFile(openedFilePath, content).then(res => typeof result === 'undefined');
+    return fs.writeFile(openedFilePath, content).then(res => ({
+      result: (typeof result === 'undefined'),
+      file: openedFilePath
+    }));
   }
   return false;
 });

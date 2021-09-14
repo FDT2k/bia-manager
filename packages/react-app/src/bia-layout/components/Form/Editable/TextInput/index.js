@@ -1,14 +1,13 @@
-import { withBaseClass } from '@karsegard/react-compose';
+import { withBaseClass,withForwardedRef,withPropsTrace,compose } from '@karsegard/react-compose';
 import { useFocus, useKeypress } from '@karsegard/react-hooks';
-import React, { useEffect, useRef, useState } from 'react';
+import React, { forwardRef,useEffect, useState } from 'react';
 
 
-
-const EditableTextInput = withBaseClass('editable-field')(props => {
-
+const EditableTextInput = (props) => {
+    const {forwardedRef:ref} = props;
     const [editable, setEditable] = useState(false);
     const enterPressed = useKeypress('Enter');
-    const ref = useRef()
+ //   const ref = useRef()
 
     const _disableEditable = _ => {
         setEditable(false)
@@ -36,7 +35,9 @@ const EditableTextInput = withBaseClass('editable-field')(props => {
     </>
     )
 
-})
+}
 
 
-export default EditableTextInput
+const enhancer = compose(forwardRef,withForwardedRef,withBaseClass('editable-field'))
+
+export default enhancer(EditableTextInput)

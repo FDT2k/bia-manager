@@ -94,6 +94,7 @@ export default (getModule) => {
 
         return dispatch(actions.async_api('update_patient', payload))
     }
+ 
     actions.refresh_data_list = _ => (dispatch, getState) => {
 
         return dispatch(actions.call_api(async (arg) => {

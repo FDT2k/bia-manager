@@ -43,7 +43,10 @@ export default (getModule) => {
         const {content,...rest} = arg;
         return rest;
     });
-
+    actions.saveFileSuccess = createAction(action_types.SAVE_FILE_SUCCESS,arg => {
+        const {content,...rest} = arg;
+        return rest;
+    });
 
     actions.api_call_started = createAction(action_types.API_CALL_STARTED)
     actions.api_call_success = createAction(action_types.API_CALL_SUCCESS)
@@ -60,6 +63,8 @@ export default (getModule) => {
         const filename = selectors.current_file(getState());
         return dispatch(backend_actions.export_data()).then(data => {
             return dispatch(actions.async_api('save',data))
+        }).then(res=>{
+           return dispatch(actions.saveFileSuccess(res));
         });
     }
 
@@ -104,6 +109,8 @@ export default (getModule) => {
         const backend_actions= getBackend(getState);
         return dispatch(backend_actions.clear_database()).then(res=>{
             return dispatch(actions.async_api('clear_opened_filename'))
+        }).then(res=>{
+            return dispatch(actions.save_to_file())
         });
     }
 
@@ -112,10 +119,14 @@ export default (getModule) => {
         return dispatch (backend_actions.search(tag))
     }
 
-
+    
     actions.create_patient = values => (dispatch,getState)=> {
         const backend_actions= getBackend(getState);
-        return dispatch(backend_actions.create_patient(normalize_patient(values)));
+        return dispatch(backend_actions.create_patient(normalize_patient(values)))
+        .then(res=>{
+            dispatch(actions.save_to_file())
+            return res;
+        });
     }
 
   
@@ -174,12 +185,33 @@ export default (getModule) => {
 
     actions.update_patient = (id, patient, mesure, mesure_id) => (dispatch,getState)=>{
         const api= getBackend(getState);
-        const {actions} = editorModule
-        return dispatch( api.update_patient ({id, patient, mesure, mesure_id}))/*.then(res=> {
-            return dispatch(actions.update_patient(res));
-        })*/
-
+        return dispatch( api.update_patient ({id, patient, mesure, mesure_id}))
+        .then(res=>{
+            dispatch(actions.save_to_file())
+            return res;
+        });
     }
+
+
+    actions.delete_mesure = (patient_id,index) => (dispatch,getState)=>{
+        const api= getBackend(getState);
+        const {actions:moduleactions,selectors} = editorModule
+        const {select_current_patient_id,select_edited_patient} = selectors;
+        
+        dispatch(moduleactions.delete_mesure(patient_id,index))
+
+        const id = select_current_patient_id(getState())
+        const patient = select_edited_patient(getState())
+        
+        return dispatch( api.update_patient ({id, patient}))
+        .then(res=>{
+            
+            dispatch(actions.save_to_file())
+            return res;
+        });
+    }
+
+    
 
     return actions;
 }

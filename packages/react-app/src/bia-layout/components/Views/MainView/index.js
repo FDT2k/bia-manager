@@ -49,7 +49,7 @@ const MainView = props => {
             <Footer area="footer">
                 <div>{renderFooter && renderFooter()}</div>
 
-                <div>renderer: v{process.env.RENDERER_VERSION} / host: v{process.env.ELECTRON_VERSION} - {import.meta.env.MODE}</div>
+                <div>bia-manager: v{process.env.RENDERER_VERSION} - bia-electron: v{process.env.ELECTRON_VERSION} - {import.meta.env.MODE}</div>
             </Footer>
         </MainLayout>
     )
