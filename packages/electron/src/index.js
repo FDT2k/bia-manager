@@ -438,9 +438,10 @@ app.on('window-all-closed', () => {
 
 
 app.on('window-all-closed', () => {
-  if (process.platform !== 'darwin') {
-    console.log('quit app')
-  }
+ // if (process.platform !== 'darwin') {
+ //   console.log('quit app')
+ // }
+ app.quit();
 });
 
 app.whenReady()
