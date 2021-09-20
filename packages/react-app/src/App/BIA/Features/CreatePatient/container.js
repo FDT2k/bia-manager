@@ -1,14 +1,11 @@
-import useBIAManager from '@/hooks/useBIAManager';
 
 import React, { useEffect } from 'react';
 import { useLocation } from "wouter";
 
-import {normalize as normalize_patient} from '@/references/Patient'
 
 
     
 export default Component=> props => {
-    const {api} = useBIAManager();
     const {
         refresh_editor_lists,
         default_subject_form_options,

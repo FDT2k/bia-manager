@@ -1,7 +1,6 @@
 import { is_nil, safe_path } from '@karsegard/composite-js';
 //import { useKeypress } from '@karsegard/react-hooks';
 
-import useBIAManager from '@/hooks/useBIAManager';
 import React, { useEffect, useRef, useState } from 'react';
 import { useReactToPrint } from 'react-to-print';
 
@@ -9,7 +8,6 @@ import { useLocation, useRoute } from "wouter";
 
 export default Component => props => {
     const [location, setLocation] = useLocation();
-    const { api } = useBIAManager();
     const componentRef = useRef();
 
     const { patient_id, mesure_id } = props.params;

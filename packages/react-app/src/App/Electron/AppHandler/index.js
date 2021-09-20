@@ -1,13 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import BIAManager from '@/App/BIA/Features/BIAManager';
 
-import { makeAPI } from '@/hooks/Provider';
 
 
 import { useElectron } from '@/Providers/ElectronProvider';
 import { ConnectApp } from '@/Providers/Stores/ElectronApp';
 
-import { is_nil } from '@karsegard/composite-js'
 
 
 //const api = makeAPI('electron')

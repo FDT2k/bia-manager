@@ -180,7 +180,7 @@ export default (db, events = {}) => {
 
     module.wipe_database = _ => {
         return db.open().then(_ => {
-            const idbDatabase = db.backendDB(); // get native IDBDatabase object from Dexie wrapper
+            /*const idbDatabase = db.backendDB(); // get native IDBDatabase object from Dexie wrapper
             return new Promise((resolve, reject) => {
                 IDBExport.clearDatabase(idbDatabase, function (err) {
                     if (!err) { // cleared data successfully
@@ -189,10 +189,10 @@ export default (db, events = {}) => {
                         reject(err)
                     }
                 });
-            });
+            });*/
+            return db.delete().then(_=>db.open());
         });
     }
-
 
     module.import_database = data => {
         return db.open().then(_ => {

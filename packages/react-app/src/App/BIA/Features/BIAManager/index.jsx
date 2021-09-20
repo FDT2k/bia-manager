@@ -1,5 +1,5 @@
 import React from 'react';
-import { Provider } from '@/hooks/Provider'
+//import { Provider } from '@/hooks/Provider'
 import Router from '@/components/Router'
 
 
@@ -14,23 +14,14 @@ if (navigator.storage && navigator.storage.persist) {
 }
 
 export const BIAManager = props => {
-    const { dbname, dbtype,handleSave } = props;
 
     return (
         <>
-            {
-                <Provider dbname={dbname} dbtype={dbtype} events={{handleSave}}>
-                        <Router/>
-                </Provider>
-            }
+          
+            <Router/>
         </>
     )
 
-}
-
-BIAManager.defaultProps = {
-    dbname: 'bia',
-    dbtype: 'dexie'
 }
 
 export default BIAManager;
