@@ -1,7 +1,8 @@
 
 import { curry, is_nil } from '@karsegard/composite-js'
 import { spec } from '@karsegard/composite-js/ObjectUtils'
-import IDBExport from 'indexeddb-export-import';
+import IDBExport from '@karsegard/indexeddb-export-import';
+
 
 import Promise from 'bluebird'
 
