@@ -404,7 +404,8 @@ export default (getModule) => {
     };
 
     module.errors = createReducer({ has_error: false, message: "" }, {
-        [action_types.ERROR_EDIT_PATIENT_UNDEF]: (state, action) => ({ has_error: true, message: "subject not found" })
+        [action_types.ERROR_EDIT_PATIENT_UNDEF]: (state, action) => ({ has_error: true, message: "subject not found" }),
+        [action_types.EDIT_PATIENT]: (state, action) => ({ has_error: false, message: "" })
     })
 
 

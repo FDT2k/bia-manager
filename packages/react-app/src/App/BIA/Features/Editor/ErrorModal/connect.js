@@ -11,7 +11,7 @@ const mapStateToProps = bindSelectors({
 })
 
 const mapDispatchToProps = {
-  
+    
 }
 
 
