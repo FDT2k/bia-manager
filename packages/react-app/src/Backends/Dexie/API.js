@@ -1,7 +1,7 @@
 
 import { curry, is_nil } from '@karsegard/composite-js'
 import { spec } from '@karsegard/composite-js/ObjectUtils'
-import IDBExport from 'indexeddb-export-import';
+import IDBExport from '@karsegard/indexeddb-export-import';
 
 import Promise from 'bluebird'
 
@@ -198,12 +198,17 @@ export default (db, events = {}) => {
         return db.open().then(_ => {
             const idbDatabase = db.backendDB(); // get native IDBDatabase object from Dexie wrapper
             return new Promise((resolve, reject) => {
+
                 IDBExport.clearDatabase(idbDatabase, function (err) {
+
                     if (!err) { // cleared data successfully
                         IDBExport.importFromJsonString(idbDatabase, data, function (err) {
                             resolve(true);
                         });
+                    }else{
+                        reject(err);
                     }
+
                 });
             });
 
