@@ -1,9 +1,6 @@
 import { Fullscreen } from '@karsegard/react-core-layout'
 
-import DatabaseImport from '@/components/DatabaseImport';
-import Database from '@/components/Views/Database';
 import Login from '@/components/Views/Login';
-import Setup from '@/components/Views/Setup';
 import useBIAManager from '@/hooks/useBIAManager';
 import React, { useEffect, useState, useCallback } from 'react';
 import { Route, useLocation, Router } from "wouter";
@@ -17,6 +14,7 @@ import Editor from '@/App/BIA/Features/Editor';
 import Search from '@/App/BIA/Features/Search';
 import WelcomeScreen from '@/App/BIA/Features/WelcomeScreen';
 import CreatePatient from '@/App/BIA/Features/CreatePatient';
+import Database from '@/App/BIA/Features/Database';
 
 
 
@@ -63,9 +61,7 @@ export default props => {
         <Route path="/print/:id/:mesure_id">
                 <DebugPrint />
             </Route> */}
-            <Route path="/setup"><Setup /></Route>
             <Route path="/database"><Database /></Route>
-            <Route path="/import"><DatabaseImport /></Route>
             <Route path="/editor/:patient_id">{params => { 
                 return (<Editor params={params}/>)
             }

@@ -5,6 +5,8 @@ import React, { useEffect, useRef, useState } from 'react';
 import { useReactToPrint } from 'react-to-print';
 
 import { useLocation, useRoute } from "wouter";
+import ErrorModal from '@/App/BIA/Features/Editor/ErrorModal';
+
 
 export default Component => props => {
     const [location, setLocation] = useLocation();
@@ -167,7 +169,7 @@ export default Component => props => {
                 selectedMesureIndex={current_mesure_id}
                 mesure={mesure}
             />}
-            {error && <h1>{err_message}</h1>}
+           <ErrorModal/>
 
         </>
     )

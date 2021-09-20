@@ -281,7 +281,7 @@ const createMenu = window => {
         {
           label: 'Import',
           click() {
-            window.webContents.send('location-change', '#/setup');
+            window.webContents.send('location-change', '#/database');
           }
         },
         {

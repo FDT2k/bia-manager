@@ -122,6 +122,16 @@ export default (getModule) => {
             dispatch(actions.async_api ('all_genders'))*/
     }
 
+
+    actions.bulk_add = ({list,collection}) => (dispatch,getState)=>{
+        return dispatch(actions.async_api('bulk_add', {list,collection}))
+    }
+
+    actions.update_list = ({ key, name, list }) => (dispatch)=>{
+
+        return dispatch(actions.async_api('update_list',{ key, name, list }))        
+    }
+   
     return actions;
 }
 

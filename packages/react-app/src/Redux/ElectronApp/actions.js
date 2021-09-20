@@ -5,6 +5,9 @@ import { compare } from '@karsegard/composite-js/List';
 
 
 import {normalize as normalize_patient} from '@/references/Patient'
+import { enlist } from '@karsegard/composite-js';
+
+import {keyval} from '@karsegard/composite-js/ObjectUtils'
 
 export default (getModule) => {
 
@@ -211,8 +214,26 @@ export default (getModule) => {
         });
     }
 
-    
 
+    // api.import_data(imported_data.list).then(_=>{setImporting(false); setImported(true);}).catch(err=> console.error(err));
+    actions.import_csv = ({list,collectors}) => (dispatch,getState) => {
+        const api= getBackend(getState);
+        console.log(collectors)
+
+        return dispatch(api.bulk_add({list,collection:'patients'})).then(res=> {
+            
+
+            enlist(collectors).map(item=> {
+                const [key,value] = keyval(item);
+                dispatch(api.update_list({key,name:key,list:enlist(value)}));
+
+            })
+            
+            
+           
+            dispatch(actions.refresh_backend_stats())
+        })
+    }
     return actions;
 }
 

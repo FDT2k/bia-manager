@@ -1,6 +1,8 @@
 
-import { curry, is_nil } from '@karsegard/composite-js'
+import { curry, is_nil,merge,enlist } from '@karsegard/composite-js'
 import { spec } from '@karsegard/composite-js/ObjectUtils'
+import { mergeAll } from '@karsegard/composite-js/List'
+
 import IDBExport from '@karsegard/indexeddb-export-import';
 
 import Promise from 'bluebird'
@@ -88,8 +90,14 @@ export default (db, events = {}) => {
         });
     }
 
+    module.getBy = ({ collection, key, value }) => {
+        return db.open().then(db => {
+            return db[collection].where({ [key]: value }).first();
+        });
+    }
 
-    module.update_patient = ({id, patient, mesure, mesure_id}) => {
+
+    module.update_patient = ({ id, patient, mesure, mesure_id }) => {
         if (!is_nil(mesure)) {
             if (mesure_id >= patient.mesures.length) {
                 patient.mesures.push(mesure);
@@ -115,7 +123,34 @@ export default (db, events = {}) => {
         });
     }
 
-   
+
+
+    module.update = ({collection,id, item}) => {
+        return db.open().then(db => {
+            return db[collection].update(id, item).then(_=>{
+
+                return module.getBy({collection,key:'id',value:id})
+            })
+                
+        });
+    }
+
+    module.update_list = ({ key, name, list }) => {
+        return db.open().then(db => {
+            return module.getBy({ collection: 'lists', key: 'key', value: key })
+        }).then(res => {
+
+            if (is_nil(res)) {
+                return db.lists.add({ key, name, list })
+            }else{
+
+                let modifications = enlist(merge(mergeAll(list),mergeAll(res.list)))
+                return module.update({collection:'lists',id:res.id,item:{modifications}})
+            }
+        })
+    }
+
+
     module.create_patient = (patient) => {
         return db.open().then(db => {
 
@@ -190,7 +225,7 @@ export default (db, events = {}) => {
                     }
                 });
             });*/
-            return db.delete().then(_=>db.open());
+            return db.delete().then(_ => db.open());
         });
     }
 
@@ -205,7 +240,7 @@ export default (db, events = {}) => {
                         IDBExport.importFromJsonString(idbDatabase, data, function (err) {
                             resolve(true);
                         });
-                    }else{
+                    } else {
                         reject(err);
                     }
 
@@ -217,9 +252,10 @@ export default (db, events = {}) => {
         });
     }
 
-    module.import_data = data => {
+    module.bulk_add = ({ collection, list }) => {
+
         return db.open().then(db => {
-            return db.patients.bulkAdd(data);
+            return db[collection].bulkAdd(list);
         });
     }
     return module

@@ -37,8 +37,7 @@ const mapStateToProps = bindSelectors({
     current_mesure_id:      select_current_mesure_id,
     select_mass_chart,
     select_recap_headers,
-    error:                  has_error,
-    err_message:            error_message,
+    
     select_recap_list
 })
 

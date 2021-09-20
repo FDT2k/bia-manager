@@ -27,7 +27,8 @@ export const {
   init_app,
   refresh_editor_lists,
   close,
-  create_patient
+  create_patient,
+  import_csv,
 } = ElectronModule.actions;
 
 

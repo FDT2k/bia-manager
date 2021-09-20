@@ -2114,16 +2114,16 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@karsegard/react-hooks@npm:^2.4.0":
-  version: 2.4.0
-  resolution: "@karsegard/react-hooks@npm:2.4.0"
+"@karsegard/react-hooks@npm:^2.7.1":
+  version: 2.7.1
+  resolution: "@karsegard/react-hooks@npm:2.7.1"
   dependencies:
     "@karsegard/composite-js": ^2.9.0
     "@karsegard/react-core-layout": ^1.5.1
   peerDependencies:
     react: "*"
     react-dom: "*"
-  checksum: aa917af57afe63e4cf95c48a3153d449683357d4664e548dcc1b5d55ac5587e1b2ca283cc6be3dff8183fcbcd4f36ec857558b4084fa2e27342a02b40a25e513
+  checksum: 38d58235418c0fe229ea3c15051bc9aa198f9b61fb3413cd056828c997a05332702cb106595c2c8c13cdc549f43293869278b6f1a2c49f6541ff60d1d98546b7
   languageName: node
   linkType: hard
 
@@ -4372,7 +4372,7 @@ __metadata:
     "@karsegard/indexeddb-export-import": ^2.1.4
     "@karsegard/react-compose": ^1.3.2
     "@karsegard/react-core-layout": ^1.5.1
-    "@karsegard/react-hooks": ^2.4.0
+    "@karsegard/react-hooks": ^2.7.1
     "@karsegard/react-redux": ^1.1.5
     "@material-ui/core": ^4.11.4
     "@material-ui/icons": ^4.11.2
