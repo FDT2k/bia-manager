@@ -195,6 +195,18 @@ export default (db, events = {}) => {
 
     }
 
+    module.all_sport_types = _ => {
+        return module.get_list('physical_activity_type')
+
+    }
+    module.all_sport_rates = _ => {
+        return module.get_list('physical_activity_rate')
+
+    }
+    module.all_machines = _ => {
+        return module.get_list('machines')
+
+    }
     module.all_genders = _ => {
         return module.get_list('genders')
         //return db.open().then(db => {

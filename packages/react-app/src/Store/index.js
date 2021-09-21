@@ -47,7 +47,9 @@ export const {
   select_normes_sampling: select_normes_chart,
   select_empty_mesure,
   select_mesures_dates,
-  has_error, error_message } = BIAEditorModule.selectors;
+  has_error,
+  error_message 
+} = BIAEditorModule.selectors;
 
 
 export const {

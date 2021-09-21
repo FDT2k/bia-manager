@@ -112,6 +112,12 @@ export default (getModule) => {
                 .then(result=>result.map(map_keyval).sort(sort_by_name))
             result.gender = await dispatch(actions.async_api('all_genders'))
                 .then(result=>result.map(map_keyval).sort(sort_by_name))
+          /*  result.sport_type = await dispatch(actions.async_api('all_sport_types'))
+                .then(result=>result.map(map_keyval).sort(sort_by_name))
+            result.sport_rate = await dispatch(actions.async_api('all_sport_rates'))
+                .then(result=>result.map(map_keyval).sort(sort_by_name))
+                result.machine = await dispatch(actions.async_api('all_machines'))
+                .then(result=>result.map(map_keyval).sort(sort_by_name))*/
             return result
         }))
       

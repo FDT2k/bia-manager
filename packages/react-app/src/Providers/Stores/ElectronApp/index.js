@@ -41,6 +41,7 @@ export const {
   get_backend_stats,
   default_subject_form_options,
   subject_form_available_options,
+  editor_patient_options,
   edited_subject,
   form_options_loaded
 } = ElectronModule.selectors;

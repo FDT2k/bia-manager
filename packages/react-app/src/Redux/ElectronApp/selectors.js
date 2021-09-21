@@ -34,6 +34,26 @@ export default getModule => {
 
    module.edited_subject = submodules.features.create.selectors.select_subject_form;
 
+
+
+
+
+
+   module.editor_patient_options = createSelector(submodules.features.options.selectors.options,state => {
+      if(state && state.patho){
+        return {
+           patho: state.patho.data.allIds.map(item=> ({[item]:state.patho.data.byIds[item].name})) 
+        }
+      }else{
+
+         return {
+            patho:[]
+         }
+    }
+   });
+
+
+
    return module;
 
 }

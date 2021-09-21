@@ -62,7 +62,7 @@ export default props => {
                 'sexe': {name:'genders',reduce:''},
                 'actPhys': {name:'physical_activity_rate',reduce:''},
                 'typeActPhys': {name:'physical_activity_type',reduce:''},
-                'appareil': {name:'machiines',reduce:''},
+                'appareil': {name:'machines',reduce:''},
                 'groupePath': {name:'pathological_groups',reduce:''},
                 'groupeEthno': {name:'ethnological_groups',reduce:''},
             },

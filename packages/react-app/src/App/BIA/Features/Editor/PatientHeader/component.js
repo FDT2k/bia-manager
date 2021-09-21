@@ -25,16 +25,20 @@ const FieldSet = compose(
 
 const PatientHeader = props => {
     // console.log('patientHeader',props);
+
+
+    const { data, t,refresh_editor_lists, handleChange:handleParentChange,available_options ,...rest } = props
+
+
     const fields = {
         'birthdate': { type: 'date', editable: true, label: 'Date de naissance', className:'birthdate' },
         'age': { type: 'date', editable: false, label: 'Âge' },
         'gender': { type: 'select', editable: true, label: 'Sexe',options:['M','F'] },
         'usual_height': { type: 'text', editable: true, label: 'Taille' },
         'usual_weight': { type: 'text', editable: true, label: 'Poids habituel' },
-        'groups.path': { type: 'select', editable: true, label: 'Groupe pathologique', options:[] },
+        'groups.path': { type: 'select', editable: true, label: 'Groupe pathologique', options:available_options.patho},
         'mesure_count': { type: 'date', editable: false, label: 'Nombre de mesures' }
     }
-    const { data, t,refresh_editor_lists, handleChange:handleParentChange, ...rest } = props
 
     useEffect(() => {
         replaceValues(data);

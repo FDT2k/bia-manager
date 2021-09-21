@@ -15,6 +15,7 @@ export default (getModule) => {
 
 
     actions.fetched = create(types.FETCHED_OPTIONS,payload => {
+        debugger;
         return {
             subactions: mergeAll(enlist(payload.data).map(item=> {
                 const [key,value] = keyval(item);
