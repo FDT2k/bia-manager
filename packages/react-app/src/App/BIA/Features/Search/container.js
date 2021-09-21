@@ -48,7 +48,8 @@ export default Component => props => {
   //  const tags = useSelector(select_tags)
 // console.log(tags);
     const handleSelectRow = (index, patient) => {
-        setLocation("/editor/" + patient.id);
+        if(patient && patient.id)
+            setLocation("/editor/" + patient.id);
     }
 
     const handleCreate = _ => {

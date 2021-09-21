@@ -11,8 +11,7 @@ const ToggleSwitch = props => {
     const [formProps, rest] = filterPropPresentIn(['id', 'name'], props);
     const [inputProps, rest2] = filterPropPresentIn(['labelYes', 'labelNo'], rest);
 
-    const { checked, onChange, ...rest3 } = rest2;
-
+    const { checked, onChange,tabIndex, ...rest3 } = rest2;
     const ref = useRef();
     const { hasFocus } = useFocus({ ref });
 
@@ -26,6 +25,7 @@ const ToggleSwitch = props => {
             type="checkbox"
             className="toggle-switch-checkbox"
             checked={checked}
+            tabIndex={tabIndex}
             {...formProps}
             onChange={onChange}
         />
