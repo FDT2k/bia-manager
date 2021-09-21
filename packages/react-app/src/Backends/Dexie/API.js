@@ -144,8 +144,8 @@ export default (db, events = {}) => {
                 return db.lists.add({ key, name, list })
             }else{
 
-                let modifications = enlist(merge(mergeAll(list),mergeAll(res.list)))
-                return module.update({collection:'lists',id:res.id,item:{modifications}})
+             //   let modifications = enlist(merge(mergeAll(list),mergeAll(res.list)))
+                return module.update({collection:'lists',id:res.id,item:{list}})
             }
         })
     }
@@ -179,22 +179,27 @@ export default (db, events = {}) => {
         return db.name;
     }
 
-    module.all_pathological_groups = _ => {
+
+    module.get_list = key => {
         return db.open().then(db => {
-            return db.patients.orderBy('groups.path').uniqueKeys();
+            return db.lists.where('key').equals(key).first().then(res=>res.list);
         });
+    }
+
+    module.all_pathological_groups = _ => {
+        return module.get_list('pathological_groups')
     }
 
     module.all_ethnological_groups = _ => {
-        return db.open().then(db => {
-            return db.patients.orderBy('groups.ethno').uniqueKeys();
-        });
+        return module.get_list('ethnological_groups')
+
     }
 
     module.all_genders = _ => {
-        return db.open().then(db => {
-            return db.patients.orderBy('gender').uniqueKeys();
-        })
+        return module.get_list('genders')
+        //return db.open().then(db => {
+           // return db.patients.orderBy('gender').uniqueKeys();
+        //})
     }
 
     module.export_database = _ => {

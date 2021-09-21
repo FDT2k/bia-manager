@@ -275,15 +275,29 @@ const createMenu = window => {
           }
         }
       ]
-    }, {
-      label: 'Debug',
+    }, 
+    {
+      label: 'Outils',
       submenu: [
         {
-          label: 'Import',
+          label: 'Importer',
           click() {
             window.webContents.send('location-change', '#/database');
           }
         },
+        {
+          label: 'Gestion des listes',
+          click() {
+            window.webContents.send('location-change', '#/database/listes');
+          }
+        },
+      ]
+    },
+    {
+      label: 'Debug',
+      submenu: [
+        
+        
         {
           label: 'Base',
           click() {

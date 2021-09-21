@@ -1,6 +1,6 @@
 import { createAction, createAsyncAction } from '@karsegard/react-redux';
 import makeBackEnd from '@/Backends/Dexie'
-
+import {keyval} from '@karsegard/composite-js/ObjectUtils'
 
 export const DexieBackend = makeBackEnd();
 
@@ -99,27 +99,22 @@ export default (getModule) => {
 
         return dispatch(actions.call_api(async (arg) => {
             const map_to = item=> ({id:item,name:item});
+            const map_keyval = item=> {
+                const [key,value] = keyval(item)
+                return ({id:value,name:value})
+            };
+
+            const sort_by_name = (a,b)=>a.name.localeCompare(b.name)
             let result = {}
             result.patho = await dispatch(actions.async_api('all_pathological_groups'))
-                .then(result=>result.map(map_to))
+                .then(result=>result.map(map_keyval).sort(sort_by_name) )
             result.ethno = await dispatch(actions.async_api('all_ethnological_groups'))
-                .then(result=>result.map(map_to))
+                .then(result=>result.map(map_keyval).sort(sort_by_name))
             result.gender = await dispatch(actions.async_api('all_genders'))
-                .then(result=>result.map(map_to))
+                .then(result=>result.map(map_keyval).sort(sort_by_name))
             return result
         }))
-        /*   return dispatch(actions.async_api ('all_pathological_groups'))
-           .then(data => {
-   
-   
-               dispatch(actions.async_api ('all_ethnological_groups'))
-   
-           })
-           .then(data=> {
-   
-           })
-            
-            dispatch(actions.async_api ('all_genders'))*/
+      
     }
 
 

@@ -225,7 +225,17 @@ export default (getModule) => {
 
             enlist(collectors).map(item=> {
                 const [key,value] = keyval(item);
-                dispatch(api.update_list({key,name:key,list:enlist(value)}));
+                dispatch(
+                        api.update_list({
+                            key,
+                            name:key,
+                            list:  enlist(value).map(item => {
+                                    const [key,value] = keyval(item);
+                                    return {name:value};
+                                    })
+                            }
+                        )
+                );
 
             })
             
