@@ -36,10 +36,9 @@ const PatientHeader = props => {
         'gender': { type: 'select', editable: true, label: 'Sexe',options:['M','F'] },
         'usual_height': { type: 'text', editable: true, label: 'Taille' },
         'usual_weight': { type: 'text', editable: true, label: 'Poids habituel' },
-        'groups.path': { type: 'select', editable: true, label: 'Groupe pathologique', options:available_options.patho},
+        'groups.patho': { type: 'select', editable: true, label: 'Groupe pathologique', options:available_options.patho},
         'mesure_count': { type: 'date', editable: false, label: 'Nombre de mesures' }
     }
-
     useEffect(() => {
         replaceValues(data);
     }, [data])
@@ -55,7 +54,6 @@ const PatientHeader = props => {
     }
 
     const { values, handleChangeValue, inputProps, handleChange, assignValues, replaceValues } = useFieldValues(data, { onValuesChange,usePath:true });
-
 
 
     return (

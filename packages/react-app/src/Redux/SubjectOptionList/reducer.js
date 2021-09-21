@@ -12,9 +12,9 @@ export default (getModule) => {
 
     const module = {};
     module.available_options = createReducer({
-        gender: { path: 'gender' },
-        ethno: { path: 'groups.ethno' },
-        patho: { path: 'groups.patho' },
+        gender: { path: 'gender'},
+        ethno:  { path: 'groups.ethno' },
+        patho:  { path: 'groups.patho' },
 
     }, {
 
@@ -32,6 +32,7 @@ export default (getModule) => {
         if (is_nil(default_value)) {
             default_value = data.list[0] ? data.list[0].id : '';
         }
+
         return {
             path,
             data,
@@ -39,17 +40,6 @@ export default (getModule) => {
         }
     }
 
-
-
-
-    /*
-        module.options = combineReducers({
-            patho: module.option_reducer('groups.patho', submodules.options.patho.reducer),
-            ethno: module.option_reducer('groups.ethno', submodules.options.ethno.reducer),
-            gender: module.option_reducer('gender', submodules.options.genders.reducer),
-        });
-    
-    */
 
 
 

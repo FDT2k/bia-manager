@@ -46,7 +46,7 @@ export default (getModule) => {
     }
 
     actions.save= ()=>(dispatch,getState) => {
-
+        debugger;
         const patient_id = select_current_patient_id(getState());
         const mesure = select_edited_mesure(getState());
         const mesure_id = select_current_mesure_id(getState());

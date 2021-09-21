@@ -8,7 +8,7 @@ import { useLocation } from "wouter";
 export default Component=> props => {
     const {
         refresh_editor_lists,
-        default_subject_form_options,
+        subject_form_default_options,
         subject_form_available_options,
         create_subject,edited_subject,
         form_options_loaded,
@@ -22,7 +22,7 @@ export default Component=> props => {
     },[])
 
     useEffect(()=>{
-        create_subject(default_subject_form_options)
+        create_subject(subject_form_default_options)
     },[form_options_loaded])
    /* useEffect(()=>{
         dispatch(create_subject())

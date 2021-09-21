@@ -109,7 +109,7 @@ export const Component = props => {
             },
             {
                 Header: 'Groupe pathologique',
-                accessor: 'groups.path',
+                accessor: 'groups.patho',
 
             },
             {

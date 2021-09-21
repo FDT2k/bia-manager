@@ -18,7 +18,9 @@ export default props => {
 
 
             if (is_type_object(option)) {
-                [value, label] = keyval(option);
+               // [value, label] = keyval(option);
+               value = option.id,
+               label = option.name
             }
             
             return (<option key={idx} value={value}>{label}</option>)

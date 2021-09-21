@@ -4,11 +4,12 @@ import { refresh_editor_lists,editor_patient_options } from "@/Providers/Stores/
 
 
 
-
 export default connect(
   //  bindSelectors({patho:select_list_pathological_groups}),
   bindSelectors({
     available_options:editor_patient_options
   }),
-  {refresh_editor_lists}
+  {
+    refresh_editor_lists,
+  }
 )

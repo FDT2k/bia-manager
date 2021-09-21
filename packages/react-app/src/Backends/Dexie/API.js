@@ -23,7 +23,7 @@ export default (db, events = {}) => {
 
     const buildQuery = collection => tag => {
         const searchableColumns = [
-            'firstname', 'lastname', 'birthdate', 'groups.path'
+            'firstname', 'lastname', 'birthdate', 'groups.patho'
         ];
 
         let method = 'where';

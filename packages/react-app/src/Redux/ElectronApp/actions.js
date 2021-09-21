@@ -196,6 +196,28 @@ export default (getModule) => {
     }
 
 
+    actions.save_global = ()=> (dispatch,getState) => {
+        debugger;
+        const api= getBackend(getState);
+        const editor = submodules.features.editor.actions;
+        const {
+            select_current_patient_id,
+            select_edited_patient,
+        } = bindSelectors(submodules.features.editor.selectors)(getState())
+
+        dispatch(editor.save());
+        dispatch(actions.update_patient(select_current_patient_id,select_edited_patient)).then(
+            res=>{
+                dispatch(actions.save_to_file())
+                return res;
+            }
+        )
+
+
+
+    }
+
+
     actions.delete_mesure = (patient_id,index) => (dispatch,getState)=>{
         const api= getBackend(getState);
         const {actions:moduleactions,selectors} = editorModule

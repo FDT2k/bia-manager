@@ -20,7 +20,7 @@ export default (db, events = {}) => {
 
     const buildQuery = collection => tag => {
         const searchableColumns = [
-            'firstname', 'lastname', 'birthdate', 'groups.path'
+            'firstname', 'lastname', 'birthdate', 'groups.patho'
         ];
 
         let method = 'where';
@@ -147,7 +147,7 @@ export default (db, events = {}) => {
 
     module.all_pahological_groups = _ => {
         return db.open().then(db => {
-            return db.patients.orderBy('groups.path').uniqueKeys();
+            return db.patients.orderBy('groups.patho').uniqueKeys();
         });
     }
 

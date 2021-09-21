@@ -39,7 +39,7 @@ export const {
   loading_message,
   current_file,
   get_backend_stats,
-  default_subject_form_options,
+  subject_form_default_options,
   subject_form_available_options,
   editor_patient_options,
   edited_subject,
@@ -111,6 +111,7 @@ export const {
 export const {
   edit_patient,
   update_patient,
+  save_global,
   delete_mesure
   
 }= ElectronModule.actions

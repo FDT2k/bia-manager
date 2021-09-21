@@ -14,8 +14,8 @@ export default name => {
 
     const hook = function (primKey, obj, trans) {
         let group = '';
-        if(obj.groups && obj.groups.path) {
-            group = obj.groups.path;
+        if(obj.groups && obj.groups.patho) {
+            group = obj.groups.patho;
         }
        obj.search_terms = obj.lastname +' '+obj.firstname+' '+obj.birthdate+' '+group+ ' '+obj.firstname+' '+obj.lastname;
     }
@@ -25,8 +25,8 @@ export default name => {
 
     const hook2 = function (updated,primKey, obj, trans) {
         let group = '';
-        if(obj.groups && obj.groups.path) {
-            group = obj.groups.path;
+        if(obj.groups && obj.groups.patho) {
+            group = obj.groups.patho;
         }
         updated.search_terms = obj.lastname +' '+obj.firstname+' '+obj.birthdate+' '+group+ ' '+obj.firstname+' '+obj.lastname;
     }

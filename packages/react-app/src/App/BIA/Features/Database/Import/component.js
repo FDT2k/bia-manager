@@ -71,7 +71,7 @@ export default props => {
                 'prenom': 'firstname',
                 'nom': 'lastname',
                 'dateNaissance': 'birthdate',
-                'groupePath': {name:'groups',transform: "(state={},value) => ({...state,'path':value.groupePath})"},
+                'groupePath': {name:'groups',transform: "(state={},value) => ({...state,'patho':value.groupePath})"},
                 'groupeEthno': {name:'groups',transform: "(state={},value) => ({...state,'ethno':value.groupeEthno})"},
                 'age': 'age',
                 'sexe': {name:'gender', transform: "(state,value) => value.sexe =='H'? 'M': 'F'"},

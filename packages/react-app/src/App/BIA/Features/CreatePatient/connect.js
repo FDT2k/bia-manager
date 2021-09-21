@@ -11,7 +11,7 @@ import {
   create_subject,
   subject_form_available_options,
   refresh_editor_lists,
-  default_subject_form_options,
+  subject_form_default_options,
   edited_subject,
   edit_subject,
   create_patient,
@@ -20,7 +20,7 @@ import {
 
 
 const mapStateToProps = bindSelectors({
-  default_subject_form_options,
+  subject_form_default_options,
   subject_form_available_options,
   edited_subject,
   form_options_loaded
