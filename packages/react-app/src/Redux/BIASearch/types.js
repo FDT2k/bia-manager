@@ -1,6 +1,7 @@
 import { createActionTypes, createPrefixableActionTypes } from '@/Redux/utils/types';
 
 export const ACTIONS_TYPES = createActionTypes(
+    'CLEAR',
     'ADD_SEARCH_TAG',
     'EDIT_MESURE',
     'DEL_SEARCH_TAG',

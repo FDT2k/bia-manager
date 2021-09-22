@@ -55,6 +55,8 @@ export default getModule => {
 
 
    const sort_by_name = (a, b) => a.name.localeCompare(b.name)
+
+
    module.select_form_lists = createSelector(
       [submodules.features.form_settings.selectors.select_forms, submodules.features.lists.selectors.byIds,(state,form_key)=>form_key],
       (settings, lists,form_key) => {

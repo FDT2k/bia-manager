@@ -1,4 +1,4 @@
-import { enlist, is_type_string, is_type_object, is_type_function,is_nil } from '@karsegard/composite-js';
+import { enlist, is_type_string, is_type_object, is_type_function,is_nil, identity } from '@karsegard/composite-js';
 import { key, value, keyval } from '@karsegard/composite-js/ObjectUtils';
 import { filterPropPresentIn } from '@karsegard/react-compose'
 import { as_safe_path } from '@karsegard/composite-js'
@@ -64,11 +64,17 @@ export const parse = ({
         //import relational data
         for (let list of extract_lists) {
             const [collector_key, value] = keyval(list);
-            if (!is_nil(item[collector_key]) && item[collector_key] !=="") {
-                carry.collectors = as_safe_path(`${value.name}`, carry.collectors, { [item[collector_key]]: item[collector_key] });
+            let transform = eval(value.transform)
+            if(!transform){
+                transform = (state,values) => values[collector_key];
+            }
+
+            const collectible_value = transform('',item);
+
+            if (!is_nil(collectible_value) && collectible_value !=="") {
+                carry.collectors = as_safe_path(`${value.name}`, carry.collectors, { [collectible_value]: collectible_value });
             }
         }
-
         const patient_keys = Object.keys(mapping.patient);
         const [patient, mesure] = filterPropPresentIn(patient_keys, item);
         const index_key = item[identifier];
