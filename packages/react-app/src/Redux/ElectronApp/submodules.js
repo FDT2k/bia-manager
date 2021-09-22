@@ -15,7 +15,14 @@ export const createSubModules = getModule => {
             dexie:  DexieModule(compose(state => state.backends.dexie, baseSelector), `${prefix}_DEXIE`)
         },
         features:{
-            options: SubjectOptionModule(compose(state=> state.features.options,baseSelector) , `${prefix}_OPTIONS`),
+            options: SubjectOptionModule(compose(state=> state.features.options,baseSelector) , `${prefix}_OPTIONS`,{
+                available_options:{
+                    gender: { path: 'gender'},
+                    ethno:  { path: 'groups.ethno' },
+                    patho:  { path: 'groups.patho' },
+                }
+            }),
+            
             search: BIASearchModule(compose(state=> state.features.search,baseSelector) , `${prefix}_SEARCH`),
             create: PatientModule(compose(state=> state.features.create,baseSelector) , `${prefix}_SUBJECT`),
             editor:EditorModule(compose(state=> state.features.editor,baseSelector), `${prefix}_EDITOR`)

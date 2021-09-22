@@ -44,6 +44,7 @@ export default Component => props => {
             { 'id': 'other', 'name': 'autre' },
             { 'id': 'unknown', 'name': 'inconnue', default: true },
         ]);
+        
         populate_machines([
             { 'id': 'BIO-Z', 'name': 'BIO-Z' },
             { 'id': 'NUTRIGUARD', 'name': 'Nutriguard' },
