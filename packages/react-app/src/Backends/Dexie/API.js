@@ -186,6 +186,13 @@ export default (db, events = {}) => {
         });
     }
 
+    module.get_lists = key => {
+        return db.open().then(db => {
+            return db.lists.toArray();
+        });
+    }
+
+
     module.all_pathological_groups = _ => {
         return module.get_list('pathological_groups')
     }

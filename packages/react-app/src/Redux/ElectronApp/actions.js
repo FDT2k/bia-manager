@@ -167,9 +167,12 @@ export default (getModule) => {
         //api.all_pahological_groups()
         return dispatch (backend_actions.refresh_data_list())
         .then(result => {
-            return dispatch(submodules.features.options.actions.fetch_options(result))
+      //      return dispatch(actions.fetch_options(result))
+            return dispatch(submodules.features.lists.actions.fetch({items:result}))
         })
     }
+
+    //actions.fetch_options = submodules.features.options.actions.fetch_options
 
 
     /* Editor actions */
@@ -253,7 +256,7 @@ export default (getModule) => {
                             name:key,
                             list:  enlist(value).map(item => {
                                     const [key,value] = keyval(item);
-                                    return {name:value};
+                                    return {id:value,name:value};
                                     })
                             }
                         )

@@ -38,7 +38,10 @@ export default (getModule) => {
         search:submodules.features.search.reducer,
         create:submodules.features.create.reducer,
         options:submodules.features.options.reducer,
-        editor:submodules.features.editor.reducer
+        editor:submodules.features.editor.reducer,
+        lists:submodules.features.lists.reducer,
+        form_settings: submodules.features.form_settings.reducer,
+
     })
 
     

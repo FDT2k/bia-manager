@@ -43,7 +43,8 @@ export const {
   subject_form_available_options,
   editor_patient_options,
   edited_subject,
-  form_options_loaded
+  form_options_loaded,
+  select_form_lists
 } = ElectronModule.selectors;
 
 

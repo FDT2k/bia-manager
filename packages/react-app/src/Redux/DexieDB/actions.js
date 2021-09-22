@@ -1,6 +1,6 @@
 import { createAction, createAsyncAction } from '@karsegard/react-redux';
 import makeBackEnd from '@/Backends/Dexie'
-import {keyval} from '@karsegard/composite-js/ObjectUtils'
+import { keyval } from '@karsegard/composite-js/ObjectUtils'
 
 export const DexieBackend = makeBackEnd();
 
@@ -94,45 +94,46 @@ export default (getModule) => {
 
         return dispatch(actions.async_api('update_patient', payload))
     }
- 
+
     actions.refresh_data_list = _ => (dispatch, getState) => {
 
-        return dispatch(actions.call_api(async (arg) => {
-            const map_to = item=> ({id:item,name:item});
-            const map_keyval = item=> {
-                const [key,value] = keyval(item)
-                return ({id:value,name:value})
+        return dispatch(actions.call_api( (arg) => {
+            const map_to = item => ({ id: item, name: item });
+            const map_keyval = item => {
+                const [key, value] = keyval(item)
+                return ({ id: value, name: value })
             };
 
-            const sort_by_name = (a,b)=>a.name.localeCompare(b.name)
-            let result = {}
-            result.patho = await dispatch(actions.async_api('all_pathological_groups'))
-                .then(result=>result.map(map_keyval).sort(sort_by_name) )
+            const sort_by_name = (a, b) => a.name.localeCompare(b.name)
+            return dispatch(actions.async_api('get_lists'))
+            //let result = {}
+            /*result.patho = await dispatch(actions.async_api('all_pathological_groups'))
+                .then(result => result.map(map_keyval).sort(sort_by_name))
             result.ethno = await dispatch(actions.async_api('all_ethnological_groups'))
-                .then(result=>result.map(map_keyval).sort(sort_by_name))
+                .then(result => result.map(map_keyval).sort(sort_by_name))
             result.gender = await dispatch(actions.async_api('all_genders'))
-                .then(result=>result.map(map_keyval).sort(sort_by_name))
-          /*  result.sport_type = await dispatch(actions.async_api('all_sport_types'))
-                .then(result=>result.map(map_keyval).sort(sort_by_name))
+                .then(result => result.map(map_keyval).sort(sort_by_name))
+            result.sport_type = await dispatch(actions.async_api('all_sport_types'))
+                .then(result => result.map(map_keyval).sort(sort_by_name))
             result.sport_rate = await dispatch(actions.async_api('all_sport_rates'))
-                .then(result=>result.map(map_keyval).sort(sort_by_name))
-                result.machine = await dispatch(actions.async_api('all_machines'))
-                .then(result=>result.map(map_keyval).sort(sort_by_name))*/
-            return result
+                .then(result => result.map(map_keyval).sort(sort_by_name))
+            result.machine = await dispatch(actions.async_api('all_machines'))
+                .then(result => result.map(map_keyval).sort(sort_by_name))
+            return result*/
         }))
-      
+
     }
 
 
-    actions.bulk_add = ({list,collection}) => (dispatch,getState)=>{
-        return dispatch(actions.async_api('bulk_add', {list,collection}))
+    actions.bulk_add = ({ list, collection }) => (dispatch, getState) => {
+        return dispatch(actions.async_api('bulk_add', { list, collection }))
     }
 
-    actions.update_list = ({ key, name, list }) => (dispatch)=>{
+    actions.update_list = ({ key, name, list }) => (dispatch) => {
 
-        return dispatch(actions.async_api('update_list',{ key, name, list }))        
+        return dispatch(actions.async_api('update_list', { key, name, list }))
     }
-   
+
     return actions;
 }
 
