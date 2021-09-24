@@ -124,6 +124,10 @@ export default (getModule) => {
 
     }
 
+    actions.get_list = key => (dispatch,getState)=>{
+        return dispatch(actions.async_api('get_list',{key}))
+    }
+
 
     actions.bulk_add = ({ list, collection }) => (dispatch, getState) => {
         return dispatch(actions.async_api('bulk_add', { list, collection }))
@@ -133,6 +137,8 @@ export default (getModule) => {
 
         return dispatch(actions.async_api('update_list', { key, name, list }))
     }
+
+
 
     return actions;
 }

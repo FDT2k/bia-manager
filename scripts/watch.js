@@ -56,7 +56,8 @@ const setupMainPackageWatcher = (viteDevServer) => {
   const logger = createLogger(LOG_LEVEL, {
     prefix: '[main]',
   });
-
+  
+  console.log('SERVER_URL:',process.env.VITE_DEV_SERVER_URL)
   /** @type {ChildProcessWithoutNullStreams | null} */
   let spawnProcess = null;
 

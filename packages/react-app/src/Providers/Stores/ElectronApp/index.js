@@ -116,7 +116,8 @@ export const {
   delete_mesure
   
 }= ElectronModule.actions
-   
+
+
  export const { fetch: populate_sportrate } = BIAEditorModule.submodules.sportRate.actions;
  export const { fetch: populate_sporttype } = BIAEditorModule.submodules.sportType.actions;
  export const { fetch: populate_machines } = BIAEditorModule.submodules.machines.actions;
@@ -128,6 +129,27 @@ export const {
  
 /*end editor module */
 
+/**
+ * LIST EDITOR Actions & selectors
+ */
+ export const ListEditorModule = ElectronModule.submodules.features.list_editor;
+ export const {
+   fetch_list_editor_list
+ }  = ElectronModule.actions
+ export const {
+   
+   edit: edit_list_editor,
+   del:del_list_editor,
+   set_filter:set_filter_list_editor
+
+ }=ListEditorModule.actions
+export const {
+  list: list_editor_listing,
+  filter: list_editor_filter
+}=ListEditorModule.selectors
+debugger;
+ 
+ 
 
 
 /* main store reducer */

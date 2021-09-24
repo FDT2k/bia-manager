@@ -180,13 +180,13 @@ export default (db, events = {}) => {
     }
 
 
-    module.get_list = key => {
+    module.get_list = ({key}) => {
         return db.open().then(db => {
             return db.lists.where('key').equals(key).first().then(res=>res.list);
         });
     }
 
-    module.get_lists = key => {
+    module.get_lists = _ => {
         return db.open().then(db => {
             return db.lists.toArray();
         });
@@ -194,28 +194,28 @@ export default (db, events = {}) => {
 
 
     module.all_pathological_groups = _ => {
-        return module.get_list('pathological_groups')
+        return module.get_list({key:'pathological_groups'})
     }
 
     module.all_ethnological_groups = _ => {
-        return module.get_list('ethnological_groups')
+        return module.get_list({key:'ethnological_groups'})
 
     }
 
     module.all_sport_types = _ => {
-        return module.get_list('physical_activity_type')
+        return module.get_list({key:'physical_activity_type'})
 
     }
     module.all_sport_rates = _ => {
-        return module.get_list('physical_activity_rate')
+        return module.get_list({key:'physical_activity_rate'})
 
     }
     module.all_machines = _ => {
-        return module.get_list('machines')
+        return module.get_list({key:'machines'})
 
     }
     module.all_genders = _ => {
-        return module.get_list('genders')
+        return module.get_list({key:'genders'})
         //return db.open().then(db => {
            // return db.patients.orderBy('gender').uniqueKeys();
         //})

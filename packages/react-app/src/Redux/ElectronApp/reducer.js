@@ -41,7 +41,7 @@ export default (getModule) => {
         editor:submodules.features.editor.reducer,
         lists:submodules.features.lists.reducer,
         form_settings: submodules.features.form_settings.reducer,
-
+        list_editor: submodules.features.list_editor.reducer
     })
 
     
@@ -53,7 +53,8 @@ export default (getModule) => {
         loading:module.loadingReducer,
         fileStatus:module.fileReducer,
         backends:module.backends,
-        features: module.features
+        features: module.features,
+        
     })
 
     return module;

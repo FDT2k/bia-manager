@@ -6,7 +6,7 @@ import ListsModule from '@/Redux/Lists';
 import EditorModule from '@/Redux/Editor';
 import FormSettingsModule from '@/Redux/FormSettings'
 import { compose,trace } from '@karsegard/composite-js';
-
+import {Modules} from '@karsegard/react-redux'
 
 export const createSubModules = getModule => {
     const { baseSelector, prefix } = getModule();
@@ -28,7 +28,8 @@ export const createSubModules = getModule => {
             }),
             search: BIASearchModule(compose(state=> state.features.search,baseSelector) , `${prefix}_SEARCH`),
             create: PatientModule(compose(state=> state.features.create,baseSelector) , `${prefix}_SUBJECT`),
-            editor:EditorModule(compose(state=> state.features.editor,baseSelector), `${prefix}_EDITOR`)
+            editor:EditorModule(compose(state=> state.features.editor,baseSelector), `${prefix}_EDITOR`),
+            list_editor: Modules.FilterableCollection(compose(state=> state.features.list_editor,baseSelector), `${prefix}_LIST_EDITOR`)
         }
     }
     
