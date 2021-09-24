@@ -40,5 +40,8 @@
   },
   "browserslist": [
     "Chrome 91"
+  ],
+  "workspaces": [
+    "packages/*"
   ]
 }
