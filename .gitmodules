@@ -1,0 +1,3 @@
+[submodule "packages/kda-react-redux"]
+	path = packages/kda-react-redux
+	url = git@gitlab.com:karsegard/react-redux.git
