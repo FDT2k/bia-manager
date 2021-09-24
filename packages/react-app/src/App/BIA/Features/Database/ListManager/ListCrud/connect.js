@@ -1,14 +1,24 @@
-import {bindSelectors, connect} from '@karsegard/react-redux'
+import { bindSelectors, connect } from '@karsegard/react-redux'
 import {
-    list_editor_listing,
-    fetch_list_editor_list,
-    set_filter_list_editor
- } from '@/Providers/Stores/ElectronApp';
- 
+    list_list_editor,
+    filter_list_editor,
+
+    edit_list_editor,
+    del_list_editor,
+    set_filter_list_editor,
+    add_list_editor,
+    fetch_list_editor
+
+} from '@/Providers/Stores/ElectronApp';
+
 export default connect(bindSelectors({
-    list:list_editor_listing,
-    filter: set_filter_list_editor
-}),{
-    fetch:fetch_list_editor_list,
-    set_filter:set_filter_list_editor
+    list: list_list_editor,
+
+    filter: filter_list_editor
+}), {
+    fetch:fetch_list_editor,
+    edit: edit_list_editor,
+    del: del_list_editor,
+    set_filter: set_filter_list_editor,
+    add: add_list_editor
 })

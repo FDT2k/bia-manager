@@ -25,7 +25,7 @@ export default props => {
              
 
 
-              <Container className="setup-container" style={{width:'300px',height:'200px'}}>
+              <Container className="setup-container" style={{width:'400px',height:'400px'}}>
                   <h2>Gérer les listes</h2>
                   <ListManagement/>
               </Container>

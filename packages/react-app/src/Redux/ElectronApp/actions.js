@@ -269,8 +269,10 @@ export default (getModule) => {
 
 
 
+    
+
 //list editor
-    actions.fetch_list_editor_list = list_key => (dispatch,getState)=> {
+    actions.fetch_list_editor = list_key => (dispatch,getState)=> {
         const backend_actions= getBackend(getState);
         return dispatch (backend_actions.get_list(list_key))
         .then(result => {

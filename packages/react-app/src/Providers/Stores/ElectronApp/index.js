@@ -134,20 +134,21 @@ export const {
  */
  export const ListEditorModule = ElectronModule.submodules.features.list_editor;
  export const {
-   fetch_list_editor_list
+  fetch_list_editor
  }  = ElectronModule.actions
  export const {
    
-   edit: edit_list_editor,
-   del:del_list_editor,
-   set_filter:set_filter_list_editor
+   edit_list_editor,
+   del_list_editor,
+   set_filter_list_editor,
+   add_list_editor,
+   //fetch_list_editor
 
- }=ListEditorModule.actions
+ }= exportModule(x=>`${x}_list_editor`,'actions',ListEditorModule)
 export const {
-  list: list_editor_listing,
-  filter: list_editor_filter
-}=ListEditorModule.selectors
-debugger;
+  list_list_editor,
+  filter_list_editor
+}= exportModule(x=>`${x}_list_editor`,'selectors',ListEditorModule) 
  
  
 
