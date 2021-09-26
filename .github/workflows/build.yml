@@ -41,7 +41,20 @@ jobs:
           key: ${{ runner.os }}-yarn-12-${{ hashFiles('**/yarn.lock') }}
           restore-keys: |
             ${{ runner.os }}-yarn-12
-
+      - name: Install Deps
+          #   if: steps.yarn-react-cache.outputs.cache-hit != 'true'
+        run: |
+          cd packages/kda-react-redux;
+          yarn build;
+        env: 
+          CI: true
+      - name: build
+          #   if: steps.yarn-react-cache.outputs.cache-hit != 'true'
+        run: |
+          cd packages/kda-react-redux;
+          yarn build;
+        env: 
+          CI: true
 #      - name: Install React package deps
      #   if: steps.yarn-react-cache.outputs.cache-hit != 'true'
  #       run: |
