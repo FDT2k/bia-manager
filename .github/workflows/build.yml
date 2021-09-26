@@ -24,7 +24,8 @@ jobs:
           git submodule sync --recursive
           git submodule update --init --recursive --force
           git submodule foreach --recursive
-
+        env:
+          GIT_SSH_COMMAND: "ssh -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no"
 
       - name: Install Node.js, NPM and Yarn
         uses: actions/setup-node@v1
