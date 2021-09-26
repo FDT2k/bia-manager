@@ -37,13 +37,13 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-yarn-
 
-      - name: Install React package deps
+    #  - name: Install React package deps
      #   if: steps.yarn-react-cache.outputs.cache-hit != 'true'
-        run: |
-          cd packages/react-app;
-          yarn ;
-        env: 
-          CI: true
+     #   run: |
+      #    cd packages/react-app;
+      #    yarn ;
+      #  env: 
+     #     CI: true
 
       - name: Electron Builder Action
         uses: samuelmeuli/action-electron-builder@v1.6.0
