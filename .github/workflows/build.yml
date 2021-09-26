@@ -44,8 +44,7 @@ jobs:
       - name: Install Deps
           #   if: steps.yarn-react-cache.outputs.cache-hit != 'true'
         run: |
-          cd packages/kda-react-redux;
-          yarn build;
+          yarn;
         env: 
           CI: true
       - name: build
