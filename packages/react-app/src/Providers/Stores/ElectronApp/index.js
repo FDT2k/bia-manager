@@ -135,7 +135,8 @@ export const {
  export const ListEditorModule = ElectronModule.submodules.features.list_editor;
  export const {
   fetch_list_editor,
-  fetch_lists_editor
+  fetch_lists_editor,
+  save_list
  }  = ElectronModule.actions
 
 

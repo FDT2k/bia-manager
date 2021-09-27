@@ -243,8 +243,6 @@ export default (getModule) => {
         console.log(collectors)
 
         return dispatch(api.bulk_add({list,collection:'patients'})).then(res=> {
-            
-
             enlist(collectors).map(item=> {
                 const [key,value] = keyval(item);
                 dispatch(
@@ -260,14 +258,24 @@ export default (getModule) => {
                 );
 
             })
-            
-            
            
             dispatch(actions.refresh_backend_stats())
         })
     }
 
 
+    actions.save_list = (key) =>  (dispatch,getState) => {
+        const api= getBackend(getState);
+        const list = submodules.features.list_editor.selectors.list(getState());
+        return dispatch(
+            api.update_list({
+                key,
+                name:key,
+                list: list
+                }
+            )
+        )
+    }
 
     
 

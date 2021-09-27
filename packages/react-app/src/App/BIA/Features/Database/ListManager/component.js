@@ -11,9 +11,17 @@ export const Component =  props => {
     const handleEdit = item=>{
         setEditedList(item.key);
     }
+
+
+    const handleSave = ()=>{
+        props.save_list(editedList).then(res=>{
+            setEditedList(null)
+        })
+    }
+
     return (<>
         {editedList == null &&<List handleEdit={handleEdit}/> }
-        {editedList !==null && <ListCrud list_key={editedList} cancel={_=>setEditedList(null)}/>}
+        {editedList !==null && <ListCrud list_key={editedList} save={handleSave} cancel={_=>setEditedList(null)}/>}
     </>)
 }
 
