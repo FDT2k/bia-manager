@@ -21,9 +21,7 @@ export const Page = props => {
     const [location, setLocation] = useLocation();
 
 
-    const options_keys= useMemo(()=> {
-        return Object.keys(available_options);        
-    },[available_options])
+    
 
     let fields = {
         'lastname': { type: 'text', label: 'Nom' },
@@ -37,15 +35,14 @@ export const Page = props => {
         'diag': { type: 'textarea', label: 'Diagnostic' },
     }
 
-console.log(available_options)
     // inject custom fields
-    fields = options_keys.reduce((carry,item)=>{
-        const {path,default_value,data} = available_options[item];
-        if(data && data.byIds){
-            carry[path] = { type: 'select', label: t(path), options:data.list}
+    fields = useMemo(()=> available_options.reduce((carry,item)=>{
+        const {path,default_value,list} = item;
+        if(list ){
+            carry[path] = { type: 'select', label: t(path), options:list}
         }
         return carry;
-    },fields);
+    },fields),[available_options]);
 
 
     const relevantFields = useMemo(() => {

@@ -59,12 +59,13 @@ export default props => {
     const mappings = {
         BIAManager: {
             lists:{
-                'sexe': {name:'genders',reduce:''},
+                'sexe': {name:'genders',transform:"(state,value) => value.sexe =='H'? 'M': 'F'"},
                 'actPhys': {name:'physical_activity_rate',reduce:''},
                 'typeActPhys': {name:'physical_activity_type',reduce:''},
                 'appareil': {name:'machines',reduce:''},
                 'groupePath': {name:'pathological_groups',reduce:''},
                 'groupeEthno': {name:'ethnological_groups',reduce:''},
+                'nomExaminateur': {name:'examinators',reduce:''},
             },
             patient: {
                 
@@ -99,6 +100,8 @@ export default props => {
                 'cote':{name:'left_side', transform: "(state={},value)=> {return value.cote !='D' ? true: false}"},
                 'smoker':{name:'smoker', transform: "(state={},value)=> {return value.smoker ==='oui' ? true: false}"},
                 'poidsAct':'weight',
+                'commentaire':'comments',
+                'nomExaminateur':'examinator',
                 'taille' : 'height',
                 'appareil':'machine',
                 

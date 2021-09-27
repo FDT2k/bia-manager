@@ -17,7 +17,12 @@ jobs:
 
     steps:
       - name: Check out Git repository
-        uses: actions/checkout@v1
+        uses: actions/checkout@v2
+        with:
+          submodules: true
+          ssh-known-hosts: 'gitlab.com,172.65.251.78 ecdsa-sha2-nistp256 AAAAE2VjZHNhLXNoYTItbmlzdHAyNTYAAAAIbmlzdHAyNTYAAABBBFSMqzJeV9rUzU4kWitGjeR4PWSa29SPqJ1fVkhtj3Hw9xjLVXVYrU9QlYWrOLXBpQ6KWjbjTDTdDkoohFzgbEY='
+          ssh-key: ${{ secrets.GITLAB_SSH_KEY }}
+
 
       - name: Install Node.js, NPM and Yarn
         uses: actions/setup-node@v1
@@ -30,20 +35,40 @@ jobs:
         run: echo "::set-output name=dir::$(yarn config get cacheFolder)"
 
       - uses: actions/cache@v2
-        id: yarn-react-cache # use this to check for `cache-hit` (`steps.yarn-cache.outputs.cache-hit != 'true'`)
+        id: yarn-cache # use this to check for `cache-hit` (`steps.yarn-cache.outputs.cache-hit != 'true'`)
         with:
           path: ${{ steps.yarn-cache-dir-path.outputs.dir }}
-          key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}
+          key: ${{ runner.os }}-yarn-12-${{ hashFiles('**/yarn.lock') }}
           restore-keys: |
-            ${{ runner.os }}-yarn-
-
-      - name: Install React package deps
-     #   if: steps.yarn-react-cache.outputs.cache-hit != 'true'
+            ${{ runner.os }}-yarn-12
+      - name: Install Deps
+          #   if: steps.yarn-react-cache.outputs.cache-hit != 'true'
         run: |
-          cd packages/react-app;
-          yarn ;
+          yarn;
         env: 
           CI: true
+      - name: build react-redux
+          #   if: steps.yarn-react-cache.outputs.cache-hit != 'true'
+        run: |
+          cd packages/kda-react-redux;
+          yarn build;
+        env: 
+          CI: true
+        
+      - name: build react-cruds
+          #   if: steps.yarn-react-cache.outputs.cache-hit != 'true'
+        run: |
+          cd packages/kda-react-crud;
+          yarn build;
+        env: 
+          CI: true
+#      - name: Install React package deps
+     #   if: steps.yarn-react-cache.outputs.cache-hit != 'true'
+ #       run: |
+  #        cd packages/react-app;
+   #       yarn ;
+   #     env: 
+   #       CI: true
 
       - name: Electron Builder Action
         uses: samuelmeuli/action-electron-builder@v1.6.0

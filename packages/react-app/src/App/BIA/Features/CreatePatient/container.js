@@ -12,8 +12,10 @@ export default Component=> props => {
         subject_form_available_options,
         create_subject,edited_subject,
         form_options_loaded,
-        create_patient
+        create_patient,
+        custom_lists
     } = props;
+
     //const {select_genders,select_ethno_group,select_list_pathological_groups,patient} = props
     const [location, setLocation] = useLocation();
 
@@ -75,7 +77,7 @@ export default Component=> props => {
 
     return (
         <>
-            <Component /*handleChange={handleChange}  handleSave={handleSave} available_options={{genders:[],etno_groups:[],patho_groups:[]}}*/ handleChange={handleChange} patient={edited_subject}  available_options={subject_form_available_options}  handleSave={handleSave} />
+            <Component /*handleChange={handleChange}  handleSave={handleSave} available_options={{genders:[],etno_groups:[],patho_groups:[]}}*/ handleChange={handleChange} patient={edited_subject}  available_options={custom_lists}  handleSave={handleSave} />
         </>
     )
 }

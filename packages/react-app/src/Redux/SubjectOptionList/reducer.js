@@ -7,16 +7,11 @@ import { mergeAll } from '@karsegard/composite-js/List'
 
 export default (getModule) => {
 
-    const { submodules, types } = getModule()
+    const { submodules, types,settings:{available_options} } = getModule()
 
 
     const module = {};
-    module.available_options = createReducer({
-        gender: { path: 'gender'},
-        ethno:  { path: 'groups.ethno' },
-        patho:  { path: 'groups.patho' },
-
-    }, {
+    module.available_options = createReducer(available_options, {
 
     })
 

@@ -9,7 +9,7 @@ export default (getModule) => {
     const { action_types, baseSelector } = getModule()
     const actions = {};
 
-
+    actions.clear = createAction(action_types.CLEAR);
     actions.add_search_tag = createAction(action_types.ADD_SEARCH_TAG);
     actions.update_search_tags = createAction(action_types.UPDATE_SEARCH_TAGS);
     actions.del_search_tag = createAction(action_types.DEL_SEARCH_TAG);

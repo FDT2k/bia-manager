@@ -5,7 +5,9 @@ import MassChart from '@/bia-layout/components/Charts/Mass';
 import Button from '@/bia-layout/components/Form/Button';
 import SafeDatePicker from '@/bia-layout/components/Form/Editable/Date';
 import EditableSelect from '@/bia-layout/components/Form/Editable/Select';
+import Select from '@/bia-layout/components/Form/Select';
 import EditableTextInput from '@/bia-layout/components/Form/Editable/TextInput';
+
 import Field from '@/bia-layout/components/Form/Fields';
 import ToggleSwitch from '@/bia-layout/components/Form/ToggleSwitch';
 import Printable from '@/bia-layout/components/Printable';
@@ -47,20 +49,24 @@ const Editor = props => {
         machines ,
         sporttypes ,
         sportrates ,
+        custom_lists,
+        refresh_editor_lists,
         ...rest
        } = rest2;
-
     const current_bia = get_current_bia(['fmi','ffmi'])
     const _handleChange = v => {
         parentHandleChange && parentHandleChange(v);
     }
-
     const { values, handleChangeValue, inputProps, handleChange, assignValues, replaceValues } = useFieldValues(mesure, { onValuesChange: _handleChange, usePath: true });
     const componentRef = useRef();
     const _handlePrint = useReactToPrint({
         content: () => componentRef.current
     })
+    
 
+    useEffect(()=>{
+      //  refresh_editor_lists();
+    },[])
     /* update internal state if we change the prop */
     useEffect(() => {
         assignValues(mesure);
@@ -132,7 +138,6 @@ const Editor = props => {
                 </TabList>
                 <TabPanel>
                     <LayoutFlexColumnWithArea>
-
                         <LayoutFlex wrap >
                             <Field className="date-examen" label={t("Date d'Examen")}>
                                 <SafeDatePicker
@@ -142,15 +147,14 @@ const Editor = props => {
                             </Field>
 
                             <Field className="activite-physique" label={t("Activité physique")}>
-                                <select tabIndex={1} {...inputProps('sport.rate')}>
-                                    {sportrates.map(map_itemlist_as_option)}
-                                </select>
+                           
+                             <Select tabIndex={2}  {...inputProps('sport.rate')} options={custom_lists.sport_rate.list}/>
+
                             </Field>
 
                             <Field className="type-activite-physique" label={t("Type d'Activité physique")}>
-                                <select tabIndex={2}  {...inputProps('sport.type')}>
-                                    {sporttypes.map(map_itemlist_as_option)}
-                                </select>
+                             <Select tabIndex={2}  {...inputProps('sport.type')} options={custom_lists.sport_type.list}/>
+                             
                             </Field>
 
                             <Field className="fumeur" label={t("Fumeur")}>
@@ -207,11 +211,7 @@ const Editor = props => {
                     <EditableTextInput value={values.examinator} name="examinator" onChange={handleChange} />
                 </Field>
                 <Field label={t("BioImpédanceMètre")}>
-
-                    <EditableSelect {...inputProps('machine')}>
-                        {machines.map(machine => (<option value={machine.id} key={machine.id}>{machine.name}</option>))}
-                    </EditableSelect>
-
+                    <EditableSelect {...inputProps('machine')} options={custom_lists.machine.list}/>
                 </Field>
 
                 <Field label={t("Poids Idéal (%)")}>

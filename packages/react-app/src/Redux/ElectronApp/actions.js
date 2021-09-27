@@ -26,7 +26,6 @@ export default (getModule) => {
 
     actions.init_started= createAction(action_types.INIT)
 
-
     actions.init_app = () => (dispatch,getState)=> {
         dispatch(actions.init_started());
         dispatch(actions.async_api('current_filename')).then(res=>{
@@ -96,7 +95,6 @@ export default (getModule) => {
 
     actions.opened_file = _=> (dispatch,getState)=>{
         dispatch(actions.refresh_editor_lists())
-
     }
 
 
@@ -105,6 +103,7 @@ export default (getModule) => {
     actions.close = _=> (dispatch,getState)=> {
         const backend_actions= getBackend(getState);
         dispatch(actions.close_file());
+        dispatch(submodules.features.search.actions.clear());
         return dispatch (backend_actions.clear_database())
     }
 
@@ -122,7 +121,6 @@ export default (getModule) => {
         return dispatch (backend_actions.search(tag))
     }
 
-    
     actions.create_patient = values => (dispatch,getState)=> {
         const backend_actions= getBackend(getState);
         return dispatch(backend_actions.create_patient(normalize_patient(values)))
@@ -132,7 +130,6 @@ export default (getModule) => {
         });
     }
 
-  
     actions.search = tags => (dispatch,getState) => {
 
         const {filter_results,update_search_tags,fetched_patient} = submodules.features.search.actions;
@@ -167,9 +164,12 @@ export default (getModule) => {
         //api.all_pahological_groups()
         return dispatch (backend_actions.refresh_data_list())
         .then(result => {
-            return dispatch(submodules.features.options.actions.fetch_options(result))
+      //      return dispatch(actions.fetch_options(result))
+            return dispatch(submodules.features.lists.actions.fetch({items:result}))
         })
     }
+
+    //actions.fetch_options = submodules.features.options.actions.fetch_options
 
 
     /* Editor actions */
@@ -253,7 +253,7 @@ export default (getModule) => {
                             name:key,
                             list:  enlist(value).map(item => {
                                     const [key,value] = keyval(item);
-                                    return {name:value};
+                                    return {id:value,name:value};
                                     })
                             }
                         )
@@ -266,7 +266,31 @@ export default (getModule) => {
             dispatch(actions.refresh_backend_stats())
         })
     }
+
+
+
+    
+
+//list editor
+    actions.fetch_list_editor = list_key => (dispatch,getState)=> {
+        const backend_actions= getBackend(getState);
+        return dispatch (backend_actions.get_list(list_key))
+        .then(result => {
+            return dispatch(submodules.features.list_editor.actions.fetch({items:result}))
+        })
+    }
+
+
+    actions.fetch_lists_editor = list_key => (dispatch,getState)=> {
+        const backend_actions= getBackend(getState);
+        return dispatch (backend_actions.get_lists())
+        .then(result => {
+            return dispatch(submodules.features.list_editor.actions.fetch({items:result}))
+        })
+    }
+
     return actions;
+
 }
 
 

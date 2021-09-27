@@ -1,0 +1,39 @@
+@import "@/bia-layout/sass/theme/default/main.scss";
+
+.list-editor {
+ 
+  .item-actions {
+    div {
+      padding: 5px;
+    }
+
+    cursor: pointer;
+    align-items: center;
+  }
+
+  .crud-filter {
+    width: 100%;
+    height: 100%;
+  }
+
+  .crud {
+    .column-header {
+      font-weight: bold;
+    }
+    &--list {
+      align-items: center;
+    }
+  }
+
+  .modal-form {
+      input{
+          width:100%;
+      }
+    width: calc((var(--col-width) * 8) + (var(--gut-width) * 5));
+    padding: 20px;
+
+    h2 {
+      margin-bottom: 16px;
+    }
+  }
+}

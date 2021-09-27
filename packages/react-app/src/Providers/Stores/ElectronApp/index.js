@@ -43,7 +43,8 @@ export const {
   subject_form_available_options,
   editor_patient_options,
   edited_subject,
-  form_options_loaded
+  form_options_loaded,
+  select_form_lists
 } = ElectronModule.selectors;
 
 
@@ -115,7 +116,8 @@ export const {
   delete_mesure
   
 }= ElectronModule.actions
-   
+
+
  export const { fetch: populate_sportrate } = BIAEditorModule.submodules.sportRate.actions;
  export const { fetch: populate_sporttype } = BIAEditorModule.submodules.sportType.actions;
  export const { fetch: populate_machines } = BIAEditorModule.submodules.machines.actions;
@@ -127,6 +129,34 @@ export const {
  
 /*end editor module */
 
+/**
+ * LIST EDITOR Actions & selectors
+ */
+ export const ListEditorModule = ElectronModule.submodules.features.list_editor;
+ export const {
+  fetch_list_editor,
+  fetch_lists_editor
+ }  = ElectronModule.actions
+
+
+ export const {
+   
+   edit_list_editor,
+   del_list_editor,
+   set_key_list_editor,
+   set_filter_list_editor,
+   add_list_editor,
+   //fetch_list_editor
+
+ }= exportModule(x=>`${x}_list_editor`,'actions',ListEditorModule)
+
+
+export const {
+  list_list_editor,
+  filter_list_editor
+}= exportModule(x=>`${x}_list_editor`,'selectors',ListEditorModule) 
+ 
+ 
 
 
 /* main store reducer */

@@ -17,7 +17,8 @@ export default (getModule) => {
     module.tags = createReducer([], {
         [action_types.ADD_SEARCH_TAG]: addToListUniq,
         [action_types.UPDATE_SEARCH_TAGS]: (state, action) => [...action.payload],
-        [action_types.DEL_SEARCH_TAG]: delFromList
+        [action_types.DEL_SEARCH_TAG]: delFromList,
+        [action_types.CLEAR]: (state)=> []
     });
 
 
@@ -31,6 +32,13 @@ export default (getModule) => {
                 }, {}),
                 allIds: patients,
                 filtered: [{ tag: '', ids: patients }]
+            }
+        },
+        [action_types.CLEAR]: (state,action) => {
+            return {
+                byIds:{},
+                allIds:[],
+                filtered:[{ tag: '', ids:[]}]
             }
         },
         [action_types.FILTER_PATIENTS]: (state, action) => {

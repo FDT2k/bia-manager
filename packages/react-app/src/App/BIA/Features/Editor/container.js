@@ -31,7 +31,7 @@ export default Component => props => {
 
 
     useEffect(() => {
-        populate_sportrate([
+       /* populate_sportrate([
             { 'id': 'low', 'name': 'faible' },
             { 'id': 'average', 'name': 'modérée', default: true },
             { 'id': 'high', 'name': 'élevée' },
@@ -44,11 +44,12 @@ export default Component => props => {
             { 'id': 'other', 'name': 'autre' },
             { 'id': 'unknown', 'name': 'inconnue', default: true },
         ]);
+        
         populate_machines([
             { 'id': 'BIO-Z', 'name': 'BIO-Z' },
             { 'id': 'NUTRIGUARD', 'name': 'Nutriguard' },
             { 'id': 'ZX-1000', 'name': 'ZX-1000', default: true },
-        ]);
+        ]);*/
         fetch_normes()
     }, []);
 
