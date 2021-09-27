@@ -29,7 +29,7 @@ export const createSubModules = getModule => {
             search: BIASearchModule(compose(state=> state.features.search,baseSelector) , `${prefix}_SEARCH`),
             create: PatientModule(compose(state=> state.features.create,baseSelector) , `${prefix}_SUBJECT`),
             editor:EditorModule(compose(state=> state.features.editor,baseSelector), `${prefix}_EDITOR`),
-            list_editor: Modules.FilterableCollection(compose(state=> state.features.list_editor,baseSelector), `${prefix}_LIST_EDITOR`)
+            list_editor: Modules.FilterableCollection(compose(state=> state.features.list_editor,baseSelector), `${prefix}_LIST_EDITOR`,{default_key:'_id'})
         }
     }
     

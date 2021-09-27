@@ -13,10 +13,11 @@ export const ListColumn = props => {
     const value = is_type_function(accessor) ? accessor(props) : row[accessor];
 
 
-    const renderAction = (row)  => (key,label)=> (<div key={key} onClick={_ => handleAction(key, row)}>{label}</div>)
 
-    const renderActions = _=> (<LayoutFlex justBetween className="item-actions" >{actions.map((action, act_idx) => {
-        return renderAction(row)(action.key,action.label)
+    const renderAction = (row) => (key, label) => (<div key={key} onClick={_ => handleAction(key, row)}>{label}</div>)
+
+    const renderActions = _ => (<LayoutFlex justBetween className="item-actions" >{actions.map((action, act_idx) => {
+        return renderAction(row)(action.key, action.label)
     })}</LayoutFlex>)
 
     return (
@@ -30,7 +31,7 @@ export const ListColumn = props => {
             </LayoutFlex>}
             {type !== "actions" && !render && <div className={className}>{value}</div>}
 
-            {render && render(props,{renderActions,renderAction:renderAction(row)})}
+            {render && render({ ...props, value }, { renderActions, renderAction: renderAction(row) })}
         </React.Fragment>
     )
 }
@@ -39,13 +40,27 @@ export const ListOperation = props => {
     const { list, columns, actions, handleAction, defaultColTemplate, HeaderComponent, FooterComponent, renderHeader, renderFooter, headerHeight, footerHeight } = props
     const gridStyle = columns.map(item => item.colTemplate || defaultColTemplate).join(' ');
     return (
-        <Grid templateColumns="auto" templateRows={`${headerHeight} auto ${footerHeight}`} contained cover>
+        <Grid templateColumns="auto" className="crud" templateRows={`${headerHeight}  auto ${footerHeight}`} contained cover>
             <div>
                 {HeaderComponent && <HeaderComponent />}
                 {renderHeader && renderHeader()}
             </div>
+
+
+
+
             <Container contained scrollable>
-                <Grid templateColumns={gridStyle} columnGap="10px"  autoRows="30px">
+                <Grid className="crud--list" templateColumns={gridStyle} columnGap="10px" autoRows="30px">
+                    {/*
+                    rendering headers
+                     */}
+                    {columns.map((col, col_idx) => {
+                        return (<div key={col_idx} style={{
+                            position: 'sticky',
+                            alignSelf: 'start',
+                            top: 0
+                        }} className="column-header">{col.label || '-'}</div>)
+                    })}
                     {
                         list.map((row, row_idx) => {
                             return (<React.Fragment key={row_idx}>
@@ -68,6 +83,7 @@ export const ListOperation = props => {
 
 ListOperation.defaultProps = {
     columns: [],
+    displayColumnHeader: true,
     defaultColTemplate: 'fit-content(30px)',
     actions: [],
     handleAction: (item, action) => console.warn('handleItem not set'),

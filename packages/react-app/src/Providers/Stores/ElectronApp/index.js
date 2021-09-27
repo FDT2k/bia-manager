@@ -143,6 +143,7 @@ export const {
    
    edit_list_editor,
    del_list_editor,
+   set_key_list_editor,
    set_filter_list_editor,
    add_list_editor,
    //fetch_list_editor

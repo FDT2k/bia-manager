@@ -9,6 +9,7 @@ export default Component => props=> {
         fetch();
     },[])
 
+
  
     return (<Component list={list} {...rest}/>)
 }

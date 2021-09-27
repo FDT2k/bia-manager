@@ -15,3 +15,10 @@ body h1 {
 .actions div{
     padding:5px;
 }
+
+
+.column-header{
+    position:sticky;
+    align-self: start;
+    top:0;
+}

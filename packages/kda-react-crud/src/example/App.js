@@ -39,7 +39,7 @@ const StdListOperation = Component => props => {
     }
     const columns = [
         { accessor: 'id', className: 'helloworld' },
-        { accessor: 'name', colTemplate: 'auto' , render: ({row})=> {
+        { accessor: 'name', label:'Nom', colTemplate: 'auto' , render: ({row})=> {
             return (<>
                 {row.id ===editedId && <div><input type="text" value={row.name}/></div> }
                 {row.id !==editedId &&  <div>{row.name}</div> }
@@ -79,7 +79,21 @@ const StdListOperation = Component => props => {
             { id: 2, name: "Hector", role: "admin" },
             { id: 3, name: "Jarvis" },
             { id: 4, name: "Tony" },
-            
+            { id: 1, name: "Fabien", role: "admin" },
+            { id: 2, name: "Hector", role: "admin" },
+            { id: 3, name: "Jarvis" },
+            { id: 4, name: "Tony" },
+            { id: 1, name: "Fabien", role: "admin" },
+            { id: 2, name: "Hector", role: "admin" },
+            { id: 3, name: "Jarvis" },
+            { id: 4, name: "Tony" }, { id: 1, name: "Fabien", role: "admin" },
+            { id: 2, name: "Hector", role: "admin" },
+            { id: 3, name: "Jarvis" },
+            { id: 4, name: "Tony" },
+            { id: 1, name: "Fabien", role: "admin" },
+            { id: 2, name: "Hector", role: "admin" },
+            { id: 3, name: "Jarvis" },
+            { id: 4, name: "Tony" },
            
         ]} />
     )
