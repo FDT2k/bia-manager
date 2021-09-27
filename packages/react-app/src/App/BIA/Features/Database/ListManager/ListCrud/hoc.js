@@ -3,6 +3,7 @@ import Button from '@/bia-layout/components/Form/Button';
 import { LayoutFlex, ModalComponent, Container, LayoutFlexColumn } from '@karsegard/react-core-layout'
 import { useFieldValues } from '@karsegard/react-hooks';
 import Field from '@/bia-layout/components/Form/Fields';
+import Modal from '@/App/Components/Modal';
 
 export default Component => props => {
 
@@ -60,7 +61,7 @@ export default Component => props => {
 
     }
 
-    
+
 
     return (<>
         <Component
@@ -75,7 +76,7 @@ export default Component => props => {
                     accessor: 'name',
                     colTemplate: 'auto',
                     label: 'Element',
-                    
+
                 },
 
                 { type: "actions"}
@@ -104,24 +105,24 @@ export default Component => props => {
             {...rest}
         />
 
-        <ModalComponent visible={edited !== null}>
-            <Container className="modal-form" fit grow>
+        <Modal visible={edited !== null}>
+
                 <LayoutFlexColumn>
                     <Field  label={'Valeur'}>
                         <input type="text" {...inputProps('name')} />
                     </Field>
 
                     <LayoutFlex justEnd>
-                        
+
                         <Button onClick={handleSave}>Enregistrer</Button>
-                        
+
                     </LayoutFlex>
                 </LayoutFlexColumn>
-            </Container>
-        </ModalComponent>
 
-        <ModalComponent visible={deleting !== null}>
-            <Container className="modal-form" fit grow>
+        </Modal>
+
+        <Modal visible={deleting !== null}>
+
                 <LayoutFlexColumn>
                     <p>Etes vous sur de vouloir supprimer cet élément?</p>
                     <LayoutFlex justBetween>
@@ -129,7 +130,7 @@ export default Component => props => {
                         <Button onClick={_=>setDeleting(null)}>non</Button>
                     </LayoutFlex>
                 </LayoutFlexColumn>
-            </Container>
-        </ModalComponent>
+
+        </Modal>
     </>)
 }
