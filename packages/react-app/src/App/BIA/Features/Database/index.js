@@ -5,7 +5,6 @@ import DatabaseImport from '@/App/BIA/Features/Database/Import';
 import React from 'react';
 import './page-database.scss';
 
-import ListManagement from '@/App/BIA/Features/Database/ListManager';
 
 
 
@@ -24,11 +23,6 @@ export default props => {
               </Container>
              
 
-
-              <Container className="setup-container" style={{width:'400px',height:'400px'}}>
-                  <h2>Gérer les listes</h2>
-                  <ListManagement/>
-              </Container>
              
             </LayoutFlex>
 

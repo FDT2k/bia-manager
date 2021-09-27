@@ -47,10 +47,18 @@ jobs:
           yarn;
         env: 
           CI: true
-      - name: build
+      - name: build react-redux
           #   if: steps.yarn-react-cache.outputs.cache-hit != 'true'
         run: |
           cd packages/kda-react-redux;
+          yarn build;
+        env: 
+          CI: true
+        
+      - name: build react-cruds
+          #   if: steps.yarn-react-cache.outputs.cache-hit != 'true'
+        run: |
+          cd packages/kda-react-crud;
           yarn build;
         env: 
           CI: true

@@ -1793,7 +1793,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@babel/runtime@npm:^7.1.2, @babel/runtime@npm:^7.10.2, @babel/runtime@npm:^7.11.2, @babel/runtime@npm:^7.12.1, @babel/runtime@npm:^7.12.5, @babel/runtime@npm:^7.3.1, @babel/runtime@npm:^7.4.4, @babel/runtime@npm:^7.5.5, @babel/runtime@npm:^7.6.3, @babel/runtime@npm:^7.7.2, @babel/runtime@npm:^7.8.3, @babel/runtime@npm:^7.8.4, @babel/runtime@npm:^7.8.7, @babel/runtime@npm:^7.9.2":
+"@babel/runtime@npm:^7.1.2, @babel/runtime@npm:^7.10.2, @babel/runtime@npm:^7.11.2, @babel/runtime@npm:^7.12.1, @babel/runtime@npm:^7.12.5, @babel/runtime@npm:^7.3.1, @babel/runtime@npm:^7.4.4, @babel/runtime@npm:^7.5.5, @babel/runtime@npm:^7.7.2, @babel/runtime@npm:^7.8.3, @babel/runtime@npm:^7.8.4, @babel/runtime@npm:^7.8.7, @babel/runtime@npm:^7.9.2":
   version: 7.15.4
   resolution: "@babel/runtime@npm:7.15.4"
   dependencies:
@@ -2387,6 +2387,20 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@karsegard/react-crud@workspace:packages/kda-react-crud":
+  version: 0.0.0-use.local
+  resolution: "@karsegard/react-crud@workspace:packages/kda-react-crud"
+  dependencies:
+    "@karsegard/composite-js": ^2.10.0
+    "@karsegard/react-core-layout": ^1.5.1
+    "@karsegard/react-redux": "workspace:packages/kda-react-redux"
+    vite: ^2.5.3
+  peerDependencies:
+    react: ^17.0.2
+    react-dom: ^17.0.2
+  languageName: unknown
+  linkType: soft
+
 "@karsegard/react-hooks@npm:^2.7.1":
   version: 2.7.1
   resolution: "@karsegard/react-hooks@npm:2.7.1"
@@ -2417,7 +2431,6 @@ __metadata:
     reselect: ^4.0.0
     vite: ^2.5.3
   peerDependencies:
-    "@karsegard/react-redux": "*"
     react: ^17.0.2
     react-dom: ^17.0.2
   languageName: unknown
@@ -3986,15 +3999,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"abort-controller@npm:3.0.0":
-  version: 3.0.0
-  resolution: "abort-controller@npm:3.0.0"
-  dependencies:
-    event-target-shim: ^5.0.0
-  checksum: 170bdba9b47b7e65906a28c8ce4f38a7a369d78e2271706f020849c1bfe0ee2067d4261df8bbb66eb84f79208fd5b710df759d64191db58cfba7ce8ef9c54b75
-  languageName: node
-  linkType: hard
-
 "accepts@npm:~1.3.4, accepts@npm:~1.3.5, accepts@npm:~1.3.7":
   version: 1.3.7
   resolution: "accepts@npm:1.3.7"
@@ -4491,13 +4495,6 @@ __metadata:
   version: 2.0.1
   resolution: "argparse@npm:2.0.1"
   checksum: 83644b56493e89a254bae05702abf3a1101b4fa4d0ca31df1c9985275a5a5bd47b3c27b7fa0b71098d41114d8ca000e6ed90cad764b306f8a503665e4d517ced
-  languageName: node
-  linkType: hard
-
-"argsarray@npm:0.0.1":
-  version: 0.0.1
-  resolution: "argsarray@npm:0.0.1"
-  checksum: 0042accbc0a2d855ad5af56df49291e0e4cae7456f42d486f4cb05518c8e1939bf8aca7dece89d846349d615793fae2cea8ebb20a8207c0f22dafb88b1536819
   languageName: node
   linkType: hard
 
@@ -5275,6 +5272,7 @@ __metadata:
     "@karsegard/indexeddb-export-import": ^2.1.4
     "@karsegard/react-compose": ^1.3.2
     "@karsegard/react-core-layout": ^1.5.1
+    "@karsegard/react-crud": "workspace:packages/kda-react-crud"
     "@karsegard/react-hooks": ^2.7.1
     "@karsegard/react-redux": ^1.7.0
     "@material-ui/core": ^4.11.4
@@ -5301,7 +5299,6 @@ __metadata:
     react-ionicons: ^4.2.0
     react-loading: ^2.0.3
     react-popper: ^2.2.5
-    react-pouchdb: ^2.1.0
     react-redux: ^7.2.4
     react-scripts: 4.0.3
     react-table: ^7.7.0
@@ -5682,13 +5679,6 @@ __metadata:
   version: 1.0.0
   resolution: "buffer-fill@npm:1.0.0"
   checksum: c29b4723ddeab01e74b5d3b982a0c6828f2ded49cef049ddca3dac661c874ecdbcecb5dd8380cf0f4adbeb8cff90a7de724126750a1f1e5ebd4eb6c59a1315b1
-  languageName: node
-  linkType: hard
-
-"buffer-from@npm:1.1.1":
-  version: 1.1.1
-  resolution: "buffer-from@npm:1.1.1"
-  checksum: ccc53b69736008bff764497367c4d24879ba7122bc619ee499ff47eef3a5b885ca496e87272e7ebffa0bec3804c83f84041c616f6e3318f40624e27c1d80f045
   languageName: node
   linkType: hard
 
@@ -6429,13 +6419,6 @@ __metadata:
     strip-ansi: ^6.0.0
     wrap-ansi: ^7.0.0
   checksum: ce2e8f578a4813806788ac399b9e866297740eecd4ad1823c27fd344d78b22c5f8597d548adbcc46f0573e43e21e751f39446c5a5e804a12aace402b7a315d7f
-  languageName: node
-  linkType: hard
-
-"clone-buffer@npm:1.0.0":
-  version: 1.0.0
-  resolution: "clone-buffer@npm:1.0.0"
-  checksum: a39a35e7fd081e0f362ba8195bd15cbc8205df1fbe4598bb4e09c1f9a13c0320a47ab8a61a8aa83561e4ed34dc07666d73254ee952ddd3985e4286b082fe63b9
   languageName: node
   linkType: hard
 
@@ -9324,13 +9307,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"event-target-shim@npm:^5.0.0":
-  version: 5.0.1
-  resolution: "event-target-shim@npm:5.0.1"
-  checksum: 1ffe3bb22a6d51bdeb6bf6f7cf97d2ff4a74b017ad12284cc9e6a279e727dc30a5de6bb613e5596ff4dc3e517841339ad09a7eec44266eccb1aa201a30448166
-  languageName: node
-  linkType: hard
-
 "eventemitter3@npm:^4.0.0, eventemitter3@npm:^4.0.1":
   version: 4.0.7
   resolution: "eventemitter3@npm:4.0.7"
@@ -9760,15 +9736,6 @@ __metadata:
   dependencies:
     pend: ~1.2.0
   checksum: c8585fd5713f4476eb8261150900d2cb7f6ff2d87f8feb306ccc8a1122efd152f1783bdb2b8dc891395744583436bfd8081d8e63ece0ec8687eeefea394d4ff2
-  languageName: node
-  linkType: hard
-
-"fetch-cookie@npm:0.10.1":
-  version: 0.10.1
-  resolution: "fetch-cookie@npm:0.10.1"
-  dependencies:
-    tough-cookie: ^2.3.3 || ^3.0.1 || ^4.0.0
-  checksum: cf297501c6eb70bfe0e4f4e85f4d6d3ac6447030a867229b588d94c8eb0e53f6594601c06eb6a7db071bf2f24d5b9111abcae9f885e4c72ab41ce2a0bed2628b
   languageName: node
   linkType: hard
 
@@ -11398,13 +11365,6 @@ fsevents@^1.2.7:
   version: 5.1.8
   resolution: "ignore@npm:5.1.8"
   checksum: 967abadb61e2cb0e5c5e8c4e1686ab926f91bc1a4680d994b91947d3c65d04c3ae126dcdf67f08e0feeb8ff8407d453e641aeeddcc47a3a3cca359f283cf6121
-  languageName: node
-  linkType: hard
-
-"immediate@npm:3.3.0":
-  version: 3.3.0
-  resolution: "immediate@npm:3.3.0"
-  checksum: 634b4305101e2452eba6c07d485bf3e415995e533c94b9c3ffbc37026fa1be34def6e4f2276b0dc2162a3f91628564a4bfb26280278b89d3ee54624e854d2f5f
   languageName: node
   linkType: hard
 
@@ -14980,13 +14940,6 @@ fsevents@^1.2.7:
   languageName: node
   linkType: hard
 
-"node-fetch@npm:2.6.0":
-  version: 2.6.0
-  resolution: "node-fetch@npm:2.6.0"
-  checksum: 2b741e9315c1c07df4a291d0b304892fa7e8d623fe789fedd53f9bcb8d09102b07591b4b93e552a65dfc457eee9d5d879d0440aefdb64f2d78e7cb78cbad28e9
-  languageName: node
-  linkType: hard
-
 "node-fetch@npm:^1.0.1, node-fetch@npm:^1.6.3":
   version: 1.7.3
   resolution: "node-fetch@npm:1.7.3"
@@ -17182,128 +17135,6 @@ fsevents@^1.2.7:
   languageName: node
   linkType: hard
 
-"pouchdb-abstract-mapreduce@npm:7.2.2":
-  version: 7.2.2
-  resolution: "pouchdb-abstract-mapreduce@npm:7.2.2"
-  dependencies:
-    pouchdb-binary-utils: 7.2.2
-    pouchdb-collate: 7.2.2
-    pouchdb-collections: 7.2.2
-    pouchdb-errors: 7.2.2
-    pouchdb-fetch: 7.2.2
-    pouchdb-mapreduce-utils: 7.2.2
-    pouchdb-md5: 7.2.2
-    pouchdb-utils: 7.2.2
-  checksum: 926d170d9f116c4c354e39df91118d68a27100677519e0e31f4850f72adbd8c79c772172ae43564fcc92dc305528ecb15a707cb89c628dea986a94a69d1acf5b
-  languageName: node
-  linkType: hard
-
-"pouchdb-binary-utils@npm:7.2.2":
-  version: 7.2.2
-  resolution: "pouchdb-binary-utils@npm:7.2.2"
-  dependencies:
-    buffer-from: 1.1.1
-  checksum: 51539326ce622f1bdd945126db6a748a3f04622d0c77c6481efe8d290a32c56eb7d0f0f1b6877d3ffa500e93a2475a8306f5902c9c8850bc0c87c38302918627
-  languageName: node
-  linkType: hard
-
-"pouchdb-collate@npm:7.2.2, pouchdb-collate@npm:^7.1.1":
-  version: 7.2.2
-  resolution: "pouchdb-collate@npm:7.2.2"
-  checksum: 7479e251d646abcc276e1abf70aff96235d6e06740fac11db6c6d4e0ffbe7e905a35673b465829d55718db93a56cbaab94f8501aa68e9c18f68f6e51f2082f1a
-  languageName: node
-  linkType: hard
-
-"pouchdb-collections@npm:7.2.2":
-  version: 7.2.2
-  resolution: "pouchdb-collections@npm:7.2.2"
-  checksum: 9d5e9dc2fc97c5b29b93105f400bf62f852db5591040745538d5456d0d6ed82cfa61deed105d739804628958473b0609164355121c5839bac2c3de72049c4a59
-  languageName: node
-  linkType: hard
-
-"pouchdb-errors@npm:7.2.2":
-  version: 7.2.2
-  resolution: "pouchdb-errors@npm:7.2.2"
-  dependencies:
-    inherits: 2.0.4
-  checksum: 3b3e4d57485866ab21d9503dc5a9ed3dcf629cd72c4d714cb9e226890bfe1450814e84c4cb668925413903edecb8b3659cccba16c33dc780e7aceb04cff757ee
-  languageName: node
-  linkType: hard
-
-"pouchdb-fetch@npm:7.2.2":
-  version: 7.2.2
-  resolution: "pouchdb-fetch@npm:7.2.2"
-  dependencies:
-    abort-controller: 3.0.0
-    fetch-cookie: 0.10.1
-    node-fetch: 2.6.0
-  checksum: 7cb49c2cdb00f280b782677c885840440bc4120de4cfc31291ca22a2252dd572b65e46ff751295c834a689b1f3f990047ed213141d94b15624a3ad4152e92a2e
-  languageName: node
-  linkType: hard
-
-"pouchdb-find@npm:^7.1.1":
-  version: 7.2.2
-  resolution: "pouchdb-find@npm:7.2.2"
-  dependencies:
-    pouchdb-abstract-mapreduce: 7.2.2
-    pouchdb-collate: 7.2.2
-    pouchdb-errors: 7.2.2
-    pouchdb-fetch: 7.2.2
-    pouchdb-md5: 7.2.2
-    pouchdb-selector-core: 7.2.2
-    pouchdb-utils: 7.2.2
-  checksum: 49b526b2ac0e0f816d19eaa57f0c53fb103330872c6b944b03a8e866ed85fcaa6e7a5a57b026261f8966f1fd0ffa24c847b486b99070905918be50153634b265
-  languageName: node
-  linkType: hard
-
-"pouchdb-mapreduce-utils@npm:7.2.2":
-  version: 7.2.2
-  resolution: "pouchdb-mapreduce-utils@npm:7.2.2"
-  dependencies:
-    argsarray: 0.0.1
-    inherits: 2.0.4
-    pouchdb-collections: 7.2.2
-    pouchdb-utils: 7.2.2
-  checksum: bcfe2a4a410ce192a4688012cf1d8e62d757fe244a621c5673dbc9422299dc0335061728b93c71026d164d7ebd01173a225ae94aec50895e4fbbb760bbe21419
-  languageName: node
-  linkType: hard
-
-"pouchdb-md5@npm:7.2.2":
-  version: 7.2.2
-  resolution: "pouchdb-md5@npm:7.2.2"
-  dependencies:
-    pouchdb-binary-utils: 7.2.2
-    spark-md5: 3.0.1
-  checksum: 0711e585b7f432e8efc95a8d0f74b11a3e78a48177d83981c21acf85cd5b59be64bc154b57fd5502b6daaa89c865f89ff7f0e417bd834a00e5e3940e99af5231
-  languageName: node
-  linkType: hard
-
-"pouchdb-selector-core@npm:7.2.2, pouchdb-selector-core@npm:^7.1.1":
-  version: 7.2.2
-  resolution: "pouchdb-selector-core@npm:7.2.2"
-  dependencies:
-    pouchdb-collate: 7.2.2
-    pouchdb-utils: 7.2.2
-  checksum: efc39101a6e0fab529fb9feade97835a43a578047440c43d101dc5cf856d43c1f0eb76408d0d917a7dd162172971e4197ebf59b7aa74b54b1e1be0f6d9460092
-  languageName: node
-  linkType: hard
-
-"pouchdb-utils@npm:7.2.2":
-  version: 7.2.2
-  resolution: "pouchdb-utils@npm:7.2.2"
-  dependencies:
-    argsarray: 0.0.1
-    clone-buffer: 1.0.0
-    immediate: 3.3.0
-    inherits: 2.0.4
-    pouchdb-collections: 7.2.2
-    pouchdb-errors: 7.2.2
-    pouchdb-md5: 7.2.2
-    uuid: 8.1.0
-  checksum: 2364dbe578503fd6bf7fbc932b02c43c5905c39cb44e307aaa65c32c0dc63cff0d9ce5ca281b0c672d0dc5fe28d2992cb45e0770a4d768349506ab55419534b7
-  languageName: node
-  linkType: hard
-
 "prelude-ls@npm:^1.2.1":
   version: 1.2.1
   resolution: "prelude-ls@npm:1.2.1"
@@ -18014,24 +17845,6 @@ fsevents@^1.2.7:
     "@popperjs/core": ^2.0.0
     react: ^16.8.0 || ^17
   checksum: 915fcf08e1da4fd48a200074fcdd936f601ee2173f1e730cfed8a54fd47716aa8bf9cce2392463e3bcbe64a096d0baf463809ed2874b94d3a9d430ae6d817b5d
-  languageName: node
-  linkType: hard
-
-"react-pouchdb@npm:^2.1.0":
-  version: 2.1.0
-  resolution: "react-pouchdb@npm:2.1.0"
-  dependencies:
-    "@babel/runtime": ^7.6.3
-    fast-json-stable-stringify: ^2.0.0
-    hoist-non-react-statics: ^3.3.0
-    lodash: ^4.17.15
-    pouchdb-collate: ^7.1.1
-    pouchdb-find: ^7.1.1
-    pouchdb-selector-core: ^7.1.1
-    use-subscription: ^1.1.1
-  peerDependencies:
-    react: ^16.8 || 17
-  checksum: 57e0f2d8fce0632516d86c0bb4ec8c203388c6b4f68ad3c84f58d60c0cccc65633bde18a2db345f59d46325a4e46fc51d56f6ac681673287dd65db1b92baa987
   languageName: node
   linkType: hard
 
@@ -20244,13 +20057,6 @@ resolve@^2.0.0-next.3:
   languageName: node
   linkType: hard
 
-"spark-md5@npm:3.0.1":
-  version: 3.0.1
-  resolution: "spark-md5@npm:3.0.1"
-  checksum: 613a7f4e20929b832406ef2ed925d696d4d004455360b07ba1a829975fc12a005d745db370cb261ecc827c3dedf3b431a9337f4bab1f1954df776f41a05aaabe
-  languageName: node
-  linkType: hard
-
 "spawn-sync@npm:^1.0.15":
   version: 1.0.15
   resolution: "spawn-sync@npm:1.0.15"
@@ -21345,7 +21151,7 @@ resolve@^2.0.0-next.3:
   languageName: node
   linkType: hard
 
-"tough-cookie@npm:^2.3.3 || ^3.0.1 || ^4.0.0, tough-cookie@npm:^4.0.0":
+"tough-cookie@npm:^4.0.0":
   version: 4.0.0
   resolution: "tough-cookie@npm:4.0.0"
   dependencies:
@@ -21897,17 +21703,6 @@ resolve@^2.0.0-next.3:
   languageName: node
   linkType: hard
 
-"use-subscription@npm:^1.1.1":
-  version: 1.5.1
-  resolution: "use-subscription@npm:1.5.1"
-  dependencies:
-    object-assign: ^4.1.1
-  peerDependencies:
-    react: ^16.8.0 || ^17.0.0
-  checksum: 96e64977a573244fd11350a3141b2cf57fb72dd9dd902f387c8a0a565d0a948bc81588bd7378c6ef6defc0d1119f37f73aac4a7a287c8443abd444bd4e7bbea8
-  languageName: node
-  linkType: hard
-
 "use@npm:^3.1.0":
   version: 3.1.1
   resolution: "use@npm:3.1.1"
@@ -22008,15 +21803,6 @@ resolve@^2.0.0-next.3:
   bin:
     uuid: ./bin/uuid
   checksum: f42e6890be9e79af243867e9942c8b4e211cd178e229085189531d4d1c4a3fae321c5fce391d76afec7dcaaad5442c6ac5ac1efb4801057702e455a530f2839a
-  languageName: node
-  linkType: hard
-
-"uuid@npm:8.1.0":
-  version: 8.1.0
-  resolution: "uuid@npm:8.1.0"
-  bin:
-    uuid: dist/bin/uuid
-  checksum: 4fc4f12e5c704947cce132df07e6e8a20ca34dcbba4a5aef7a24cf76e0e13830cf7cdd69035a916caf2a00fa011876ceabc098d01f5827adc174ca5defdc8c99
   languageName: node
   linkType: hard
 

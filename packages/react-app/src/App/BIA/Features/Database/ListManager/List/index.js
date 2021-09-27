@@ -3,4 +3,4 @@ import Container from './hoc';
 
 import connect from './connect';
 
-export default connect(Component)
+export default connect(Container(Component))

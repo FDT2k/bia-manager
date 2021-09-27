@@ -1,6 +1,7 @@
 import { LayoutFlex, LayoutFlexColumn } from '@karsegard/react-core-layout';
 import React from 'react';
 
+import {ListOperation} from '@karsegard/react-crud'
 
 
 export const Component =  props => {
@@ -20,9 +21,7 @@ export const Component =  props => {
 
 Component.defaultProps= {
     list:[
-        {key: "genders", name: "genders",list:[], id: 1},
-        {key: "physical_activity_rate", name: "physical_activity_rate", list: [], id: 2},
-        {key: "pathological_groups", name: "pathological_groups", list: [], id: 12}
+       
     ],
     handleEdit: id=>_=> console.warn('click handler not set')
 }

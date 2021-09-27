@@ -4,7 +4,7 @@ import React, { forwardRef,useEffect, useState } from 'react';
 
 
 const EditableTextInput = (props) => {
-    const {forwardedRef:ref} = props;
+    const {forwardedRef:ref, ...rest} = props;
     const [editable, setEditable] = useState(false);
     const enterPressed = useKeypress('Enter');
  //   const ref = useRef()
@@ -30,7 +30,7 @@ const EditableTextInput = (props) => {
 
 
     return (<>
-        {editable && <input ref={ref} onBlur={_disableEditable} type="text" {...props} />}
+        {editable && <input ref={ref} onBlur={_disableEditable} type="text" {...rest} />}
         {!editable && <div className={props.className} onClick={_ => setEditable(true)}>{props.value}</div>}
     </>
     )

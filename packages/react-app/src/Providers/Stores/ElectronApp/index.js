@@ -134,8 +134,11 @@ export const {
  */
  export const ListEditorModule = ElectronModule.submodules.features.list_editor;
  export const {
-  fetch_list_editor
+  fetch_list_editor,
+  fetch_lists_editor
  }  = ElectronModule.actions
+
+
  export const {
    
    edit_list_editor,
@@ -145,6 +148,8 @@ export const {
    //fetch_list_editor
 
  }= exportModule(x=>`${x}_list_editor`,'actions',ListEditorModule)
+
+
 export const {
   list_list_editor,
   filter_list_editor

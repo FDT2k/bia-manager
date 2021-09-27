@@ -6,7 +6,6 @@ export default Component => props=> {
     const {list,fetch,...rest} = props;
 
     useEffect(()=>{
-
         fetch();
     },[])
 

@@ -124,6 +124,10 @@ export default (getModule) => {
 
     }
 
+
+    actions.get_lists = key => (dispatch,getState)=>{
+        return dispatch(actions.async_api('get_lists'))
+    }
     actions.get_list = key => (dispatch,getState)=>{
         return dispatch(actions.async_api('get_list',{key}))
     }

@@ -280,6 +280,15 @@ export default (getModule) => {
         })
     }
 
+
+    actions.fetch_lists_editor = list_key => (dispatch,getState)=> {
+        const backend_actions= getBackend(getState);
+        return dispatch (backend_actions.get_lists())
+        .then(result => {
+            return dispatch(submodules.features.list_editor.actions.fetch({items:result}))
+        })
+    }
+
     return actions;
 
 }
