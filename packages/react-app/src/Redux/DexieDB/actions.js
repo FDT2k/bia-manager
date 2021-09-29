@@ -138,7 +138,6 @@ export default (getModule) => {
     }
 
     actions.update_list = ({ key, name, list }) => (dispatch) => {
-
         return dispatch(actions.async_api('update_list', { key, name, list }))
     }
 
