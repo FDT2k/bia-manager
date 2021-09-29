@@ -39,14 +39,17 @@ button {
 
 input,
 select,
-.editable-field {
+textarea,
+.editable-field
+ {
   box-sizing: border-box;
   @extend %radius;
   padding: 0px 16px;
 }
 
 input,
-select {
+select,
+textarea {
   border: 1px solid var(--primary);
 }
 

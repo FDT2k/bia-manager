@@ -21,7 +21,7 @@ export const Page = props => {
     const [location, setLocation] = useLocation();
 
 
-    
+
 
     let fields = {
         'lastname': { type: 'text', label: 'Nom' },
@@ -83,7 +83,7 @@ export const Page = props => {
         replaceValues(relevantFields)
     }, [relevantFields])
 
-    
+
     return (
         <MainView className="page-create-subject">
             <Grid>
@@ -99,7 +99,7 @@ export const Page = props => {
                             `${repeat(5, "lastname ")} . ${repeat(3, "birthdate ")} . ${repeat(4, "groups_patho ")} . ${repeat(3, "usual_height ")}`,
                             `${repeat(5, "firstname ")} . ${repeat(3, "gender ")} . ${repeat(4, "groups_ethno ")} . ${repeat(3, "usual_weight ")}`,
                             `${repeat(9, "diag ")}  ${repeat(9, ". ")}`,
-                            `${repeat(3, "btcancel ")} .  ${repeat(3, "btsave ")} ${repeat(11, ". ")}`,
+                            `${repeat(3, "btcancel ")}  ${repeat(3, "btsave ")} ${repeat(12, ". ")}`,
                         ]}
 
                         className="create-subject-form"
@@ -131,7 +131,7 @@ export const Page = props => {
                         })}
 
                         <ComponentWithArea tabIndex={30} area="btsave"><Button type="submit">Enregistrer</Button></ComponentWithArea>
-                        <ComponentWithArea tabIndex={99} area="btcancel"><Button onClick={_ => setLocation('/search')}>Annuler</Button></ComponentWithArea>
+                        <ComponentWithArea tabIndex={99} area="btcancel"><Button className="btn--secondary" onClick={_ => setLocation('/search')}>Annuler</Button></ComponentWithArea>
 
                     </Grid>
                 </form>
