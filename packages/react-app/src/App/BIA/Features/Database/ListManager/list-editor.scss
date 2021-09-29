@@ -1,7 +1,7 @@
 @import "@/bia-layout/sass/theme/default/main.scss";
 
 .list-editor {
- 
+
   .item-actions {
     div {
       padding: 5px;
@@ -25,15 +25,5 @@
     }
   }
 
-  .modal-form {
-      input{
-          width:100%;
-      }
-    width: calc((var(--col-width) * 8) + (var(--gut-width) * 5));
-    padding: 20px;
-
-    h2 {
-      margin-bottom: 16px;
-    }
-  }
+  
 }

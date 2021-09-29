@@ -91,13 +91,14 @@ export default Component => props => {
             renderFooter={
                 _ => {
                     return (<LayoutFlex justBetween>
-                        <LayoutFlex justAround>
-                            <Button onClick={cancel}>Annuler</Button>
-                            <Button>Enregistrer</Button>
-                        </LayoutFlex>
+
                         <Button onClick={
                             handleAdd
                         }>Ajouter</Button>
+                        <LayoutFlex justAround>
+                            <Button onClick={cancel}>Retour</Button>
+                            <Button>Enregistrer</Button>
+                        </LayoutFlex>
 
                     </LayoutFlex>)
                 }
@@ -108,7 +109,7 @@ export default Component => props => {
         <Modal visible={edited !== null}>
 
                 <LayoutFlexColumn>
-                    <Field  label={'Valeur'}>
+                    <Field  className="field--one" label={'Valeur'}>
                         <input type="text" {...inputProps('name')} />
                     </Field>
 
@@ -124,7 +125,7 @@ export default Component => props => {
         <Modal visible={deleting !== null}>
 
                 <LayoutFlexColumn>
-                    <p>Etes vous sur de vouloir supprimer cet élément?</p>
+                    <h3>Etes vous sur de vouloir supprimer cet élément?</h3>
                     <LayoutFlex justBetween>
                         <Button onClick={_=>handleDelete()}>oui</Button>
                         <Button onClick={_=>setDeleting(null)}>non</Button>
