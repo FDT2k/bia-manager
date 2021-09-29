@@ -7,7 +7,6 @@ import connect from './connect_page'
 import { LayoutFlex } from '@karsegard/react-core-layout'
 
 export const Component = props => {
-    debugger;
     const {db_name,stats,patients, ...rest } = props;
     const {count,count_mesures} = stats;
     const renderFooter = _ => {
