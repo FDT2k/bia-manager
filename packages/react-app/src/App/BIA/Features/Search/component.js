@@ -57,9 +57,6 @@ export const Component = props => {
     const [selectedIndex, setSelectedIndex] = useState(-1);
     const [searchBarFocused, setSearchBarFocused] = useState(false);
 
-
-
-
     const { results, handleSearch, handleCreate, tags, t, handleSelectRow: _handleSelectRow } = props;
 
     useEffect(() => {
