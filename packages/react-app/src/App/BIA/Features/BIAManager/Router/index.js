@@ -1,21 +1,18 @@
-import { Fullscreen } from '@karsegard/react-core-layout'
-
-import Login from '@/components/Views/Login';
-import useBIAManager from '@/hooks/useBIAManager';
-import React, { useEffect, useState, useCallback } from 'react';
-import { Route, useLocation, Router,useRouter } from "wouter";
-import DebugPrint from '@/bia-layout/Pages/DebugPrint';
-import { is_nil } from '@karsegard/composite-js';
-
-
-
-
-import Editor from '@/App/BIA/Features/Editor';
-import Search from '@/App/BIA/Features/Search';
-import WelcomeScreen from '@/App/BIA/Features/WelcomeScreen';
 import CreatePatient from '@/App/BIA/Features/CreatePatient';
 import Database from '@/App/BIA/Features/Database';
 import DatabaseListManager from '@/App/BIA/Features/Database/ListManager/page';
+import Editor from '@/App/BIA/Features/Editor';
+import Search from '@/App/BIA/Features/Search/page';
+import WelcomeScreen from '@/App/BIA/Features/WelcomeScreen';
+import { is_nil } from '@karsegard/composite-js';
+import { Fullscreen } from '@karsegard/react-core-layout';
+import React, { useCallback, useEffect, useState } from 'react';
+import { Route, Router, useLocation, useRouter } from "wouter";
+
+
+
+
+
 
 
 
