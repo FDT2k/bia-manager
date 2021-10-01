@@ -110,8 +110,10 @@ export default (getModule) => {
     actions.create_database = _=> (dispatch,getState)=> {
         const backend_actions= getBackend(getState);
         return dispatch(backend_actions.clear_database()).then(res=>{
+            debugger;
             return dispatch(actions.async_api('clear_opened_filename'))
         }).then(res=>{
+            debugger;
             return dispatch(actions.save_to_file())
         });
     }
