@@ -6,6 +6,7 @@
   "scripts": {
     "start": "MODE=development node scripts/watch.js",
     "start:debug": "cd packages/remotedev; yarn start",
+    "build:submodules": "",
     "build": "node scripts/build.js",
     "postinstall": "electron-builder install-app-deps",
     "precompile": "cross-env MODE=production npm run build",

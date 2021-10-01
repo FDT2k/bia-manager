@@ -55,7 +55,7 @@ jobs:
         env: 
           CI: true
         
-      - name: build react-cruds
+      - name: build react-crud
           #   if: steps.yarn-react-cache.outputs.cache-hit != 'true'
         run: |
           cd packages/kda-react-crud;
