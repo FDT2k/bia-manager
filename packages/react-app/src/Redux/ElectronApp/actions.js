@@ -110,8 +110,10 @@ export default (getModule) => {
     actions.create_database = _=> (dispatch,getState)=> {
         const backend_actions= getBackend(getState);
         return dispatch(backend_actions.clear_database()).then(res=>{
+            debugger;
             return dispatch(actions.async_api('clear_opened_filename'))
         }).then(res=>{
+            debugger;
             return dispatch(actions.save_to_file())
         });
     }
@@ -243,11 +245,9 @@ export default (getModule) => {
         console.log(collectors)
 
         return dispatch(api.bulk_add({list,collection:'patients'})).then(res=> {
-            
-
-            enlist(collectors).map(item=> {
+            let promises = enlist(collectors).map(item=> {
                 const [key,value] = keyval(item);
-                dispatch(
+                return dispatch(
                         api.update_list({
                             key,
                             name:key,
@@ -260,14 +260,30 @@ export default (getModule) => {
                 );
 
             })
-            
-            
            
+            return Promise.all(promises)
+
+
+        }).then(res => {
+
             dispatch(actions.refresh_backend_stats())
-        })
+            return dispatch(actions.save_to_file());
+        });
     }
 
 
+    actions.save_list = (key) =>  (dispatch,getState) => {
+        const api= getBackend(getState);
+        const list = submodules.features.list_editor.selectors.list(getState());
+        return dispatch(
+            api.update_list({
+                key,
+                name:key,
+                list: list
+                }
+            )
+        )
+    }
 
     
 

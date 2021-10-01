@@ -17,7 +17,9 @@ export default Component => props => {
     const {
         list_key,
         list, add, edit, fetch, del,  //the actions
-        cancel, filter, set_filter, ...rest } = props;
+        filter, set_filter,
+        cancel, save,
+        ...rest } = props;
 
     useEffect(() => {
 
@@ -91,7 +93,10 @@ export default Component => props => {
             renderFooter={
                 _ => {
                     return (<LayoutFlex justBetween>
-
+                        <LayoutFlex justAround>
+                            <Button onClick={cancel}>Annuler</Button>
+                            <Button onClick={save}>Enregistrer</Button>
+                        </LayoutFlex>
                         <Button onClick={
                             handleAdd
                         }>Ajouter</Button>

@@ -57,10 +57,8 @@ export const Component = props => {
     const [selectedIndex, setSelectedIndex] = useState(-1);
     const [searchBarFocused, setSearchBarFocused] = useState(false);
 
+    const { results, handleSearch, handleCreate, tags, t, handleSelectRow: _handleSelectRow } = props;
 
-
-
-    const { results, handleSearch, handleCreate, tags, t, renderFooter, handleSelectRow: _handleSelectRow } = props;
     useEffect(() => {
         if (!searchBarFocused) {
             if (arrowDownPressed) {
@@ -135,7 +133,6 @@ export const Component = props => {
 
 
     return (
-        <MainView renderFooter={renderFooter}>
             <SearchLayout cover contained className="page-search">
                 <SearchArea area="search">
                     <TagInput tabIndex={1} placeholder={t(`Recherche`)} tags={tags} handleFocus={v => setSearchBarFocused(v)} handleChange={_handleSearch} fields={searchableFields} />
@@ -154,7 +151,6 @@ export const Component = props => {
                     columns={columns}
                 />
             </SearchLayout>
-        </MainView>
     )
 
 }

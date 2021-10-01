@@ -211,7 +211,7 @@ const Editor = props => {
                     <EditableTextInput value={values.examinator} name="examinator" onChange={handleChange} />
                 </Field>
                 <Field label={t("BioImpédanceMètre")}>
-                    <EditableSelect {...inputProps('machine')} options={custom_lists.machine.list}/>
+                    <EditableSelect {...inputProps('machine')} options={[{id:'',name:'- Choisissez une valeur -'},...custom_lists.machine.list]}/>
                 </Field>
 
                 <Field label={t("Poids Idéal (%)")}>

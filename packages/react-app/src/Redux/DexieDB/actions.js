@@ -71,7 +71,19 @@ export default (getModule) => {
     }
 
     actions.clear_database = _ => (dispatch, getState) => {
-        return dispatch(actions.async_api('wipe_database'));
+        const lists = [
+            'genders',
+            'physical_activity_rate',
+            'physical_activity_type',
+            'machines',
+            'pathological_groups',
+            'ethnological_groups',
+            'examinators'
+        ]
+        return dispatch(actions.async_api('wipe_database')).then(()=>{
+            const p = lists.map(list =>dispatch (actions.update_list({key:list,name:list,list:[]})));
+            return Promise.all(p);
+        });
     }
 
     actions.open_file = ({ content }) => (dispatch, getState) => {
@@ -138,7 +150,6 @@ export default (getModule) => {
     }
 
     actions.update_list = ({ key, name, list }) => (dispatch) => {
-
         return dispatch(actions.async_api('update_list', { key, name, list }))
     }
 
