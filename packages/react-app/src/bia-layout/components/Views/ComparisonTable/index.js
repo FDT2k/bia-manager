@@ -89,8 +89,8 @@ const FormulaResultRow = (props) => {
 
                     ])
                 }
-                return (<div key={`${col}`} className={classes}><Tooltip left tooltipText={logs[col]}>
-                    <span>{!isNaN(val) ? val : ''}</span></Tooltip></div>)
+                return (<div key={`${col}`} className={classes}>
+                    <span>{!isNaN(val) ? val : ''}</span></div>)
             } else {
                 return (<div key={`${col}`} >{val}</div>)
 
