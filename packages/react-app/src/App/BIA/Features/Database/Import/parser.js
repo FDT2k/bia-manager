@@ -1,9 +1,9 @@
-import { enlist, is_type_string, is_type_object, is_type_function,is_nil, identity } from '@karsegard/composite-js';
+import { enlist, is_type_string, is_type_object, is_type_function, is_nil, identity } from '@karsegard/composite-js';
 import { key, value, keyval } from '@karsegard/composite-js/ObjectUtils';
 import { filterPropPresentIn } from '@karsegard/react-compose'
 import { as_safe_path } from '@karsegard/composite-js'
-
-
+import faker from 'faker'
+import { format, parseISO } from 'date-fns'
 export const remap = (obj, mapping, ref = {}) => (carry, item) => {
     let _key = key(item);
     let _mapped = mapping[_key];
@@ -24,10 +24,10 @@ export const remap = (obj, mapping, ref = {}) => (carry, item) => {
 
 
 export const parse = ({
-    text, line_separator, mapping, separator, identifier
+    text, line_separator, mapping, separator, identifier, anonymous
 }, progress, total_count, callback) => {
 
-    console.log('parsing');
+    console.log('parsing ', anonymous);
     let data = text.split(line_separator);
 
     let fields = data[0].split(separator);
@@ -65,13 +65,13 @@ export const parse = ({
         for (let list of extract_lists) {
             const [collector_key, value] = keyval(list);
             let transform = eval(value.transform)
-            if(!transform){
-                transform = (state,values) => values[collector_key];
+            if (!transform) {
+                transform = (state, values) => values[collector_key];
             }
 
-            const collectible_value = transform('',item);
+            const collectible_value = transform('', item);
 
-            if (!is_nil(collectible_value) && collectible_value !=="") {
+            if (!is_nil(collectible_value) && collectible_value !== "") {
                 carry.collectors = as_safe_path(`${value.name}`, carry.collectors, { [collectible_value]: collectible_value });
             }
         }
@@ -82,6 +82,16 @@ export const parse = ({
 
             const p = enlist(patient).reduce(remap(patient, mapping.patient), {});
 
+            if (anonymous) {
+                try {
+                    p.firstname = faker.name.firstName();
+                    p.lastname = faker.name.lastName();
+                    const year = format(parseISO(p.birthdate), "yyyy")
+                    p.birthdate = format(faker.date.between(`${year}-01-01`, `${year}-12-31`), "yyyy-MM-dd");
+                }catch (err){
+                    debugger;
+                }
+            }
             carry.data[index_key] = p;
             carry.list.push(p);
             carry.countPatient++;

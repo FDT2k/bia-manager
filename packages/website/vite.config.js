@@ -38,27 +38,17 @@ module.exports = {
       '@': resolve(PACKAGE_ROOT, './src') + '/',
     },
   },
-  build:{
-    lib: {
-      entry: resolve(PACKAGE_ROOT, 'src/index.js'),
-      name: 'ReactCrud',
-      formats:['es','umd','cjs'],
-      fileName: (format) => `kda-react-crud.${format}.js`
-    },
-    rollupOptions: {
-      external: require('./externals').default,
-    },
-  }
-/*
+  
+
   build: {
    
     polyfillDynamicImport: false,
     outDir: 'dist',
     assetsDir: './assets',
     rollupOptions: {
-      external: require('./externals').default,
+  //    external: require('./externals').default,
     },
     emptyOutDir: true,
   },
-  */
+  
 };

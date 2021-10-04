@@ -1,0 +1,162 @@
+body, html {
+  font-family: aktiv-grotesk, sans-serif;
+  font-weight: 400;
+  font-style: normal;
+  font-size: 14px;
+  line-height: 1.2em;
+  margin: 0px auto;
+  max-width: 1200px;
+}
+
+.container {
+  margin: 72px 32px;
+}
+
+h1{
+  font-size: 50px;
+  line-height: 1.2em;
+}
+
+h2{
+  font-size: 40px;
+  line-height: 1.2em;
+}
+
+h3{
+  font-size: 30px;
+  line-height: 1.2em;
+}
+
+h4{
+  font-size: 20px;
+  line-height: 1.2em;
+}
+
+p,
+label,
+a{
+  font-size: 14px;
+  line-height: 1.2em;
+}
+
+label{
+  font-weight: 700;
+}
+
+b, strong { font-weight: 700; }
+i, em { font-style: italic; }
+
+a,
+a:visited,
+a:active,
+a:hover {
+  text-decoration: none;
+  color: black;
+  padding-bottom: 1px;
+  border-bottom: solid 1px black;
+}
+
+
+/** TAGS **/
+
+img{
+  width: 48vw;
+  height: auto;
+  max-width: 650px;
+  border-radius: 4px;
+}
+
+/** SECTIONS **/
+
+nav, footer {
+  background-color: black;
+  color: white;
+  padding: 16px 32px;
+  position: fixed;
+  left: 0px;
+  right: 0px;
+}
+
+nav {
+  top: 0px;
+}
+
+footer {
+  bottom: 0px;
+  text-align: center;
+}
+
+footer a,
+footer a:visited,
+footer a:active,
+footer a:hover {
+  color: white;
+  border-bottom: solid 1px white;
+}
+
+article,
+section,
+header {
+  margin: 32px 0px;
+}
+
+/** BUTTONS **/
+a.btn{
+  text-align: center;
+  vertical-align: middle;
+  color: white;
+}
+a.btn:hover{
+  padding: 16px 24px;
+}
+.btn {
+  background-color: inherit;
+  border: inherit;
+  border-radius: 4px;
+  text-transform: uppercase;
+  padding: 16px 24px;
+  font-size: 14px;
+}
+
+.btn--primary,
+.btn--primary:active,
+.btn--secondary:hover  {
+  background-color: black;
+  border: solid 1px white;
+  color: white;
+}
+
+.btn--secondary,
+.btn--secondary:active,
+.btn--primary:hover {
+  background-color: white;
+  border: solid 1px black;
+  color: black;
+
+}
+
+/** CUSTOMS **/
+
+.downloads button,.downloads a {
+  margin-top: 8px;
+}
+
+.steps img {
+  margin-right: 32px;
+}
+
+.icon{
+  height:32px;
+  width:32px;
+}
+
+a{
+  text-decoration: none;
+  border:none;
+  cursor:pointer;
+}
+a:hover{
+  text-decoration: none;
+  border:none;
+
+}

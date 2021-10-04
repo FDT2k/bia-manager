@@ -21,11 +21,7 @@ export default props => {
                   <p>Importer une base csv de la version précédente (java)</p>
                  <DatabaseImport/>
               </Container>
-             
-
-             
             </LayoutFlex>
-
         </MainView>
     )
 

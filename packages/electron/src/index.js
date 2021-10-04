@@ -291,19 +291,17 @@ const createMenu = window => {
             window.webContents.send('location-change', '#/database/listes');
           }
         },
+        {
+          label: 'Recherche',
+          click() {
+            window.webContents.send('location-change', '#/search');
+          }
+        },
       ]
     },
     {
       label: 'Debug',
       submenu: [
-        
-        
-        {
-          label: 'Base',
-          click() {
-            window.webContents.send('location-change', '#/search');
-          }
-        },
         {
           label: 'DevTools',
           click() {

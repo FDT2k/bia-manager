@@ -9,7 +9,6 @@ export default Component => props => {
 
     const [edited, setEdited] = useState(null)
     const [deleting, setDeleting] = useState(null)
-    const ref = useRef();
 
     const { values, inputProps, replaceValues } = useFieldValues({ name: '' })
 
@@ -33,15 +32,18 @@ export default Component => props => {
 
 
     const handleSave = (item)=>{
-        edit({ name: values.name, id: values.name, _id: edited._id })
-        setEdited(null);
+        edit({ name: values.name, id: values.name, _id: edited._id });
+        save();
         replaceValues({
             name: ''
         })
+        setEdited(null);
+      
     }
 
     const handleDelete = (item)=>{
         del({ id: deleting._id });
+        save();
         setDeleting(null)
     }
 
@@ -58,9 +60,7 @@ export default Component => props => {
             }*/
             setDeleting(item);
         }
-
         console.log(action)
-
     }
 
 
@@ -93,16 +93,12 @@ export default Component => props => {
             renderFooter={
                 _ => {
                     return (<LayoutFlex justBetween>
-                        <LayoutFlex justAround>
-                            <Button onClick={cancel}>Annuler</Button>
-                            <Button onClick={save}>Enregistrer</Button>
-                        </LayoutFlex>
+                       
                         <Button onClick={
                             handleAdd
                         }>Ajouter</Button>
                         <LayoutFlex justAround>
                             <Button onClick={cancel}>Retour</Button>
-                            <Button>Enregistrer</Button>
                         </LayoutFlex>
 
                     </LayoutFlex>)
@@ -111,7 +107,7 @@ export default Component => props => {
             {...rest}
         />
 
-        <Modal visible={edited !== null}>
+        <Modal  visible={edited !== null} overlayOnClick={_=>setEdited(null)}>
 
                 <LayoutFlexColumn>
                     <Field  className="field--one" label={'Valeur'}>

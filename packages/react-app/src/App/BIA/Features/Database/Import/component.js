@@ -2,7 +2,7 @@ import { identity } from '@karsegard/composite-js';
 import { useFieldValues,useWorker,useWrappedWorker } from '@karsegard/react-hooks';
 import Button from '@/bia-layout/components/Form/Button';
 import InputGroup from '@/bia-layout/components/Form/InputGroup';
-import {LayoutFlex} from '@karsegard/react-core-layout'
+import {LayoutFlex, LayoutFlexColumn} from '@karsegard/react-core-layout'
 
 import React, { useEffect, useRef, useState } from 'react';
 import 'react-circular-progressbar/dist/styles.css';
@@ -18,7 +18,7 @@ export default props => {
 
     const [location, setLocation] = useLocation();
     const [imported_data, setImportedData] = useState();
-
+    const [anonymous,setAnon] = useState(false);
     const [parsing, setParsing] = useState();
     const [percentage, setPercentage] = useState(0);
     const [importing,setImporting] = useState(false);
@@ -138,7 +138,7 @@ export default props => {
         setImporting(false);
         setParsing(true);
         fileRef.current.files[0].text().then(text=> {
-                const payload= {text,line_separator,separator,mapping: mappings.BIAManager,identifier};
+                const payload= {text,line_separator,separator,mapping: mappings.BIAManager,identifier,anonymous};
                 //parse_previous_database (payload,workerCallback,identity,workerCallback);
                 parse(payload);
             
@@ -166,12 +166,18 @@ export default props => {
 
     return (
         <LayoutFlex column>
-            {!dataRef.current && !parsing && <LayoutFlex>
+            {!dataRef.current && !parsing && <LayoutFlexColumn>
+                <InputGroup>
+                <label>anoymiser les données</label>
+                <input type="checkbox" value={anonymous} onChange={e=> setAnon(e.target.checked)}/> 
+                </InputGroup>
                 <InputGroup>
                 <label>Choisir un fichier</label>
                 <input ref={fileRef} type="file" onChange={onFileChange} disabled={parsing} />
                 </InputGroup>
-            </LayoutFlex>}
+              
+
+            </LayoutFlexColumn>}
             <LayoutFlex>
 
                 {!dataRef.current && parsing && <LayoutFlex alignCenter>
