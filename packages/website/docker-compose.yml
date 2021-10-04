@@ -1,0 +1,31 @@
+version: '3.9'
+
+volumes:
+  nginx-certs:
+  nginx-vhosts:
+  nginx-letsencrypt-challenge:
+
+
+services:
+
+  frontend:
+
+    image: registry.gitlab.com/karsegard/agency-website/bim-front
+    networks:
+      - web
+    environment:
+      VIRTUAL_HOST: bim.karsegard.ch
+      VIRTUAL_PORT: 80
+      LETSENCRYPT_HOST: bim.karsegard.ch
+      LETSENCRYPT_EMAIL: fabien@karsegard.ch
+    deploy:
+      placement:
+          constraints:
+           - node.role == manager
+
+  
+networks:
+  web:
+    external:
+      name: proxy
+

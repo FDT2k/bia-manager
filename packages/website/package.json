@@ -1,0 +1,43 @@
+{
+  "name": "@karsegard/bia-website",
+  "version": "1.7.0",
+  "description": "React Redux Toolkit",
+  "author": "FDT2k",
+  "license": "MIT",
+  "main": "dist/kda-react-redux.cjs.js",
+  "module": "dist/kda-react-redux.es.js",
+  "browser": "dist/kda-react-redux.umd.js",
+  "scripts": {
+    "test": "cross-env CI=1 react-scripts test --env=jsdom",
+    "test:watch": "react-scripts test --env=jsdom",
+    "build": "MODE=production vite build",
+    "dev": "vite",
+    "start": "vite",
+    "gitlab:test": "yarn run test",
+    "gitlab:build": "yarn run build",
+    "gitlab:publish": "npm publish --access=public;",
+    "postversion": "git push --follow-tags"
+  },
+  "peerDependencies": {
+    "@karsegard/react-redux": "*",
+    "react": "^17.0.2",
+    "react-dom": "^17.0.2"
+  },
+  "devDependencies": {
+    "@karsegard/react-core-layout": "^1.5.1",
+    "vite": "^2.5.3"
+  },
+  "dependencies": {
+    "@karsegard/composite-js": "^2.10.0",
+    "@reduxjs/toolkit": "^1.6.1",
+    "bluebird": "^3.7.2",
+    "react-redux": "^7.2.5",
+    "redux": "^4.1.1",
+    "redux-logger": "^3.0.6",
+    "redux-persist": "^6.0.0",
+    "redux-thunk": "^2.3.0",
+    "remote-redux-devtools": "^0.5.16",
+    "reselect": "^4.0.0",
+    "wouter": "^2.8.0-alpha.1"
+  }
+}
