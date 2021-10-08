@@ -27,7 +27,7 @@ export const makeProvider = (Context,bindEvent) => props => {
         onOpenRequest: fn => bindEvent(api, 'handleOpenRequest', fn),
         onSaveRequest: fn => bindEvent(api, 'handleSaveRequest', fn),
         onCloseRequest: fn => bindEvent(api, 'handleCloseRequest', fn),
-        
+        onLanguageChange: fn => bindEvent(api, 'handleLanguageChange', fn),
         onLocationChange: fn => bindEvent(api, 'handleLocationChange', fn),
     }), []);
 

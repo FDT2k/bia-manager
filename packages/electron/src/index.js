@@ -1,163 +1,18 @@
-/*
-const path = require('path')
-const glob = require('glob')
-const { app,ipcMain, BrowserWindow, protocol, Menu } = require('electron')
-const { dialog } = require('electron')
-const isDev = require('electron-is-dev');
-const debug = /--debug/.test(process.argv[2])
 
-
-
-if (process.mas) app.setName('Electron APIs')
-
-let mainWindow = null
-
-function initialize() {
-  makeSingleInstance()
-
-  
-
-  function createWindow() {
-    const windowOptions = {
-      width: 1280,
-      minWidth: 1000,
-      height: 840,
-      title: app.name,
-      webPreferences: {
-        preload: path.join(__dirname, '../../preloader/dist/index.cjs'),
-        nodeIntegration: true,
-        nodeIntegrationInWorker: true,
-      }
-    }
-
-    if (process.platform === 'linux') {
-      //    windowOptions.icon = path.join(__dirname, '/assets/app-icon/png/512.png')
-    }
-
-    mainWindow = new BrowserWindow(windowOptions)
-
-    mainWindow.loadURL(
-      isDev
-        ? 'http://localhost:3333'
-        : `file://${path.join(__dirname, '../index.html')}`
-    );
-
-    // Launch fullscreen with DevTools open, usage: npm run debug
-    mainWindow.webContents.openDevTools()
-    if (debug) {
-    
-      mainWindow.maximize()
-      require('devtron').install()
-    }
-
-    mainWindow.on('closed', () => {
-      mainWindow = null
-    })
-
-    var menu = Menu.buildFromTemplate([
-      {
-        label: 'Menu',
-        submenu: [
-          {
-            label: 'Ouvrir',
-            click() {
-              dialog.showOpenDialog({ properties: ['openFile', 'multiSelections'] }).then(res=>{
-                console.log(res);
-              })
-            }
-          },
-          { 
-            label: 'Enregistrer',
-            click(){
-              mainWindow.webContents.send('trigger-save');
-            }
-          },
-          {
-            label: 'Exit',
-            click() {
-              app.quit()
-            }
-          }
-        ]
-      }
-    ])
-    Menu.setApplicationMenu(menu);
-  
-  }
-
-  app.on('ready', () => {
-    createWindow()
-  })
-
-  app.on('window-all-closed', () => {
-    if (process.platform !== 'darwin') {
-      app.quit()
-    }
-  })
-
-  app.on('activate', () => {
-    if (mainWindow === null) {
-      createWindow()
-    }
-  })
-
-
-  app.whenReady().then(() => {
-    protocol.interceptFileProtocol('file', (request, callback) => {
-      console.log(request.url);
-      if (request.url.indexOf('file:///workers') !== -1) {
-        let filename = request.url.substr(8);
-
-        let newPath = path.resolve(__dirname, '..', filename);
-        console.log('worker', __dirname, filename, newPath)
-        debugger;
-        return callback({ path: path.resolve(__dirname, request.url.substr(8)) });
-      }
-      return callback(request);
-    });
-
-  })
-}
-
-// Make this app a single instance app.
-//
-// The main window will be restored and focused instead of a second window
-// opened when a person attempts to launch a second instance.
-//
-// Returns true if the current version of the app should quit instead of
-// launching.
-function makeSingleInstance() {
-  if (process.mas) return
-
-  app.requestSingleInstanceLock()
-
-  app.on('second-instance', () => {
-    if (mainWindow) {
-      if (mainWindow.isMinimized()) mainWindow.restore()
-      mainWindow.focus()
-    }
-  })
-}
-
-ipcMain.handle('file-save',  (event, filename,data) => {
-  console.lop('write file')
-})
-initialize()
-*/
 import { app, ipcMain, BrowserWindow, Menu, dialog } from 'electron';
 import { join, resolve } from 'path';
 import { URL } from 'url';
 import fs from 'fs/promises';
 import { is_nil, deep_merge } from '@karsegard/composite-js';
+import { Mutex } from 'async-mutex';
 
-//import createAPI from './BIADatabase';
+import menuFactoryService from './menu';
 
-//const Database = require('better-sqlite3');
+import i18n, { i18nextOptions } from './i18next.config';
+import config from './app.config';
 
 
-/*console.log(resolve('./test.sqlite'));
-const API = createAPI(Database,resolve('./test.sqlite'))
-*/
+const mutex = new Mutex();
 let openedFilePath;
 
 const isSingleInstance = app.requestSingleInstanceLock();
@@ -199,7 +54,12 @@ if (import.meta.env.MODE === 'development') {
 
 let mainWindow = null;
 
+
+
 const createWindow = async () => {
+
+
+
   mainWindow = new BrowserWindow({
     width: 1280,
     minWidth: 1000,
@@ -225,6 +85,22 @@ const createWindow = async () => {
     }
   });
 
+  menuFactoryService.buildMenu(app, mainWindow, i18n);
+  i18n.on('loaded', (loaded) => {
+    i18n.changeLanguage('fr');
+    i18n.off('loaded');
+  });
+
+  i18n.on('languageChanged', (lng) => {
+    menuFactoryService.buildMenu(app, mainWindow, i18n);
+    mainWindow.webContents.send('language-change', {
+      language: lng,
+      namespace: config.namespace,
+      resource: i18n.getResourceBundle(lng, config.namespace)
+    });
+    console.log(lng)
+  });
+
   return mainWindow
 };
 
@@ -244,75 +120,75 @@ const loadContent = mainWindow => {
 }
 
 const createMenu = window => {
-  var menu = Menu.buildFromTemplate([
-
-    {
-      label: 'Menu',
-      submenu: [
-        {
-          label: 'Ouvrir',
-          click() {
-            window.webContents.send('trigger-open');
-          }
-        },
-        {
-          label: 'Enregistrer',
-          click() {
-            window.webContents.send('trigger-save');
-          },
-          //enabled: !is_nil(openedFilePath)&& openedFilePath!="" 
-        },
-        {
-          label: 'Fermer',
-          click() {
-            window.webContents.send('trigger-close');
-          },
-        },
-        {
-          label: 'Exit',
-          click() {
-            app.quit()
-          }
-        }
-      ]
-    }, 
-    {
-      label: 'Outils',
-      submenu: [
-        {
-          label: 'Importer',
-          click() {
-            window.webContents.send('location-change', '#/database');
-          }
-        },
-        {
-          label: 'Gestion des listes',
-          click() {
-            window.webContents.send('location-change', '#/database/listes');
-          }
-        },
-        {
-          label: 'Recherche',
-          click() {
-            window.webContents.send('location-change', '#/search');
-          }
-         
-        },
-      ]
-    },
-    {
-      label: 'Debug',
-      submenu: [
-        {
-          label: 'DevTools',
-          click() {
-            window.webContents.openDevTools()
-          }
-        }
-      ]
-    }
-  ])
-  Menu.setApplicationMenu(menu);
+  /* var menu = Menu.buildFromTemplate([
+ 
+     {
+       label: 'Menu',
+       submenu: [
+         {
+           label: 'Ouvrir',
+           click() {
+             window.webContents.send('trigger-open');
+           }
+         },
+         {
+           label: 'Enregistrer',
+           click() {
+             window.webContents.send('trigger-save');
+           },
+           //enabled: !is_nil(openedFilePath)&& openedFilePath!="" 
+         },
+         {
+           label: 'Fermer',
+           click() {
+             window.webContents.send('trigger-close');
+           },
+         },
+         {
+           label: 'Exit',
+           click() {
+             app.quit()
+           }
+         }
+       ]
+     },
+     {
+       label: 'Outils',
+       submenu: [
+         {
+           label: 'Importer',
+           click() {
+             window.webContents.send('location-change', '#/database');
+           }
+         },
+         {
+           label: 'Gestion des listes',
+           click() {
+             window.webContents.send('location-change', '#/database/listes');
+           }
+         },
+         {
+           label: 'Recherche',
+           click() {
+             window.webContents.send('location-change', '#/search');
+           }
+ 
+         },
+       ]
+     },
+     {
+       label: 'Debug',
+       submenu: [
+         {
+           label: 'DevTools',
+           click() {
+             window.webContents.openDevTools()
+           }
+         }
+       ]
+     }
+   ])
+   Menu.setApplicationMenu(menu);*/
 }
 
 const setupAutoUpdate = _ => {
@@ -396,6 +272,42 @@ ipcMain.handle('save-settings', async (event, content) => {
 });
 
 if (import.meta.env.MODE === 'development') {
+ipcMain.handle('missing-translations', (event, lngs, ns, key, fallbackValue, updateMissing, options) => {
+  mutex
+    .acquire()
+    .then(function (release) {
+
+      let p = i18nextOptions.backend.addPath.replace('{{ns}}', ns).replace('{{lng}}', lngs[0]);
+      return fs.readFile(p).then(res => {
+        return JSON.parse(res);
+      }).then(trans => {
+        return deep_merge(trans, { [key]: key });
+      }).then(res => {
+        
+        return fs.writeFile(p, JSON.stringify(res, null, 3)).then(res => typeof result === 'undefined');
+      }).then(res=> release());
+     
+    }).catch(res=> console.error(res));
+
+
+})
+}
+ipcMain.handle('get-translations', (event, arg) => {
+  return new Promise((resolve, reject) => {
+
+    i18n.loadLanguages('en', (err, t) => {
+      const initial = {
+        'fr': {
+          'translation': i18n.getResourceBundle('fr', config.namespace)
+        }
+      };
+      resolve(initial);
+    });
+  })
+
+});
+
+if (import.meta.env.MODE === 'development') {
 
   ipcMain.handle('collect-translation', async (event, content) => {
     console.log('translation collecting', content)
@@ -451,10 +363,10 @@ app.on('window-all-closed', () => {
 
 
 app.on('window-all-closed', () => {
- // if (process.platform !== 'darwin') {
- //   console.log('quit app')
- // }
- app.quit();
+  // if (process.platform !== 'darwin') {
+  //   console.log('quit app')
+  // }
+  app.quit();
 });
 
 app.whenReady()

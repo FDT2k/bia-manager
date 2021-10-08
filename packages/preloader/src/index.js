@@ -28,11 +28,15 @@ let electronAPI = {
   ...clientEvent('importRequest','trigger-import'),
   ...clientEvent('closeRequest','trigger-close'),
   ...clientEvent('locationChange','location-change'),
+  ...clientEvent('languageChange','language-change'),
   save:invokeOnMainProcess('file-save'),
   open:invokeOnMainProcess('file-open'),
   get_settings:invokeOnMainProcess('read-settings'),
   current_filename:invokeOnMainProcess('current-filename'),
   clear_opened_filename:invokeOnMainProcess('clear-filename'),
+  get_translations:invokeOnMainProcess('get-translations'),
+  missing_translations:invokeOnMainProcess('missing-translations'),
+
 };
 
 if (import.meta.env.MODE === 'development') {

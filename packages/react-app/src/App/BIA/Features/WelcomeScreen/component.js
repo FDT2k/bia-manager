@@ -11,17 +11,17 @@ export const Page = props => {
     return (<MainView className="page-create-subject">
         <LayoutFlex cover centered>
             <Container className="login-container">
-                <LayoutFlex column justCenter {...rest}>
+                <LayoutFlex column justCenter >
                     <h2>{t(`Bienvenue sur BIA`)}</h2>
                     <InputGroup>
-                        <Button onClick={handleOpenDatabase}>Ouvrir une base de données</Button>
+                        <Button onClick={handleOpenDatabase}>{t('Ouvrir une base de données')}</Button>
                     </InputGroup>
                     <InputGroup>
-                        <Button onClick={handleCreateDatabase}>Créer une base de données</Button>
+                        <Button onClick={handleCreateDatabase}>{t('Créer une base de données')}</Button>
                     </InputGroup>
 
                     <InputGroup>
-                        <Button onClick={handleConnect}>Connexion a un serveur</Button>
+                        <Button onClick={handleConnect}>{t('Connexion a un serveur')}</Button>
                     </InputGroup>
                 </LayoutFlex>
             </Container>
