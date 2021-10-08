@@ -296,6 +296,7 @@ const createMenu = window => {
           click() {
             window.webContents.send('location-change', '#/search');
           }
+         
         },
       ]
     },

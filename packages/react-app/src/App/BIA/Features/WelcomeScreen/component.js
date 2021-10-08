@@ -7,7 +7,7 @@ import React from 'react';
 
 export const Page = props => {
 
-    const { t,handleOpenDatabase,handleCreateDatabase, ...rest } = props;
+    const { t,handleOpenDatabase,handleCreateDatabase,handleConnect, ...rest } = props;
     return (<MainView className="page-create-subject">
         <LayoutFlex cover centered>
             <Container className="login-container">
@@ -19,6 +19,10 @@ export const Page = props => {
                     <InputGroup>
                         <Button onClick={handleCreateDatabase}>Créer une base de données</Button>
                     </InputGroup>
+
+                    <InputGroup>
+                        <Button onClick={handleConnect}>Connexion a un serveur</Button>
+                    </InputGroup>
                 </LayoutFlex>
             </Container>
         </LayoutFlex>
@@ -28,7 +32,6 @@ export const Page = props => {
 
 
 Page.defaultProps = {
-
     t: identity,
     patient: {},
     handleCreateDatabase:_=> alert('Pas encore implémenté'),
