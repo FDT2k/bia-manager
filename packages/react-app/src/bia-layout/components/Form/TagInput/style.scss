@@ -31,7 +31,7 @@
       cursor:pointer;
       min-height:30px;
       background-color: white;
-    &--selected, &:hover{
+    &--selected{
        background-color:pink;
     }
   }

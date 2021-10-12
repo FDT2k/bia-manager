@@ -7,6 +7,16 @@
 
 .search-grid-layout{
     @extend %base_font;
+
+    .autocomplete{
+        border: 2px solid var(--primary)
+    }
+    .autocomplete__item {
+        &--selected {
+            @extend %colors-negative;
+        }
+
+    }
     .pagination{
         
         padding-bottom:8px;

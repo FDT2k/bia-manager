@@ -165,11 +165,11 @@ const Editor = props => {
                                 <ToggleSwitch tabIndex={4}  labelYes="Gauche" labelNo="Droit" name="left_side" onChange={handleChange} id="left_side" checked={values.left_side} />
                             </Field>
 
-                            <Field className="poids-actuel" label={t("Poids Actuel")} >
+                            <Field className="poids-actuel" label={t("Poids Actuel (kg)")} >
                                 <input type="text" tabIndex={5}  {...inputProps('weight')} />
                             </Field>
 
-                            <Field className="taille" label={t("Taille cm")}  >
+                            <Field className="taille" label={t("Taille (cm)")}  >
                                 <input type="text"  tabIndex={6}  {...inputProps('height')} />
                             </Field>
 

@@ -272,25 +272,25 @@ ipcMain.handle('save-settings', async (event, content) => {
 });
 
 if (import.meta.env.MODE === 'development') {
-ipcMain.handle('missing-translations', (event, lngs, ns, key, fallbackValue, updateMissing, options) => {
-  mutex
-    .acquire()
-    .then(function (release) {
+  ipcMain.handle('missing-translations', (event, lngs, ns, key, fallbackValue, updateMissing, options) => {
+    mutex
+      .acquire()
+      .then(function (release) {
 
-      let p = i18nextOptions.backend.addPath.replace('{{ns}}', ns).replace('{{lng}}', lngs[0]);
-      return fs.readFile(p).then(res => {
-        return JSON.parse(res);
-      }).then(trans => {
-        return deep_merge(trans, { [key]: key });
-      }).then(res => {
-        
-        return fs.writeFile(p, JSON.stringify(res, null, 3)).then(res => typeof result === 'undefined');
-      }).then(res=> release());
-     
-    }).catch(res=> console.error(res));
+        let p = i18nextOptions.backend.addPath.replace('{{ns}}', ns).replace('{{lng}}', lngs[0]);
+        return fs.readFile(p).then(res => {
+          return JSON.parse(res);
+        }).then(trans => {
+          return deep_merge(trans, { [key]: key });
+        }).then(res => {
+
+          return fs.writeFile(p, JSON.stringify(res, null, 3)).then(res => typeof result === 'undefined');
+        }).then(res => release());
+
+      }).catch(res => console.error(res));
 
 
-})
+  })
 }
 ipcMain.handle('get-translations', (event, arg) => {
   return new Promise((resolve, reject) => {

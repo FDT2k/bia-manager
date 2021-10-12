@@ -123,8 +123,11 @@ export const Component = props => {
     )
 
     const searchableFields = [
-        'nom',
-        'prenom'
+        {key:'lastname',label:t('Nom')},
+        {key:'firstname',label:t('Prénom')},
+        {key:'birthdate',label:t('Date de Naissance')},
+        {key:'groups.patho',label:t('Groupe Pathologique')},
+        {key:'gender',label:t('Sexe')},
     ]
 
     const handleSelectRow = (index, row) => {
