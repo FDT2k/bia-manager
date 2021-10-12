@@ -3,7 +3,7 @@
   "main": "packages/electron/dist/index.cjs",
   "version": "0.0.35",
   "author": "Karsegard Digital Agency",
-  "repository":"https://github.com/FDT2k/bia-manager",
+  "repository": "https://github.com/FDT2k/bia-manager",
   "scripts": {
     "start": "MODE=development node scripts/watch.js",
     "start:debug": "cd packages/remotedev; yarn start",
