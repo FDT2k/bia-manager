@@ -10,6 +10,7 @@ import menuFactoryService from './menu';
 
 import i18n, { i18nextOptions } from './i18next.config';
 import config from './app.config';
+import updater from "./updater"
 
 
 const mutex = new Mutex();
@@ -231,6 +232,9 @@ ipcMain.handle('file-save', async (event, content, filename = '') => {
   return false;
 });
 
+ipcMain.handle('update', ()=>{
+  updater.autoUpdater.downloadUpdate();
+})
 
 ipcMain.handle('file-open', async (event, filename) => {
 

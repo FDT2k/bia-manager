@@ -11,27 +11,31 @@
  import { autoUpdater }  from 'electron-updater'
  
  let updater
+ let _window 
  autoUpdater.autoDownload = false
  
  autoUpdater.on('error', (error) => {
    dialog.showErrorBox('Error: ', error == null ? "unknown" : (error.stack || error).toString())
  })
  
- autoUpdater.on('update-available', () => {
-   dialog.showMessageBox({
+ autoUpdater.on('update-available', (info) => {
+    _window.send('update-available',info)
+  /* dialog.showMessageBox({
      type: 'info',
      title: 'Found Updates',
      message: 'Found updates, do you want update now?',
      buttons: ['Sure', 'No']
-   }).then((buttonIndex) => {
-     if (buttonIndex === 0) {
+   }).then((result) => {
+    console.log(result)
+
+     if (result.response === 0) {
        autoUpdater.downloadUpdate()
      }
      else {
        updater.enabled = true
        updater = null
      }
-   })
+   })*/
  })
  
  autoUpdater.on('update-not-available', () => {
@@ -53,10 +57,11 @@
  })
  
  // export this to MenuItem click callback
- function checkForUpdates (menuItem, focusedWindow, event) {
+ function checkForUpdates (menuItem, window, event) {
+     _window = window;
    updater = menuItem
    updater.enabled = false
    autoUpdater.checkForUpdates()
  }
-export default  checkForUpdates
+export default  {menu: checkForUpdates, autoUpdater}
  

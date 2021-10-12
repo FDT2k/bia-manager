@@ -94,22 +94,7 @@ export default (app, window, i18n) => {
         },
       ]
     },
-    {
-      label: i18n.t('Help'),
-      submenu: [
-        {
-          label: i18n.t('check for updates'),
-          click: updater
-        },
-        {
-          label: i18n.t('About App'),
-          click: function (item, focusedWindow) {
-            if (focusedWindow) {
-            }
-          }
-        }
-      ]
-    }
+   
   ];
   const languageMenu = config.languages.map((languageCode) => {
     return {
@@ -126,5 +111,21 @@ export default (app, window, i18n) => {
     label: i18n.t('Language'),
     submenu: languageMenu
   });
+  menu.push( {
+    label: i18n.t('Help'),
+    submenu: [
+      {
+        label: i18n.t('check for updates'),
+        click: updater.menu
+      },
+      {
+        label: i18n.t('About App'),
+        click: function (item, focusedWindow) {
+          if (focusedWindow) {
+          }
+        }
+      }
+    ]
+  })
   return menu;
 };

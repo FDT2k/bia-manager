@@ -1,23 +1,28 @@
-import React, { useState, useEffect,useRef, useMemo } from 'react';
+import React, { useState, useEffect, useRef, useMemo } from 'react';
 import BIAManager from '@/App/BIA/Features/BIAManager';
 import { I18nextProvider } from 'react-i18next';
-import i18n,{setHandler} from '@/i18next.electron';
+import i18n, { setHandler } from '@/i18next.electron';
 
 import { useElectron } from '@/Providers/ElectronProvider';
 import { ConnectApp } from '@/Providers/Stores/ElectronApp';
 
-
+import Modal from '@/App/Components/Modal';
+import {LayoutFlexColumn,LayoutFlex} from '@karsegard/react-core-layout';
+import Button from '@/bia-layout/components/Form/Button';
 
 //const api = makeAPI('electron')
 
 
 export const Component = props => {
 
- 
-    const { onOpenRequest, onSaveRequest, onLanguageChange, onLocationChange, onCloseRequest, get_translations,missing_translations,ready } = useElectron();
-    const { open_file, save_to_file, start_loading, stop_loading, current_file, close, init_app } = props;
 
+    const { onOpenRequest, onSaveRequest, onLanguageChange, onLocationChange, onCloseRequest, get_translations, missing_translations,download_update, ready, onUpdateAvailable } = useElectron();
+    const { open_file, save_to_file, start_loading, stop_loading, current_file, close, init_app } = props;
     const [initialI18nStore, setInitialTranslation] = useState({});
+
+    const [update, setUpdate] = useState(false);
+    const [updateMessage, setUpdateMessage] = useState({});
+
 
     const handleFileOpen = _ => {
         start_loading("Waiting on user confirmation");
@@ -54,6 +59,8 @@ export const Component = props => {
         })
     }
 
+
+
     useEffect(() => {
         setHandler(missing_translations)
         init_app();
@@ -70,6 +77,11 @@ export const Component = props => {
             ready();
         })
 
+        onUpdateAvailable((sender, message) => {
+            setUpdate(true);
+            setUpdateMessage(message)
+        })
+
         onLanguageChange((sender, message) => {
             console.log('language changed')
 
@@ -78,13 +90,13 @@ export const Component = props => {
             }
             i18n.changeLanguage(message.language);
         })
-       
-      
+
+
 
 
     }, []);
 
-    
+
 
 
     //silent save
@@ -95,8 +107,18 @@ export const Component = props => {
 
     return (
         <>
-             <I18nextProvider i18n={i18n} initialI18nStore={initialI18nStore} initialLanguage="fr">
+            <I18nextProvider i18n={i18n} initialI18nStore={initialI18nStore} initialLanguage="fr">
                 <BIAManager dbname="default" handleSave={handleSave} />
+                <Modal visible={update}>
+                    <LayoutFlexColumn justCenter alignCenter>
+                        <h2>Mise à jour disponible</h2>
+                        <div dangerouslySetInnerHTML={{ __html: updateMessage.releaseNotes }}></div>
+                        <LayoutFlex style={{ width: '100%' }} justBetween>
+                            <Button onClick={_ => download_update()}>Installer</Button>
+                            <Button onClick={_ => setUpdate(false)}>Fermer</Button>
+                        </LayoutFlex>
+                    </LayoutFlexColumn>
+                </Modal>
             </I18nextProvider>
         </>
     );
