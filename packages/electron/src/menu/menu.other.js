@@ -127,5 +127,22 @@ export default (app, window, i18n) => {
       }
     ]
   })
+
+  if(import.meta.env.MODE === 'development'){
+    menu.push({
+      label: i18n.t('DEV'),
+    submenu: [
+      {
+        label: i18n.t('simulate check for updates'),
+        click: _=> window.webContents.send('update-available',{releaseNotes:"Testing autoupdate",version:"0.0.44"})
+      },
+      {
+        label: i18n.t('Download progress'),
+        click: _=> window.webContents.send('download-progress',{percent:8})
+      },
+    ]
+    })
+  }
+
   return menu;
 };
