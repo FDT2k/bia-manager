@@ -1,7 +1,7 @@
 import { safe_path } from '@karsegard/composite-js';
 import FFMIChart from '@/bia-layout/components/Charts/FFMI';
 import MassChart from '@/bia-layout/components/Charts/Mass';
-import RecapGrid from '@/bia-layout/components/Views/RecapGrid';
+import RecapGrid from '@/App/BIA/Features/Editor/Mesure/RecapGrid';
 import { ComponentWithArea } from '@/bia-layout/hoc/grid/Area';
 import {LayoutFlex,LayoutFlexColumn} from '@karsegard/react-core-layout'
 

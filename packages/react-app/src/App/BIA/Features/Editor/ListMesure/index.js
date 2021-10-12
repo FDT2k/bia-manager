@@ -3,6 +3,7 @@ import { applyModifiers, compose, makeBEM, withBEM, withBEMElement, withBEMModif
 import {LayoutFlex,LayoutFlexColumn} from '@karsegard/react-core-layout'
 import React from 'react';
 import { withTranslation } from 'react-i18next';
+import { dateSysToHuman, oneDecimal } from '@/references/format';
 
 import './style.scss';
 
@@ -29,15 +30,16 @@ export const Component = props => {
         <LayoutFlexColumn  className={className}>
             <HeaderListItem BEM={BEM}><b>{title}</b></HeaderListItem>
             {data && data.map((item, idx) => {
+                
                 return <ItemListItem
                     BEM={BEM}
                     key={idx}
                     selected={selectedIndex == idx}
                     onClick={_ => handleItemListClick(item, idx)}>
-                    {item[itemLabelKey]} {renderActions && renderActions(data, item, idx)}
+                    {dateSysToHuman(item[itemLabelKey])} {renderActions && renderActions(data, item, idx)}
                 </ItemListItem>
             })}
-            {(!data || data.length ===0) && <i>aucune mesure</i>}
+            {(!data || data.length ===0) && <i>{t('aucune mesure')}</i>}
             <ItemListItem  BEM={BEM}  selected={selectedIndex >= data.length} onClick={handleCreateClick}>{t('Créer')}</ItemListItem>
         </LayoutFlexColumn>
     )

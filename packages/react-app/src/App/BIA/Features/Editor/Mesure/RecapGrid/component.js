@@ -2,18 +2,17 @@ import React from 'react';
 import { Grid } from '@karsegard/react-core-layout'
 
 import { dateSysToHuman, oneDecimal } from '@/references/format';
-import './recap-grid.scss';
+
 export const Component = props => {
     const { t, data, headers } = props;
-
     return (<Grid
         className="recap-grid"
         templateColumns="2fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr"
         autoRows="20px"
     >
 
-        <div>Dates</div>
-        <div>Norme</div>
+        <div>{t('Dates')}</div>
+        <div>{t('Norme')}</div>
         {
             headers && headers.map((item, idx) => {
                 return <div key={idx}>{item.trim()!='' ? dateSysToHuman(new Date(item)) : item}</div>

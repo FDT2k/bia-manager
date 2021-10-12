@@ -13,10 +13,11 @@ import ToggleSwitch from '@/bia-layout/components/Form/ToggleSwitch';
 import Printable from '@/bia-layout/components/Printable';
 import PrintableReport from '@/App/BIA/Features/Editor/Mesure/PrintableReport';
 import Tabs, { Tab, TabList, TabPanel } from '@/bia-layout/components/Tabs';
-import ComparisonTable from '@/bia-layout/components/Views/ComparisonTable';
 import ElectricalDataForm from '@/bia-layout/components/Views/ElectricalDataForm';
 
-import RecapGrid from '@/bia-layout/components/Views/RecapGrid';
+
+import ComparisonTable from '@/App/BIA/Features/Editor/Mesure/ComparisonTable';
+import RecapGrid from '@/App/BIA/Features/Editor/Mesure/RecapGrid';
 
 import {Container,LayoutFlex,LayoutFlexColumn,withGridArea} from '@karsegard/react-core-layout'
 
