@@ -1,5 +1,5 @@
-
 import { app, ipcMain, BrowserWindow, Menu, dialog } from 'electron';
+
 import { join, resolve } from 'path';
 import { URL } from 'url';
 import fs from 'fs/promises';

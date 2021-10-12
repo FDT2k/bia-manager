@@ -1,4 +1,5 @@
 import config from '../app.config';
+import updater from "../updater"
 
 export default (app, window, i18n) => {
   const {t} = i18n;
@@ -96,6 +97,10 @@ export default (app, window, i18n) => {
     {
       label: i18n.t('Help'),
       submenu: [
+        {
+          label: i18n.t('check for updates'),
+          click: updater
+        },
         {
           label: i18n.t('About App'),
           click: function (item, focusedWindow) {

@@ -1,7 +1,7 @@
 import config from '../app.config';
 
 
-export default  (app, mainWindow, i18n) => {
+export default  (app, window, i18n) => {
   let menu = [
     {
       label: i18n.t('PhraseApp i18n'),

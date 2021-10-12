@@ -1,8 +1,9 @@
 {
   "name": "bia-manager-electron",
   "main": "packages/electron/dist/index.cjs",
-  "version": "0.0.30",
+  "version": "0.0.31",
   "author": "Karsegard Digital Agency",
+  "repository":"https://github.com/FDT2k/bia-manager",
   "scripts": {
     "start": "MODE=development node scripts/watch.js",
     "start:debug": "cd packages/remotedev; yarn start",
@@ -13,7 +14,7 @@
     "compile": "electron-builder build --config electron-builder.config.js --dir --config.asar=false",
     "release": "electron-builder --config electron-builder.config.js  --mac --windows --linux --publish always",
     "release:nopub": "electron-builder --config electron-builder.config.js  --linux ",
-    "release:test": "yarn run precompile && yarn run compile && yarn run release:nopub",
+    "release:test": "yarn run compile && yarn run release:nopub",
     "pretest": "cross-env MODE=test npm run build",
     "test": "node tests/app.spec.js",
     "postversion": "git push --follow-tags"
