@@ -37,6 +37,11 @@
      }
    })*/
  })
+
+ autoUpdater.on('download-progress',(info)=>{
+    _window.send('download-progress',info)
+
+ })
  
  autoUpdater.on('update-not-available', () => {
    dialog.showMessageBox({

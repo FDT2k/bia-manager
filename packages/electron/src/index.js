@@ -379,6 +379,7 @@ app.on('window-all-closed', () => {
 app.whenReady()
   .then(createWindow)
   .then(window => {
+    console.log(process.env)
     createMenu(window);
     loadContent(window);
   })

@@ -30,6 +30,7 @@ let electronAPI = {
   ...clientEvent('locationChange','location-change'),
   ...clientEvent('languageChange','language-change'),
   ...clientEvent('updateAvailable','update-available'),
+  ...clientEvent('downloadProgress','download-progress'),
   save:invokeOnMainProcess('file-save'),
   open:invokeOnMainProcess('file-open'),
   get_settings:invokeOnMainProcess('read-settings'),

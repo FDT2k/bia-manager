@@ -30,6 +30,7 @@ export const makeProvider = (Context,bindEvent) => props => {
         onLanguageChange: fn => bindEvent(api, 'handleLanguageChange', fn),
         onLocationChange: fn => bindEvent(api, 'handleLocationChange', fn),
         onUpdateAvailable: fn => bindEvent(api, 'handleUpdateAvailable', fn),
+        onDownloadProgress: fn => bindEvent(api, 'handleDownloadProgress', fn),
     }), []);
 
 

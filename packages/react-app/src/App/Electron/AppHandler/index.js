@@ -16,11 +16,12 @@ import Button from '@/bia-layout/components/Form/Button';
 export const Component = props => {
 
 
-    const { onOpenRequest, onSaveRequest, onLanguageChange, onLocationChange, onCloseRequest, get_translations, missing_translations,download_update, ready, onUpdateAvailable } = useElectron();
+    const { onOpenRequest, onSaveRequest, onLanguageChange, onLocationChange, onCloseRequest, get_translations,onDownloadProgress, missing_translations,download_update, ready, onUpdateAvailable } = useElectron();
     const { open_file, save_to_file, start_loading, stop_loading, current_file, close, init_app } = props;
     const [initialI18nStore, setInitialTranslation] = useState({});
 
     const [update, setUpdate] = useState(false);
+    const [download, setDownload] = useState(null);
     const [updateMessage, setUpdateMessage] = useState({});
 
 
@@ -79,9 +80,14 @@ export const Component = props => {
 
         onUpdateAvailable((sender, message) => {
             setUpdate(true);
+            console.log(message)
             setUpdateMessage(message)
         })
 
+        onDownloadProgress((sender,message)=>{
+            setUpdate(false);
+            setDownload(message);
+        })
         onLanguageChange((sender, message) => {
             console.log('language changed')
 
@@ -117,6 +123,13 @@ export const Component = props => {
                             <Button onClick={_ => download_update()}>Installer</Button>
                             <Button onClick={_ => setUpdate(false)}>Fermer</Button>
                         </LayoutFlex>
+                    </LayoutFlexColumn>
+                </Modal>
+
+                <Modal visible={download!==null}>
+                    <LayoutFlexColumn justCenter alignCenter>
+                        <h2>Téléchargement de la version {updateMessage.version}</h2>
+                        {download && Math.round(download.percent)}%
                     </LayoutFlexColumn>
                 </Modal>
             </I18nextProvider>
