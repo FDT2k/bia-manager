@@ -194,7 +194,7 @@ export const generate_recap_header = (mesure_id, mesures) => {
     let arr = (new Array(6)).fill(' ');
     let start = 0;
     let end = 0;
-    if (mesure_id <= 6) {
+    if (mesure_id < 6) {
         start = 0;
         end = mesure_id + 1;
     } else {

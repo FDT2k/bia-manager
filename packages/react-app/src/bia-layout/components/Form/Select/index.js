@@ -4,15 +4,14 @@ import { keyval } from '@karsegard/composite-js/ObjectUtils';
 import { is_type_object } from '@karsegard/composite-js';
 
 export default props => {
-    const { children, options, ...rest } = props
+    const { children, options,value,...rest } = props
     const renderChildren = is_nil(options);
 
-
-    return (<select {...rest} >
+    return (<select   value={value||''} {...rest} >
         {renderChildren && children}
         
         {!renderChildren && options.map((option, idx) => {
-            
+
             let value = option;
             let label = option; 
 
@@ -22,7 +21,10 @@ export default props => {
                value = option.id,
                label = option.name
             }
-            
+
+            if(value==null || label ==null){
+                value=''
+            }
             return (<option key={idx} value={value}>{label}</option>)
         }
         )}
