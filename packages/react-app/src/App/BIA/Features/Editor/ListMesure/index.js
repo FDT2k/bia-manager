@@ -1,9 +1,8 @@
 import { applyModifiers, compose, makeBEM, withBEM, withBEMElement, withBEMModifiers, withRemovedProps } from '@karsegard/react-compose';
 
 import {LayoutFlex,LayoutFlexColumn} from '@karsegard/react-core-layout'
-import Button from '@/bia-layout/components/Form/Button'
 import React from 'react';
-
+import { withTranslation } from 'react-i18next';
 
 import './style.scss';
 
@@ -25,9 +24,9 @@ const ItemListItem = compose(
 
 
 export const Component = props => {
-    const { handleCreateClick ,handleItemListClick, title, data, renderActions, selectedIndex, itemLabelKey, BEM, ...rest } = props;
+    const { handleCreateClick ,handleItemListClick, title, data, renderActions, selectedIndex, itemLabelKey, BEM, className,t,...rest } = props;
     return (
-        <LayoutFlexColumn {...rest}>
+        <LayoutFlexColumn  className={className}>
             <HeaderListItem BEM={BEM}><b>{title}</b></HeaderListItem>
             {data && data.map((item, idx) => {
                 return <ItemListItem
@@ -39,7 +38,7 @@ export const Component = props => {
                 </ItemListItem>
             })}
             {(!data || data.length ===0) && <i>aucune mesure</i>}
-            <ItemListItem  BEM={BEM}  selected={selectedIndex >= data.length} onClick={handleCreateClick}>Créer</ItemListItem>
+            <ItemListItem  BEM={BEM}  selected={selectedIndex >= data.length} onClick={handleCreateClick}>{t('Créer')}</ItemListItem>
         </LayoutFlexColumn>
     )
 }
@@ -47,8 +46,16 @@ export const Component = props => {
 Component.defaultProps = {
     data: [],
     itemLabelKey: 'date',
-    selectedIndex: -1
+    selectedIndex: -1,
+    
 }
 
+const enhance = compose(
 
-export default withBEM(makeBEM('list-mesure'))(Component);
+
+    withBEM(makeBEM('list-mesure')),
+    withTranslation('translation'),
+
+)
+
+export default enhance(Component);

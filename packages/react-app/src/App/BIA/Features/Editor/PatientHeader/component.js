@@ -29,15 +29,15 @@ const PatientHeader = props => {
 
     const { data, t,refresh_editor_lists, handleChange:handleParentChange,custom_lists ,...rest } = props
 
-
+    const {className} = rest;
     const fields = {
-        'birthdate': { type: 'date', editable: true, label: 'Date de naissance', className:'birthdate' },
-        'age': { type: 'date', editable: false, label: 'Âge' },
-        'gender': { type: 'select', editable: true, label: 'Sexe',options:custom_lists.gender.list },
-        'usual_height': { type: 'text', editable: true, label: 'Taille' },
-        'usual_weight': { type: 'text', editable: true, label: 'Poids habituel' },
-        'groups.patho': { type: 'select', editable: true, label: 'Groupe pathologique', options:custom_lists.patho.list},
-        'mesure_count': { type: 'date', editable: false, label: 'Nombre de mesures' }
+        'birthdate': { type: 'date', editable: true, label: t('Date de naissance'), className:'birthdate' },
+        'age': { type: 'date', editable: false, label:  t('Âge') },
+        'gender': { type: 'select', editable: true, label:  t('Sexe'),options:custom_lists.gender.list },
+        'usual_height': { type: 'text', editable: true, label:  t('Taille (cm)') },
+        'usual_weight': { type: 'text', editable: true, label:  t('Poids habituel (kg)') },
+        'groups.patho': { type: 'select', editable: true, label:  t('Groupe pathologique'), options:custom_lists.patho.list},
+        'mesure_count': { type: 'date', editable: false, label:  t('Nombre de mesures') }
     }
     useEffect(() => {
         replaceValues(data);
@@ -57,13 +57,13 @@ const PatientHeader = props => {
 
 
     return (
-        <PageHeader label={`${data.firstname} ${data.lastname}`} {...rest}>
+        <PageHeader label={`${data.firstname} ${data.lastname}`} className={className}>
             <FieldSet>
                 {
                     enlist(fields).map(_item => {
                         const item = value(_item)
                         const field = key(_item);
-                        const label = t(item.label);
+                        const label = item.label;
                         const editable = item.editable;
                         const type = item.type;
                         const className = item.className || '';

@@ -1,4 +1,14 @@
 import Component from './component'
 import connect from './connect'
 import './printable-report.scss'
-export default connect(Component);
+
+
+import { withTranslation } from 'react-i18next';
+import {compose} from '@karsegard/composite-js'
+
+const enhance = compose(
+    connect,
+    withTranslation('translation')
+)
+
+export default enhance(Component);

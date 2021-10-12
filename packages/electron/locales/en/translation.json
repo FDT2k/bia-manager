@@ -18,5 +18,16 @@
   "Importer": "Import",
   "Gestion des listes": "Lists management",
   "Recherche": "Search",
-  "fr": "fr"
+  "fr": "fr",
+  "Bienvenue sur BIA": "Bienvenue sur BIA",
+  "Ouvrir une base de données": "Ouvrir une base de données",
+  "Créer une base de données": "Créer une base de données",
+  "Connexion a un serveur": "Connexion a un serveur",
+  "Date de naissance": "Birth date",
+  "Âge": "Age",
+  "Sexe": "Sex",
+  "Taille": "Height",
+  "Poids habituel": "Usual weight",
+  "Groupe pathologique": "Pathological Group",
+  "Nombre de mesures": "Sample count"
 }

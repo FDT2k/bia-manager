@@ -128,13 +128,13 @@ const Editor = props => {
     const map_itemlist_as_option = item => (<option key={item.id} value={item.id}>{item.name}</option>)
 
     return (
-        <MesureEditorLayout {...rest} className={className}>
+        <MesureEditorLayout className={className}>
             <TabsWithArea tabIndexOffset={20} renderDisabledPanels={true} area="mesure-editor-main">
                 <TabList>
-                    <Tab>Mesures</Tab>
-                    <Tab>Résultats</Tab>
-                    <Tab>Récapitulatif</Tab>
-                    <Tab>Graphiques</Tab>
+                    <Tab>{t('Mesures')}</Tab>
+                    <Tab>{t('Résultats')}</Tab>
+                    <Tab>{t('Récapitulatif')}</Tab>
+                    <Tab>{t('Graphiques')}</Tab>
                 </TabList>
                 <TabPanel>
                     <LayoutFlexColumnWithArea>
@@ -180,8 +180,8 @@ const Editor = props => {
 
 
                         <LayoutFlex>
-                            <Button tabIndex={13} onClick={handleClickSave}>Enregistrer</Button>
-                            <Button tabIndex={14} className="btn--secondary" onClick={_ => _handlePrint()}>IMPRIMER</Button>
+                            <Button tabIndex={13} onClick={handleClickSave}>{t('Enregistrer')}</Button>
+                            <Button tabIndex={14} className="btn--secondary" onClick={_ => _handlePrint()}>{t('Imprimer')}</Button>
                         </LayoutFlex>
                     </LayoutFlexColumnWithArea>
                 </TabPanel>
@@ -211,7 +211,7 @@ const Editor = props => {
                     <EditableTextInput value={values.examinator} name="examinator" onChange={handleChange} />
                 </Field>
                 <Field label={t("BioImpédanceMètre")}>
-                    <EditableSelect {...inputProps('machine')} options={[{id:'',name:'- Choisissez une valeur -'},...custom_lists.machine.list]}/>
+                    <EditableSelect {...inputProps('machine')} options={[{id:'',name:t('- Choisissez une valeur -')},...custom_lists.machine.list]}/>
                 </Field>
 
                 <Field label={t("Poids Idéal (%)")}>
