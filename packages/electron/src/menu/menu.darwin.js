@@ -76,6 +76,31 @@ export default  (app, mainWindow, i18n) => {
           }
         }
       ]
+    }
+    ,
+    {
+      label: i18n.t('Outils'),
+      submenu: [
+        {
+          label: i18n.t('Importer'),
+          click() {
+            window.webContents.send('location-change', '#/database');
+          }
+        },
+        {
+          label: i18n.t('Gestion des listes'),
+          click() {
+            window.webContents.send('location-change', '#/database/listes');
+          }
+        },
+        {
+          label: i18n.t('Recherche'),
+          click() {
+            window.webContents.send('location-change', '#/search');
+          }
+
+        },
+      ]
     },
     {
       label: i18n.t('Help'),
