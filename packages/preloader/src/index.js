@@ -36,6 +36,7 @@ let electronAPI = {
   clear_opened_filename:invokeOnMainProcess('clear-filename'),
   get_translations:invokeOnMainProcess('get-translations'),
   missing_translations:invokeOnMainProcess('missing-translations'),
+  ready:invokeOnMainProcess('ready'),
 
 };
 
@@ -43,7 +44,7 @@ if (import.meta.env.MODE === 'development') {
   electronAPI.collect_translation =invokeOnMainProcess('collect-translation')
 }
 console.log(electronAPI)
-contextBridge.exposeInMainWorld(
+  contextBridge.exposeInMainWorld(
     'electron',
     electronAPI
   )

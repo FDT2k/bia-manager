@@ -92,13 +92,13 @@ const createWindow = async () => {
   });
 
   i18n.on('languageChanged', (lng) => {
+    console.log('changing language to ' ,lng)
     menuFactoryService.buildMenu(app, mainWindow, i18n);
     mainWindow.webContents.send('language-change', {
       language: lng,
       namespace: config.namespace,
       resource: i18n.getResourceBundle(lng, config.namespace)
     });
-    console.log(lng)
   });
 
   return mainWindow
@@ -113,7 +113,6 @@ const loadContent = mainWindow => {
   const pageUrl = import.meta.env.MODE === 'development' && import.meta.env.VITE_DEV_SERVER_URL !== undefined
     ? import.meta.env.VITE_DEV_SERVER_URL
     : new URL('../react-app/dist/index.html', 'file://' + __dirname).toString();
-
 
 
   return mainWindow.loadURL(pageUrl);
@@ -201,6 +200,10 @@ const setupAutoUpdate = _ => {
   return false;
 }
 
+ipcMain.handle('ready',async _=> {
+  console.log('client reported ready')
+  i18n.changeLanguage('fr');
+})
 
 ipcMain.handle('file-save', async (event, content, filename = '') => {
 

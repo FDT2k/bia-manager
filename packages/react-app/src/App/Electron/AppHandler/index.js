@@ -14,7 +14,7 @@ import { ConnectApp } from '@/Providers/Stores/ElectronApp';
 export const Component = props => {
 
  
-    const { onOpenRequest, onSaveRequest, onLanguageChange, onLocationChange, onCloseRequest, get_translations,missing_translations } = useElectron();
+    const { onOpenRequest, onSaveRequest, onLanguageChange, onLocationChange, onCloseRequest, get_translations,missing_translations,ready } = useElectron();
     const { open_file, save_to_file, start_loading, stop_loading, current_file, close, init_app } = props;
 
     const [initialI18nStore, setInitialTranslation] = useState({});
@@ -55,7 +55,6 @@ export const Component = props => {
     }
 
     useEffect(() => {
-        
         setHandler(missing_translations)
         init_app();
         onOpenRequest(handleFileOpen);
@@ -67,16 +66,21 @@ export const Component = props => {
 
         get_translations().then(res => {
             setInitialTranslation(res)
+            i18n.changeLanguage('fr');
+            ready();
         })
 
         onLanguageChange((sender, message) => {
-            debugger;
+            console.log('language changed')
 
             if (!i18n.hasResourceBundle(message.language, message.namespace)) {
                 i18n.addResourceBundle(message.language, message.namespace, message.resource);
             }
             i18n.changeLanguage(message.language);
         })
+       
+      
+
 
     }, []);
 
