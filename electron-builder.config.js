@@ -22,6 +22,10 @@ const config = {
   },
   files: [
     'packages/**/dist/**',
+    {
+      from: 'packages/electron/locales',
+      to: 'packages/electron/locales'
+    }
   ],
   win: {
     target: ["nsis"],

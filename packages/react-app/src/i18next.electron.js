@@ -14,7 +14,7 @@ export const setHandler = fn => {
   .init({
     fallbackLng: 'fr',
     debug: true,
-    saveMissing:true,
+    saveMissing:import.meta.env.MODE ==="development",
     missingKeyHandler: (...args)=> {
         handler && handler(...args)
     },
