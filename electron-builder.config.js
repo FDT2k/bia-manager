@@ -37,7 +37,6 @@ const config = {
     publish: [
       "github"
     ],
-    target: ["dmg"],
     category: "public.app-category.utilities"
   },
   linux: {
