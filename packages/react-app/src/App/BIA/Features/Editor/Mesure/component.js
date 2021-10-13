@@ -7,6 +7,7 @@ import SafeDatePicker from '@/bia-layout/components/Form/Editable/Date';
 import EditableSelect from '@/bia-layout/components/Form/Editable/Select';
 import Select from '@/bia-layout/components/Form/Select';
 import EditableTextInput from '@/bia-layout/components/Form/Editable/TextInput';
+import EditableTextArea from '@/bia-layout/components/Form/Editable/TextArea';
 
 import Field from '@/bia-layout/components/Form/Fields';
 import ToggleSwitch from '@/bia-layout/components/Form/ToggleSwitch';
@@ -225,7 +226,7 @@ const Editor = props => {
                     <EditableTextInput value={values.bmi_ref} name="bmi_ref" onChange={handleChange} />
                 </Field>
                 <Field label={t("Remarques / Interprétations")}>
-                    <EditableTextInput value={values.comments} name="comments" onChange={handleChange} />
+                    <EditableTextArea value={values.comments} name="comments" onChange={handleChange} />
                 </Field>
 
             </LayoutFlexColumnWithArea>

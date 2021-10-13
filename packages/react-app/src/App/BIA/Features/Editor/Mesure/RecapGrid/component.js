@@ -5,6 +5,7 @@ import { dateSysToHuman, oneDecimal } from '@/references/format';
 
 export const Component = props => {
     const { t, data, headers } = props;
+   
     return (<Grid
         className="recap-grid"
         templateColumns="2fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr"
@@ -22,13 +23,15 @@ export const Component = props => {
 
 
         {data.map((line,idx) => {
+            const is_pct = line.label.startsWith('pct_')
             return (<React.Fragment key={idx}>
                 <div>{t(line.label)}</div>
                 <div>{line.values['norme']}</div>
                 {headers && headers.map((key,idx) => {
                     let val = line.values[key];
                     val = oneDecimal(val);
-                    return (<div key={idx}>{!isNaN(val) ? val : ''}</div>)
+                    const display_value = !isNaN(val) ? val : '';
+                    return (<div key={idx}>{display_value}{(display_value !=="" &&is_pct)?'%':''}</div>)
                 })}
 
             </React.Fragment>)

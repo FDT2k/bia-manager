@@ -234,7 +234,6 @@ export const bia_to_recap = (mesures, _columns, normes = {}, mesure_columns = []
             r['values']['norme'] = `${min}-${max}`;
         }
 
-
         r = mesures.reduce((carry, mesure) => {
             if (mesure.bia) {
                 const biaByKey = mesure.bia.reduce((result, field) => {
