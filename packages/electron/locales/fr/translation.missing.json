@@ -41,5 +41,14 @@
    "en": "en",
    "Language": "Language",
    "Help": "Help",
-   "About App": "About App"
+   "About App": "About App",
+   "Nouveau Patient": "Nouveau Patient",
+   "Nom": "Nom",
+   "Prenom": "Prenom",
+   "Taille": "Taille",
+   "Poids habituel": "Poids habituel",
+   "Diagnostic": "Diagnostic",
+   "gender": "gender",
+   "groups.ethno": "groups.ethno",
+   "groups.patho": "groups.patho"
 }
