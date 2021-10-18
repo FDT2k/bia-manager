@@ -336,6 +336,8 @@ export const alpha = {
     ]
 }
 
+
+
 const normes = {
     ffmi,
     fmi,

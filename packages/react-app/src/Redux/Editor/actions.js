@@ -48,6 +48,7 @@ export default (getModule) => {
     }
 
     actions.fetch_normes = () => (dispatch, getState) => {
+        debugger;
         const patient = select_edited_patient(getState());
         dispatch(actions.fetched_normes({
             normes,
