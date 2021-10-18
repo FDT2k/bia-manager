@@ -25,6 +25,7 @@
   },
   "devDependencies": {
     "@karsegard/react-core-layout": "^1.5.1",
+    "sass": "^1.42.1",
     "vite": "^2.5.3"
   },
   "dependencies": {
