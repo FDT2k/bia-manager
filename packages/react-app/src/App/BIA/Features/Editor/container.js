@@ -16,7 +16,7 @@ export default Component => props => {
 
     const { patient, mesure, current_mesure_id, error, err_message } = props;
     const { populate_sportrate, populate_sporttype, populate_machines, fetch_normes } = props;
-    const { edit_patient, edit_mesure, create_mesure,change_mesure,refresh_recap,change_subject,update_patient,save,delete_mesure } = props;
+    const { edit_patient, edit_mesure, create_mesure,change_mesure,refresh_recap,change_subject,update_patient,save,delete_mesure,set_examinator } = props;
 
     const handlePrint = useReactToPrint({
         content: () => componentRef.current
@@ -117,6 +117,10 @@ export default Component => props => {
             return;
         }
 
+        if(changed_field ==='examinator'){
+            set_examinator(values.examinator);
+        }
+
       //  debugger;
 
         change_mesure(patient, values)
@@ -151,7 +155,7 @@ export default Component => props => {
     }
 
         const handleMesureDelete = index => {
-            if (confirm('Sur? ')) {
+            if (confirm('Etes vous sur de vouloir supprimer cette mesure ?')) {
             /*    let result = dispatch(delete_mesure(patient.id, index));
                 // dispatch(save());
                 console.log(result)

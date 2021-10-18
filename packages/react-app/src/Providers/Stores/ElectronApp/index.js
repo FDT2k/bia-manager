@@ -106,7 +106,8 @@ export const {
    refresh_recap,
 
    change_mesure ,
-   save:save_editor
+   save:save_editor,
+   set_examinator
   } = BIAEditorModule.actions;
  
 export const {
@@ -117,7 +118,7 @@ export const {
   
 }= ElectronModule.actions
 
-
+/*
  export const { fetch: populate_sportrate } = BIAEditorModule.submodules.sportRate.actions;
  export const { fetch: populate_sporttype } = BIAEditorModule.submodules.sportType.actions;
  export const { fetch: populate_machines } = BIAEditorModule.submodules.machines.actions;
@@ -126,7 +127,7 @@ export const {
  export const { select_list: select_machines } = BIAEditorModule.submodules.machines.selectors;
  export const { select_list: select_sportrates } = BIAEditorModule.submodules.sportRate.selectors;
  export const { select_list: select_sporttypes } = BIAEditorModule.submodules.sportType.selectors;
- 
+ */
 /*end editor module */
 
 /**

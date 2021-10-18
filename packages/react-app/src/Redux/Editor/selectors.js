@@ -36,6 +36,8 @@ export default getModule => {
    });
 
 
+   module.select_examinator = createSelector(baseSelector,state=> state.examinator)
+
 
    module.select_mesures_dates = createSelector([module.select_current_mesure_id, module.select_mesures], (mesure_id, state) => {
 
