@@ -26,7 +26,8 @@ import {
     select_recap_headers,
     select_recap_list,
     update_patient,
-    save_editor
+    save_editor,
+    set_examinator,
 } from '@/Providers/Stores/ElectronApp';
 
 
@@ -53,7 +54,7 @@ const mapDispatchToProps = {
     delete_mesure,
    // delete_mesure_from_db,
     change_subject,
-
+    set_examinator,
     populate_machines,
     update_patient,
  //   save:save_editor

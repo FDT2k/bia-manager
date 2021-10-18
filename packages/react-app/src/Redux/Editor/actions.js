@@ -15,7 +15,8 @@ export default (getModule) => {
     const { action_types, selectors } = getModule()
     const actions = {};
 
-    const { select_mesures, select_empty_mesure, select_normes_sampling, select_current_mesure_id, select_current_patient_id, select_result_columns, select_normes, select_edited_patient, select_report_columns, select_charts_columns, select_edited_mesure } = selectors;
+    const { select_mesures, select_empty_mesure, select_normes_sampling,select_examinator, select_current_mesure_id, select_current_patient_id, select_result_columns, select_normes, select_edited_patient, select_report_columns, select_charts_columns, select_edited_mesure } = selectors;
+
 
     actions.real_edit_patient = create(action_types.EDIT_PATIENT);
     actions.added_patient = create(action_types.ADDED_PATIENT);
@@ -101,7 +102,7 @@ export default (getModule) => {
         if (patient_id) {
             return (dispatch, getState) => {
                 // debugger;
-
+                let examinator= select_examinator(getState());
                 let mesures = select_mesures(getState());
                 const patient = select_edited_patient(getState());
                 let new_mesure_id = mesures.length;
@@ -113,7 +114,10 @@ export default (getModule) => {
                     left_side: false
                 });*/
 
-                let new_mesure = select_empty_mesure(getState());
+                let new_mesure = {
+                    ...select_empty_mesure(getState()),
+                    examinator
+                }
 
                 let { mesure } = normalize_mesure({ patient, mesure: new_mesure });
 

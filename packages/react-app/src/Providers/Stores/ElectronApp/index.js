@@ -106,7 +106,8 @@ export const {
    refresh_recap,
 
    change_mesure ,
-   save:save_editor
+   save:save_editor,
+   set_examinator
   } = BIAEditorModule.actions;
  
 export const {
