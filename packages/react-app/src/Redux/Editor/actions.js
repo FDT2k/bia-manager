@@ -7,7 +7,6 @@ import normes, { find_norme } from '@/references/Normes';
 import { normalize as normalize_patient } from '@/references/Patient';
 
 import createAsync from '@/Redux/utils/async-dispatch'
-import{dateHumanToSys} from '@/references/format'
 
 
 export default (getModule) => {
@@ -15,14 +14,26 @@ export default (getModule) => {
     const { action_types, selectors } = getModule()
     const actions = {};
 
-    const { select_mesures, select_empty_mesure, select_normes_sampling,select_examinator, select_current_mesure_id, select_current_patient_id, select_result_columns, select_normes, select_edited_patient, select_report_columns, select_charts_columns, select_edited_mesure } = selectors;
+    const { select_mesures, select_empty_mesure,select_examinator, select_current_mesure_id, select_current_patient_id, select_result_columns, select_normes, select_edited_patient, select_report_columns, select_charts_columns, select_edited_mesure } = selectors;
 
     actions.real_edit_patient = create(action_types.EDIT_PATIENT);
     actions.added_patient = create(action_types.ADDED_PATIENT);
     actions.add_patient_failed = create(action_types.ERROR_ADD_PATIENT_UNDEF);
+
+    actions.set_examinator = create(action_types.SET_EXAMINATOR)
+
+
     actions.refresh_norme = create(action_types.REFRESH_NORME)
     actions.fetched_normes = create(action_types.FETCHED_NORMES)
-    actions.set_examinator = create(action_types.SET_EXAMINATOR)
+
+    actions.refresh_normes = () => (dispatch, getState) => {
+
+        Object.keys(normes).map(key => {
+            dispatch(actions.do_refresh_norme(key, normes[key]))
+        })
+
+    }
+
     actions.do_refresh_norme = (key, norme) => (dispatch, getState) => {
         let s = getState();
         const age = select_edited_mesure(getState()).current_age;
@@ -38,13 +49,10 @@ export default (getModule) => {
 
     actions.fetch_normes = () => (dispatch, getState) => {
         const patient = select_edited_patient(getState());
-
         dispatch(actions.fetched_normes({
             normes,
             genders: ['M', 'F']
         }));
-
-
     }
 
     actions.save = () => async (dispatch, getState) => {
@@ -60,14 +68,7 @@ export default (getModule) => {
         }));
     }
 
-    actions.refresh_normes = () => (dispatch, getState) => {
-
-        Object.keys(normes).map(key => {
-            dispatch(actions.do_refresh_norme(key, normes[key]))
-        })
-
-    }
-
+   
     actions.create_patient = createAsync(actions.add_patient_failed, actions.added_patient)
 
 
@@ -86,16 +87,7 @@ export default (getModule) => {
         }
     })
 
-    /*  actions.delete_mesure_from_db = (apifn)=> (dispatch,getState)=> {
-          const patient_id = select_current_patient_id(getState())
-          const patient = select_edited_patient(getState())
-  
-          return apifn(patient_id,patient).then(_=> {
-              return {type:'SAVED_IN_DB'}
-          })
-      }
-  */
-
+ 
 
     actions.create_mesure = (patient_id) => {
         if (patient_id) {
@@ -105,13 +97,7 @@ export default (getModule) => {
                 let mesures = select_mesures(getState());
                 const patient = select_edited_patient(getState());
                 let new_mesure_id = mesures.length;
-                /*let new_mesure = Object.assign({}, EMPTY_MESURE, {
-                    date: format(new Date(),'yyyy-MM-dd'),
-                    weight: '',
-                    height: '',
-                    bmi_ref: '',
-                    left_side: false
-                });*/
+             
 
                 let new_mesure = {
                     ...select_empty_mesure(getState()),

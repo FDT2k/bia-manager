@@ -27,17 +27,17 @@ export default getModule => {
 
 
 
-
+/*
    module.subject_form_default_options = submodules.features.options.selectors.default_values;
    module.subject_form_available_options = submodules.features.options.selectors.options;
    module.form_options_loaded = submodules.features.options.selectors.loaded;
-
+*/
    module.edited_subject = submodules.features.create.selectors.select_subject_form;
 
 
 
 
-
+/*
 
    module.editor_patient_options = createSelector(submodules.features.options.selectors.options, state => {
       if (state && state.patho) {
@@ -51,7 +51,7 @@ export default getModule => {
          }
       }
    });
-
+*/
 
 
    const sort_by_name = (a, b) => a.name.localeCompare(b.name)

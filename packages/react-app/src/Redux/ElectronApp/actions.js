@@ -13,7 +13,6 @@ export default (getModule) => {
 
     const { action_types, selectors, submodules } = getModule()
 
-
     const getBackend = (getState) => {
         console.log(getState())
 
@@ -41,10 +40,12 @@ export default (getModule) => {
 
 
     actions.openFileFails = createAction(action_types.OPEN_FILE_FAILS);
+    
     actions.openFileSuccess = createAction(action_types.OPEN_FILE_SUCCESS, arg => {
         const { content, ...rest } = arg;
         return rest;
     });
+
     actions.saveFileSuccess = createAction(action_types.SAVE_FILE_SUCCESS, arg => {
         const { content, ...rest } = arg;
         return rest;

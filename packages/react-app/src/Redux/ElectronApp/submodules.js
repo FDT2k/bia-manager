@@ -19,13 +19,13 @@ export const createSubModules = getModule => {
             lists: ListsModule(compose(state=> state.features.lists,baseSelector),`${prefix}_LISTS`),
             form_settings: FormSettingsModule(compose(state=> state.features.form_settings,baseSelector),`${prefix}_FORM_SETTINGS`),
 
-            options: SubjectOptionModule(compose(state=> state.features.options,baseSelector) , `${prefix}_OPTIONS`,{
+            /*options: SubjectOptionModule(compose(state=> state.features.options,baseSelector) , `${prefix}_OPTIONS`,{
                 available_options:{
                     gender: { path: 'gender'},
                     ethno:  { path: 'groups.ethno' },
                     patho:  { path: 'groups.patho' },
                 }
-            }),
+            }),*/
             search: BIASearchModule(compose(state=> state.features.search,baseSelector) , `${prefix}_SEARCH`),
             create: PatientModule(compose(state=> state.features.create,baseSelector) , `${prefix}_SUBJECT`),
             editor:EditorModule(compose(state=> state.features.editor,baseSelector), `${prefix}_EDITOR`),
