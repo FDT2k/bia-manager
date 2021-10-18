@@ -4,17 +4,17 @@
    "Enregistrer": "Enregistrer",
    "Fermer": "Fermer",
    "&Quit": "&Quit",
-   "View": "View",
-   "Reload": "Reload",
-   "Full Screen": "Full Screen",
-   "Minimize": "Minimize",
-   "Toggle Developer Tools": "Toggle Developer Tools",
+   "View": "Vue",
+   "Reload": "Recharger",
+   "Full Screen": "Plein écran",
+   "Minimize": "Minimiser",
+   "Toggle Developer Tools": "Outils de développement",
    "Outils": "Outils",
    "Importer": "Importer",
    "Gestion des listes": "Gestion des listes",
    "Recherche": "Recherche",
-   "Help": "Help",
-   "About App": "About App",
+   "Help": "Aide",
+   "About App": "A Propos de l'app",
    "fr": "fr",
    "en": "en",
    "Language": "Language",
@@ -64,5 +64,8 @@
    "pct_fm": "% Masse Grasse",
    "fmi": "FMI",
    "Dates": "Dates",
-   "Norme": "Norme"
+   "Norme": "Norme",
+
+   "check for updates": "Vérifier les mises à jour"
+
 }

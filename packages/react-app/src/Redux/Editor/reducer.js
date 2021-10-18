@@ -323,7 +323,6 @@ export default (getModule) => {
 
     module.report_settings = createReducer({
         bia_result_columns: [
-            
             'water',
             'pct_water',
             'ffm',
@@ -336,6 +335,7 @@ export default (getModule) => {
             'fmi',
         ],
         bia_report_columns: [
+            'bmi',
             'water',
             'pct_water',
             'ffm',
