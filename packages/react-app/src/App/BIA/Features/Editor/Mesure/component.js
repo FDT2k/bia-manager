@@ -29,7 +29,7 @@ import { useReactToPrint } from 'react-to-print';
 
 import {oneDecimal,oneDecimalPct} from '@/references/format'
 
-
+import InputMask from 'react-input-mask';
 
 const LayoutFlexColumnWithArea = withGridArea(LayoutFlexColumn);
 const TabsWithArea = withGridArea(Tabs);
@@ -146,6 +146,7 @@ const Editor = props => {
                                     selected={values.date}
                                     handleChange={handleChangeValue('date')}
                                 />
+                                <InputMask mask="99/99/9999" {...inputProps('date_input')} maskChar="X" placeholder="02/12/2019"/>
                             </Field>
 
                             <Field className="activite-physique" label={t("Activité physique")}>
@@ -207,7 +208,6 @@ const Editor = props => {
                 </TabPanel>
 
             </TabsWithArea>
-
             <LayoutFlexColumnWithArea area="mesure-editor-aside">
                 <Field label={t("Examinateur")}>
                     <EditableTextInput value={values.examinator} name="examinator" onChange={handleChange} />
@@ -225,10 +225,10 @@ const Editor = props => {
                 <Field label={t("BMI Reference")}>
                     <EditableTextInput value={values.bmi_ref} name="bmi_ref" onChange={handleChange} />
                 </Field>
+               
                 <Field label={t("Remarques / Interprétations")}>
                     <EditableTextArea value={values.comments} name="comments" onChange={handleChange} />
                 </Field>
-
             </LayoutFlexColumnWithArea>
             <Printable ref={componentRef}>
             {    <PrintableReport />}
