@@ -108,11 +108,22 @@ export default Component => props => {
 
     }
 
-    const handleChange = values => {
-        console.log(values);
+    const dontCommitTheseFields = ['comments','date']
+
+    const handleChange = (values,changed_field) => {
+        console.log('form changed',values,changed_field );
+
+        if(dontCommitTheseFields.includes(changed_field)){
+            return;
+        }
+
+      //  debugger;
+
+        change_mesure(patient, values)
+
+
         if (values.data && patient) {
             //  dispatch(recompute_mesure(patient_id, values));
-            change_mesure(patient, values)
             refresh_recap(patient_id, current_mesure_id);
         }
     }
@@ -123,8 +134,9 @@ export default Component => props => {
 
 
     const handleClickSave = _ => {
-        let res = save();
-        update_patient(patient.id, patient, mesure, current_mesure_id).then(res => {
+        save()
+       // .then(_=>update_patient(patient.id, patient, mesure, current_mesure_id))
+        .then(res => {
             if (current_mesure_id <= patient.mesures.length) {
                 setLocation(`/editor/${patient_id}/${current_mesure_id}`);
             }

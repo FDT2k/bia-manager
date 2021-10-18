@@ -20,20 +20,39 @@ import ElectricalDataForm from '@/bia-layout/components/Views/ElectricalDataForm
 import ComparisonTable from '@/App/BIA/Features/Editor/Mesure/ComparisonTable';
 import RecapGrid from '@/App/BIA/Features/Editor/Mesure/RecapGrid';
 
-import {Container,LayoutFlex,LayoutFlexColumn,withGridArea} from '@karsegard/react-core-layout'
+import { Container, LayoutFlex, LayoutFlexColumn, withGridArea } from '@karsegard/react-core-layout'
 
 import MesureEditorLayout from '@/bia-layout/layouts/MesureEditor';
 import React, { useEffect, useMemo, useRef, useState } from 'react';
 import "react-datepicker/dist/react-datepicker.css";
 import { useReactToPrint } from 'react-to-print';
 
-import {oneDecimal,oneDecimalPct} from '@/references/format'
+import { oneDecimal, oneDecimalPct } from '@/references/format'
 
-import InputMask from 'react-input-mask';
-
+import MaskedInput from 'react-maskedinput';
+import moment from 'moment';
 const LayoutFlexColumnWithArea = withGridArea(LayoutFlexColumn);
 const TabsWithArea = withGridArea(Tabs);
 
+
+const DateMask = ({
+    onChangeValue: _onChangeValue,
+    value: _value,
+
+}) => {
+
+
+    const updateDate = value => {
+        let fieldValue = moment(value,'DD/MM/YYYY').isValid() ?
+            moment(value,'DD/MM/YYYY').format('DD/MM/YYYY') :
+            value;
+        console.log(value)
+      return fieldValue
+    }
+ 
+    return (<MaskedInput mask="11/11/1111" placeholder="dd/mm/yyyy" value={updateDate(_value)} onChange={e=>   _onChangeValue && _onChangeValue(e.target.value)}/>)
+
+}
 
 
 const [__base_class, element, modifier] = bem('bia-mesure-editor')
@@ -43,32 +62,29 @@ const Editor = props => {
 
 
     const {
-        recap ,
-        list_dates ,
-        mass_chart ,
-        norm_chart ,
-        get_current_bia ,
-        machines ,
-        sporttypes ,
-        sportrates ,
+        recap,
+        list_dates,
+        mass_chart,
+        norm_chart,
+        get_current_bia,
+        machines,
+        sporttypes,
+        sportrates,
         custom_lists,
         refresh_editor_lists,
         ...rest
-       } = rest2;
-    const current_bia = get_current_bia(['fmi','ffmi'])
-    const _handleChange = v => {
-        parentHandleChange && parentHandleChange(v);
+    } = rest2;
+    const current_bia = get_current_bia(['fmi', 'ffmi'])
+    const _handleChange = (...args) => {
+        parentHandleChange && parentHandleChange(...args);
     }
     const { values, handleChangeValue, inputProps, handleChange, assignValues, replaceValues } = useFieldValues(mesure, { onValuesChange: _handleChange, usePath: true });
     const componentRef = useRef();
     const _handlePrint = useReactToPrint({
         content: () => componentRef.current
     })
-    
 
-    useEffect(()=>{
-      //  refresh_editor_lists();
-    },[])
+
     /* update internal state if we change the prop */
     useEffect(() => {
         assignValues(mesure);
@@ -117,6 +133,15 @@ const Editor = props => {
     }
 
 
+    const _handleClickSave = e => {
+        // commit the form before saving
+        debugger;
+        Promise.resolve(_handleChange(values)).then(_=> {
+            handleClickSave()
+
+        });
+    }
+
 
 
 
@@ -124,10 +149,9 @@ const Editor = props => {
         setEditedGroup(g)
     }
 
-    const result_columns = useMemo(()=> ['norme', values.most_accurate_formula || 'kuschner', 'gva'],[values.most_accurate_formula]);
+    const result_columns = useMemo(() => ['norme', values.most_accurate_formula || 'kuschner', 'gva'], [values.most_accurate_formula]);
 
-   
-    const map_itemlist_as_option = item => (<option key={item.id} value={item.id}>{item.name}</option>)
+
 
     return (
         <MesureEditorLayout className={className}>
@@ -142,30 +166,30 @@ const Editor = props => {
                     <LayoutFlexColumnWithArea>
                         <LayoutFlex wrap >
                             <Field className="date-examen" label={t("Date d'Examen")}>
-                                <SafeDatePicker
+                              
+                            <SafeDatePicker
                                     selected={values.date}
                                     handleChange={handleChangeValue('date')}
                                 />
-                                <InputMask mask="99/99/9999" {...inputProps('date_input')} maskChar="X" placeholder="02/12/2019"/>
                             </Field>
 
                             <Field className="activite-physique" label={t("Activité physique")}>
-                           
-                             <Select tabIndex={2}  {...inputProps('sport.rate')} options={custom_lists.sport_rate.list}/>
+
+                                <Select tabIndex={2}  {...inputProps('sport.rate')} options={custom_lists.sport_rate.list} />
 
                             </Field>
 
                             <Field className="type-activite-physique" label={t("Type d'Activité physique")}>
-                             <Select tabIndex={2}  {...inputProps('sport.type')} options={custom_lists.sport_type.list}/>
-                             
+                                <Select tabIndex={2}  {...inputProps('sport.type')} options={custom_lists.sport_type.list} />
+
                             </Field>
 
                             <Field className="fumeur" label={t("Fumeur")}>
-                                <ToggleSwitch tabIndex={3}  id="smoker" labelYes="Oui" labelNo="Non" name="smoker" onChange={handleChange} checked={values.smoker} />
+                                <ToggleSwitch tabIndex={3} id="smoker" labelYes="Oui" labelNo="Non" name="smoker" onChange={handleChange} checked={values.smoker} />
                             </Field>
 
                             <Field className="cote-mesure" label={t("Coté mesuré")}>
-                                <ToggleSwitch tabIndex={4}  labelYes="Gauche" labelNo="Droit" name="left_side" onChange={handleChange} id="left_side" checked={values.left_side} />
+                                <ToggleSwitch tabIndex={4} labelYes="Gauche" labelNo="Droit" name="left_side" onChange={handleChange} id="left_side" checked={values.left_side} />
                             </Field>
 
                             <Field className="poids-actuel" label={t("Poids Actuel (kg)")} >
@@ -173,17 +197,17 @@ const Editor = props => {
                             </Field>
 
                             <Field className="taille" label={t("Taille (cm)")}  >
-                                <input type="text"  tabIndex={6}  {...inputProps('height')} />
+                                <input type="text" tabIndex={6}  {...inputProps('height')} />
                             </Field>
 
                         </LayoutFlex>
                         <Container fit grow>
-                            <ElectricalDataForm tabIndexOffset={7}  handleGroupChange={handleGroupChange} handleComputedChange={electricalHandleValues} handleChange={electricalHandleChange} editedGroup={editedGroup} values={values.data} />
+                            <ElectricalDataForm tabIndexOffset={7} handleGroupChange={handleGroupChange} handleComputedChange={electricalHandleValues} handleChange={electricalHandleChange} editedGroup={editedGroup} values={values.data} />
                         </Container>
 
 
                         <LayoutFlex>
-                            <Button tabIndex={13} onClick={handleClickSave}>{t('Enregistrer')}</Button>
+                            <Button tabIndex={13} onClick={_handleClickSave}>{t('Enregistrer')}</Button>
                             <Button tabIndex={14} className="btn--secondary" onClick={_ => _handlePrint()}>{t('Imprimer')}</Button>
                         </LayoutFlex>
                     </LayoutFlexColumnWithArea>
@@ -212,8 +236,8 @@ const Editor = props => {
                 <Field label={t("Examinateur")}>
                     <EditableTextInput value={values.examinator} name="examinator" onChange={handleChange} />
                 </Field>
-                <Field label={t("BioImpédanceMètre")}>
-                    <EditableSelect {...inputProps('machine')} options={[{id:'',name:t('- Choisissez une valeur -')},...custom_lists.machine.list]}/>
+                <Field label={t("Bio-impédancemètre")}>
+                    <EditableSelect {...inputProps('machine')} options={[{ id: '', name: t('- Choisissez une valeur -') }, ...custom_lists.machine.list]} />
                 </Field>
 
                 <Field label={t("Poids Idéal (%)")}>
@@ -225,13 +249,13 @@ const Editor = props => {
                 <Field label={t("BMI Reference")}>
                     <EditableTextInput value={values.bmi_ref} name="bmi_ref" onChange={handleChange} />
                 </Field>
-               
+
                 <Field label={t("Remarques / Interprétations")}>
                     <EditableTextArea value={values.comments} name="comments" onChange={handleChange} />
                 </Field>
             </LayoutFlexColumnWithArea>
             <Printable ref={componentRef}>
-            {    <PrintableReport />}
+                {<PrintableReport />}
             </Printable>
         </MesureEditorLayout>
     )

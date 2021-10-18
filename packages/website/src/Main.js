@@ -10,9 +10,9 @@ const assetReducer = (items) => {
 
 
     return {
-        win: win.browser_download_url,
-        osx: osx.browser_download_url,
-        lin: lin.browser_download_url
+        win: win? win.browser_download_url:'',
+        osx: osx ? osx.browser_download_url: '',
+        lin: lin ? lin.browser_download_url: ''
     }
 
 }

@@ -14,7 +14,6 @@
     "build:docker": "bash build.sh",
     "release": "bash deploy.sh",
     "prod": "yarn build && yarn build:docker && yarn release",
-
     "dev": "vite",
     "start": "vite",
     "gitlab:test": "yarn run test",

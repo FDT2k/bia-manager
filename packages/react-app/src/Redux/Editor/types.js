@@ -20,7 +20,8 @@ export const ACTIONS_TYPES = createActionTypes(
     'ERROR_ADD_PATIENT_UNDEF',
     'SAVE',
     'DELETE_MESURE',
-    'INIT'
+    'INIT',
+    'SET_EXAMINATOR'
 )
 
 

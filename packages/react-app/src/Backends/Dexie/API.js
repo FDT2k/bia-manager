@@ -98,6 +98,7 @@ export default (db, events = {}) => {
 
 
     module.update_patient = ({ id, patient, mesure, mesure_id }) => {
+        debugger;
         if (!is_nil(mesure)) {
             if (mesure_id >= patient.mesures.length) {
                 patient.mesures.push(mesure);

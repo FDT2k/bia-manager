@@ -1,6 +1,7 @@
 import { defaultTo, safe_path } from '@karsegard/composite-js';
 import { createSelector } from 'reselect';
 
+import{dateSysToHuman} from '@/references/format'
 
 
 
@@ -25,7 +26,11 @@ export default getModule => {
 
    module.select_edited_mesure = createSelector([module.select_current_patient_id, baseSelector], (current_patient, state) => {
       if (state.mesure && state.mesure[current_patient] && state.mesure[current_patient].mesure) {
-         return state.mesure[current_patient].mesure
+
+         let result =  state.mesure[current_patient].mesure
+
+        // result.date = dateSysToHuman(result.date);
+         return result;
       }
 
    });

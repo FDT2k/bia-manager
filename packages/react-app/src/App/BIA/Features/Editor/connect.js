@@ -15,7 +15,7 @@ import {
     error_message,
     populate_machines,
     save,
-
+    save_global,
     // selectors
 
     select_edited_mesure,
@@ -56,7 +56,8 @@ const mapDispatchToProps = {
 
     populate_machines,
     update_patient,
-    save:save_editor
+ //   save:save_editor
+    save:save_global
 }
 
 

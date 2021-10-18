@@ -2432,19 +2432,6 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@karsegard/react-hooks@npm:^2.7.1":
-  version: 2.7.1
-  resolution: "@karsegard/react-hooks@npm:2.7.1"
-  dependencies:
-    "@karsegard/composite-js": ^2.9.0
-    "@karsegard/react-core-layout": ^1.5.1
-  peerDependencies:
-    react: "*"
-    react-dom: "*"
-  checksum: 38d58235418c0fe229ea3c15051bc9aa198f9b61fb3413cd056828c997a05332702cb106595c2c8c13cdc549f43293869278b6f1a2c49f6541ff60d1d98546b7
-  languageName: node
-  linkType: hard
-
 "@karsegard/react-hooks@npm:^2.8.0":
   version: 2.8.0
   resolution: "@karsegard/react-hooks@npm:2.8.0"
@@ -2455,6 +2442,19 @@ __metadata:
     react: "*"
     react-dom: "*"
   checksum: c12e15ae0085784a8f8cf4272468b34ddc217484062ffcc5c62d65441aeac940b036725262fe24855d9f8b1b91cd46edc24e8b74a5288309e92f34c1ec8603d4
+  languageName: node
+  linkType: hard
+
+"@karsegard/react-hooks@npm:^2.9.0":
+  version: 2.9.0
+  resolution: "@karsegard/react-hooks@npm:2.9.0"
+  dependencies:
+    "@karsegard/composite-js": ^2.9.0
+    "@karsegard/react-core-layout": ^1.5.1
+  peerDependencies:
+    react: "*"
+    react-dom: "*"
+  checksum: 479f6e5c560725fd913d577fe33958775307a1589603ef48c742121eea76721e19727846e582ccdb262f144b9fea31350628ca325b130d3dbe1a9a6dcee29201
   languageName: node
   linkType: hard
 
@@ -5359,7 +5359,7 @@ __metadata:
     "@karsegard/react-compose": ^1.3.2
     "@karsegard/react-core-layout": ^1.5.1
     "@karsegard/react-crud": "workspace:packages/kda-react-crud"
-    "@karsegard/react-hooks": ^2.7.1
+    "@karsegard/react-hooks": ^2.9.0
     "@karsegard/react-redux": ^1.7.0
     "@material-ui/core": ^4.11.4
     "@material-ui/icons": ^4.11.2
@@ -5383,9 +5383,11 @@ __metadata:
     react-dom: ^17.0.2
     react-dump: ^0.3.3
     react-i18next: ^11.12.0
+    react-input-date-mask: ^2.0.0
     react-input-mask: ^2.0.4
     react-ionicons: ^4.2.0
     react-loading: ^2.0.3
+    react-maskedinput: ^4.0.1
     react-popper: ^2.2.5
     react-redux: ^7.2.4
     react-scripts: 4.0.3
@@ -11681,6 +11683,13 @@ fsevents@^1.2.7:
   languageName: node
   linkType: hard
 
+"inputmask-core@npm:^2.1.1":
+  version: 2.2.0
+  resolution: "inputmask-core@npm:2.2.0"
+  checksum: 532545c1db0d3d951ad5f29fb7f14edd90bf69b40b255d6ad529f081031e000188c143d19e960f210b23f062a001e7cf85772a2552380321750e34f3b4df8786
+  languageName: node
+  linkType: hard
+
 "inquirer@npm:5.2.0":
   version: 5.2.0
   resolution: "inquirer@npm:5.2.0"
@@ -17485,7 +17494,7 @@ fsevents@^1.2.7:
   languageName: node
   linkType: hard
 
-"prop-types@npm:^15.6.2, prop-types@npm:^15.7.2":
+"prop-types@npm:^15.5.7, prop-types@npm:^15.6.2, prop-types@npm:^15.7.2":
   version: 15.7.2
   resolution: "prop-types@npm:15.7.2"
   dependencies:
@@ -17917,7 +17926,7 @@ fsevents@^1.2.7:
   languageName: node
   linkType: hard
 
-"react-dom@npm:^17.0.2":
+"react-dom@npm:^17.0.1, react-dom@npm:^17.0.2":
   version: 17.0.2
   resolution: "react-dom@npm:17.0.2"
   dependencies:
@@ -17968,6 +17977,16 @@ fsevents@^1.2.7:
     i18next: ">= 19.0.0"
     react: ">= 16.8.0"
   checksum: 985e1ede08ab4e1235a03680d339cb558c7c360e5435924587c383dd1c5a183d0656d1f72e59deda757864c78e137d0c664f9daadf9ccdca42ca56cce5db7b23
+  languageName: node
+  linkType: hard
+
+"react-input-date-mask@npm:^2.0.0":
+  version: 2.0.0
+  resolution: "react-input-date-mask@npm:2.0.0"
+  dependencies:
+    react: ^17.0.1
+    react-dom: ^17.0.1
+  checksum: 80d4e1c0657e72226923301a49e5672292a4a4e0c387a855e0eef1c7eb2a148eaf69a41d42e41362eec3e25329d61fc6eb57e033c9101db5cc73731239eba0a6
   languageName: node
   linkType: hard
 
@@ -18033,6 +18052,18 @@ fsevents@^1.2.7:
     prop-types: ^15.6.0
     react: ">=0.14.0"
   checksum: a2b24b94c1988c1418a3d714c5d95dd13407f43e6ac59f350ae54ad75dd613bfea0abb59c8530900821806b72596e57555a700f9541bd12d9ac88387cce919fa
+  languageName: node
+  linkType: hard
+
+"react-maskedinput@npm:^4.0.1":
+  version: 4.0.1
+  resolution: "react-maskedinput@npm:4.0.1"
+  dependencies:
+    inputmask-core: ^2.1.1
+    prop-types: ^15.5.7
+  peerDependencies:
+    react: ^0.14.9 || ^15.3.0 || ^16.0.0
+  checksum: 2b75235a2e44e3e899a530f79be309d3b0af17e44cda3941400293ebb77b541524507d6cddb035647b5335d7e6a6ce973727f035d76104877820ef07084ad331
   languageName: node
   linkType: hard
 
@@ -18274,7 +18305,7 @@ fsevents@^1.2.7:
   languageName: node
   linkType: hard
 
-"react@npm:^17.0.2":
+"react@npm:^17.0.1, react@npm:^17.0.2":
   version: 17.0.2
   resolution: "react@npm:17.0.2"
   dependencies:

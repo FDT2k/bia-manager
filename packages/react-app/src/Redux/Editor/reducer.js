@@ -44,6 +44,10 @@ export default (getModule) => {
     const module = {};
 
 
+    module.examinator = createReducer("",{
+        [action_types.SET_EXAMINATOR]: (state,{payload}) => payload
+    })
+
 
     module.current_patient_id = createReducer(-1, {
         [action_types.EDIT_PATIENT]: (state, { payload }) => payload.id
@@ -319,6 +323,7 @@ export default (getModule) => {
 
     module.report_settings = createReducer({
         bia_result_columns: [
+            
             'water',
             'pct_water',
             'ffm',
@@ -414,6 +419,7 @@ export default (getModule) => {
            type_act,
            machines,
            examinators,*/
+        examinator: module.examinator,
         error: module.errors,
         empty_mesure: module.empty_mesure,
         report_settings: module.report_settings,
