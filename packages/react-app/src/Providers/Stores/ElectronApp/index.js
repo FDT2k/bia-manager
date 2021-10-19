@@ -100,16 +100,21 @@ export const {
    create_mesure,
    change_subject,
    save,
-   fetch_normes,
    recompute_current_mesure,
    refresh_current_recap,
    refresh_recap,
+   fetch_normes,
 
    change_mesure ,
    save:save_editor,
    set_examinator
   } = BIAEditorModule.actions;
- 
+ /*
+export const {
+  fetch_normes,
+
+} = BIAEditorModule.submodules.normes.actions;
+*/
 export const {
   edit_patient,
   update_patient,

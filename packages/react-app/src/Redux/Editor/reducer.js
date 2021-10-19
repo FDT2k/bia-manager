@@ -429,7 +429,7 @@ export default (getModule) => {
         mesure: module.mesure,
         patient: module.patient,
         recap: module.recap,
-        normes: module.normes
+        normes: submodules.normes.reducer
     });
 
     return module;
