@@ -7,7 +7,9 @@
   "scripts": {
     "start": "MODE=development node scripts/watch.js",
     "start:debug": "cd packages/remotedev; yarn start",
-    "build:submodules": "",
+    "build:crud": "cd packages/kda-react-crud; yarn build ; ",
+    "build:redux": "cd packages/kda-react-redux; yarn build ; ",
+    "build:submodules": "yarn build:crud; yarn build:redux",
     "build": "node scripts/build.js",
     "postinstall": "electron-builder install-app-deps",
     "precompile": "cross-env MODE=production npm run build",
