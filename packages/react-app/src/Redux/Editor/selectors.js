@@ -110,29 +110,6 @@ export default getModule => {
    })
 
 
-   module.select_normes = createSelector([module.select_current_patient_id, baseSelector], (patient_id, state) => {
-      return defaultToObject(state.normes.byPatient[patient_id]);
-   });
-
-   module.select_normes_bygender = createSelector([module.select_edited_patient, baseSelector], (patient, state) => {
-      return defaultToObject(state.normes.byGender[patient.gender]);
-   });
-
-
-   module.select_normes_sampling = createSelector([module.select_edited_patient, baseSelector], (patient, state) => {
-
-      /*let result;
-      if (patient && patient.gender) {
-         result = state.normes.chartSample[patient.gender]
-      }
-      return defaultToArray(result);
-*/
-
-      return safe_array(`normes.chartSample.${patient.gender}`,state);
-
-   });
-
-
 
    module.select_bia = createSelector(module.select_edited_mesure, mesure => safe_array('bia', mesure))
    module.select_bia_by_key = createSelector(module.select_bia, bia => bia.reduce((carry, item) => {
@@ -158,6 +135,30 @@ export default getModule => {
 
    module.has_error = createSelector(baseSelector,state=> state.error.has_error)
    module.error_message = createSelector(baseSelector,state=> state.error.message)
+
+
+
+   /** 
+    * 
+    * NORMS Selectors
+    *  */
+
+
+    module.select_normes = createSelector([module.select_current_patient_id, baseSelector], (patient_id, state) => {
+      //return defaultToObject(state.normes.byPatient[patient_id]);
+      return safe_object(`normes.byPatient.${patient_id}`,state);
+   });
+
+   module.select_normes_bygender = createSelector([module.select_edited_patient, baseSelector], (patient, state) => {
+      //return defaultToObject(state.normes.byGender[patient.gender]);
+      return safe_object(`normes.byGender.${patient.gender}`,state);
+   });
+
+
+   module.select_normes_sampling = createSelector([module.select_edited_patient, baseSelector], (patient, state) => {
+      return safe_array(`normes.chartSample.${patient.gender}`,state);
+   });
+
 
    return module;
 

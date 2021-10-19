@@ -11,7 +11,7 @@ export default createModule(
     {
         submodules: makeSubmodules,
         selectors: makeSelectors,
-        types:makeActionTypes,
+        types: makeActionTypes,
         actions: makeActions,
         reducers: makeReducer,
         reducer: getModule => getModule().reducers.reducer

@@ -47,12 +47,12 @@ export const {
   select_form_lists
 } = ElectronModule.selectors;
 
-
+/*
 export const {
   create_subject,
   edit_subject,
 } =  ElectronModule.submodules.features.create.actions;
-
+*/
 export const {
   select_patients_list_filtered,
   
@@ -100,16 +100,21 @@ export const {
    create_mesure,
    change_subject,
    save,
-   fetch_normes,
    recompute_current_mesure,
    refresh_current_recap,
    refresh_recap,
+   fetch_normes,
 
    change_mesure ,
    save:save_editor,
    set_examinator
   } = BIAEditorModule.actions;
- 
+ /*
+export const {
+  fetch_normes,
+
+} = BIAEditorModule.submodules.normes.actions;
+*/
 export const {
   edit_patient,
   update_patient,
@@ -118,7 +123,7 @@ export const {
   
 }= ElectronModule.actions
 
-
+/*
  export const { fetch: populate_sportrate } = BIAEditorModule.submodules.sportRate.actions;
  export const { fetch: populate_sporttype } = BIAEditorModule.submodules.sportType.actions;
  export const { fetch: populate_machines } = BIAEditorModule.submodules.machines.actions;
@@ -127,7 +132,7 @@ export const {
  export const { select_list: select_machines } = BIAEditorModule.submodules.machines.selectors;
  export const { select_list: select_sportrates } = BIAEditorModule.submodules.sportRate.selectors;
  export const { select_list: select_sporttypes } = BIAEditorModule.submodules.sportType.selectors;
- 
+ */
 /*end editor module */
 
 /**
