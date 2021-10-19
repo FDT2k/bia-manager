@@ -1,3 +1,8 @@
+@use "reset";
+@use "fonts";
+@use "flexbox";
+
+
 body, html {
   font-family: aktiv-grotesk, sans-serif;
   font-weight: 400;
@@ -50,11 +55,23 @@ a,
 a:visited,
 a:active,
 a:hover {
+  cursor:pointer;
   text-decoration: none;
   color: black;
-  padding-bottom: 1px;
-  border-bottom: solid 1px black;
+  border:none;
+
+  &.link {
+    display: inline-block;
+    padding-bottom: 1px;
+    border-bottom: solid 1px black;
+
+    &::after {
+      content:" \2794";
+    }
+  }
+
 }
+
 
 
 /** TAGS **/
@@ -71,7 +88,7 @@ img{
 nav, footer {
   background-color: black;
   color: white;
-  padding: 16px 32px;
+
   position: fixed;
   left: 0px;
   right: 0px;
@@ -79,6 +96,13 @@ nav, footer {
 
 nav {
   top: 0px;
+
+  section {
+    padding: 16px 32px;
+    margin: 0px;
+    width: 100%;
+    max-width: calc(1200px - 72px);
+  }
 }
 
 footer {
@@ -101,44 +125,56 @@ header {
 }
 
 /** BUTTONS **/
-a.btn{
-  text-align: center;
-  vertical-align: middle;
-  color: white;
-}
-a.btn:hover{
-  padding: 16px 24px;
-}
+
 .btn {
   background-color: inherit;
   border: inherit;
-  border-radius: 4px;
   text-transform: uppercase;
-  padding: 16px 24px;
   font-size: 14px;
+
+  &--primary,
+  &--secondary {
+    padding: 16px 24px;
+    border-radius: 4px;
+    text-align: center;
+    vertical-align: middle;
+  }
+
+  &--primary,
+  &--primary:active,
+  &--primary:visited,
+  &--secondary:hover {
+    background-color: black;
+    border: solid 1px white;
+    color: white;
+  }
+
+  &--secondary,
+  &--secondary:active,
+  &--secondary:visited,
+  &--primary:hover {
+    background-color: white;
+    border: solid 1px black;
+    color: black;
+  }
+
+  &--text {
+    font-weight: 700;
+  }
 }
 
-.btn--primary,
-.btn--primary:active,
-.btn--secondary:hover  {
-  background-color: black;
-  border: solid 1px white;
-  color: white;
-}
 
-.btn--secondary,
-.btn--secondary:active,
-.btn--primary:hover {
-  background-color: white;
-  border: solid 1px black;
-  color: black;
-
-}
 
 /** CUSTOMS **/
 
-.downloads button,.downloads a {
-  margin-top: 8px;
+.downloads {
+  article {
+    width: 47%;
+  }
+
+  & a {
+    margin-top: 8px;
+  }
 }
 
 .steps img {
@@ -148,15 +184,4 @@ a.btn:hover{
 .icon{
   height:32px;
   width:32px;
-}
-
-a{
-  text-decoration: none;
-  border:none;
-  cursor:pointer;
-}
-a:hover{
-  text-decoration: none;
-  border:none;
-
 }
