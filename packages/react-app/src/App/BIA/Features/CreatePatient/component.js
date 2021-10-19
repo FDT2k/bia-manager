@@ -27,9 +27,7 @@ export const Page = props => {
         'lastname': { type: 'text', label: 'Nom' },
         'firstname': { type: 'text', label: 'Prenom' },
         'birthdate': { type: 'date', label: 'Date de naissance' },
-      //  'gender': { type: 'select', label: 'Sexe', options: available_options.genders.map(mapItemListAsoption) },
-      //  'groups.path': { type: 'select', label: 'Groupe pathologique', options: available_options.patho_groups.map(mapItemListAsoption) },
-      //  'groups.ethno': { type: 'select', label: 'Groupe ethnique', options: available_options.etno_groups.map(mapItemListAsoption) },
+    
         'usual_height': { type: 'text', label: 'Taille' },
         'usual_weight': { type: 'text', label: 'Poids habituel' },
         'diag': { type: 'textarea', label: 'Diagnostic' },
