@@ -23,8 +23,6 @@ export default Component=> props => {
     
 
     const handleSave = values => {
-     
-     
         create_patient(values).then(res=> {
             setLocation('/editor/'+res.id)
         }).catch(res=>{
