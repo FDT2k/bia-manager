@@ -70,11 +70,8 @@ export default props => {
     return (<Fullscreen>
 
         <Router hook={useHashLocation}>
-        {/* do not remove, could be the print preview later
-        <Route path="/print/:id/:mesure_id">
-                <DebugPrint />
-            </Route> */}
-
+      
+     
 
             <Route path="/database"><Database /></Route>
 

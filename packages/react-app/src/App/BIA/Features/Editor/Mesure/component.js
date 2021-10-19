@@ -188,16 +188,16 @@ const Editor = props => {
                                 <ToggleSwitch tabIndex={3} id="smoker" labelYes="Oui" labelNo="Non" name="smoker" onChange={handleChange} checked={values.smoker} />
                             </Field>
 
-                            <Field className="cote-mesure" label={t("Coté mesuré")}>
-                                <ToggleSwitch tabIndex={4} labelYes="Gauche" labelNo="Droit" name="left_side" onChange={handleChange} id="left_side" checked={values.left_side} />
+                            <Field className="taille" label={t("Taille (cm)")}  >
+                                <input type="text" tabIndex={4}  {...inputProps('height')} />
                             </Field>
-
                             <Field className="poids-actuel" label={t("Poids Actuel (kg)")} >
                                 <input type="text" tabIndex={5}  {...inputProps('weight')} />
                             </Field>
 
-                            <Field className="taille" label={t("Taille (cm)")}  >
-                                <input type="text" tabIndex={6}  {...inputProps('height')} />
+
+                            <Field className="cote-mesure" label={t("Coté mesuré")}>
+                                <ToggleSwitch tabIndex={6} labelYes="Gauche" labelNo="Droit" name="left_side" onChange={handleChange} id="left_side" checked={values.left_side} />
                             </Field>
 
                         </LayoutFlex>
