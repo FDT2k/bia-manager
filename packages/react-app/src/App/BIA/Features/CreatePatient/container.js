@@ -8,10 +8,10 @@ import { useLocation } from "wouter";
 export default Component=> props => {
     const {
         refresh_editor_lists,
-        subject_form_default_options,
-        subject_form_available_options,
+    //    subject_form_default_options,
+    //    subject_form_available_options,
         create_subject,edited_subject,
-        form_options_loaded,
+   //     form_options_loaded,
         create_patient,
         custom_lists
     } = props;
@@ -23,9 +23,9 @@ export default Component=> props => {
         refresh_editor_lists();
     },[])
 
-    useEffect(()=>{
-        create_subject(subject_form_default_options)
-    },[form_options_loaded])
+  /*  useEffect(()=>{
+        create_subject()
+    },[form_options_loaded])*/
    /* useEffect(()=>{
         dispatch(create_subject())
 
