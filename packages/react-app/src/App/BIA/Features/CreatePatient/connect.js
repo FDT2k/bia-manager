@@ -8,10 +8,8 @@ import { bindSelectors, connect } from '@karsegard/react-redux'
 */
 
 import {
-  create_subject,
   refresh_editor_lists,
   edited_subject,
-  edit_subject,
   create_patient,
   select_form_lists,
 } from '@/Providers/Stores/ElectronApp';
@@ -29,8 +27,7 @@ const mapStateToProps = (state,ownProps) => {
 
 const mapDispatchToProps = {
   refresh_editor_lists,
-  create_subject,
-  edit_subject,
+ // edit_subject,
   create_patient
 
 }

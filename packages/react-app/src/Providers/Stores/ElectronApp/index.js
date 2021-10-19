@@ -47,12 +47,12 @@ export const {
   select_form_lists
 } = ElectronModule.selectors;
 
-
+/*
 export const {
   create_subject,
   edit_subject,
 } =  ElectronModule.submodules.features.create.actions;
-
+*/
 export const {
   select_patients_list_filtered,
   

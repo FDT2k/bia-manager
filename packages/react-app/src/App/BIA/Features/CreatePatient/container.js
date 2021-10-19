@@ -10,7 +10,7 @@ export default Component=> props => {
         refresh_editor_lists,
     //    subject_form_default_options,
     //    subject_form_available_options,
-        create_subject,edited_subject,
+        edited_subject,
    //     form_options_loaded,
         create_patient,
         custom_lists
@@ -59,14 +59,8 @@ export default Component=> props => {
 
     const handleSave = values => {
      
-      /* dispatch(create_patient(api.create_patient,normalize_patient(values),false)).then(res=>{
-            setLocation('/editor/'+res.id)
-       }).catch(res=>{
-
-            alert('error')
-       });*/
+     
         create_patient(values).then(res=> {
-            debugger;
             setLocation('/editor/'+res.id)
         }).catch(res=>{
 
@@ -77,7 +71,7 @@ export default Component=> props => {
 
     return (
         <>
-            <Component /*handleChange={handleChange}  handleSave={handleSave} available_options={{genders:[],etno_groups:[],patho_groups:[]}}*/ handleChange={handleChange} patient={edited_subject}  available_options={custom_lists}  handleSave={handleSave} />
+            <Component  handleChange={handleChange} patient={edited_subject}  available_options={custom_lists}  handleSave={handleSave} />
         </>
     )
 }
