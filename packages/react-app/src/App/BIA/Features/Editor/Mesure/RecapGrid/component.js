@@ -27,7 +27,7 @@ export const Component = props => {
             if (line) {
                 const is_pct = line.label.startsWith('pct_')
                 return (<React.Fragment key={idx}>
-                    <div>{t(line.label)}</div>
+                    <div>{t(`${line.label}_recap`)}</div>
                     <div>{line.values['norme']}</div>
                     {headers && headers.map((key, idx) => {
                         let val = line.values[key];

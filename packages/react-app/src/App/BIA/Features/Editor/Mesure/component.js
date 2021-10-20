@@ -43,14 +43,14 @@ const DateMask = ({
 
 
     const updateDate = value => {
-        let fieldValue = moment(value,'DD/MM/YYYY').isValid() ?
-            moment(value,'DD/MM/YYYY').format('DD/MM/YYYY') :
+        let fieldValue = moment(value, 'DD/MM/YYYY').isValid() ?
+            moment(value, 'DD/MM/YYYY').format('DD/MM/YYYY') :
             value;
         console.log(value)
-      return fieldValue
+        return fieldValue
     }
- 
-    return (<MaskedInput mask="11/11/1111" placeholder="dd/mm/yyyy" value={updateDate(_value)} onChange={e=>   _onChangeValue && _onChangeValue(e.target.value)}/>)
+
+    return (<MaskedInput mask="11/11/1111" placeholder="dd/mm/yyyy" value={updateDate(_value)} onChange={e => _onChangeValue && _onChangeValue(e.target.value)} />)
 
 }
 
@@ -136,7 +136,7 @@ const Editor = props => {
     const _handleClickSave = e => {
         // commit the form before saving
         debugger;
-        Promise.resolve(_handleChange(values)).then(_=> {
+        Promise.resolve(_handleChange(values)).then(_ => {
             handleClickSave()
 
         });
@@ -166,8 +166,8 @@ const Editor = props => {
                     <LayoutFlexColumnWithArea>
                         <LayoutFlex wrap >
                             <Field className="date-examen" label={t("Date d'Examen")}>
-                              
-                            <SafeDatePicker
+
+                                <SafeDatePicker
                                     selected={values.date}
                                     handleChange={handleChangeValue('date')}
                                 />
@@ -214,6 +214,15 @@ const Editor = props => {
                 </TabPanel>
                 <TabPanel>
                     <Container fit grow>
+                        <LayoutFlex>
+                            <Field className="taille" label={t("Taille (cm)")}  >
+                                <EditableTextInput value={values.height} name="height" onChange={handleChange} />
+                            </Field>
+                            <Field className="poids-actuel" label={t("Poids Actuel (kg)")} >
+                                <EditableTextInput value={values.weight} name="weight" onChange={handleChange} />
+                            </Field>
+                        </LayoutFlex>
+
                         <ElectricalDataForm handleGroupChange={handleGroupChange} handleComputedChange={electricalHandleValues} handleChange={electricalHandleChange} editedGroup={editedGroup} values={values.data} />
 
                         <br />

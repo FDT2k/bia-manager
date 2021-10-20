@@ -9,17 +9,23 @@ const FormulaResultRow = (props) => {
     }, {})
     const [__base_class, element, modifier] = bem('result-row');
     const { className, ...rest } = getClasseNames(__base_class, props)
-    return (<><div className="row header">{t(label)}</div>
+    const _classes = cEx([
+        className,
+        "row",
+        "result"
+    ])
+    return (<>
+        <div className="row lineheader"><span>{t(label)}</span></div>
         {columns.map((col) => {
             if (!colByName[col]) {
                 return (<div>{t('Error')}</div>)
             }
             let type = colByName[col].type || 'number';
             let val = values[col]
-            if (type !== 'string') {
+            if (type !== 'norme') {
                 let limit = limits[col];
                 val = (new Number(val)).toFixed(2);
-                let classes = className;
+                let classes = _classes;
                 if (limit) {
                     const [min, max] = limit;
                     const _limit = x => {
@@ -30,7 +36,7 @@ const FormulaResultRow = (props) => {
                         return 1
                     };
                     classes = cEx([
-                        className,
+                        _classes,
                         _ => _limit(val) === -1 ? modifier('lesser') : '',
                         _ => _limit(val) === 1 ? modifier('upper') : '',
 
@@ -39,9 +45,9 @@ const FormulaResultRow = (props) => {
                 const is_pct = label.startsWith('pct_')
                 const display_value = !isNaN(val) ? val : '';
                 return (<div key={`${col}`} className={classes}>
-                    <span>{display_value} {(display_value !=="" &&is_pct)?'%':''}</span></div>)
+                    <span>{display_value} {(display_value !== "" && is_pct) ? '%' : ''}</span></div>)
             } else {
-                return (<div key={`${col}`} >{val}</div>)
+                return (<div className="row norme" key={`${col}`} ><span>{val}</span></div>)
 
             }
         })}

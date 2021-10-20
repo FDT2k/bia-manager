@@ -28,7 +28,7 @@ export const Component = props => {
 
     }
     return (
-        <Grid style={{
+        <Grid className="comparison-grid" style={{
             gridTemplateColumns: "2fr 1fr 1fr 1fr",
             gridAutoRows: "1fr"
         }}>
@@ -50,7 +50,7 @@ Component.defaultProps = {
     available_columns: [
         { name: 'kushner', label: 'Kushner', selectable: true },
         { name: 'segal', label: 'Segal', selectable: true },
-        { name: 'norme', label: 'Norme', type: 'string', selectable: false },
+        { name: 'norme', label: 'Norme', type: 'norme', selectable: false },
         { name: 'gva', label: 'Gva', selectable: true },
     ],
     columns: ['norme', 'kushner', 'gva'],
