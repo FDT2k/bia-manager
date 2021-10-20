@@ -1,14 +1,40 @@
-.recap-grid{
+@use "@/bia-layout/sass/theme/default/main.scss";
 
-    max-height:100%;
-    &>div {
-        border-top: 1px solid #dfdfdf;
-        border-left: 1px solid #dfdfdf;
-     /*   &:nth-child(-n+2) {
-          border-top: none;
-        }
-        &:nth-child(odd) {
-          border-left: none;
-        }*/
-      }
+.recap-grid {
+  align-items: center;
+  justify-items: center;
+
+
+ 
+  .sep {
+    grid-column-start: 1;
+    grid-column-end: 9;
+    min-height: 1px;
+    width:100%;
+    background-color: red;
+  }
+
+  .header--column{
+    font-weight: bold;
+  }
+
+  .row {
+    @extend %xsmall-body;
+    &.bold{
+      font-weight: bold;
+    }
+    display:flex;
+    align-items: center;
+    border-bottom:1px solid black;
+    min-width: 100%;
+    min-height:100%;
+    
+    & span {
+      padding-left:5px;
+      padding-right:5px;
+    }
+  }
+
+  max-height: 100%;
+  
 }

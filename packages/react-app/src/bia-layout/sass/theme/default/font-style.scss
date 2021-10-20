@@ -7,6 +7,7 @@
   --font-weight-100: 100px;
   --font-weight-normal: normal;
   --font-weight-bold: bold;
+  --font-size-10: 10px;
   --font-size-12: 12px;
   --font-size-14: 14px;
   --font-size-20: 20px;
@@ -67,6 +68,12 @@
   font-style: var(--font-style-normal);
   font-weight: var(--font-weight-normal);
   font-size: var(--font-size-12);
+  line-height: var(--line-spacing-15);
+}
+%xsmall-body {
+  font-style: var(--font-style-normal);
+  font-weight: var(--font-weight-normal);
+  font-size: var(--font-size-10);
   line-height: var(--line-spacing-15);
 }
 %placeholder {

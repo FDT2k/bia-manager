@@ -1,39 +1,48 @@
 import React from 'react';
 import { Grid } from '@karsegard/react-core-layout'
+import { cEx } from '@karsegard/react-compose'
 
 import { dateSysToHuman, oneDecimal } from '@/references/format';
 
 export const Component = props => {
-    const { t, data, headers, lines } = props;
+    const { t, data, headers, lines,boldlines } = props;
 
     return (<Grid
         className="recap-grid"
-        templateColumns="2fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr"
-        autoRows="20px"
+
+        templateColumns="auto auto repeat(6,1fr)"
+        autoRows="18px"
     >
 
-        <div>{t('Dates')}</div>
-        <div>{t('Norme')}</div>
+        <div className="row header--column"><span>{t('Dates')}</span></div>
+        <div className="row header--column"><span>{t('Norme')}</span></div>
         {
             headers && headers.map((item, idx) => {
-                return <div key={idx}>{item.trim() != '' ? dateSysToHuman(new Date(item)) : item}</div>
+                return <div className="row header--column" key={idx}><span>{item.trim() != '' ? dateSysToHuman(new Date(item)) : item}</span></div>
             }
             )
         }
 
-
         {lines.map((k, idx) => {
+            
             const line = data.find(item => item.label == k)
+
+            const bold = boldlines.includes(k);
+
+            const className = cEx([
+                'row',
+                {'bold ': _=> bold === true}
+            ])
             if (line) {
                 const is_pct = line.label.startsWith('pct_')
                 return (<React.Fragment key={idx}>
-                    <div>{t(`${line.label}_recap`)}</div>
-                    <div>{line.values['norme']}</div>
+                    <div className={`${className} header--line`}>{t(`${line.label}_recap`)}</div>
+                    <div className={`${className} norme`}><span>{line.values['norme']}</span></div>
                     {headers && headers.map((key, idx) => {
                         let val = line.values[key];
                         val = oneDecimal(val);
                         const display_value = !isNaN(val) ? val : '';
-                        return (<div key={idx}>{display_value}{(display_value !== "" && is_pct) ? '%' : ''}</div>)
+                        return (<div className={`${className} value`} key={idx}><span>{display_value}{(display_value !== "" && is_pct) ? '%' : ''}</span></div>)
                     })}
 
                 </React.Fragment>)
@@ -65,6 +74,11 @@ Component.defaultProps = {
         'bmi',
         'fmi',
         'ffmi'
+    ],
+    boldlines:[
+        'pct_ffm',
+        'pct_dffm',
+        'pct_fm'
     ]
 }
 

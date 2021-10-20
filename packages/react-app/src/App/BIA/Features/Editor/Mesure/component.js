@@ -161,6 +161,7 @@ const Editor = props => {
                     <Tab>{t('Résultats')}</Tab>
                     <Tab>{t('Récapitulatif')}</Tab>
                     <Tab>{t('Graphiques')}</Tab>
+                    <Tab>{t('Print')}</Tab>
                 </TabList>
                 <TabPanel>
                     <LayoutFlexColumnWithArea>
@@ -239,7 +240,10 @@ const Editor = props => {
                     <FFMIChart data={norm_chart} noi="ffmi" age={mesure.current_age} value={current_bia.ffmi} />
                     <FFMIChart data={norm_chart} noi="fmi" age={mesure.current_age} value={current_bia.fmi} />
                 </TabPanel>
+        <TabPanel>
+        <PrintableReport />
 
+        </TabPanel>
             </TabsWithArea>
             <LayoutFlexColumnWithArea area="mesure-editor-aside">
                 <Field label={t("Examinateur")}>
