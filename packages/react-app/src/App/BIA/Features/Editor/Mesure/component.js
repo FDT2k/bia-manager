@@ -241,7 +241,6 @@ const Editor = props => {
                     <FFMIChart data={norm_chart} noi="fmi" age={mesure.current_age} value={current_bia.fmi} />
                 </TabPanel>
                 <TabPanel>
-                    <Serrement/>
                 </TabPanel>
             </TabsWithArea>
             <LayoutFlexColumnWithArea area="mesure-editor-aside">

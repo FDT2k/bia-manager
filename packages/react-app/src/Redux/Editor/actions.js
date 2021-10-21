@@ -161,7 +161,6 @@ export default (getModule) => {
 
 
     actions.recompute_mesure = (patient_id, values) => {
-
         return (dispatch, getState) => {
 
 
@@ -184,6 +183,7 @@ export default (getModule) => {
 
 
     actions.change_mesure = (patient, mesure) => {
+        debugger;
 
         if (is_nil(patient) || is_nil(mesure)) {
             return {

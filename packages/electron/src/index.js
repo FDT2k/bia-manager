@@ -281,7 +281,6 @@ app.whenReady()
   .then(createWindow)
   .then(window => {
     console.log(process.env)
-    createMenu(window);
     loadContent(window);
   })
   .catch((e) => console.error('Failed create window:', e));
