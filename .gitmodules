@@ -4,3 +4,6 @@
 [submodule "packages/kda-react-crud"]
 	path = packages/kda-react-crud
 	url = git@gitlab.com:karsegard/react-crud.git
+[submodule "packages/kda-react-hooks"]
+	path = packages/kda-react-hooks
+	url = git@gitlab.com:karsegard/react-hooks.git

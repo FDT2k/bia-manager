@@ -18,6 +18,7 @@ import {Container,LayoutFlex} from '@karsegard/react-core-layout'
 import MesureEditor from './Mesure';
 import PatientHeader from './PatientHeader';
 
+
 import ListMesure from './ListMesure';
 
 const ContainerWithArea = withGridArea(Container);

@@ -18,6 +18,7 @@ import ElectricalDataForm from '@/bia-layout/components/Views/ElectricalDataForm
 
 
 import ComparisonTable from '@/App/BIA/Features/Editor/Mesure/ComparisonTable';
+import Serrement from '@/App/BIA/Features/Editor/Mesure/Serrement';
 import RecapGrid from '@/App/BIA/Features/Editor/Mesure/RecapGrid';
 
 import { Container, LayoutFlex, LayoutFlexColumn, withGridArea } from '@karsegard/react-core-layout'
@@ -28,7 +29,6 @@ import "react-datepicker/dist/react-datepicker.css";
 import { useReactToPrint } from 'react-to-print';
 
 import { oneDecimal, oneDecimalPct } from '@/references/format'
-
 import MaskedInput from 'react-maskedinput';
 import moment from 'moment';
 const LayoutFlexColumnWithArea = withGridArea(LayoutFlexColumn);
@@ -161,7 +161,7 @@ const Editor = props => {
                     <Tab>{t('Résultats')}</Tab>
                     <Tab>{t('Récapitulatif')}</Tab>
                     <Tab>{t('Graphiques')}</Tab>
-                    <Tab>{t('Print')}</Tab>
+                    <Tab>{t('Force de serrement')}</Tab>
                 </TabList>
                 <TabPanel>
                     <LayoutFlexColumnWithArea>
@@ -240,10 +240,9 @@ const Editor = props => {
                     <FFMIChart data={norm_chart} noi="ffmi" age={mesure.current_age} value={current_bia.ffmi} />
                     <FFMIChart data={norm_chart} noi="fmi" age={mesure.current_age} value={current_bia.fmi} />
                 </TabPanel>
-        <TabPanel>
-        <PrintableReport />
-
-        </TabPanel>
+                <TabPanel>
+                    <Serrement/>
+                </TabPanel>
             </TabsWithArea>
             <LayoutFlexColumnWithArea area="mesure-editor-aside">
                 <Field label={t("Examinateur")}>
@@ -253,7 +252,7 @@ const Editor = props => {
                     <EditableSelect {...inputProps('machine')} options={[{ id: '', name: t('- Choisissez une valeur -') }, ...custom_lists.machine.list]} />
                 </Field>
 
-                <Field label={t("Poids Idéal (%)")}>
+                <Field label={t("Poids Idéal (%)")}> 
                     <div>{oneDecimal(values.ideal_weight)} ({oneDecimalPct(values.pct_ideal_weight)})</div>
                 </Field>
                 <Field label={t("BMI Actuel")}>

@@ -2,6 +2,7 @@ import { bem, withBaseClass } from '@karsegard/react-compose';
 import React from 'react';
 import './field.scss';
 
+import { Info } from '@/bia-layout/components/Icons';
 
 
 const [__base_class, element, modifer] = bem('field');
@@ -12,6 +13,7 @@ const Field = props => {
         <div className={className}>
             <label className={element('label')}>{label}</label>
             <div className={element('field')}>{props.children}</div>
+            
         </div>
     )
 
