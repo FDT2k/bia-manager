@@ -27,7 +27,7 @@ const createFileIfNeeded = (file, content) => fs.stat(file).catch(_ => {
 });
 
 
-const settingsFile = (import.meta.env.MODE === 'development') ? join(__dirname, '../.bim-settings.json') : join(app.getPath('home'), '.bim-settings.json')
+const settingsFile = (import.meta.env.MODE === 'development') ? join(__dirname, '../bim-settings.json') : join(app.getPath('home'), 'bim-settings.json')
 
 const langCollectionFile = resolve(__dirname, '../.langs');
 createFileIfNeeded(settingsFile, '{"lang":"fr"}');
@@ -119,77 +119,6 @@ const loadContent = mainWindow => {
   return mainWindow.loadURL(pageUrl);
 }
 
-const createMenu = window => {
-  /* var menu = Menu.buildFromTemplate([
- 
-     {
-       label: 'Menu',
-       submenu: [
-         {
-           label: 'Ouvrir',
-           click() {
-             window.webContents.send('trigger-open');
-           }
-         },
-         {
-           label: 'Enregistrer',
-           click() {
-             window.webContents.send('trigger-save');
-           },
-           //enabled: !is_nil(openedFilePath)&& openedFilePath!="" 
-         },
-         {
-           label: 'Fermer',
-           click() {
-             window.webContents.send('trigger-close');
-           },
-         },
-         {
-           label: 'Exit',
-           click() {
-             app.quit()
-           }
-         }
-       ]
-     },
-     {
-       label: 'Outils',
-       submenu: [
-         {
-           label: 'Importer',
-           click() {
-             window.webContents.send('location-change', '#/database');
-           }
-         },
-         {
-           label: 'Gestion des listes',
-           click() {
-             window.webContents.send('location-change', '#/database/listes');
-           }
-         },
-         {
-           label: 'Recherche',
-           click() {
-             window.webContents.send('location-change', '#/search');
-           }
- 
-         },
-       ]
-     },
-     {
-       label: 'Debug',
-       submenu: [
-         {
-           label: 'DevTools',
-           click() {
-             window.webContents.openDevTools()
-           }
-         }
-       ]
-     }
-   ])
-   Menu.setApplicationMenu(menu);*/
-}
 
 const setupAutoUpdate = _ => {
   if (import.meta.env.PROD) {
@@ -339,34 +268,6 @@ app.on('second-instance', () => {
     mainWindow.focus();
   }
 });
-
-/*
-app.on('before-quit', () => {
-  ipcMain.removeAllListeners();
-  mainWindow.removeAllListeners('close');
-});
-
-
-
-app.on('will-quit', () => {
-  //if (process.platform !== 'darwin') {
-  ipcMain.removeAllListeners();
-  mainWindow.removeAllListeners();
-  app.quit();
-  app.exit();
-  console.log('quitting app')
-  // }
-});
-app.on('window-all-closed', () => {
-  //if (process.platform !== 'darwin') {
-  ipcMain.removeAllListeners();
-  mainWindow.removeAllListeners();
-  app.quit();
-  app.exit();
-  process.exit(0);
-  console.log('exiting app')
-  // }
-});*/
 
 
 app.on('window-all-closed', () => {

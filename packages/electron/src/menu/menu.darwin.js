@@ -5,10 +5,10 @@ import updater from "../updater"
 export default  (app, window, i18n) => {
   let menu = [
     {
-      label: i18n.t('PhraseApp i18n'),
+      label: i18n.t('BIAManager'),
       submenu: [
         {
-          label: i18n.t('About PhraseApp i18n'),
+          label: i18n.t('About BIAManager'),
           role: 'about'
         },
         {
