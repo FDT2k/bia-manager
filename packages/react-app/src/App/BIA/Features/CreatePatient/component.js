@@ -42,7 +42,6 @@ export const Page = props => {
         return carry;
     },fields),[available_options]);
 
-
     const relevantFields = useMemo(() => {
         const { age, mesures, mesure_count, ...result } = patient
         return result;

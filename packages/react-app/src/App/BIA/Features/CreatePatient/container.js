@@ -19,7 +19,6 @@ export default Component=> props => {
         refresh_editor_lists();
     },[])
 
-
     
 
     const handleSave = values => {
@@ -34,7 +33,7 @@ export default Component=> props => {
 
     return (
         <>
-            <Component  handleChange={handleChange} patient={edited_subject}  available_options={custom_lists}  handleSave={handleSave} />
+            <Component   patient={edited_subject}  available_options={custom_lists}  handleSave={handleSave} />
         </>
     )
 }
