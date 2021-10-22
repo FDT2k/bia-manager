@@ -1,7 +1,7 @@
-import { defaultTo, safe_path ,is_nil,reduceListByKeys} from '@karsegard/composite-js';
+import { defaultTo, safe_path, is_nil, reduceListByKeys } from '@karsegard/composite-js';
 import { createSelector } from 'reselect';
 
-import{dateSysToHuman} from '@/references/format'
+import { dateSysToHuman } from '@/references/format'
 
 
 
@@ -13,8 +13,8 @@ export default getModule => {
    const defaultToArray = defaultTo([]);
    const module = {};
 
-   module.select_current_patient_id = createSelector(baseSelector, state =>{
-   //   debugger;
+   module.select_current_patient_id = createSelector(baseSelector, state => {
+      //   debugger;
       return state.current_patient_id
    });
    module.select_current_mesure_id = createSelector(baseSelector, state => parseInt(state.current_mesure_id));
@@ -27,16 +27,16 @@ export default getModule => {
    module.select_edited_mesure = createSelector([module.select_current_patient_id, baseSelector], (current_patient, state) => {
       if (state.mesure && state.mesure[current_patient] && state.mesure[current_patient].mesure) {
 
-         let result =  state.mesure[current_patient].mesure
+         let result = state.mesure[current_patient].mesure
 
-        // result.date = dateSysToHuman(result.date);
+         // result.date = dateSysToHuman(result.date);
          return result;
       }
 
    });
 
 
-   module.select_examinator = createSelector(baseSelector,state=> state.examinator)
+   module.select_examinator = createSelector(baseSelector, state => state.examinator)
 
 
    module.select_mesures_dates = createSelector([module.select_current_mesure_id, module.select_mesures], (mesure_id, state) => {
@@ -117,7 +117,7 @@ export default getModule => {
       return carry;
    }, {}))
 
-   module.select_current_bia_values = state=> keys => createSelector([module.select_edited_mesure, module.select_bia_by_key], (mesure, bia) => {
+   module.select_current_bia_values = state => keys => createSelector([module.select_edited_mesure, module.select_bia_by_key], (mesure, bia) => {
 
       return keys.reduce((carry, item) => {
 
@@ -131,10 +131,10 @@ export default getModule => {
    })(state);
 
 
-   module.select_empty_mesure = createSelector(baseSelector,state => state.empty_mesure.current);
+   module.select_empty_mesure = createSelector(baseSelector, state => state.empty_mesure.current);
 
-   module.has_error = createSelector(baseSelector,state=> state.error.has_error)
-   module.error_message = createSelector(baseSelector,state=> state.error.message)
+   module.has_error = createSelector(baseSelector, state => state.error.has_error)
+   module.error_message = createSelector(baseSelector, state => state.error.message)
 
 
 
@@ -143,36 +143,503 @@ export default getModule => {
     * NORMS Selectors
     *  */
 
-   module.normes = createSelector (baseSelector,state=> state.normes);
+   module.normes = createSelector(baseSelector, state => state.normes);
 
+   /* 
+      must be called like selector(state,args) where args is {
+         age: 
+         sex:
+      }
 
-    module.select_normes = createSelector([module.select_edited_patient, module.normes, (state,args) => args || {}], (patient, state, args) => {
-      const {gender}= patient;
-      const {age} = args;
+      returns {
+         norm_key: [min,max]
+      }
+   */
+   module.select_normes = createSelector([module.select_edited_patient, module.normes, (state, args) => args || {}], (patient, state, args) => {
+      const { gender } = patient;
+      const { age } = args;
 
-      let normes =  safe_object(`byKey.${gender}`,state);
+      let normes = safe_object(`byKey.${gender}`, state);
 
-      return normes.filter (item =>{
-            if (!is_nil(item.age_range)) {
-               let [min, max] = item.age_range;
+      return normes.filter(item => {
+         if (!is_nil(item.age_range)) {
+            let [min, max] = item.age_range;
 
-               return (age >= min && age <= max);
-           } else if (!is_nil(item.age_min)) {
+            return (age >= min && age <= max);
+         } else if (!is_nil(item.age_min)) {
 
-               return (age >= item.age_min)
-           }
-      }).reduce((carry,item)=>{
-         carry[item.type]=item.values;
+            return (age >= item.age_min)
+         }
+      }).reduce((carry, item) => {
+         carry[item.type] = item.values;
          return carry;
-      },{});
+      }, {});
    });
 
 
-
+   /**
+    *    
+    * returns chartSample: {
+            M: [
+              {
+                age: 15,
+                age_range: [
+                  15,
+                  24
+                ],
+                pct_ffm_min: 75.6,
+                pct_ffm_max: 90.7,
+                pct_ffm: [
+                  75.6,
+                  90.7
+                ],
+                pct_fm_min: 9.3,
+                pct_fm_max: 24.4,
+                pct_fm: [
+                  9.3,
+                  24.4
+                ]
+              },
+              {
+                age: 18,
+                age_range: [
+                  18,
+                  34
+                ],
+                ffmi_min: 16.8,
+                ffmi_max: 21.1,
+                ffmi: [
+                  16.8,
+                  21.1
+                ],
+                fmi_min: 2.2,
+                fmi_max: 7,
+                fmi: [
+                  2.2,
+                  7
+                ]
+              },
+              {
+                age: 20,
+                age_range: [
+                  20,
+                  34
+                ],
+                alpha_min: 6.5,
+                alpha_max: 8.5,
+                alpha: [
+                  6.5,
+                  8.5
+                ]
+              },
+              {
+                age: 25,
+                age_range: [
+                  25,
+                  34
+                ],
+                pct_ffm_min: 73.2,
+                pct_ffm_max: 89,
+                pct_ffm: [
+                  73.2,
+                  89
+                ],
+                pct_fm_min: 11,
+                pct_fm_max: 26.8,
+                pct_fm: [
+                  11,
+                  26.8
+                ]
+              },
+              {
+                age: 35,
+                age_range: [
+                  35,
+                  54
+                ],
+                ffmi_min: 17.2,
+                ffmi_max: 21.7,
+                ffmi: [
+                  17.2,
+                  21.7
+                ],
+                fmi_min: 2.5,
+                fmi_max: 7.9,
+                fmi: [
+                  2.5,
+                  7.9
+                ],
+                pct_ffm_min: 71.9,
+                pct_ffm_max: 89,
+                pct_ffm: [
+                  71.9,
+                  89
+                ],
+                pct_fm_min: 11,
+                pct_fm_max: 28.1,
+                pct_fm: [
+                  11,
+                  28.1
+                ],
+                alpha_min: 6.3,
+                alpha_max: 8.2,
+                alpha: [
+                  6.3,
+                  8.2
+                ]
+              },
+              {
+                age: 45,
+                age_range: [
+                  45,
+                  54
+                ],
+                pct_ffm_min: 71.3,
+                pct_ffm_max: 88.2,
+                pct_ffm: [
+                  71.3,
+                  88.2
+                ],
+                pct_fm_min: 11.8,
+                pct_fm_max: 28.7,
+                pct_fm: [
+                  11.8,
+                  28.7
+                ]
+              },
+              {
+                age: 55,
+                age_range: [
+                  55,
+                  74
+                ],
+                ffmi_min: 16.6,
+                ffmi_max: 21.2,
+                ffmi: [
+                  16.6,
+                  21.2
+                ],
+                fmi_min: 2.8,
+                fmi_max: 9.3,
+                fmi: [
+                  2.8,
+                  9.3
+                ],
+                pct_ffm_min: 69.4,
+                pct_ffm_max: 88,
+                pct_ffm: [
+                  69.4,
+                  88
+                ],
+                pct_fm_min: 12,
+                pct_fm_max: 30.6,
+                pct_fm: [
+                  12,
+                  30.6
+                ],
+                alpha_min: 5.4,
+                alpha_max: 7.3,
+                alpha: [
+                  5.4,
+                  7.3
+                ]
+              },
+              {
+                age: 65,
+                age_range: [
+                  65,
+                  74
+                ],
+                pct_ffm_min: 67.4,
+                pct_ffm_max: 85.4,
+                pct_ffm: [
+                  67.4,
+                  85.4
+                ],
+                pct_fm_min: 14.6,
+                pct_fm_max: 32.6,
+                pct_fm: [
+                  14.6,
+                  32.6
+                ]
+              },
+              {
+                age: 75,
+                ffmi_min: 16.6,
+                ffmi_max: 21.2,
+                ffmi: [
+                  16.6,
+                  21.2
+                ],
+                fmi_min: 3.7,
+                fmi_max: 10.1,
+                fmi: [
+                  3.7,
+                  10.1
+                ],
+                pct_ffm_min: 68.8,
+                pct_ffm_max: 84.5,
+                pct_ffm: [
+                  68.8,
+                  84.5
+                ],
+                pct_fm_min: 15.5,
+                pct_fm_max: 31.2,
+                pct_fm: [
+                  15.5,
+                  31.2
+                ]
+              },
+              {
+                age: 85,
+                pct_ffm_min: 66.6,
+                pct_ffm_max: 82.9,
+                pct_ffm: [
+                  66.6,
+                  82.9
+                ],
+                pct_fm_min: 17.1,
+                pct_fm_max: 33.4,
+                pct_fm: [
+                  17.1,
+                  33.4
+                ]
+              }
+            ],
+            F: [
+              {
+                age: 15,
+                age_range: [
+                  15,
+                  24
+                ],
+                pct_ffm_min: 65.1,
+                pct_ffm_max: 81,
+                pct_ffm: [
+                  65.1,
+                  81
+                ],
+                pct_fm_min: 19,
+                pct_fm_max: 34.9,
+                pct_fm: [
+                  19,
+                  34.9
+                ]
+              },
+              {
+                age: 18,
+                age_range: [
+                  18,
+                  34
+                ],
+                ffmi_min: 13.8,
+                ffmi_max: 17.6,
+                ffmi: [
+                  13.8,
+                  17.6
+                ],
+                fmi_min: 3.5,
+                fmi_max: 8.7,
+                fmi: [
+                  3.5,
+                  8.7
+                ]
+              },
+              {
+                age: 20,
+                age_range: [
+                  20,
+                  34
+                ],
+                alpha_min: 5.6,
+                alpha_max: 7.5,
+                alpha: [
+                  5.6,
+                  7.5
+                ]
+              },
+              {
+                age: 25,
+                age_range: [
+                  25,
+                  34
+                ],
+                pct_ffm_min: 64.6,
+                pct_ffm_max: 82.3,
+                pct_ffm: [
+                  64.6,
+                  82.3
+                ],
+                pct_fm_min: 17.7,
+                pct_fm_max: 35.4,
+                pct_fm: [
+                  17.7,
+                  35.4
+                ]
+              },
+              {
+                age: 35,
+                age_range: [
+                  35,
+                  54
+                ],
+                ffmi_min: 14.4,
+                ffmi_max: 18,
+                ffmi: [
+                  14.4,
+                  18
+                ],
+                fmi_min: 3.4,
+                fmi_max: 9.9,
+                fmi: [
+                  3.4,
+                  9.9
+                ],
+                pct_ffm_min: 64.1,
+                pct_ffm_max: 82.2,
+                pct_ffm: [
+                  64.1,
+                  82.2
+                ],
+                pct_fm_min: 17.8,
+                pct_fm_max: 35.9,
+                pct_fm: [
+                  17.8,
+                  35.9
+                ],
+                alpha_min: 5.6,
+                alpha_max: 7.3,
+                alpha: [
+                  5.6,
+                  7.3
+                ]
+              },
+              {
+                age: 45,
+                age_range: [
+                  45,
+                  54
+                ],
+                pct_ffm_min: 63.5,
+                pct_ffm_max: 82,
+                pct_ffm: [
+                  63.5,
+                  82
+                ],
+                pct_fm_min: 18,
+                pct_fm_max: 36.5,
+                pct_fm: [
+                  18,
+                  36.5
+                ]
+              },
+              {
+                age: 55,
+                age_range: [
+                  55,
+                  74
+                ],
+                ffmi_min: 14.1,
+                ffmi_max: 19,
+                ffmi: [
+                  14.1,
+                  19
+                ],
+                fmi_min: 4.5,
+                fmi_max: 13.5,
+                fmi: [
+                  4.5,
+                  13.5
+                ],
+                pct_ffm_min: 59.5,
+                pct_ffm_max: 78.6,
+                pct_ffm: [
+                  59.5,
+                  78.6
+                ],
+                pct_fm_min: 21.4,
+                pct_fm_max: 40.5,
+                pct_fm: [
+                  21.4,
+                  40.5
+                ],
+                alpha_min: 5,
+                alpha_max: 6.6,
+                alpha: [
+                  5,
+                  6.6
+                ]
+              },
+              {
+                age: 65,
+                age_range: [
+                  65,
+                  74
+                ],
+                pct_ffm_min: 55.6,
+                pct_ffm_max: 75.6,
+                pct_ffm: [
+                  55.6,
+                  75.6
+                ],
+                pct_fm_min: 24.4,
+                pct_fm_max: 44.4,
+                pct_fm: [
+                  24.4,
+                  44.4
+                ]
+              },
+              {
+                age: 75,
+                ffmi_min: 12.9,
+                ffmi_max: 18.7,
+                ffmi: [
+                  12.9,
+                  18.7
+                ],
+                fmi_min: 4.9,
+                fmi_max: 14.3,
+                fmi: [
+                  4.9,
+                  14.3
+                ],
+                pct_ffm_min: 54.8,
+                pct_ffm_max: 74.1,
+                pct_ffm: [
+                  54.8,
+                  74.1
+                ],
+                pct_fm_min: 25.9,
+                pct_fm_max: 45.2,
+                pct_fm: [
+                  25.9,
+                  45.2
+                ]
+              },
+              {
+                age: 85,
+                pct_ffm_min: 53.1,
+                pct_ffm_max: 77.4,
+                pct_ffm: [
+                  53.1,
+                  77.4
+                ],
+                pct_fm_min: 22.6,
+                pct_fm_max: 46.9,
+                pct_fm: [
+                  22.6,
+                  46.9
+                ]
+              }
+            ]
+          }
+        }
+      },
+    */
 
    module.select_normes_sampling = createSelector([module.select_edited_patient, baseSelector], (patient, state) => {
 
-      return safe_array(`normes.chartSample.${patient.gender}`,state);
+      return safe_array(`normes.chartSample.${patient.gender}`, state);
    });
 
 

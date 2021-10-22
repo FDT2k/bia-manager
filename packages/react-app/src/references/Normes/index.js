@@ -46,297 +46,53 @@ export const raw = [
     { type: 'ffmi', age_range: [35, 54], values: [14.4, 18.0], sex: 'F' },
     { type: 'ffmi', age_range: [55, 74], values: [14.1, 19.0], sex: 'F' },
     { type: 'ffmi', age_min: 75, values: [12.9, 18.7], sex: 'F' },
+    { type: 'fmi', sex: 'M', age_range: [18, 34], values: [2.2, 7.0] },
+    { type: 'fmi', sex: 'M', age_range: [35, 54], values: [2.5, 7.9] },
+    { type: 'fmi', sex: 'M', age_range: [55, 74], values: [2.8, 9.3] },
+    { type: 'fmi', sex: 'M', age_min: 75, values: [3.7, 10.1] },
+    { type: 'fmi', sex: 'F', age_range: [18, 34], values: [3.5, 8.7] },
+    { type: 'fmi', sex: 'F', age_range: [35, 54], values: [3.4, 9.9] },
+    { type: 'fmi', sex: 'F', age_range: [55, 74], values: [4.5, 13.5] },
+    { type: 'fmi', sex: 'F', age_min: 75, values: [4.9, 14.3] },
+    { type: 'alpha', sex: 'M', age_range: [20, 34], values: [6.5, 8.5] },
+    { type: 'alpha', sex: 'M', age_range: [35, 54], values: [6.3, 8.2] },
+    { type: 'alpha', sex: 'M', age_range: [55, 74], values: [5.4, 7.3] },
+    { type: 'alpha', sex: 'F', age_range: [18, 34], values: [5.6, 7.5] },
+    { type: 'alpha', sex: 'F', age_range: [35, 54], values: [5.6, 7.3] },
+    { type: 'alpha', sex: 'F', age_range: [55, 74], values: [5.0, 6.6] },
+    { type: 'pct_fm', sex: 'M', age_range: [15, 24], values: [9.3, 24.4] },
+    { type: 'pct_fm', sex: 'M', age_range: [25, 34], values: [11.0, 26.8] },
+    { type: 'pct_fm', sex: 'M', age_range: [35, 44], values: [11.0, 28.1] },
+    { type: 'pct_fm', sex: 'M', age_range: [45, 54], values: [11.8, 28.7] },
+    { type: 'pct_fm', sex: 'M', age_range: [55, 64], values: [12, 30.6] },
+    { type: 'pct_fm', sex: 'M', age_range: [65, 74], values: [14.6, 32.6] },
+    { type: 'pct_fm', sex: 'M', age_range: [75, 84], values: [15.5, 31.2] },
+    { type: 'pct_fm', sex: 'M', age_min: 85, values: [17.1, 33.4] },
+    { type: 'pct_fm', sex: 'F', age_range: [15, 24], values: [19, 34.9] },
+    { type: 'pct_fm', sex: 'F', age_range: [25, 34], values: [17.7, 35.4] },
+    { type: 'pct_fm', sex: 'F', age_range: [35, 44], values: [17.8, 35.9] },
+    { type: 'pct_fm', sex: 'F', age_range: [45, 54], values: [18.0, 36.5] },
+    { type: 'pct_fm', sex: 'F', age_range: [55, 64], values: [21.4, 40.5] },
+    { type: 'pct_fm', sex: 'F', age_range: [65, 74], values: [24.4, 44.4] },
+    { type: 'pct_fm', sex: 'F', age_range: [75, 84], values: [25.9, 45.2] },
+    { type: 'pct_fm', sex: 'F', age_min: 85, values: [22.6, 46.9] },
+    { type: 'pct_ffm', sex: 'M', age_range: [15, 24], values: [75.6, 90.7] },
+    { type: 'pct_ffm', sex: 'M', age_range: [25, 34], values: [73.2, 89.0] },
+    { type: 'pct_ffm', sex: 'M', age_range: [35, 44], values: [71.9, 89.0] },
+    { type: 'pct_ffm', sex: 'M', age_range: [45, 54], values: [71.3, 88.2] },
+    { type: 'pct_ffm', sex: 'M', age_range: [55, 64], values: [69.4, 88.0] },
+    { type: 'pct_ffm', sex: 'M', age_range: [65, 74], values: [67.4, 85.4] },
+    { type: 'pct_ffm', sex: 'M', age_range: [75, 84], values: [68.8, 84.5] },
+    { type: 'pct_ffm', sex: 'M', age_min: 85, values: [66.6, 82.9] },
+    { type: 'pct_ffm', sex: 'F', age_range: [15, 24], values: [65.1, 81] },
+    { type: 'pct_ffm', sex: 'F', age_range: [25, 34], values: [64.6, 82.3] },
+    { type: 'pct_ffm', sex: 'F', age_range: [35, 44], values: [64.1, 82.2] },
+    { type: 'pct_ffm', sex: 'F', age_range: [45, 54], values: [63.5, 82.0] },
+    { type: 'pct_ffm', sex: 'F', age_range: [55, 64], values: [59.5, 78.6] },
+    { type: 'pct_ffm', sex: 'F', age_range: [65, 74], values: [55.6, 75.6] },
+    { type: 'pct_ffm', sex: 'F', age_range: [75, 84], values: [54.8, 74.1] },
+    { type: 'pct_ffm', sex: 'F', age_min: 85, values: [53.1, 77.4] },
 
-
-    {
-        'type': 'fmi',
-        'sex': 'M',
-
-        'age_range': [18, 34],
-        'values': [2.2, 7.0]
-    },
-    {
-        'type': 'fmi',
-        'sex': 'M',
-
-        'age_range': [35, 54],
-        'values': [2.5, 7.9]
-    },
-    {
-        'type': 'fmi',
-        'sex': 'M',
-
-        'age_range': [55, 74],
-        'values': [2.8, 9.3]
-    },
-    {
-        'type': 'fmi',
-        'sex': 'M',
-
-        'age_min': 75,
-        'values': [3.7, 10.1]
-    },
-    {
-        'type': 'fmi',
-        'sex': 'F',
-
-        'age_range': [18, 34],
-        'values': [3.5, 8.7]
-    },
-    {
-        'type': 'fmi',
-        'sex': 'F',
-
-        'age_range': [35, 54],
-        'values': [3.4, 9.9]
-    },
-    {
-        'type': 'fmi',
-        'sex': 'F',
-
-        'age_range': [55, 74],
-        'values': [4.5, 13.5]
-    },
-    {
-        'type': 'fmi',
-        'sex': 'F',
-
-        'age_min': 75,
-        'values': [4.9, 14.3]
-    },
-    {
-        'type': 'alpha',
-        'sex': 'M',
-        'age_range': [20, 34],
-        'values': [6.5, 8.5]
-    },
-    {
-        'type': 'alpha',
-        'sex': 'M',
-        'age_range': [35, 54],
-        'values': [6.3, 8.2]
-    },
-    {
-        'type': 'alpha',
-        'sex': 'M',
-        'age_range': [55, 74],
-        'values': [5.4, 7.3]
-    },
-    {
-        'type': 'alpha',
-        'sex': 'F',
-        'age_range': [18, 34],
-        'values': [5.6, 7.5]
-    },
-    {
-        'type': 'alpha',
-        'sex': 'F',
-        'age_range': [35, 54],
-        'values': [5.6, 7.3]
-    },
-    {
-        'type': 'alpha',
-        'sex': 'F',
-        'age_range': [55, 74],
-        'values': [5.0, 6.6]
-    },
-
-
-    {
-        'type': 'pct_fm',
-        'sex': 'M',
-        'age_range': [15, 24],
-        'values': [9.3, 24.4]
-    },
-    {
-        'type': 'pct_fm',
-        'sex': 'M',
-        'age_range': [25, 34],
-        'values': [11.0, 26.8]
-    },
-    {
-        'type': 'pct_fm',
-        'sex': 'M',
-        'age_range': [35, 44],
-        'values': [11.0, 28.1]
-    },
-    {
-        'type': 'pct_fm',
-        'sex': 'M',
-        'age_range': [45, 54],
-        'values': [11.8, 28.7]
-    },
-    {
-        'type': 'pct_fm',
-        'sex': 'M',
-        'age_range': [55, 64],
-        'values': [12, 30.6]
-    },
-    {
-        'type': 'pct_fm',
-        'sex': 'M',
-        'age_range': [65, 74],
-        'values': [14.6, 32.6]
-    },
-    {
-        'type': 'pct_fm',
-        'sex': 'M',
-        'age_range': [75, 84],
-        'values': [15.5, 31.2]
-    },
-    {
-        'type': 'pct_fm',
-        'sex': 'M',
-        'age_min': 85,
-        'values': [17.1, 33.4]
-    },
-    {
-        'type': 'pct_fm',
-        'sex': 'F',
-        'age_range': [15, 24],
-        'values': [19, 34.9]
-    },
-    {
-        'type': 'pct_fm',
-        'sex': 'F',
-        'age_range': [25, 34],
-        'values': [17.7, 35.4]
-    },
-    {
-        'type': 'pct_fm',
-        'sex': 'F',
-        'age_range': [35, 44],
-        'values': [17.8, 35.9]
-    },
-    {
-        'type': 'pct_fm',
-        'sex': 'F',
-        'age_range': [45, 54],
-        'values': [18.0, 36.5]
-    },
-    {
-        'type': 'pct_fm',
-        'sex': 'F',
-        'age_range': [55, 64],
-        'values': [21.4, 40.5]
-    },
-    {
-        'type': 'pct_fm',
-        'sex': 'F',
-        'age_range': [65, 74],
-        'values': [24.4, 44.4]
-    },
-    {
-        'type': 'pct_fm',
-        'sex': 'F',
-        'age_range': [75, 84],
-        'values': [25.9, 45.2]
-    },
-    {
-        'type': 'pct_fm',
-        'sex': 'F',
-        'age_min': 85,
-        'values': [22.6, 46.9]
-    },
-
-
-    {
-        'type': 'pct_ffm',
-        'sex': 'M',
-        'age_range': [15, 24],
-        'values': [75.6, 90.7]
-    },
-    {
-        'type': 'pct_ffm',
-        'sex': 'M',
-        'age_range': [25, 34],
-        'values': [73.2, 89.0]
-    },
-    {
-        'type': 'pct_ffm',
-        'sex': 'M',
-        'age_range': [35, 44],
-        'values': [71.9, 89.0]
-    },
-    {
-        'type': 'pct_ffm',
-        'sex': 'M',
-        'age_range': [45, 54],
-        'values': [71.3, 88.2]
-    },
-    {
-        'type': 'pct_ffm',
-        'sex': 'M',
-        'age_range': [55, 64],
-        'values': [69.4, 88.0]
-    },
-    {
-        'type': 'pct_ffm',
-        'sex': 'M',
-        'age_range': [65, 74],
-        'values': [67.4, 85.4]
-    },
-    {
-        'type': 'pct_ffm',
-        'sex': 'M',
-        'age_range': [75, 84],
-        'values': [68.8, 84.5]
-    },
-    {
-        'type': 'pct_ffm',
-        'sex': 'M',
-        'age_min': 85,
-        'values': [66.6, 82.9]
-    },
-    {
-        'type': 'pct_ffm',
-        'sex':'F',
-        'age_range': [15, 24],
-        'values': [65.1, 81]
-
-    },
-    {
-        'type': 'pct_ffm',
-        'sex':'F',
-        'age_range': [25, 34],
-        'values': [64.6, 82.3]
-    },
-    {
-        'type': 'pct_ffm',
-        'sex':'F',
-        'age_range': [35, 44],
-        'values': [64.1, 82.2]
-    },
-    {
-        'type': 'pct_ffm',
-        'sex':'F',
-        'age_range': [45, 54],
-        'values': [63.5, 82.0]
-    },
-    {
-        'type': 'pct_ffm',
-        'sex':'F',
-        'age_range': [55, 64],
-        'values': [59.5, 78.6]
-    },
-    {
-        'type': 'pct_ffm',
-        'sex':'F',
-        'age_range': [65, 74],
-        'values': [55.6, 75.6]
-    },
-    {
-        'type': 'pct_ffm',
-        'sex':'F',
-        'age_range': [75, 84],
-        'values': [54.8, 74.1]
-    },
-    {
-        'type': 'pct_ffm',
-        'sex':'F',
-        'age_min': 85,
-        'values': [53.1, 77.4]
-    },
 ]
 
 export const ffmi = {

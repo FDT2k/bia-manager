@@ -1,5 +1,6 @@
 import React from "react";
 import { Bar, BarChart, Label, Legend, Tooltip, XAxis, YAxis } from 'recharts';
+import { identity, is_nil } from "@karsegard/composite-js";
 
 
 const CustomizedAxisTick = props => {
@@ -33,11 +34,11 @@ export const BarHorizontalStacked = props => {
                   }}
             >
                 <XAxis dataKey="name" interval={0} tick={<CustomizedAxisTick />} />
-                <YAxis  >
+                <YAxis tick={{fontSize:10}} >
                     <Label value="poids (kg)" position="insideLeft" angle={-90} />
                 </YAxis>
-                <Tooltip />
-                <Legend wrapperStyle={{ right: '-110px', top:'50%' }} layout="vertical"  formatter={renderColorfulLegendText}/>
+                {/*<Tooltip />*/}
+                <Legend wrapperStyle={{ right: '-110px', top:'50%', fontSize:12 }} layout="vertical"  formatter={renderColorfulLegendText}/>
                 <Bar dataKey="ffm" name="masse maigre" stackId="a" fill="#fa8c8c" background={false} />
                 <Bar dataKey="fm" name="masse grasse" stackId="a" fill="#faef8c" background={false} />
             </BarChart>
@@ -45,7 +46,9 @@ export const BarHorizontalStacked = props => {
 }
 BarHorizontalStacked.defaultProps = {
     width:400,
-    height:300
+    height:300,
+    t: identity
+
 }
 
 export default BarHorizontalStacked

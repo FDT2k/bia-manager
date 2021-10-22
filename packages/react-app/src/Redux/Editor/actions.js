@@ -176,7 +176,6 @@ export default (getModule) => {
             
             const bia_result_columns = select_result_columns(getState());
             const normes = select_normes(getState(),{age:values.current_age})
-            debugger;
             const results = recompute(patient, values, bia_result_columns, normes);
 
             return dispatch({
@@ -202,7 +201,7 @@ export default (getModule) => {
 
         return (dispatch, getState) => {
 
-      
+debugger;      
             const { mesure: normalized_mesure } = normalize_mesure({ patient, mesure });
 
             
@@ -279,7 +278,6 @@ export default (getModule) => {
 
                 let patient = select_edited_patient(getState())
                 const normes = select_normes(getState(),{age:patient.age})
-                debugger;
                 if (!patient) {
                     return dispatch(actions.recap_error_patient_fail({}))
                 }
