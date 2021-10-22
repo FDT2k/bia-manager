@@ -1,5 +1,5 @@
 import { updateList, updateProp } from '@/Redux/utils/handlers';
-import { enlist, is_nil } from '@karsegard/composite-js';
+import {reduceListByKeys, enlist, is_nil } from '@karsegard/composite-js';
 import { key, value } from '@karsegard/composite-js/ObjectUtils';
 import { createReducer } from '@karsegard/react-redux';
 
@@ -12,6 +12,8 @@ export default (getModule) => {
 
     const module = {};
 
+
+    
 
     /**
      * 
@@ -135,23 +137,14 @@ export default (getModule) => {
 
 
     module.reducer = createReducer({ byPatient: {} }, {
+        
         [types.FETCHED]: (state, action) => {
 
             return {
                 ...state,
                 normes: action.payload.normes,
-                byGender: module.normeByGender(state.byGender, action),
+                byKey:reduceListByKeys(['sex'],action.payload.list),
                 chartSample: module.normeChartSampling(state.chartSample, action)
-            }
-        },
-        [types.REFRESH]: (state, action) => {
-            const { payload } = action;
-            const { patient_id } = payload;
-            const substate = module.norme(state.byPatient[patient_id], action);
-
-            return {
-                ...state,
-                byPatient: updateProp(patient_id, state.byPatient, substate)
             }
         }
     });

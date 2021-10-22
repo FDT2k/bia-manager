@@ -1,4 +1,4 @@
-import { defaultTo, safe_path } from '@karsegard/composite-js';
+import { defaultTo, safe_path ,is_nil,reduceListByKeys} from '@karsegard/composite-js';
 import { createSelector } from 'reselect';
 
 import{dateSysToHuman} from '@/references/format'
@@ -143,19 +143,35 @@ export default getModule => {
     * NORMS Selectors
     *  */
 
+   module.normes = createSelector (baseSelector,state=> state.normes);
 
-    module.select_normes = createSelector([module.select_current_patient_id, baseSelector], (patient_id, state) => {
-      //return defaultToObject(state.normes.byPatient[patient_id]);
-      return safe_object(`normes.byPatient.${patient_id}`,state);
+
+    module.select_normes = createSelector([module.select_edited_patient, module.normes, (state,args) => args || {}], (patient, state, args) => {
+      const {gender}= patient;
+      const {age} = args;
+
+      let normes =  safe_object(`byKey.${gender}`,state);
+
+      return normes.filter (item =>{
+            if (!is_nil(item.age_range)) {
+               let [min, max] = item.age_range;
+
+               return (age >= min && age <= max);
+           } else if (!is_nil(item.age_min)) {
+
+               return (age >= item.age_min)
+           }
+      }).reduce((carry,item)=>{
+         carry[item.type]=item.values;
+         return carry;
+      },{});
    });
 
-   module.select_normes_bygender = createSelector([module.select_edited_patient, baseSelector], (patient, state) => {
-      //return defaultToObject(state.normes.byGender[patient.gender]);
-      return safe_object(`normes.byGender.${patient.gender}`,state);
-   });
+
 
 
    module.select_normes_sampling = createSelector([module.select_edited_patient, baseSelector], (patient, state) => {
+
       return safe_array(`normes.chartSample.${patient.gender}`,state);
    });
 

@@ -3,7 +3,7 @@ import { is_nil } from '@karsegard/composite-js';
 import { createAction } from '@reduxjs/toolkit';
 import create from '@/Redux/utils/make-action';
 import { bia_to_recap, generate_recap_header, normalize_mesure, recap_to_bar_chart, recompute } from '@/references/Mesure';
-import normes, { find_norme } from '@/references/Normes';
+import normes, { find_norme,raw as norm_list } from '@/references/Normes';
 import { normalize as normalize_patient } from '@/references/Patient';
 
 import createAsync from '@/Redux/utils/async-dispatch'
@@ -17,8 +17,12 @@ export default (getModule) => {
     const { select_mesures, select_empty_mesure,select_examinator, select_current_mesure_id, select_current_patient_id, select_result_columns, select_normes, select_edited_patient, select_report_columns, select_charts_columns, select_edited_mesure } = selectors;
 
     actions.real_edit_patient = create(action_types.EDIT_PATIENT);
+    
+    
     actions.added_patient = create(action_types.ADDED_PATIENT);
     actions.add_patient_failed = create(action_types.ERROR_ADD_PATIENT_UNDEF);
+    actions.create_patient = createAsync(actions.add_patient_failed, actions.added_patient)
+
 
     actions.set_examinator = create(action_types.SET_EXAMINATOR)
 
@@ -29,7 +33,6 @@ export default (getModule) => {
 
     //refresh each norm
     actions.refresh_normes = () => (dispatch, getState) => {
-
         Object.keys(normes).map(key => {
             dispatch(actions.do_refresh_norme(key, normes[key]))
         })
@@ -50,9 +53,10 @@ export default (getModule) => {
     }
 
     actions.fetch_normes = () => (dispatch, getState) => {
-        const patient = select_edited_patient(getState());
+
         dispatch(actions.fetched_normes({
             normes,
+            list:norm_list,
             genders: ['M', 'F']
         }));
     }
@@ -71,7 +75,6 @@ export default (getModule) => {
     }
 
    
-    actions.create_patient = createAsync(actions.add_patient_failed, actions.added_patient)
 
 
     actions.set_current_mesure = createAction(action_types.SELECT_MESURE, arg => {
@@ -94,10 +97,15 @@ export default (getModule) => {
     actions.create_mesure = (patient_id) => {
         if (patient_id) {
             return (dispatch, getState) => {
+
+                
+
                 // debugger;
                 let examinator= select_examinator(getState());
                 let mesures = select_mesures(getState());
                 const patient = select_edited_patient(getState());
+
+                
                 let new_mesure_id = mesures.length;
              
 
@@ -165,9 +173,10 @@ export default (getModule) => {
 
 
             const patient = select_edited_patient(getState());
+            
             const bia_result_columns = select_result_columns(getState());
-            const normes = select_normes(getState())
-
+            const normes = select_normes(getState(),{age:values.current_age})
+            debugger;
             const results = recompute(patient, values, bia_result_columns, normes);
 
             return dispatch({
@@ -183,7 +192,6 @@ export default (getModule) => {
 
 
     actions.change_mesure = (patient, mesure) => {
-        debugger;
 
         if (is_nil(patient) || is_nil(mesure)) {
             return {
@@ -263,14 +271,15 @@ export default (getModule) => {
         return (dispatch, getState) => {
 
             dispatch(actions.attempt_refresh_recap({ patient_id, mesure_id }));
-            const normes = select_normes(getState())
+            
 
             if (!is_nil(patient_id) && !is_nil(mesure_id)) {
 
                 let edited_mesure;
 
                 let patient = select_edited_patient(getState())
-
+                const normes = select_normes(getState(),{age:patient.age})
+                debugger;
                 if (!patient) {
                     return dispatch(actions.recap_error_patient_fail({}))
                 }
