@@ -98,8 +98,6 @@ export default (getModule) => {
         if (patient_id) {
             return (dispatch, getState) => {
 
-                
-
                 // debugger;
                 let examinator= select_examinator(getState());
                 let mesures = select_mesures(getState());
@@ -170,10 +168,7 @@ export default (getModule) => {
 
     actions.recompute_mesure = (patient_id, values) => {
         return (dispatch, getState) => {
-
-
             const patient = select_edited_patient(getState());
-            
             const bia_result_columns = select_result_columns(getState());
             const normes = select_normes(getState(),{age:values.current_age})
             const results = recompute(patient, values, bia_result_columns, normes);

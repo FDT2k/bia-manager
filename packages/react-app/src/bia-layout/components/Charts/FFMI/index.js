@@ -26,7 +26,6 @@ export const LineChart = props => {
         return !is_nil(item[noi])
     });
 
-    console.log(_data)
     let YTicks = [2, 3, 4, 5, 6, 7, 8, 9, 10, 11];
 
     if (noi === "ffmi") {
@@ -51,7 +50,6 @@ export const LineChart = props => {
             {/* average line */}
             <Line dataKey={
                 item => {
-                    console.log(item[noi][1] + item[noi][0], item[noi][1], item[noi][0])
                     return (new Number((item[noi][1] + item[noi][0]) / 2)).toFixed(2);
                 }
             } dot={false} stroke="#45f542" />
