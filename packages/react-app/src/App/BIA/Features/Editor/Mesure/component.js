@@ -58,7 +58,16 @@ const DateMask = ({
 const [__base_class, element, modifier] = bem('bia-mesure-editor')
 
 const Editor = props => {
-    const { handleClickSave, className, gender, t, handleGoBack, handlePrint, handleChange: parentHandleChange, mesure, data, ...rest2 } = getClasseNames(__base_class, props)
+    const {
+        handleClickSave,
+        className,
+        gender,
+        t,
+        handleGoBack,
+        handlePrint,
+        handleChange: parentHandleChange,
+        mesure,
+        data, ...rest2 } = getClasseNames(__base_class, props)
 
 
     const {
@@ -74,6 +83,8 @@ const Editor = props => {
         refresh_editor_lists,
         ...rest
     } = rest2;
+
+
     const current_bia = get_current_bia(['fmi', 'ffmi'])
     const _handleChange = (...args) => {
         parentHandleChange && parentHandleChange(...args);
@@ -207,10 +218,7 @@ const Editor = props => {
                         </Container>
 
 
-                        <LayoutFlex>
-                            <Button tabIndex={13} onClick={_handleClickSave}>{t('Enregistrer')}</Button>
-                            <Button tabIndex={14} className="btn--secondary" onClick={_ => _handlePrint()}>{t('Imprimer')}</Button>
-                        </LayoutFlex>
+
                     </LayoutFlexColumnWithArea>
                 </TabPanel>
                 <TabPanel>
@@ -251,7 +259,7 @@ const Editor = props => {
                     <EditableSelect {...inputProps('machine')} options={[{ id: '', name: t('- Choisissez une valeur -') }, ...custom_lists.machine.list]} />
                 </Field>
 
-                <Field label={t("Poids Idéal (%)")}> 
+                <Field label={t("Poids Idéal (%)")}>
                     <div>{oneDecimal(values.ideal_weight)} ({oneDecimalPct(values.pct_ideal_weight)})</div>
                 </Field>
                 <Field label={t("BMI Actuel")}>
@@ -264,6 +272,8 @@ const Editor = props => {
                 <Field label={t("Remarques / Interprétations")}>
                     <EditableTextArea value={values.comments} name="comments" onChange={handleChange} />
                 </Field>
+                <Button tabIndex={33} onClick={_handleClickSave}>{t('Enregistrer')}</Button>
+                <Button tabIndex={44} className="btn--secondary" onClick={_ => _handlePrint()}>{t('Imprimer')}</Button>
             </LayoutFlexColumnWithArea>
             <Printable ref={componentRef}>
                 {<PrintableReport />}

@@ -6,7 +6,6 @@ import { dateSysToHuman, oneDecimal } from '@/references/format';
 
 export const Component = props => {
     const { t, data, headers, lines,boldlines } = props;
-
     return (<Grid
         className="recap-grid"
 

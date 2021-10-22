@@ -82,7 +82,6 @@ export const {
    select_edited_mesure,
    select_recap,
    select_normes_sampling,
-   select_normes_bygender,
    select_current_bia_values,
    select_normes_sampling: select_normes_chart,
    select_empty_mesure,
