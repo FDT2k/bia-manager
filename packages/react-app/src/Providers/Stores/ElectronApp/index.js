@@ -87,7 +87,11 @@ export const {
    select_empty_mesure,
    select_mesures_dates,
    has_error, 
-   error_message 
+   error_message ,
+   select_edited_age,
+   makeSelectBIAResultByKey,
+   makeSelectIndiceChartYTicks,
+   makeSelectYLabelByKey
   } = BIAEditorModule.selectors;
  
  

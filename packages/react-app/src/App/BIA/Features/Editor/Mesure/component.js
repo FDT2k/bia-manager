@@ -1,7 +1,8 @@
 import { bem, getClasseNames } from '@karsegard/react-compose';
 import { useFieldValues } from '@karsegard/react-hooks';
-import FFMIChart from '@/bia-layout/components/Charts/FFMI';
-import MassChart from '@/bia-layout/components/Charts/Mass';
+import FFMIChart from '@/App/Components/Charts/Indice';
+import TESTChart from '@/App/Components/Charts/FMI';
+import MassChart from '@/App/Components/Charts/Mass';
 import Button from '@/bia-layout/components/Form/Button';
 import SafeDatePicker from '@/bia-layout/components/Form/Editable/Date';
 import EditableSelect from '@/bia-layout/components/Form/Editable/Select';
@@ -245,8 +246,10 @@ const Editor = props => {
                 </TabPanel>
                 <TabPanel>
                     <MassChart data={mass_chart} />
-                    <FFMIChart data={norm_chart} noi="ffmi" age={mesure.current_age} value={current_bia.ffmi} />
-                    <FFMIChart data={norm_chart} noi="fmi" age={mesure.current_age} value={current_bia.fmi} />
+                    <TESTChart data_key="ffmi"/>
+                    <TESTChart data_key="fmi"/>
+{/*                    <FFMIChart data={norm_chart} noi="ffmi" age={mesure.current_age} value={current_bia.ffmi} />
+                    <FFMIChart data={norm_chart} noi="fmi" age={mesure.current_age} value={current_bia.fmi} />*/}
                 </TabPanel>
                 <TabPanel>
                 </TabPanel>
@@ -276,7 +279,7 @@ const Editor = props => {
                 <Button tabIndex={44} className="btn--secondary" onClick={_ => _handlePrint()}>{t('Imprimer')}</Button>
             </LayoutFlexColumnWithArea>
             <Printable ref={componentRef}>
-                {<PrintableReport />}
+                {/*<PrintableReport />*/}
             </Printable>
         </MesureEditorLayout>
     )

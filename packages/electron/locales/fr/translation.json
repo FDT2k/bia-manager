@@ -65,6 +65,7 @@
    "pct_fm_recap": "Masse grasse %",
    "bmi_recap": "Indice de masse corporelle (BMI) [kg/m2]",
    "fmi_recap": "Indice de masse grasse (FMI) [kg/m2]",
-   "ffmi_recap": "Indice de masse maigre (FFMI) [kg/m2]"
-
+   "ffmi_recap": "Indice de masse maigre (FFMI) [kg/m2]",
+   "FAT_FREE_MASS_Y_LABEL":"Masse Grasse (kg/m2)",
+   "FAT_MASS_Y_LABEL":"Masse Maigre (kg/m2)"
 }

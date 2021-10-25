@@ -35,7 +35,7 @@ export const BarHorizontalStacked = props => {
             >
                 <XAxis dataKey="name" interval={0} tick={<CustomizedAxisTick />} />
                 <YAxis tick={{fontSize:10}} >
-                    <Label value="poids (kg)" position="insideLeft" angle={-90} />
+                    <Label value="poids (kg)"  angle={-90} />
                 </YAxis>
                 {/*<Tooltip />*/}
                 <Legend wrapperStyle={{ right: '-110px', top:'50%', fontSize:12 }} layout="vertical"  formatter={renderColorfulLegendText}/>
