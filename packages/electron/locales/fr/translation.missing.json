@@ -86,5 +86,15 @@
    "Mesure 3": "Mesure 3",
    "Gauche": "Gauche",
    "Droite": "Droite",
-   "Age (années)": "Age (années)"
+   "Age (années)": "Age (années)",
+   "water_comparison_line_header": "water_comparison_line_header",
+   "pct_water_comparison_line_header": "pct_water_comparison_line_header",
+   "ffm_comparison_line_header": "ffm_comparison_line_header",
+   "pct_ffm_comparison_line_header": "pct_ffm_comparison_line_header",
+   "ffmi_comparison_line_header": "ffmi_comparison_line_header",
+   "dffm_comparison_line_header": "dffm_comparison_line_header",
+   "pct_dffm_comparison_line_header": "pct_dffm_comparison_line_header",
+   "fm_comparison_line_header": "fm_comparison_line_header",
+   "pct_fm_comparison_line_header": "pct_fm_comparison_line_header",
+   "fmi_comparison_line_header": "fmi_comparison_line_header"
 }

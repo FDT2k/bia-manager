@@ -36,10 +36,10 @@ export const LineChart = props => {
             data={_data}
             margin={{ top: 15, right: 30, left: 20, bottom: 15 }}
         >
-            <XAxis dataKey="age" tick={{ fontSize: 10 }} tickCount={XTicks.length} type="number" interval={0} allowDataOverflow={true} ticks={XTicks} domain={['dataMin-5', 'dataMax+10']}  >
+            <XAxis dataKey="age" tick={{ fontSize: 10 }} tickCount={XTicks.length}  interval={0}  type="number" allowDataOverflow={true} ticks={XTicks} domain={['dataMin-5', 'dataMax+10']}  >
                 <Label value={t(XLabel)} offset={0} position="insideBottom" />
             </XAxis>
-            <YAxis type="number" tick={{ fontSize: 10 }} ticks={YTicks} domain={[min => YMin, max => Math.round(max + 1)]} >+
+            <YAxis type="number" tick={{ fontSize: 10 }} tickCount={YTicks.length}  interval={0}  ticks={YTicks} domain={[min => YMin, max => Math.round(max + 1)]} >+
                 <Label value={t(YLabel)}   angle={-90} />
             </YAxis>
 

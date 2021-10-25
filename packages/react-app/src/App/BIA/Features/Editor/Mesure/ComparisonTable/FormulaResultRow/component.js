@@ -15,7 +15,7 @@ const FormulaResultRow = (props) => {
         "result"
     ])
     return (<>
-        <div className="row lineheader"><span>{t(label)}</span></div>
+        <div className="row lineheader"><span>{t(`${label}_comparison_line_header`)}</span></div>
         {columns.map((col) => {
             if (!colByName[col]) {
                 return (<div>{t('Error')}</div>)
@@ -25,6 +25,7 @@ const FormulaResultRow = (props) => {
             if (type !== 'norme') {
                 let limit = limits[col];
                 val = (new Number(val)).toFixed(2);
+                
                 let classes = _classes;
                 if (limit) {
                     const [min, max] = limit;
