@@ -35,7 +35,10 @@ export const Component = props => {
                 }
 
             })
-            .catch(console.error);
+            .catch(_=> {
+                stop_loading();
+                console.error()
+            });
 
     }
 
@@ -49,7 +52,10 @@ export const Component = props => {
                     stop_loading();
                 }
             }
-        )
+        ) .catch(_=> {
+            stop_loading();
+            console.error()
+        });
 
     }
 

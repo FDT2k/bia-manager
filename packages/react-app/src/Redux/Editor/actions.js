@@ -124,7 +124,7 @@ export default (getModule) => {
                         mesure_id: new_mesure_id
                     }
                 })
-                dispatch(actions.refresh_normes());
+             //   dispatch(actions.refresh_normes());
                 dispatch(actions.set_current_mesure(new_mesure_id))
 
                 return r;
@@ -149,7 +149,7 @@ export default (getModule) => {
                 }
             })
 
-            dispatch(actions.refresh_normes());
+          //  dispatch(actions.refresh_normes());
 
             return r;
         }
@@ -196,7 +196,6 @@ export default (getModule) => {
 
         return (dispatch, getState) => {
 
-debugger;      
             const { mesure: normalized_mesure } = normalize_mesure({ patient, mesure });
 
             
@@ -211,7 +210,7 @@ debugger;
                     mesure: new_mesure,
                 }
             })
-            dispatch(actions.refresh_normes());
+          //  dispatch(actions.refresh_normes());
             return dispatch(actions.recompute_mesure(patient.id, new_mesure));
         }
     };

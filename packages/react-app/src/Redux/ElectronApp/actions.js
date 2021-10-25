@@ -23,6 +23,7 @@ export default (getModule) => {
 
     const actions = {};
 
+    actions.add_error = createAction(action_types.ADD_ERROR)
     actions.init_started = createAction(action_types.INIT)
 
     actions.init_app = () => (dispatch, getState) => {
@@ -68,6 +69,8 @@ export default (getModule) => {
             return dispatch(actions.async_api('save', data))
         }).then(res => {
             return dispatch(actions.saveFileSuccess(res));
+        }).catch(res=> {
+            return Promise.reject(dispatch(actions.add_error(res.message || res)));
         });
     }
 
@@ -111,10 +114,8 @@ export default (getModule) => {
     actions.create_database = _ => (dispatch, getState) => {
         const backend_actions = getBackend(getState);
         return dispatch(backend_actions.clear_database()).then(res => {
-            debugger;
             return dispatch(actions.async_api('clear_opened_filename'))
         }).then(res => {
-            debugger;
             return dispatch(actions.save_to_file())
         });
     }
@@ -219,8 +220,12 @@ export default (getModule) => {
 
 
             ).then(res => {
-                dispatch(actions.save_to_file())
-                return res;
+                debugger;
+
+                return dispatch(actions.save_to_file()).then(_=> res);
+                //return res;
+            }).catch(res=> {
+                return dispatch(actions.add_error(res.message || res))
             });
 
 

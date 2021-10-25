@@ -20,9 +20,9 @@ export const Page = props => {
                         <Button onClick={handleCreateDatabase}>{t('Créer une base de données')}</Button>
                     </InputGroup>
 
-                    <InputGroup>
+                   {/* <InputGroup>
                         <Button onClick={handleConnect}>{t('Connexion a un serveur')}</Button>
-                    </InputGroup>
+                   </InputGroup>*/}
                 </LayoutFlex>
             </Container>
         </LayoutFlex>

@@ -17,7 +17,7 @@ export const twoDecimalPct = compose(percentage,decimals(2),format_number)
 
 
 export const format_date = curry((fmt,date)=> {
-    console.log(typeof(date), (date instanceof Date))
+  //  console.log(typeof(date), (date instanceof Date))
     if(! (date instanceof Date)){
 
         date = new Date(date)

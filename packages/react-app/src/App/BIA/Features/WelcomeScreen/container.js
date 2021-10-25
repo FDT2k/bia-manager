@@ -27,8 +27,9 @@ export default Component => props => {
     const handleCreate = _ => {
 
         create_database().then(res => {
+            debugger;
             window.location.hash = '#/search'
-        })
+        }).catch(_=> alert('something went wrong'))
     }
 
     const handleConnect = _ => {
