@@ -1,6 +1,6 @@
 import {combineReducers, createReducer} from '@karsegard/react-redux';
 
-import { is_nil } from '@karsegard/composite-js';
+import { is_nil,pop } from '@karsegard/composite-js';
 
 export default (getModule) => {
 
@@ -47,13 +47,19 @@ export default (getModule) => {
 
     module.backend = createReducer("dexie",{})
 
+
+    module.errors =createReducer([], {
+        [action_types.ADD_ERROR]: (state, { payload }) => ( [payload,...state]),
+        [action_types.REMOVE_ERROR]: (state, { payload }) => ( pop(state))
+    });
+
     module.reducer = combineReducers({
         backend:module.backend,
         loading:module.loadingReducer,
         fileStatus:module.fileReducer,
         backends:module.backends,
         features: module.features,
-        
+        errors: module.errors
     })
 
     return module;

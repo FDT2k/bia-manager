@@ -9,7 +9,9 @@ export default  (app, window, i18n) => {
       submenu: [
         {
           label: i18n.t('About BIAManager'),
-          role: 'about'
+          click(){
+            window.webContents.send('location-change', '#/about');
+          }
         },
         {
           type: 'separator'

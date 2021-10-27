@@ -141,7 +141,14 @@ export const Component = props => {
                     <TagInput tabIndex={1} placeholder={t(`Recherche`)} tags={tags} handleFocus={v => setSearchBarFocused(v)} handleChange={_handleSearch} fields={searchableFields} />
                     <Button tabIndex={5} className="button--big" onClick={handleCreate}>Créer un nouveau Patient</Button>
                 </SearchArea>
-                <AdvancedSearch area="filter">recherche avancée <ArrowDown /></AdvancedSearch>
+                <AdvancedSearch area="filter">recherche avancée <ArrowDown />
+                
+                <form>
+                    Date de naissance:
+                    Mesures
+
+                </form>
+                </AdvancedSearch>
                 <ListWithAreaWithRef
                   
                     tabIndex={2}

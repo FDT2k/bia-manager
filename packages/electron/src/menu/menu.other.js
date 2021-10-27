@@ -121,8 +121,7 @@ export default (app, window, i18n) => {
       {
         label: i18n.t('About App'),
         click: function (item, focusedWindow) {
-          if (focusedWindow) {
-          }
+          window.webContents.send('location-change', '#/about');
         }
       }
     ]

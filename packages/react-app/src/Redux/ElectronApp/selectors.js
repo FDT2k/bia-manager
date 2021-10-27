@@ -62,6 +62,11 @@ export default getModule => {
       }
    )
 
+
+   module.current_error = createSelector(baseSelector,state => {
+      return (state.errors && state.errors.length> 0) ? state.errors[0] : null
+   })
+
    return module;
 
 }

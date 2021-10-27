@@ -15,7 +15,8 @@ export const ACTIONS_TYPES = createActionTypes(
     'LOADING_DONE',
     'INIT',
     'CLOSE_FILE',
-    'ADD_ERROR'
+    'ADD_ERROR',
+    'REMOVE_ERROR'
 )
 
 export const makeActionTypes = createPrefixableActionTypes(ACTIONS_TYPES);

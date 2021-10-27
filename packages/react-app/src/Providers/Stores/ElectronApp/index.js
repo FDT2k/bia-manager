@@ -29,6 +29,7 @@ export const {
   close,
   create_patient,
   import_csv,
+  dismiss_error
 } = ElectronModule.actions;
 
 
@@ -44,7 +45,8 @@ export const {
   editor_patient_options,
   edited_subject,
   form_options_loaded,
-  select_form_lists
+  select_form_lists,
+  current_error
 } = ElectronModule.selectors;
 
 /*
@@ -65,6 +67,17 @@ export const {
 
 
 
+export const SearchModule =  ElectronModule.submodules.features.search;
+
+export const {
+  select_tags
+
+} = SearchModule.selectors
+
+export const {
+  clear:clear_search
+
+} = SearchModule.actions
 
 
 /**

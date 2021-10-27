@@ -9,7 +9,7 @@ import { ConnectApp } from '@/Providers/Stores/ElectronApp';
 import Modal from '@/App/Components/Modal';
 import {LayoutFlexColumn,LayoutFlex} from '@karsegard/react-core-layout';
 import Button from '@/bia-layout/components/Form/Button';
-
+import ErrorHandler from '@/App/BIA/Features/ErrorMessageHandler'
 //const api = makeAPI('electron')
 
 
@@ -138,6 +138,9 @@ export const Component = props => {
                         {download && Math.round(download.percent)}%
                     </LayoutFlexColumn>
                 </Modal>
+
+               <ErrorHandler />
+
             </I18nextProvider>
         </>
     );

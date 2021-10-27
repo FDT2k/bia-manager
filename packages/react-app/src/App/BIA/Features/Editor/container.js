@@ -144,13 +144,7 @@ export default Component => props => {
                 if (current_mesure_id <= patient.mesures.length) {
                     setLocation(`/editor/${patient_id}/${current_mesure_id}`);
                 }
-            }).catch(res => {
-                alert('erreur ')
-                debugger;
-                console.error(res)
-
-            }
-            );
+            })
 
     }
 

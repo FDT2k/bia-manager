@@ -24,6 +24,7 @@ export default (getModule) => {
     const actions = {};
 
     actions.add_error = createAction(action_types.ADD_ERROR)
+    actions.dismiss_error = createAction(action_types.REMOVE_ERROR)
     actions.init_started = createAction(action_types.INIT)
 
     actions.init_app = () => (dispatch, getState) => {
@@ -41,7 +42,7 @@ export default (getModule) => {
 
 
     actions.openFileFails = createAction(action_types.OPEN_FILE_FAILS);
-    
+
     actions.openFileSuccess = createAction(action_types.OPEN_FILE_SUCCESS, arg => {
         const { content, ...rest } = arg;
         return rest;
@@ -69,8 +70,9 @@ export default (getModule) => {
             return dispatch(actions.async_api('save', data))
         }).then(res => {
             return dispatch(actions.saveFileSuccess(res));
-        }).catch(res=> {
-            return Promise.reject(dispatch(actions.add_error(res.message || res)));
+        }).catch(res => {
+            dispatch(actions.add_error(res.message || res))
+            //return Promise.reject();
         });
     }
 
@@ -222,9 +224,9 @@ export default (getModule) => {
             ).then(res => {
                 debugger;
 
-                return dispatch(actions.save_to_file()).then(_=> res);
+                return dispatch(actions.save_to_file()).then(_ => res);
                 //return res;
-            }).catch(res=> {
+            }).catch(res => {
                 return dispatch(actions.add_error(res.message || res))
             });
 
@@ -292,8 +294,7 @@ export default (getModule) => {
                 key,
                 name: key,
                 list: list
-            }
-            )
+            })
         )
     }
 

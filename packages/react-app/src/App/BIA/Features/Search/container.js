@@ -10,22 +10,19 @@ import { LayoutFlex } from '@karsegard/react-core-layout'
 export default Component => props => {
 
 
-    const {select_patients_list_filtered:patients, search,get_backend_stats: stats,db_name,tags } = props;
+    const {select_patients_list_filtered:patients, search, clear_search,tags } = props;
 
-    const {count,count_mesures} = stats;
 
-    const [location, setLocation] = useLocation();
+    const [_, setLocation] = useLocation();
  
     
 
 
     const handleSearch = tags => {
         if (tags.length > 0) {
-
-
-      
-
             search(tags);
+        }else{
+            clear_search();
         }
     }
 

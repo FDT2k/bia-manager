@@ -1,8 +1,7 @@
 import Component from './component';
 
+import connect from './connect';
 
-
-import './liste-mesure.scss'
 
 import { withTranslation } from 'react-i18next';
 import {compose} from '@karsegard/composite-js'
@@ -10,9 +9,8 @@ import {compose} from '@karsegard/composite-js'
 
 
 const enhance = compose (
+    connect,
     withTranslation('translation')    
 )
 
 export default enhance(Component);
-
-
