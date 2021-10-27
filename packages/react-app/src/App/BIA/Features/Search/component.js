@@ -1,29 +1,28 @@
-import { applyModifiers, compose, withBaseClass } from '@karsegard/react-compose';
-import { useKeypress } from '@karsegard/react-hooks';
 import Button from '@/bia-layout/components/Form/Button';
 import TagInput from '@/bia-layout/components/Form/TagInput';
 import { ArrowDown, ArrowUp } from '@/bia-layout/components/Icons';
 import List from '@/bia-layout/components/Table';
-import MainView from '@/bia-layout/components/Views/MainView';
 import { withGridArea } from '@/bia-layout/hoc/grid/Area';
-import { LayoutFlex } from '@karsegard/react-core-layout'
-
 import SearchLayout from '@/bia-layout/layouts/Search';
-import React, { useEffect, useMemo, useState, useRef } from 'react';
+import { applyModifiers, compose, withBaseClass } from '@karsegard/react-compose';
+import { LayoutFlex, LayoutFlexColumn } from '@karsegard/react-core-layout';
+import { useKeypress } from '@karsegard/react-hooks';
+import React, { useEffect, useMemo, useState } from 'react';
+import AdvancedForm from './Advanced';
 
 
 
-const withForwardRef = Component =>(props,ref)=> {
-   
-    return <Component {...props} forwardedRef={ref}/>
+const withForwardRef = Component => (props, ref) => {
+
+    return <Component {...props} forwardedRef={ref} />
 }
 
 
 
-const traceProps = Component => (props,ref) => {
+const traceProps = Component => (props, ref) => {
 
-    console.log(props,ref);
-    return <Component {...props} ref={ref}/>;
+    console.log(props, ref);
+    return <Component {...props} ref={ref} />;
 }
 
 export const SearchArea = compose(
@@ -32,20 +31,24 @@ export const SearchArea = compose(
 )
     (LayoutFlex)
 
-    /*
+/*
 export const ListWithArea = React.forwardRef((props,ref)=> {
-    const Component = compose(withGridArea)(List);
-    return <Component {...props} forwardedRef={ref}/>
+const Component = compose(withGridArea)(List);
+return <Component {...props} forwardedRef={ref}/>
 })*/
 
-export const ListWithArea =compose(withForwardRef,withGridArea)(List);
+export const ListWithArea = compose(withForwardRef, withGridArea)(List);
 export const ListWithAreaWithRef = React.forwardRef(ListWithArea);
+
+
 export const AdvancedSearch = compose(
     withGridArea,
     withBaseClass('advanced-filters'),
-    applyModifiers({ alignCenter: true }),
+    applyModifiers({ alignCenter: false }),
 
-)(LayoutFlex)
+)(LayoutFlexColumn)
+
+
 
 
 export const Component = props => {
@@ -67,12 +70,12 @@ export const Component = props => {
             if (arrowUpPressed) {
                 setSelectedIndex(idx => idx > 0 ? idx - 1 : results.length - 1);
             }
-            if(enterPressed && selectedIndex >=0){
+            if (enterPressed && selectedIndex >= 0) {
                 _handleSelectRow(selectedIndex, data[selectedIndex])
             }
 
         }
-    }, [arrowDownPressed, arrowUpPressed, searchBarFocused,enterPressed]);
+    }, [arrowDownPressed, arrowUpPressed, searchBarFocused, enterPressed]);
 
 
 
@@ -123,11 +126,11 @@ export const Component = props => {
     )
 
     const searchableFields = [
-        {key:'lastname',label:t('Nom')},
-        {key:'firstname',label:t('Prénom')},
-        {key:'birthdate',label:t('Date de Naissance')},
-        {key:'groups.patho',label:t('Groupe Pathologique')},
-        {key:'gender',label:t('Sexe')},
+        { key: 'lastname', label: t('Nom') },
+        { key: 'firstname', label: t('Prénom') },
+        { key: 'birthdate', label: t('Date de Naissance') },
+        { key: 'groups.patho', label: t('Groupe Pathologique') },
+        { key: 'gender', label: t('Sexe') },
     ]
 
     const handleSelectRow = (index, row) => {
@@ -136,31 +139,27 @@ export const Component = props => {
 
 
     return (
-            <SearchLayout cover contained className="page-search">
-                <SearchArea area="search">
-                    <TagInput tabIndex={1} placeholder={t(`Recherche`)} tags={tags} handleFocus={v => setSearchBarFocused(v)} handleChange={_handleSearch} fields={searchableFields} />
-                    <Button tabIndex={5} className="button--big" onClick={handleCreate}>Créer un nouveau Patient</Button>
-                </SearchArea>
-                <AdvancedSearch area="filter">recherche avancée <ArrowDown />
-                
-                <form>
-                    Date de naissance:
-                    Mesures
+        <SearchLayout cover contained className="page-search">
+            <SearchArea area="search">
+                <TagInput tabIndex={1} placeholder={t(`Recherche`)} tags={tags} handleFocus={v => setSearchBarFocused(v)} handleChange={_handleSearch} fields={searchableFields} />
+                <Button tabIndex={5} className="button--big" onClick={handleCreate}>Créer un nouveau Patient</Button>
+            </SearchArea>
+            <AdvancedSearch area="filter">
+                <LayoutFlex alignCenter={true}>recherche simple <ArrowUp /></LayoutFlex>
+                <AdvancedForm tabOffset={10} />
+            </AdvancedSearch>
+            <ListWithAreaWithRef
 
-                </form>
-                </AdvancedSearch>
-                <ListWithAreaWithRef
-                  
-                    tabIndex={2}
-                    SortUp={ArrowUp}
-                    SortDown={ArrowDown}
-                    handleSelect={handleSelectRow}
-                    selectedIndex={selectedIndex}
-                    area="list"
-                    data={data}
-                    columns={columns}
-                />
-            </SearchLayout>
+                tabIndex={2}
+                SortUp={ArrowUp}
+                SortDown={ArrowDown}
+                handleSelect={handleSelectRow}
+                selectedIndex={selectedIndex}
+                area="list"
+                data={data}
+                columns={columns}
+            />
+        </SearchLayout>
     )
 
 }

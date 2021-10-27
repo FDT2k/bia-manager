@@ -33,7 +33,7 @@ export default Component=> props => {
 
     return (
         <>
-            <Component   patient={edited_subject}  available_options={custom_lists}  handleSave={handleSave} />
+            <Component patient={edited_subject} available_options={custom_lists} handleSave={handleSave} />
         </>
     )
 }
