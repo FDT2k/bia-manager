@@ -6,7 +6,17 @@ import connect from './connect';
 
 import './create-patient.scss'
 
+import { withTranslation } from 'react-i18next';
+import {compose} from '@karsegard/composite-js'
 
 
 
-export default connect(Container(Component));
+const enhance = compose (
+    connect,
+    Container,
+    withTranslation('translation')    
+)
+
+export default enhance(Component);
+
+

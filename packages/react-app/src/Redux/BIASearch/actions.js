@@ -31,7 +31,6 @@ export default (getModule) => {
 
 
 
-
     actions.filter_results = _=>  (dispatch, getState) => {
         const state = baseSelector(getState())
         // eslint-disable-next-line no-unused-vars
@@ -64,6 +63,8 @@ export default (getModule) => {
             console.log('tag did not changed')
             return;
         }
+
+        debugger;
 
         dispatch(actions.update_search_tags(tags));
 

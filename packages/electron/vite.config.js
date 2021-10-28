@@ -44,6 +44,7 @@ const config = {
      
       external: [
         'electron',
+        'electron-updater',
         'electron-devtools-installer',
         ...builtinModules,
       ],

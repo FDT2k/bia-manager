@@ -16,7 +16,18 @@ export const twoDecimal = compose(decimals(2),format_number);
 export const twoDecimalPct = compose(percentage,decimals(2),format_number)
 
 
-export const format_date = curry((fmt,date)=> format(date,fmt));
+export const format_date = curry((fmt,date)=> {
+  //  console.log(typeof(date), (date instanceof Date))
+    if(! (date instanceof Date)){
+
+        date = new Date(date)
+    }
+
+
+    return format(date,fmt)
+
+
+});
 
 export const dateSysToHuman = format_date("dd/MM/yyyy")
 export const dateHumanToSys = format_date("yyyy-MM-dd")

@@ -1,4 +1,5 @@
 import { cEx, compose, filterPropPresentIn, kebabize, withVariables } from '@karsegard/react-compose';
+import {is_nil} from '@karsegard/composite-js'
 import { useFocus } from '@karsegard/react-hooks';
 import React, { useRef } from 'react';
 import './style.scss';
@@ -14,7 +15,7 @@ const ToggleSwitch = props => {
     const { checked, onChange,tabIndex, ...rest3 } = rest2;
     const ref = useRef();
     const { hasFocus } = useFocus({ ref });
-
+    const _checked = is_nil(checked) ? false: checked;
     const classes = cEx([
         'toggle-switch',
         _ => hasFocus ? 'toggle-switch--focus' : ''
@@ -24,7 +25,7 @@ const ToggleSwitch = props => {
             ref={ref}
             type="checkbox"
             className="toggle-switch-checkbox"
-            checked={checked}
+            checked={_checked}
             tabIndex={tabIndex}
             {...formProps}
             onChange={onChange}

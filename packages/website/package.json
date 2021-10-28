@@ -1,6 +1,6 @@
 {
   "name": "@karsegard/bia-website",
-  "version": "1.7.0",
+  "version": "1.8.0",
   "description": "React Redux Toolkit",
   "author": "FDT2k",
   "license": "MIT",
@@ -11,6 +11,9 @@
     "test": "cross-env CI=1 react-scripts test --env=jsdom",
     "test:watch": "react-scripts test --env=jsdom",
     "build": "MODE=production vite build",
+    "build:docker": "bash build.sh",
+    "release": "bash deploy.sh",
+    "prod": "yarn build && yarn build:docker && yarn release",
     "dev": "vite",
     "start": "vite",
     "gitlab:test": "yarn run test",
@@ -31,7 +34,9 @@
   "dependencies": {
     "@karsegard/composite-js": "^2.10.0",
     "@reduxjs/toolkit": "^1.6.1",
+    "axios": "^0.23.0",
     "bluebird": "^3.7.2",
+    "react-loading": "^2.0.3",
     "react-redux": "^7.2.5",
     "redux": "^4.1.1",
     "redux-logger": "^3.0.6",

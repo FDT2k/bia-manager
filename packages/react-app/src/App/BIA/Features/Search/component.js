@@ -1,29 +1,29 @@
-import { applyModifiers, compose, withBaseClass } from '@karsegard/react-compose';
-import { useKeypress } from '@karsegard/react-hooks';
 import Button from '@/bia-layout/components/Form/Button';
 import TagInput from '@/bia-layout/components/Form/TagInput';
 import { ArrowDown, ArrowUp } from '@/bia-layout/components/Icons';
 import List from '@/bia-layout/components/Table';
-import MainView from '@/bia-layout/components/Views/MainView';
 import { withGridArea } from '@/bia-layout/hoc/grid/Area';
-import { LayoutFlex } from '@karsegard/react-core-layout'
-
 import SearchLayout from '@/bia-layout/layouts/Search';
-import React, { useEffect, useMemo, useState, useRef } from 'react';
+import { applyModifiers, compose, withBaseClass, withForwardedRef } from '@karsegard/react-compose';
+import { LayoutFlex, LayoutFlexColumn } from '@karsegard/react-core-layout';
+import { useKeypress } from '@karsegard/react-hooks';
+import Dropdown from '@/App/Components/Dropdown';
+import React, { forwardRef, useEffect, useMemo, useState } from 'react';
+
+import DatePicker from '@/bia-layout/components/Form/DatePicker';
 
 
+const withForwardRef = Component => (props, ref) => {
 
-const withForwardRef = Component =>(props,ref)=> {
-   
-    return <Component {...props} forwardedRef={ref}/>
+    return <Component {...props} forwardedRef={ref} />
 }
 
 
 
-const traceProps = Component => (props,ref) => {
+const traceProps = Component => (props, ref) => {
 
-    console.log(props,ref);
-    return <Component {...props} ref={ref}/>;
+    console.log(props, ref);
+    return <Component {...props} ref={ref} />;
 }
 
 export const SearchArea = compose(
@@ -32,20 +32,24 @@ export const SearchArea = compose(
 )
     (LayoutFlex)
 
-    /*
+/*
 export const ListWithArea = React.forwardRef((props,ref)=> {
-    const Component = compose(withGridArea)(List);
-    return <Component {...props} forwardedRef={ref}/>
+const Component = compose(withGridArea)(List);
+return <Component {...props} forwardedRef={ref}/>
 })*/
 
-export const ListWithArea =compose(withForwardRef,withGridArea)(List);
-export const ListWithAreaWithRef = React.forwardRef(ListWithArea);
+export const ListWithAreaWithRef = compose(forwardRef, withForwardRef, withGridArea)(List);
+//export const ListWithAreaWithRef = React.forwardRef(ListWithArea);
+
+
 export const AdvancedSearch = compose(
     withGridArea,
     withBaseClass('advanced-filters'),
-    applyModifiers({ alignCenter: true }),
+    applyModifiers({ alignCenter: false }),
 
 )(LayoutFlex)
+
+
 
 
 export const Component = props => {
@@ -67,12 +71,12 @@ export const Component = props => {
             if (arrowUpPressed) {
                 setSelectedIndex(idx => idx > 0 ? idx - 1 : results.length - 1);
             }
-            if(enterPressed && selectedIndex >=0){
+            if (enterPressed && selectedIndex >= 0) {
                 _handleSelectRow(selectedIndex, data[selectedIndex])
             }
 
         }
-    }, [arrowDownPressed, arrowUpPressed, searchBarFocused,enterPressed]);
+    }, [arrowDownPressed, arrowUpPressed, searchBarFocused, enterPressed]);
 
 
 
@@ -87,44 +91,43 @@ export const Component = props => {
         handleSearch && handleSearch(tags);
     }
 
-    const columns = React.useMemo(
+    const columns = [
+        {
+            Header: t('SEARCH_table_column_lastname'),
+            accessor: 'lastname',
+            filter: 'text'
+        },
+        {
+            Header: t('SEARCH_table_column_firstname'),
+            accessor: 'firstname',
+            filter: 'fuzzyText'
+        },
+        {
+            Header: t('SEARCH_table_column_birthdate'),
+            accessor: 'birthdate',
 
-        () => [
-            {
-                Header: 'Nom',
-                accessor: 'lastname',
-                filter: 'text'
-            },
-            {
-                Header: 'Prenom',
-                accessor: 'firstname',
-                filter: 'fuzzyText'
-            },
-            {
-                Header: 'Date de naissance',
-                accessor: 'birthdate',
+        },
+        {
+            Header: t('SEARCH_table_column_pathological_group'),
+            accessor: 'groups.patho',
 
-            },
-            {
-                Header: 'Groupe pathologique',
-                accessor: 'groups.patho',
-
-            },
-            {
-                Header: 'Sexe',
-                accessor: 'gender',
-            },
-            {
-                Header: 'Mesures',
-                accessor: v => v.mesures.length,
-            },
-        ],
-        []
-    )
+        },
+        {
+            Header: t('SEARCH_table_column_sex'),
+            accessor: 'gender',
+        },
+        {
+            Header: t('SEARCH_table_column_sample_count'),
+            accessor: v => v.mesures.length,
+        },
+    ]
 
     const searchableFields = [
-        'nom',
-        'prenom'
+        { key: 'lastname', label: t('Nom') },
+        { key: 'firstname', label: t('Prénom') },
+        { key: 'birthdate', label: t('Date de Naissance') },
+        { key: 'groups.patho', label: t('Groupe Pathologique') },
+        { key: 'gender', label: t('Sexe') },
     ]
 
     const handleSelectRow = (index, row) => {
@@ -133,24 +136,44 @@ export const Component = props => {
 
 
     return (
-            <SearchLayout cover contained className="page-search">
-                <SearchArea area="search">
-                    <TagInput tabIndex={1} placeholder={t(`Recherche`)} tags={tags} handleFocus={v => setSearchBarFocused(v)} handleChange={_handleSearch} fields={searchableFields} />
-                    <Button tabIndex={5} className="button--big" onClick={handleCreate}>Créer un nouveau Patient</Button>
-                </SearchArea>
-                <AdvancedSearch area="filter">recherche avancée <ArrowDown /></AdvancedSearch>
-                <ListWithAreaWithRef
-                  
-                    tabIndex={2}
-                    SortUp={ArrowUp}
-                    SortDown={ArrowDown}
-                    handleSelect={handleSelectRow}
-                    selectedIndex={selectedIndex}
-                    area="list"
-                    data={data}
-                    columns={columns}
-                />
-            </SearchLayout>
+        <SearchLayout cover contained className="page-search">
+            <SearchArea area="search">
+                <TagInput tabIndex={1} placeholder={t(`Recherche`)} tags={tags} handleFocus={v => setSearchBarFocused(v)} handleChange={_handleSearch} fields={searchableFields} />
+                <Button tabIndex={5} className="button--big" onClick={handleCreate}>{t('SEARCH_CREATE_NEW_SUBJECT')}</Button>
+
+            </SearchArea>
+            <AdvancedSearch area="filter">
+                <Dropdown label="Mesures" icon={<ArrowDown />}>
+                    <>
+                        <LayoutFlex justBetween alignCenter className="dropdown__item">
+                            <div>De </div>
+                            <DatePicker allow_null={true} masked_input={true} />
+                        </LayoutFlex>
+                        <LayoutFlex justBetween alignCenter className="dropdown__item">
+                            <div>À</div>
+                            <DatePicker allow_null={true} masked_input={true} />
+                        </LayoutFlex>
+                    </>
+                </Dropdown>
+                <Dropdown label="Sexe" icon={<ArrowDown />}>
+                    <div>
+                        <LayoutFlex justBetween alignCenter className="dropdown__item"><div>Homme </div> <input type="checkbox" /></LayoutFlex>
+                        <LayoutFlex justBetween alignCenter className="dropdown__item"><div>Femme</div> <input type="checkbox" /></LayoutFlex>
+                    </div>
+                </Dropdown>
+            </AdvancedSearch>
+            <ListWithAreaWithRef
+
+                tabIndex={2}
+                SortUp={ArrowUp}
+                SortDown={ArrowDown}
+                handleSelect={handleSelectRow}
+                selectedIndex={selectedIndex}
+                area="list"
+                data={data}
+                columns={columns}
+            />
+        </SearchLayout>
     )
 
 }

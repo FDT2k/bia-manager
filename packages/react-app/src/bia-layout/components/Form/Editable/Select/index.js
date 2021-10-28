@@ -12,7 +12,7 @@ const EditableSelect = withBaseClass('editable-field')(props => {
     const ref = useRef()
     const { hasFocus } = useFocus({ ref, debug: true });
 
-    const { children, className, options, ...rest } = props;
+    const { children, className, options, value, ...rest } = props;
 
     useEffect(() => {
         if (ref.current && enterPressed && hasFocus) {
@@ -34,8 +34,9 @@ const EditableSelect = withBaseClass('editable-field')(props => {
     ])
 
     const renderChildren = is_nil(options);
+
     return (<>
-        {editable && <select ref={ref} onBlur={_ => setEditable(false)} className={classes}  {...rest} >
+        {editable && <select ref={ref} onBlur={_ => setEditable(false)} className={classes}  value={value||''} {...rest} >
             {renderChildren && children}
             {!renderChildren && options.map((option,idx) => {
                 let value = option;

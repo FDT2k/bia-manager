@@ -8,37 +8,47 @@ if (process.env.VITE_APP_VERSION === undefined) {
  * @see https://www.electron.build/configuration/configuration
  */
 const config = {
+
+  "publish": [{
+    "provider": "github",
+    "owner": "fdt2k",
+    "repo": "bia-manager"
+  }],
+
   directories: {
     output: 'dist',
     buildResources: 'buildResources',
-    
+
   },
   files: [
     'packages/**/dist/**',
+    {
+      from: 'packages/electron/locales',
+      to: 'packages/electron/locales'
+    }
   ],
-  win:{
-    target:["nsis"],
+  win: {
+    target: ["nsis"],
     publish: [
       "github"
     ]
   },
-  mac:{
+  mac: {
     publish: [
       "github"
     ],
-    target: ["dmg"],
     category: "public.app-category.utilities"
   },
-  linux:{
-    target:["AppImage"],
+  linux: {
+    target: ["AppImage"],
     category: "Utility",
     publish: [
       "github"
     ]
   },
- /* extraMetadata: {
-    version: process.env.VITE_APP_VERSION,
-  },*/
+  /* extraMetadata: {
+     version: process.env.VITE_APP_VERSION,
+   },*/
 };
 
 module.exports = config;

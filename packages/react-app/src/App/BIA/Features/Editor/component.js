@@ -18,6 +18,7 @@ import {Container,LayoutFlex} from '@karsegard/react-core-layout'
 import MesureEditor from './Mesure';
 import PatientHeader from './PatientHeader';
 
+
 import ListMesure from './ListMesure';
 
 const ContainerWithArea = withGridArea(Container);
@@ -45,7 +46,7 @@ const Editor = props => {
         <MainView renderFooter={renderFooter} className="bia-main--editor" renderLeftNav={
             _ => {
                 return (<NavComponent className={element('nav')} area="nav" onClick={handleGoBack}>
-                    <ArrowBack /> <h4>Retour à la liste</h4>
+                    <ArrowBack /> <h4>{t('Retour à la liste')}</h4>
                 </NavComponent>)
             }
         }>

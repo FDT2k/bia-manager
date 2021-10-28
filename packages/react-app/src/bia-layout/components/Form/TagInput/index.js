@@ -61,10 +61,10 @@ const AutoComplete = props => {
     return (
         <div style={style} className={classNames(['autocomplete', { 'autocomplete--visible': visible }])}>
             {displayedOptions.map((item, idx) => {
-                return (<div key={idx} onClick={_ => setSelected(idx)} className={classNames(
+                return (<div key={idx}  className={classNames(
                     ['autocomplete__item',
                         { 'autocomplete__item--selected': idx == selected }]
-                )}>{item}</div>)
+                )}>{item.label}</div>)
             })}
 
         </div>
@@ -119,7 +119,7 @@ const TagInput = (props) => {
 
                     }
                 } else {
-                    setTypedTag(field + ':')
+                    setTypedTag(field.key + ':')
                     showAutocomplete(false);
                 }
                 handleChange(newTags);
@@ -138,10 +138,11 @@ const TagInput = (props) => {
 
     }, [backspacePressed, escapePressed, enterPressed, hasFocus]);
 
+   
 
     useEffect(() => {
         //   console.log(fields,typedTag.slice(0, -1), fields.indexOf(typedTag.slice(0, -1)));
-        if (typedTag == ':' || (typedTag.slice(-1) == ':' && fields.indexOf(typedTag.slice(0, -1)) === -1)) {
+        if (typedTag == ':' || (typedTag.slice(-1) == ':' && fields.findIndex( item => item.key == typedTag.slice(0, -1)) === -1)) {
             setInputBounds(ref.current.getBoundingClientRect());
             showAutocomplete(true);
         }

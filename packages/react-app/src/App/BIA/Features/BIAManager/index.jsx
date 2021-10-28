@@ -1,7 +1,7 @@
 import React from 'react';
 //import { Provider } from '@/hooks/Provider'
 import Router from '@/App/BIA/Features/BIAManager/Router'
-
+import ErrorBoundary from '@/App/Components/ErrorBoundary';
 
 
 if (navigator.storage && navigator.storage.persist) {
@@ -17,8 +17,9 @@ export const BIAManager = props => {
 
     return (
         <>
-          
-            <Router/>
+            <ErrorBoundary>
+                <Router/>
+            </ErrorBoundary>
         </>
     )
 

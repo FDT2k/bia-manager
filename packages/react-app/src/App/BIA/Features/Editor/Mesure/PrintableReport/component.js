@@ -1,12 +1,13 @@
 import { safe_path } from '@karsegard/composite-js';
-import FFMIChart from '@/bia-layout/components/Charts/FFMI';
-import MassChart from '@/bia-layout/components/Charts/Mass';
-import RecapGrid from '@/bia-layout/components/Views/RecapGrid';
+import FFMIChart from '@/App/Components/Charts/Indice';
+import MassChart from '@/App/Components/Charts/Mass';
+import RecapGrid from '@/App/BIA/Features/Editor/Mesure/RecapGrid';
 import { ComponentWithArea } from '@/bia-layout/hoc/grid/Area';
 import {LayoutFlex,LayoutFlexColumn} from '@karsegard/react-core-layout'
 
 import {Grid} from '@karsegard/react-core-layout'
 import React from 'react';
+import { dateSysToHuman } from '@/references/format';
 
 
 export default props => {
@@ -25,6 +26,7 @@ export default props => {
     const safe_string = safe_path('');
     return (
         <Grid
+            className="report"
             contained   
             templateRows="fit-content(10px) fit-content(10px) fit-content(10px) fit-content(10px)  fit-content(10px)  fit-content(10px) 20px"
             templateColumns="auto auto"
@@ -58,26 +60,26 @@ export default props => {
                 <h3>Evolution de la composition corporelle</h3></ComponentWithArea>
             <ComponentWithArea area="a" >
 
-                <MassChart width={550}  height={200}  data={mass_chart} />
+                <MassChart width={550}  height={280}  data={mass_chart} />
             </ComponentWithArea>
             <ComponentWithArea area="y" >
                 <h3>Votre position par rapport aux normes</h3></ComponentWithArea>
             <ComponentWithArea area="b" >
                 <LayoutFlexColumn justCenter alignCenter>
                     <h4>Indice de masse maigre</h4>
-                    <span>masse maigre / (taille * taille)</span>
-                    <FFMIChart width={350}  height={250} data={norm_chart} noi="ffmi" age={mesure.current_age} value={current_bia.ffmi} />
+                    <span>masse maigre / taille<sup>2</sup></span>
+                    <FFMIChart width={350}  height={200} data={norm_chart} noi="ffmi" age={mesure.current_age} value={current_bia.ffmi} />
                 </LayoutFlexColumn>
             </ComponentWithArea>
             <ComponentWithArea area="c" >
                 <LayoutFlexColumn justCenter alignCenter>
                     <h4>Indice de masse grasse</h4>
-                    <span>masse grasse / (taille * taille)</span>
-                    <FFMIChart width={350}  height={250}   data={norm_chart} noi="fmi" age={mesure.current_age} value={current_bia.fmi} />
+                    <span>masse grasse / taille<sup>2</sup></span>
+                    <FFMIChart width={350}  height={200}   data={norm_chart} noi="fmi" age={mesure.current_age} value={current_bia.fmi} />
                 </LayoutFlexColumn>
             </ComponentWithArea>
             <ComponentWithArea area="footer" >
-                <span>Crée avec BioImpedanceManager. v2.0.2 le 11.08.2021</span>
+                <span>Crée avec BIM v{process.env.ELECTRON_VERSION} le {dateSysToHuman(new Date())}</span>
             </ComponentWithArea>
         </Grid>
     )

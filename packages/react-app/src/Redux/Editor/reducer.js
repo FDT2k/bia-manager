@@ -44,6 +44,10 @@ export default (getModule) => {
     const module = {};
 
 
+    module.examinator = createReducer("",{
+        [action_types.SET_EXAMINATOR]: (state,{payload}) => payload
+    })
+
 
     module.current_patient_id = createReducer(-1, {
         [action_types.EDIT_PATIENT]: (state, { payload }) => payload.id
@@ -331,6 +335,7 @@ export default (getModule) => {
             'fmi',
         ],
         bia_report_columns: [
+            'bmi',
             'water',
             'pct_water',
             'ffm',
@@ -372,34 +377,34 @@ export default (getModule) => {
     }
 
 
-
+/*
 
     module.editor_options = combineReducers({
         sportType: module.option_reducer('sport.type', submodules.sportType.reducer),
         sportRate: module.option_reducer('sport.rate', submodules.sportRate.reducer),
         machines: module.option_reducer('machine', submodules.machines.reducer),
     });
-
+*/
 
 
     module.empty_mesure = (state = { empty: EMPTY_MESURE, current: {}, editor_options: {} }, action) => {
-        const editor_options = module.editor_options(state.editor_options, action);
+      //  const editor_options = module.editor_options(state.editor_options, action);
 
-
+        
         let current = {
             ...state.empty,
         }
-
+/*
         map(item => {
             let [_, option] = keyval(item);
 
             current = as_safe_path(option.path, current, option.default)
         })(enlist(editor_options));
-
+*/
         return {
             ...state,
             current,
-            editor_options
+        //    editor_options
         }
     };
 
@@ -414,16 +419,17 @@ export default (getModule) => {
            type_act,
            machines,
            examinators,*/
+        examinator: module.examinator,
         error: module.errors,
         empty_mesure: module.empty_mesure,
         report_settings: module.report_settings,
-        options: module.editor_options,
+       // options: module.editor_options,
         current_patient_id: module.current_patient_id,
         current_mesure_id: module.current_mesure_id,
         mesure: module.mesure,
         patient: module.patient,
         recap: module.recap,
-        normes: module.normes
+        normes: submodules.normes.reducer
     });
 
     return module;

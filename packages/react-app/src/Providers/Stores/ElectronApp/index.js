@@ -29,6 +29,7 @@ export const {
   close,
   create_patient,
   import_csv,
+  dismiss_error
 } = ElectronModule.actions;
 
 
@@ -44,15 +45,16 @@ export const {
   editor_patient_options,
   edited_subject,
   form_options_loaded,
-  select_form_lists
+  select_form_lists,
+  current_error
 } = ElectronModule.selectors;
 
-
+/*
 export const {
   create_subject,
   edit_subject,
 } =  ElectronModule.submodules.features.create.actions;
-
+*/
 export const {
   select_patients_list_filtered,
   
@@ -65,6 +67,17 @@ export const {
 
 
 
+export const SearchModule =  ElectronModule.submodules.features.search;
+
+export const {
+  select_tags
+
+} = SearchModule.selectors
+
+export const {
+  clear:clear_search
+
+} = SearchModule.actions
 
 
 /**
@@ -82,13 +95,16 @@ export const {
    select_edited_mesure,
    select_recap,
    select_normes_sampling,
-   select_normes_bygender,
    select_current_bia_values,
    select_normes_sampling: select_normes_chart,
    select_empty_mesure,
    select_mesures_dates,
    has_error, 
-   error_message 
+   error_message ,
+   select_edited_age,
+   makeSelectBIAResultByKey,
+   makeSelectIndiceChartYTicks,
+   makeSelectYLabelByKey
   } = BIAEditorModule.selectors;
  
  
@@ -100,15 +116,21 @@ export const {
    create_mesure,
    change_subject,
    save,
-   fetch_normes,
    recompute_current_mesure,
    refresh_current_recap,
    refresh_recap,
+   fetch_normes,
 
    change_mesure ,
-   save:save_editor
+   save:save_editor,
+   set_examinator
   } = BIAEditorModule.actions;
- 
+ /*
+export const {
+  fetch_normes,
+
+} = BIAEditorModule.submodules.normes.actions;
+*/
 export const {
   edit_patient,
   update_patient,
@@ -117,7 +139,7 @@ export const {
   
 }= ElectronModule.actions
 
-
+/*
  export const { fetch: populate_sportrate } = BIAEditorModule.submodules.sportRate.actions;
  export const { fetch: populate_sporttype } = BIAEditorModule.submodules.sportType.actions;
  export const { fetch: populate_machines } = BIAEditorModule.submodules.machines.actions;
@@ -126,7 +148,7 @@ export const {
  export const { select_list: select_machines } = BIAEditorModule.submodules.machines.selectors;
  export const { select_list: select_sportrates } = BIAEditorModule.submodules.sportRate.selectors;
  export const { select_list: select_sporttypes } = BIAEditorModule.submodules.sportType.selectors;
- 
+ */
 /*end editor module */
 
 /**

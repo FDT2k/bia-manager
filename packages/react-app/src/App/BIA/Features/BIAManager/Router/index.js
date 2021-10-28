@@ -7,7 +7,7 @@ import WelcomeScreen from '@/App/BIA/Features/WelcomeScreen';
 import { is_nil } from '@karsegard/composite-js';
 import { Fullscreen } from '@karsegard/react-core-layout';
 import React, { useCallback, useEffect, useState } from 'react';
-import { Route, Router, useLocation, useRouter } from "wouter";
+import { Route, Router, Switch,useLocation, useRouter } from "wouter";
 
 
 
@@ -70,11 +70,8 @@ export default props => {
     return (<Fullscreen>
 
         <Router hook={useHashLocation}>
-        {/* do not remove, could be the print preview later
-        <Route path="/print/:id/:mesure_id">
-                <DebugPrint />
-            </Route> */}
-
+      
+        <Switch>
 
             <Route path="/database"><Database /></Route>
 
@@ -96,6 +93,8 @@ export default props => {
 
 
             <Route path="/"><WelcomeScreen /></Route>
+            <Route>Unknown state, <a href="#">return home</a></Route>
+</Switch>
         </Router>
     </Fullscreen>);
 }

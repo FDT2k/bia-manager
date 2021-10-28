@@ -6,16 +6,16 @@ import {
     edit_mesure,
     edit_patient,
     fetch_normes,
-    populate_sporttype,
-    populate_sportrate,
+  //  populate_sporttype,
+  //  populate_sportrate,
     refresh_recap,
     delete_mesure,
     change_subject,
     has_error,
     error_message,
-    populate_machines,
+  //  populate_machines,
     save,
-
+    save_global,
     // selectors
 
     select_edited_mesure,
@@ -26,7 +26,8 @@ import {
     select_recap_headers,
     select_recap_list,
     update_patient,
-    save_editor
+    save_editor,
+    set_examinator,
 } from '@/Providers/Stores/ElectronApp';
 
 
@@ -47,16 +48,17 @@ const mapDispatchToProps = {
     edit_mesure,
     edit_patient,
     fetch_normes,
-    populate_sporttype,
-    populate_sportrate,
+    //populate_sporttype,
+    //populate_sportrate,
     refresh_recap,
     delete_mesure,
    // delete_mesure_from_db,
     change_subject,
-
-    populate_machines,
+    set_examinator,
+    //populate_machines,
     update_patient,
-    save:save_editor
+ //   save:save_editor
+    save:save_global
 }
 
 

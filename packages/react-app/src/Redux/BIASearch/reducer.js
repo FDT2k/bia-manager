@@ -57,7 +57,7 @@ export default (getModule) => {
                     let key = tag.substr(0, fieldpos).trim();
                     let value = tag.substr(fieldpos + 1).trim();
 
-                    let re = new RegExp(`${value}`, "gmi");
+                    let re = new RegExp(`^${value}`, "gmi");
                     if (re.test(patient[key])) {
                         carry.ids.push(id)
                     }

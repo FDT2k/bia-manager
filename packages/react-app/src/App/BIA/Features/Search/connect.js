@@ -1,10 +1,15 @@
 import { connect, bindSelectors } from '@karsegard/react-redux';
-import { select_patients_list_filtered, get_backend_stats,search } from '@/Providers/Stores/ElectronApp';
-
+import { select_patients_list_filtered, get_backend_stats, search,clear_search,select_tags } from '@/Providers/Stores/ElectronApp';
 
 export default connect(
-    bindSelectors({ select_patients_list_filtered,get_backend_stats }),
+    bindSelectors(
+        {
+            select_patients_list_filtered, 
+            get_backend_stats,
+            tags:select_tags
+        }),
     {
-        search
+        search,
+        clear_search
     }
 )

@@ -62,6 +62,13 @@ jobs:
           yarn build;
         env: 
           CI: true
+      - name: build react-hooks
+          #   if: steps.yarn-react-cache.outputs.cache-hit != 'true'
+        run: |
+          cd packages/kda-react-hooks;
+          yarn build;
+        env: 
+          CI: true
 #      - name: Install React package deps
      #   if: steps.yarn-react-cache.outputs.cache-hit != 'true'
  #       run: |

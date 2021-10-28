@@ -16,7 +16,7 @@ export default Component => props => {
 
     const { patient, mesure, current_mesure_id, error, err_message } = props;
     const { populate_sportrate, populate_sporttype, populate_machines, fetch_normes } = props;
-    const { edit_patient, edit_mesure, create_mesure,change_mesure,refresh_recap,change_subject,update_patient,save,delete_mesure } = props;
+    const { edit_patient, edit_mesure, create_mesure, change_mesure, refresh_recap, change_subject, update_patient, save, delete_mesure, set_examinator } = props;
 
     const handlePrint = useReactToPrint({
         content: () => componentRef.current
@@ -31,25 +31,25 @@ export default Component => props => {
 
 
     useEffect(() => {
-       /* populate_sportrate([
-            { 'id': 'low', 'name': 'faible' },
-            { 'id': 'average', 'name': 'modérée', default: true },
-            { 'id': 'high', 'name': 'élevée' },
-            { 'id': 'very_high', 'name': 'très élevée' },
-        ]);
-
-        populate_sporttype([
-            { 'id': 'endu', 'name': 'endurance' },
-            { 'id': 'res', 'name': 'résistance' },
-            { 'id': 'other', 'name': 'autre' },
-            { 'id': 'unknown', 'name': 'inconnue', default: true },
-        ]);
-        
-        populate_machines([
-            { 'id': 'BIO-Z', 'name': 'BIO-Z' },
-            { 'id': 'NUTRIGUARD', 'name': 'Nutriguard' },
-            { 'id': 'ZX-1000', 'name': 'ZX-1000', default: true },
-        ]);*/
+        /* populate_sportrate([
+             { 'id': 'low', 'name': 'faible' },
+             { 'id': 'average', 'name': 'modérée', default: true },
+             { 'id': 'high', 'name': 'élevée' },
+             { 'id': 'very_high', 'name': 'très élevée' },
+         ]);
+ 
+         populate_sporttype([
+             { 'id': 'endu', 'name': 'endurance' },
+             { 'id': 'res', 'name': 'résistance' },
+             { 'id': 'other', 'name': 'autre' },
+             { 'id': 'unknown', 'name': 'inconnue', default: true },
+         ]);
+         
+         populate_machines([
+             { 'id': 'BIO-Z', 'name': 'BIO-Z' },
+             { 'id': 'NUTRIGUARD', 'name': 'Nutriguard' },
+             { 'id': 'ZX-1000', 'name': 'ZX-1000', default: true },
+         ]);*/
         fetch_normes()
     }, []);
 
@@ -94,7 +94,7 @@ export default Component => props => {
     const new_mesure = patient_id => {
         return Promise.resolve(create_mesure(patient_id));
     }
-    
+
     const handleMesureOpen = (value, idx) => {
         if (idx < patient.mesures.length) {
             setLocation(`/editor/${patient_id}/${idx}`);
@@ -108,11 +108,26 @@ export default Component => props => {
 
     }
 
-    const handleChange = values => {
-        console.log(values);
+    const dontCommitTheseFields = ['comments', 'date', 'examinator']
+
+
+    const handleChange = (values, changed_field) => {
+        console.log('form changed', values, changed_field);
+
+        if (changed_field === 'examinator') {
+            set_examinator(values.examinator);
+        }
+        
+
+        if (dontCommitTheseFields.includes(changed_field)) {
+            return;
+        }
+
+        change_mesure(patient, values)
+
+
         if (values.data && patient) {
             //  dispatch(recompute_mesure(patient_id, values));
-            change_mesure(patient, values)
             refresh_recap(patient_id, current_mesure_id);
         }
     }
@@ -123,54 +138,38 @@ export default Component => props => {
 
 
     const handleClickSave = _ => {
-        let res = save();
-        update_patient(patient.id, patient, mesure, current_mesure_id).then(res => {
-            if (current_mesure_id <= patient.mesures.length) {
-                setLocation(`/editor/${patient_id}/${current_mesure_id}`);
-            }
-        }).catch(res => {
-            alert('erreur ')
-            debugger;
-            console.error(res)
-
-        }
-        );
+        save()
+            // .then(_=>update_patient(patient.id, patient, mesure, current_mesure_id))
+            .then(res => {
+                if (current_mesure_id <= patient.mesures.length) {
+                    setLocation(`/editor/${patient_id}/${current_mesure_id}`);
+                }
+            })
 
     }
 
-        const handleMesureDelete = index => {
-            if (confirm('Sur? ')) {
-            /*    let result = dispatch(delete_mesure(patient.id, index));
-                // dispatch(save());
-                console.log(result)
-                debugger;
-    
-                dispatch(delete_mesure_from_db(api.update_patient)).then(res => {
-                    debugger;
-                })*/
-
-                delete_mesure(patient.id,index)
-            }
+    const handleMesureDelete = index => {
+        if (confirm('Etes vous sur de vouloir supprimer cette mesure ?')) {
+            delete_mesure(patient.id, index)
         }
+    }
     return (
         <>
 
 
             {!error && <Component
-                 handleGoBack={_ => setLocation('/search')}
+                handleGoBack={_ => setLocation('/search')}
                 handleChange={handleChange}
                 handleSubjectChange={handleSubjectChange}
                 handleClickSave={handleClickSave}
                 handleMesureDelete={handleMesureDelete}
-                //handlePrint={handlePrint}
-
                 handleMesureOpen={handleMesureOpen}
                 handleMesureCreate={handleMesureCreate}
                 data={patient}
                 selectedMesureIndex={current_mesure_id}
                 mesure={mesure}
             />}
-           <ErrorModal/>
+            <ErrorModal />
 
         </>
     )

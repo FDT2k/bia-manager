@@ -1,0 +1,16 @@
+@use "@/bia-layout/sass/theme/default/main.scss";
+
+.comparison-grid {
+  align-items: center;
+
+  .result-row,
+  .row.lineheader,
+  .row.norme {
+    // border-top:1px solid black;
+  }
+
+  .row.lineheader {
+    font-weight: bold;
+    align-self: center;
+  }
+}

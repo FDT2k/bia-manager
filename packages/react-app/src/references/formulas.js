@@ -14,6 +14,11 @@ export const formulas = {
 
     gva: [
         {
+            name: "bmi",
+            fn: mesure => mesure.bmi,
+            display: true,
+        },
+        {
             name: "res",
             fn: mesure => mesure.data.res50,
             display: false,
@@ -69,6 +74,11 @@ export const formulas = {
                 return Math.abs(ageDate.getUTCFullYear() - 1970);
             }
         },*/
+        {
+            name: "bmi",
+            fn: mesure => mesure.bmi,
+            display: true,
+        },
         {
             name: "res",
             fn: mesure => mesure.data.res50,
@@ -142,6 +152,11 @@ export const formulas = {
 
 
     kushner: [
+        {
+            name: "bmi",
+            fn: mesure => mesure.bmi,
+            display: true,
+        },
         {
             name: "res",
             fn: mesure => mesure.data.res50,
