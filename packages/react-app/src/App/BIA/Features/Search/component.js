@@ -1,11 +1,11 @@
 import Button from '@/bia-layout/components/Form/Button';
 import TagInput from '@/bia-layout/components/Form/TagInput';
-import { ArrowDown, ArrowUp } from '@/bia-layout/components/Icons';
+import { ArrowDown, ArrowUp, ChevronDownSharp, CaretDownSharp } from '@/bia-layout/components/Icons';
 import List from '@/bia-layout/components/Table';
 import { withGridArea } from '@/bia-layout/hoc/grid/Area';
 import SearchLayout from '@/bia-layout/layouts/Search';
 import { applyModifiers, compose, withBaseClass, withForwardedRef } from '@karsegard/react-compose';
-import { LayoutFlex, LayoutFlexColumn } from '@karsegard/react-core-layout';
+import { LayoutFlex, LayoutFlexColumn,Grid } from '@karsegard/react-core-layout';
 import { useKeypress } from '@karsegard/react-hooks';
 import Dropdown from '@/App/Components/Dropdown';
 import React, { forwardRef, useEffect, useMemo, useState } from 'react';
@@ -142,8 +142,8 @@ export const Component = props => {
                 <Button tabIndex={5} className="button--big" onClick={handleCreate}>{t('SEARCH_CREATE_NEW_SUBJECT')}</Button>
 
             </SearchArea>
-            <AdvancedSearch area="filter">
-                <Dropdown label="Mesures" icon={<ArrowDown />}>
+            <AdvancedSearch style={{gridGap:'8px'}} area="filter">
+                <Dropdown offset={8} label="Mesures" icon={<ChevronDownSharp />}>
                     <>
                         <LayoutFlex justBetween alignCenter className="dropdown__item">
                             <div>De </div>
@@ -153,9 +153,13 @@ export const Component = props => {
                             <div>À</div>
                             <DatePicker allow_null={true} masked_input={true} />
                         </LayoutFlex>
+                        <LayoutFlex justBetween alignCenter className="dropdown__item">
+                            <div>À</div>
+                            <DatePicker allow_null={true} masked_input={true} />
+                        </LayoutFlex>
                     </>
                 </Dropdown>
-                <Dropdown label="Sexe" icon={<ArrowDown />}>
+                <Dropdown offset={8} label="Sexe" icon={<ChevronDownSharp />}>
                     <div>
                         <LayoutFlex justBetween alignCenter className="dropdown__item"><div>Homme </div> <input type="checkbox" /></LayoutFlex>
                         <LayoutFlex justBetween alignCenter className="dropdown__item"><div>Femme</div> <input type="checkbox" /></LayoutFlex>
