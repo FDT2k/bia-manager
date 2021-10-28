@@ -153,6 +153,10 @@ export const Component = props => {
                             <div>À</div>
                             <DatePicker allow_null={true} masked_input={true} />
                         </LayoutFlex>
+                        <LayoutFlex justBetween alignCenter className="dropdown__item">
+                            <div>À</div>
+                            <DatePicker allow_null={true} masked_input={true} />
+                        </LayoutFlex>
                     </>
                 </Dropdown>
                 <Dropdown offset={8} label="Sexe" icon={<ChevronDownSharp />}>
