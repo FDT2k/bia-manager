@@ -79,6 +79,7 @@ export const Component = props => {
         onSaveRequest(handleFileSave);
 
         get_translations().then(res => {
+
             setInitialTranslation(res)
             i18n.changeLanguage('fr');
             ready();
@@ -94,9 +95,11 @@ export const Component = props => {
             setUpdate(false);
             setDownload(message);
         })
+
+
         onLanguageChange((sender, message) => {
             console.log('language changed')
-
+            
             if (!i18n.hasResourceBundle(message.language, message.namespace)) {
                 i18n.addResourceBundle(message.language, message.namespace, message.resource);
             }

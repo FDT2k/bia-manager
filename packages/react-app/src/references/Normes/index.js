@@ -92,7 +92,20 @@ export const raw = [
     { type: 'pct_ffm', sex: 'F', age_range: [65, 74], values: [55.6, 75.6] },
     { type: 'pct_ffm', sex: 'F', age_range: [75, 84], values: [54.8, 74.1] },
     { type: 'pct_ffm', sex: 'F', age_min: 85, values: [53.1, 77.4] },
-
+    { type: 'pct_dffm', sex: 'M', age_range: [15, 24], values: [19.5, 23.3] },
+    { type: 'pct_dffm', sex: 'M', age_range: [25, 34], values: [19.7,23.3] },
+    { type: 'pct_dffm', sex: 'M', age_range: [35, 44], values: [19.5,23.4] },
+    { type: 'pct_dffm', sex: 'M', age_range: [45, 54], values: [19.2,22.9] },
+    { type: 'pct_dffm', sex: 'M', age_range: [55, 64], values: [18.7,22.9] },
+    { type: 'pct_dffm', sex: 'M', age_range: [65, 74], values: [18.2,22.6] },
+    { type: 'pct_dffm', sex: 'M', age_min: 75, values: [18.2,22.6] },
+    { type: 'pct_dffm', sex: 'F', age_range: [15, 24], values: [17.6, 20.8] },
+    { type: 'pct_dffm', sex: 'F', age_range: [25, 34], values: [17.5,20.4] },
+    { type: 'pct_dffm', sex: 'F', age_range: [35, 44], values: [16.9,20.3] },
+    { type: 'pct_dffm', sex: 'F', age_range: [45, 54], values: [16.8,20.3] },
+    { type: 'pct_dffm', sex: 'F', age_range: [55, 64], values: [16.4,19.8] },
+    { type: 'pct_dffm', sex: 'F', age_range: [65, 74], values: [14.9,19.2] },
+    { type: 'pct_dffm', sex: 'F', age_min: 75, values: [14.9,19.2] },
 ]
 
 export const ffmi = {

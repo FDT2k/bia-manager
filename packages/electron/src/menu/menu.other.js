@@ -46,18 +46,7 @@ export default (app, window, i18n) => {
             focusedWindow.reload();
           }
         },
-        {
-          label: i18n.t('Full Screen'),
-          accelerator: 'Ctrl+Command+F',
-          click: function (item, focusedWindow) {
-            focusedWindow.setFullScreen(!focusedWindow.isFullScreen());
-          }
-        },
-        {
-          label: i18n.t('Minimize'),
-          accelerator: 'Command+M',
-          role: 'minimize'
-        },
+      
         {
           type: 'separator'
         },

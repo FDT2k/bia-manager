@@ -4,12 +4,13 @@ import { ArrowDown, ArrowUp } from '@/bia-layout/components/Icons';
 import List from '@/bia-layout/components/Table';
 import { withGridArea } from '@/bia-layout/hoc/grid/Area';
 import SearchLayout from '@/bia-layout/layouts/Search';
-import { applyModifiers, compose, withBaseClass } from '@karsegard/react-compose';
+import { applyModifiers, compose, withBaseClass, withForwardedRef } from '@karsegard/react-compose';
 import { LayoutFlex, LayoutFlexColumn } from '@karsegard/react-core-layout';
 import { useKeypress } from '@karsegard/react-hooks';
-import React, { useEffect, useMemo, useState } from 'react';
-import AdvancedForm from './Advanced';
+import Dropdown from '@/App/Components/Dropdown';
+import React, { forwardRef, useEffect, useMemo, useState } from 'react';
 
+import DatePicker from '@/bia-layout/components/Form/DatePicker';
 
 
 const withForwardRef = Component => (props, ref) => {
@@ -37,8 +38,8 @@ const Component = compose(withGridArea)(List);
 return <Component {...props} forwardedRef={ref}/>
 })*/
 
-export const ListWithArea = compose(withForwardRef, withGridArea)(List);
-export const ListWithAreaWithRef = React.forwardRef(ListWithArea);
+export const ListWithAreaWithRef = compose(forwardRef, withForwardRef, withGridArea)(List);
+//export const ListWithAreaWithRef = React.forwardRef(ListWithArea);
 
 
 export const AdvancedSearch = compose(
@@ -46,7 +47,7 @@ export const AdvancedSearch = compose(
     withBaseClass('advanced-filters'),
     applyModifiers({ alignCenter: false }),
 
-)(LayoutFlexColumn)
+)(LayoutFlex)
 
 
 
@@ -90,40 +91,36 @@ export const Component = props => {
         handleSearch && handleSearch(tags);
     }
 
-    const columns = React.useMemo(
+    const columns = [
+        {
+            Header: t('SEARCH_table_column_lastname'),
+            accessor: 'lastname',
+            filter: 'text'
+        },
+        {
+            Header: t('SEARCH_table_column_firstname'),
+            accessor: 'firstname',
+            filter: 'fuzzyText'
+        },
+        {
+            Header: t('SEARCH_table_column_birthdate'),
+            accessor: 'birthdate',
 
-        () => [
-            {
-                Header: 'Nom',
-                accessor: 'lastname',
-                filter: 'text'
-            },
-            {
-                Header: 'Prenom',
-                accessor: 'firstname',
-                filter: 'fuzzyText'
-            },
-            {
-                Header: 'Date de naissance',
-                accessor: 'birthdate',
+        },
+        {
+            Header: t('SEARCH_table_column_pathological_group'),
+            accessor: 'groups.patho',
 
-            },
-            {
-                Header: 'Groupe pathologique',
-                accessor: 'groups.patho',
-
-            },
-            {
-                Header: 'Sexe',
-                accessor: 'gender',
-            },
-            {
-                Header: 'Mesures',
-                accessor: v => v.mesures.length,
-            },
-        ],
-        []
-    )
+        },
+        {
+            Header: t('SEARCH_table_column_sex'),
+            accessor: 'gender',
+        },
+        {
+            Header: t('SEARCH_table_column_sample_count'),
+            accessor: v => v.mesures.length,
+        },
+    ]
 
     const searchableFields = [
         { key: 'lastname', label: t('Nom') },
@@ -142,11 +139,28 @@ export const Component = props => {
         <SearchLayout cover contained className="page-search">
             <SearchArea area="search">
                 <TagInput tabIndex={1} placeholder={t(`Recherche`)} tags={tags} handleFocus={v => setSearchBarFocused(v)} handleChange={_handleSearch} fields={searchableFields} />
-                <Button tabIndex={5} className="button--big" onClick={handleCreate}>Créer un nouveau Patient</Button>
+                <Button tabIndex={5} className="button--big" onClick={handleCreate}>{t('SEARCH_CREATE_NEW_SUBJECT')}</Button>
+
             </SearchArea>
             <AdvancedSearch area="filter">
-                <LayoutFlex alignCenter={true}>recherche simple <ArrowUp /></LayoutFlex>
-                <AdvancedForm tabOffset={10} />
+                <Dropdown label="Mesures" icon={<ArrowDown />}>
+                    <>
+                        <LayoutFlex justBetween alignCenter className="dropdown__item">
+                            <div>De </div>
+                            <DatePicker allow_null={true} masked_input={true} />
+                        </LayoutFlex>
+                        <LayoutFlex justBetween alignCenter className="dropdown__item">
+                            <div>À</div>
+                            <DatePicker allow_null={true} masked_input={true} />
+                        </LayoutFlex>
+                    </>
+                </Dropdown>
+                <Dropdown label="Sexe" icon={<ArrowDown />}>
+                    <div>
+                        <LayoutFlex justBetween alignCenter className="dropdown__item"><div>Homme </div> <input type="checkbox" /></LayoutFlex>
+                        <LayoutFlex justBetween alignCenter className="dropdown__item"><div>Femme</div> <input type="checkbox" /></LayoutFlex>
+                    </div>
+                </Dropdown>
             </AdvancedSearch>
             <ListWithAreaWithRef
 

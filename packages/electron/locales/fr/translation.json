@@ -75,6 +75,7 @@
    "FAT_FREE_MASS_Y_LABEL":"Masse Grasse (kg/m2)",
    "FAT_MASS_Y_LABEL":"Masse Maigre (kg/m2)",
 
+   
    "water_comparison_line_header": "Eau [kg]",
    "pct_water_comparison_line_header": "Eau %",
    "ffm_comparison_line_header": "Masse maigre [kg]",
@@ -84,6 +85,12 @@
    "fm_comparison_line_header": "Masse grasse [kg]",
    "pct_fm_comparison_line_header": "Masse grasse %",
    "fmi_comparison_line_header": "Indice de masse grasse (FMI) [kg/m2]",
-   "ffmi_comparison_line_header": "Indice de masse maigre (FFMI) [kg/m2]"
-
+   "ffmi_comparison_line_header": "Indice de masse maigre (FFMI) [kg/m2]",
+   "SEARCH_CREATE_NEW_SUBJECT": "Créer un nouveau Patient",
+   "SEARCH_table_column_lastname": "Nom",
+   "SEARCH_table_column_firstname": "Prenom",
+   "SEARCH_table_column_birthdate": "Date de naissance",
+   "SEARCH_table_column_pathological_group": "Groupe Pathologique",
+   "SEARCH_table_column_sex": "Sexe",
+   "SEARCH_table_column_sample_count": "Mesures"
 }

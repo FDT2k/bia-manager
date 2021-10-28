@@ -26,7 +26,7 @@ export const setHandler = fn => {
     // override if needed - omit if ok with defaults
     
     react: {
-      useSuspense: false,
+      useSuspense: true,
     }
     
   });

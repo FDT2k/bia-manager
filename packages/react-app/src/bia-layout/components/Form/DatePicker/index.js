@@ -14,7 +14,7 @@ const SafeDatePicker = ({ allow_null,masked_input,mask,dateFormat, selected, han
 
 
     const _handleChange = date => {
-        handleChange(format(date, 'yyyy-MM-dd'))
+        handleChange && handleChange(format(date, 'yyyy-MM-dd'))
     };
 
     let val = selected;

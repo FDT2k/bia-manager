@@ -14,7 +14,7 @@ const [__base_class, element, modifier] = bem('listing')
 export default props => {
 
 
-    const { data, columns,tabIndex, forwardedRef,selectedIndex, handleSelect, Tools, SortUp, SortDown, ...rest } = props;
+    const { data,className, style,columns,tabIndex, forwardedRef,selectedIndex, handleSelect, Tools, SortUp, SortDown, ...rest } = props;
 
     function fuzzyTextFilterFn(rows, id, filterValue) {
         console.log(rows, id, filterValue)
@@ -81,7 +81,7 @@ export default props => {
         state: { pageIndex: pageProps.pageIndex, pageSize: pageProps.pageSize }
 
     } = tableInstance);
-    return (<LayoutFlexColumn justBetween cover tabIndex={tabIndex}>
+    return (<LayoutFlexColumn justBetween cover tabIndex={tabIndex} className={className} style={style}>
         <table ref={forwardedRef} className={cEx([__base_class])} {...getTableProps()} {...rest}>
             <thead  >
                 {headerGroups.map((headerGroup, idx) => (
