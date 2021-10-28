@@ -4,7 +4,7 @@ import React, { useEffect, useRef, useState } from 'react';
 import {useBoolean} from '@karsegard/react-hooks'
 
 import './dropdown.scss'
-export default props => {
+export const DropDown =  props => {
 
     const { label, icon, className } = props;
     const [visible, toggleVisible,setVisible,setHidden] = useBoolean(false);
@@ -28,7 +28,7 @@ export default props => {
     useEffect(()=>{
         if(ref.current){
             setStyle({
-                top: ref.current.offsetHeight,
+                top: ref.current.offsetHeight+props.offset,
                 minWidth: ref.current.offsetWidth,
             })
         }
@@ -41,12 +41,12 @@ export default props => {
 
 
     return (<>
-       
+
         <div ref={ref} className={classe}>
             <div ref={refToggle}>
                 <LayoutFlex alignCenter>
                     <div className="dropdown__label">{label}</div>
-                    <div>{icon}</div>
+                    {icon}
                 </LayoutFlex>
             </div>
             <div style={childStyle} className={cEx([
@@ -59,3 +59,10 @@ export default props => {
         </>
     )
 }
+
+
+DropDown.defaultProps= {
+  offset:0
+}
+
+export default DropDown
