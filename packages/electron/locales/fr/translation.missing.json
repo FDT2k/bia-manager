@@ -41,5 +41,11 @@
    "Poids habituel (kg)": "Poids habituel (kg)",
    "Groupe pathologique": "Groupe pathologique",
    "Nombre de mesures": "Nombre de mesures",
-   "Créer": "Créer"
+   "Créer": "Créer",
+   "BIAManager": "BIAManager",
+   "About BIAManager": "About BIAManager",
+   "Hide App": "Hide App",
+   "Hide Others": "Hide Others",
+   "Show All": "Show All",
+   "Quit": "Quit"
 }
