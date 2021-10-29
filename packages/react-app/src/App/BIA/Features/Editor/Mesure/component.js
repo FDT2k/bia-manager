@@ -169,11 +169,10 @@ const Editor = props => {
         <MesureEditorLayout className={className}>
             <TabsWithArea tabIndexOffset={20} renderDisabledPanels={true} area="mesure-editor-main">
                 <TabList>
-                    <Tab>{t('Mesures')}</Tab>
-                    <Tab>{t('Résultats')}</Tab>
-                    <Tab>{t('Récapitulatif')}</Tab>
-                    <Tab>{t('Graphiques')}</Tab>
+                    <Tab>{t('BIA')}</Tab>
                     <Tab>{t('Force de serrement')}</Tab>
+                    <Tab>{t('Récapitulatif')}</Tab>
+
                 </TabList>
                 <TabPanel>
                     <LayoutFlexColumnWithArea>
@@ -219,42 +218,28 @@ const Editor = props => {
                         </Container>
 
 
+                        <Container fit grow>
 
+
+                            <ComparisonTable data={mesure.bia} columns={result_columns} />
+
+                        </Container>
                     </LayoutFlexColumnWithArea>
                 </TabPanel>
                 <TabPanel>
-                    <Container fit grow>
-                        <LayoutFlex>
-                            <Field className="taille" label={t("Taille (cm)")}  >
-                                <EditableTextInput value={values.height} name="height" onChange={handleChange} />
-                            </Field>
-                            <Field className="poids-actuel" label={t("Poids Actuel (kg)")} >
-                                <EditableTextInput value={values.weight} name="weight" onChange={handleChange} />
-                            </Field>
-                        </LayoutFlex>
-
-                        <ElectricalDataForm handleGroupChange={handleGroupChange} handleComputedChange={electricalHandleValues} handleChange={electricalHandleChange} editedGroup={editedGroup} values={values.data} />
-
-                        <br />
-
-                        <ComparisonTable data={mesure.bia} columns={result_columns} />
-
-                    </Container>
+                    Work in progress
                 </TabPanel>
                 <TabPanel>
                     <RecapGrid data={recap} headers={list_dates} />
-                </TabPanel>
-                <TabPanel>
                     <MassChart data={mass_chart} />
-                    <TESTChart data_key="ffmi"/>
-                    <TESTChart data_key="fmi"/>
-{/*                    <FFMIChart data={norm_chart} noi="ffmi" age={mesure.current_age} value={current_bia.ffmi} />
-                    <FFMIChart data={norm_chart} noi="fmi" age={mesure.current_age} value={current_bia.fmi} />*/}
+                    <LayoutFlex><TESTChart data_key="ffmi" />
+                        <TESTChart data_key="fmi" /></LayoutFlex>
                 </TabPanel>
-                <TabPanel>
-                </TabPanel>
+
             </TabsWithArea>
-            <LayoutFlexColumnWithArea area="mesure-editor-aside">
+            <LayoutFlexColumnWithArea style={{ gap: '10px' }} area="mesure-editor-aside">
+                <Button style={{minWidth:'100%',width:'100%',maxWidth:'100%'}} tabIndex={33} onClick={_handleClickSave}>{t('Enregistrer')}</Button>
+                <Button tabIndex={44} className="btn--secondary" onClick={_ => _handlePrint()}>{t('Imprimer')}</Button>
                 <Field label={t("Examinateur")}>
                     <EditableTextInput value={values.examinator} name="examinator" onChange={handleChange} />
                 </Field>
@@ -275,8 +260,7 @@ const Editor = props => {
                 <Field label={t("Remarques / Interprétations")}>
                     <EditableTextArea value={values.comments} name="comments" onChange={handleChange} />
                 </Field>
-                <Button tabIndex={33} onClick={_handleClickSave}>{t('Enregistrer')}</Button>
-                <Button tabIndex={44} className="btn--secondary" onClick={_ => _handlePrint()}>{t('Imprimer')}</Button>
+
             </LayoutFlexColumnWithArea>
             <Printable ref={componentRef}>
                 {/*<PrintableReport />*/}
