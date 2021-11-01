@@ -19,6 +19,8 @@ export const ElectronModule = Electron(state => state.app, '');
 
 export const {
   open_file,
+  add_error,
+
   create_database,
   start_loading,
   stop_loading,
@@ -217,13 +219,13 @@ export const Store = makeStore('electron', reducer, { devTools: false,enhancers:
 export const Context = createContext();
 
 
-
 export const ConnectApp = connect(state => ({
   is_loading: is_loading(state),
   loading_message: loading_message(state),
   current_file: current_file(state)
 }),  {
   create_database,
+  add_error,
   start_loading,
   stop_loading,
   open_file,

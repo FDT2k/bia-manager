@@ -16,8 +16,8 @@ import ErrorHandler from '@/App/BIA/Features/ErrorMessageHandler'
 export const Component = props => {
 
 
-    const { onOpenRequest, onSaveRequest, onLanguageChange, onLocationChange, onCloseRequest, get_translations,onDownloadProgress, missing_translations,download_update, ready, onUpdateAvailable } = useElectron();
-    const { open_file, save_to_file, start_loading, stop_loading, current_file, close, init_app } = props;
+    const { onOpenRequest, onSaveRequest, onLanguageChange, onLocationChange, onCloseRequest, get_translations,onDownloadProgress, missing_translations,download_update, ready, onUpdateAvailable,onError } = useElectron();
+    const { open_file, save_to_file, start_loading, stop_loading, current_file, close, init_app,add_error } = props;
     const [initialI18nStore, setInitialTranslation] = useState({});
 
     const [update, setUpdate] = useState(false);
@@ -106,6 +106,10 @@ export const Component = props => {
             i18n.changeLanguage(message.language);
         })
 
+        onError((sender,message)=>{
+            debugger;
+            add_error('Une erreur est survenue')
+        });
 
 
 

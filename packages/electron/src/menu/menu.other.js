@@ -128,6 +128,10 @@ export default (app, window, i18n) => {
         label: i18n.t('Download progress'),
         click: _=> window.webContents.send('download-progress',{percent:8})
       },
+      {
+        label: i18n.t('Error'),
+        click: _=> window.webContents.send('error',{message:"fake error message"})
+      },
     ]
     })
   }
