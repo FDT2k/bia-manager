@@ -43,6 +43,12 @@
             padding-top:6px;
         }
 
+        &.error {
+          input, input:focus {
+            border: solid 1px var(--color-invalid);
+          }
+        }
+
         .error {
           font-size: 12px;
           color: var(--color-invalid);
