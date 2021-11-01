@@ -91,8 +91,8 @@ export default (getModule) => {
     }
 
     actions.search = tag => (dispatch, getState) => {
-
-        return dispatch(actions.async_api('search', tag))
+        let res =  dispatch(actions.async_api('search', tag))
+        return res
     }
     actions.create_patient = patient => (dispatch, getState) => {
 

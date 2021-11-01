@@ -77,7 +77,8 @@ export const {
 } = SearchModule.selectors
 
 export const {
-  clear:clear_search
+  clear:clear_search,
+  update_search_tags: update_tags
 
 } = SearchModule.actions
 

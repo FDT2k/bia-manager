@@ -144,7 +144,8 @@ export default (getModule) => {
         // eslint-disable-next-line no-unused-vars
         const [first_tag, ...other_tags] = tags;
 
-        if (compare(current_tags, tags)) {
+        debugger;
+        if (compare(current_tags, tags)) {  
             console.log('tag did not changed')
             return;
         }
@@ -153,12 +154,17 @@ export default (getModule) => {
 
         if (first_tag && tags.length === 1 && first_tag !== current_tags[0]) { // if the first tag did change, then refetch a preset from the database
             return dispatch(actions.search_in_database(tags)).then(result => {
+                debugger;
                 return dispatch(fetched_patient(result));
             }).then(_ => {
+                debugger;
+
                 return dispatch(filter_results());
 
             });
         } else {
+            debugger;
+
             return dispatch(filter_results());
         }
     }

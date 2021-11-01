@@ -10,18 +10,18 @@ import { LayoutFlex } from '@karsegard/react-core-layout'
 export default Component => props => {
 
 
-    const {select_patients_list_filtered:patients, search, clear_search,tags } = props;
+    const { select_patients_list_filtered: patients, search, clear_search, tags, update_tags } = props;
 
 
     const [_, setLocation] = useLocation();
- 
-    
+
+
 
 
     const handleSearch = tags => {
         if (tags.length > 0) {
-            search(tags);
-        }else{
+            search(tags)
+        } else {
             clear_search();
         }
     }
@@ -29,7 +29,7 @@ export default Component => props => {
 
 
     const handleSelectRow = (index, patient) => {
-        if(patient && patient.id)
+        if (patient && patient.id)
             setLocation("/editor/" + patient.id);
     }
 
@@ -39,14 +39,13 @@ export default Component => props => {
 
 
     const addFilter = filter => {
-        
-        debugger
+      
     }
 
     return (
         <>
             <Component
-               
+
                 results={patients}
                 tags={tags}
                 addFilter={addFilter}
