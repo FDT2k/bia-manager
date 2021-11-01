@@ -48,5 +48,17 @@
    "Hide Others": "Hide Others",
    "Show All": "Show All",
    "Quit": "Quit",
-   "BIA": "BIA"
+   "BIA": "BIA",
+   "Taille": "Taille",
+   "Poids habituel": "Poids habituel",
+   "dom.": "dom.",
+   "norme": "norme",
+   "Mesure 1": "Mesure 1",
+   "Mesure 3": "Mesure 3",
+   "Gauche": "Gauche",
+   "Droite": "Droite",
+   "Main dominante": "Main dominante",
+   "Mesure 2": "Mesure 2",
+   "Moyenne des mesures": "Moyenne des mesures",
+   "Normes": "Normes"
 }

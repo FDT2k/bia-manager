@@ -227,7 +227,7 @@ const Editor = props => {
                     </LayoutFlexColumnWithArea>
                 </TabPanel>
                 <TabPanel>
-                    Work in progress
+                    <Serrement/>
                 </TabPanel>
                 <TabPanel>
                     <RecapGrid data={recap} headers={list_dates} />

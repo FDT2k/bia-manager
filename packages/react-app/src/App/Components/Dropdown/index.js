@@ -4,6 +4,7 @@ import React, { useEffect, useRef, useState } from 'react';
 import {useBoolean} from '@karsegard/react-hooks'
 
 import './dropdown.scss'
+import { identity } from '@karsegard/composite-js';
 export const DropDown =  props => {
 
     const { label, icon, className } = props;
@@ -18,9 +19,11 @@ export const DropDown =  props => {
     ])
 
     const handleClick = (event) => {
+        //checking if we are outside the element
         if (ref.current && !ref.current.contains(event.target)) {
             setHidden();
         }else  if (refToggle.current.contains(event.target)) {
+            //checking if we are on the main dropdown 
             toggleVisible()
         }
     };
@@ -62,7 +65,9 @@ export const DropDown =  props => {
 
 
 DropDown.defaultProps= {
-  offset:0
+  offset:0,
+  handleOpen:identity,
+  handleClose:identity,
 }
 
 export default DropDown

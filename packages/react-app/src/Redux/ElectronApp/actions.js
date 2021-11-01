@@ -140,7 +140,6 @@ export default (getModule) => {
 
         const { filter_results, update_search_tags, fetched_patient } = submodules.features.search.actions;
         const { select_tags } = submodules.features.search.selectors;
-
         const current_tags = select_tags(getState());
         // eslint-disable-next-line no-unused-vars
         const [first_tag, ...other_tags] = tags;

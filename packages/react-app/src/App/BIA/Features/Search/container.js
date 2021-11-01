@@ -38,12 +38,18 @@ export default Component => props => {
     }
 
 
+    const addFilter = filter => {
+        
+        debugger
+    }
+
     return (
         <>
             <Component
                
                 results={patients}
                 tags={tags}
+                addFilter={addFilter}
                 handleSearch={handleSearch}
                 handleCreate={handleCreate}
                 handleSelectRow={handleSelectRow} />

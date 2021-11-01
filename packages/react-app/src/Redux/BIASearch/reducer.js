@@ -90,7 +90,10 @@ export default (getModule) => {
 
     module.reducer = combineReducers({
         tags: module.tags,
-        patients: module.patients
+        patients: module.patients,
+        filters: (state=[],action)=>{
+            return state
+        }
     });
 
 

@@ -8,8 +8,10 @@ import { applyModifiers, compose, withBaseClass, withForwardedRef } from '@karse
 import { LayoutFlex, LayoutFlexColumn,Grid } from '@karsegard/react-core-layout';
 import { useKeypress } from '@karsegard/react-hooks';
 import Dropdown from '@/App/Components/Dropdown';
+import DropdownItem from '@/App/Components/Dropdown/DropdownItem';
 import React, { forwardRef, useEffect, useMemo, useState } from 'react';
 
+import { useFieldValues} from '@karsegard/react-hooks';
 import DatePicker from '@/bia-layout/components/Form/DatePicker';
 
 
@@ -61,7 +63,9 @@ export const Component = props => {
     const [selectedIndex, setSelectedIndex] = useState(-1);
     const [searchBarFocused, setSearchBarFocused] = useState(false);
 
-    const { results, handleSearch, handleCreate, tags, t, handleSelectRow: _handleSelectRow } = props;
+    const { results, handleSearch, handleCreate, tags, t, handleSelectRow: _handleSelectRow,addFilter } = props;
+
+    const {values,getValue,inputProps,handleChangeValue} = useFieldValues({},{usePath:true});
 
     useEffect(() => {
         if (!searchBarFocused) {
@@ -145,25 +149,24 @@ export const Component = props => {
             <AdvancedSearch style={{gridGap:'8px'}} area="filter">
                 <Dropdown offset={8} label="Mesures" icon={<ChevronDownSharp />}>
                     <>
-                        <LayoutFlex justBetween alignCenter className="dropdown__item">
-                            <div>De </div>
-                            <DatePicker allow_null={true} masked_input={true} />
-                        </LayoutFlex>
-                        <LayoutFlex justBetween alignCenter className="dropdown__item">
-                            <div>À</div>
-                            <DatePicker allow_null={true} masked_input={true} />
-                        </LayoutFlex>
-                        <LayoutFlex justBetween alignCenter className="dropdown__item">
-                            <div>À</div>
-                            <DatePicker allow_null={true} masked_input={true} />
-                        </LayoutFlex>
+                        <DropdownItem>
+                            <div>Du </div>
+                            <DatePicker allow_null={true} masked_input={true} selected={getValue('mesures.range.from')}  handleChange={handleChangeValue('mesures.range.from')}/>
+                        </DropdownItem>
+                        <DropdownItem>
+                            <div>Au</div>
+                            <DatePicker allow_null={true} masked_input={true} selected={getValue('mesures.range.to')}  handleChange={handleChangeValue('mesures.range.to')}/>
+                        </DropdownItem>
+                        <DropdownItem>
+                            <button onClick={_=>addFilter({field:'mesures.date',value:getValue('mesures.range')})}>filtrer</button>
+                        </DropdownItem>
                     </>
                 </Dropdown>
                 <Dropdown offset={8} label="Sexe" icon={<ChevronDownSharp />}>
-                    <div>
-                        <LayoutFlex justBetween alignCenter className="dropdown__item"><div>Homme </div> <input type="checkbox" /></LayoutFlex>
-                        <LayoutFlex justBetween alignCenter className="dropdown__item"><div>Femme</div> <input type="checkbox" /></LayoutFlex>
-                    </div>
+                    <>
+                        <DropdownItem><div>Homme </div> <input type="checkbox" /></DropdownItem>
+                        <DropdownItem><div>Femme</div> <input type="checkbox" /></DropdownItem>
+                    </>
                 </Dropdown>
             </AdvancedSearch>
             <ListWithAreaWithRef
