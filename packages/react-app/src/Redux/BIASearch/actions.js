@@ -58,13 +58,12 @@ export default (getModule) => {
         const state = baseSelector(getState())
         // eslint-disable-next-line no-unused-vars
         const [first_tag, ...other_tags] = tags;
-
+        debugger;
         if (compare(state.tags, tags)) {
             console.log('tag did not changed')
             return;
         }
 
-        debugger;
 
         dispatch(actions.update_search_tags(tags));
 

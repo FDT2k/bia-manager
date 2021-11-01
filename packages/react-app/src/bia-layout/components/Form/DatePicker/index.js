@@ -19,7 +19,7 @@ const SafeDatePicker = ({ allow_null,masked_input,mask,dateFormat, selected, han
 
     let val = selected;
 
-    if (!allow_null && is_nil(selected) || selected == "") {
+    if (!allow_null && (is_nil(selected) || selected == "")) {
         val = new Date();
     }
 
@@ -28,7 +28,6 @@ const SafeDatePicker = ({ allow_null,masked_input,mask,dateFormat, selected, han
     }
 
     const attrs = {}
-
     if (!is_nil(CustomInputComponent)) {
         attrs.customInput = CustomInputComponent;
     }else if(masked_input){
