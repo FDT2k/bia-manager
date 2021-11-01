@@ -10,7 +10,7 @@ import { LayoutFlex } from '@karsegard/react-core-layout'
 export default Component => props => {
 
 
-    const { select_patients_list_filtered: patients, search, clear_search, tags, update_tags } = props;
+    const { select_patients_list_filtered: patients, search, clear_search, tags, update_tags,custom_filters,clear_custom_filter,add_custom_filter } = props;
 
 
     const [_, setLocation] = useLocation();
@@ -38,9 +38,14 @@ export default Component => props => {
     }
 
 
-    const addFilter = filter => {
-      
+    const setFilter = (filter,values) => {
+        add_custom_filter(filter,values)
     }
+
+    const clearFilter = filter => {
+        clear_custom_filter(filter)
+    }
+    
 
     return (
         <>
@@ -48,7 +53,9 @@ export default Component => props => {
 
                 results={patients}
                 tags={tags}
-                addFilter={addFilter}
+                custom_filters={custom_filters}
+                setFilter={setFilter}
+                clearFilter={clearFilter}
                 handleSearch={handleSearch}
                 handleCreate={handleCreate}
                 handleSelectRow={handleSelectRow} />

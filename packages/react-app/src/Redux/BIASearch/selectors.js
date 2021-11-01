@@ -33,6 +33,9 @@ export default getModule => {
 
 
 
+
+    module.select_custom_filters = createSelector(baseSelector,state=> state.custom_filters)
+
     return module;
 
 }

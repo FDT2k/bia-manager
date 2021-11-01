@@ -72,14 +72,17 @@ export const {
 export const SearchModule =  ElectronModule.submodules.features.search;
 
 export const {
-  select_tags
+  select_tags,
+  select_custom_filters
 
 } = SearchModule.selectors
 
 export const {
   clear:clear_search,
-  update_search_tags: update_tags
-
+  update_search_tags: update_tags,
+  
+  add_custom_filter,
+  clear_custom_filter
 } = SearchModule.actions
 
 

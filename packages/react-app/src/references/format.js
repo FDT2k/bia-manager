@@ -29,5 +29,5 @@ export const format_date = curry((fmt,date)=> {
 
 });
 
-export const dateSysToHuman = format_date("dd/MM/yyyy")
+export const dateSysToHuman = format_date("dd.MM.yyyy")
 export const dateHumanToSys = format_date("yyyy-MM-dd")

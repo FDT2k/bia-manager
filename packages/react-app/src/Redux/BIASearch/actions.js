@@ -20,6 +20,9 @@ export default (getModule) => {
     actions.remove_filter = createAction(action_types.REMOVE_FILTER);
 
 
+    actions.add_custom_filter=  createAction(action_types.ADD_CUSTOM_FILTER,(type,values)=> ({type,values}));
+    actions.clear_custom_filter = createAction(action_types.CLEAR_CUSTOM_FILTER);
+
     const ensure_array = x => {
         if (typeof x === 'undefined' || x === null) {
             return []

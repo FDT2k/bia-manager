@@ -6,6 +6,9 @@ export const ACTIONS_TYPES = createActionTypes(
     'FETCHED_PATIENTS',
     'FILTER_PATIENTS',
     'REMOVE_FILTER',
+
+    'ADD_CUSTOM_FILTER',
+    'CLEAR_CUSTOM_FILTER'
 )
 
 
