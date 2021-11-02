@@ -27,6 +27,7 @@ let electronAPI = {
   ...clientEvent('openRequest','trigger-open'),
   ...clientEvent('importRequest','trigger-import'),
   ...clientEvent('closeRequest','trigger-close'),
+  ...clientEvent('willQuit','app-quit'),
   ...clientEvent('locationChange','location-change'),
   ...clientEvent('languageChange','language-change'),
   ...clientEvent('updateAvailable','update-available'),
@@ -42,6 +43,7 @@ let electronAPI = {
   missing_translations:invokeOnMainProcess('missing-translations'),
   ready:invokeOnMainProcess('ready'),
   download_update:invokeOnMainProcess('update'),
+  quit:invokeOnMainProcess('quit'),
 
 };
 

@@ -16,7 +16,7 @@ import ErrorHandler from '@/App/BIA/Features/ErrorMessageHandler'
 export const Component = props => {
 
 
-    const { onOpenRequest, onSaveRequest, onLanguageChange, onLocationChange, onCloseRequest, get_translations,onDownloadProgress, missing_translations,download_update, ready, onUpdateAvailable,onError } = useElectron();
+    const { onOpenRequest, onSaveRequest, onLanguageChange, onLocationChange, onQuit,onCloseRequest, get_translations,onDownloadProgress, missing_translations,download_update, ready, onUpdateAvailable,onError,quit } = useElectron();
     const { open_file, save_to_file, start_loading, stop_loading, current_file, close, init_app,add_error } = props;
     const [initialI18nStore, setInitialTranslation] = useState({});
 
@@ -60,6 +60,7 @@ export const Component = props => {
     }
 
     const handleClose = _ => {
+        debugger;
         close().then(res => {
             window.location.hash = '#/'
 
@@ -71,6 +72,13 @@ export const Component = props => {
     useEffect(() => {
         setHandler(missing_translations)
         init_app();
+
+        onQuit(_=> {
+            close().then(_=>{
+                quit();
+
+            })
+        })
         onOpenRequest(handleFileOpen);
         onCloseRequest(handleClose);
         onLocationChange((sender, arg) => {
