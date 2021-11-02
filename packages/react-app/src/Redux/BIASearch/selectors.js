@@ -1,3 +1,5 @@
+import { enlist, is_nil, keys } from '@karsegard/composite-js';
+import { keyval } from '@karsegard/composite-js/ObjectUtils';
 import { createSelector } from 'reselect';
 
 
@@ -36,6 +38,17 @@ export default getModule => {
 
     module.select_custom_filters = createSelector(baseSelector,state=> state.custom_filters)
 
+    module.has_custom_filters = createSelector(module.select_custom_filters,state => {
+
+        let result = false; 
+        enlist(state).map(item=> {
+            let [key,value]=keyval(item);
+            if(!is_nil(value) && result===false){
+                result = true
+            }
+        })
+        return result;
+    })
     return module;
 
 }

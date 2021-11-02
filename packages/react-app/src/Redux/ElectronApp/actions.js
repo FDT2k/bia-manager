@@ -122,10 +122,6 @@ export default (getModule) => {
         });
     }
 
-    actions.search_in_database = (tag) => (dispatch, getState) => {
-        const backend_actions = getBackend(getState);
-        return dispatch(backend_actions.search(tag))
-    }
 
     actions.create_patient = values => (dispatch, getState) => {
         const backend_actions = getBackend(getState);
@@ -136,37 +132,57 @@ export default (getModule) => {
             });
     }
 
-    actions.search = tags => (dispatch, getState) => {
+    actions.search = (tags = []) => (dispatch, getState) => {
 
-        const { filter_results, update_search_tags, fetched_patient } = submodules.features.search.actions;
-        const { select_tags } = submodules.features.search.selectors;
+        const { filter_results, update_search_tags, fetched_patient, clear_search } = submodules.features.search.actions;
+        const { select_tags, has_custom_filters ,select_custom_filters} = submodules.features.search.selectors;
         const current_tags = select_tags(getState());
+        const has_filters = has_custom_filters(getState());
+        const custom_filters = select_custom_filters(getState());
+        const backend_actions = getBackend(getState);
         // eslint-disable-next-line no-unused-vars
         const [first_tag, ...other_tags] = tags;
 
         debugger;
-        if (compare(current_tags, tags)) {  
+        if (tags.length == 0 && !has_filters) {
+            dispatch(clear());
+            return ;
+        }
+        if (!has_filters && compare(current_tags, tags)) { // can happen
             console.log('tag did not changed')
             return;
         }
 
+       
+
         dispatch(update_search_tags(tags));
 
-        if (first_tag && tags.length === 1 && first_tag !== current_tags[0]) { // if the first tag did change, then refetch a preset from the database
+        if (!has_filters && first_tag && tags.length === 1 && first_tag !== current_tags[0]) { // if the first tag did change, then refetch a preset from the database.
             return dispatch(actions.search_in_database(tags)).then(result => {
-                debugger;
+            //    debugger;
                 return dispatch(fetched_patient(result));
             }).then(_ => {
-                debugger;
+              //  debugger;
 
                 return dispatch(filter_results());
 
             });
+        } else if (has_filters) {
+            return dispatch(backend_actions.search_custom_filters(custom_filters)).then(result=> {
+                return dispatch(fetched_patient(result));                
+            })
         } else {
             debugger;
 
             return dispatch(filter_results());
         }
+    }
+
+
+
+    actions.search_in_database = (tag) => (dispatch, getState) => {
+        const backend_actions = getBackend(getState);
+        return dispatch(backend_actions.search(tag))
     }
 
 

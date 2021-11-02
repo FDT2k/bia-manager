@@ -68,11 +68,10 @@ export const RangeFilter = ({label,handleSubmit,handleClear,currentValues,t}) =>
     const filled = (!is_nil(currentValues) && (!is_nil(currentValues.from) || !is_nil(currentValues.to)))
     const Icon = filled===true ? (CloseSharp) : ChevronDownSharp
 
-    const _label = filled===true ? `${label} ${t('du')} ${dateSysToHuman(values.from)} - ${dateSysToHuman(values.to)}` : label;
+    const _label = filled===true ? `${label} ${t('depuis le')} ${(values.from ? dateSysToHuman(values.from): '')}  ${(values.to ? `${t('jusqu\'au')} ${dateSysToHuman(values.to)}`: '' )}` : label;
 
 
     const overrideClick = filled===true ? _=> handleClear() : undefined; 
-    console.log(filled,'render');
 
     return (
         <Dropdown offset={8} label={_label} icon={<Icon />} overrideClick={overrideClick}>
@@ -90,7 +89,6 @@ export const RangeFilter = ({label,handleSubmit,handleClear,currentValues,t}) =>
                 </DropdownItem>
             </>
         </Dropdown>
-
     )
 }
 
@@ -194,8 +192,8 @@ export const Component = props => {
 
             </SearchArea>
             <AdvancedSearch style={{ gridGap: '8px' }} area="filter">
-                <RangeFilter label="Mesures" currentValues={custom_filters.mesure_range} handleSubmit={values=>setFilter('mesure_range',values)} handleClear={_ => clearFilter('mesure_range')}/>
-                <RangeFilter label="Dates de naissances" currentValues={custom_filters.birthday_range} handleSubmit={values=>setFilter('birthday_range',values)} handleClear={_ => clearFilter('birthday_range')}/>
+                <RangeFilter label="Mesures" currentValues={custom_filters.mesure_range} handleSubmit={values=>setFilter('mesure_range','mesures_dates',values)} handleClear={_ => clearFilter('mesure_range')}/>
+                <RangeFilter label="Dates de naissances" currentValues={custom_filters.birthday_range} handleSubmit={values=>setFilter('birthday_range','birthdate',values)} handleClear={_ => clearFilter('birthday_range')}/>
                 <Dropdown offset={8} label="Sexe" icon={<ChevronDownSharp />}>
                     <>
                         <DropdownItem><div>Homme </div> <input type="checkbox" /></DropdownItem>

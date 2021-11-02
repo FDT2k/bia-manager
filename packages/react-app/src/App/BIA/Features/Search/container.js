@@ -21,9 +21,7 @@ export default Component => props => {
     const handleSearch = tags => {
         if (tags.length > 0) {
             search(tags)
-        } else {
-            clear_search();
-        }
+        } 
     }
 
 
@@ -38,12 +36,15 @@ export default Component => props => {
     }
 
 
-    const setFilter = (filter,values) => {
-        add_custom_filter(filter,values)
+    const setFilter = (filter,key,values,type='date_range') => {
+        add_custom_filter(filter,values,type,key)
+        search(tags)
+
     }
 
     const clearFilter = filter => {
         clear_custom_filter(filter)
+        search(tags)
     }
     
 

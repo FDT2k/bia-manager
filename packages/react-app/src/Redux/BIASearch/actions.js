@@ -20,7 +20,7 @@ export default (getModule) => {
     actions.remove_filter = createAction(action_types.REMOVE_FILTER);
 
 
-    actions.add_custom_filter=  createAction(action_types.ADD_CUSTOM_FILTER,(type,values)=> ({type,values}));
+    actions.add_custom_filter=  createAction(action_types.ADD_CUSTOM_FILTER,(field,values,type,key)=> ({field,filter:{...values,type,key}}));
     actions.clear_custom_filter = createAction(action_types.CLEAR_CUSTOM_FILTER);
 
     const ensure_array = x => {

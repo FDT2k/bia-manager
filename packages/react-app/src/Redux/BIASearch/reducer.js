@@ -47,7 +47,7 @@ export default (getModule) => {
 
             let patients = state.byIds
 
-            let items = state.filtered.length > 0 ? state.filtered[state.filtered.length - 1].ids : [];
+            let items = state.filtered.length > 0 ? state.filtered[state.filtered.length - 1].ids : []; // getting the latest filter result
 
             let result = items.reduce((carry, id) => {
                 let patient = patients[id];
@@ -91,7 +91,7 @@ export default (getModule) => {
             [action_types.ADD_CUSTOM_FILTER]: (state, {payload}) => {
                 return {
                     ...state,
-                    [payload.type]:payload.values
+                    [payload.field]:{...payload.filter}
                 }
             },
             [action_types.CLEAR_CUSTOM_FILTER]: (state,{payload})=> {
