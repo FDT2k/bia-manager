@@ -1,7 +1,7 @@
 {
   "name": "bia-manager-electron",
   "main": "packages/electron/dist/index.cjs",
-  "version": "0.0.47",
+  "version": "0.0.48",
   "author": "Karsegard Digital Agency",
   "repository": "https://github.com/FDT2k/bia-manager",
   "scripts": {
@@ -17,7 +17,7 @@
     "precompile": "cross-env MODE=production npm run build",
     "compile": "electron-builder build --config electron-builder.config.js --dir --config.asar=false",
     "release": "electron-builder --config electron-builder.config.js  --mac --windows --linux --publish always",
-    "release:nopub": "electron-builder --config electron-builder.config.js  --linux ",
+    "release:nopub": "electron-builder --config electron-builder.config.js  --linux --windows",
     "release:test": "yarn run compile && yarn run release:nopub",
     "pretest": "cross-env MODE=test npm run build",
     "test": "node tests/app.spec.js",
@@ -36,6 +36,7 @@
     "vite-react-jsx": "^1.1.2"
   },
   "dependencies": {
+    "@journeyapps/sqlcipher": "^5.2.0",
     "@karsegard/composite-js": "^2.9.0",
     "async-mutex": "^0.3.2",
     "electron-devtools-installer": "^3.2.0",
