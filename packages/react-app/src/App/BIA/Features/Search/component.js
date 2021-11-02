@@ -194,12 +194,7 @@ export const Component = props => {
             <AdvancedSearch style={{ gridGap: '8px' }} area="filter">
                 <RangeFilter label="Mesures" currentValues={custom_filters.mesure_range} handleSubmit={values=>setFilter('mesure_range','mesures_dates',values)} handleClear={_ => clearFilter('mesure_range')}/>
                 <RangeFilter label="Dates de naissances" currentValues={custom_filters.birthday_range} handleSubmit={values=>setFilter('birthday_range','birthdate',values)} handleClear={_ => clearFilter('birthday_range')}/>
-                <Dropdown offset={8} label="Sexe" icon={<ChevronDownSharp />}>
-                    <>
-                        <DropdownItem><div>Homme </div> <input type="checkbox" /></DropdownItem>
-                        <DropdownItem><div>Femme</div> <input type="checkbox" /></DropdownItem>
-                    </>
-                </Dropdown>
+               
             </AdvancedSearch>
             <ListWithAreaWithRef
 
