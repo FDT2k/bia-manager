@@ -11,34 +11,13 @@ import menuFactoryService from './menu';
 import i18n, { i18nextOptions } from './i18next.config';
 import config from './app.config';
 import updater from "./updater"
-
-var sqlite3 = require('@journeyapps/sqlcipher').verbose();
-
-var db = new sqlite3.Database(join(app.getPath('home'),'bia.db'));
-db.serialize(function() {
-  // This is the default, but it is good to specify explicitly:
-  //db.run("PRAGMA cipher_compatibility = 4");
-
-  // To open a database created with SQLCipher 3.x, use this:
-  // db.run("PRAGMA cipher_compatibility = 3");
-
-  db.run("PRAGMA key = 'prout'");
-  db.run("CREATE TABLE IF NOT EXISTS lorem (info TEXT)");
-
-  var stmt = db.prepare("INSERT INTO lorem VALUES (?)");
-  for (var i = 0; i < 10; i++) {
-      stmt.run("Ipsum " + i);
-  }
-  stmt.finalize();
-
-  db.each("SELECT rowid AS id, info FROM lorem", function(err, row) {
-      console.log(row.id + ": " + row.info);
-  });
-});
+import openDB from './sqlcipher'
 
 
 const mutex = new Mutex();
 let openedFilePath;
+
+let openedSQLiteDB;
 
 const isSingleInstance = app.requestSingleInstanceLock();
 
@@ -46,6 +25,8 @@ if (!isSingleInstance) {
   app.quit();
   process.exit(0);
 }
+
+
 const createFileIfNeeded = (file, content) => fs.stat(file).catch(_ => {
   fs.writeFile(file, content, { encoding: 'utf8' })
 });
@@ -209,6 +190,25 @@ ipcMain.handle('file-open', async (event, filename) => {
 
   return { canceled: true };
 });
+
+ipcMain.handle('sqlite-open', async(event,filename,key)=>{
+  console.log('want to sqlite db', filename,key);
+  let { canceled, filePaths } = await dialog.showOpenDialog({ defaultPath: filename });
+
+  if (!canceled) {
+    console.log('reading');
+    openedSQLiteDB =  openDB(filePaths[0],key);
+
+    return {
+      canceled: false,
+      content,
+      file: filePaths[0],
+
+    }
+  }
+
+  return { canceled: true };
+})
 
 ipcMain.handle('read-settings', async (event,) => {
   return getSettings();

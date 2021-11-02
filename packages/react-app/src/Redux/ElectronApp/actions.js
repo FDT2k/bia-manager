@@ -98,6 +98,7 @@ export default (getModule) => {
         })
 
     }
+    
 
     actions.opened_file = _ => (dispatch, getState) => {
         dispatch(actions.refresh_editor_lists())
@@ -134,7 +135,7 @@ export default (getModule) => {
 
     actions.search = (tags = []) => (dispatch, getState) => {
 
-        const { filter_results, update_search_tags, fetched_patient, clear_search } = submodules.features.search.actions;
+        const { filter_results, update_search_tags, fetched_patient, clear } = submodules.features.search.actions;
         const { select_tags, has_custom_filters ,select_custom_filters} = submodules.features.search.selectors;
         const current_tags = select_tags(getState());
         const has_filters = has_custom_filters(getState());
@@ -159,10 +160,10 @@ export default (getModule) => {
 
         if (!has_filters && first_tag && tags.length === 1 && first_tag !== current_tags[0]) { // if the first tag did change, then refetch a preset from the database.
             return dispatch(actions.search_in_database(tags)).then(result => {
-            //    debugger;
+                debugger;
                 return dispatch(fetched_patient(result));
             }).then(_ => {
-              //  debugger;
+                debugger;
 
                 return dispatch(filter_results());
 
@@ -170,7 +171,12 @@ export default (getModule) => {
         } else if (has_filters) {
             return dispatch(backend_actions.search_custom_filters(custom_filters)).then(result=> {
                 return dispatch(fetched_patient(result));                
-            })
+            }).then(_ => {
+                debugger;
+
+                return dispatch(filter_results());
+
+            });
         } else {
             debugger;
 

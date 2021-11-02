@@ -19,9 +19,9 @@ export default Component => props => {
 
 
     const handleSearch = tags => {
-        if (tags.length > 0) {
+       // if (tags.length > 0) {
             search(tags)
-        } 
+       // } 
     }
 
 

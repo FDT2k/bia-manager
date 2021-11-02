@@ -1,11 +1,12 @@
 
-import { curry, is_nil, merge, enlist } from '@karsegard/composite-js'
+import { curry, is_nil, is_array, merge, enlist } from '@karsegard/composite-js'
 import { keyval, spec } from '@karsegard/composite-js/ObjectUtils'
 import { mergeAll } from '@karsegard/composite-js/List'
 
 import IDBExport from '@karsegard/indexeddb-export-import';
 
 import Promise from 'bluebird'
+import moment from 'moment';
 
 
 
@@ -88,16 +89,19 @@ export default (db, events = {}) => {
 
         return db.open().then(db => {
             let collection = db.patients;
-
+            let method = 'where';
             enlist(custom_filters).map(filter_obj => {
-                const [field,filter] = keyval(filter_obj)
+                const [field, filter] = keyval(filter_obj)
 
-                switch(filter.type){
-                    case 'date_range':
-                        collection= module.search_date_range({collection,field:filter.key,from:filter.from, until:filter.to})
-                    break;
+                if (!is_nil(filter) ){
+                    switch (filter.type) {
+                        case 'date_range':
+                            collection = module.search_date_range({ collection, field: filter.key, from: filter.from, until: filter.to, method })
+                            method = 'and';
+                            break;
+                    }
+                    debugger;
                 }
-                debugger;
 
             })
 
@@ -105,16 +109,50 @@ export default (db, events = {}) => {
         });
     }
 
-    module.search_date_range = ({collection, field, from, until }) => {
-        debugger;
+    module.search_date_range = ({ collection, field, from, until, method }) => {
+        if (method !== 'and') {
+            debugger;
             if (!is_nil(from) && !is_nil(until)) {
-                collection = collection.where(field).between(from,until)
+                collection = collection.where(field).between(from, until)
             } else if (!is_nil(from) && is_nil(until)) {
                 collection = collection.where(field).aboveOrEqual(from)
             } else if (is_nil(from) && !is_nil(until)) {
                 collection = collection.where(field).belowOrEqual(until)
             }
-            return collection 
+            return collection
+        } else {
+            return collection.and(item => {
+                let _field = item[field]
+                if (is_array(_field)) {
+                    debugger;
+
+                    for (let i = 0; i < _field.length; i++) {
+                        const item = _field[i];
+
+                        if (!is_nil(from) && !is_nil(until) && moment(item).isSameOrAfter(from) && moment(item).isSameOrBefore(until)) {
+                            return true
+                        } else if (!is_nil(from) && is_nil(until) && moment(item).isSameOrAfter(from)) {
+                            return true
+                        } else if (is_nil(from) && !is_nil(until) && moment(item).isSameOrBefore(until)) {
+                            return true
+                        }
+                    }
+                    return false;
+
+                } else {
+                    debugger;
+
+                    if (!is_nil(from) && !is_nil(until)) {
+                        return moment(_field).isSameOrAfter(from) && moment(_field).isSameOrBefore(until)
+                    } else if (!is_nil(from) && is_nil(until)) {
+                        return moment(_field).isSameOrAfter(from)
+                    } else if (is_nil(from) && !is_nil(until)) {
+                        return moment(_field).isSameOrBefore(until)
+
+                    }
+                }
+            })
+        }
     }
 
     module.get_patient = id => {

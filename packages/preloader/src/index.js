@@ -34,6 +34,7 @@ let electronAPI = {
   ...clientEvent('error','error'),
   save:invokeOnMainProcess('file-save'),
   open:invokeOnMainProcess('file-open'),
+  sqlite_open:invokeOnMainProcess('sqlite-open'),
   get_settings:invokeOnMainProcess('read-settings'),
   current_filename:invokeOnMainProcess('current-filename'),
   clear_opened_filename:invokeOnMainProcess('clear-filename'),

@@ -7,7 +7,7 @@ import React from 'react';
 
 export const Page = props => {
 
-    const { t,handleOpenDatabase,handleCreateDatabase,handleConnect, ...rest } = props;
+    const { t,handleOpenDatabase,handleCreateDatabase,handleConnect,handleOpenSQLite, ...rest } = props;
     return (<MainView className="page-create-subject">
         <LayoutFlex cover centered>
             <Container className="login-container">
@@ -19,7 +19,7 @@ export const Page = props => {
                     <InputGroup>
                         <Button onClick={handleCreateDatabase}>{t('Créer une base de données')}</Button>
                     </InputGroup>
-
+                   
                    {/* <InputGroup>
                         <Button onClick={handleConnect}>{t('Connexion a un serveur')}</Button>
                    </InputGroup>*/}
