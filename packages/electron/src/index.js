@@ -14,7 +14,7 @@ import updater from "./updater"
 
 var sqlite3 = require('@journeyapps/sqlcipher').verbose();
 
-var db = new sqlite3.Database('test.db');
+var db = new sqlite3.Database(join(app.getPath('home'),'bia.db'));
 db.serialize(function() {
   // This is the default, but it is good to specify explicitly:
   //db.run("PRAGMA cipher_compatibility = 4");
