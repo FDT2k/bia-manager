@@ -18,7 +18,7 @@ const FormulaResultRow = (props) => {
         <div className="row lineheader"><span>{t(`${label}_comparison_line_header`)}</span></div>
         {columns.map((col) => {
             if (!colByName[col]) {
-                return (<div>{t('Error')}</div>)
+                return (<div  key={`${col}`}>{t('Error')}</div>)
             }
             let type = colByName[col].type || 'number';
             let val = values[col]

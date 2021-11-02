@@ -59,7 +59,7 @@ export default (getModule) => {
         [action_types.SELECT_MESURE]: (state, { payload }) => payload.mesure_id
     });
 
-    module.mesure = createReducer({}, {
+    /*module.mesure = createReducer({}, {
         [action_types.EDIT_MESURE]: (state, { payload }) => {
             const [bia, mesure] = spreadObjectPresentIn(['bia'], payload.mesure);
             return updateProp(payload.id, state, {
@@ -90,8 +90,51 @@ export default (getModule) => {
             }
         }),
 
-    });
+    });*/
 
+
+    module.mesure = (state={mesure:{}},action)=> {
+
+        switch(action.type){
+            case action_types.EDIT_MESURE:
+            case action_types.CHANGE_MESURE:
+                return {
+                    mesure: {
+                        ...state.mesure,
+                        ...action.payload.mesure,
+                        last_update:new Date()
+                        
+                    }
+                }
+            
+            case action_types.RECOMPUTE_MESURE:
+                return {
+                    mesure:{
+                        ...state.mesure,
+                        bia:[...action.payload.bia]
+                    }
+                }
+
+            case action_types.CREATE_MESURE:
+                return {
+                    mesure:{
+                        ...action.payload.mesure
+                    }
+                }
+
+        }
+
+
+
+        return {
+            mesure:{
+                ...state.mesure,
+                fds: submodules.fds.reducer(state.fds,action)
+            },
+            
+        };
+    }
+ 
 
     module.recap_headers = createReducer([], {
         [action_types.UPDATE_RECAP]: (state, { payload }) => {
@@ -429,8 +472,7 @@ export default (getModule) => {
         mesure: module.mesure,
         patient: module.patient,
         recap: module.recap,
-        normes: submodules.normes.reducer,
-        fds:submodules.fds.reducer
+        normes: submodules.normes.reducer,       
     });
 
     return module;

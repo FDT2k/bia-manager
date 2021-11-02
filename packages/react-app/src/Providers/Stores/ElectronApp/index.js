@@ -110,11 +110,11 @@ export const {
    select_edited_age,
    makeSelectBIAResultByKey,
    makeSelectIndiceChartYTicks,
-   makeSelectYLabelByKey
+   makeSelectYLabelByKey,
+   current_fds
   } = BIAEditorModule.selectors;
  
  
-  
  export const {
    
    edit_mesure,
@@ -129,7 +129,8 @@ export const {
 
    change_mesure ,
    save:save_editor,
-   set_examinator
+   set_examinator,
+   update_fds
   } = BIAEditorModule.actions;
  /*
 export const {

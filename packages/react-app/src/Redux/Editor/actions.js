@@ -354,6 +354,18 @@ export default (getModule) => {
         }
     }
 
+    actions.update_fds = values => (dispatch,getState)=> {
+
+        const mesure = select_edited_mesure(getState());
+        const normes = select_normes(getState(),{age:mesure.current_age})
+        console.log(values)
+        
+        debugger;
+        dispatch(submodules.fds.actions.update(values))
+    }
+
+
+
     return actions;
 }
 

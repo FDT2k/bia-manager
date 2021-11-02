@@ -62,5 +62,22 @@
    "Moyenne des mesures": "Moyenne des mesures",
    "Normes": "Normes",
    "Error": "Error",
-   "Ouvrir une base SQLite": "Ouvrir une base SQLite"
+   "Ouvrir une base SQLite": "Ouvrir une base SQLite",
+   "Récapitulatif": "Récapitulatif",
+   "Date d'Examen": "Date d'Examen",
+   "Activité physique": "Activité physique",
+   "Type d'Activité physique": "Type d'Activité physique",
+   "Fumeur": "Fumeur",
+   "Poids Actuel (kg)": "Poids Actuel (kg)",
+   "Coté mesuré": "Coté mesuré",
+   "Enregistrer": "Enregistrer",
+   "Imprimer": "Imprimer",
+   "Examinateur": "Examinateur",
+   "- Choisissez une valeur -": "- Choisissez une valeur -",
+   "Poids Idéal (%)": "Poids Idéal (%)",
+   "BMI Actuel": "BMI Actuel",
+   "BMI Reference": "BMI Reference",
+   "Remarques / Interprétations": "Remarques / Interprétations",
+   "FAT_FREE_MASS_Y_LABEL": "FAT_FREE_MASS_Y_LABEL",
+   "FAT_MASS_Y_LABEL": "FAT_MASS_Y_LABEL"
 }

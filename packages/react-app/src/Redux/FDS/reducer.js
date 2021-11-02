@@ -27,17 +27,17 @@ export default (getModule) => {
         right: {...sideState}
     }
 
-    module.side = (state= sideState,{payload})=> {
+    module.side = (state= sideState,{payload,type})=> {
 
 
         let newState= {...state}
-        switch(action.type){
+        switch(type){
             case types.UPDATE:
                 const {data,norme,main} = payload
 
                 newState.data = {...data};
                 newState.main = main;
-                newState.norme =  norme[main]
+                newState.norme =  norme[main] ? norme[main] : 'N/A'
                 newState.avg = (parseFloat(data[0]) +  parseFloat(data[1]) +  parseFloat(data[2])) / 3
 
 
@@ -54,6 +54,7 @@ export default (getModule) => {
 
     module.reducer = createReducer(initialState, {
         [types.UPDATE]: (state,action)=> {
+            debugger;
             const {type,payload} = action;
             const {left,right} = payload;
             
