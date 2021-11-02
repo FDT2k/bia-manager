@@ -36,7 +36,7 @@ export default getModule => {
 
   });
 
-  module.select_edited_age = createSelector(module.select_edited_mesure,state=> state.current_age);
+  module.select_edited_age = createSelector(module.select_edited_mesure, state => state.current_age);
 
 
   module.select_examinator = createSelector(baseSelector, state => state.examinator)
@@ -649,44 +649,44 @@ export default getModule => {
     return safe_array(`normes.chartSample.${patient.gender}`, state);
   });
 
-  module.makeSelectIndiceChartYTicks = ()=> createSelector([module.select_normes_sampling,(state,props)=>props.data_key],(norme,data_key)=>{
+  module.makeSelectIndiceChartYTicks = () => createSelector([module.select_normes_sampling, (state, props) => props.data_key], (norme, data_key) => {
 
-    let data =  norme.filter(item => {
+    let data = norme.filter(item => {
       return !is_nil(item[data_key])
-    }).map(item=> {
+    }).map(item => {
 
-      return [ item[`${data_key}_min`],item[`${data_key}_max`]] ;
+      return [item[`${data_key}_min`], item[`${data_key}_max`]];
     })
 
-    let min = data.reduce((carry,item)=>{
-      if(item[0] < carry){
+    let min = data.reduce((carry, item) => {
+      if (item[0] < carry) {
         return Math.floor(item[0])
       }
       return carry;
-    },1000)
+    }, 1000)
 
-    let max = data.reduce((carry,item)=>{
-      if(item[1] > carry){
+    let max = data.reduce((carry, item) => {
+      if (item[1] > carry) {
         return Math.ceil(item[1])
       }
       return carry;
-    },min)
+    }, min)
 
 
 
-    let res =[]
-    for(let y = min-1; y < max+1; y++){
+    let res = []
+    for (let y = min - 1; y < max + 1; y++) {
       res.push(y)
     }
-    
-    
+
+
     return res;
   })
 
 
 
   module.makeSelectBIAResultByKey = () => createSelector([module.select_edited_mesure, module.select_bia_by_key, (state, props) => props.data_key], (mesure, bia, data_key) => {
-    
+
     let result = bia[data_key];
 
     if (result) {
@@ -697,9 +697,9 @@ export default getModule => {
 
 
 
-  module.makeSelectYLabelByKey = () => createSelector([ (state, props) => props.data_key], (data_key) => {
-    
-    switch(data_key) {
+  module.makeSelectYLabelByKey = () => createSelector([(state, props) => props.data_key], (data_key) => {
+
+    switch (data_key) {
 
       case 'fmi':
         return 'FAT_MASS_Y_LABEL';
