@@ -29,7 +29,6 @@ export default (getModule) => {
 
     module.side = (state= sideState,{payload,type})=> {
 
-
         let newState= {...state}
         switch(type){
             case types.UPDATE:
@@ -37,7 +36,7 @@ export default (getModule) => {
 
                 newState.data = {...data};
                 newState.main = main;
-                newState.norme =  norme[main] ? norme[main] : 'N/A'
+                newState.norme = norme;
                 newState.avg = (parseFloat(data[0]) +  parseFloat(data[1]) +  parseFloat(data[2])) / 3
 
 
@@ -54,18 +53,24 @@ export default (getModule) => {
 
     module.reducer = createReducer(initialState, {
         [types.UPDATE]: (state,action)=> {
-            debugger;
             const {type,payload} = action;
-            const {left,right} = payload;
+            const {left,right,normes} = payload;
             
             
-            let newLeft = {...left};
-            let newRight = {...right};
-
+            let newLeft = {...left,norme:normes.fds};
+            let newRight = {...right,norme:normes.fds};
+            debugger;
             if(newLeft.main ===false && newRight.main === false){
                 newRight.main = true;
                 newLeft.main = true;
             }
+            if(newLeft.main){
+                newLeft.norme = normes.fds_main
+            }
+            if(newRight.main){
+                newRight.norme = normes.fds_main
+            }
+
             return {
                 left: module.side(state.left,{type,payload:newLeft}),
                 right: module.side(state.right,{type,payload:newRight})

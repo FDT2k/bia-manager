@@ -3,6 +3,7 @@ import { Grid } from '@karsegard/react-core-layout';
 import Input from '@/bia-layout/components/Form/Input';
 
 import { useForm } from '@karsegard/react-hooks';
+import { value } from '@karsegard/composite-js/ObjectUtils';
 
 
 
@@ -11,16 +12,15 @@ export const Component = props => {
 
 
 
-    const { fields,inputProps,replaceValues, handleChangeValue } = useForm(initialValues, { usePath: true,onValuesChange: handleChange })
+    const { fields,getValue,inputProps,replaceValues,handleFieldChange, handleInput } = useForm(initialValues, { usePath: true,onValuesChange: handleChange })
 
 
     useEffect(()=>{
         replaceValues(initialValues)
     },[initialValues])
-
+    debugger;
     return (
         <>
-        <pre>{JSON.stringify(fields,null,3)}</pre>
             <Grid
                 className="force-serrement"
                 templateColumns="repeat(3,1fr)"
@@ -35,8 +35,8 @@ export const Component = props => {
                 <LineForm label={t('Droite')} handleChangeValue={handleChangeGroup('right')} />*/}
                 <div className="header">{t('Main dominante')}</div>
 
-                <div> <input type="checkbox" {...inputProps('left.main')}/></div>
-                <div> <input type="checkbox"  {...inputProps('right.main')}/></div>
+                <div> <input type="checkbox" name="left.main" onChange={handleFieldChange} checked={getValue('left.main')}/></div>
+                <div> <input type="checkbox" name="right.main" onChange={handleFieldChange}  checked={getValue('right.main')}/></div>
 
                 <div className="header">{t('Mesure 1')}</div>
                 <div> <input type="text" {...inputProps('left.data.0')}/></div>
@@ -50,10 +50,10 @@ export const Component = props => {
                 <div> <input type="text"  {...inputProps('right.data.2')}/></div>
                 <div className="header">{t('Moyenne des mesures')}</div>
                 <div> {initialValues.left.avg} </div>
-                <div>  {initialValues.right.avg} </div>
+                <div> {initialValues.right.avg} </div>
                 <div className="header">{t('Normes')}</div>
-                <div>  {initialValues.left.norme}  </div>
-                <div>  {initialValues.right.norme} </div>
+                <div> {initialValues.left.norme.toString()}  </div>
+                <div> {initialValues.right.norme.toString()} </div>
 
             </Grid>
         </>

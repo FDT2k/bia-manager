@@ -12,7 +12,6 @@ export default (getModule) => {
 
 actions.update = createAction(types.UPDATE)
 
-debugger;
     return actions;
 }
 

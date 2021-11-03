@@ -216,7 +216,7 @@ export const Store = makeStore('electron', reducer, { devTools: { name: 'App' } 
   migrate: createMigrate(migrations)
 });
 */
-export const Store = makeStore('electron', reducer, { devTools: false,enhancers: [devToolsEnhancer({secure:false, hostname:'localhost',port:8000,realtime: true})] }, {
+export const Store = makeStore('electron', reducer, { devTools: false,enhancers: [devToolsEnhancer({secure:false,maxAge:100, hostname:'localhost',port:8000,realtime: true})] }, {
   version: 1,
   migrate: createMigrate(migrations)
 });

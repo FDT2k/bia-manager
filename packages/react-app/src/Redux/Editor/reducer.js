@@ -125,11 +125,10 @@ export default (getModule) => {
         }
 
 
-
         return {
             mesure:{
                 ...state.mesure,
-                fds: submodules.fds.reducer(state.fds,action)
+                fds: submodules.fds.reducer(state.mesure.fds,action)
             },
             
         };
