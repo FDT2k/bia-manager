@@ -1,0 +1,39 @@
+@mixin themify($themes: $themes) {
+
+  @each $theme, $map in $themes {
+    .theme-#{$theme} & {
+      $theme-map: () !global;
+      @each $key, $submap in $map {
+        $value: map-get(map-get($themes, $theme), '#{$key}');
+        $theme-map: map-merge($theme-map, ($key: $value)) !global;
+      }
+
+      @content;
+      $theme-map: null !global;
+    }
+
+  }
+}
+
+@function themed($key) {
+  @return map-get($theme-map, $key);
+}
+
+@mixin themed_extend($key) {
+  $_scope: map-get($theme-map, $key);
+  @extend #{$_scope};
+}
+
+
+
+@mixin themed_font($key,$var) {
+  $_font_family: map-get($theme-map, $key);
+  @extend #{'%'+$_font_family};
+  @debug "key: #{$key}";
+  @debug "key: #{$_font_family}";
+  @debug "key: #{$var}";
+
+  //$_font_variant: map-get($theme-map, $var);
+  //@extend #{'%'+$_font_variant};
+  @extend #{'%'+$var};
+}

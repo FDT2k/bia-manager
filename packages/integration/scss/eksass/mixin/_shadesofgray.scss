@@ -1,0 +1,29 @@
+////////////////////////////////
+// Inspired by the work of Catherine Meade on codepen.io
+// A Sassier Greyscale
+// (https://codepen.io/catheraaine/pen/VMaaEy)
+////////////////////////////////
+
+// Change the lightness of any color
+@function lighting($colorName, $percent) {
+ @return change-color($colorName, $lightness: $percent);
+}
+
+// Example
+// $ElmName: color($Elm, 50%);
+
+// Change the alphaness of any color
+@function alphaness($colorName, $unit) {
+ @return change-color($colorName, $alpha: $unit);
+}
+
+// Example
+// $ElmName: color($Elm, 50%);
+
+// Grayscale Function
+@function gray($level) {
+ @return lighten(black, $level * 1%);
+}
+
+// Example
+// $gray-78: gray(78);

@@ -22,7 +22,7 @@
         position:absolute;
         z-index:1;
         height: var(--tab-height);
-       
+
     }
 
     &__tab {
@@ -30,7 +30,7 @@
         max-width: var(--tab-width);
         overflow:hidden;
         cursor:pointer;
-        
+
         &:focus{
             outline: 1px dashed var(--focused-color);
         }
@@ -43,7 +43,7 @@
 
     &__panel{
         display:none;
-        
+
     }
     &__panel.active{
         display:block;
@@ -52,7 +52,7 @@
 
     &__background{
         position: absolute;
-     
+
         z-index: 0;
         border-radius: 4px;;
         max-height:100%;

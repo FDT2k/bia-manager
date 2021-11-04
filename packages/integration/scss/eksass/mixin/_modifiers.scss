@@ -1,0 +1,32 @@
+@mixin mod__cover() {
+    width:100%;
+    min-width:100%;
+    height:100%;
+    min-height:100%;
+}
+
+@mixin mod__debug () {
+    background-color: rgb(random(255) , random(255) , random(255) ) !important;
+    outline: 2px solid rgb(random(255) , random(255) , random(255) ) !important;
+}
+
+@mixin debugColor($elements) {
+    @each $element in $elements {
+        #{$element} {
+          background-color: rgb(random(255) , random(255) , random(255) ) !important;
+        }
+    }
+}
+
+
+@mixin genmodifiers(){
+    
+    &--cover{
+        @include mod__cover();
+    }
+
+    &--debug{
+        @include mod__debug();
+    }
+}
+
