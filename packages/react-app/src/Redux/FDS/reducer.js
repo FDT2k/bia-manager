@@ -56,6 +56,9 @@ export default (getModule) => {
             const {type,payload} = action;
             const {left,right,normes} = payload;
             
+            if(is_nil(normes)){
+                throw new Error('No norm given, this will fail')
+            }
             
             let newLeft = {...left,norme:normes.fds};
             let newRight = {...right,norme:normes.fds};

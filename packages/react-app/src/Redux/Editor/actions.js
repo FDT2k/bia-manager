@@ -285,7 +285,6 @@ export default (getModule) => {
                 let edited_mesure_id = select_current_mesure_id(getState());
                 const bia_report_columns = select_report_columns(getState());
                 const bia_report_chart_columns = select_charts_columns(getState());
-                debugger;
 
                 if (edited_mesure) { // replace edited mesure with the current edited mesure or addit if its a new one
                     if (edited_mesure_id < mesures.length) {
@@ -304,7 +303,6 @@ export default (getModule) => {
                     }
                 }
 
-                debugger;
 
 
 
@@ -317,7 +315,8 @@ export default (getModule) => {
                     }
 
                 })
-                debugger;
+
+
                 const recap = bia_to_recap(results, bia_report_columns, normes, ['weight', 'ideal_weight', 'pct_ideal_weight', 'height']);
                 const dates = generate_recap_header(mesure_id, mesures);
                 const chart = recap_to_bar_chart(bia_to_recap(results, bia_report_chart_columns), dates)
