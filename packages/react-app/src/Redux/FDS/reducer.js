@@ -35,7 +35,7 @@ export default (getModule) => {
                 const {data,norme,main} = payload
 
                 newState.data = {...state.data,...data};
-                newState.main = main || true;
+                newState.main = !is_nil(main) ? main : true;
                 newState.norme = norme;
                 newState.avg = (parseFloat(newState.data[0]) +  parseFloat(newState.data[1]) +  parseFloat(newState.data[2])) / 3
 
@@ -62,7 +62,6 @@ export default (getModule) => {
             
             let newLeft = {...left,norme:normes.fds};
             let newRight = {...right,norme:normes.fds};
-            debugger;
             if(newLeft.main ===false && newRight.main === false){
                 newRight.main = true;
                 newLeft.main = true;

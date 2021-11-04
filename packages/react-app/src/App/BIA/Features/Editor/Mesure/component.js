@@ -100,7 +100,6 @@ const Editor = props => {
 
     /* update internal state if we change the prop */
     useEffect(() => {
-        debugger;
         assignValues(mesure);
     }, [mesure]);
 

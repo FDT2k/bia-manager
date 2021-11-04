@@ -149,14 +149,33 @@ export default (getModule) => {
                 }
             })
 
-            
-
+           
+            dispatch(actions.reinit_fds());
             dispatch(actions.refresh_current_recap());
 
             return r;
         }
     };
 
+
+    actions.reinit_fds = ()=>{
+        return (dispatch,getState)=>{
+            const {add_mesure,clear,refresh,normes } = submodules.recap_fds.actions
+            let mesures = select_mesures(getState());
+            let mesure = select_edited_mesure(getState())
+            const mesure_id = select_current_mesure_id(getState());
+
+            dispatch(clear());
+            mesures.slice(0,parseInt(mesure_id)).slice(-5).map(item=> {
+                dispatch(add_mesure(item));
+            })
+            dispatch(add_mesure(mesure))
+
+            dispatch(refresh())
+            
+        }
+
+    }
 
     actions.recompute_current_mesure = () => {
         return (dispatch, getState) => {
@@ -341,7 +360,6 @@ export default (getModule) => {
 
 
 
-
     //reviewed
     actions.edit_patient = patient => {
         return (dispatch, getState) => {
@@ -364,7 +382,14 @@ export default (getModule) => {
         const normes = select_normes(getState(),{age:mesure.current_age})
         
         dispatch(submodules.fds.actions.update({...values,normes}));
+
+
+        dispatch(submodules.recap_fds.actions.update_mesure(select_edited_mesure(getState())))
+
     }
+
+
+    
 
 
 
