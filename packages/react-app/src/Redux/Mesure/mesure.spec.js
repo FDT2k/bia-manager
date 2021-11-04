@@ -8,7 +8,13 @@ test('hello world', () => {
 
     let payload = {normes:{},left: { data: { 0: 12 } } }
     
-    let reduc = res.reducer({}, res.plugins.fds.actions.update(payload));
-    
-    console.log(reduc)
+    let newState = res.reducer(undefined, res.plugins.fds.actions.update(payload));
+
+    console.log(newState)
+
+
+    newState = res.reducer(newState, res.plugins.bmi_data.actions.update({height:177,weight:89}));
+
+    console.log(newState)
+
 })

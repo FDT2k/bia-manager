@@ -12,7 +12,7 @@ export default getModule => {
         getReducers: (plugins,state,action)=> {
             return enlist(plugins).reduce((reducers,plugin)=> {
                 const [key,module] = keyval(plugin)
-                reducers[key]=module.reducer(state[key],action)
+                reducers[key]=module.reducer(state[key],{...action,mesure:state})
                 return reducers;
             },{})
         }

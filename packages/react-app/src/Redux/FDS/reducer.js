@@ -34,10 +34,10 @@ export default (getModule) => {
             case types.UPDATE:
                 const {data,norme,main} = payload
 
-                newState.data = {...data};
-                newState.main = main;
+                newState.data = {...state.data,...data};
+                newState.main = main || true;
                 newState.norme = norme;
-                newState.avg = (parseFloat(data[0]) +  parseFloat(data[1]) +  parseFloat(data[2])) / 3
+                newState.avg = (parseFloat(newState.data[0]) +  parseFloat(newState.data[1]) +  parseFloat(newState.data[2])) / 3
 
 
                 return newState

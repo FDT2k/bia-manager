@@ -31,11 +31,17 @@ export default (getModule) => {
 
     const module = {};
 
-    console.log(plugins)
 
+    const initialState=  {
+        date: '2017-12-02',
+        examinator: '',
+        height: null,
+        weight: null,
+        smoker: false,
+        bmi: '21.8',
+    }
 
-    module.reducer = (state = {}, action) => {
-
+    module.reducer = (state = initialState, action) => {
 
         switch (action.type) {
 
@@ -44,7 +50,6 @@ export default (getModule) => {
                     mesure: {
 
                         ...action.payload.mesure,
-
                         fds: submodules.fds.reducer(action.payload.mesure.fds, action)
                     }
                 }
@@ -79,7 +84,6 @@ export default (getModule) => {
 
         //plugins should flow through here
         return {
-
             ...state,
             ...getReducers(plugins,state,action)
         };
