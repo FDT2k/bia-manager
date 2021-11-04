@@ -1,11 +1,12 @@
 
-import { curry, is_nil,merge,enlist } from '@karsegard/composite-js'
-import { spec } from '@karsegard/composite-js/ObjectUtils'
+import { curry, is_nil, is_array, merge, enlist } from '@karsegard/composite-js'
+import { keyval, spec } from '@karsegard/composite-js/ObjectUtils'
 import { mergeAll } from '@karsegard/composite-js/List'
 
 import IDBExport from '@karsegard/indexeddb-export-import';
 
 import Promise from 'bluebird'
+import moment from 'moment';
 
 
 
@@ -81,7 +82,77 @@ export default (db, events = {}) => {
 
         });
 
+    }
 
+    module.search_custom_filters = (custom_filters) => {
+
+
+        return db.open().then(db => {
+            let collection = db.patients;
+            let method = 'where';
+            enlist(custom_filters).map(filter_obj => {
+                const [field, filter] = keyval(filter_obj)
+
+                if (!is_nil(filter) ){
+                    switch (filter.type) {
+                        case 'date_range':
+                            collection = module.search_date_range({ collection, field: filter.key, from: filter.from, until: filter.to, method })
+                            method = 'and';
+                            break;
+                    }
+                    debugger;
+                }
+
+            })
+
+            return collection.toArray();
+        });
+    }
+
+    module.search_date_range = ({ collection, field, from, until, method }) => {
+        if (method !== 'and') {
+            debugger;
+            if (!is_nil(from) && !is_nil(until)) {
+                collection = collection.where(field).between(from, until)
+            } else if (!is_nil(from) && is_nil(until)) {
+                collection = collection.where(field).aboveOrEqual(from)
+            } else if (is_nil(from) && !is_nil(until)) {
+                collection = collection.where(field).belowOrEqual(until)
+            }
+            return collection
+        } else {
+            return collection.and(item => {
+                let _field = item[field]
+                if (is_array(_field)) {
+                    debugger;
+
+                    for (let i = 0; i < _field.length; i++) {
+                        const item = _field[i];
+
+                        if (!is_nil(from) && !is_nil(until) && moment(item).isSameOrAfter(from) && moment(item).isSameOrBefore(until)) {
+                            return true
+                        } else if (!is_nil(from) && is_nil(until) && moment(item).isSameOrAfter(from)) {
+                            return true
+                        } else if (is_nil(from) && !is_nil(until) && moment(item).isSameOrBefore(until)) {
+                            return true
+                        }
+                    }
+                    return false;
+
+                } else {
+                    debugger;
+
+                    if (!is_nil(from) && !is_nil(until)) {
+                        return moment(_field).isSameOrAfter(from) && moment(_field).isSameOrBefore(until)
+                    } else if (!is_nil(from) && is_nil(until)) {
+                        return moment(_field).isSameOrAfter(from)
+                    } else if (is_nil(from) && !is_nil(until)) {
+                        return moment(_field).isSameOrBefore(until)
+
+                    }
+                }
+            })
+        }
     }
 
     module.get_patient = id => {
@@ -126,13 +197,13 @@ export default (db, events = {}) => {
 
 
 
-    module.update = ({collection,id, item}) => {
+    module.update = ({ collection, id, item }) => {
         return db.open().then(db => {
-            return db[collection].update(id, item).then(_=>{
+            return db[collection].update(id, item).then(_ => {
 
-                return module.getBy({collection,key:'id',value:id})
+                return module.getBy({ collection, key: 'id', value: id })
             })
-                
+
         });
     }
 
@@ -143,10 +214,10 @@ export default (db, events = {}) => {
 
             if (is_nil(res)) {
                 return db.lists.add({ key, name, list })
-            }else{
+            } else {
 
-             //   let modifications = enlist(merge(mergeAll(list),mergeAll(res.list)))
-                return module.update({collection:'lists',id:res.id,item:{list}})
+                //   let modifications = enlist(merge(mergeAll(list),mergeAll(res.list)))
+                return module.update({ collection: 'lists', id: res.id, item: { list } })
             }
         })
     }
@@ -181,9 +252,9 @@ export default (db, events = {}) => {
     }
 
 
-    module.get_list = ({key}) => {
+    module.get_list = ({ key }) => {
         return db.open().then(db => {
-            return db.lists.where('key').equals(key).first().then(res=>res.list);
+            return db.lists.where('key').equals(key).first().then(res => res.list);
         });
     }
 
@@ -195,30 +266,30 @@ export default (db, events = {}) => {
 
 
     module.all_pathological_groups = _ => {
-        return module.get_list({key:'pathological_groups'})
+        return module.get_list({ key: 'pathological_groups' })
     }
 
     module.all_ethnological_groups = _ => {
-        return module.get_list({key:'ethnological_groups'})
+        return module.get_list({ key: 'ethnological_groups' })
 
     }
 
     module.all_sport_types = _ => {
-        return module.get_list({key:'physical_activity_type'})
+        return module.get_list({ key: 'physical_activity_type' })
 
     }
     module.all_sport_rates = _ => {
-        return module.get_list({key:'physical_activity_rate'})
+        return module.get_list({ key: 'physical_activity_rate' })
 
     }
     module.all_machines = _ => {
-        return module.get_list({key:'machines'})
+        return module.get_list({ key: 'machines' })
 
     }
     module.all_genders = _ => {
-        return module.get_list({key:'genders'})
+        return module.get_list({ key: 'genders' })
         //return db.open().then(db => {
-           // return db.patients.orderBy('gender').uniqueKeys();
+        // return db.patients.orderBy('gender').uniqueKeys();
         //})
     }
 

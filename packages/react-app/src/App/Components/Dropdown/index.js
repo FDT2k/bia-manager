@@ -7,7 +7,7 @@ import './dropdown.scss'
 import { identity } from '@karsegard/composite-js';
 export const DropDown =  props => {
 
-    const { label, icon, className } = props;
+    const { label, icon, className,overrideClick } = props;
     const [visible, toggleVisible,setVisible,setHidden] = useBoolean(false);
     const [childStyle, setStyle] = useState({});
     const ref = useRef();
@@ -24,7 +24,7 @@ export const DropDown =  props => {
             setHidden();
         }else  if (refToggle.current.contains(event.target)) {
             //checking if we are on the main dropdown 
-            toggleVisible()
+            overrideClick ? overrideClick() : toggleVisible()
         }
     };
 
@@ -39,7 +39,7 @@ export const DropDown =  props => {
         return () => {
             document.removeEventListener('click', handleClick, true);
         };
-    },[])
+    },[overrideClick])
 
 
 

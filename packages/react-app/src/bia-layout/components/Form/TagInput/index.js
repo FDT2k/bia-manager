@@ -3,6 +3,7 @@ import './style.scss';
 
 import { useFocus, useKeypress } from '@karsegard/react-hooks';
 import classNames from 'classnames';
+import { is_type_string } from '@karsegard/composite-js';
 
 
 
@@ -76,6 +77,14 @@ AutoComplete.defaultProps = {
     handleSelect: x => x
 }
 
+const Tag = ({tag,onClick}) => {
+    if(is_type_string(tag)){
+        return  (<div className="tag" >{tag}  <button onClick={ onClick}>x</button></div>)
+    }else{
+        return  (<div className="tag" >{tag.toString()}  <button onClick={ onClick}>x</button></div>)
+    }
+}
+
 const TagInput = (props) => {
     const { handleChange, handleAddTag, tabIndex, handleRemoveTag, handleFocus: handleFocusChange, tags: initialTags, fields, ...rest } = props;
 
@@ -92,7 +101,12 @@ const TagInput = (props) => {
     const { hasFocus, handleFocus, handleBlur } = useFocus({ ref, focused: true });
 
     const [inputBounds, setInputBounds] = useState({ top: 0, left: 0 });
+/*
 
+    useEffect(()=>{
+        setTags(initialTags)
+    },[initialTags]);
+*/
     useEffect(() => {
         if (hasFocus) {
             handleFocusChange(true);
@@ -162,7 +176,7 @@ const TagInput = (props) => {
         <>
             <div className="tag-input" onClick={_ => ref.current.focus()} {...rest}>
                 {tags.map((t, idx) => (
-                    <div className="tag" key={idx}>{t}  <button onClick={_ => deleteTag(idx, t)}>x</button></div>
+                   <Tag key={idx} tag={t} onClick={_=>deleteTag(idx, t)}/>
                 ))}
                 <input
                     ref={ref}

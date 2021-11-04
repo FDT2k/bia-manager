@@ -91,9 +91,19 @@ export default (getModule) => {
     }
 
     actions.search = tag => (dispatch, getState) => {
-
-        return dispatch(actions.async_api('search', tag))
+        let res =  dispatch(actions.async_api('search', tag))
+        return res
     }
+
+    actions.search_custom_filters = (custom_filters) =>  (dispatch, getState) => {
+        return dispatch(actions.async_api('search_custom_filters', custom_filters))
+    }
+    
+    actions.search_date_range = (field,from,until) => (dispatch, getState) => {
+        return dispatch(actions.async_api('search_date_range', {field,from,until}))
+    }
+    
+
     actions.create_patient = patient => (dispatch, getState) => {
 
         return dispatch(actions.async_api('create_patient', patient))

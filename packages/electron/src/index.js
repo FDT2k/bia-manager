@@ -11,10 +11,15 @@ import menuFactoryService from './menu';
 import i18n, { i18nextOptions } from './i18next.config';
 import config from './app.config';
 import updater from "./updater"
+import openDB from './sqlcipher'
 
 
 const mutex = new Mutex();
 let openedFilePath;
+
+let openedSQLiteDB;
+
+let cleanState = false;
 
 const isSingleInstance = app.requestSingleInstanceLock();
 
@@ -22,6 +27,8 @@ if (!isSingleInstance) {
   app.quit();
   process.exit(0);
 }
+
+
 const createFileIfNeeded = (file, content) => fs.stat(file).catch(_ => {
   fs.writeFile(file, content, { encoding: 'utf8' })
 });
@@ -93,7 +100,7 @@ const createWindow = async () => {
   });
 
   i18n.on('languageChanged', (lng) => {
-    console.log('changing language to ' ,lng)
+    console.log('changing language to ', lng)
     menuFactoryService.buildMenu(app, mainWindow, i18n);
     mainWindow.webContents.send('language-change', {
       language: lng,
@@ -130,7 +137,7 @@ const setupAutoUpdate = _ => {
   return false;
 }
 
-ipcMain.handle('ready',async _=> {
+ipcMain.handle('ready', async _ => {
   console.log('client reported ready')
   i18n.changeLanguage('fr');
 })
@@ -161,7 +168,7 @@ ipcMain.handle('file-save', async (event, content, filename = '') => {
   return false;
 });
 
-ipcMain.handle('update', ()=>{
+ipcMain.handle('update', () => {
   updater.autoUpdater.downloadUpdate();
 })
 
@@ -171,6 +178,7 @@ ipcMain.handle('file-open', async (event, filename) => {
   let { canceled, filePaths } = await dialog.showOpenDialog({ defaultPath: filename });
 
   if (!canceled) {
+    cleanState = false;
     console.log('reading');
     openedFilePath = filePaths[0];
     let content = await fs.readFile(filePaths[0], { encoding: 'utf8' });
@@ -185,6 +193,25 @@ ipcMain.handle('file-open', async (event, filename) => {
 
   return { canceled: true };
 });
+
+ipcMain.handle('sqlite-open', async (event, filename, key) => {
+  console.log('want to sqlite db', filename, key);
+  let { canceled, filePaths } = await dialog.showOpenDialog({ defaultPath: filename });
+
+  if (!canceled) {
+    console.log('reading');
+    openedSQLiteDB = openDB(filePaths[0], key);
+
+    return {
+      canceled: false,
+      content,
+      file: filePaths[0],
+
+    }
+  }
+
+  return { canceled: true };
+})
 
 ipcMain.handle('read-settings', async (event,) => {
   return getSettings();
@@ -206,6 +233,13 @@ ipcMain.handle('save-settings', async (event, content) => {
   let filecontent = JSON.stringify(content);
   return fs.writeFile(settingsFile, filecontent).then(res => typeof result === 'undefined');
 });
+
+
+ipcMain.handle('quit', async event => {
+  console.log('client trigerred quit')
+  cleanState=true;
+  app.quit();
+})
 
 if (import.meta.env.MODE === 'development') {
   ipcMain.handle('missing-translations', (event, lngs, ns, key, fallbackValue, updateMissing, options) => {
@@ -275,7 +309,18 @@ app.on('window-all-closed', () => {
   //   console.log('quit app')
   // }
   app.quit();
+  //mainWindow.webContents.send('app-quit')
 });
+
+app.on('before-quit', e => {
+  console.log('app will quit',cleanState);
+
+  if (!cleanState) {
+    console.log('quitting prevented because app is not cleaned up')
+    mainWindow.webContents.send('app-quit')
+    e.preventDefault()
+  }
+})
 
 app.whenReady()
   .then(createWindow)

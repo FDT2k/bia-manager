@@ -429,7 +429,8 @@ export default (getModule) => {
         mesure: module.mesure,
         patient: module.patient,
         recap: module.recap,
-        normes: submodules.normes.reducer
+        normes: submodules.normes.reducer,
+        fds:submodules.fds.reducer
     });
 
     return module;

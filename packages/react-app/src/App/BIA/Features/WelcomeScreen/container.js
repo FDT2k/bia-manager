@@ -36,7 +36,8 @@ export default Component => props => {
         setWarn(true);
     }
 
-    return (<><Component handleOpenDatabase={handleOpen} handleCreateDatabase={handleCreate} handleConnect={handleConnect} />
+
+    return (<><Component handleOpenDatabase={handleOpen}  handleCreateDatabase={handleCreate} handleConnect={handleConnect} />
         <Modal visible={warn} overlayOnClick={_=>setWarn(false)}>
             <LayoutFlexColumn justCenter alignCenter>
                 <h1>Attention</h1>

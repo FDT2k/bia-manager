@@ -31,6 +31,8 @@ export const makeProvider = (Context,bindEvent) => props => {
         onLocationChange: fn => bindEvent(api, 'handleLocationChange', fn),
         onUpdateAvailable: fn => bindEvent(api, 'handleUpdateAvailable', fn),
         onDownloadProgress: fn => bindEvent(api, 'handleDownloadProgress', fn),
+        onQuit: fn => bindEvent(api, 'handleWillQuit', fn),
+        onError: fn => bindEvent(api, 'handleError', fn),
     }), []);
 
 

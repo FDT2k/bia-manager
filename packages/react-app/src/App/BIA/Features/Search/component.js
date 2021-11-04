@@ -1,19 +1,20 @@
 import Button from '@/bia-layout/components/Form/Button';
 import TagInput from '@/bia-layout/components/Form/TagInput';
-import { ArrowDown, ArrowUp, ChevronDownSharp, CaretDownSharp } from '@/bia-layout/components/Icons';
+import { ArrowDown, ArrowUp, ChevronDownSharp, CaretDownSharp,CloseSharp } from '@/bia-layout/components/Icons';
 import List from '@/bia-layout/components/Table';
 import { withGridArea } from '@/bia-layout/hoc/grid/Area';
 import SearchLayout from '@/bia-layout/layouts/Search';
 import { applyModifiers, compose, withBaseClass, withForwardedRef } from '@karsegard/react-compose';
-import { LayoutFlex, LayoutFlexColumn,Grid } from '@karsegard/react-core-layout';
+import { LayoutFlex, LayoutFlexColumn, Grid } from '@karsegard/react-core-layout';
 import { useKeypress } from '@karsegard/react-hooks';
 import Dropdown from '@/App/Components/Dropdown';
 import DropdownItem from '@/App/Components/Dropdown/DropdownItem';
 import React, { forwardRef, useEffect, useMemo, useState } from 'react';
 
-import { useFieldValues} from '@karsegard/react-hooks';
+import { useFieldValues } from '@karsegard/react-hooks';
 import DatePicker from '@/bia-layout/components/Form/DatePicker';
-
+import { identity,is_nil, replace } from '@karsegard/composite-js';
+import { dateSysToHuman } from '@/references/format';
 
 const withForwardRef = Component => (props, ref) => {
 
@@ -52,6 +53,51 @@ export const AdvancedSearch = compose(
 )(LayoutFlex)
 
 
+export const RangeFilter = ({label,handleSubmit,handleClear,currentValues,t}) => {
+
+    
+
+    const { values,replaceValues, getValue, inputProps, handleChangeValue } = useFieldValues(currentValues, { usePath: true });
+
+    useEffect(()=>{
+        replaceValues(currentValues);
+    },[currentValues])
+
+    console.log(currentValues)
+
+    const filled = (!is_nil(currentValues) && (!is_nil(currentValues.from) || !is_nil(currentValues.to)))
+    const Icon = filled===true ? (CloseSharp) : ChevronDownSharp
+
+    const _label = filled===true ? `${label} ${t('depuis le')} ${(values.from ? dateSysToHuman(values.from): '')}  ${(values.to ? `${t('jusqu\'au')} ${dateSysToHuman(values.to)}`: '' )}` : label;
+
+
+    const overrideClick = filled===true ? _=> handleClear() : undefined; 
+
+    return (
+        <Dropdown offset={8} label={_label} icon={<Icon />} overrideClick={overrideClick}>
+            <>
+                <DropdownItem>
+                    <div>Du </div>
+                    <DatePicker allow_null={true} masked_input={true} selected={getValue('from')} handleChange={handleChangeValue('from')} />
+                </DropdownItem>
+                <DropdownItem>
+                    <div>Au</div>
+                    <DatePicker allow_null={true} masked_input={true} selected={getValue('to')} handleChange={handleChangeValue('to')} />
+                </DropdownItem>
+                <DropdownItem>
+                    <button onClick={_ => handleSubmit(values)}>filtrer</button>
+                </DropdownItem>
+            </>
+        </Dropdown>
+    )
+}
+
+RangeFilter.defaultProps = {
+    t:identity,
+    handleClear: _=> console.warn('oups no handleclear defined')
+}
+
+
 
 
 export const Component = props => {
@@ -63,9 +109,8 @@ export const Component = props => {
     const [selectedIndex, setSelectedIndex] = useState(-1);
     const [searchBarFocused, setSearchBarFocused] = useState(false);
 
-    const { results, handleSearch, handleCreate, tags, t, handleSelectRow: _handleSelectRow,addFilter } = props;
+    const { results, handleSearch, handleCreate, tags, t, handleSelectRow: _handleSelectRow, setFilter, custom_filters,clearFilter } = props;
 
-    const {values,getValue,inputProps,handleChangeValue} = useFieldValues({},{usePath:true});
 
     useEffect(() => {
         if (!searchBarFocused) {
@@ -146,28 +191,10 @@ export const Component = props => {
                 <Button tabIndex={5} className="button--big" onClick={handleCreate}>{t('SEARCH_CREATE_NEW_SUBJECT')}</Button>
 
             </SearchArea>
-            <AdvancedSearch style={{gridGap:'8px'}} area="filter">
-                <Dropdown offset={8} label="Mesures" icon={<ChevronDownSharp />}>
-                    <>
-                        <DropdownItem>
-                            <div>Du </div>
-                            <DatePicker allow_null={true} masked_input={true} selected={getValue('mesures.range.from')}  handleChange={handleChangeValue('mesures.range.from')}/>
-                        </DropdownItem>
-                        <DropdownItem>
-                            <div>Au</div>
-                            <DatePicker allow_null={true} masked_input={true} selected={getValue('mesures.range.to')}  handleChange={handleChangeValue('mesures.range.to')}/>
-                        </DropdownItem>
-                        <DropdownItem>
-                            <button onClick={_=>addFilter({field:'mesures.date',value:getValue('mesures.range')})}>filtrer</button>
-                        </DropdownItem>
-                    </>
-                </Dropdown>
-                <Dropdown offset={8} label="Sexe" icon={<ChevronDownSharp />}>
-                    <>
-                        <DropdownItem><div>Homme </div> <input type="checkbox" /></DropdownItem>
-                        <DropdownItem><div>Femme</div> <input type="checkbox" /></DropdownItem>
-                    </>
-                </Dropdown>
+            <AdvancedSearch style={{ gridGap: '8px' }} area="filter">
+                <RangeFilter label="Mesures" currentValues={custom_filters.mesure_range} handleSubmit={values=>setFilter('mesure_range','mesures_dates',values)} handleClear={_ => clearFilter('mesure_range')}/>
+                <RangeFilter label="Dates de naissances" currentValues={custom_filters.birthday_range} handleSubmit={values=>setFilter('birthday_range','birthdate',values)} handleClear={_ => clearFilter('birthday_range')}/>
+               
             </AdvancedSearch>
             <ListWithAreaWithRef
 

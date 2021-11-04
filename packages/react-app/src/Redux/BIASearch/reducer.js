@@ -1,7 +1,7 @@
 
 import { combineReducers } from 'redux';
 import createReducer from '@/Redux/utils/create-reducer';
-import { addToListUniq, delFromList } from '@/Redux/utils/handlers';
+import { addToListUniq, delFromList,updateProp } from '@/Redux/utils/handlers';
 
 
 
@@ -18,7 +18,7 @@ export default (getModule) => {
         [action_types.ADD_SEARCH_TAG]: addToListUniq,
         [action_types.UPDATE_SEARCH_TAGS]: (state, action) => [...action.payload],
         [action_types.DEL_SEARCH_TAG]: delFromList,
-        [action_types.CLEAR]: (state)=> []
+        [action_types.CLEAR]: (state) => []
     });
 
 
@@ -34,11 +34,11 @@ export default (getModule) => {
                 filtered: [{ tag: '', ids: patients }]
             }
         },
-        [action_types.CLEAR]: (state,action) => {
+        [action_types.CLEAR]: (state, action) => {
             return {
-                byIds:{},
-                allIds:[],
-                filtered:[{ tag: '', ids:[]}]
+                byIds: {},
+                allIds: [],
+                filtered: [{ tag: '', ids: [] }]
             }
         },
         [action_types.FILTER_PATIENTS]: (state, action) => {
@@ -47,7 +47,7 @@ export default (getModule) => {
 
             let patients = state.byIds
 
-            let items = state.filtered.length > 0 ? state.filtered[state.filtered.length - 1].ids : [];
+            let items = state.filtered.length > 0 ? state.filtered[state.filtered.length - 1].ids : []; // getting the latest filter result
 
             let result = items.reduce((carry, id) => {
                 let patient = patients[id];
@@ -86,14 +86,26 @@ export default (getModule) => {
 
 
 
+    module.custom_filters = createReducer({},
+        {
+            [action_types.ADD_CUSTOM_FILTER]: (state, {payload}) => {
+                return {
+                    ...state,
+                    [payload.field]:{...payload.filter}
+                }
+            },
+            [action_types.CLEAR_CUSTOM_FILTER]: (state,{payload})=> {
+                return updateProp(payload,state,null)
+            }
+
+        }
+    )
 
 
     module.reducer = combineReducers({
         tags: module.tags,
         patients: module.patients,
-        filters: (state=[],action)=>{
-            return state
-        }
+        custom_filters: module.custom_filters
     });
 
 

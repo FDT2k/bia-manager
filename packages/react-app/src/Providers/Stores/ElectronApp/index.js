@@ -19,6 +19,8 @@ export const ElectronModule = Electron(state => state.app, '');
 
 export const {
   open_file,
+  add_error,
+
   create_database,
   start_loading,
   stop_loading,
@@ -70,13 +72,17 @@ export const {
 export const SearchModule =  ElectronModule.submodules.features.search;
 
 export const {
-  select_tags
+  select_tags,
+  select_custom_filters
 
 } = SearchModule.selectors
 
 export const {
-  clear:clear_search
-
+  clear:clear_search,
+  update_search_tags: update_tags,
+  
+  add_custom_filter,
+  clear_custom_filter
 } = SearchModule.actions
 
 
@@ -217,13 +223,13 @@ export const Store = makeStore('electron', reducer, { devTools: false,enhancers:
 export const Context = createContext();
 
 
-
 export const ConnectApp = connect(state => ({
   is_loading: is_loading(state),
   loading_message: loading_message(state),
   current_file: current_file(state)
 }),  {
   create_database,
+  add_error,
   start_loading,
   stop_loading,
   open_file,

@@ -5,26 +5,6 @@ import Input from '@/bia-layout/components/Form/Input';
 import { useForm } from '@karsegard/react-hooks';
 
 
-export const LineForm = ({ values, handleChangeValue, checked, label }) => {
-
-
-    const handleChange = (path, value) => {
-
-        handleChangeValue(path, value)
-    }
-
-
-    return (
-        <>
-            <div className="lineheader">{label}</div>
-            <div><input type="checkbox" checked={checked} /></div>
-            <div>35</div>
-            <div><Input type="text" onChange={e => handleChangeValue("0", e.target.value)} /></div>
-            <div><Input type="text" /></div>
-            <div><Input type="text" /></div>
-        </>
-    )
-}
 
 export default props => {
     const { t } = props;

@@ -108,10 +108,15 @@ export const Page = props => {
                             const val = safe_path('', fieldKey, values);
                             const options = field.options;
                             const tabIndex = idx + 1;
+
+                            const hasErrorClass=  fieldValidation(fieldKey, ({ error, touched, valid }) => {
+
+                                return ( (!valid && touched) ? "error" :"")
+                            });
                             return (<ComponentWithArea key={fieldKey} area={fieldKey.replace('.', '_')}><Field label={label}>
 
                                 {type === "select" && <Select tabIndex={tabIndex} {...inputProps(fieldKey)} options={options} />}
-                                {type === "text" && <input tabIndex={tabIndex} type="text" {...inputProps(fieldKey)} options={options} />}
+                                {type === "text" && <input tabIndex={tabIndex}  className={hasErrorClass} type="text" {...inputProps(fieldKey)} options={options} />}
                                 {type === "textarea" && <textarea tabIndex={tabIndex} {...inputProps(fieldKey)} options={options}></textarea>}
                                 {type === "date" && <DatePicker tabIndex={tabIndex}
                                     selected={values[fieldKey]}
