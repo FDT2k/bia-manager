@@ -108,7 +108,7 @@ export default Component => props => {
 
     }
 
-    const dontCommitTheseFields = ['comments', 'date', 'examinator']
+    const dontCommitTheseFields = ['comments', 'date']
 
 
     const handleChange = (values, changed_field) => {

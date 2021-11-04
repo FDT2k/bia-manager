@@ -28,7 +28,7 @@ export default (getModule) => {
 
 
     actions.refresh_norme = submodules.normes.actions.refresh_norme//create(action_types.REFRESH_NORME)
-    actions.fetched_normes =  submodules.normes.actions.fetched_normes //create(action_types.FETCHED_NORMES)
+    actions.fetched_normes =  submodules.normes.actions.fetched //create(action_types.FETCHED_NORMES)
 
 
     //refresh each norm

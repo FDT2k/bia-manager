@@ -12,7 +12,7 @@ export default (getModule) => {
 
     actions.refresh_norme = create(types.REFRESH)
 
-    actions.fetched_normes = create(types.FETCHED,payload=> {
+    actions.fetched = create(types.FETCHED,payload=> {
         return payload;
     })
 

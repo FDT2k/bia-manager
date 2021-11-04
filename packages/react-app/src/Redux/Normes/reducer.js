@@ -49,17 +49,21 @@ export default (getModule) => {
     })
 
 
-    const sample_norm = (gender, key, norm) => {
+    /**
+     * 
+     * 
+     */
+    const sample_norm = (sex, key, norm) => {
         let samples = [];
         const [min, max] = norm.values;
 
         if (!is_nil(norm.age_range)) {
             const [age_min, age_max] = norm.age_range;
             // for (let i = age_min; i <= age_max; i++) {
-            samples.push({ key, min, max, age: age_min, age_range: norm.age_range, gender })
+            samples.push({ key, min, max, age: age_min, age_range: norm.age_range, sex })
             // }
         } else {
-            samples.push({ key, min, max, age: norm.age_min, gender })
+            samples.push({ key, min, max, age: norm.age_min, sex })
         }
         return samples;
     }
@@ -76,12 +80,11 @@ export default (getModule) => {
                 let _norm_key = key(item);
                 let _options = value(item);
 
-                carry = genders.reduce((result, gender) => {
+                carry = genders.reduce((result, sex) => {
 
 
-                    let _result = _options[gender].reduce((result, norm) => {
-                        let sample = sample_norm(gender, _norm_key, norm)
-
+                    let _result = _options[sex].reduce((result, norm) => {
+                        let sample = sample_norm(sex, _norm_key, norm)
 
 
 
@@ -96,18 +99,18 @@ export default (getModule) => {
                 return carry;
             }, [])
 
-            return samples.reduce((list, item) => {
-                const { gender, age_range, age, key } = item;
-                if (!list[gender]) {
-                    list[gender] = [];
+            let result =  samples.reduce((list, item) => {
+                const { sex, age_range, age, key } = item;
+                if (!list[sex]) {
+                    list[sex] = [];
                 }
 
 
-                let existing = list[gender].find(item => item.age === age);
+                let existing = list[sex].find(item => item.age === age);
 
                 if (!existing) {
 
-                    list[gender].push({
+                    list[sex].push({
                         age,
                         age_range,
                         [`${key}_min`]: item.min,
@@ -117,7 +120,7 @@ export default (getModule) => {
                     });
                 } else {
 
-                    list[gender] = updateList(item => item.age === age, list[gender], element => {
+                    list[sex] = updateList(item => item.age === age, list[sex], element => {
 
                         return {
                             ...element,
@@ -131,7 +134,9 @@ export default (getModule) => {
                 }
 
                 return list;
-            }, {})
+            }, {});
+            console.log(result)
+            return result;
         }
     })
 
