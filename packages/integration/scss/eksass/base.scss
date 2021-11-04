@@ -1,8 +1,8 @@
-@use 'core/reset';
+@forward 'core/reset';
 
-@use 'mixin';
+@forward 'mixin';
 
-@use 'vars';
+@forward 'vars';
 
-@use 'tags';
-@use 'classes';
+@forward 'tags';
+@forward 'classes';
