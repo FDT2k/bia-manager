@@ -20,7 +20,6 @@ export const Component = props => {
     useEffect(()=>{
         replaceValues(initialValues)
     },[initialValues])
-    debugger;
     return (
         <>
             <Grid

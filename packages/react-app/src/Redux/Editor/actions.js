@@ -149,7 +149,9 @@ export default (getModule) => {
                 }
             })
 
-          //  dispatch(actions.refresh_normes());
+            
+
+            dispatch(actions.refresh_current_recap());
 
             return r;
         }
@@ -187,6 +189,7 @@ export default (getModule) => {
 
     actions.change_mesure = (patient, mesure) => {
 
+        debugger;
         if (is_nil(patient) || is_nil(mesure)) {
             return {
                 type: 'GENERAL_ERROR'

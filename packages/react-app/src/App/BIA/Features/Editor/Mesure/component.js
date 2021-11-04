@@ -105,10 +105,10 @@ const Editor = props => {
 
     /* temporary, update electrical data, should change to an handle function */
 
-    useEffect(() => {
+   /* useEffect(() => {
         _handleChange(values);
     }, [values.data]);
-
+*/
 
 
     const [editedGroup, setEditedGroup] = useState("a");
