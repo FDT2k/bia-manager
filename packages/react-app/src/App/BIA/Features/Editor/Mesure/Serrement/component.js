@@ -5,6 +5,8 @@ import Input from '@/bia-layout/components/Form/Input';
 import { useForm } from '@karsegard/react-hooks';
 import { value } from '@karsegard/composite-js/ObjectUtils';
 
+import { oneDecimal, oneDecimalPct } from '@/references/format'
+import { is_type_number } from '@karsegard/composite-js';
 
 
 export const Component = props => {
@@ -49,8 +51,8 @@ export const Component = props => {
                 <div> <input type="text"  {...inputProps('left.data.2')}/></div>
                 <div> <input type="text"  {...inputProps('right.data.2')}/></div>
                 <div className="header">{t('Moyenne des mesures')}</div>
-                <div> {initialValues.left.avg} </div>
-                <div> {initialValues.right.avg} </div>
+                <div> {(is_type_number(initialValues.left.avg)) ? oneDecimal(initialValues.left.avg) : "N/A"} </div>
+                <div> {(is_type_number(initialValues.right.avg)) ? oneDecimal(initialValues.right.avg) : "N/A"} </div>
                 <div className="header">{t('Normes')}</div>
                 <div> {initialValues.left.norme.toString()}  </div>
                 <div> {initialValues.right.norme.toString()} </div>

@@ -96,7 +96,18 @@ export default (getModule) => {
     module.mesure = (state={mesure:{}},action)=> {
 
         switch(action.type){
+
             case action_types.EDIT_MESURE:
+                return {
+                    mesure: {
+                       
+                        ...action.payload.mesure,
+                       
+                        fds: submodules.fds.reducer(action.payload.mesure.fds,action)
+                    }
+                }
+
+
             case action_types.CHANGE_MESURE:
                 return {
                     mesure: {
@@ -124,7 +135,7 @@ export default (getModule) => {
 
         }
 
-
+        //plugins should flow through here
         return {
             mesure:{
                 ...state.mesure,

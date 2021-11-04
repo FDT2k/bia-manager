@@ -1,5 +1,6 @@
 import { safe_path } from '@karsegard/composite-js';
-import FFMIChart from '@/App/Components/Charts/Indice';
+import FFMIChart from '@/App/Components/Charts/FMI';
+
 import MassChart from '@/App/Components/Charts/Mass';
 import RecapGrid from '@/App/BIA/Features/Editor/Mesure/RecapGrid';
 import { ComponentWithArea } from '@/bia-layout/hoc/grid/Area';
@@ -59,8 +60,7 @@ export default props => {
             <ComponentWithArea area="z" >
                 <h3>Evolution de la composition corporelle</h3></ComponentWithArea>
             <ComponentWithArea area="a" >
-
-                <MassChart width={550}  height={280}  data={mass_chart} />
+                <MassChart width={550}  height={200}  data={mass_chart} />
             </ComponentWithArea>
             <ComponentWithArea area="y" >
                 <h3>Votre position par rapport aux normes</h3></ComponentWithArea>
@@ -68,14 +68,14 @@ export default props => {
                 <LayoutFlexColumn justCenter alignCenter>
                     <h4>Indice de masse maigre</h4>
                     <span>masse maigre / taille<sup>2</sup></span>
-                    <FFMIChart width={350}  height={200} data={norm_chart} noi="ffmi" age={mesure.current_age} value={current_bia.ffmi} />
+                    <FFMIChart width={350}  height={200}  data_key="ffmi" />
                 </LayoutFlexColumn>
             </ComponentWithArea>
             <ComponentWithArea area="c" >
                 <LayoutFlexColumn justCenter alignCenter>
                     <h4>Indice de masse grasse</h4>
                     <span>masse grasse / taille<sup>2</sup></span>
-                    <FFMIChart width={350}  height={200}   data={norm_chart} noi="fmi" age={mesure.current_age} value={current_bia.fmi} />
+                    <FFMIChart width={350}  height={200}  data_key="fmi"/>
                 </LayoutFlexColumn>
             </ComponentWithArea>
             <ComponentWithArea area="footer" >
