@@ -38,31 +38,31 @@ export default props => {
                 templateRows="repeat(7,1fr)"
                 rowGap={10}
             >
-                <div className="header"></div>
+                <div className="header header--left"></div>
                 <div className="header">Gauche</div>
                 <div className="header">Droite</div>
 
                {/* <LineForm label={t('Gauche')} checked={true} handleChangeValue={handleChangeGroup('left')} />
                 <LineForm label={t('Droite')} handleChangeValue={handleChangeGroup('right')} />*/}
-                <div className="header">{t('Main dominante')}</div>
+                <div className="header header--left">{t('Main dominante')}</div>
 
                 <div> <input type="checkbox"/></div>
                 <div> <input type="checkbox"/></div>
 
-                <div className="header">{t('Mesure 1')}</div>
+                <div className="header header--left">{t('Mesure 1')}</div>
                 <div> <input type="text"/></div>
                 <div> <input type="text"/></div>
-                <div className="header">{t('Mesure 2')}</div>
+                <div className="header header--left">{t('Mesure 2')}</div>
 
                 <div> <input type="text"/></div>
                 <div> <input type="text"/></div>
-                <div className="header">{t('Mesure 3')}</div>
+                <div className="header header--left">{t('Mesure 3')}</div>
                 <div> <input type="text"/></div>
                 <div> <input type="text"/></div>
-                <div className="header">{t('Moyenne des mesures')}</div>
+                <div className="header header--left">{t('Moyenne des mesures')}</div>
                 <div> 12 </div>
                 <div> 12</div>
-                <div className="header">{t('Normes')}</div>
+                <div className="header header--left">{t('Normes')}</div>
                 <div> 12 </div>
                 <div> 12</div>
 
