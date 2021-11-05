@@ -6,422 +6,424 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>BIA-Manager</title>
     <style type="text/css">
-        .navbar {
-            min-height: 100%;
-            background-color: grey;
-        }
-    </style>
-    <style type="text/css">
-        :root {
-            --reference-width: 79.53125vw;
-            --gut-width: 0.625vw;
-            --col-width: 3.828125vw;
-            --marge-width: 10.234375vw;
-            --mesure-editor-right-margin: calc(var(--gut-width) * 2 + var(--col-width));
-            --width--2-col: calc((var(--col-width) * 2) + (var(--gut-width) * 1));
-            --width--3-col: calc((var(--col-width) * 3) + (var(--gut-width) * 2));
-            --width--4-col: calc((var(--col-width) * 4) + (var(--gut-width) * 3));
-            --width--5-col: calc((var(--col-width) * 5) + (var(--gut-width) * 4));
-        }
+      .navbar {
+          min-height: 100%;
+          background-color: grey;
+      }
+      :root {
+          --reference-width: 79.53125vw;
+          --gut-width: 0.625vw;
+          --col-width: 3.828125vw;
+          --marge-width: 10.234375vw;
+          --mesure-editor-right-margin: calc(var(--gut-width) * 2 + var(--col-width));
+          --width--2-col: calc((var(--col-width) * 2) + (var(--gut-width) * 1));
+          --width--3-col: calc((var(--col-width) * 3) + (var(--gut-width) * 2));
+          --width--4-col: calc((var(--col-width) * 4) + (var(--gut-width) * 3));
+          --width--5-col: calc((var(--col-width) * 5) + (var(--gut-width) * 4));
+      }
 
-        :root {
-            --col-1: var(--col-width);
-            --col-1-2: calc((var(--col-width) * 1) + (var(--gut-width) * 2));
-            --col-1-1: calc((var(--col-width) * 1) + (var(--gut-width) * 1));
-            --col-2: calc((var(--col-width) * 2) + (var(--gut-width) * 1));
-            --col-3: calc((var(--col-width) * 3) + (var(--gut-width) * 2));
-            --col-4: calc((var(--col-width) * 4) + (var(--gut-width) * 3));
-            --col-5: calc((var(--col-width) * 5) + (var(--gut-width) * 4));
-            --col-6: calc((var(--col-width) * 6) + (var(--gut-width) * 5));
-            --col-7: calc((var(--col-width) * 7) + (var(--gut-width) * 6));
-            --col-8: calc((var(--col-width) * 8) + (var(--gut-width) * 7));
-            --col-9: calc((var(--col-width) * 9) + (var(--gut-width) * 8));
-            --gut-1: var(--gut-width);
-            --gut-2: calc(var(--gut-width) * 2);
-        }
+      :root {
+          --col-1: var(--col-width);
+          --col-1-2: calc((var(--col-width) * 1) + (var(--gut-width) * 2));
+          --col-1-1: calc((var(--col-width) * 1) + (var(--gut-width) * 1));
+          --col-2: calc((var(--col-width) * 2) + (var(--gut-width) * 1));
+          --col-3: calc((var(--col-width) * 3) + (var(--gut-width) * 2));
+          --col-4: calc((var(--col-width) * 4) + (var(--gut-width) * 3));
+          --col-5: calc((var(--col-width) * 5) + (var(--gut-width) * 4));
+          --col-6: calc((var(--col-width) * 6) + (var(--gut-width) * 5));
+          --col-7: calc((var(--col-width) * 7) + (var(--gut-width) * 6));
+          --col-8: calc((var(--col-width) * 8) + (var(--gut-width) * 7));
+          --col-9: calc((var(--col-width) * 9) + (var(--gut-width) * 8));
+          --gut-1: var(--gut-width);
+          --gut-2: calc(var(--gut-width) * 2);
+      }
 
-        .field.fumeur,
-        .field.cote-mesure,
-        .field.taille {
-            width: calc((var(--col-width) * 2) + (var(--gut-width) * 1));
-        }
+      .field.fumeur,
+      .field.cote-mesure,
+      .field.taille {
+          width: calc((var(--col-width) * 2) + (var(--gut-width) * 1));
+      }
 
-        .field.date-examen,
-        .field.birthdate,
-        .field.activite-physique,
-        .field.type-activite-physique,
-        .field.poids-actuel {
-            width: calc((var(--col-width) * 3) + (var(--gut-width) * 2));
-        }
+      .field.date-examen,
+      .field.birthdate,
+      .field.activite-physique,
+      .field.type-activite-physique,
+      .field.poids-actuel {
+          width: calc((var(--col-width) * 3) + (var(--gut-width) * 2));
+      }
 
-        input,
-        select,
-        textarea,
-        .editable-field,
-        .input-group input[type=text],
-        .field__field>*,
-        .field__field input,
-        .button {
-            border-radius: 4px;
-        }
+      input,
+      select,
+      textarea,
+      .editable-field,
+      .input-group input[type=text],
+      .field__field>*,
+      .field__field input,
+      .button {
+          border-radius: 4px;
+      }
 
-        :root {
-            --secondary: #FFFFFF;
-            --primary: #000000;
-            --tertiary: #F2F2F2;
-            --tertiary--dark: #7F7F7F;
-            --color-invalid: #d32222;
-            --color-valid: #42D15D;
-        }
+      :root {
+          --secondary: #FFFFFF;
+          --primary: #000000;
+          --tertiary: #F2F2F2;
+          --tertiary--dark: #7F7F7F;
+          --color-invalid: #d32222;
+          --color-valid: #42D15D;
+      }
 
-        .bia-main .navbar,
-        .button.btn--secondary:hover,
-        .button.btn--secondary:active,
-        .button.btn--secondary:focus,
-        .button {
-            background-color: var(--primary);
-            color: var(--secondary);
-            outline-color: var(--secondary);
-            border-color: var(--secondary);
-            --selected-color: var(--primary);
-        }
+      .bia-main .navbar,
+      .search-grid-layout .autocomplete__item--selected,
+      .button.btn--secondary:hover,
+      .button.btn--secondary:active,
+      .button.btn--secondary:focus,
+      .button {
+          background-color: var(--primary);
+          color: var(--secondary);
+          outline-color: var(--secondary);
+          border-color: var(--secondary);
+          --selected-color: var(--primary);
+      }
 
-        .button.btn--secondary,
-        .button:hover,
-        .button:active,
-        .button:focus {
-            background-color: var(--secondary);
-            color: var(--primary);
-            outline-color: var(--secondary);
-            border-color: var(--secondary);
-            --selected-color: var(--secondary);
-        }
+      .tabs__tab.selected,
+      .tabs,
+      .button.btn--secondary,
+      .button:hover,
+      .button:active,
+      .button:focus {
+          background-color: var(--secondary);
+          color: var(--primary);
+          outline-color: var(--secondary);
+          border-color: var(--secondary);
+          --selected-color: var(--secondary);
+      }
 
-        @font-face {
-            font-family: "Aktiv Grotesk";
-            src: url("assets/font/AktivGroteskCorp-Medium.eot");
-            src: local("AktivGroteskCorp-Medium"), url("assets/font/AktivGroteskCorp-Medium.eot?#iefix") format("embedded-opentype"), url("assets/font/AktivGroteskCorp-Medium.woff2") format("woff2"), url("assets/font/AktivGroteskCorp-Medium.woff") format("woff"), url("assets/font/AktivGroteskCorp-Medium.ttf") format("truetype");
-            font-weight: 500;
-            font-style: normal;
-        }
+      @font-face {
+          font-family: "Aktiv Grotesk";
+          src: url("assets/font/AktivGroteskCorp-Medium.eot");
+          src: local("AktivGroteskCorp-Medium"), url("assets/font/AktivGroteskCorp-Medium.eot?#iefix") format("embedded-opentype"), url("assets/font/AktivGroteskCorp-Medium.woff2") format("woff2"), url("assets/font/AktivGroteskCorp-Medium.woff") format("woff"), url("assets/font/AktivGroteskCorp-Medium.ttf") format("truetype");
+          font-weight: 500;
+          font-style: normal;
+      }
 
-        @font-face {
-            font-family: "Aktiv Grotesk";
-            src: url("assets/font/AktivGroteskCorp-Bold.eot");
-            src: local("AktivGroteskCorp-Bold"), url("assets/font/AktivGroteskCorp-Bold.eot?#iefix") format("embedded-opentype"), url("assets/font/AktivGroteskCorp-Bold.woff2") format("woff2"), url("assets/font/AktivGroteskCorp-Bold.woff") format("woff"), url("assets/font/AktivGroteskCorp-Bold.ttf") format("truetype");
-            font-weight: bold;
-            font-style: normal;
-        }
+      @font-face {
+          font-family: "Aktiv Grotesk";
+          src: url("assets/font/AktivGroteskCorp-Bold.eot");
+          src: local("AktivGroteskCorp-Bold"), url("assets/font/AktivGroteskCorp-Bold.eot?#iefix") format("embedded-opentype"), url("assets/font/AktivGroteskCorp-Bold.woff2") format("woff2"), url("assets/font/AktivGroteskCorp-Bold.woff") format("woff"), url("assets/font/AktivGroteskCorp-Bold.ttf") format("truetype");
+          font-weight: bold;
+          font-style: normal;
+      }
 
-        @font-face {
-            font-family: "Aktiv Grotesk";
-            src: url("assets/font/AktivGroteskCorp-Italic.eot");
-            src: local("AktivGroteskCorp-Italic"), url("assets/font/AktivGroteskCorp-Italic.eot?#iefix") format("embedded-opentype"), url("assets/font/AktivGroteskCorp-Italic.woff2") format("woff2"), url("assets/font/AktivGroteskCorp-Italic.woff") format("woff"), url("assets/font/AktivGroteskCorp-Italic.ttf") format("truetype");
-            font-weight: normal;
-            font-style: italic;
-        }
+      @font-face {
+          font-family: "Aktiv Grotesk";
+          src: url("assets/font/AktivGroteskCorp-Italic.eot");
+          src: local("AktivGroteskCorp-Italic"), url("assets/font/AktivGroteskCorp-Italic.eot?#iefix") format("embedded-opentype"), url("assets/font/AktivGroteskCorp-Italic.woff2") format("woff2"), url("assets/font/AktivGroteskCorp-Italic.woff") format("woff"), url("assets/font/AktivGroteskCorp-Italic.ttf") format("truetype");
+          font-weight: normal;
+          font-style: italic;
+      }
 
-        @font-face {
-            font-family: "Aktiv Grotesk";
-            src: url("assets/font/AktivGroteskCorp-LightItalic.eot");
-            src: local("AktivGroteskCorp-LightItalic"), url("assets/font/AktivGroteskCorp-LightItalic.eot?#iefix") format("embedded-opentype"), url("assets/font/AktivGroteskCorp-LightItalic.woff2") format("woff2"), url("assets/font/AktivGroteskCorp-LightItalic.woff") format("woff"), url("assets/font/AktivGroteskCorp-LightItalic.ttf") format("truetype");
-            font-weight: 300;
-            font-style: italic;
-        }
+      @font-face {
+          font-family: "Aktiv Grotesk";
+          src: url("assets/font/AktivGroteskCorp-LightItalic.eot");
+          src: local("AktivGroteskCorp-LightItalic"), url("assets/font/AktivGroteskCorp-LightItalic.eot?#iefix") format("embedded-opentype"), url("assets/font/AktivGroteskCorp-LightItalic.woff2") format("woff2"), url("assets/font/AktivGroteskCorp-LightItalic.woff") format("woff"), url("assets/font/AktivGroteskCorp-LightItalic.ttf") format("truetype");
+          font-weight: 300;
+          font-style: italic;
+      }
 
-        @font-face {
-            font-family: "Aktiv Grotesk";
-            src: url("assets/font/AktivGroteskCorp-MediumItalic.eot");
-            src: local("AktivGroteskCorp-MediumItalic"), url("assets/font/AktivGroteskCorp-MediumItalic.eot?#iefix") format("embedded-opentype"), url("assets/font/AktivGroteskCorp-MediumItalic.woff2") format("woff2"), url("assets/font/AktivGroteskCorp-MediumItalic.woff") format("woff"), url("assets/font/AktivGroteskCorp-MediumItalic.ttf") format("truetype");
-            font-weight: 500;
-            font-style: italic;
-        }
+      @font-face {
+          font-family: "Aktiv Grotesk";
+          src: url("assets/font/AktivGroteskCorp-MediumItalic.eot");
+          src: local("AktivGroteskCorp-MediumItalic"), url("assets/font/AktivGroteskCorp-MediumItalic.eot?#iefix") format("embedded-opentype"), url("assets/font/AktivGroteskCorp-MediumItalic.woff2") format("woff2"), url("assets/font/AktivGroteskCorp-MediumItalic.woff") format("woff"), url("assets/font/AktivGroteskCorp-MediumItalic.ttf") format("truetype");
+          font-weight: 500;
+          font-style: italic;
+      }
 
-        @font-face {
-            font-family: "Aktiv Grotesk";
-            src: url("assets/font/AktivGroteskCorp-Light.eot");
-            src: local("AktivGroteskCorp-Light"), url("assets/font/AktivGroteskCorp-Light.eot?#iefix") format("embedded-opentype"), url("assets/font/AktivGroteskCorp-Light.woff2") format("woff2"), url("assets/font/AktivGroteskCorp-Light.woff") format("woff"), url("assets/font/AktivGroteskCorp-Light.ttf") format("truetype");
-            font-weight: 300;
-            font-style: normal;
-        }
+      @font-face {
+          font-family: "Aktiv Grotesk";
+          src: url("assets/font/AktivGroteskCorp-Light.eot");
+          src: local("AktivGroteskCorp-Light"), url("assets/font/AktivGroteskCorp-Light.eot?#iefix") format("embedded-opentype"), url("assets/font/AktivGroteskCorp-Light.woff2") format("woff2"), url("assets/font/AktivGroteskCorp-Light.woff") format("woff"), url("assets/font/AktivGroteskCorp-Light.ttf") format("truetype");
+          font-weight: 300;
+          font-style: normal;
+      }
 
-        @font-face {
-            font-family: "Aktiv Grotesk";
-            src: url("assets/font/AktivGroteskCorp-Regular.eot");
-            src: local("AktivGroteskCorp-Regular"), url("assets/font/AktivGroteskCorp-Regular.eot?#iefix") format("embedded-opentype"), url("assets/font/AktivGroteskCorp-Regular.woff2") format("woff2"), url("assets/font/AktivGroteskCorp-Regular.woff") format("woff"), url("assets/font/AktivGroteskCorp-Regular.ttf") format("truetype");
-            font-weight: normal;
-            font-style: normal;
-        }
+      @font-face {
+          font-family: "Aktiv Grotesk";
+          src: url("assets/font/AktivGroteskCorp-Regular.eot");
+          src: local("AktivGroteskCorp-Regular"), url("assets/font/AktivGroteskCorp-Regular.eot?#iefix") format("embedded-opentype"), url("assets/font/AktivGroteskCorp-Regular.woff2") format("woff2"), url("assets/font/AktivGroteskCorp-Regular.woff") format("woff"), url("assets/font/AktivGroteskCorp-Regular.ttf") format("truetype");
+          font-weight: normal;
+          font-style: normal;
+      }
 
-        @font-face {
-            font-family: "Aktiv Grotesk";
-            src: url("assets/font/AktivGroteskCorp-BoldItalic.eot");
-            src: local("AktivGroteskCorp-BoldItalic"), url("assets/font/AktivGroteskCorp-BoldItalic.eot?#iefix") format("embedded-opentype"), url("assets/font/AktivGroteskCorp-BoldItalic.woff2") format("woff2"), url("assets/font/AktivGroteskCorp-BoldItalic.woff") format("woff"), url("assets/font/AktivGroteskCorp-BoldItalic.ttf") format("truetype");
-            font-weight: bold;
-            font-style: italic;
-        }
+      @font-face {
+          font-family: "Aktiv Grotesk";
+          src: url("assets/font/AktivGroteskCorp-BoldItalic.eot");
+          src: local("AktivGroteskCorp-BoldItalic"), url("assets/font/AktivGroteskCorp-BoldItalic.eot?#iefix") format("embedded-opentype"), url("assets/font/AktivGroteskCorp-BoldItalic.woff2") format("woff2"), url("assets/font/AktivGroteskCorp-BoldItalic.woff") format("woff"), url("assets/font/AktivGroteskCorp-BoldItalic.ttf") format("truetype");
+          font-weight: bold;
+          font-style: italic;
+      }
 
-        :root {
-            --font-family-aktiv-grotesk: "Aktiv Grotesk";
-            --font-style-normal: normal;
-            --font-style-italic: italic;
-            --font-weight-100: 100px;
-            --font-weight-normal: normal;
-            --font-weight-bold: bold;
-            --font-size-10: 10px;
-            --font-size-12: 12px;
-            --font-size-14: 14px;
-            --font-size-20: 20px;
-            --font-size-30: 30px;
-            --font-size-40: 40px;
-            --character-spacing-0: 0px;
-            --line-spacing-15: 15px;
-            --line-spacing-25: 25px;
-            --line-spacing-50: 50px;
-            --line-spacing-17-5: 17.5px;
-            --line-spacing-37-5: 37.5px;
-            --text-transform-uppercase: uppercase;
-        }
+      :root {
+          --font-family-aktiv-grotesk: "Aktiv Grotesk";
+          --font-style-normal: normal;
+          --font-style-italic: italic;
+          --font-weight-100: 100px;
+          --font-weight-normal: normal;
+          --font-weight-bold: bold;
+          --font-size-10: 10px;
+          --font-size-12: 12px;
+          --font-size-14: 14px;
+          --font-size-20: 20px;
+          --font-size-30: 30px;
+          --font-size-40: 40px;
+          --character-spacing-0: 0px;
+          --line-spacing-15: 15px;
+          --line-spacing-25: 25px;
+          --line-spacing-50: 50px;
+          --line-spacing-17-5: 17.5px;
+          --line-spacing-37-5: 37.5px;
+          --text-transform-uppercase: uppercase;
+      }
 
-        /* Character Styles */
+      /* Character Styles */
 
-        .modal-content h1,
-        .bia-main h1 {
-            font-style: var(--font-style-normal);
-            font-weight: var(--font-weight-bold);
-            font-size: var(--font-size-40);
-            line-height: var(--line-spacing-50);
-        }
+      .modal-content h1,
+      .bia-main h1 {
+          font-style: var(--font-style-normal);
+          font-weight: var(--font-weight-bold);
+          font-size: var(--font-size-40);
+          line-height: var(--line-spacing-50);
+      }
 
-        .modal-content h2,
-        .bia-main h2 {
-            font-style: var(--font-style-normal);
-            font-weight: var(--font-weight-normal);
-            font-size: var(--font-size-30);
-            line-height: var(--line-spacing-37-5);
-        }
+      .modal-content h2,
+      .bia-main h2 {
+          font-style: var(--font-style-normal);
+          font-weight: var(--font-weight-normal);
+          font-size: var(--font-size-30);
+          line-height: var(--line-spacing-37-5);
+      }
 
-        .modal-content h3,
-        .bia-main h3 {
-            font-style: var(--font-style-normal);
-            font-weight: var(--font-weight-normal);
-            font-size: var(--font-size-20);
-            line-height: var(--line-spacing-25);
-        }
+      .modal-content h3,
+      .bia-main h3 {
+          font-style: var(--font-style-normal);
+          font-weight: var(--font-weight-normal);
+          font-size: var(--font-size-20);
+          line-height: var(--line-spacing-25);
+      }
 
-        tr.selected,
-        tr:hover,
-        .modal-content label,
-        .bia-main label {
-            font-style: var(--font-style-normal);
-            font-weight: var(--font-weight-bold);
-            font-size: var(--font-size-14);
-            line-height: var(--line-spacing-17-5);
-        }
+      tr.selected,
+      tr:hover,
+      .modal-content label,
+      .bia-main label {
+          font-style: var(--font-style-normal);
+          font-weight: var(--font-weight-bold);
+          font-size: var(--font-size-14);
+          line-height: var(--line-spacing-17-5);
+      }
 
-        .modal-content p,
-        .bia-main p {
-            font-style: var(--font-style-normal);
-            font-weight: var(--font-weight-normal);
-            font-size: var(--font-size-14);
-            line-height: var(--line-spacing-17-5);
-        }
+      .modal-content p,
+      .bia-main p {
+          font-style: var(--font-style-normal);
+          font-weight: var(--font-weight-normal);
+          font-size: var(--font-size-14);
+          line-height: var(--line-spacing-17-5);
+      }
 
-        .impedance-form input,
-        .modal-content ::placeholder,
-        .bia-main ::placeholder {
-            font-style: var(--font-style-italic);
-            font-weight: var(--font-weight-normal);
-            font-size: var(--font-size-12);
-            line-height: var(--line-spacing-15);
-        }
+      .impedance-form input,
+      .modal-content ::placeholder,
+      .bia-main ::placeholder {
+          font-style: var(--font-style-italic);
+          font-weight: var(--font-weight-normal);
+          font-size: var(--font-size-12);
+          line-height: var(--line-spacing-15);
+      }
 
-        .button,
-        .modal-content h4,
-        .bia-main h4,
-        .modal-content button,
-        .bia-main button {
-            font-style: var(--font-style-normal);
-            font-weight: var(--font-weight-bold);
-            font-size: var(--font-size-14);
-            line-height: var(--line-spacing-17-5);
-            text-transform: var(--text-transform-uppercase);
-            cursor: pointer;
-        }
+      .button,
+      .modal-content h4,
+      .bia-main h4,
+      .modal-content button,
+      .bia-main button {
+          font-style: var(--font-style-normal);
+          font-weight: var(--font-weight-bold);
+          font-size: var(--font-size-14);
+          line-height: var(--line-spacing-17-5);
+          text-transform: var(--text-transform-uppercase);
+          cursor: pointer;
+      }
 
-        .modal-content,
-        .bia-main {
-            font: var(--font-style-normal) normal var(--font-weight-normal) var(--font-size-14)/var(--line-spacing-17-5) var(--font-family-aktiv-grotesk);
-            letter-spacing: var(--character-spacing-0);
-        }
+      .modal-content,
+      .bia-main {
+          font: var(--font-style-normal) normal var(--font-weight-normal) var(--font-size-14)/var(--line-spacing-17-5) var(--font-family-aktiv-grotesk);
+          letter-spacing: var(--character-spacing-0);
+      }
 
-        .modal-content b,
-        .bia-main b,
-        .modal-content label,
-        .bia-main label {
-            font-weight: var(--font-weight-bold);
-        }
+      .modal-content b,
+      .bia-main b,
+      .modal-content label,
+      .bia-main label {
+          font-weight: var(--font-weight-bold);
+      }
 
-        .button {
-            min-width: calc((var(--col-width) * 3) + (var(--gut-width) * 2));
-            width: auto;
-            padding: 8px 16px;
-            background-color: var(--primary);
-            border: 1px solid var(--primary);
-        }
+      .button {
+          min-width: calc((var(--col-width) * 3) + (var(--gut-width) * 2));
+          width: auto;
+          padding: 8px 16px;
+          background-color: var(--primary);
+          border: 1px solid var(--primary);
+      }
 
-        .button:hover,
-        .button:active,
-        .button:focus {
-            cursor: pointer;
-        }
+      .button:hover,
+      .button:active,
+      .button:focus {
+          cursor: pointer;
+      }
 
-        .button:hover {
-            border: 1px solid var(--primary);
-        }
+      .button:hover {
+          border: 1px solid var(--primary);
+      }
 
-        .button--big {
-            height: 42px;
-            min-width: calc((var(--col-width) * 5) + (var(--gut-width) * 4));
-        }
+      .button--big {
+          height: 42px;
+          min-width: calc((var(--col-width) * 5) + (var(--gut-width) * 4));
+      }
 
-        .button--small {
-            height: 21px;
-            padding: 0px;
-            max-width: 100%;
-        }
+      .button--small {
+          height: 21px;
+          padding: 0px;
+          max-width: 100%;
+      }
 
-        .button.btn--secondary {
-            border: 1px solid var(--primary);
-        }
+      .button.btn--secondary {
+          border: 1px solid var(--primary);
+      }
 
-        .button__svg {
-            margin-left: 8px;
-        }
+      .button__svg {
+          margin-left: 8px;
+      }
 
-        .page-create-subject .field {
-            margin-right: 0;
-            margin-bottom: 0;
-        }
+      .page-create-subject .field {
+          margin-right: 0;
+          margin-bottom: 0;
+      }
 
-        .field {
-            margin-right: var(--gut-width);
-            margin-bottom: 16px;
-        }
+      .field {
+          margin-right: var(--gut-width);
+          margin-bottom: 16px;
+      }
 
-        .field--one {
-            margin-right: inherit;
-        }
+      .field--one {
+          margin-right: inherit;
+      }
 
-        .field__label {
-            display: inline-block;
-            margin-bottom: 8px;
-        }
+      .field__label {
+          display: inline-block;
+          margin-bottom: 8px;
+      }
 
-        .field__field {
-            width: 100%;
-        }
+      .field__field {
+          width: 100%;
+      }
 
-        .field__field>*,
-        .field__field input {
-            width: 100%;
-            height: 32px;
-            display: flex;
-            align-items: center;
-        }
+      .field__field>*,
+      .field__field input {
+          width: 100%;
+          height: 32px;
+          display: flex;
+          align-items: center;
+      }
 
-        .field__field input:not([type=checkbox]),
-        .field__field select {
-            width: 100%;
-            border: solid 1px var(--primary);
-        }
+      .field__field input:not([type=checkbox]),
+      .field__field select {
+          width: 100%;
+          border: solid 1px var(--primary);
+      }
 
-        .field__field select.editable-field {
-            padding-top: 6px;
-        }
+      .field__field select.editable-field {
+          padding-top: 6px;
+      }
 
-        .field__field.error input,
-        .field__field.error input:focus {
-            border: solid 1px var(--color-invalid);
-        }
+      .field__field.error input,
+      .field__field.error input:focus {
+          border: solid 1px var(--color-invalid);
+      }
 
-        .field__field .error {
-            font-size: 12px;
-            color: var(--color-invalid);
-            margin-top: 8px;
-            height: inherit;
-        }
+      .field__field .error {
+          font-size: 12px;
+          color: var(--color-invalid);
+          margin-top: 8px;
+          height: inherit;
+      }
 
-        .field .editable-field {
-            min-height: 30px;
-            background-color: var(--tertiary);
-        }
+      .field .editable-field {
+          min-height: 30px;
+          background-color: var(--tertiary);
+      }
 
-        .field.fumeur {
-            margin-right: inherit;
-        }
+      .field.fumeur {
+          margin-right: inherit;
+      }
 
-        .editable-field {
-            border: 1px solid var(--tertiary);
-            display: flex;
-            justify-content: center;
-            flex-direction: column;
-            align-items: flex-start;
-        }
+      .editable-field {
+          border: 1px solid var(--tertiary);
+          display: flex;
+          justify-content: center;
+          flex-direction: column;
+          align-items: flex-start;
+      }
 
-        .editable-field.edited {
-            display: inline-block;
-        }
+      .editable-field.edited {
+          display: inline-block;
+      }
 
-        .editable {
-            border: 1px solid var(--primary);
-        }
+      .editable {
+          border: 1px solid var(--primary);
+      }
 
-        .input-group {
-            padding-bottom: 16px;
-        }
+      .input-group {
+          padding-bottom: 16px;
+      }
 
-        .input-group label {
-            padding-bottom: 8px;
-        }
+      .input-group label {
+          padding-bottom: 8px;
+      }
 
-        .input-group input[type=text] {
-            height: 32px;
-            border: 1px solid var(--primary);
-            padding: 0px 16px;
-        }
+      .input-group input[type=text] {
+          height: 32px;
+          border: 1px solid var(--primary);
+          padding: 0px 16px;
+      }
 
-        .list-mesure--selected {
-            font-weight: bold;
-        }
+      .list-mesure--selected {
+          font-weight: bold;
+      }
 
-        .list-mesure .action-icon {
-            cursor: pointer;
-        }
+      .list-mesure .action-icon {
+          cursor: pointer;
+      }
 
-        .impedance-form {
-            margin-bottom: 16px;
-        }
+      .impedance-form {
+          margin-bottom: 16px;
+      }
 
-        .impedance-form__line-header {
-            font-weight: bold;
-            text-align: left;
-        }
+      .impedance-form__line-header {
+          font-weight: bold;
+          text-align: left;
+      }
 
-        .impedance-form__header {
-            font-weight: bold;
-        }
+      .impedance-form__header {
+          font-weight: bold;
+      }
 
-        .impedance-form input {
-            width: 100%;
-            height: 100%;
-            text-align: center;
-            color: var(--tertiary--dark);
-        }
+      .impedance-form input {
+          width: 100%;
+          height: 100%;
+          text-align: center;
+          color: var(--tertiary--dark);
+      }
 
-        .impedance-form .editable-field {
-            align-items: center;
-        }
+      .impedance-form .editable-field {
+          align-items: center;
+      }
+
 
         /*ca va bouger, j'ai fait une betise (fabien) */
 
@@ -488,8 +490,7 @@
         .modal-content-box .title {
             text-align: center;
         }
-    </style>
-    <style type="text/css">
+
         .page-header {
             border-bottom: 1px solid black;
         }
@@ -497,181 +498,18 @@
         .page-header__field b {
             margin-bottom: 4px;
         }
-    </style>
-    <style type="text/css">
+
         .field--radio {
             background-color: red;
         }
-    </style>
-    <style type="text/css"></style>
-    <style type="text/css">
-        :root {
-            --reference-width: 79.53125vw;
-            --gut-width: 0.625vw;
-            --col-width: 3.828125vw;
-            --marge-width: 10.234375vw;
-            --mesure-editor-right-margin: calc(var(--gut-width) * 2 + var(--col-width));
-            --width--2-col: calc((var(--col-width) * 2) + (var(--gut-width) * 1));
-            --width--3-col: calc((var(--col-width) * 3) + (var(--gut-width) * 2));
-            --width--4-col: calc((var(--col-width) * 4) + (var(--gut-width) * 3));
-            --width--5-col: calc((var(--col-width) * 5) + (var(--gut-width) * 4));
-        }
-
-        :root {
-            --col-1: var(--col-width);
-            --col-1-2: calc((var(--col-width) * 1) + (var(--gut-width) * 2));
-            --col-1-1: calc((var(--col-width) * 1) + (var(--gut-width) * 1));
-            --col-2: calc((var(--col-width) * 2) + (var(--gut-width) * 1));
-            --col-3: calc((var(--col-width) * 3) + (var(--gut-width) * 2));
-            --col-4: calc((var(--col-width) * 4) + (var(--gut-width) * 3));
-            --col-5: calc((var(--col-width) * 5) + (var(--gut-width) * 4));
-            --col-6: calc((var(--col-width) * 6) + (var(--gut-width) * 5));
-            --col-7: calc((var(--col-width) * 7) + (var(--gut-width) * 6));
-            --col-8: calc((var(--col-width) * 8) + (var(--gut-width) * 7));
-            --col-9: calc((var(--col-width) * 9) + (var(--gut-width) * 8));
-            --gut-1: var(--gut-width);
-            --gut-2: calc(var(--gut-width) * 2);
-        }
-
-        .field.fumeur,
-        .field.cote-mesure,
-        .field.taille {
-            width: calc((var(--col-width) * 2) + (var(--gut-width) * 1));
-        }
-
-        .field.date-examen,
-        .field.birthdate,
-        .field.activite-physique,
-        .field.type-activite-physique,
-        .field.poids-actuel {
-            width: calc((var(--col-width) * 3) + (var(--gut-width) * 2));
-        }
-
-        .input-group input[type=text],
-        .field__field>*,
-        .field__field input,
-        .button {
-            border-radius: 4px;
-        }
-
-        :root {
-            --secondary: #FFFFFF;
-            --primary: #000000;
-            --tertiary: #F2F2F2;
-            --tertiary--dark: #7F7F7F;
-            --color-invalid: #d32222;
-            --color-valid: #42D15D;
-        }
-
-        .button.btn--secondary:hover,
-        .button.btn--secondary:active,
-        .button.btn--secondary:focus,
-        .button {
-            background-color: var(--primary);
-            color: var(--secondary);
-            outline-color: var(--secondary);
-            border-color: var(--secondary);
-            --selected-color: var(--primary);
-        }
-
-        .button.btn--secondary,
-        .button:hover,
-        .button:active,
-        .button:focus {
-            background-color: var(--secondary);
-            color: var(--primary);
-            outline-color: var(--secondary);
-            border-color: var(--secondary);
-            --selected-color: var(--secondary);
-        }
-
-        @font-face {
-            font-family: "Aktiv Grotesk";
-            src: url("assets/font/AktivGroteskCorp-Medium.eot");
-            src: local("AktivGroteskCorp-Medium"), url("assets/font/AktivGroteskCorp-Medium.eot?#iefix") format("embedded-opentype"), url("assets/font/AktivGroteskCorp-Medium.woff2") format("woff2"), url("assets/font/AktivGroteskCorp-Medium.woff") format("woff"), url("assets/font/AktivGroteskCorp-Medium.ttf") format("truetype");
-            font-weight: 500;
-            font-style: normal;
-        }
-
-        @font-face {
-            font-family: "Aktiv Grotesk";
-            src: url("assets/font/AktivGroteskCorp-Bold.eot");
-            src: local("AktivGroteskCorp-Bold"), url("assets/font/AktivGroteskCorp-Bold.eot?#iefix") format("embedded-opentype"), url("assets/font/AktivGroteskCorp-Bold.woff2") format("woff2"), url("assets/font/AktivGroteskCorp-Bold.woff") format("woff"), url("assets/font/AktivGroteskCorp-Bold.ttf") format("truetype");
-            font-weight: bold;
-            font-style: normal;
-        }
-
-        @font-face {
-            font-family: "Aktiv Grotesk";
-            src: url("assets/font/AktivGroteskCorp-Italic.eot");
-            src: local("AktivGroteskCorp-Italic"), url("assets/font/AktivGroteskCorp-Italic.eot?#iefix") format("embedded-opentype"), url("assets/font/AktivGroteskCorp-Italic.woff2") format("woff2"), url("assets/font/AktivGroteskCorp-Italic.woff") format("woff"), url("assets/font/AktivGroteskCorp-Italic.ttf") format("truetype");
-            font-weight: normal;
-            font-style: italic;
-        }
-
-        @font-face {
-            font-family: "Aktiv Grotesk";
-            src: url("assets/font/AktivGroteskCorp-LightItalic.eot");
-            src: local("AktivGroteskCorp-LightItalic"), url("assets/font/AktivGroteskCorp-LightItalic.eot?#iefix") format("embedded-opentype"), url("assets/font/AktivGroteskCorp-LightItalic.woff2") format("woff2"), url("assets/font/AktivGroteskCorp-LightItalic.woff") format("woff"), url("assets/font/AktivGroteskCorp-LightItalic.ttf") format("truetype");
-            font-weight: 300;
-            font-style: italic;
-        }
-
-        @font-face {
-            font-family: "Aktiv Grotesk";
-            src: url("assets/font/AktivGroteskCorp-MediumItalic.eot");
-            src: local("AktivGroteskCorp-MediumItalic"), url("assets/font/AktivGroteskCorp-MediumItalic.eot?#iefix") format("embedded-opentype"), url("assets/font/AktivGroteskCorp-MediumItalic.woff2") format("woff2"), url("assets/font/AktivGroteskCorp-MediumItalic.woff") format("woff"), url("assets/font/AktivGroteskCorp-MediumItalic.ttf") format("truetype");
-            font-weight: 500;
-            font-style: italic;
-        }
-
-        @font-face {
-            font-family: "Aktiv Grotesk";
-            src: url("assets/font/AktivGroteskCorp-Light.eot");
-            src: local("AktivGroteskCorp-Light"), url("assets/font/AktivGroteskCorp-Light.eot?#iefix") format("embedded-opentype"), url("assets/font/AktivGroteskCorp-Light.woff2") format("woff2"), url("assets/font/AktivGroteskCorp-Light.woff") format("woff"), url("assets/font/AktivGroteskCorp-Light.ttf") format("truetype");
-            font-weight: 300;
-            font-style: normal;
-        }
-
-        @font-face {
-            font-family: "Aktiv Grotesk";
-            src: url("assets/font/AktivGroteskCorp-Regular.eot");
-            src: local("AktivGroteskCorp-Regular"), url("assets/font/AktivGroteskCorp-Regular.eot?#iefix") format("embedded-opentype"), url("assets/font/AktivGroteskCorp-Regular.woff2") format("woff2"), url("assets/font/AktivGroteskCorp-Regular.woff") format("woff"), url("assets/font/AktivGroteskCorp-Regular.ttf") format("truetype");
-            font-weight: normal;
-            font-style: normal;
-        }
-
-        @font-face {
-            font-family: "Aktiv Grotesk";
-            src: url("assets/font/AktivGroteskCorp-BoldItalic.eot");
-            src: local("AktivGroteskCorp-BoldItalic"), url("assets/font/AktivGroteskCorp-BoldItalic.eot?#iefix") format("embedded-opentype"), url("assets/font/AktivGroteskCorp-BoldItalic.woff2") format("woff2"), url("assets/font/AktivGroteskCorp-BoldItalic.woff") format("woff"), url("assets/font/AktivGroteskCorp-BoldItalic.ttf") format("truetype");
-            font-weight: bold;
-            font-style: italic;
-        }
-
-        :root {
-            --font-family-aktiv-grotesk: "Aktiv Grotesk";
-            --font-style-normal: normal;
-            --font-style-italic: italic;
-            --font-weight-100: 100px;
-            --font-weight-normal: normal;
-            --font-weight-bold: bold;
-            --font-size-10: 10px;
-            --font-size-12: 12px;
-            --font-size-14: 14px;
-            --font-size-20: 20px;
-            --font-size-30: 30px;
-            --font-size-40: 40px;
-            --character-spacing-0: 0px;
-            --line-spacing-15: 15px;
-            --line-spacing-25: 25px;
-            --line-spacing-50: 50px;
-            --line-spacing-17-5: 17.5px;
-            --line-spacing-37-5: 37.5px;
-            --text-transform-uppercase: uppercase;
-        }
 
         /* Character Styles */
+        .recap-grid .row {
+            font-style: var(--font-style-normal);
+            font-weight: var(--font-weight-normal);
+            font-size: var(--font-size-10);
+            line-height: var(--line-spacing-15);
+        }
 
         .impedance-form input {
             font-style: var(--font-style-italic);
@@ -688,185 +526,23 @@
             text-transform: var(--text-transform-uppercase);
             cursor: pointer;
         }
-
-        .button {
-            min-width: calc((var(--col-width) * 3) + (var(--gut-width) * 2));
-            width: auto;
-            padding: 8px 16px;
-            background-color: var(--primary);
-            border: 1px solid var(--primary);
-        }
-
-        .button:hover,
-        .button:active,
-        .button:focus {
-            cursor: pointer;
-        }
-
-        .button:hover {
-            border: 1px solid var(--primary);
-        }
-
-        .button--big {
-            height: 42px;
-            min-width: calc((var(--col-width) * 5) + (var(--gut-width) * 4));
-        }
-
-        .button--small {
-            height: 21px;
-            padding: 0px;
-            max-width: 100%;
-        }
-
-        .button.btn--secondary {
-            border: 1px solid var(--primary);
-        }
-
-        .button__svg {
-            margin-left: 8px;
-        }
-
-        .page-create-subject .field {
-            margin-right: 0;
-            margin-bottom: 0;
-        }
-
-        .field {
-            margin-right: var(--gut-width);
-            margin-bottom: 16px;
-        }
-
-        .field--one {
-            margin-right: inherit;
-        }
-
-        .field__label {
-            display: inline-block;
-            margin-bottom: 8px;
-        }
-
-        .field__field {
-            width: 100%;
-        }
-
-        .field__field>*,
-        .field__field input {
-            width: 100%;
-            height: 32px;
-            display: flex;
-            align-items: center;
-        }
-
-        .field__field input:not([type=checkbox]),
-        .field__field select {
-            width: 100%;
-            border: solid 1px var(--primary);
-        }
-
-        .field__field select.editable-field {
-            padding-top: 6px;
-        }
-
-        .field__field.error input,
-        .field__field.error input:focus {
-            border: solid 1px var(--color-invalid);
-        }
-
-        .field__field .error {
-            font-size: 12px;
-            color: var(--color-invalid);
-            margin-top: 8px;
-            height: inherit;
-        }
-
-        .field .editable-field {
-            min-height: 30px;
-            background-color: var(--tertiary);
-        }
-
-        .field.fumeur {
-            margin-right: inherit;
-        }
-
-        .editable-field {
-            border: 1px solid var(--tertiary);
-            display: flex;
-            justify-content: center;
-            flex-direction: column;
-            align-items: flex-start;
-        }
-
-        .editable-field.edited {
-            display: inline-block;
-        }
-
-        .editable {
-            border: 1px solid var(--primary);
-        }
-
-        .input-group {
-            padding-bottom: 16px;
-        }
-
-        .input-group label {
-            padding-bottom: 8px;
-        }
-
-        .input-group input[type=text] {
-            height: 32px;
-            border: 1px solid var(--primary);
-            padding: 0px 16px;
-        }
-
-        .list-mesure--selected {
-            font-weight: bold;
-        }
-
-        .list-mesure .action-icon {
-            cursor: pointer;
-        }
-
-        .impedance-form {
-            margin-bottom: 16px;
-        }
-
-        .impedance-form__line-header {
-            font-weight: bold;
-            text-align: left;
-        }
-
-        .impedance-form__header {
-            font-weight: bold;
-        }
-
-        .impedance-form input {
-            width: 100%;
-            height: 100%;
-            text-align: center;
-            color: var(--tertiary--dark);
-        }
-
-        .impedance-form .editable-field {
-            align-items: center;
-        }
     </style>
-    <style type="text/css"></style>
     <style type="text/css">
-        /*
- * react-circular-progressbar styles
- * All of the styles in this file are configurable!
- */
+      /*
+      * react-circular-progressbar styles
+      * All of the styles in this file are configurable!
+      */
 
-        .CircularProgressbar {
-            /*
-   * This fixes an issue where the CircularProgressbar svg has
-   * 0 width inside a "display: flex" container, and thus not visible.
-   */
-            width: 100%;
-            /*
-   * This fixes a centering issue with CircularProgressbarWithChildren:
-   * https://github.com/kevinsqi/react-circular-progressbar/issues/94
-   */
+            .CircularProgressbar {
+                /*
+       * This fixes an issue where the CircularProgressbar svg has
+       * 0 width inside a "display: flex" container, and thus not visible.
+       */
+                width: 100%;
+                /*
+       * This fixes a centering issue with CircularProgressbarWithChildren:
+       * https://github.com/kevinsqi/react-circular-progressbar/issues/94
+       */
             vertical-align: middle;
         }
 
@@ -895,14 +571,14 @@
         }
 
         /*
- * Sample background styles. Use these with e.g.:
- *
- *   <CircularProgressbar
- *     className="CircularProgressbar-inverted"
- *     background
- *     percentage={50}
- *   />
- */
+         * Sample background styles. Use these with e.g.:
+         *
+         *   <CircularProgressbar
+         *     className="CircularProgressbar-inverted"
+         *     background
+         *     percentage={50}
+         *   />
+         */
         .CircularProgressbar.CircularProgressbar-inverted .CircularProgressbar-background {
             fill: #3e98c7;
         }
@@ -920,350 +596,6 @@
         }
     </style>
     <style type="text/css">
-        :root {
-            --reference-width: 79.53125vw;
-            --gut-width: 0.625vw;
-            --col-width: 3.828125vw;
-            --marge-width: 10.234375vw;
-            --mesure-editor-right-margin: calc(var(--gut-width) * 2 + var(--col-width));
-            --width--2-col: calc((var(--col-width) * 2) + (var(--gut-width) * 1));
-            --width--3-col: calc((var(--col-width) * 3) + (var(--gut-width) * 2));
-            --width--4-col: calc((var(--col-width) * 4) + (var(--gut-width) * 3));
-            --width--5-col: calc((var(--col-width) * 5) + (var(--gut-width) * 4));
-        }
-
-        :root {
-            --col-1: var(--col-width);
-            --col-1-2: calc((var(--col-width) * 1) + (var(--gut-width) * 2));
-            --col-1-1: calc((var(--col-width) * 1) + (var(--gut-width) * 1));
-            --col-2: calc((var(--col-width) * 2) + (var(--gut-width) * 1));
-            --col-3: calc((var(--col-width) * 3) + (var(--gut-width) * 2));
-            --col-4: calc((var(--col-width) * 4) + (var(--gut-width) * 3));
-            --col-5: calc((var(--col-width) * 5) + (var(--gut-width) * 4));
-            --col-6: calc((var(--col-width) * 6) + (var(--gut-width) * 5));
-            --col-7: calc((var(--col-width) * 7) + (var(--gut-width) * 6));
-            --col-8: calc((var(--col-width) * 8) + (var(--gut-width) * 7));
-            --col-9: calc((var(--col-width) * 9) + (var(--gut-width) * 8));
-            --gut-1: var(--gut-width);
-            --gut-2: calc(var(--gut-width) * 2);
-        }
-
-        .field.fumeur,
-        .field.cote-mesure,
-        .field.taille {
-            width: calc((var(--col-width) * 2) + (var(--gut-width) * 1));
-        }
-
-        .field.date-examen,
-        .field.birthdate,
-        .field.activite-physique,
-        .field.type-activite-physique,
-        .field.poids-actuel {
-            width: calc((var(--col-width) * 3) + (var(--gut-width) * 2));
-        }
-
-        .input-group input[type=text],
-        .field__field>*,
-        .field__field input,
-        .button {
-            border-radius: 4px;
-        }
-
-        :root {
-            --secondary: #FFFFFF;
-            --primary: #000000;
-            --tertiary: #F2F2F2;
-            --tertiary--dark: #7F7F7F;
-            --color-invalid: #d32222;
-            --color-valid: #42D15D;
-        }
-
-        .button.btn--secondary:hover,
-        .button.btn--secondary:active,
-        .button.btn--secondary:focus,
-        .button {
-            background-color: var(--primary);
-            color: var(--secondary);
-            outline-color: var(--secondary);
-            border-color: var(--secondary);
-            --selected-color: var(--primary);
-        }
-
-        .button.btn--secondary,
-        .button:hover,
-        .button:active,
-        .button:focus {
-            background-color: var(--secondary);
-            color: var(--primary);
-            outline-color: var(--secondary);
-            border-color: var(--secondary);
-            --selected-color: var(--secondary);
-        }
-
-        @font-face {
-            font-family: "Aktiv Grotesk";
-            src: url("assets/font/AktivGroteskCorp-Medium.eot");
-            src: local("AktivGroteskCorp-Medium"), url("assets/font/AktivGroteskCorp-Medium.eot?#iefix") format("embedded-opentype"), url("assets/font/AktivGroteskCorp-Medium.woff2") format("woff2"), url("assets/font/AktivGroteskCorp-Medium.woff") format("woff"), url("assets/font/AktivGroteskCorp-Medium.ttf") format("truetype");
-            font-weight: 500;
-            font-style: normal;
-        }
-
-        @font-face {
-            font-family: "Aktiv Grotesk";
-            src: url("assets/font/AktivGroteskCorp-Bold.eot");
-            src: local("AktivGroteskCorp-Bold"), url("assets/font/AktivGroteskCorp-Bold.eot?#iefix") format("embedded-opentype"), url("assets/font/AktivGroteskCorp-Bold.woff2") format("woff2"), url("assets/font/AktivGroteskCorp-Bold.woff") format("woff"), url("assets/font/AktivGroteskCorp-Bold.ttf") format("truetype");
-            font-weight: bold;
-            font-style: normal;
-        }
-
-        @font-face {
-            font-family: "Aktiv Grotesk";
-            src: url("assets/font/AktivGroteskCorp-Italic.eot");
-            src: local("AktivGroteskCorp-Italic"), url("assets/font/AktivGroteskCorp-Italic.eot?#iefix") format("embedded-opentype"), url("assets/font/AktivGroteskCorp-Italic.woff2") format("woff2"), url("assets/font/AktivGroteskCorp-Italic.woff") format("woff"), url("assets/font/AktivGroteskCorp-Italic.ttf") format("truetype");
-            font-weight: normal;
-            font-style: italic;
-        }
-
-        @font-face {
-            font-family: "Aktiv Grotesk";
-            src: url("assets/font/AktivGroteskCorp-LightItalic.eot");
-            src: local("AktivGroteskCorp-LightItalic"), url("assets/font/AktivGroteskCorp-LightItalic.eot?#iefix") format("embedded-opentype"), url("assets/font/AktivGroteskCorp-LightItalic.woff2") format("woff2"), url("assets/font/AktivGroteskCorp-LightItalic.woff") format("woff"), url("assets/font/AktivGroteskCorp-LightItalic.ttf") format("truetype");
-            font-weight: 300;
-            font-style: italic;
-        }
-
-        @font-face {
-            font-family: "Aktiv Grotesk";
-            src: url("assets/font/AktivGroteskCorp-MediumItalic.eot");
-            src: local("AktivGroteskCorp-MediumItalic"), url("assets/font/AktivGroteskCorp-MediumItalic.eot?#iefix") format("embedded-opentype"), url("assets/font/AktivGroteskCorp-MediumItalic.woff2") format("woff2"), url("assets/font/AktivGroteskCorp-MediumItalic.woff") format("woff"), url("assets/font/AktivGroteskCorp-MediumItalic.ttf") format("truetype");
-            font-weight: 500;
-            font-style: italic;
-        }
-
-        @font-face {
-            font-family: "Aktiv Grotesk";
-            src: url("assets/font/AktivGroteskCorp-Light.eot");
-            src: local("AktivGroteskCorp-Light"), url("assets/font/AktivGroteskCorp-Light.eot?#iefix") format("embedded-opentype"), url("assets/font/AktivGroteskCorp-Light.woff2") format("woff2"), url("assets/font/AktivGroteskCorp-Light.woff") format("woff"), url("assets/font/AktivGroteskCorp-Light.ttf") format("truetype");
-            font-weight: 300;
-            font-style: normal;
-        }
-
-        @font-face {
-            font-family: "Aktiv Grotesk";
-            src: url("assets/font/AktivGroteskCorp-Regular.eot");
-            src: local("AktivGroteskCorp-Regular"), url("assets/font/AktivGroteskCorp-Regular.eot?#iefix") format("embedded-opentype"), url("assets/font/AktivGroteskCorp-Regular.woff2") format("woff2"), url("assets/font/AktivGroteskCorp-Regular.woff") format("woff"), url("assets/font/AktivGroteskCorp-Regular.ttf") format("truetype");
-            font-weight: normal;
-            font-style: normal;
-        }
-
-        @font-face {
-            font-family: "Aktiv Grotesk";
-            src: url("assets/font/AktivGroteskCorp-BoldItalic.eot");
-            src: local("AktivGroteskCorp-BoldItalic"), url("assets/font/AktivGroteskCorp-BoldItalic.eot?#iefix") format("embedded-opentype"), url("assets/font/AktivGroteskCorp-BoldItalic.woff2") format("woff2"), url("assets/font/AktivGroteskCorp-BoldItalic.woff") format("woff"), url("assets/font/AktivGroteskCorp-BoldItalic.ttf") format("truetype");
-            font-weight: bold;
-            font-style: italic;
-        }
-
-        :root {
-            --font-family-aktiv-grotesk: "Aktiv Grotesk";
-            --font-style-normal: normal;
-            --font-style-italic: italic;
-            --font-weight-100: 100px;
-            --font-weight-normal: normal;
-            --font-weight-bold: bold;
-            --font-size-10: 10px;
-            --font-size-12: 12px;
-            --font-size-14: 14px;
-            --font-size-20: 20px;
-            --font-size-30: 30px;
-            --font-size-40: 40px;
-            --character-spacing-0: 0px;
-            --line-spacing-15: 15px;
-            --line-spacing-25: 25px;
-            --line-spacing-50: 50px;
-            --line-spacing-17-5: 17.5px;
-            --line-spacing-37-5: 37.5px;
-            --text-transform-uppercase: uppercase;
-        }
-
-        /* Character Styles */
-
-        .impedance-form input {
-            font-style: var(--font-style-italic);
-            font-weight: var(--font-weight-normal);
-            font-size: var(--font-size-12);
-            line-height: var(--line-spacing-15);
-        }
-
-        .button {
-            font-style: var(--font-style-normal);
-            font-weight: var(--font-weight-bold);
-            font-size: var(--font-size-14);
-            line-height: var(--line-spacing-17-5);
-            text-transform: var(--text-transform-uppercase);
-            cursor: pointer;
-        }
-
-        .button {
-            min-width: calc((var(--col-width) * 3) + (var(--gut-width) * 2));
-            width: auto;
-            padding: 8px 16px;
-            background-color: var(--primary);
-            border: 1px solid var(--primary);
-        }
-
-        .button:hover,
-        .button:active,
-        .button:focus {
-            cursor: pointer;
-        }
-
-        .button:hover {
-            border: 1px solid var(--primary);
-        }
-
-        .button--big {
-            height: 42px;
-            min-width: calc((var(--col-width) * 5) + (var(--gut-width) * 4));
-        }
-
-        .button--small {
-            height: 21px;
-            padding: 0px;
-            max-width: 100%;
-        }
-
-        .button.btn--secondary {
-            border: 1px solid var(--primary);
-        }
-
-        .button__svg {
-            margin-left: 8px;
-        }
-
-        .page-create-subject .field {
-            margin-right: 0;
-            margin-bottom: 0;
-        }
-
-        .field {
-            margin-right: var(--gut-width);
-            margin-bottom: 16px;
-        }
-
-        .field--one {
-            margin-right: inherit;
-        }
-
-        .field__label {
-            display: inline-block;
-            margin-bottom: 8px;
-        }
-
-        .field__field {
-            width: 100%;
-        }
-
-        .field__field>*,
-        .field__field input {
-            width: 100%;
-            height: 32px;
-            display: flex;
-            align-items: center;
-        }
-
-        .field__field input:not([type=checkbox]),
-        .field__field select {
-            width: 100%;
-            border: solid 1px var(--primary);
-        }
-
-        .field__field select.editable-field {
-            padding-top: 6px;
-        }
-
-        .field__field.error input,
-        .field__field.error input:focus {
-            border: solid 1px var(--color-invalid);
-        }
-
-        .field__field .error {
-            font-size: 12px;
-            color: var(--color-invalid);
-            margin-top: 8px;
-            height: inherit;
-        }
-
-        .field .editable-field {
-            min-height: 30px;
-            background-color: var(--tertiary);
-        }
-
-        .field.fumeur {
-            margin-right: inherit;
-        }
-
-        .editable-field {
-            border: 1px solid var(--tertiary);
-            display: flex;
-            justify-content: center;
-            flex-direction: column;
-            align-items: flex-start;
-        }
-
-        .editable-field.edited {
-            display: inline-block;
-        }
-
-        .editable {
-            border: 1px solid var(--primary);
-        }
-
-        .input-group {
-            padding-bottom: 16px;
-        }
-
-        .input-group label {
-            padding-bottom: 8px;
-        }
-
-        .input-group input[type=text] {
-            height: 32px;
-            border: 1px solid var(--primary);
-            padding: 0px 16px;
-        }
-
-        .list-mesure--selected {
-            font-weight: bold;
-        }
-
-        .list-mesure .action-icon {
-            cursor: pointer;
-        }
-
-        .impedance-form {
-            margin-bottom: 16px;
-        }
-
-        .impedance-form__line-header {
-            font-weight: bold;
-            text-align: left;
-        }
-
-        .impedance-form__header {
-            font-weight: bold;
-        }
-
-        .impedance-form input {
-            width: 100%;
-            height: 100%;
-            text-align: center;
-            color: var(--tertiary--dark);
-        }
-
-        .impedance-form .editable-field {
-            align-items: center;
-        }
 
         .setup-container {
             width: calc((var(--col-width) * 6) + (var(--gut-width) * 5));
@@ -1274,354 +606,57 @@
         }
     </style>
     <style type="text/css">
-        :root {
-            --reference-width: 79.53125vw;
-            --gut-width: 0.625vw;
-            --col-width: 3.828125vw;
-            --marge-width: 10.234375vw;
-            --mesure-editor-right-margin: calc(var(--gut-width) * 2 + var(--col-width));
-            --width--2-col: calc((var(--col-width) * 2) + (var(--gut-width) * 1));
-            --width--3-col: calc((var(--col-width) * 3) + (var(--gut-width) * 2));
-            --width--4-col: calc((var(--col-width) * 4) + (var(--gut-width) * 3));
-            --width--5-col: calc((var(--col-width) * 5) + (var(--gut-width) * 4));
-        }
-
-        :root {
-            --col-1: var(--col-width);
-            --col-1-2: calc((var(--col-width) * 1) + (var(--gut-width) * 2));
-            --col-1-1: calc((var(--col-width) * 1) + (var(--gut-width) * 1));
-            --col-2: calc((var(--col-width) * 2) + (var(--gut-width) * 1));
-            --col-3: calc((var(--col-width) * 3) + (var(--gut-width) * 2));
-            --col-4: calc((var(--col-width) * 4) + (var(--gut-width) * 3));
-            --col-5: calc((var(--col-width) * 5) + (var(--gut-width) * 4));
-            --col-6: calc((var(--col-width) * 6) + (var(--gut-width) * 5));
-            --col-7: calc((var(--col-width) * 7) + (var(--gut-width) * 6));
-            --col-8: calc((var(--col-width) * 8) + (var(--gut-width) * 7));
-            --col-9: calc((var(--col-width) * 9) + (var(--gut-width) * 8));
-            --gut-1: var(--gut-width);
-            --gut-2: calc(var(--gut-width) * 2);
-        }
-
-        .field.fumeur,
-        .field.cote-mesure,
-        .field.taille {
-            width: calc((var(--col-width) * 2) + (var(--gut-width) * 1));
-        }
-
-        .field.date-examen,
-        .field.birthdate,
-        .field.activite-physique,
-        .field.type-activite-physique,
-        .field.poids-actuel {
-            width: calc((var(--col-width) * 3) + (var(--gut-width) * 2));
-        }
-
-        .input-group input[type=text],
-        .field__field>*,
-        .field__field input,
-        .button {
-            border-radius: 4px;
-        }
-
-        :root {
-            --secondary: #FFFFFF;
-            --primary: #000000;
-            --tertiary: #F2F2F2;
-            --tertiary--dark: #7F7F7F;
-            --color-invalid: #d32222;
-            --color-valid: #42D15D;
-        }
-
-        .button.btn--secondary:hover,
-        .button.btn--secondary:active,
-        .button.btn--secondary:focus,
-        .button {
-            background-color: var(--primary);
-            color: var(--secondary);
-            outline-color: var(--secondary);
-            border-color: var(--secondary);
-            --selected-color: var(--primary);
-        }
-
-        .button.btn--secondary,
-        .button:hover,
-        .button:active,
-        .button:focus {
-            background-color: var(--secondary);
-            color: var(--primary);
-            outline-color: var(--secondary);
-            border-color: var(--secondary);
-            --selected-color: var(--secondary);
-        }
-
-        @font-face {
-            font-family: "Aktiv Grotesk";
-            src: url("assets/font/AktivGroteskCorp-Medium.eot");
-            src: local("AktivGroteskCorp-Medium"), url("assets/font/AktivGroteskCorp-Medium.eot?#iefix") format("embedded-opentype"), url("assets/font/AktivGroteskCorp-Medium.woff2") format("woff2"), url("assets/font/AktivGroteskCorp-Medium.woff") format("woff"), url("assets/font/AktivGroteskCorp-Medium.ttf") format("truetype");
-            font-weight: 500;
-            font-style: normal;
-        }
-
-        @font-face {
-            font-family: "Aktiv Grotesk";
-            src: url("assets/font/AktivGroteskCorp-Bold.eot");
-            src: local("AktivGroteskCorp-Bold"), url("assets/font/AktivGroteskCorp-Bold.eot?#iefix") format("embedded-opentype"), url("assets/font/AktivGroteskCorp-Bold.woff2") format("woff2"), url("assets/font/AktivGroteskCorp-Bold.woff") format("woff"), url("assets/font/AktivGroteskCorp-Bold.ttf") format("truetype");
-            font-weight: bold;
-            font-style: normal;
-        }
-
-        @font-face {
-            font-family: "Aktiv Grotesk";
-            src: url("assets/font/AktivGroteskCorp-Italic.eot");
-            src: local("AktivGroteskCorp-Italic"), url("assets/font/AktivGroteskCorp-Italic.eot?#iefix") format("embedded-opentype"), url("assets/font/AktivGroteskCorp-Italic.woff2") format("woff2"), url("assets/font/AktivGroteskCorp-Italic.woff") format("woff"), url("assets/font/AktivGroteskCorp-Italic.ttf") format("truetype");
-            font-weight: normal;
-            font-style: italic;
-        }
-
-        @font-face {
-            font-family: "Aktiv Grotesk";
-            src: url("assets/font/AktivGroteskCorp-LightItalic.eot");
-            src: local("AktivGroteskCorp-LightItalic"), url("assets/font/AktivGroteskCorp-LightItalic.eot?#iefix") format("embedded-opentype"), url("assets/font/AktivGroteskCorp-LightItalic.woff2") format("woff2"), url("assets/font/AktivGroteskCorp-LightItalic.woff") format("woff"), url("assets/font/AktivGroteskCorp-LightItalic.ttf") format("truetype");
-            font-weight: 300;
-            font-style: italic;
-        }
-
-        @font-face {
-            font-family: "Aktiv Grotesk";
-            src: url("assets/font/AktivGroteskCorp-MediumItalic.eot");
-            src: local("AktivGroteskCorp-MediumItalic"), url("assets/font/AktivGroteskCorp-MediumItalic.eot?#iefix") format("embedded-opentype"), url("assets/font/AktivGroteskCorp-MediumItalic.woff2") format("woff2"), url("assets/font/AktivGroteskCorp-MediumItalic.woff") format("woff"), url("assets/font/AktivGroteskCorp-MediumItalic.ttf") format("truetype");
-            font-weight: 500;
-            font-style: italic;
-        }
-
-        @font-face {
-            font-family: "Aktiv Grotesk";
-            src: url("assets/font/AktivGroteskCorp-Light.eot");
-            src: local("AktivGroteskCorp-Light"), url("assets/font/AktivGroteskCorp-Light.eot?#iefix") format("embedded-opentype"), url("assets/font/AktivGroteskCorp-Light.woff2") format("woff2"), url("assets/font/AktivGroteskCorp-Light.woff") format("woff"), url("assets/font/AktivGroteskCorp-Light.ttf") format("truetype");
-            font-weight: 300;
-            font-style: normal;
-        }
-
-        @font-face {
-            font-family: "Aktiv Grotesk";
-            src: url("assets/font/AktivGroteskCorp-Regular.eot");
-            src: local("AktivGroteskCorp-Regular"), url("assets/font/AktivGroteskCorp-Regular.eot?#iefix") format("embedded-opentype"), url("assets/font/AktivGroteskCorp-Regular.woff2") format("woff2"), url("assets/font/AktivGroteskCorp-Regular.woff") format("woff"), url("assets/font/AktivGroteskCorp-Regular.ttf") format("truetype");
-            font-weight: normal;
-            font-style: normal;
-        }
-
-        @font-face {
-            font-family: "Aktiv Grotesk";
-            src: url("assets/font/AktivGroteskCorp-BoldItalic.eot");
-            src: local("AktivGroteskCorp-BoldItalic"), url("assets/font/AktivGroteskCorp-BoldItalic.eot?#iefix") format("embedded-opentype"), url("assets/font/AktivGroteskCorp-BoldItalic.woff2") format("woff2"), url("assets/font/AktivGroteskCorp-BoldItalic.woff") format("woff"), url("assets/font/AktivGroteskCorp-BoldItalic.ttf") format("truetype");
-            font-weight: bold;
-            font-style: italic;
-        }
-
-        :root {
-            --font-family-aktiv-grotesk: "Aktiv Grotesk";
-            --font-style-normal: normal;
-            --font-style-italic: italic;
-            --font-weight-100: 100px;
-            --font-weight-normal: normal;
-            --font-weight-bold: bold;
-            --font-size-10: 10px;
-            --font-size-12: 12px;
-            --font-size-14: 14px;
-            --font-size-20: 20px;
-            --font-size-30: 30px;
-            --font-size-40: 40px;
-            --character-spacing-0: 0px;
-            --line-spacing-15: 15px;
-            --line-spacing-25: 25px;
-            --line-spacing-50: 50px;
-            --line-spacing-17-5: 17.5px;
-            --line-spacing-37-5: 37.5px;
-            --text-transform-uppercase: uppercase;
-        }
-
-        /* Character Styles */
-
-        .impedance-form input {
-            font-style: var(--font-style-italic);
-            font-weight: var(--font-weight-normal);
-            font-size: var(--font-size-12);
-            line-height: var(--line-spacing-15);
-        }
-
-        .button {
-            font-style: var(--font-style-normal);
-            font-weight: var(--font-weight-bold);
-            font-size: var(--font-size-14);
-            line-height: var(--line-spacing-17-5);
-            text-transform: var(--text-transform-uppercase);
-            cursor: pointer;
-        }
-
-        .button {
-            min-width: calc((var(--col-width) * 3) + (var(--gut-width) * 2));
-            width: auto;
-            padding: 8px 16px;
-            background-color: var(--primary);
-            border: 1px solid var(--primary);
-        }
-
-        .button:hover,
-        .button:active,
-        .button:focus {
-            cursor: pointer;
-        }
-
-        .button:hover {
-            border: 1px solid var(--primary);
-        }
-
-        .button--big {
-            height: 42px;
-            min-width: calc((var(--col-width) * 5) + (var(--gut-width) * 4));
-        }
-
-        .button--small {
-            height: 21px;
-            padding: 0px;
-            max-width: 100%;
-        }
-
-        .button.btn--secondary {
-            border: 1px solid var(--primary);
-        }
-
-        .button__svg {
-            margin-left: 8px;
-        }
-
-        .page-create-subject .field {
-            margin-right: 0;
-            margin-bottom: 0;
-        }
-
-        .field {
-            margin-right: var(--gut-width);
-            margin-bottom: 16px;
-        }
-
-        .field--one {
-            margin-right: inherit;
-        }
-
-        .field__label {
-            display: inline-block;
-            margin-bottom: 8px;
-        }
-
-        .field__field {
-            width: 100%;
-        }
-
-        .field__field>*,
-        .field__field input {
-            width: 100%;
-            height: 32px;
-            display: flex;
-            align-items: center;
-        }
-
-        .field__field input:not([type=checkbox]),
-        .field__field select {
-            width: 100%;
-            border: solid 1px var(--primary);
-        }
-
-        .field__field select.editable-field {
-            padding-top: 6px;
-        }
-
-        .field__field.error input,
-        .field__field.error input:focus {
-            border: solid 1px var(--color-invalid);
-        }
-
-        .field__field .error {
-            font-size: 12px;
-            color: var(--color-invalid);
-            margin-top: 8px;
-            height: inherit;
-        }
-
-        .field .editable-field {
-            min-height: 30px;
-            background-color: var(--tertiary);
-        }
-
-        .field.fumeur {
-            margin-right: inherit;
-        }
-
-        .editable-field {
-            border: 1px solid var(--tertiary);
-            display: flex;
-            justify-content: center;
-            flex-direction: column;
-            align-items: flex-start;
-        }
-
-        .editable-field.edited {
-            display: inline-block;
-        }
-
-        .editable {
-            border: 1px solid var(--primary);
-        }
-
-        .input-group {
-            padding-bottom: 16px;
-        }
-
-        .input-group label {
-            padding-bottom: 8px;
-        }
-
-        .input-group input[type=text] {
-            height: 32px;
-            border: 1px solid var(--primary);
-            padding: 0px 16px;
-        }
-
-        .list-mesure--selected {
-            font-weight: bold;
-        }
-
-        .list-mesure .action-icon {
-            cursor: pointer;
-        }
-
-        .impedance-form {
-            margin-bottom: 16px;
-        }
-
-        .impedance-form__line-header {
-            font-weight: bold;
-            text-align: left;
-        }
-
-        .impedance-form__header {
-            font-weight: bold;
-        }
-
-        .impedance-form input {
-            width: 100%;
-            height: 100%;
-            text-align: center;
-            color: var(--tertiary--dark);
-        }
-
-        .impedance-form .editable-field {
-            align-items: center;
-        }
-
         .container-modal {
             border-radius: 4px;
             box-shadow: #5a5a5a 0px 0px 5px 0px;
+            position: absolute;
+            /* never goes more than the viewport*/
+        }
+        .container-modal--cover {
+            width: 100%;
+            min-width: 100%;
+            height: 100%;
+            min-height: 100%;
+        }
+
+        .container-modal--contained {
+            max-width: 100%;
+            max-height: 100%;
+        }
+
+        .container-modal--grow {
+            max-height: none;
+            max-width: none;
+        }
+
+        .container-modal--fit {
+            height: auto;
+            width: auto;
+            min-width: auto;
+            min-height: auto;
+        }
+
+        .container-modal--scrollable {
+            overflow-y: auto;
+        }
+
+        .container-modal--debug {
+            background-color: #17cf10 !important;
+            outline: 2px solid #c4dff2 !important;
+        }
+
+        .container-modal--bottom {
+            bottom: 0px;
+        }
+
+        .container-modal--contained {
+            max-width: 100%;
+            max-height: 100%;
+            overflow: hidden;
+        }
+
+        .container-modal--scrollable {
+            overflow: auto;
         }
 
         .modal-form {
@@ -1638,353 +673,9 @@
         .modal-form p {
             margin-bottom: 16px;
         }
+
     </style>
     <style type="text/css">
-        :root {
-            --reference-width: 79.53125vw;
-            --gut-width: 0.625vw;
-            --col-width: 3.828125vw;
-            --marge-width: 10.234375vw;
-            --mesure-editor-right-margin: calc(var(--gut-width) * 2 + var(--col-width));
-            --width--2-col: calc((var(--col-width) * 2) + (var(--gut-width) * 1));
-            --width--3-col: calc((var(--col-width) * 3) + (var(--gut-width) * 2));
-            --width--4-col: calc((var(--col-width) * 4) + (var(--gut-width) * 3));
-            --width--5-col: calc((var(--col-width) * 5) + (var(--gut-width) * 4));
-        }
-
-        :root {
-            --col-1: var(--col-width);
-            --col-1-2: calc((var(--col-width) * 1) + (var(--gut-width) * 2));
-            --col-1-1: calc((var(--col-width) * 1) + (var(--gut-width) * 1));
-            --col-2: calc((var(--col-width) * 2) + (var(--gut-width) * 1));
-            --col-3: calc((var(--col-width) * 3) + (var(--gut-width) * 2));
-            --col-4: calc((var(--col-width) * 4) + (var(--gut-width) * 3));
-            --col-5: calc((var(--col-width) * 5) + (var(--gut-width) * 4));
-            --col-6: calc((var(--col-width) * 6) + (var(--gut-width) * 5));
-            --col-7: calc((var(--col-width) * 7) + (var(--gut-width) * 6));
-            --col-8: calc((var(--col-width) * 8) + (var(--gut-width) * 7));
-            --col-9: calc((var(--col-width) * 9) + (var(--gut-width) * 8));
-            --gut-1: var(--gut-width);
-            --gut-2: calc(var(--gut-width) * 2);
-        }
-
-        .field.fumeur,
-        .field.cote-mesure,
-        .field.taille {
-            width: calc((var(--col-width) * 2) + (var(--gut-width) * 1));
-        }
-
-        .field.date-examen,
-        .field.birthdate,
-        .field.activite-physique,
-        .field.type-activite-physique,
-        .field.poids-actuel {
-            width: calc((var(--col-width) * 3) + (var(--gut-width) * 2));
-        }
-
-        .input-group input[type=text],
-        .field__field>*,
-        .field__field input,
-        .button {
-            border-radius: 4px;
-        }
-
-        :root {
-            --secondary: #FFFFFF;
-            --primary: #000000;
-            --tertiary: #F2F2F2;
-            --tertiary--dark: #7F7F7F;
-            --color-invalid: #d32222;
-            --color-valid: #42D15D;
-        }
-
-        .button.btn--secondary:hover,
-        .button.btn--secondary:active,
-        .button.btn--secondary:focus,
-        .button {
-            background-color: var(--primary);
-            color: var(--secondary);
-            outline-color: var(--secondary);
-            border-color: var(--secondary);
-            --selected-color: var(--primary);
-        }
-
-        .button.btn--secondary,
-        .button:hover,
-        .button:active,
-        .button:focus {
-            background-color: var(--secondary);
-            color: var(--primary);
-            outline-color: var(--secondary);
-            border-color: var(--secondary);
-            --selected-color: var(--secondary);
-        }
-
-        @font-face {
-            font-family: "Aktiv Grotesk";
-            src: url("assets/font/AktivGroteskCorp-Medium.eot");
-            src: local("AktivGroteskCorp-Medium"), url("assets/font/AktivGroteskCorp-Medium.eot?#iefix") format("embedded-opentype"), url("assets/font/AktivGroteskCorp-Medium.woff2") format("woff2"), url("assets/font/AktivGroteskCorp-Medium.woff") format("woff"), url("assets/font/AktivGroteskCorp-Medium.ttf") format("truetype");
-            font-weight: 500;
-            font-style: normal;
-        }
-
-        @font-face {
-            font-family: "Aktiv Grotesk";
-            src: url("assets/font/AktivGroteskCorp-Bold.eot");
-            src: local("AktivGroteskCorp-Bold"), url("assets/font/AktivGroteskCorp-Bold.eot?#iefix") format("embedded-opentype"), url("assets/font/AktivGroteskCorp-Bold.woff2") format("woff2"), url("assets/font/AktivGroteskCorp-Bold.woff") format("woff"), url("assets/font/AktivGroteskCorp-Bold.ttf") format("truetype");
-            font-weight: bold;
-            font-style: normal;
-        }
-
-        @font-face {
-            font-family: "Aktiv Grotesk";
-            src: url("assets/font/AktivGroteskCorp-Italic.eot");
-            src: local("AktivGroteskCorp-Italic"), url("assets/font/AktivGroteskCorp-Italic.eot?#iefix") format("embedded-opentype"), url("assets/font/AktivGroteskCorp-Italic.woff2") format("woff2"), url("assets/font/AktivGroteskCorp-Italic.woff") format("woff"), url("assets/font/AktivGroteskCorp-Italic.ttf") format("truetype");
-            font-weight: normal;
-            font-style: italic;
-        }
-
-        @font-face {
-            font-family: "Aktiv Grotesk";
-            src: url("assets/font/AktivGroteskCorp-LightItalic.eot");
-            src: local("AktivGroteskCorp-LightItalic"), url("assets/font/AktivGroteskCorp-LightItalic.eot?#iefix") format("embedded-opentype"), url("assets/font/AktivGroteskCorp-LightItalic.woff2") format("woff2"), url("assets/font/AktivGroteskCorp-LightItalic.woff") format("woff"), url("assets/font/AktivGroteskCorp-LightItalic.ttf") format("truetype");
-            font-weight: 300;
-            font-style: italic;
-        }
-
-        @font-face {
-            font-family: "Aktiv Grotesk";
-            src: url("assets/font/AktivGroteskCorp-MediumItalic.eot");
-            src: local("AktivGroteskCorp-MediumItalic"), url("assets/font/AktivGroteskCorp-MediumItalic.eot?#iefix") format("embedded-opentype"), url("assets/font/AktivGroteskCorp-MediumItalic.woff2") format("woff2"), url("assets/font/AktivGroteskCorp-MediumItalic.woff") format("woff"), url("assets/font/AktivGroteskCorp-MediumItalic.ttf") format("truetype");
-            font-weight: 500;
-            font-style: italic;
-        }
-
-        @font-face {
-            font-family: "Aktiv Grotesk";
-            src: url("assets/font/AktivGroteskCorp-Light.eot");
-            src: local("AktivGroteskCorp-Light"), url("assets/font/AktivGroteskCorp-Light.eot?#iefix") format("embedded-opentype"), url("assets/font/AktivGroteskCorp-Light.woff2") format("woff2"), url("assets/font/AktivGroteskCorp-Light.woff") format("woff"), url("assets/font/AktivGroteskCorp-Light.ttf") format("truetype");
-            font-weight: 300;
-            font-style: normal;
-        }
-
-        @font-face {
-            font-family: "Aktiv Grotesk";
-            src: url("assets/font/AktivGroteskCorp-Regular.eot");
-            src: local("AktivGroteskCorp-Regular"), url("assets/font/AktivGroteskCorp-Regular.eot?#iefix") format("embedded-opentype"), url("assets/font/AktivGroteskCorp-Regular.woff2") format("woff2"), url("assets/font/AktivGroteskCorp-Regular.woff") format("woff"), url("assets/font/AktivGroteskCorp-Regular.ttf") format("truetype");
-            font-weight: normal;
-            font-style: normal;
-        }
-
-        @font-face {
-            font-family: "Aktiv Grotesk";
-            src: url("assets/font/AktivGroteskCorp-BoldItalic.eot");
-            src: local("AktivGroteskCorp-BoldItalic"), url("assets/font/AktivGroteskCorp-BoldItalic.eot?#iefix") format("embedded-opentype"), url("assets/font/AktivGroteskCorp-BoldItalic.woff2") format("woff2"), url("assets/font/AktivGroteskCorp-BoldItalic.woff") format("woff"), url("assets/font/AktivGroteskCorp-BoldItalic.ttf") format("truetype");
-            font-weight: bold;
-            font-style: italic;
-        }
-
-        :root {
-            --font-family-aktiv-grotesk: "Aktiv Grotesk";
-            --font-style-normal: normal;
-            --font-style-italic: italic;
-            --font-weight-100: 100px;
-            --font-weight-normal: normal;
-            --font-weight-bold: bold;
-            --font-size-10: 10px;
-            --font-size-12: 12px;
-            --font-size-14: 14px;
-            --font-size-20: 20px;
-            --font-size-30: 30px;
-            --font-size-40: 40px;
-            --character-spacing-0: 0px;
-            --line-spacing-15: 15px;
-            --line-spacing-25: 25px;
-            --line-spacing-50: 50px;
-            --line-spacing-17-5: 17.5px;
-            --line-spacing-37-5: 37.5px;
-            --text-transform-uppercase: uppercase;
-        }
-
-        /* Character Styles */
-
-        .impedance-form input {
-            font-style: var(--font-style-italic);
-            font-weight: var(--font-weight-normal);
-            font-size: var(--font-size-12);
-            line-height: var(--line-spacing-15);
-        }
-
-        .button {
-            font-style: var(--font-style-normal);
-            font-weight: var(--font-weight-bold);
-            font-size: var(--font-size-14);
-            line-height: var(--line-spacing-17-5);
-            text-transform: var(--text-transform-uppercase);
-            cursor: pointer;
-        }
-
-        .button {
-            min-width: calc((var(--col-width) * 3) + (var(--gut-width) * 2));
-            width: auto;
-            padding: 8px 16px;
-            background-color: var(--primary);
-            border: 1px solid var(--primary);
-        }
-
-        .button:hover,
-        .button:active,
-        .button:focus {
-            cursor: pointer;
-        }
-
-        .button:hover {
-            border: 1px solid var(--primary);
-        }
-
-        .button--big {
-            height: 42px;
-            min-width: calc((var(--col-width) * 5) + (var(--gut-width) * 4));
-        }
-
-        .button--small {
-            height: 21px;
-            padding: 0px;
-            max-width: 100%;
-        }
-
-        .button.btn--secondary {
-            border: 1px solid var(--primary);
-        }
-
-        .button__svg {
-            margin-left: 8px;
-        }
-
-        .page-create-subject .field {
-            margin-right: 0;
-            margin-bottom: 0;
-        }
-
-        .field {
-            margin-right: var(--gut-width);
-            margin-bottom: 16px;
-        }
-
-        .field--one {
-            margin-right: inherit;
-        }
-
-        .field__label {
-            display: inline-block;
-            margin-bottom: 8px;
-        }
-
-        .field__field {
-            width: 100%;
-        }
-
-        .field__field>*,
-        .field__field input {
-            width: 100%;
-            height: 32px;
-            display: flex;
-            align-items: center;
-        }
-
-        .field__field input:not([type=checkbox]),
-        .field__field select {
-            width: 100%;
-            border: solid 1px var(--primary);
-        }
-
-        .field__field select.editable-field {
-            padding-top: 6px;
-        }
-
-        .field__field.error input,
-        .field__field.error input:focus {
-            border: solid 1px var(--color-invalid);
-        }
-
-        .field__field .error {
-            font-size: 12px;
-            color: var(--color-invalid);
-            margin-top: 8px;
-            height: inherit;
-        }
-
-        .field .editable-field {
-            min-height: 30px;
-            background-color: var(--tertiary);
-        }
-
-        .field.fumeur {
-            margin-right: inherit;
-        }
-
-        .editable-field {
-            border: 1px solid var(--tertiary);
-            display: flex;
-            justify-content: center;
-            flex-direction: column;
-            align-items: flex-start;
-        }
-
-        .editable-field.edited {
-            display: inline-block;
-        }
-
-        .editable {
-            border: 1px solid var(--primary);
-        }
-
-        .input-group {
-            padding-bottom: 16px;
-        }
-
-        .input-group label {
-            padding-bottom: 8px;
-        }
-
-        .input-group input[type=text] {
-            height: 32px;
-            border: 1px solid var(--primary);
-            padding: 0px 16px;
-        }
-
-        .list-mesure--selected {
-            font-weight: bold;
-        }
-
-        .list-mesure .action-icon {
-            cursor: pointer;
-        }
-
-        .impedance-form {
-            margin-bottom: 16px;
-        }
-
-        .impedance-form__line-header {
-            font-weight: bold;
-            text-align: left;
-        }
-
-        .impedance-form__header {
-            font-weight: bold;
-        }
-
-        .impedance-form input {
-            width: 100%;
-            height: 100%;
-            text-align: center;
-            color: var(--tertiary--dark);
-        }
-
-        .impedance-form .editable-field {
-            align-items: center;
-        }
-
         .list-editor .item-actions {
             cursor: pointer;
             align-items: center;
@@ -2180,356 +871,9 @@
         }
     </style>
     <style type="text/css">
-        :root {
-            --reference-width: 79.53125vw;
-            --gut-width: 0.625vw;
-            --col-width: 3.828125vw;
-            --marge-width: 10.234375vw;
-            --mesure-editor-right-margin: calc(var(--gut-width) * 2 + var(--col-width));
-            --width--2-col: calc((var(--col-width) * 2) + (var(--gut-width) * 1));
-            --width--3-col: calc((var(--col-width) * 3) + (var(--gut-width) * 2));
-            --width--4-col: calc((var(--col-width) * 4) + (var(--gut-width) * 3));
-            --width--5-col: calc((var(--col-width) * 5) + (var(--gut-width) * 4));
-        }
 
-        :root {
-            --col-1: var(--col-width);
-            --col-1-2: calc((var(--col-width) * 1) + (var(--gut-width) * 2));
-            --col-1-1: calc((var(--col-width) * 1) + (var(--gut-width) * 1));
-            --col-2: calc((var(--col-width) * 2) + (var(--gut-width) * 1));
-            --col-3: calc((var(--col-width) * 3) + (var(--gut-width) * 2));
-            --col-4: calc((var(--col-width) * 4) + (var(--gut-width) * 3));
-            --col-5: calc((var(--col-width) * 5) + (var(--gut-width) * 4));
-            --col-6: calc((var(--col-width) * 6) + (var(--gut-width) * 5));
-            --col-7: calc((var(--col-width) * 7) + (var(--gut-width) * 6));
-            --col-8: calc((var(--col-width) * 8) + (var(--gut-width) * 7));
-            --col-9: calc((var(--col-width) * 9) + (var(--gut-width) * 8));
-            --gut-1: var(--gut-width);
-            --gut-2: calc(var(--gut-width) * 2);
-        }
 
-        .field.fumeur,
-        .field.cote-mesure,
-        .field.taille {
-            width: calc((var(--col-width) * 2) + (var(--gut-width) * 1));
-        }
 
-        .field.date-examen,
-        .field.birthdate,
-        .field.activite-physique,
-        .field.type-activite-physique,
-        .field.poids-actuel {
-            width: calc((var(--col-width) * 3) + (var(--gut-width) * 2));
-        }
-
-        .input-group input[type=text],
-        .field__field>*,
-        .field__field input,
-        .button {
-            border-radius: 4px;
-        }
-
-        :root {
-            --secondary: #FFFFFF;
-            --primary: #000000;
-            --tertiary: #F2F2F2;
-            --tertiary--dark: #7F7F7F;
-            --color-invalid: #d32222;
-            --color-valid: #42D15D;
-        }
-
-        .button.btn--secondary:hover,
-        .button.btn--secondary:active,
-        .button.btn--secondary:focus,
-        .button {
-            background-color: var(--primary);
-            color: var(--secondary);
-            outline-color: var(--secondary);
-            border-color: var(--secondary);
-            --selected-color: var(--primary);
-        }
-
-        .button.btn--secondary,
-        .button:hover,
-        .button:active,
-        .button:focus {
-            background-color: var(--secondary);
-            color: var(--primary);
-            outline-color: var(--secondary);
-            border-color: var(--secondary);
-            --selected-color: var(--secondary);
-        }
-
-        @font-face {
-            font-family: "Aktiv Grotesk";
-            src: url("assets/font/AktivGroteskCorp-Medium.eot");
-            src: local("AktivGroteskCorp-Medium"), url("assets/font/AktivGroteskCorp-Medium.eot?#iefix") format("embedded-opentype"), url("assets/font/AktivGroteskCorp-Medium.woff2") format("woff2"), url("assets/font/AktivGroteskCorp-Medium.woff") format("woff"), url("assets/font/AktivGroteskCorp-Medium.ttf") format("truetype");
-            font-weight: 500;
-            font-style: normal;
-        }
-
-        @font-face {
-            font-family: "Aktiv Grotesk";
-            src: url("assets/font/AktivGroteskCorp-Bold.eot");
-            src: local("AktivGroteskCorp-Bold"), url("assets/font/AktivGroteskCorp-Bold.eot?#iefix") format("embedded-opentype"), url("assets/font/AktivGroteskCorp-Bold.woff2") format("woff2"), url("assets/font/AktivGroteskCorp-Bold.woff") format("woff"), url("assets/font/AktivGroteskCorp-Bold.ttf") format("truetype");
-            font-weight: bold;
-            font-style: normal;
-        }
-
-        @font-face {
-            font-family: "Aktiv Grotesk";
-            src: url("assets/font/AktivGroteskCorp-Italic.eot");
-            src: local("AktivGroteskCorp-Italic"), url("assets/font/AktivGroteskCorp-Italic.eot?#iefix") format("embedded-opentype"), url("assets/font/AktivGroteskCorp-Italic.woff2") format("woff2"), url("assets/font/AktivGroteskCorp-Italic.woff") format("woff"), url("assets/font/AktivGroteskCorp-Italic.ttf") format("truetype");
-            font-weight: normal;
-            font-style: italic;
-        }
-
-        @font-face {
-            font-family: "Aktiv Grotesk";
-            src: url("assets/font/AktivGroteskCorp-LightItalic.eot");
-            src: local("AktivGroteskCorp-LightItalic"), url("assets/font/AktivGroteskCorp-LightItalic.eot?#iefix") format("embedded-opentype"), url("assets/font/AktivGroteskCorp-LightItalic.woff2") format("woff2"), url("assets/font/AktivGroteskCorp-LightItalic.woff") format("woff"), url("assets/font/AktivGroteskCorp-LightItalic.ttf") format("truetype");
-            font-weight: 300;
-            font-style: italic;
-        }
-
-        @font-face {
-            font-family: "Aktiv Grotesk";
-            src: url("assets/font/AktivGroteskCorp-MediumItalic.eot");
-            src: local("AktivGroteskCorp-MediumItalic"), url("assets/font/AktivGroteskCorp-MediumItalic.eot?#iefix") format("embedded-opentype"), url("assets/font/AktivGroteskCorp-MediumItalic.woff2") format("woff2"), url("assets/font/AktivGroteskCorp-MediumItalic.woff") format("woff"), url("assets/font/AktivGroteskCorp-MediumItalic.ttf") format("truetype");
-            font-weight: 500;
-            font-style: italic;
-        }
-
-        @font-face {
-            font-family: "Aktiv Grotesk";
-            src: url("assets/font/AktivGroteskCorp-Light.eot");
-            src: local("AktivGroteskCorp-Light"), url("assets/font/AktivGroteskCorp-Light.eot?#iefix") format("embedded-opentype"), url("assets/font/AktivGroteskCorp-Light.woff2") format("woff2"), url("assets/font/AktivGroteskCorp-Light.woff") format("woff"), url("assets/font/AktivGroteskCorp-Light.ttf") format("truetype");
-            font-weight: 300;
-            font-style: normal;
-        }
-
-        @font-face {
-            font-family: "Aktiv Grotesk";
-            src: url("assets/font/AktivGroteskCorp-Regular.eot");
-            src: local("AktivGroteskCorp-Regular"), url("assets/font/AktivGroteskCorp-Regular.eot?#iefix") format("embedded-opentype"), url("assets/font/AktivGroteskCorp-Regular.woff2") format("woff2"), url("assets/font/AktivGroteskCorp-Regular.woff") format("woff"), url("assets/font/AktivGroteskCorp-Regular.ttf") format("truetype");
-            font-weight: normal;
-            font-style: normal;
-        }
-
-        @font-face {
-            font-family: "Aktiv Grotesk";
-            src: url("assets/font/AktivGroteskCorp-BoldItalic.eot");
-            src: local("AktivGroteskCorp-BoldItalic"), url("assets/font/AktivGroteskCorp-BoldItalic.eot?#iefix") format("embedded-opentype"), url("assets/font/AktivGroteskCorp-BoldItalic.woff2") format("woff2"), url("assets/font/AktivGroteskCorp-BoldItalic.woff") format("woff"), url("assets/font/AktivGroteskCorp-BoldItalic.ttf") format("truetype");
-            font-weight: bold;
-            font-style: italic;
-        }
-
-        :root {
-            --font-family-aktiv-grotesk: "Aktiv Grotesk";
-            --font-style-normal: normal;
-            --font-style-italic: italic;
-            --font-weight-100: 100px;
-            --font-weight-normal: normal;
-            --font-weight-bold: bold;
-            --font-size-10: 10px;
-            --font-size-12: 12px;
-            --font-size-14: 14px;
-            --font-size-20: 20px;
-            --font-size-30: 30px;
-            --font-size-40: 40px;
-            --character-spacing-0: 0px;
-            --line-spacing-15: 15px;
-            --line-spacing-25: 25px;
-            --line-spacing-50: 50px;
-            --line-spacing-17-5: 17.5px;
-            --line-spacing-37-5: 37.5px;
-            --text-transform-uppercase: uppercase;
-        }
-
-        /* Character Styles */
-        .recap-grid .row {
-            font-style: var(--font-style-normal);
-            font-weight: var(--font-weight-normal);
-            font-size: var(--font-size-10);
-            line-height: var(--line-spacing-15);
-        }
-
-        .impedance-form input {
-            font-style: var(--font-style-italic);
-            font-weight: var(--font-weight-normal);
-            font-size: var(--font-size-12);
-            line-height: var(--line-spacing-15);
-        }
-
-        .button {
-            font-style: var(--font-style-normal);
-            font-weight: var(--font-weight-bold);
-            font-size: var(--font-size-14);
-            line-height: var(--line-spacing-17-5);
-            text-transform: var(--text-transform-uppercase);
-            cursor: pointer;
-        }
-
-        .button {
-            min-width: calc((var(--col-width) * 3) + (var(--gut-width) * 2));
-            width: auto;
-            padding: 8px 16px;
-            background-color: var(--primary);
-            border: 1px solid var(--primary);
-        }
-
-        .button:hover,
-        .button:active,
-        .button:focus {
-            cursor: pointer;
-        }
-
-        .button:hover {
-            border: 1px solid var(--primary);
-        }
-
-        .button--big {
-            height: 42px;
-            min-width: calc((var(--col-width) * 5) + (var(--gut-width) * 4));
-        }
-
-        .button--small {
-            height: 21px;
-            padding: 0px;
-            max-width: 100%;
-        }
-
-        .button.btn--secondary {
-            border: 1px solid var(--primary);
-        }
-
-        .button__svg {
-            margin-left: 8px;
-        }
-
-        .page-create-subject .field {
-            margin-right: 0;
-            margin-bottom: 0;
-        }
-
-        .field {
-            margin-right: var(--gut-width);
-            margin-bottom: 16px;
-        }
-
-        .field--one {
-            margin-right: inherit;
-        }
-
-        .field__label {
-            display: inline-block;
-            margin-bottom: 8px;
-        }
-
-        .field__field {
-            width: 100%;
-        }
-
-        .field__field>*,
-        .field__field input {
-            width: 100%;
-            height: 32px;
-            display: flex;
-            align-items: center;
-        }
-
-        .field__field input:not([type=checkbox]),
-        .field__field select {
-            width: 100%;
-            border: solid 1px var(--primary);
-        }
-
-        .field__field select.editable-field {
-            padding-top: 6px;
-        }
-
-        .field__field.error input,
-        .field__field.error input:focus {
-            border: solid 1px var(--color-invalid);
-        }
-
-        .field__field .error {
-            font-size: 12px;
-            color: var(--color-invalid);
-            margin-top: 8px;
-            height: inherit;
-        }
-
-        .field .editable-field {
-            min-height: 30px;
-            background-color: var(--tertiary);
-        }
-
-        .field.fumeur {
-            margin-right: inherit;
-        }
-
-        .editable-field {
-            border: 1px solid var(--tertiary);
-            display: flex;
-            justify-content: center;
-            flex-direction: column;
-            align-items: flex-start;
-        }
-
-        .editable-field.edited {
-            display: inline-block;
-        }
-
-        .editable {
-            border: 1px solid var(--primary);
-        }
-
-        .input-group {
-            padding-bottom: 16px;
-        }
-
-        .input-group label {
-            padding-bottom: 8px;
-        }
-
-        .input-group input[type=text] {
-            height: 32px;
-            border: 1px solid var(--primary);
-            padding: 0px 16px;
-        }
-
-        .list-mesure--selected {
-            font-weight: bold;
-        }
-
-        .list-mesure .action-icon {
-            cursor: pointer;
-        }
-
-        .impedance-form {
-            margin-bottom: 16px;
-        }
-
-        .impedance-form__line-header {
-            font-weight: bold;
-            text-align: left;
-        }
-
-        .impedance-form__header {
-            font-weight: bold;
-        }
-
-        .impedance-form input {
-            width: 100%;
-            height: 100%;
-            text-align: center;
-            color: var(--tertiary--dark);
-        }
-
-        .impedance-form .editable-field {
-            align-items: center;
-        }
 
         .recap-grid {
             align-items: center;
@@ -2732,349 +1076,9 @@
         }
     </style>
     <style type="text/css">
-        :root {
-            --reference-width: 79.53125vw;
-            --gut-width: 0.625vw;
-            --col-width: 3.828125vw;
-            --marge-width: 10.234375vw;
-            --mesure-editor-right-margin: calc(var(--gut-width) * 2 + var(--col-width));
-            --width--2-col: calc((var(--col-width) * 2) + (var(--gut-width) * 1));
-            --width--3-col: calc((var(--col-width) * 3) + (var(--gut-width) * 2));
-            --width--4-col: calc((var(--col-width) * 4) + (var(--gut-width) * 3));
-            --width--5-col: calc((var(--col-width) * 5) + (var(--gut-width) * 4));
-        }
 
-        :root {
-            --col-1: var(--col-width);
-            --col-1-2: calc((var(--col-width) * 1) + (var(--gut-width) * 2));
-            --col-1-1: calc((var(--col-width) * 1) + (var(--gut-width) * 1));
-            --col-2: calc((var(--col-width) * 2) + (var(--gut-width) * 1));
-            --col-3: calc((var(--col-width) * 3) + (var(--gut-width) * 2));
-            --col-4: calc((var(--col-width) * 4) + (var(--gut-width) * 3));
-            --col-5: calc((var(--col-width) * 5) + (var(--gut-width) * 4));
-            --col-6: calc((var(--col-width) * 6) + (var(--gut-width) * 5));
-            --col-7: calc((var(--col-width) * 7) + (var(--gut-width) * 6));
-            --col-8: calc((var(--col-width) * 8) + (var(--gut-width) * 7));
-            --col-9: calc((var(--col-width) * 9) + (var(--gut-width) * 8));
-            --gut-1: var(--gut-width);
-            --gut-2: calc(var(--gut-width) * 2);
-        }
 
-        .field.fumeur,
-        .field.cote-mesure,
-        .field.taille {
-            width: calc((var(--col-width) * 2) + (var(--gut-width) * 1));
-        }
 
-        .field.date-examen,
-        .field.birthdate,
-        .field.activite-physique,
-        .field.type-activite-physique,
-        .field.poids-actuel {
-            width: calc((var(--col-width) * 3) + (var(--gut-width) * 2));
-        }
-
-        .input-group input[type=text],
-        .field__field>*,
-        .field__field input,
-        .button {
-            border-radius: 4px;
-        }
-
-        :root {
-            --secondary: #FFFFFF;
-            --primary: #000000;
-            --tertiary: #F2F2F2;
-            --tertiary--dark: #7F7F7F;
-            --color-invalid: #d32222;
-            --color-valid: #42D15D;
-        }
-
-        .button.btn--secondary:hover,
-        .button.btn--secondary:active,
-        .button.btn--secondary:focus,
-        .button {
-            background-color: var(--primary);
-            color: var(--secondary);
-            outline-color: var(--secondary);
-            border-color: var(--secondary);
-            --selected-color: var(--primary);
-        }
-
-        .button.btn--secondary,
-        .button:hover,
-        .button:active,
-        .button:focus {
-            background-color: var(--secondary);
-            color: var(--primary);
-            outline-color: var(--secondary);
-            border-color: var(--secondary);
-            --selected-color: var(--secondary);
-        }
-
-        @font-face {
-            font-family: "Aktiv Grotesk";
-            src: url("assets/font/AktivGroteskCorp-Medium.eot");
-            src: local("AktivGroteskCorp-Medium"), url("assets/font/AktivGroteskCorp-Medium.eot?#iefix") format("embedded-opentype"), url("assets/font/AktivGroteskCorp-Medium.woff2") format("woff2"), url("assets/font/AktivGroteskCorp-Medium.woff") format("woff"), url("assets/font/AktivGroteskCorp-Medium.ttf") format("truetype");
-            font-weight: 500;
-            font-style: normal;
-        }
-
-        @font-face {
-            font-family: "Aktiv Grotesk";
-            src: url("assets/font/AktivGroteskCorp-Bold.eot");
-            src: local("AktivGroteskCorp-Bold"), url("assets/font/AktivGroteskCorp-Bold.eot?#iefix") format("embedded-opentype"), url("assets/font/AktivGroteskCorp-Bold.woff2") format("woff2"), url("assets/font/AktivGroteskCorp-Bold.woff") format("woff"), url("assets/font/AktivGroteskCorp-Bold.ttf") format("truetype");
-            font-weight: bold;
-            font-style: normal;
-        }
-
-        @font-face {
-            font-family: "Aktiv Grotesk";
-            src: url("assets/font/AktivGroteskCorp-Italic.eot");
-            src: local("AktivGroteskCorp-Italic"), url("assets/font/AktivGroteskCorp-Italic.eot?#iefix") format("embedded-opentype"), url("assets/font/AktivGroteskCorp-Italic.woff2") format("woff2"), url("assets/font/AktivGroteskCorp-Italic.woff") format("woff"), url("assets/font/AktivGroteskCorp-Italic.ttf") format("truetype");
-            font-weight: normal;
-            font-style: italic;
-        }
-
-        @font-face {
-            font-family: "Aktiv Grotesk";
-            src: url("assets/font/AktivGroteskCorp-LightItalic.eot");
-            src: local("AktivGroteskCorp-LightItalic"), url("assets/font/AktivGroteskCorp-LightItalic.eot?#iefix") format("embedded-opentype"), url("assets/font/AktivGroteskCorp-LightItalic.woff2") format("woff2"), url("assets/font/AktivGroteskCorp-LightItalic.woff") format("woff"), url("assets/font/AktivGroteskCorp-LightItalic.ttf") format("truetype");
-            font-weight: 300;
-            font-style: italic;
-        }
-
-        @font-face {
-            font-family: "Aktiv Grotesk";
-            src: url("assets/font/AktivGroteskCorp-MediumItalic.eot");
-            src: local("AktivGroteskCorp-MediumItalic"), url("assets/font/AktivGroteskCorp-MediumItalic.eot?#iefix") format("embedded-opentype"), url("assets/font/AktivGroteskCorp-MediumItalic.woff2") format("woff2"), url("assets/font/AktivGroteskCorp-MediumItalic.woff") format("woff"), url("assets/font/AktivGroteskCorp-MediumItalic.ttf") format("truetype");
-            font-weight: 500;
-            font-style: italic;
-        }
-
-        @font-face {
-            font-family: "Aktiv Grotesk";
-            src: url("assets/font/AktivGroteskCorp-Light.eot");
-            src: local("AktivGroteskCorp-Light"), url("assets/font/AktivGroteskCorp-Light.eot?#iefix") format("embedded-opentype"), url("assets/font/AktivGroteskCorp-Light.woff2") format("woff2"), url("assets/font/AktivGroteskCorp-Light.woff") format("woff"), url("assets/font/AktivGroteskCorp-Light.ttf") format("truetype");
-            font-weight: 300;
-            font-style: normal;
-        }
-
-        @font-face {
-            font-family: "Aktiv Grotesk";
-            src: url("assets/font/AktivGroteskCorp-Regular.eot");
-            src: local("AktivGroteskCorp-Regular"), url("assets/font/AktivGroteskCorp-Regular.eot?#iefix") format("embedded-opentype"), url("assets/font/AktivGroteskCorp-Regular.woff2") format("woff2"), url("assets/font/AktivGroteskCorp-Regular.woff") format("woff"), url("assets/font/AktivGroteskCorp-Regular.ttf") format("truetype");
-            font-weight: normal;
-            font-style: normal;
-        }
-
-        @font-face {
-            font-family: "Aktiv Grotesk";
-            src: url("assets/font/AktivGroteskCorp-BoldItalic.eot");
-            src: local("AktivGroteskCorp-BoldItalic"), url("assets/font/AktivGroteskCorp-BoldItalic.eot?#iefix") format("embedded-opentype"), url("assets/font/AktivGroteskCorp-BoldItalic.woff2") format("woff2"), url("assets/font/AktivGroteskCorp-BoldItalic.woff") format("woff"), url("assets/font/AktivGroteskCorp-BoldItalic.ttf") format("truetype");
-            font-weight: bold;
-            font-style: italic;
-        }
-
-        :root {
-            --font-family-aktiv-grotesk: "Aktiv Grotesk";
-            --font-style-normal: normal;
-            --font-style-italic: italic;
-            --font-weight-100: 100px;
-            --font-weight-normal: normal;
-            --font-weight-bold: bold;
-            --font-size-10: 10px;
-            --font-size-12: 12px;
-            --font-size-14: 14px;
-            --font-size-20: 20px;
-            --font-size-30: 30px;
-            --font-size-40: 40px;
-            --character-spacing-0: 0px;
-            --line-spacing-15: 15px;
-            --line-spacing-25: 25px;
-            --line-spacing-50: 50px;
-            --line-spacing-17-5: 17.5px;
-            --line-spacing-37-5: 37.5px;
-            --text-transform-uppercase: uppercase;
-        }
-
-        /* Character Styles */
-        .impedance-form input {
-            font-style: var(--font-style-italic);
-            font-weight: var(--font-weight-normal);
-            font-size: var(--font-size-12);
-            line-height: var(--line-spacing-15);
-        }
-
-        .button {
-            font-style: var(--font-style-normal);
-            font-weight: var(--font-weight-bold);
-            font-size: var(--font-size-14);
-            line-height: var(--line-spacing-17-5);
-            text-transform: var(--text-transform-uppercase);
-            cursor: pointer;
-        }
-
-        .button {
-            min-width: calc((var(--col-width) * 3) + (var(--gut-width) * 2));
-            width: auto;
-            padding: 8px 16px;
-            background-color: var(--primary);
-            border: 1px solid var(--primary);
-        }
-
-        .button:hover,
-        .button:active,
-        .button:focus {
-            cursor: pointer;
-        }
-
-        .button:hover {
-            border: 1px solid var(--primary);
-        }
-
-        .button--big {
-            height: 42px;
-            min-width: calc((var(--col-width) * 5) + (var(--gut-width) * 4));
-        }
-
-        .button--small {
-            height: 21px;
-            padding: 0px;
-            max-width: 100%;
-        }
-
-        .button.btn--secondary {
-            border: 1px solid var(--primary);
-        }
-
-        .button__svg {
-            margin-left: 8px;
-        }
-
-        .page-create-subject .field {
-            margin-right: 0;
-            margin-bottom: 0;
-        }
-
-        .field {
-            margin-right: var(--gut-width);
-            margin-bottom: 16px;
-        }
-
-        .field--one {
-            margin-right: inherit;
-        }
-
-        .field__label {
-            display: inline-block;
-            margin-bottom: 8px;
-        }
-
-        .field__field {
-            width: 100%;
-        }
-
-        .field__field>*,
-        .field__field input {
-            width: 100%;
-            height: 32px;
-            display: flex;
-            align-items: center;
-        }
-
-        .field__field input:not([type=checkbox]),
-        .field__field select {
-            width: 100%;
-            border: solid 1px var(--primary);
-        }
-
-        .field__field select.editable-field {
-            padding-top: 6px;
-        }
-
-        .field__field.error input,
-        .field__field.error input:focus {
-            border: solid 1px var(--color-invalid);
-        }
-
-        .field__field .error {
-            font-size: 12px;
-            color: var(--color-invalid);
-            margin-top: 8px;
-            height: inherit;
-        }
-
-        .field .editable-field {
-            min-height: 30px;
-            background-color: var(--tertiary);
-        }
-
-        .field.fumeur {
-            margin-right: inherit;
-        }
-
-        .editable-field {
-            border: 1px solid var(--tertiary);
-            display: flex;
-            justify-content: center;
-            flex-direction: column;
-            align-items: flex-start;
-        }
-
-        .editable-field.edited {
-            display: inline-block;
-        }
-
-        .editable {
-            border: 1px solid var(--primary);
-        }
-
-        .input-group {
-            padding-bottom: 16px;
-        }
-
-        .input-group label {
-            padding-bottom: 8px;
-        }
-
-        .input-group input[type=text] {
-            height: 32px;
-            border: 1px solid var(--primary);
-            padding: 0px 16px;
-        }
-
-        .list-mesure--selected {
-            font-weight: bold;
-        }
-
-        .list-mesure .action-icon {
-            cursor: pointer;
-        }
-
-        .impedance-form {
-            margin-bottom: 16px;
-        }
-
-        .impedance-form__line-header {
-            font-weight: bold;
-            text-align: left;
-        }
-
-        .impedance-form__header {
-            font-weight: bold;
-        }
-
-        .impedance-form input {
-            width: 100%;
-            height: 100%;
-            text-align: center;
-            color: var(--tertiary--dark);
-        }
-
-        .impedance-form .editable-field {
-            align-items: center;
-        }
 
         .comparison-grid {
             align-items: center;
@@ -3971,171 +1975,6 @@
         }
     </style>
     <style type="text/css">
-        :root {
-            --reference-width: 79.53125vw;
-            --gut-width: 0.625vw;
-            --col-width: 3.828125vw;
-            --marge-width: 10.234375vw;
-            --mesure-editor-right-margin: calc(var(--gut-width) * 2 + var(--col-width));
-            --width--2-col: calc((var(--col-width) * 2) + (var(--gut-width) * 1));
-            --width--3-col: calc((var(--col-width) * 3) + (var(--gut-width) * 2));
-            --width--4-col: calc((var(--col-width) * 4) + (var(--gut-width) * 3));
-            --width--5-col: calc((var(--col-width) * 5) + (var(--gut-width) * 4));
-        }
-
-        :root {
-            --col-1: var(--col-width);
-            --col-1-2: calc((var(--col-width) * 1) + (var(--gut-width) * 2));
-            --col-1-1: calc((var(--col-width) * 1) + (var(--gut-width) * 1));
-            --col-2: calc((var(--col-width) * 2) + (var(--gut-width) * 1));
-            --col-3: calc((var(--col-width) * 3) + (var(--gut-width) * 2));
-            --col-4: calc((var(--col-width) * 4) + (var(--gut-width) * 3));
-            --col-5: calc((var(--col-width) * 5) + (var(--gut-width) * 4));
-            --col-6: calc((var(--col-width) * 6) + (var(--gut-width) * 5));
-            --col-7: calc((var(--col-width) * 7) + (var(--gut-width) * 6));
-            --col-8: calc((var(--col-width) * 8) + (var(--gut-width) * 7));
-            --col-9: calc((var(--col-width) * 9) + (var(--gut-width) * 8));
-            --gut-1: var(--gut-width);
-            --gut-2: calc(var(--gut-width) * 2);
-        }
-
-        .field.fumeur,
-        .field.cote-mesure,
-        .field.taille {
-            width: calc((var(--col-width) * 2) + (var(--gut-width) * 1));
-        }
-
-        .field.date-examen,
-        .field.birthdate,
-        .field.activite-physique,
-        .field.type-activite-physique,
-        .field.poids-actuel {
-            width: calc((var(--col-width) * 3) + (var(--gut-width) * 2));
-        }
-
-        .input-group input[type=text],
-        .field__field>*,
-        .field__field input,
-        .button {
-            border-radius: 4px;
-        }
-
-        :root {
-            --secondary: #FFFFFF;
-            --primary: #000000;
-            --tertiary: #F2F2F2;
-            --tertiary--dark: #7F7F7F;
-            --color-invalid: #d32222;
-            --color-valid: #42D15D;
-        }
-
-        .button.btn--secondary:hover,
-        .button.btn--secondary:active,
-        .button.btn--secondary:focus,
-        .button {
-            background-color: var(--primary);
-            color: var(--secondary);
-            outline-color: var(--secondary);
-            border-color: var(--secondary);
-            --selected-color: var(--primary);
-        }
-
-        .button.btn--secondary,
-        .button:hover,
-        .button:active,
-        .button:focus {
-            background-color: var(--secondary);
-            color: var(--primary);
-            outline-color: var(--secondary);
-            border-color: var(--secondary);
-            --selected-color: var(--secondary);
-        }
-
-        @font-face {
-            font-family: "Aktiv Grotesk";
-            src: url("assets/font/AktivGroteskCorp-Medium.eot");
-            src: local("AktivGroteskCorp-Medium"), url("assets/font/AktivGroteskCorp-Medium.eot?#iefix") format("embedded-opentype"), url("assets/font/AktivGroteskCorp-Medium.woff2") format("woff2"), url("assets/font/AktivGroteskCorp-Medium.woff") format("woff"), url("assets/font/AktivGroteskCorp-Medium.ttf") format("truetype");
-            font-weight: 500;
-            font-style: normal;
-        }
-
-        @font-face {
-            font-family: "Aktiv Grotesk";
-            src: url("assets/font/AktivGroteskCorp-Bold.eot");
-            src: local("AktivGroteskCorp-Bold"), url("assets/font/AktivGroteskCorp-Bold.eot?#iefix") format("embedded-opentype"), url("assets/font/AktivGroteskCorp-Bold.woff2") format("woff2"), url("assets/font/AktivGroteskCorp-Bold.woff") format("woff"), url("assets/font/AktivGroteskCorp-Bold.ttf") format("truetype");
-            font-weight: bold;
-            font-style: normal;
-        }
-
-        @font-face {
-            font-family: "Aktiv Grotesk";
-            src: url("assets/font/AktivGroteskCorp-Italic.eot");
-            src: local("AktivGroteskCorp-Italic"), url("assets/font/AktivGroteskCorp-Italic.eot?#iefix") format("embedded-opentype"), url("assets/font/AktivGroteskCorp-Italic.woff2") format("woff2"), url("assets/font/AktivGroteskCorp-Italic.woff") format("woff"), url("assets/font/AktivGroteskCorp-Italic.ttf") format("truetype");
-            font-weight: normal;
-            font-style: italic;
-        }
-
-        @font-face {
-            font-family: "Aktiv Grotesk";
-            src: url("assets/font/AktivGroteskCorp-LightItalic.eot");
-            src: local("AktivGroteskCorp-LightItalic"), url("assets/font/AktivGroteskCorp-LightItalic.eot?#iefix") format("embedded-opentype"), url("assets/font/AktivGroteskCorp-LightItalic.woff2") format("woff2"), url("assets/font/AktivGroteskCorp-LightItalic.woff") format("woff"), url("assets/font/AktivGroteskCorp-LightItalic.ttf") format("truetype");
-            font-weight: 300;
-            font-style: italic;
-        }
-
-        @font-face {
-            font-family: "Aktiv Grotesk";
-            src: url("assets/font/AktivGroteskCorp-MediumItalic.eot");
-            src: local("AktivGroteskCorp-MediumItalic"), url("assets/font/AktivGroteskCorp-MediumItalic.eot?#iefix") format("embedded-opentype"), url("assets/font/AktivGroteskCorp-MediumItalic.woff2") format("woff2"), url("assets/font/AktivGroteskCorp-MediumItalic.woff") format("woff"), url("assets/font/AktivGroteskCorp-MediumItalic.ttf") format("truetype");
-            font-weight: 500;
-            font-style: italic;
-        }
-
-        @font-face {
-            font-family: "Aktiv Grotesk";
-            src: url("assets/font/AktivGroteskCorp-Light.eot");
-            src: local("AktivGroteskCorp-Light"), url("assets/font/AktivGroteskCorp-Light.eot?#iefix") format("embedded-opentype"), url("assets/font/AktivGroteskCorp-Light.woff2") format("woff2"), url("assets/font/AktivGroteskCorp-Light.woff") format("woff"), url("assets/font/AktivGroteskCorp-Light.ttf") format("truetype");
-            font-weight: 300;
-            font-style: normal;
-        }
-
-        @font-face {
-            font-family: "Aktiv Grotesk";
-            src: url("assets/font/AktivGroteskCorp-Regular.eot");
-            src: local("AktivGroteskCorp-Regular"), url("assets/font/AktivGroteskCorp-Regular.eot?#iefix") format("embedded-opentype"), url("assets/font/AktivGroteskCorp-Regular.woff2") format("woff2"), url("assets/font/AktivGroteskCorp-Regular.woff") format("woff"), url("assets/font/AktivGroteskCorp-Regular.ttf") format("truetype");
-            font-weight: normal;
-            font-style: normal;
-        }
-
-        @font-face {
-            font-family: "Aktiv Grotesk";
-            src: url("assets/font/AktivGroteskCorp-BoldItalic.eot");
-            src: local("AktivGroteskCorp-BoldItalic"), url("assets/font/AktivGroteskCorp-BoldItalic.eot?#iefix") format("embedded-opentype"), url("assets/font/AktivGroteskCorp-BoldItalic.woff2") format("woff2"), url("assets/font/AktivGroteskCorp-BoldItalic.woff") format("woff"), url("assets/font/AktivGroteskCorp-BoldItalic.ttf") format("truetype");
-            font-weight: bold;
-            font-style: italic;
-        }
-
-        :root {
-            --font-family-aktiv-grotesk: "Aktiv Grotesk";
-            --font-style-normal: normal;
-            --font-style-italic: italic;
-            --font-weight-100: 100px;
-            --font-weight-normal: normal;
-            --font-weight-bold: bold;
-            --font-size-10: 10px;
-            --font-size-12: 12px;
-            --font-size-14: 14px;
-            --font-size-20: 20px;
-            --font-size-30: 30px;
-            --font-size-40: 40px;
-            --character-spacing-0: 0px;
-            --line-spacing-15: 15px;
-            --line-spacing-25: 25px;
-            --line-spacing-50: 50px;
-            --line-spacing-17-5: 17.5px;
-            --line-spacing-37-5: 37.5px;
-            --text-transform-uppercase: uppercase;
-        }
 
         /* Character Styles */
 
@@ -4215,166 +2054,15 @@
             font-family: arial, verdana, tahoma, sans-serif;
         }
 
-        .button {
-            min-width: calc((var(--col-width) * 3) + (var(--gut-width) * 2));
-            width: auto;
-            padding: 8px 16px;
-            background-color: var(--primary);
-            border: 1px solid var(--primary);
-        }
 
-        .button:hover,
-        .button:active,
-        .button:focus {
-            cursor: pointer;
-        }
 
-        .button:hover {
-            border: 1px solid var(--primary);
-        }
 
-        .button--big {
-            height: 42px;
-            min-width: calc((var(--col-width) * 5) + (var(--gut-width) * 4));
-        }
 
-        .button--small {
-            height: 21px;
-            padding: 0px;
-            max-width: 100%;
-        }
 
-        .button.btn--secondary {
-            border: 1px solid var(--primary);
-        }
 
-        .button__svg {
-            margin-left: 8px;
-        }
 
-        .page-create-subject .field {
-            margin-right: 0;
-            margin-bottom: 0;
-        }
 
-        .field {
-            margin-right: var(--gut-width);
-            margin-bottom: 16px;
-        }
 
-        .field--one {
-            margin-right: inherit;
-        }
-
-        .field__label {
-            display: inline-block;
-            margin-bottom: 8px;
-        }
-
-        .field__field {
-            width: 100%;
-        }
-
-        .field__field>*,
-        .field__field input {
-            width: 100%;
-            height: 32px;
-            display: flex;
-            align-items: center;
-        }
-
-        .field__field input:not([type=checkbox]),
-        .field__field select {
-            width: 100%;
-            border: solid 1px var(--primary);
-        }
-
-        .field__field select.editable-field {
-            padding-top: 6px;
-        }
-
-        .field__field.error input,
-        .field__field.error input:focus {
-            border: solid 1px var(--color-invalid);
-        }
-
-        .field__field .error {
-            font-size: 12px;
-            color: var(--color-invalid);
-            margin-top: 8px;
-            height: inherit;
-        }
-
-        .field .editable-field {
-            min-height: 30px;
-            background-color: var(--tertiary);
-        }
-
-        .field.fumeur {
-            margin-right: inherit;
-        }
-
-        .editable-field {
-            border: 1px solid var(--tertiary);
-            display: flex;
-            justify-content: center;
-            flex-direction: column;
-            align-items: flex-start;
-        }
-
-        .editable-field.edited {
-            display: inline-block;
-        }
-
-        .editable {
-            border: 1px solid var(--primary);
-        }
-
-        .input-group {
-            padding-bottom: 16px;
-        }
-
-        .input-group label {
-            padding-bottom: 8px;
-        }
-
-        .input-group input[type=text] {
-            height: 32px;
-            border: 1px solid var(--primary);
-            padding: 0px 16px;
-        }
-
-        .list-mesure--selected {
-            font-weight: bold;
-        }
-
-        .list-mesure .action-icon {
-            cursor: pointer;
-        }
-
-        .impedance-form {
-            margin-bottom: 16px;
-        }
-
-        .impedance-form__line-header {
-            font-weight: bold;
-            text-align: left;
-        }
-
-        .impedance-form__header {
-            font-weight: bold;
-        }
-
-        .impedance-form input {
-            width: 100%;
-            height: 100%;
-            text-align: center;
-            color: var(--tertiary--dark);
-        }
-
-        .impedance-form .editable-field {
-            align-items: center;
-        }
 
         .impedance-form__line-header {
             font-weight: bold;
@@ -4422,173 +2110,6 @@
         }
     </style>
     <style type="text/css">
-        :root {
-            --reference-width: 79.53125vw;
-            --gut-width: 0.625vw;
-            --col-width: 3.828125vw;
-            --marge-width: 10.234375vw;
-            --mesure-editor-right-margin: calc(var(--gut-width) * 2 + var(--col-width));
-            --width--2-col: calc((var(--col-width) * 2) + (var(--gut-width) * 1));
-            --width--3-col: calc((var(--col-width) * 3) + (var(--gut-width) * 2));
-            --width--4-col: calc((var(--col-width) * 4) + (var(--gut-width) * 3));
-            --width--5-col: calc((var(--col-width) * 5) + (var(--gut-width) * 4));
-        }
-
-        :root {
-            --col-1: var(--col-width);
-            --col-1-2: calc((var(--col-width) * 1) + (var(--gut-width) * 2));
-            --col-1-1: calc((var(--col-width) * 1) + (var(--gut-width) * 1));
-            --col-2: calc((var(--col-width) * 2) + (var(--gut-width) * 1));
-            --col-3: calc((var(--col-width) * 3) + (var(--gut-width) * 2));
-            --col-4: calc((var(--col-width) * 4) + (var(--gut-width) * 3));
-            --col-5: calc((var(--col-width) * 5) + (var(--gut-width) * 4));
-            --col-6: calc((var(--col-width) * 6) + (var(--gut-width) * 5));
-            --col-7: calc((var(--col-width) * 7) + (var(--gut-width) * 6));
-            --col-8: calc((var(--col-width) * 8) + (var(--gut-width) * 7));
-            --col-9: calc((var(--col-width) * 9) + (var(--gut-width) * 8));
-            --gut-1: var(--gut-width);
-            --gut-2: calc(var(--gut-width) * 2);
-        }
-
-        .field.fumeur,
-        .field.cote-mesure,
-        .field.taille {
-            width: calc((var(--col-width) * 2) + (var(--gut-width) * 1));
-        }
-
-        .field.date-examen,
-        .field.birthdate,
-        .field.activite-physique,
-        .field.type-activite-physique,
-        .field.poids-actuel {
-            width: calc((var(--col-width) * 3) + (var(--gut-width) * 2));
-        }
-
-        .input-group input[type=text],
-        .field__field>*,
-        .field__field input,
-        .button {
-            border-radius: 4px;
-        }
-
-        :root {
-            --secondary: #FFFFFF;
-            --primary: #000000;
-            --tertiary: #F2F2F2;
-            --tertiary--dark: #7F7F7F;
-            --color-invalid: #d32222;
-            --color-valid: #42D15D;
-        }
-
-        .button.btn--secondary:hover,
-        .button.btn--secondary:active,
-        .button.btn--secondary:focus,
-        .button {
-            background-color: var(--primary);
-            color: var(--secondary);
-            outline-color: var(--secondary);
-            border-color: var(--secondary);
-            --selected-color: var(--primary);
-        }
-
-        .tabs__tab.selected,
-        .tabs,
-        .button.btn--secondary,
-        .button:hover,
-        .button:active,
-        .button:focus {
-            background-color: var(--secondary);
-            color: var(--primary);
-            outline-color: var(--secondary);
-            border-color: var(--secondary);
-            --selected-color: var(--secondary);
-        }
-
-        @font-face {
-            font-family: "Aktiv Grotesk";
-            src: url("assets/font/AktivGroteskCorp-Medium.eot");
-            src: local("AktivGroteskCorp-Medium"), url("assets/font/AktivGroteskCorp-Medium.eot?#iefix") format("embedded-opentype"), url("assets/font/AktivGroteskCorp-Medium.woff2") format("woff2"), url("assets/font/AktivGroteskCorp-Medium.woff") format("woff"), url("assets/font/AktivGroteskCorp-Medium.ttf") format("truetype");
-            font-weight: 500;
-            font-style: normal;
-        }
-
-        @font-face {
-            font-family: "Aktiv Grotesk";
-            src: url("assets/font/AktivGroteskCorp-Bold.eot");
-            src: local("AktivGroteskCorp-Bold"), url("assets/font/AktivGroteskCorp-Bold.eot?#iefix") format("embedded-opentype"), url("assets/font/AktivGroteskCorp-Bold.woff2") format("woff2"), url("assets/font/AktivGroteskCorp-Bold.woff") format("woff"), url("assets/font/AktivGroteskCorp-Bold.ttf") format("truetype");
-            font-weight: bold;
-            font-style: normal;
-        }
-
-        @font-face {
-            font-family: "Aktiv Grotesk";
-            src: url("assets/font/AktivGroteskCorp-Italic.eot");
-            src: local("AktivGroteskCorp-Italic"), url("assets/font/AktivGroteskCorp-Italic.eot?#iefix") format("embedded-opentype"), url("assets/font/AktivGroteskCorp-Italic.woff2") format("woff2"), url("assets/font/AktivGroteskCorp-Italic.woff") format("woff"), url("assets/font/AktivGroteskCorp-Italic.ttf") format("truetype");
-            font-weight: normal;
-            font-style: italic;
-        }
-
-        @font-face {
-            font-family: "Aktiv Grotesk";
-            src: url("assets/font/AktivGroteskCorp-LightItalic.eot");
-            src: local("AktivGroteskCorp-LightItalic"), url("assets/font/AktivGroteskCorp-LightItalic.eot?#iefix") format("embedded-opentype"), url("assets/font/AktivGroteskCorp-LightItalic.woff2") format("woff2"), url("assets/font/AktivGroteskCorp-LightItalic.woff") format("woff"), url("assets/font/AktivGroteskCorp-LightItalic.ttf") format("truetype");
-            font-weight: 300;
-            font-style: italic;
-        }
-
-        @font-face {
-            font-family: "Aktiv Grotesk";
-            src: url("assets/font/AktivGroteskCorp-MediumItalic.eot");
-            src: local("AktivGroteskCorp-MediumItalic"), url("assets/font/AktivGroteskCorp-MediumItalic.eot?#iefix") format("embedded-opentype"), url("assets/font/AktivGroteskCorp-MediumItalic.woff2") format("woff2"), url("assets/font/AktivGroteskCorp-MediumItalic.woff") format("woff"), url("assets/font/AktivGroteskCorp-MediumItalic.ttf") format("truetype");
-            font-weight: 500;
-            font-style: italic;
-        }
-
-        @font-face {
-            font-family: "Aktiv Grotesk";
-            src: url("assets/font/AktivGroteskCorp-Light.eot");
-            src: local("AktivGroteskCorp-Light"), url("assets/font/AktivGroteskCorp-Light.eot?#iefix") format("embedded-opentype"), url("assets/font/AktivGroteskCorp-Light.woff2") format("woff2"), url("assets/font/AktivGroteskCorp-Light.woff") format("woff"), url("assets/font/AktivGroteskCorp-Light.ttf") format("truetype");
-            font-weight: 300;
-            font-style: normal;
-        }
-
-        @font-face {
-            font-family: "Aktiv Grotesk";
-            src: url("assets/font/AktivGroteskCorp-Regular.eot");
-            src: local("AktivGroteskCorp-Regular"), url("assets/font/AktivGroteskCorp-Regular.eot?#iefix") format("embedded-opentype"), url("assets/font/AktivGroteskCorp-Regular.woff2") format("woff2"), url("assets/font/AktivGroteskCorp-Regular.woff") format("woff"), url("assets/font/AktivGroteskCorp-Regular.ttf") format("truetype");
-            font-weight: normal;
-            font-style: normal;
-        }
-
-        @font-face {
-            font-family: "Aktiv Grotesk";
-            src: url("assets/font/AktivGroteskCorp-BoldItalic.eot");
-            src: local("AktivGroteskCorp-BoldItalic"), url("assets/font/AktivGroteskCorp-BoldItalic.eot?#iefix") format("embedded-opentype"), url("assets/font/AktivGroteskCorp-BoldItalic.woff2") format("woff2"), url("assets/font/AktivGroteskCorp-BoldItalic.woff") format("woff"), url("assets/font/AktivGroteskCorp-BoldItalic.ttf") format("truetype");
-            font-weight: bold;
-            font-style: italic;
-        }
-
-        :root {
-            --font-family-aktiv-grotesk: "Aktiv Grotesk";
-            --font-style-normal: normal;
-            --font-style-italic: italic;
-            --font-weight-100: 100px;
-            --font-weight-normal: normal;
-            --font-weight-bold: bold;
-            --font-size-10: 10px;
-            --font-size-12: 12px;
-            --font-size-14: 14px;
-            --font-size-20: 20px;
-            --font-size-30: 30px;
-            --font-size-40: 40px;
-            --character-spacing-0: 0px;
-            --line-spacing-15: 15px;
-            --line-spacing-25: 25px;
-            --line-spacing-50: 50px;
-            --line-spacing-17-5: 17.5px;
-            --line-spacing-37-5: 37.5px;
-            --text-transform-uppercase: uppercase;
-        }
 
         /* Character Styles */
 
@@ -4663,167 +2184,6 @@
             font-weight: var(--font-weight-bold);
         }
 
-        .button {
-            min-width: calc((var(--col-width) * 3) + (var(--gut-width) * 2));
-            width: auto;
-            padding: 8px 16px;
-            background-color: var(--primary);
-            border: 1px solid var(--primary);
-        }
-
-        .button:hover,
-        .button:active,
-        .button:focus {
-            cursor: pointer;
-        }
-
-        .button:hover {
-            border: 1px solid var(--primary);
-        }
-
-        .button--big {
-            height: 42px;
-            min-width: calc((var(--col-width) * 5) + (var(--gut-width) * 4));
-        }
-
-        .button--small {
-            height: 21px;
-            padding: 0px;
-            max-width: 100%;
-        }
-
-        .button.btn--secondary {
-            border: 1px solid var(--primary);
-        }
-
-        .button__svg {
-            margin-left: 8px;
-        }
-
-        .page-create-subject .field {
-            margin-right: 0;
-            margin-bottom: 0;
-        }
-
-        .field {
-            margin-right: var(--gut-width);
-            margin-bottom: 16px;
-        }
-
-        .field--one {
-            margin-right: inherit;
-        }
-
-        .field__label {
-            display: inline-block;
-            margin-bottom: 8px;
-        }
-
-        .field__field {
-            width: 100%;
-        }
-
-        .field__field>*,
-        .field__field input {
-            width: 100%;
-            height: 32px;
-            display: flex;
-            align-items: center;
-        }
-
-        .field__field input:not([type=checkbox]),
-        .field__field select {
-            width: 100%;
-            border: solid 1px var(--primary);
-        }
-
-        .field__field select.editable-field {
-            padding-top: 6px;
-        }
-
-        .field__field.error input,
-        .field__field.error input:focus {
-            border: solid 1px var(--color-invalid);
-        }
-
-        .field__field .error {
-            font-size: 12px;
-            color: var(--color-invalid);
-            margin-top: 8px;
-            height: inherit;
-        }
-
-        .field .editable-field {
-            min-height: 30px;
-            background-color: var(--tertiary);
-        }
-
-        .field.fumeur {
-            margin-right: inherit;
-        }
-
-        .editable-field {
-            border: 1px solid var(--tertiary);
-            display: flex;
-            justify-content: center;
-            flex-direction: column;
-            align-items: flex-start;
-        }
-
-        .editable-field.edited {
-            display: inline-block;
-        }
-
-        .editable {
-            border: 1px solid var(--primary);
-        }
-
-        .input-group {
-            padding-bottom: 16px;
-        }
-
-        .input-group label {
-            padding-bottom: 8px;
-        }
-
-        .input-group input[type=text] {
-            height: 32px;
-            border: 1px solid var(--primary);
-            padding: 0px 16px;
-        }
-
-        .list-mesure--selected {
-            font-weight: bold;
-        }
-
-        .list-mesure .action-icon {
-            cursor: pointer;
-        }
-
-        .impedance-form {
-            margin-bottom: 16px;
-        }
-
-        .impedance-form__line-header {
-            font-weight: bold;
-            text-align: left;
-        }
-
-        .impedance-form__header {
-            font-weight: bold;
-        }
-
-        .impedance-form input {
-            width: 100%;
-            height: 100%;
-            text-align: center;
-            color: var(--tertiary--dark);
-        }
-
-        .impedance-form .editable-field {
-            align-items: center;
-        }
-
         .tabs {
             --tab-width: calc((var(--col-width) * 2) + var(--gut-width));
         }
@@ -4873,172 +2233,6 @@
         }
     </style>
     <style type="text/css">
-        :root {
-            --reference-width: 79.53125vw;
-            --gut-width: 0.625vw;
-            --col-width: 3.828125vw;
-            --marge-width: 10.234375vw;
-            --mesure-editor-right-margin: calc(var(--gut-width) * 2 + var(--col-width));
-            --width--2-col: calc((var(--col-width) * 2) + (var(--gut-width) * 1));
-            --width--3-col: calc((var(--col-width) * 3) + (var(--gut-width) * 2));
-            --width--4-col: calc((var(--col-width) * 4) + (var(--gut-width) * 3));
-            --width--5-col: calc((var(--col-width) * 5) + (var(--gut-width) * 4));
-        }
-
-        :root {
-            --col-1: var(--col-width);
-            --col-1-2: calc((var(--col-width) * 1) + (var(--gut-width) * 2));
-            --col-1-1: calc((var(--col-width) * 1) + (var(--gut-width) * 1));
-            --col-2: calc((var(--col-width) * 2) + (var(--gut-width) * 1));
-            --col-3: calc((var(--col-width) * 3) + (var(--gut-width) * 2));
-            --col-4: calc((var(--col-width) * 4) + (var(--gut-width) * 3));
-            --col-5: calc((var(--col-width) * 5) + (var(--gut-width) * 4));
-            --col-6: calc((var(--col-width) * 6) + (var(--gut-width) * 5));
-            --col-7: calc((var(--col-width) * 7) + (var(--gut-width) * 6));
-            --col-8: calc((var(--col-width) * 8) + (var(--gut-width) * 7));
-            --col-9: calc((var(--col-width) * 9) + (var(--gut-width) * 8));
-            --gut-1: var(--gut-width);
-            --gut-2: calc(var(--gut-width) * 2);
-        }
-
-        .field.fumeur,
-        .field.cote-mesure,
-        .field.taille {
-            width: calc((var(--col-width) * 2) + (var(--gut-width) * 1));
-        }
-
-        .field.date-examen,
-        .field.birthdate,
-        .field.activite-physique,
-        .field.type-activite-physique,
-        .field.poids-actuel {
-            width: calc((var(--col-width) * 3) + (var(--gut-width) * 2));
-        }
-
-        .input-group input[type=text],
-        .field__field>*,
-        .field__field input,
-        .button {
-            border-radius: 4px;
-        }
-
-        :root {
-            --secondary: #FFFFFF;
-            --primary: #000000;
-            --tertiary: #F2F2F2;
-            --tertiary--dark: #7F7F7F;
-            --color-invalid: #d32222;
-            --color-valid: #42D15D;
-        }
-
-        .search-grid-layout .autocomplete__item--selected,
-        .button.btn--secondary:hover,
-        .button.btn--secondary:active,
-        .button.btn--secondary:focus,
-        .button {
-            background-color: var(--primary);
-            color: var(--secondary);
-            outline-color: var(--secondary);
-            border-color: var(--secondary);
-            --selected-color: var(--primary);
-        }
-
-        .button.btn--secondary,
-        .button:hover,
-        .button:active,
-        .button:focus {
-            background-color: var(--secondary);
-            color: var(--primary);
-            outline-color: var(--secondary);
-            border-color: var(--secondary);
-            --selected-color: var(--secondary);
-        }
-
-        @font-face {
-            font-family: "Aktiv Grotesk";
-            src: url("assets/font/AktivGroteskCorp-Medium.eot");
-            src: local("AktivGroteskCorp-Medium"), url("assets/font/AktivGroteskCorp-Medium.eot?#iefix") format("embedded-opentype"), url("assets/font/AktivGroteskCorp-Medium.woff2") format("woff2"), url("assets/font/AktivGroteskCorp-Medium.woff") format("woff"), url("assets/font/AktivGroteskCorp-Medium.ttf") format("truetype");
-            font-weight: 500;
-            font-style: normal;
-        }
-
-        @font-face {
-            font-family: "Aktiv Grotesk";
-            src: url("assets/font/AktivGroteskCorp-Bold.eot");
-            src: local("AktivGroteskCorp-Bold"), url("assets/font/AktivGroteskCorp-Bold.eot?#iefix") format("embedded-opentype"), url("assets/font/AktivGroteskCorp-Bold.woff2") format("woff2"), url("assets/font/AktivGroteskCorp-Bold.woff") format("woff"), url("assets/font/AktivGroteskCorp-Bold.ttf") format("truetype");
-            font-weight: bold;
-            font-style: normal;
-        }
-
-        @font-face {
-            font-family: "Aktiv Grotesk";
-            src: url("assets/font/AktivGroteskCorp-Italic.eot");
-            src: local("AktivGroteskCorp-Italic"), url("assets/font/AktivGroteskCorp-Italic.eot?#iefix") format("embedded-opentype"), url("assets/font/AktivGroteskCorp-Italic.woff2") format("woff2"), url("assets/font/AktivGroteskCorp-Italic.woff") format("woff"), url("assets/font/AktivGroteskCorp-Italic.ttf") format("truetype");
-            font-weight: normal;
-            font-style: italic;
-        }
-
-        @font-face {
-            font-family: "Aktiv Grotesk";
-            src: url("assets/font/AktivGroteskCorp-LightItalic.eot");
-            src: local("AktivGroteskCorp-LightItalic"), url("assets/font/AktivGroteskCorp-LightItalic.eot?#iefix") format("embedded-opentype"), url("assets/font/AktivGroteskCorp-LightItalic.woff2") format("woff2"), url("assets/font/AktivGroteskCorp-LightItalic.woff") format("woff"), url("assets/font/AktivGroteskCorp-LightItalic.ttf") format("truetype");
-            font-weight: 300;
-            font-style: italic;
-        }
-
-        @font-face {
-            font-family: "Aktiv Grotesk";
-            src: url("assets/font/AktivGroteskCorp-MediumItalic.eot");
-            src: local("AktivGroteskCorp-MediumItalic"), url("assets/font/AktivGroteskCorp-MediumItalic.eot?#iefix") format("embedded-opentype"), url("assets/font/AktivGroteskCorp-MediumItalic.woff2") format("woff2"), url("assets/font/AktivGroteskCorp-MediumItalic.woff") format("woff"), url("assets/font/AktivGroteskCorp-MediumItalic.ttf") format("truetype");
-            font-weight: 500;
-            font-style: italic;
-        }
-
-        @font-face {
-            font-family: "Aktiv Grotesk";
-            src: url("assets/font/AktivGroteskCorp-Light.eot");
-            src: local("AktivGroteskCorp-Light"), url("assets/font/AktivGroteskCorp-Light.eot?#iefix") format("embedded-opentype"), url("assets/font/AktivGroteskCorp-Light.woff2") format("woff2"), url("assets/font/AktivGroteskCorp-Light.woff") format("woff"), url("assets/font/AktivGroteskCorp-Light.ttf") format("truetype");
-            font-weight: 300;
-            font-style: normal;
-        }
-
-        @font-face {
-            font-family: "Aktiv Grotesk";
-            src: url("assets/font/AktivGroteskCorp-Regular.eot");
-            src: local("AktivGroteskCorp-Regular"), url("assets/font/AktivGroteskCorp-Regular.eot?#iefix") format("embedded-opentype"), url("assets/font/AktivGroteskCorp-Regular.woff2") format("woff2"), url("assets/font/AktivGroteskCorp-Regular.woff") format("woff"), url("assets/font/AktivGroteskCorp-Regular.ttf") format("truetype");
-            font-weight: normal;
-            font-style: normal;
-        }
-
-        @font-face {
-            font-family: "Aktiv Grotesk";
-            src: url("assets/font/AktivGroteskCorp-BoldItalic.eot");
-            src: local("AktivGroteskCorp-BoldItalic"), url("assets/font/AktivGroteskCorp-BoldItalic.eot?#iefix") format("embedded-opentype"), url("assets/font/AktivGroteskCorp-BoldItalic.woff2") format("woff2"), url("assets/font/AktivGroteskCorp-BoldItalic.woff") format("woff"), url("assets/font/AktivGroteskCorp-BoldItalic.ttf") format("truetype");
-            font-weight: bold;
-            font-style: italic;
-        }
-
-        :root {
-            --font-family-aktiv-grotesk: "Aktiv Grotesk";
-            --font-style-normal: normal;
-            --font-style-italic: italic;
-            --font-weight-100: 100px;
-            --font-weight-normal: normal;
-            --font-weight-bold: bold;
-            --font-size-10: 10px;
-            --font-size-12: 12px;
-            --font-size-14: 14px;
-            --font-size-20: 20px;
-            --font-size-30: 30px;
-            --font-size-40: 40px;
-            --character-spacing-0: 0px;
-            --line-spacing-15: 15px;
-            --line-spacing-25: 25px;
-            --line-spacing-50: 50px;
-            --line-spacing-17-5: 17.5px;
-            --line-spacing-37-5: 37.5px;
-            --text-transform-uppercase: uppercase;
-        }
 
         /* Character Styles */
 
@@ -5104,167 +2298,6 @@
         .search-grid-layout b,
         .search-grid-layout label {
             font-weight: var(--font-weight-bold);
-        }
-
-        .button {
-            min-width: calc((var(--col-width) * 3) + (var(--gut-width) * 2));
-            width: auto;
-            padding: 8px 16px;
-            background-color: var(--primary);
-            border: 1px solid var(--primary);
-        }
-
-        .button:hover,
-        .button:active,
-        .button:focus {
-            cursor: pointer;
-        }
-
-        .button:hover {
-            border: 1px solid var(--primary);
-        }
-
-        .button--big {
-            height: 42px;
-            min-width: calc((var(--col-width) * 5) + (var(--gut-width) * 4));
-        }
-
-        .button--small {
-            height: 21px;
-            padding: 0px;
-            max-width: 100%;
-        }
-
-        .button.btn--secondary {
-            border: 1px solid var(--primary);
-        }
-
-        .button__svg {
-            margin-left: 8px;
-        }
-
-        .page-create-subject .field {
-            margin-right: 0;
-            margin-bottom: 0;
-        }
-
-        .field {
-            margin-right: var(--gut-width);
-            margin-bottom: 16px;
-        }
-
-        .field--one {
-            margin-right: inherit;
-        }
-
-        .field__label {
-            display: inline-block;
-            margin-bottom: 8px;
-        }
-
-        .field__field {
-            width: 100%;
-        }
-
-        .field__field>*,
-        .field__field input {
-            width: 100%;
-            height: 32px;
-            display: flex;
-            align-items: center;
-        }
-
-        .field__field input:not([type=checkbox]),
-        .field__field select {
-            width: 100%;
-            border: solid 1px var(--primary);
-        }
-
-        .field__field select.editable-field {
-            padding-top: 6px;
-        }
-
-        .field__field.error input,
-        .field__field.error input:focus {
-            border: solid 1px var(--color-invalid);
-        }
-
-        .field__field .error {
-            font-size: 12px;
-            color: var(--color-invalid);
-            margin-top: 8px;
-            height: inherit;
-        }
-
-        .field .editable-field {
-            min-height: 30px;
-            background-color: var(--tertiary);
-        }
-
-        .field.fumeur {
-            margin-right: inherit;
-        }
-
-        .editable-field {
-            border: 1px solid var(--tertiary);
-            display: flex;
-            justify-content: center;
-            flex-direction: column;
-            align-items: flex-start;
-        }
-
-        .editable-field.edited {
-            display: inline-block;
-        }
-
-        .editable {
-            border: 1px solid var(--primary);
-        }
-
-        .input-group {
-            padding-bottom: 16px;
-        }
-
-        .input-group label {
-            padding-bottom: 8px;
-        }
-
-        .input-group input[type=text] {
-            height: 32px;
-            border: 1px solid var(--primary);
-            padding: 0px 16px;
-        }
-
-        .list-mesure--selected {
-            font-weight: bold;
-        }
-
-        .list-mesure .action-icon {
-            cursor: pointer;
-        }
-
-        .impedance-form {
-            margin-bottom: 16px;
-        }
-
-        .impedance-form__line-header {
-            font-weight: bold;
-            text-align: left;
-        }
-
-        .impedance-form__header {
-            font-weight: bold;
-        }
-
-        .impedance-form input {
-            width: 100%;
-            height: 100%;
-            text-align: center;
-            color: var(--tertiary--dark);
-        }
-
-        .impedance-form .editable-field {
-            align-items: center;
         }
 
         .search-grid-layout .autocomplete {
@@ -5488,7 +2521,6 @@
             border: none;
         }
     </style>
-    <style type="text/css"></style>
     <style type="text/css">
         /*** PARENTS ***/
         /* Order */
@@ -5791,137 +2823,6 @@
             grid-template-areas: "top""center""bottom";
         }
 
-        html,
-        body,
-        div,
-        span,
-        applet,
-        object,
-        iframe,
-        h1,
-        h2,
-        h3,
-        h4,
-        h5,
-        h6,
-        p,
-        blockquote,
-        pre,
-        a,
-        abbr,
-        acronym,
-        address,
-        big,
-        cite,
-        code,
-        del,
-        dfn,
-        em,
-        img,
-        ins,
-        kbd,
-        q,
-        s,
-        samp,
-        small,
-        strike,
-        strong,
-        sub,
-        sup,
-        tt,
-        var,
-        b,
-        u,
-        i,
-        center,
-        dl,
-        dt,
-        dd,
-        ol,
-        ul,
-        li,
-        fieldset,
-        form,
-        label,
-        legend,
-        table,
-        caption,
-        tbody,
-        tfoot,
-        thead,
-        tr,
-        th,
-        td,
-        article,
-        aside,
-        canvas,
-        details,
-        embed,
-        figure,
-        figcaption,
-        footer,
-        header,
-        hgroup,
-        menu,
-        nav,
-        output,
-        ruby,
-        section,
-        summary,
-        time,
-        mark,
-        audio,
-        video {
-            margin: 0;
-            padding: 0;
-            border: 0;
-            font-size: 100%;
-            font: inherit;
-            vertical-align: baseline;
-        }
-
-        /* HTML5 display-role reset for older browsers */
-        article,
-        aside,
-        details,
-        figcaption,
-        figure,
-        footer,
-        header,
-        hgroup,
-        menu,
-        nav,
-        section {
-            display: block;
-        }
-
-        body {
-            line-height: 1;
-        }
-
-        ol,
-        ul {
-            list-style: none;
-        }
-
-        blockquote,
-        q {
-            quotes: none;
-        }
-
-        blockquote:before,
-        blockquote:after,
-        q:before,
-        q:after {
-            content: "";
-            content: none;
-        }
-
-        table {
-            border-collapse: collapse;
-            border-spacing: 0;
-        }
-
         .container-fullscreen {
             height: 100vh;
             /* Fallback for browsers that do not support Custom Properties */
@@ -5980,57 +2881,7 @@
             outline: 2px solid #c018b2 !important;
         }
 
-        .container-modal {
-            position: absolute;
-            /* never goes more than the viewport*/
-        }
 
-        .container-modal--cover {
-            width: 100%;
-            min-width: 100%;
-            height: 100%;
-            min-height: 100%;
-        }
-
-        .container-modal--contained {
-            max-width: 100%;
-            max-height: 100%;
-        }
-
-        .container-modal--grow {
-            max-height: none;
-            max-width: none;
-        }
-
-        .container-modal--fit {
-            height: auto;
-            width: auto;
-            min-width: auto;
-            min-height: auto;
-        }
-
-        .container-modal--scrollable {
-            overflow-y: auto;
-        }
-
-        .container-modal--debug {
-            background-color: #17cf10 !important;
-            outline: 2px solid #c4dff2 !important;
-        }
-
-        .container-modal--bottom {
-            bottom: 0px;
-        }
-
-        .container-modal--contained {
-            max-width: 100%;
-            max-height: 100%;
-            overflow: hidden;
-        }
-
-        .container-modal--scrollable {
-            overflow: auto;
-        }
     </style>
     <style data-jss="" data-meta="MuiSvgIcon">
         .MuiSvgIcon-root {
