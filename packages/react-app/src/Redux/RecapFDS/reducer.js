@@ -48,9 +48,16 @@ export default (getModule) => {
                 return _values;
             },{})
 
-            let norme = safe_path("N/A", `mesures.${state.mesures.length-1}.fds.${side}.norme`,state);
 
-            carry.push({label:side,values, norme  })
+            let norme  = safe_path(null, `mesures.${state.mesures.length-1}.fds.${side}.norme`,state);
+            
+            values.norme = '';
+            if(norme){
+                let [min,max] = norme 
+                values.norme= `${min}-${max}`
+            }
+            
+            carry.push({label:side,values  })
             return carry;
         },[])
     }

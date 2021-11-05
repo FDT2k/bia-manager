@@ -11,7 +11,8 @@ export default getModule => {
    const module = {};
 
 
-
+   module.select_recap = createSelector(baseSelector, state => state.recap)
+   module.select_headers = createSelector(baseSelector, state => state.headers)
 
    return module;
 

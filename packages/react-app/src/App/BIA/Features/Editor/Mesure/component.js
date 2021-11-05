@@ -21,6 +21,7 @@ import ElectricalDataForm from '@/bia-layout/components/Views/ElectricalDataForm
 import ComparisonTable from '@/App/BIA/Features/Editor/Mesure/ComparisonTable';
 import Serrement from '@/App/BIA/Features/Editor/Mesure/Serrement';
 import RecapGrid from '@/App/BIA/Features/Editor/Mesure/RecapGrid';
+import RecapFDS from '@/App/BIA/Features/Editor/Mesure/RecapGrid/FDS';
 
 import { Container, LayoutFlex, LayoutFlexColumn, withGridArea } from '@karsegard/react-core-layout'
 
@@ -246,6 +247,7 @@ const Editor = props => {
                                 <TESTChart data_key="fmi" />
                             </LayoutFlexColumn>
                         </LayoutFlex>
+                        <RecapFDS />
                     </LayoutFlexColumn>
                 </TabPanel>
 

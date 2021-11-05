@@ -188,7 +188,15 @@ export const {
  
  
 
+//FDS
 
+export const RecapFDSModule = ElectronModule.submodules.features.editor.submodules.recap_fds;
+
+
+export const {
+  select_recap: select_recap_fds,
+  select_headers: select_headers_fds
+} =  RecapFDSModule.selectors;
 /* main store reducer */
 
 

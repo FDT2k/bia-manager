@@ -10,6 +10,7 @@ import {Grid} from '@karsegard/react-core-layout'
 import React from 'react';
 import { dateSysToHuman } from '@/references/format';
 
+import RecapFDS from '@/App/BIA/Features/Editor/Mesure/RecapGrid/FDS';
 
 export default props => {
 
@@ -29,7 +30,7 @@ export default props => {
         <Grid
             className="report"
             contained   
-            templateRows="fit-content(10px) fit-content(10px) fit-content(10px) fit-content(10px)  fit-content(10px)  fit-content(10px) 20px"
+            templateRows="fit-content(10px) fit-content(10px) fit-content(10px) fit-content(10px)  fit-content(10px)  fit-content(10px)  fit-content(10px) 20px"
             templateColumns="auto auto"
             style={{minHeight:'100%'}}
             rowGap="10px"
@@ -40,6 +41,7 @@ export default props => {
                 'a a',
                 'y y',
                 'b c',
+                'fds fds',
                 'footer footer'
             ]}
         >
@@ -77,6 +79,10 @@ export default props => {
                     <span>masse grasse / taille<sup>2</sup></span>
                     <FFMIChart width={350}  height={200}  data_key="fmi"/>
                 </LayoutFlexColumn>
+            </ComponentWithArea>
+            <ComponentWithArea area="fds" >
+            <h4>Force de serrement</h4>
+            <RecapFDS />
             </ComponentWithArea>
             <ComponentWithArea area="footer" >
                 <span>Crée avec BIM v{process.env.ELECTRON_VERSION} le {dateSysToHuman(new Date())}</span>
