@@ -254,12 +254,12 @@ export default (getModule) => {
                 }
 
 
-            ).then(res => {
+            )/*.then(res => {
                 debugger;
 
                 return dispatch(actions.save_to_file()).then(_ => res);
                 //return res;
-            }).catch(res => {
+            })*/.catch(res => {
                 return dispatch(actions.add_error(res.message || res))
             });
 
@@ -342,6 +342,13 @@ export default (getModule) => {
             })
     }
 
+
+    actions.sort_list_editor = items => (dispatch, getState) => {
+        const backend_actions = getBackend(getState);
+       
+        return dispatch(submodules.features.list_editor.actions.fetch({ items: items }))
+        
+    }
 
     actions.fetch_lists_editor = list_key => (dispatch, getState) => {
         const backend_actions = getBackend(getState);

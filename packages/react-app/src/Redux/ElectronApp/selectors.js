@@ -43,7 +43,7 @@ export default getModule => {
          let result = forms.map(form => {
             let list = []
             if(lists && lists[form.list]){
-               list = lists[form.list].list.sort(sort_by_name);
+               list = lists[form.list].list;//.sort(sort_by_name);
             }
             let default_value;
 

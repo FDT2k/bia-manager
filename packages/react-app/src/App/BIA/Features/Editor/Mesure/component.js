@@ -33,6 +33,8 @@ import { useReactToPrint } from 'react-to-print';
 import { oneDecimal, oneDecimalPct } from '@/references/format'
 import MaskedInput from 'react-maskedinput';
 import moment from 'moment';
+import { compare_objects } from '@karsegard/composite-js';
+import { spreadObjectPresentIn } from '@karsegard/composite-js/ReactUtils';
 const LayoutFlexColumnWithArea = withGridArea(LayoutFlexColumn);
 const TabsWithArea = withGridArea(Tabs);
 
@@ -105,12 +107,18 @@ const Editor = props => {
     }, [mesure]);
 
 
-    /* temporary, update electrical data, should change to an handle function */
 
-   /* useEffect(() => {
+    useEffect(() => {
         _handleChange(values);
+//        _handleChange(values);
+        /*const [o1,rest] = spreadObjectPresentIn(['rea50','res50','z50','a50'],values.data)
+        const [o2,rest2] = spreadObjectPresentIn(['rea50','res50','z50','a50'],mesure.data)
+        if(!compare_objects(o1,o2)){
+            console.warn('data-change',values.data,mesure.data)
+            _handleChange(values);
+        }*/
     }, [values.data]);
-*/
+
 
 
     const [editedGroup, setEditedGroup] = useState("a");

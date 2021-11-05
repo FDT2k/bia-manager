@@ -225,7 +225,7 @@ export default (getModule) => {
             const new_mesure = { ...mesure, ...normalized_mesure };
 
 
-            dispatch({
+           return  dispatch({
                 type: action_types.CHANGE_MESURE,
                 payload: {
                     id: patient.id,
@@ -233,7 +233,7 @@ export default (getModule) => {
                 }
             })
           //  dispatch(actions.refresh_normes());
-            return dispatch(actions.recompute_mesure(patient.id, new_mesure));
+    //        return dispatch(actions.recompute_mesure(patient.id, new_mesure));
         }
     };
 

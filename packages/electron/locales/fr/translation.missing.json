@@ -76,5 +76,13 @@
    "Prénom": "Prénom",
    "Date de Naissance": "Date de Naissance",
    "Groupe Pathologique": "Groupe Pathologique",
-   "SEARCH_CREATE_NEW_SUBJECT": "SEARCH_CREATE_NEW_SUBJECT"
+   "SEARCH_CREATE_NEW_SUBJECT": "SEARCH_CREATE_NEW_SUBJECT",
+   "gender": "gender",
+   "groups.ethno": "groups.ethno",
+   "groups.patho": "groups.patho",
+   "Nouveau Patient": "Nouveau Patient",
+   "Prenom": "Prenom",
+   "Taille": "Taille",
+   "Poids habituel": "Poids habituel",
+   "Diagnostic": "Diagnostic"
 }

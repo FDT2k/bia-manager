@@ -165,6 +165,7 @@ export const {
  export const {
   fetch_list_editor,
   fetch_lists_editor,
+  sort_list_editor,
   save_list
  }  = ElectronModule.actions
 
@@ -180,10 +181,9 @@ export const {
 
  }= exportModule(x=>`${x}_list_editor`,'actions',ListEditorModule)
 
-
 export const {
   list_list_editor,
-  filter_list_editor
+  filter_list_editor,
 }= exportModule(x=>`${x}_list_editor`,'selectors',ListEditorModule) 
  
  

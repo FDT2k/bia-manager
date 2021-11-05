@@ -26,6 +26,7 @@ import {
     select_recap_headers,
     select_recap_list,
     update_patient,
+    recompute_current_mesure,
     save_editor,
     set_examinator,
 } from '@/Providers/Stores/ElectronApp';
@@ -46,6 +47,7 @@ const mapDispatchToProps = {
     change_mesure,
     create_mesure,
     edit_mesure,
+    recompute_current_mesure,
     edit_patient,
     fetch_normes,
     //populate_sporttype,
