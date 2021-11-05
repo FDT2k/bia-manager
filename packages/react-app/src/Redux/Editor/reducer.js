@@ -6,7 +6,7 @@ import createReducer from '@/Redux/utils/create-reducer';
 import { updateList, updateProp,delete_from_list_by_index } from '@/Redux/utils/handlers';
 
 import EMPTY_MESURE from '@/references/mesure-schema';
-
+import {format} from 'date-fns'
 
 
 
@@ -113,7 +113,7 @@ export default (getModule) => {
                     mesure: {
                         ...state.mesure,
                         ...action.payload.mesure,
-                        last_update:new Date()
+                        
                         
                     }
                 }
@@ -226,7 +226,13 @@ export default (getModule) => {
             let res =  updateProp(patient_id, state, 
                 {
                     ...patient,
-                    mesures:  delete_from_list_by_index(mesures,action.payload.mesure_id)
+                    mesures:  mesures.map( (mesure,idx) => {
+                        if(idx == payload.mesure_id){
+                            mesure.status='deleted'
+                            mesure.deleted_on= new Date()
+                        }
+                        return mesure
+                    })//delete_from_list_by_index(mesures,action.payload.mesure_id)
                 }
             )
             return res

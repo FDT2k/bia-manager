@@ -15,6 +15,7 @@ import { useFieldValues } from '@karsegard/react-hooks';
 import DatePicker from '@/bia-layout/components/Form/DatePicker';
 import { identity,is_nil, replace } from '@karsegard/composite-js';
 import { dateSysToHuman } from '@/references/format';
+import {filter_active_mesure} from '@/references/Mesure'
 
 const withForwardRef = Component => (props, ref) => {
 
@@ -167,7 +168,7 @@ export const Component = props => {
         },
         {
             Header: t('SEARCH_table_column_sample_count'),
-            accessor: v => v.mesures.length,
+            accessor: v => v.mesures.filter(filter_active_mesure).length,
         },
     ]
 

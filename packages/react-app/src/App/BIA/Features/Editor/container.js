@@ -17,7 +17,7 @@ export default Component => props => {
 
     const { patient, mesure, current_mesure_id, error, err_message } = props;
     const { populate_sportrate, populate_sporttype, populate_machines, fetch_normes } = props;
-    const { edit_patient, edit_mesure, create_mesure, change_mesure, refresh_recap,recompute_current_mesure, change_subject, update_patient, save, delete_mesure, set_examinator } = props;
+    const { edit_patient, edit_mesure, create_mesure, change_mesure, refresh_recap,recompute_current_mesure, change_subject, update_patient, save, delete_mesure, set_examinator ,current_mesures} = props;
 
     const handlePrint = useReactToPrint({
         content: () => componentRef.current
@@ -77,7 +77,7 @@ export default Component => props => {
 
         //  console.log('ba', mesure_id,patient)
         if (!is_nil(patient)) {
-            if (!is_nil(mesure_id) && mesure_id < patient.mesures.length) {
+            if (!is_nil(mesure_id) && mesure_id < current_mesures.length) {
                 edit_mesure(patient_id, mesure_id);
                 recompute_current_mesure();
             } else {
@@ -98,7 +98,7 @@ export default Component => props => {
     }
 
     const handleMesureOpen = (value, idx) => {
-        if (idx < patient.mesures.length) {
+        if (idx < current_mesures.length) {
             setLocation(`/editor/${patient_id}/${idx}`);
         } else {
             setLocation(`/editor/${patient_id}`);
@@ -141,7 +141,7 @@ export default Component => props => {
         if (dontCommitTheseFields.includes(changed_field)) {
             return;
         }
-
+debugger;
         change_mesure(patient, values)
 
 
@@ -165,7 +165,7 @@ export default Component => props => {
         save()
             // .then(_=>update_patient(patient.id, patient, mesure, current_mesure_id))
             .then(res => {
-                if (current_mesure_id <= patient.mesures.length) {
+                if (current_mesure_id <= current_mesures.length) {
                     setLocation(`/editor/${patient_id}/${current_mesure_id}`);
                 }
             })

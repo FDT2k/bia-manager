@@ -43,8 +43,11 @@ export default Component => props => {
 
     const handleSort = (list) => {
         sort(list)
-        save()
+      
 
+    }
+    const handleDragStop = _=>{
+        save()
     }
 
     const handleDelete = (item) => {
@@ -77,6 +80,7 @@ export default Component => props => {
                 <Component
                     data={list}
                     onSort={handleSort}
+                    handleDragStop={handleDragStop}
                     actions={[
                         { key: 'edit', label: 'Editer' },
                         { key: 'delete', label: 'Suprimmer' }

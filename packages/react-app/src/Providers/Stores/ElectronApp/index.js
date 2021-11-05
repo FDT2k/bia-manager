@@ -111,7 +111,9 @@ export const {
    makeSelectBIAResultByKey,
    makeSelectIndiceChartYTicks,
    makeSelectYLabelByKey,
-   current_fds
+   current_fds,
+   select_mesures
+
   } = BIAEditorModule.selectors;
  
  
@@ -130,7 +132,7 @@ export const {
    change_mesure ,
    save:save_editor,
    set_examinator,
-   update_fds
+   update_fds,
   } = BIAEditorModule.actions;
  /*
 export const {

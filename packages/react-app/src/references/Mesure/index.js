@@ -57,7 +57,7 @@ const best_formula = ({ patient, mesure }) => {
 
     let use_bmi = mesure.bmi;
 
-    if (!isNaN(mesure.bmi_ref) && mesure.bmi_ref !=="") {
+    if (!isNaN(mesure.bmi_ref) && mesure.bmi_ref !== "") {
         use_bmi = mesure.bmi_ref;
     }
 
@@ -96,8 +96,26 @@ const bmi_weight = ({ patient, mesure }) => {
     }
 }
 
+export const status = ({ patient, mesure }) => {
+    let status ='active'
+    if (mesure) {
+        status= mesure.status
+        if (is_nil(mesure.status)) {
+            status = 'active'
+        }
+    }
+    return ({
+        patient, mesure: {
+            ...mesure,
+            status
+        }
+    })
+}
 
-export const normalize_mesure = compose(mesure_age, clear_bmi_ref, best_formula,null_keys, bmi_weight);
+
+export const filter_active_mesure = item=> item.status!='deleted';
+
+export const normalize_mesure = compose(mesure_age, clear_bmi_ref, best_formula, null_keys, bmi_weight, status);
 
 
 export const recompute = (patient, mesure, bia_result_columns, normes) => {
@@ -166,7 +184,7 @@ export const formula_result_to_bia_summary = (results, columns, normes) => {
                 carry['display'] = results[item][column].display;
                 if (normes && normes[column]) {
                     const [min, max] = normes[column];
-                    carry['limits'][item] = [min,max];
+                    carry['limits'][item] = [min, max];
 
                 }
             }
