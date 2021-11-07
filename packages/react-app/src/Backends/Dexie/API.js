@@ -7,7 +7,7 @@ import IDBExport from '@karsegard/indexeddb-export-import';
 
 import Promise from 'bluebird'
 import moment from 'moment';
-
+import {filter_active_mesure} from '@/references/Mesure'
 
 
 export default (db, events = {}) => {
@@ -242,7 +242,7 @@ export default (db, events = {}) => {
         let count = 0;
         return db.open().then(db => {
             return db.patients.each(item => {
-                count += item.mesures.length;
+                count += item.mesures.filter(filter_active_mesure).length;
             }).then(_ => { return count });
         });
     }

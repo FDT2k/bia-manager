@@ -25,10 +25,12 @@ const ItemListItem = compose(
 
 export const Component = props => {
     const { handleCreateClick ,handleItemListClick, title, data, renderActions, selectedIndex, itemLabelKey, BEM, className,t,...rest } = props;
+
+    let mesures = data.filter(item=> item.status!='deleted');
     return (
         <LayoutFlexColumn  className={className}>
             <HeaderListItem BEM={BEM}><b>{title}</b></HeaderListItem>
-            {data && data.map((item, idx) => {
+            {mesures.map((item, idx) => {
                 
                 return <ItemListItem
                     BEM={BEM}
@@ -38,8 +40,8 @@ export const Component = props => {
                     {dateSysToHuman(item[itemLabelKey])} {renderActions && renderActions(data, item, idx)}
                 </ItemListItem>
             })}
-            {(!data || data.length ===0) && <i>{t('aucune mesure')}</i>}
-            <ItemListItem  BEM={BEM}  selected={selectedIndex >= data.length} onClick={handleCreateClick}>{t('Créer')}</ItemListItem>
+            {(!mesures || mesures.length ===0) && <i>{t('aucune mesure')}</i>}
+            <ItemListItem  BEM={BEM}  selected={selectedIndex >= mesures.length} onClick={handleCreateClick}>{t('Créer')}</ItemListItem>
         </LayoutFlexColumn>
     )
 }

@@ -40,7 +40,7 @@ export const Component = props => {
                     {headers && headers.map((key, idx) => {
                         let val = line.values[key];
                         val = oneDecimal(val);
-                        const display_value = !isNaN(val) ? val : '';
+                        const display_value = !isNaN(val) ? val : 'n/a';
                         return (<div className={`${className} value`} key={idx}><span>{display_value}{(display_value !== "" && is_pct) ? '%' : ''}</span></div>)
                     })}
 

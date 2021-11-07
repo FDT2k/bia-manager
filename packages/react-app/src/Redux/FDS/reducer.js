@@ -27,18 +27,17 @@ export default (getModule) => {
         right: {...sideState}
     }
 
-    module.side = (state= sideState,{payload})=> {
-
+    module.side = (state= sideState,{payload,type})=> {
 
         let newState= {...state}
-        switch(action.type){
+        switch(type){
             case types.UPDATE:
                 const {data,norme,main} = payload
 
-                newState.data = {...data};
-                newState.main = main;
-                newState.norme =  norme[main]
-                newState.avg = (parseFloat(data[0]) +  parseFloat(data[1]) +  parseFloat(data[2])) / 3
+                newState.data = {...state.data,...data};
+                newState.main = !is_nil(main) ? main : true;
+                newState.norme = norme;
+                newState.avg = (parseFloat(newState.data[0]) +  parseFloat(newState.data[1]) +  parseFloat(newState.data[2])) / 3
 
 
                 return newState
@@ -55,16 +54,25 @@ export default (getModule) => {
     module.reducer = createReducer(initialState, {
         [types.UPDATE]: (state,action)=> {
             const {type,payload} = action;
-            const {left,right} = payload;
+            const {left,right,normes} = payload;
             
+            if(is_nil(normes)){
+                throw new Error('No norm given, this will fail')
+            }
             
-            let newLeft = {...left};
-            let newRight = {...right};
-
+            let newLeft = {...left,norme:normes.fds};
+            let newRight = {...right,norme:normes.fds};
             if(newLeft.main ===false && newRight.main === false){
                 newRight.main = true;
                 newLeft.main = true;
             }
+            if(newLeft.main){
+                newLeft.norme = normes.fds_main
+            }
+            if(newRight.main){
+                newRight.norme = normes.fds_main
+            }
+
             return {
                 left: module.side(state.left,{type,payload:newLeft}),
                 right: module.side(state.right,{type,payload:newRight})

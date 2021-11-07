@@ -21,6 +21,7 @@ import ElectricalDataForm from '@/bia-layout/components/Views/ElectricalDataForm
 import ComparisonTable from '@/App/BIA/Features/Editor/Mesure/ComparisonTable';
 import Serrement from '@/App/BIA/Features/Editor/Mesure/Serrement';
 import RecapGrid from '@/App/BIA/Features/Editor/Mesure/RecapGrid';
+import RecapFDS from '@/App/BIA/Features/Editor/Mesure/RecapGrid/FDS';
 
 import { Container, LayoutFlex, LayoutFlexColumn, withGridArea } from '@karsegard/react-core-layout'
 
@@ -32,6 +33,8 @@ import { useReactToPrint } from 'react-to-print';
 import { oneDecimal, oneDecimalPct } from '@/references/format'
 import MaskedInput from 'react-maskedinput';
 import moment from 'moment';
+import { compare_objects } from '@karsegard/composite-js';
+import { spreadObjectPresentIn } from '@karsegard/composite-js/ReactUtils';
 const LayoutFlexColumnWithArea = withGridArea(LayoutFlexColumn);
 const TabsWithArea = withGridArea(Tabs);
 
@@ -88,6 +91,7 @@ const Editor = props => {
 
     const current_bia = get_current_bia(['fmi', 'ffmi'])
     const _handleChange = (...args) => {
+        
         parentHandleChange && parentHandleChange(...args);
     }
     const { values, handleChangeValue, inputProps, handleChange, assignValues, replaceValues } = useFieldValues(mesure, { onValuesChange: _handleChange, usePath: true });
@@ -103,10 +107,16 @@ const Editor = props => {
     }, [mesure]);
 
 
-    /* temporary, update electrical data, should change to an handle function */
 
     useEffect(() => {
         _handleChange(values);
+//        _handleChange(values);
+        /*const [o1,rest] = spreadObjectPresentIn(['rea50','res50','z50','a50'],values.data)
+        const [o2,rest2] = spreadObjectPresentIn(['rea50','res50','z50','a50'],mesure.data)
+        if(!compare_objects(o1,o2)){
+            console.warn('data-change',values.data,mesure.data)
+            _handleChange(values);
+        }*/
     }, [values.data]);
 
 
@@ -227,18 +237,31 @@ const Editor = props => {
                     </LayoutFlexColumnWithArea>
                 </TabPanel>
                 <TabPanel>
-                    <Serrement/>
+                    <Serrement />
                 </TabPanel>
                 <TabPanel>
-                    <RecapGrid data={recap} headers={list_dates} />
-                    <MassChart data={mass_chart} />
-                    <LayoutFlex><TESTChart data_key="ffmi" />
-                        <TESTChart data_key="fmi" /></LayoutFlex>
+                    <LayoutFlexColumn style={{gap:'10px'}}>
+                        <h4>BIA</h4>
+                        <RecapGrid data={recap} headers={list_dates} />
+                        <h4>Evolution de la composition corporelle</h4>
+                        <MassChart data={mass_chart} />
+                        <LayoutFlex>
+                            <LayoutFlexColumn alignCenter>
+                                <h4>Indice de masse maigre - FFMI</h4>
+                                <TESTChart data_key="ffmi" />
+                            </LayoutFlexColumn>
+                            <LayoutFlexColumn alignCenter>
+                                <h4>Indice de masse grasse - FMI</h4>
+                                <TESTChart data_key="fmi" />
+                            </LayoutFlexColumn>
+                        </LayoutFlex>
+                        <RecapFDS />
+                    </LayoutFlexColumn>
                 </TabPanel>
 
             </TabsWithArea>
             <LayoutFlexColumnWithArea style={{ gap: '10px' }} area="mesure-editor-aside">
-                <Button style={{minWidth:'100%',width:'100%',maxWidth:'100%'}} tabIndex={33} onClick={_handleClickSave}>{t('Enregistrer')}</Button>
+                <Button style={{ minWidth: '100%', width: '100%', maxWidth: '100%' }} tabIndex={33} onClick={_handleClickSave}>{t('Enregistrer')}</Button>
                 <Button tabIndex={44} className="btn--secondary" onClick={_ => _handlePrint()}>{t('Imprimer')}</Button>
                 <Field label={t("Examinateur")}>
                     <EditableTextInput value={values.examinator} name="examinator" onChange={handleChange} />
@@ -246,7 +269,6 @@ const Editor = props => {
                 <Field label={t("Bio-impédancemètre")}>
                     <EditableSelect {...inputProps('machine')} options={[{ id: '', name: t('- Choisissez une valeur -') }, ...custom_lists.machine.list]} />
                 </Field>
-
                 <Field label={t("Poids Idéal (%)")}>
                     <div>{oneDecimal(values.ideal_weight)} ({oneDecimalPct(values.pct_ideal_weight)})</div>
                 </Field>
@@ -256,14 +278,12 @@ const Editor = props => {
                 <Field label={t("BMI Reference")}>
                     <EditableTextInput value={values.bmi_ref} name="bmi_ref" onChange={handleChange} />
                 </Field>
-
                 <Field label={t("Remarques / Interprétations")}>
                     <EditableTextArea value={values.comments} name="comments" onChange={handleChange} />
                 </Field>
-
             </LayoutFlexColumnWithArea>
             <Printable ref={componentRef}>
-                {/*<PrintableReport />*/}
+                {<PrintableReport />}
             </Printable>
         </MesureEditorLayout>
     )

@@ -3343,17 +3343,17 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@karsegard/composite-js@npm:^2.10.10":
+  version: 2.10.10
+  resolution: "@karsegard/composite-js@npm:2.10.10"
+  checksum: e130a1141368ac1eb1627fc9f1138450dc0efe97e86197d610cbbbde8106f07ada1e1b08c498ca5a151d8f6e0a5be3ab181bb8ba6e9b918ad06d9effb06faf6c
+  languageName: node
+  linkType: hard
+
 "@karsegard/composite-js@npm:^2.10.3":
   version: 2.10.4
   resolution: "@karsegard/composite-js@npm:2.10.4"
   checksum: 31ccc22f190cb07fd268da24e0e3a8850e61721d7de1b109ea963dbc777c7a10738bd3f62d8da2eff46b525898779bb5daa1917ecfc10462df55f521ec9efc29
-  languageName: node
-  linkType: hard
-
-"@karsegard/composite-js@npm:^2.10.6":
-  version: 2.10.6
-  resolution: "@karsegard/composite-js@npm:2.10.6"
-  checksum: cd4d07acde796025e9064a0ee4ac02281d0ea440cb64bd9d27b89c6401e84c6fb82fe750dcc1a49bc02ffcdb5dbd562ef9d4ac21e81ad78dc4160e42f910e8aa
   languageName: node
   linkType: hard
 
@@ -7160,7 +7160,7 @@ __metadata:
   resolution: "bia-manager@workspace:packages/react-app"
   dependencies:
     "@karsegard/cex": ^1.4.4
-    "@karsegard/composite-js": ^2.10.6
+    "@karsegard/composite-js": ^2.10.10
     "@karsegard/indexeddb-export-import": ^2.1.4
     "@karsegard/react-compose": ^1.3.2
     "@karsegard/react-core-layout": ^1.5.1

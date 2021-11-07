@@ -92,5 +92,8 @@
    "SEARCH_table_column_birthdate": "Date de naissance",
    "SEARCH_table_column_pathological_group": "Groupe Pathologique",
    "SEARCH_table_column_sex": "Sexe",
-   "SEARCH_table_column_sample_count": "Mesures"
+   "SEARCH_table_column_sample_count": "Mesures",
+
+   "left_recap": "Gauche",
+   "right_recap": "Droite"
 }

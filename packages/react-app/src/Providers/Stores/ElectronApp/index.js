@@ -110,11 +110,13 @@ export const {
    select_edited_age,
    makeSelectBIAResultByKey,
    makeSelectIndiceChartYTicks,
-   makeSelectYLabelByKey
+   makeSelectYLabelByKey,
+   current_fds,
+   select_mesures
+
   } = BIAEditorModule.selectors;
  
  
-  
  export const {
    
    edit_mesure,
@@ -129,7 +131,8 @@ export const {
 
    change_mesure ,
    save:save_editor,
-   set_examinator
+   set_examinator,
+   update_fds,
   } = BIAEditorModule.actions;
  /*
 export const {
@@ -164,6 +167,7 @@ export const {
  export const {
   fetch_list_editor,
   fetch_lists_editor,
+  sort_list_editor,
   save_list
  }  = ElectronModule.actions
 
@@ -179,15 +183,22 @@ export const {
 
  }= exportModule(x=>`${x}_list_editor`,'actions',ListEditorModule)
 
-
 export const {
   list_list_editor,
-  filter_list_editor
+  filter_list_editor,
 }= exportModule(x=>`${x}_list_editor`,'selectors',ListEditorModule) 
  
  
 
+//FDS
 
+export const RecapFDSModule = ElectronModule.submodules.features.editor.submodules.recap_fds;
+
+
+export const {
+  select_recap: select_recap_fds,
+  select_headers: select_headers_fds
+} =  RecapFDSModule.selectors;
 /* main store reducer */
 
 
@@ -215,7 +226,7 @@ export const Store = makeStore('electron', reducer, { devTools: { name: 'App' } 
   migrate: createMigrate(migrations)
 });
 */
-export const Store = makeStore('electron', reducer, { devTools: false,enhancers: [devToolsEnhancer({secure:false, hostname:'localhost',port:8000,realtime: true})] }, {
+export const Store = makeStore('electron', reducer, { devTools: false,enhancers: [devToolsEnhancer({secure:false,maxAge:100, hostname:'localhost',port:8000,realtime: true})] }, {
   version: 1,
   migrate: createMigrate(migrations)
 });

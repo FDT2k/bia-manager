@@ -18,7 +18,7 @@ export default name => {
             group = obj.groups.patho;
         }
        obj.search_terms = obj.lastname +' '+obj.firstname+' '+obj.birthdate+' '+group+ ' '+obj.firstname+' '+obj.lastname;
-       obj.mesures_dates = obj.mesures.map(mesure => new Date(mesure.date))
+       obj.mesures_dates = obj.mesures.map(mesure => mesure.date)
 
     }
     db.patients.hook("creating",hook );
@@ -32,7 +32,7 @@ export default name => {
             group = obj.groups.patho;
         }
         newstate.search_terms = obj.lastname +' '+obj.firstname+' '+obj.birthdate+' '+group+ ' '+obj.firstname+' '+obj.lastname;
-        newstate.mesures_dates = obj.mesures.map(mesure => new Date(mesure.date))
+        newstate.mesures_dates = obj.mesures.map(mesure => mesure.date)
   
         return newstate
     }

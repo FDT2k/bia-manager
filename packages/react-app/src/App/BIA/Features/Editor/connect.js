@@ -26,11 +26,13 @@ import {
     select_recap_headers,
     select_recap_list,
     update_patient,
+    recompute_current_mesure,
     save_editor,
     set_examinator,
+    select_mesures
 } from '@/Providers/Stores/ElectronApp';
 
-
+debugger;
 const mapStateToProps = bindSelectors({
     mesure:                 select_edited_mesure,
     patient:                select_edited_patient,
@@ -39,13 +41,15 @@ const mapStateToProps = bindSelectors({
     select_mass_chart,
     select_recap_headers,
     
-    select_recap_list
+    select_recap_list,
+    current_mesures: select_mesures
 })
 
 const mapDispatchToProps = {
     change_mesure,
     create_mesure,
     edit_mesure,
+    recompute_current_mesure,
     edit_patient,
     fetch_normes,
     //populate_sporttype,

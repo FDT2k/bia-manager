@@ -69,6 +69,10 @@ export default (getModule) => {
         return dispatch(backend_actions.export_data()).then(data => {
             return dispatch(actions.async_api('save', data))
         }).then(res => {
+            /**TODO 
+             * 
+             * implement cancel event situation
+             */
             return dispatch(actions.saveFileSuccess(res));
         }).catch(res => {
             dispatch(actions.add_error(res.message || res))
@@ -118,7 +122,9 @@ export default (getModule) => {
         const backend_actions = getBackend(getState);
         return dispatch(backend_actions.clear_database()).then(res => {
             return dispatch(actions.async_api('clear_opened_filename'))
+
         }).then(res => {
+
             return dispatch(actions.save_to_file())
         });
     }
@@ -248,12 +254,12 @@ export default (getModule) => {
                 }
 
 
-            ).then(res => {
+            )/*.then(res => {
                 debugger;
 
                 return dispatch(actions.save_to_file()).then(_ => res);
                 //return res;
-            }).catch(res => {
+            })*/.catch(res => {
                 return dispatch(actions.add_error(res.message || res))
             });
 
@@ -336,6 +342,13 @@ export default (getModule) => {
             })
     }
 
+
+    actions.sort_list_editor = items => (dispatch, getState) => {
+        const backend_actions = getBackend(getState);
+       
+        return dispatch(submodules.features.list_editor.actions.fetch({ items: items }))
+        
+    }
 
     actions.fetch_lists_editor = list_key => (dispatch, getState) => {
         const backend_actions = getBackend(getState);

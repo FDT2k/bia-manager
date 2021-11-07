@@ -6,7 +6,8 @@ import { useReactToPrint } from 'react-to-print';
 
 import { useLocation, useRoute } from "wouter";
 import ErrorModal from '@/App/BIA/Features/Editor/ErrorModal';
-
+import { spreadObjectPresentIn } from '@karsegard/composite-js/ReactUtils';
+import { compare_objects } from '@karsegard/composite-js';
 
 export default Component => props => {
     const [location, setLocation] = useLocation();
@@ -16,7 +17,7 @@ export default Component => props => {
 
     const { patient, mesure, current_mesure_id, error, err_message } = props;
     const { populate_sportrate, populate_sporttype, populate_machines, fetch_normes } = props;
-    const { edit_patient, edit_mesure, create_mesure, change_mesure, refresh_recap, change_subject, update_patient, save, delete_mesure, set_examinator } = props;
+    const { edit_patient, edit_mesure, create_mesure, change_mesure, refresh_recap,recompute_current_mesure, change_subject, update_patient, save, delete_mesure, set_examinator ,current_mesures} = props;
 
     const handlePrint = useReactToPrint({
         content: () => componentRef.current
@@ -76,8 +77,9 @@ export default Component => props => {
 
         //  console.log('ba', mesure_id,patient)
         if (!is_nil(patient)) {
-            if (!is_nil(mesure_id) && mesure_id < patient.mesures.length) {
+            if (!is_nil(mesure_id) && mesure_id < current_mesures.length) {
                 edit_mesure(patient_id, mesure_id);
+                recompute_current_mesure();
             } else {
                 // new_mesure(patient.id).then(res => {
                 // setMesureId(res.payload.mesure_id);
@@ -96,7 +98,7 @@ export default Component => props => {
     }
 
     const handleMesureOpen = (value, idx) => {
-        if (idx < patient.mesures.length) {
+        if (idx < current_mesures.length) {
             setLocation(`/editor/${patient_id}/${idx}`);
         } else {
             setLocation(`/editor/${patient_id}`);
@@ -108,8 +110,25 @@ export default Component => props => {
 
     }
 
-    const dontCommitTheseFields = ['comments', 'date', 'examinator']
+    const dontCommitTheseFields = ['comments', 'date']
 
+
+    const isChangeRequireRecompute = (values,mesure)=> {
+
+        const [d1,_] = spreadObjectPresentIn(['rea50','res50','z50','a50'],values.data)
+        const [d2,__] = spreadObjectPresentIn(['rea50','res50','z50','a50'],mesure.data)
+        if(!compare_objects(d1,d2)){
+            return true
+        }
+
+        const [o1,___] = spreadObjectPresentIn(['height','weight','bmi_ref'],values)
+        const [o2,____] = spreadObjectPresentIn(['height','weight','bmi_ref'],mesure)
+        
+        if(!compare_objects(o1,o2)){
+            return true
+        }
+        return false;
+    }
 
     const handleChange = (values, changed_field) => {
         console.log('form changed', values, changed_field);
@@ -122,14 +141,19 @@ export default Component => props => {
         if (dontCommitTheseFields.includes(changed_field)) {
             return;
         }
-
+debugger;
         change_mesure(patient, values)
 
 
-        if (values.data && patient) {
-            //  dispatch(recompute_mesure(patient_id, values));
-            refresh_recap(patient_id, current_mesure_id);
+        if(isChangeRequireRecompute (values,mesure)){
+            recompute_current_mesure();
+            if (values.data && patient) {
+                //  dispatch(recompute_mesure(patient_id, values));
+                refresh_recap(patient_id, current_mesure_id);
+            }
         }
+
+   
     }
 
     const handleSubjectChange = values => {
@@ -141,7 +165,7 @@ export default Component => props => {
         save()
             // .then(_=>update_patient(patient.id, patient, mesure, current_mesure_id))
             .then(res => {
-                if (current_mesure_id <= patient.mesures.length) {
+                if (current_mesure_id <= current_mesures.length) {
                     setLocation(`/editor/${patient_id}/${current_mesure_id}`);
                 }
             })

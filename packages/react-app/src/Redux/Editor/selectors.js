@@ -23,12 +23,20 @@ export default getModule => {
   module.select_edited_patient = createSelector([module.select_current_patient_id, baseSelector], (current, state) => state.patient[current]);
 
 
-  module.select_mesures = createSelector(module.select_edited_patient, state => state.mesures);
+  module.select_all_mesures = createSelector(module.select_edited_patient, state => safe_path([],'mesures',state));
+  module.select_mesures = createSelector(module.select_all_mesures, state => {
+    debugger;
+   return  state.filter(item=>{
+     let status = safe_path('active','status',item);
+     return status !='deleted'
+   })
+
+  });
 
   module.select_edited_mesure = createSelector([module.select_current_patient_id, baseSelector], (current_patient, state) => {
-    if (state.mesure && state.mesure[current_patient] && state.mesure[current_patient].mesure) {
+    if (state.mesure && state.mesure && state.mesure.mesure) {
 
-      let result = state.mesure[current_patient].mesure
+      let result = state.mesure.mesure
 
       // result.date = dateSysToHuman(result.date);
       return result;
@@ -645,8 +653,8 @@ export default getModule => {
    */
 
   module.select_normes_sampling = createSelector([module.select_edited_patient, baseSelector], (patient, state) => {
-
-    return safe_array(`normes.chartSample.${patient.gender}`, state);
+    const safe_gender=  safe_path('M','gender',patient);
+    return safe_array(`normes.chartSample.${safe_gender}`, state);
   });
 
   module.makeSelectIndiceChartYTicks = () => createSelector([module.select_normes_sampling, (state, props) => props.data_key], (norme, data_key) => {
@@ -708,6 +716,10 @@ export default getModule => {
     }
   });
 
+
+  module.current_fds = createSelector(module.select_edited_mesure,mesure => {
+    return mesure.fds
+  })
 
   return module;
 

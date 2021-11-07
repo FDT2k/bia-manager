@@ -28,7 +28,7 @@ export default (getModule) => {
 
 
     actions.refresh_norme = submodules.normes.actions.refresh_norme//create(action_types.REFRESH_NORME)
-    actions.fetched_normes =  submodules.normes.actions.fetched_normes //create(action_types.FETCHED_NORMES)
+    actions.fetched_normes =  submodules.normes.actions.fetched //create(action_types.FETCHED_NORMES)
 
 
     //refresh each norm
@@ -149,12 +149,33 @@ export default (getModule) => {
                 }
             })
 
-          //  dispatch(actions.refresh_normes());
+           
+            dispatch(actions.reinit_fds());
+            dispatch(actions.refresh_current_recap());
 
             return r;
         }
     };
 
+
+    actions.reinit_fds = ()=>{
+        return (dispatch,getState)=>{
+            const {add_mesure,clear,refresh,normes } = submodules.recap_fds.actions
+            let mesures = select_mesures(getState());
+            let mesure = select_edited_mesure(getState())
+            const mesure_id = select_current_mesure_id(getState());
+
+            dispatch(clear());
+            mesures.slice(0,parseInt(mesure_id)).slice(-5).map(item=> {
+                dispatch(add_mesure(item));
+            })
+            dispatch(add_mesure(mesure))
+
+            dispatch(refresh())
+            
+        }
+
+    }
 
     actions.recompute_current_mesure = () => {
         return (dispatch, getState) => {
@@ -187,6 +208,7 @@ export default (getModule) => {
 
     actions.change_mesure = (patient, mesure) => {
 
+        debugger;
         if (is_nil(patient) || is_nil(mesure)) {
             return {
                 type: 'GENERAL_ERROR'
@@ -203,7 +225,7 @@ export default (getModule) => {
             const new_mesure = { ...mesure, ...normalized_mesure };
 
 
-            dispatch({
+           return  dispatch({
                 type: action_types.CHANGE_MESURE,
                 payload: {
                     id: patient.id,
@@ -211,7 +233,7 @@ export default (getModule) => {
                 }
             })
           //  dispatch(actions.refresh_normes());
-            return dispatch(actions.recompute_mesure(patient.id, new_mesure));
+    //        return dispatch(actions.recompute_mesure(patient.id, new_mesure));
         }
     };
 
@@ -258,8 +280,8 @@ export default (getModule) => {
             const mesure_id = select_current_mesure_id(getState());
             dispatch(actions.refresh_recap(patient_id, mesure_id))
         }
-
     }
+
     actions.refresh_recap = (patient_id, mesure_id) => {
         return (dispatch, getState) => {
 
@@ -271,18 +293,17 @@ export default (getModule) => {
                 let edited_mesure;
 
                 let patient = select_edited_patient(getState())
-                const normes = select_normes(getState(),{age:patient.age})
                 if (!patient) {
                     return dispatch(actions.recap_error_patient_fail({}))
                 }
+                const normes = select_normes(getState(),{age:patient.age})
 
                 let mesures = [...patient.mesures] // NO selector here
 
                 edited_mesure = select_edited_mesure(getState())
-                let edited_mesure_id = edited_mesure.mesure_id
+                let edited_mesure_id = select_current_mesure_id(getState());
                 const bia_report_columns = select_report_columns(getState());
                 const bia_report_chart_columns = select_charts_columns(getState());
-
 
                 if (edited_mesure) { // replace edited mesure with the current edited mesure or addit if its a new one
                     if (edited_mesure_id < mesures.length) {
@@ -313,6 +334,8 @@ export default (getModule) => {
                     }
 
                 })
+
+
                 const recap = bia_to_recap(results, bia_report_columns, normes, ['weight', 'ideal_weight', 'pct_ideal_weight', 'height']);
                 const dates = generate_recap_header(mesure_id, mesures);
                 const chart = recap_to_bar_chart(bia_to_recap(results, bia_report_chart_columns), dates)
@@ -337,7 +360,6 @@ export default (getModule) => {
 
 
 
-
     //reviewed
     actions.edit_patient = patient => {
         return (dispatch, getState) => {
@@ -353,6 +375,23 @@ export default (getModule) => {
 
         }
     }
+
+    actions.update_fds = values => (dispatch,getState)=> {
+
+        const mesure = select_edited_mesure(getState());
+        const normes = select_normes(getState(),{age:mesure.current_age})
+        
+        dispatch(submodules.fds.actions.update({...values,normes}));
+
+
+        dispatch(submodules.recap_fds.actions.update_mesure(select_edited_mesure(getState())))
+
+    }
+
+
+    
+
+
 
     return actions;
 }

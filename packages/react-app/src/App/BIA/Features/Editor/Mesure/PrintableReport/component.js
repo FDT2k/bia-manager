@@ -1,5 +1,6 @@
 import { safe_path } from '@karsegard/composite-js';
-import FFMIChart from '@/App/Components/Charts/Indice';
+import FFMIChart from '@/App/Components/Charts/FMI';
+
 import MassChart from '@/App/Components/Charts/Mass';
 import RecapGrid from '@/App/BIA/Features/Editor/Mesure/RecapGrid';
 import { ComponentWithArea } from '@/bia-layout/hoc/grid/Area';
@@ -9,6 +10,7 @@ import {Grid} from '@karsegard/react-core-layout'
 import React from 'react';
 import { dateSysToHuman } from '@/references/format';
 
+import RecapFDS from '@/App/BIA/Features/Editor/Mesure/RecapGrid/FDS';
 
 export default props => {
 
@@ -28,7 +30,7 @@ export default props => {
         <Grid
             className="report"
             contained   
-            templateRows="fit-content(10px) fit-content(10px) fit-content(10px) fit-content(10px)  fit-content(10px)  fit-content(10px) 20px"
+            templateRows="fit-content(10px) fit-content(10px) fit-content(10px) fit-content(10px)  fit-content(10px)  fit-content(10px)  fit-content(10px) 20px"
             templateColumns="auto auto"
             style={{minHeight:'100%'}}
             rowGap="10px"
@@ -39,6 +41,7 @@ export default props => {
                 'a a',
                 'y y',
                 'b c',
+                'fds fds',
                 'footer footer'
             ]}
         >
@@ -59,8 +62,7 @@ export default props => {
             <ComponentWithArea area="z" >
                 <h3>Evolution de la composition corporelle</h3></ComponentWithArea>
             <ComponentWithArea area="a" >
-
-                <MassChart width={550}  height={280}  data={mass_chart} />
+                <MassChart width={550}  height={200}  data={mass_chart} />
             </ComponentWithArea>
             <ComponentWithArea area="y" >
                 <h3>Votre position par rapport aux normes</h3></ComponentWithArea>
@@ -68,15 +70,19 @@ export default props => {
                 <LayoutFlexColumn justCenter alignCenter>
                     <h4>Indice de masse maigre</h4>
                     <span>masse maigre / taille<sup>2</sup></span>
-                    <FFMIChart width={350}  height={200} data={norm_chart} noi="ffmi" age={mesure.current_age} value={current_bia.ffmi} />
+                    <FFMIChart width={350}  height={200}  data_key="ffmi" />
                 </LayoutFlexColumn>
             </ComponentWithArea>
             <ComponentWithArea area="c" >
                 <LayoutFlexColumn justCenter alignCenter>
                     <h4>Indice de masse grasse</h4>
                     <span>masse grasse / taille<sup>2</sup></span>
-                    <FFMIChart width={350}  height={200}   data={norm_chart} noi="fmi" age={mesure.current_age} value={current_bia.fmi} />
+                    <FFMIChart width={350}  height={200}  data_key="fmi"/>
                 </LayoutFlexColumn>
+            </ComponentWithArea>
+            <ComponentWithArea area="fds" >
+            <h4>Force de serrement</h4>
+            <RecapFDS />
             </ComponentWithArea>
             <ComponentWithArea area="footer" >
                 <span>Crée avec BIM v{process.env.ELECTRON_VERSION} le {dateSysToHuman(new Date())}</span>

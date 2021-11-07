@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react'
 import Button from '@/bia-layout/components/Form/Button';
-import { LayoutFlex, ModalComponent, Container, LayoutFlexColumn } from '@karsegard/react-core-layout'
+import { LayoutFlex, ModalComponent, Container, LayoutFlexColumn,Grid } from '@karsegard/react-core-layout'
 import { useFieldValues } from '@karsegard/react-hooks';
 import Field from '@/bia-layout/components/Form/Fields';
 import Modal from '@/App/Components/Modal';
@@ -15,7 +15,7 @@ export default Component => props => {
 
     const {
         list_key,
-        list, add, edit, fetch, del,  //the actions
+        list, add, edit, fetch, del,sort,  //the actions
         filter, set_filter,
         cancel, save,
         ...rest } = props;
@@ -31,17 +31,26 @@ export default Component => props => {
     }
 
 
-    const handleSave = (item)=>{
+    const handleSave = (item) => {
         edit({ name: values.name, id: values.name, _id: edited._id });
         save();
         replaceValues({
             name: ''
         })
         setEdited(null);
-      
+
     }
 
-    const handleDelete = (item)=>{
+    const handleSort = (list) => {
+        sort(list)
+      
+
+    }
+    const handleDragStop = _=>{
+        save()
+    }
+
+    const handleDelete = (item) => {
         del({ id: deleting._id });
         save();
         setDeleting(null)
@@ -55,9 +64,9 @@ export default Component => props => {
                 name: item.name
             })
         } else if (action == 'delete') {
-          /*  if (confirm('sur?')) {
-                del({ id: item._id })
-            }*/
+            /*  if (confirm('sur?')) {
+                  del({ id: item._id })
+              }*/
             setDeleting(item);
         }
         console.log(action)
@@ -66,72 +75,73 @@ export default Component => props => {
 
 
     return (<>
-        <Component
-            list={list}
+        <Grid templateColumns="auto" templateRows="auto 40px" contained cover >
+            <Container contained scrollable>
+                <Component
+                    data={list}
+                    onSort={handleSort}
+                    handleDragStop={handleDragStop}
+                    actions={[
+                        { key: 'edit', label: 'Editer' },
+                        { key: 'delete', label: 'Suprimmer' }
+                    ]}
+                    columns={[{
+                        Header: 'name',
+                        accessor: 'name',
+                    },
+                    {
+                        id: 'actions',
+                        accessor: 'id',
+                        Cell: ({row}) => {
+                        return (<button onClick={_=>handleAction('edit',row.original)} >Edit </button>)
+                        }
+                    }
+                    ]}
+                    enableDrag={true}
 
-            actions={[
-                { key: 'edit', label: 'Editer' },
-                { key: 'delete', label: 'Suprimmer' }
-            ]}
-            columns={[
-                {
-                    accessor: 'name',
-                    colTemplate: 'auto',
-                    label: 'Element',
 
-                },
 
-                { type: "actions"}
-            ]}
+                    {...rest}
+                />
 
-            renderHeader={_ => {
-                return (<input type="text" value={filter} placeholder="Filtrer" className="crud-filter" onChange={e => set_filter(e.target.value)} />)
-            }}
 
-            handleAction={handleAction}
+            </Container>
+            <LayoutFlex justBetween>
 
-            renderFooter={
-                _ => {
-                    return (<LayoutFlex justBetween>
-                       
-                        <Button onClick={
-                            handleAdd
-                        }>Ajouter</Button>
-                        <LayoutFlex justAround>
-                            <Button onClick={cancel}>Retour</Button>
-                        </LayoutFlex>
+                <Button onClick={
+                    handleAdd
+                }>Ajouter</Button>
+                <LayoutFlex justAround>
+                    <Button onClick={cancel}>Retour</Button>
+                </LayoutFlex>
 
-                    </LayoutFlex>)
-                }
-            }
-            {...rest}
-        />
+            </LayoutFlex>
+        </Grid>
+        <Modal visible={edited !== null} overlayOnClick={_ => setEdited(null)}>
 
-        <Modal  visible={edited !== null} overlayOnClick={_=>setEdited(null)}>
+            <LayoutFlexColumn>
+                <Field className="field--one" label={'Valeur'}>
+                    <input type="text" {...inputProps('name')} />
+                </Field>
 
-                <LayoutFlexColumn>
-                    <Field  className="field--one" label={'Valeur'}>
-                        <input type="text" {...inputProps('name')} />
-                    </Field>
+                <LayoutFlex justEnd>
 
-                    <LayoutFlex justEnd>
+                    <Button onClick={handleSave}>Enregistrer</Button>
 
-                        <Button onClick={handleSave}>Enregistrer</Button>
-
-                    </LayoutFlex>
-                </LayoutFlexColumn>
+                </LayoutFlex>
+            </LayoutFlexColumn>
 
         </Modal>
 
         <Modal visible={deleting !== null}>
 
-                <LayoutFlexColumn>
-                    <h3>Etes vous sur de vouloir supprimer cet élément?</h3>
-                    <LayoutFlex justBetween>
-                        <Button onClick={_=>handleDelete()}>oui</Button>
-                        <Button onClick={_=>setDeleting(null)}>non</Button>
-                    </LayoutFlex>
-                </LayoutFlexColumn>
+            <LayoutFlexColumn>
+                <h3>Etes vous sur de vouloir supprimer cet élément?</h3>
+                <LayoutFlex justBetween>
+                    <Button onClick={_ => handleDelete()}>oui</Button>
+                    <Button onClick={_ => setDeleting(null)}>non</Button>
+                </LayoutFlex>
+            </LayoutFlexColumn>
 
         </Modal>
     </>)
