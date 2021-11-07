@@ -1,0 +1,32 @@
+
+
+.fade-drop-enter{
+  opacity:0;
+  transform: translate(0,-50px);
+}
+
+
+.fade-drop-enter.fade-drop-enter-active{
+  opacity:1;
+  transform: translate(0,0px);
+  transition: opacity 500ms ease-out, transform 500ms ease-out;
+
+}
+.fade-drop-exit {
+   transform: translate(0,0px);
+   opacity:1 !important;
+
+ }
+
+
+.fade-drop-exit.fade-drop-exit-active {
+  opacity:0 !important;
+  transform: translate(0,+50px);
+  transition: opacity 500ms ease-out,transform 500ms ease-out;
+
+}
+
+
+.fade-drop-enter-done{
+ opacity:1 !important;
+}

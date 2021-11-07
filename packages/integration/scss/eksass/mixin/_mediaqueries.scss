@@ -1,0 +1,51 @@
+/* MOBILE FIRST */
+@mixin mq-width-and-upper($value){
+  @media screen and (min-width: $value) {@content; };
+}
+@mixin mq-height-and-upper($value){
+  @media screen and (min-height: $value) {@content; };
+}
+
+/*
+@include mq-width-and-upper($value) {
+}
+@include mq-height-and-upper($value) {
+}
+*/
+
+/* DESKTOP FIRST */
+@mixin mq-width-and-lower($value) {
+  @media screen and (max-width: $value) { @content; };
+}
+@mixin mq-height-and-lower($value) {
+  @media screen and (max-height: $value) { @content; };
+}
+@mixin mq-width-or-height-and-lower($width-value, $height-value) {
+  @media
+    screen and (max-width: $width-value),
+    screen and (max-height: $height-value) {
+      @content;
+    }
+}
+
+/*
+@include mq-width-and-lower($value) {
+}
+@include mq-height-and-lower($value) {
+}
+@include mq-width-or-height-and-lower($width-value, $height-value) {
+}
+*/
+
+/* STRICT */
+@mixin mq-strict($min, $max, $orientation: width) {
+  @if $orientation == height {
+    @media screen and (min-height: $min) and (max-height: $max) { @content; };
+  }
+  @media screen and (min-width: $min) and (max-width: $max) { @content; };
+}
+
+/*
+@include mq-strict($min, $max, $orientation: width) {
+}
+*/

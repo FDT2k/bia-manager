@@ -1,0 +1,31 @@
+@function remify($base,$size){
+  @return ($size/$base)+0rem;
+}
+
+
+
+@function rem10($size){
+  @return remify(10,$size);
+}
+
+@function rem14($size){
+  @return remify(14,$size);
+}
+
+
+
+@function rem12($size){
+  @return remify(12,$size);
+}
+
+
+
+@function rem16($size){
+  @return remify(16,$size);
+}
+
+
+
+@function rem18($size){
+  @return remify(18,$size);
+}

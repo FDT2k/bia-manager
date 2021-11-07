@@ -1,0 +1,68 @@
+@use 'core/reset' as *;
+@use 'mixin' as *;
+@use 'vars' as *;
+
+*,
+*:after,
+*:before {
+	-webkit-box-sizing: border-box;
+	box-sizing: border-box;
+}
+
+
+
+html,
+body {
+	width: 100%;
+	@include fluid-type(font-size, 320px, 1366px, 16px, 18px);
+	line-height: 1.3em;
+}
+
+section,footer {
+
+
+}
+
+/*test*/
+h1 {
+	line-height: 1.3em;
+	@include fluid-type(font-size, 320px, 1366px, 40px, 50px);
+}
+
+h2 {
+	line-height: 1.2em;
+	@include fluid-type(font-size, 320px, 1366px, 14px, 18px);
+}
+
+h3 {
+	line-height: 1.2em;
+	@include fluid-type(font-size, 320px, 1366px, 18px, 38px);
+}
+
+h4 {
+	line-height: 1.2em;
+	@include fluid-type(font-size, 320px, 1366px, 16px, 18px);
+}
+
+p {
+
+}
+
+label, input {
+
+}
+
+a {
+	text-decoration: none;
+}
+
+b {
+	font-weight:bold;
+}
+
+
+footer{
+	text-align: center;
+	min-width: 100%;
+	@include fluid-type(font-size, 320px, 1366px, 14px, 16px);
+}
