@@ -6,10 +6,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>BIA-Manager</title>
     <style type="text/css">
-      .navbar {
-          min-height: 100%;
-          background-color: grey;
-      }
       :root {
           --reference-width: 79.53125vw;
           --gut-width: 0.625vw;
@@ -63,14 +59,6 @@
           border-radius: 4px;
       }
 
-      :root {
-          --secondary: #FFFFFF;
-          --primary: #000000;
-          --tertiary: #F2F2F2;
-          --tertiary--dark: #7F7F7F;
-          --color-invalid: #d32222;
-          --color-valid: #42D15D;
-      }
 
       .bia-main .navbar,
       .search-grid-layout .autocomplete__item--selected,
@@ -427,11 +415,11 @@
 
         /*ca va bouger, j'ai fait une betise (fabien) */
 
-        .bia-main-layout {
+        /* .bia-main-layout {
             grid-template-columns: 100%;
             grid-template-rows: 52px auto 52px;
             grid-template-areas: " header "" maincontent "" footer ";
-        }
+        } */
 
         .bia-main__content {
             max-width: 100%;
@@ -2872,29 +2860,46 @@
 </head>
 
 <body>
-    <div id="root" class="main-container">
-        <!-- <div class="container-fullscreen">
-          <div class="layout-grid bia-main-layout bia-main bia-main--editor layout-grid--cover layout-grid--contained">
-            <nav class="">
-              <svg class="MuiSvgIcon-root" focusable="false"
-                viewBox="0 0 24 24" aria-hidden="true">
-                <path d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z"></path>
-              </svg>
-              <h4>Retour à la liste</h4>
-            </nav>
+    <div id="root" class="main-container container">
 
+      <nav class="nav navigation">
+        <div class="nav__content">
+          <svg class="MuiSvgIcon-root" focusable="false"
+            viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z"></path>
+          </svg>
+          <h4>Retour à la liste</h4>
+        </div>
+      </nav>
 
+      <div class="content">
+        <header class="patient header">
+          header
+        </header>
 
-                <div class="layout-flex layout-flex--between layout-flex--align-center "
-                    style="grid-area: header / header / header / header;">
-                    <div class="layout-flex layout-flex--align-center bia-editor__nav" style="grid-area: nav / nav / nav / nav;">
-                          <svg class="MuiSvgIcon-root" focusable="false"
-                            viewBox="0 0 24 24" aria-hidden="true">
-                            <path d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z"></path>
-                          </svg>
-                          <h4>Retour à la liste</h4>
-                    </div>
-                </div>
+        <aside class="left-aside">
+          left-aside
+        </aside>
+
+        <section class="editor">
+          editor
+        </section>
+
+        <section class="comments">
+          comments
+        </section>
+
+        <aside class="right-aside">
+          right-aside
+        </aside>
+      </div>
+
+      <footer class="footer">
+        <div class="footer__content">bia-manager: v1.0.0 - bia-electron: v0.0.50 - development</div>
+      </footer>
+    </div>
+        <!--
+
                 <div class="container bia-main__content container--scrollable"
                     style="grid-area: maincontent / maincontent / maincontent / maincontent;">
                     <div class="layout-grid editor-grid-layout bia-editor">
@@ -5894,7 +5899,7 @@
                 </div>
             </div>
         </div> -->
-    </div>
+
     <script>
         if (typeof (window).global === 'undefined') {
             (window).global = window;

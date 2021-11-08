@@ -1,4 +1,5 @@
-@use 'eksass/base';
+@use '../eksass/base' as *;
+@use '../layout' as *;
 
 .page-create-subject{
     .field{

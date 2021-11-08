@@ -63,14 +63,3 @@ $baseFontSize: 16;
   @include basekick($typeSizeModifier, $typeRowSpan, $latoDescenderHeightScale, $latoCapHeight);
   font-family: Lato;
 }
-
-// The most basic of CSS resets
-* {
-  // box-sizing: border-box;
-  margin: 0;
-  padding: 0;
-}
-
-html {
-  padding: 16px;
-}

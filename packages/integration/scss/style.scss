@@ -1,20 +1,28 @@
 @use 'eksass/base' as *;
 @use 'fonts/fonts' as *;
+@use 'layout/' as *;
+@use 'components/' as *;
 html, body {
   width: 100%;
   background-color: coral;
+  font-family: 'Aktiv Grotesk';
 }
 
 /* Generals */
 .main-container {
   width: 100%;
-  max-width: 1200px;
+  height: auto;
+  min-height: 100vh;
   margin: 0px auto;
   display: grid;
-  grid-template-columns: repeat(18, 1fr);
-  grid-template-rows: [header] 32px [content] 100vh [footer] 32px;
-  grid-gap: 8px;
+  grid-template-rows: [navigation] 32px [content] auto [footer] 32px;
+  grid-template-areas:
+    "navigation"
+    "content"
+    "footer";
 }
+
+
 .container {
     overflow: hidden;
 
