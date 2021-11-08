@@ -1,6 +1,7 @@
 import { createActionTypes, createPrefixableActionTypes } from '@karsegard/react-redux';
 
 export const ACTIONS_TYPES = createActionTypes(
+    'SAVING',
     'API_CALL_SUCCESS',
     'API_CALL_ERROR',
     'API_CALL_STARTED',

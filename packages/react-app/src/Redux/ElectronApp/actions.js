@@ -23,6 +23,8 @@ export default (getModule) => {
 
     const actions = {};
 
+    actions.is_saving= createAction(action_types.SAVING)
+
     actions.add_error = createAction(action_types.ADD_ERROR)
     actions.dismiss_error = createAction(action_types.REMOVE_ERROR)
     actions.init_started = createAction(action_types.INIT)
@@ -64,6 +66,7 @@ export default (getModule) => {
     }
 
     actions.save_to_file = _ => (dispatch, getState) => {
+        dispatch(actions.is_saving());
         const backend_actions = getBackend(getState);
         const filename = selectors.current_file(getState());
         return dispatch(backend_actions.export_data()).then(data => {
@@ -236,7 +239,8 @@ export default (getModule) => {
 
 
     actions.save_global = () => (dispatch, getState) => {
-        debugger;
+        dispatch(actions.is_saving());
+
         const api = getBackend(getState);
         const editor = submodules.features.editor.actions;
 

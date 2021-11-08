@@ -24,9 +24,10 @@ export default (getModule) => {
     )
 
 
-    module.fileReducer = createReducer({ file: null }, {
-        [action_types.OPEN_FILE_SUCCESS]: (state, { payload }) => ({ ...state, file: (is_nil(payload.file))? '': payload.file }),
-        [action_types.SAVE_FILE_SUCCESS]: (state, { payload }) => ({ ...state, file: (is_nil(payload.file))? '': payload.file })
+    module.fileReducer = createReducer({ file: null,saving:false,last_saved:null }, {
+        [action_types.SAVING]:(state,{payload})=>({...state,saving:true}),
+        [action_types.OPEN_FILE_SUCCESS]: (state, { payload }) => ({ ...state, file: (is_nil(payload.file))? '': payload.file,saving:false }),
+        [action_types.SAVE_FILE_SUCCESS]: (state, { payload }) => ({ ...state, file: (is_nil(payload.file))? '': payload.file,last_saved:new Date(),saving:false })
     });
 
 
