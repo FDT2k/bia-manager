@@ -34,7 +34,7 @@
           --gut-2: calc(var(--gut-width) * 2);
       }
 
-      .field.fumeur,
+      /* .field.fumeur,
       .field.cote-mesure,
       .field.taille {
           width: calc((var(--col-width) * 2) + (var(--gut-width) * 1));
@@ -57,7 +57,7 @@
       .field__field input,
       .button {
           border-radius: 4px;
-      }
+      } */
 
 
       .bia-main .navbar,
@@ -86,91 +86,8 @@
           --selected-color: var(--secondary);
       }
 
-      @font-face {
-          font-family: "Aktiv Grotesk";
-          src: url("assets/font/AktivGroteskCorp-Medium.eot");
-          src: local("AktivGroteskCorp-Medium"), url("assets/font/AktivGroteskCorp-Medium.eot?#iefix") format("embedded-opentype"), url("assets/font/AktivGroteskCorp-Medium.woff2") format("woff2"), url("assets/font/AktivGroteskCorp-Medium.woff") format("woff"), url("assets/font/AktivGroteskCorp-Medium.ttf") format("truetype");
-          font-weight: 500;
-          font-style: normal;
-      }
 
-      @font-face {
-          font-family: "Aktiv Grotesk";
-          src: url("assets/font/AktivGroteskCorp-Bold.eot");
-          src: local("AktivGroteskCorp-Bold"), url("assets/font/AktivGroteskCorp-Bold.eot?#iefix") format("embedded-opentype"), url("assets/font/AktivGroteskCorp-Bold.woff2") format("woff2"), url("assets/font/AktivGroteskCorp-Bold.woff") format("woff"), url("assets/font/AktivGroteskCorp-Bold.ttf") format("truetype");
-          font-weight: bold;
-          font-style: normal;
-      }
 
-      @font-face {
-          font-family: "Aktiv Grotesk";
-          src: url("assets/font/AktivGroteskCorp-Italic.eot");
-          src: local("AktivGroteskCorp-Italic"), url("assets/font/AktivGroteskCorp-Italic.eot?#iefix") format("embedded-opentype"), url("assets/font/AktivGroteskCorp-Italic.woff2") format("woff2"), url("assets/font/AktivGroteskCorp-Italic.woff") format("woff"), url("assets/font/AktivGroteskCorp-Italic.ttf") format("truetype");
-          font-weight: normal;
-          font-style: italic;
-      }
-
-      @font-face {
-          font-family: "Aktiv Grotesk";
-          src: url("assets/font/AktivGroteskCorp-LightItalic.eot");
-          src: local("AktivGroteskCorp-LightItalic"), url("assets/font/AktivGroteskCorp-LightItalic.eot?#iefix") format("embedded-opentype"), url("assets/font/AktivGroteskCorp-LightItalic.woff2") format("woff2"), url("assets/font/AktivGroteskCorp-LightItalic.woff") format("woff"), url("assets/font/AktivGroteskCorp-LightItalic.ttf") format("truetype");
-          font-weight: 300;
-          font-style: italic;
-      }
-
-      @font-face {
-          font-family: "Aktiv Grotesk";
-          src: url("assets/font/AktivGroteskCorp-MediumItalic.eot");
-          src: local("AktivGroteskCorp-MediumItalic"), url("assets/font/AktivGroteskCorp-MediumItalic.eot?#iefix") format("embedded-opentype"), url("assets/font/AktivGroteskCorp-MediumItalic.woff2") format("woff2"), url("assets/font/AktivGroteskCorp-MediumItalic.woff") format("woff"), url("assets/font/AktivGroteskCorp-MediumItalic.ttf") format("truetype");
-          font-weight: 500;
-          font-style: italic;
-      }
-
-      @font-face {
-          font-family: "Aktiv Grotesk";
-          src: url("assets/font/AktivGroteskCorp-Light.eot");
-          src: local("AktivGroteskCorp-Light"), url("assets/font/AktivGroteskCorp-Light.eot?#iefix") format("embedded-opentype"), url("assets/font/AktivGroteskCorp-Light.woff2") format("woff2"), url("assets/font/AktivGroteskCorp-Light.woff") format("woff"), url("assets/font/AktivGroteskCorp-Light.ttf") format("truetype");
-          font-weight: 300;
-          font-style: normal;
-      }
-
-      @font-face {
-          font-family: "Aktiv Grotesk";
-          src: url("assets/font/AktivGroteskCorp-Regular.eot");
-          src: local("AktivGroteskCorp-Regular"), url("assets/font/AktivGroteskCorp-Regular.eot?#iefix") format("embedded-opentype"), url("assets/font/AktivGroteskCorp-Regular.woff2") format("woff2"), url("assets/font/AktivGroteskCorp-Regular.woff") format("woff"), url("assets/font/AktivGroteskCorp-Regular.ttf") format("truetype");
-          font-weight: normal;
-          font-style: normal;
-      }
-
-      @font-face {
-          font-family: "Aktiv Grotesk";
-          src: url("assets/font/AktivGroteskCorp-BoldItalic.eot");
-          src: local("AktivGroteskCorp-BoldItalic"), url("assets/font/AktivGroteskCorp-BoldItalic.eot?#iefix") format("embedded-opentype"), url("assets/font/AktivGroteskCorp-BoldItalic.woff2") format("woff2"), url("assets/font/AktivGroteskCorp-BoldItalic.woff") format("woff"), url("assets/font/AktivGroteskCorp-BoldItalic.ttf") format("truetype");
-          font-weight: bold;
-          font-style: italic;
-      }
-
-      :root {
-          --font-family-aktiv-grotesk: "Aktiv Grotesk";
-          --font-style-normal: normal;
-          --font-style-italic: italic;
-          --font-weight-100: 100px;
-          --font-weight-normal: normal;
-          --font-weight-bold: bold;
-          --font-size-10: 10px;
-          --font-size-12: 12px;
-          --font-size-14: 14px;
-          --font-size-20: 20px;
-          --font-size-30: 30px;
-          --font-size-40: 40px;
-          --character-spacing-0: 0px;
-          --line-spacing-15: 15px;
-          --line-spacing-25: 25px;
-          --line-spacing-50: 50px;
-          --line-spacing-17-5: 17.5px;
-          --line-spacing-37-5: 37.5px;
-          --text-transform-uppercase: uppercase;
-      }
 
       /* Character Styles */
 
@@ -288,7 +205,7 @@
           margin-left: 8px;
       }
 
-      .page-create-subject .field {
+      /* .page-create-subject .field {
           margin-right: 0;
           margin-bottom: 0;
       }
@@ -348,7 +265,7 @@
 
       .field.fumeur {
           margin-right: inherit;
-      }
+      } */
 
       .editable-field {
           border: 1px solid var(--tertiary);
@@ -483,13 +400,13 @@
             border-bottom: 1px solid black;
         }
 
-        .page-header__field b {
+        /* .page-header__field b {
             margin-bottom: 4px;
-        }
+        } */
 
-        .field--radio {
+        /* .field--radio {
             background-color: red;
-        }
+        } */
 
         /* Character Styles */
         .recap-grid .row {
@@ -1001,13 +918,13 @@
             grid-template-areas: ". h_nor h_5 h_50 h_100 ""h_res  f_res_nor res5 res50 res100 ""h_rea f_rea_nor rea5 rea50 rea100 ""h_z f_z_nor z5 z50 z100 ""h_a f_a_nor a5 a50 a100 ";
         }
 
-        .impedance-form__field--invalid {
+        /* .impedance-form__field--invalid {
             color: var(--color-invalid);
         }
 
         .impedance-form div.editable-field {
             min-height: 45px;
-        }
+        } */
     </style>
     <style type="text/css">
         /* Tooltip container */
@@ -2199,14 +2116,14 @@
             margin-bottom: 8px;
         }
 
-        .bia-editor__patient .patient-header__field b {
+        /* .bia-editor__patient .patient-header__field b {
             margin-bottom: 4px;
         }
 
         .bia-editor__patient .patient-header___fieldset {
             padding-top: 11px;
             padding-bottom: 17px;
-        }
+        } */
 
         .bia-editor__mesures .list-mesure__title {
             margin-bottom: 4px;
@@ -2874,7 +2791,51 @@
 
       <div class="content">
         <header class="patient header">
-          header
+          <!-- header -->
+          <h2>Ellen Schultz</h2>
+          <!-- <div class="layout-flex layout-flex--between patient-header__fieldset"> -->
+          <div class="col-span-3 field field--birthdate "><label class="field__label">Date&nbsp;de&nbsp;naissance</label>
+              <div class="field__field">
+                  <div class="react-datepicker-wrapper">
+                      <div class="react-datepicker__input-container">
+                          <div class="editable-field">13.06.1996</div>
+                      </div>
+                  </div>
+              </div>
+          </div>
+          <div class="field col-span-2">
+            <label class="field__label">Âge</label>
+            <div class="field__field">
+                <div>25</div>
+            </div>
+          </div>
+          <div class="field col-span-2"><label class="field__label">Sexe</label>
+              <div class="field__field">
+                  <div class="editable-field">F</div>
+              </div>
+          </div>
+          <div class="field col-span-2"><label class="field__label">Taille&nbsp;(cm)</label>
+              <div class="field__field">
+                  <div class="editable-field">159.5</div>
+              </div>
+          </div>
+          <div class="field col-span-3"><label class="field__label">Poids&nbsp;habituel&nbsp;(kg)</label>
+              <div class="field__field">
+                  <div class="editable-field">53</div>
+              </div>
+          </div>
+          <div class="field col-span-3"><label class="field__label">Groupe&nbsp;pathologique</label>
+              <div class="field__field">
+                  <div class="editable-field">VENS2015</div>
+              </div>
+          </div>
+          <div class="field col-span-3"><label class="field__label">Nombre&nbsp;de&nbsp;mesures</label>
+              <div class="field__field">
+                  <div>4</div>
+              </div>
+          </div>
+          <!-- </div> -->
+
         </header>
 
         <aside class="left-aside">
