@@ -2,15 +2,18 @@
 @use '../layout' as *;
 @use '../fonts' as *;
 
-.header{
+.patient-header{
   grid-area: header;
   padding: 32px 0px 16px;
   border-bottom: solid 1px var(--primary);
-  background-color: aliceblue;
-
 
   h2 {
     @extend %title;
+    margin-bottom: 16px;
+  }
+
+  &__fieldset {
+      gap: 16px;
   }
   .field {
 
