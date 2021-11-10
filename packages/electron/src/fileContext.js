@@ -23,10 +23,10 @@ export const determine_file_type = async (file) => {
         const content = buffer.toString('utf8');
         if (content.startsWith('{')) {
             return 'json'
-        } else if (await openDB(file) !== null) {
+        }/* else if (await openDB(file) !== null) {
             console.error('bloup',openDB(file))
             return 'sqlite'
-        }
+        }*/
 
     }
 

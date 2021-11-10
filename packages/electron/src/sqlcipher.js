@@ -1,5 +1,5 @@
 
-var sqlite3 = require('better-sqlite3-sqleet');
+//var sqlite3 = require('better-sqlite3-sqleet');
 
 
 const opendb = (file, key = '') => new Promise((resolve, reject) => {
