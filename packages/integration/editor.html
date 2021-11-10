@@ -2761,7 +2761,8 @@ font-size: 2.1875rem;
 
             <!-- To fix : when wrapping "cancel" just-between for the extra line https://stackoverflow.com/questions/43441307/how-do-i-justify-contentflex-start-on-the-next-line-of-a-wrap -->
             <div class="flex flex-row wrap just-between patient-header__fieldset">
-                <div class="field field--birthdate "><label class="field__label">Date&nbsp;de&nbsp;naissance</label>
+                <div class="field field--birthdate ">
+                    <label class="field__label">Date&nbsp;de&nbsp;naissance</label>
                     <div class="field__field">
                         <div class="react-datepicker-wrapper">
                             <div class="react-datepicker__input-container">
@@ -2776,27 +2777,32 @@ font-size: 2.1875rem;
                         <div>25</div>
                     </div>
                 </div>
-                <div class="field"><label class="field__label">Sexe</label>
+                <div class="field">
+                    <label class="field__label">Sexe</label>
                     <div class="field__field">
                         <div class="editable-field">F</div>
                     </div>
                 </div>
-                <div class="field"><label class="field__label">Taille&nbsp;(cm)</label>
+                <div class="field">
+                    <label class="field__label">Taille&nbsp;(cm)</label>
                     <div class="field__field">
                         <div class="editable-field">159.5</div>
                     </div>
                 </div>
-                <div class="field"><label class="field__label">Poids&nbsp;habituel&nbsp;(kg)</label>
+                <div class="field">
+                    <label class="field__label">Poids&nbsp;habituel&nbsp;(kg)</label>
                     <div class="field__field">
                         <div class="editable-field">53</div>
                     </div>
                 </div>
-                <div class="field"><label class="field__label">Groupe&nbsp;pathologique</label>
+                <div class="field">
+                    <label class="field__label">Groupe&nbsp;pathologique</label>
                     <div class="field__field">
                         <div class="editable-field">VENS2015</div>
                     </div>
                 </div>
-                <div class="field"><label class="field__label">Nombre&nbsp;de&nbsp;mesures</label>
+                <div class="field">
+                    <label class="field__label">Nombre&nbsp;de&nbsp;mesures</label>
                     <div class="field__field">
                         <div>4</div>
                     </div>
@@ -2808,6 +2814,7 @@ font-size: 2.1875rem;
         <aside class="left-aside flex-column">
             <!-- left-aside -->
             <h3>Mesures</h3>
+            <button class="button btn--secondary" type="button">nouveau</button>
             <ul class="flex-column">
                 <li class="flex-row no-wrap just-start align-center">
                     05.12.2015
@@ -2845,7 +2852,6 @@ font-size: 2.1875rem;
                     </svg>
                 </li>
             </ul>
-            <button class="button btn--secondary" type="button">nouveau</button>
 
         </aside>
 

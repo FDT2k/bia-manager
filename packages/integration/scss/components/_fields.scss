@@ -10,12 +10,7 @@
 }
 
 .field{
-    // margin: 0px 16px 16px 0px;
     @extend %body;
-
-    // &:last-child {
-    //     margin-right: inherit;
-    // }
 
     &--one {
       margin-right: inherit;
@@ -64,6 +59,8 @@
 
     .editable-field {
         min-height: 30px;
+        padding: 0px 16px;
+        width: 100%;
         background-color: var(--tertiary);
       }
 
