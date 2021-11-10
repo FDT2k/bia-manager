@@ -1,14 +1,18 @@
+$asides-value: 44px;
+
 .content {
   grid-area: content;
   margin: 0px auto;
   width: 100%;
   max-width: 1200px;
   @extend %main-grid;
-  grid-template-rows: [header] min-content [content] auto [comments] auto;
-  grid-template-areas:
-    "header header header header header header header header header header header header header header header header header header"
-    "left-aside left-aside . editor editor editor editor editor editor editor editor editor editor editor . right-aside right-aside right-aside"
-    "left-aside left-aside . comments comments comments comments comments comments comments comments comments comments comments . right-aside right-aside right-aside";
+  // grid-template-rows: [header] min-content [content] auto [comments] auto;
+  grid-template:
+    [header] "header header header header header header header header header header header header header header header header header header" min-content
+    [content] "left-aside left-aside . editor editor editor editor editor editor editor editor editor editor editor . right-aside right-aside right-aside" auto
+    [comments] "left-aside left-aside . comments comments comments comments comments comments comments comments comments comments comments . right-aside right-aside right-aside" auto
+    / minmax($asides-value, 1fr) minmax($asides-value, 1fr) 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr minmax($asides-value, 1fr) minmax($asides-value, 1fr) minmax($asides-value, 1fr)
+    ;
 
     @include mq-width-and-lower(1200px+64px) {
       margin: 0px 32px;
