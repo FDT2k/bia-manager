@@ -95,10 +95,10 @@ export default (getModule) => {
         debugger;
 
             
-            if(result.type ==='sqlite'){
+         /*   if(result.type ==='sqlite'){
                 dispatch(actions.set_backend('sqlite'))
             }
-
+*/
         
             const backend_actions = getBackend(getState);
             
@@ -370,7 +370,7 @@ export default (getModule) => {
             });
     }
 
-    
+
     return actions;
 
 }
