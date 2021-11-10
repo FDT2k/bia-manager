@@ -153,7 +153,6 @@ export default (getModule) => {
         // eslint-disable-next-line no-unused-vars
         const [first_tag, ...other_tags] = tags;
 
-        debugger;
         if (tags.length == 0 && !has_filters) {
             dispatch(clear());
             return ;
@@ -169,10 +168,8 @@ export default (getModule) => {
 
         if (!has_filters && first_tag && tags.length === 1 && first_tag !== current_tags[0]) { // if the first tag did change, then refetch a preset from the database.
             return dispatch(actions.search_in_database(tags)).then(result => {
-                debugger;
                 return dispatch(fetched_patient(result));
             }).then(_ => {
-                debugger;
 
                 return dispatch(filter_results());
 
@@ -181,13 +178,11 @@ export default (getModule) => {
             return dispatch(backend_actions.search_custom_filters(custom_filters)).then(result=> {
                 return dispatch(fetched_patient(result));                
             }).then(_ => {
-                debugger;
 
                 return dispatch(filter_results());
 
             });
         } else {
-            debugger;
 
             return dispatch(filter_results());
         }

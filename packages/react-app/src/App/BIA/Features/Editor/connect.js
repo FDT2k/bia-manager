@@ -35,7 +35,7 @@ import {
   last_saved
 } from '@/Providers/Stores/ElectronApp';
 
-debugger;
+
 const mapStateToProps = state => {
   return {
     ...bindSelectors({

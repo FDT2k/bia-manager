@@ -60,7 +60,6 @@ export const Component = props => {
     }
 
     const handleClose = _ => {
-        debugger;
         close().then(res => {
             window.location.hash = '#/'
 
@@ -115,7 +114,6 @@ export const Component = props => {
         })
 
         onError((sender,message)=>{
-            debugger;
             add_error('Une erreur est survenue')
         });
 

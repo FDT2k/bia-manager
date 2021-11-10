@@ -40,7 +40,6 @@ const Editor = props => {
     const {RightFooter, ...remaining} = renderers;
     const {t,  lines, data, mesure,selectedMesureIndex, ...rest} = remaining
 
-   debugger;
 
     return (
         <MainView RightFooter={RightFooter} className="bia-main--editor" renderLeftNav={

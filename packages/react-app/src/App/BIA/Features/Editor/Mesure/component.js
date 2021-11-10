@@ -157,7 +157,6 @@ const Editor = props => {
 
     const _handleClickSave = e => {
         // commit the form before saving
-        debugger;
         Promise.resolve(_handleChange(values)).then(_ => {
             handleClickSave()
 

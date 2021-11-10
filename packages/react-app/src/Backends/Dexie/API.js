@@ -100,7 +100,6 @@ export default (db, events = {}) => {
                             method = 'and';
                             break;
                     }
-                    debugger;
                 }
 
             })
@@ -111,7 +110,6 @@ export default (db, events = {}) => {
 
     module.search_date_range = ({ collection, field, from, until, method }) => {
         if (method !== 'and') {
-            debugger;
             if (!is_nil(from) && !is_nil(until)) {
                 collection = collection.where(field).between(from, until)
             } else if (!is_nil(from) && is_nil(until)) {
@@ -124,7 +122,6 @@ export default (db, events = {}) => {
             return collection.and(item => {
                 let _field = item[field]
                 if (is_array(_field)) {
-                    debugger;
 
                     for (let i = 0; i < _field.length; i++) {
                         const item = _field[i];
@@ -140,7 +137,6 @@ export default (db, events = {}) => {
                     return false;
 
                 } else {
-                    debugger;
 
                     if (!is_nil(from) && !is_nil(until)) {
                         return moment(_field).isSameOrAfter(from) && moment(_field).isSameOrBefore(until)
@@ -169,7 +165,6 @@ export default (db, events = {}) => {
 
 
     module.update_patient = ({ id, patient, mesure, mesure_id }) => {
-        debugger;
         if (!is_nil(mesure)) {
             if (mesure_id >= patient.mesures.length) {
                 patient.mesures.push(mesure);

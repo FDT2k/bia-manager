@@ -15,7 +15,6 @@ const mapStateToProps = () => {
     const bia_results = makeSelectBIAResultByKey();
     const y_ticks = makeSelectIndiceChartYTicks();
     const labelByKey = makeSelectYLabelByKey();
-    //  debugger;
     return (state, props) => {
         return {
             age: select_edited_age(state),

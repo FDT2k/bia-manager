@@ -33,7 +33,6 @@ export default (getModule) => {
 
 
     actions.filter_results = _ => (dispatch, getState) => {
-        debugger;
         const { has_custom_filters } = selectors;
         const state = baseSelector(getState())
         // eslint-disable-next-line no-unused-vars

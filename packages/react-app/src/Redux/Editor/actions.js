@@ -62,7 +62,6 @@ export default (getModule) => {
     }
 
     actions.save = () => async (dispatch, getState) => {
-        debugger;
         const patient_id = select_current_patient_id(getState());
         const mesure = select_edited_mesure(getState());
         const mesure_id = select_current_mesure_id(getState());
@@ -208,7 +207,6 @@ export default (getModule) => {
 
     actions.change_mesure = (patient, mesure) => {
 
-        debugger;
         if (is_nil(patient) || is_nil(mesure)) {
             return {
                 type: 'GENERAL_ERROR'

@@ -14,7 +14,7 @@ import { LayoutFlex } from '@karsegard/react-core-layout';
 
 const RightFooter = props => {
     const { is_file_saving, last_diff, last_saved } = props;
-    debugger;
+
     return (<i>
         {is_file_saving ? <LayoutFlex alignCenter><ReactLoading width={24} height={24} type="spin" color="#FFFFFF"/> &nbsp;sauvegarde en cours</LayoutFlex> : ''}
         {!is_file_saving && !is_empty(last_saved) ? 'dernière sauvegarde: ' + last_saved + ' ' : ''}

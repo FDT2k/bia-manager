@@ -204,7 +204,6 @@ ipcMain.handle('sqlite-open', async (event, filename, key) => {
 
     return {
       canceled: false,
-      content,
       file: filePaths[0],
 
     }

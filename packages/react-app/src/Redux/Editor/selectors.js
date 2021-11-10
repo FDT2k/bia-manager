@@ -25,7 +25,6 @@ export default getModule => {
 
   module.select_all_mesures = createSelector(module.select_edited_patient, state => safe_path([],'mesures',state));
   module.select_mesures = createSelector(module.select_all_mesures, state => {
-    debugger;
    return  state.filter(item=>{
      let status = safe_path('active','status',item);
      return status !='deleted'
