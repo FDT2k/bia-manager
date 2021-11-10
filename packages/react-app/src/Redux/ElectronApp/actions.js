@@ -87,14 +87,29 @@ export default (getModule) => {
     actions.start_loading = createAction(action_types.LOADING);
     actions.stop_loading = createAction(action_types.LOADING_DONE);
     actions.async_open = createAsyncAction(actions.openFileFails, actions.openFileSuccess)
+    actions.set_backend = createAction(action_types.SET_BACKEND)
     actions.open_file = _ => (dispatch, getState) => {
-        const backend_actions = getBackend(getState);
+
 
         return dispatch(actions.async_open(api.open)).then((result) => {
-            if (result && !result.canceled) {
+        debugger;
+
+            
+            if(result.type ==='sqlite'){
+                dispatch(actions.set_backend('sqlite'))
+            }
+
+        
+            const backend_actions = getBackend(getState);
+            
+
+            if (result && !result.canceled && result.type ==='json') {
                 return dispatch(backend_actions.open_file(result));
             } else if (result && result.canceled) {
                 return dispatch({ type: action_types.OPEN_CANCELED_BY_USER })
+            }else{
+                 dispatch(actions.add_error('unkown file type'))
+                return Promise.reject('unkown file type')
             }
 
         }).then(previous => {
@@ -213,24 +228,7 @@ export default (getModule) => {
     const editorModule = submodules.features.editor;
 
 
-    actions.edit_patient = id => (dispatch, getState) => {
-        const api = getBackend(getState);
-        const { actions } = editorModule
-        return dispatch(api.get_patient(id)).then(res => {
-            return dispatch(actions.edit_patient(res));
-        })
-
-    }
-
-
-    actions.update_patient = (id, patient, mesure, mesure_id) => (dispatch, getState) => {
-        const api = getBackend(getState);
-        return dispatch(api.update_patient({ id, patient, mesure, mesure_id }))
-            .then(res => {
-                dispatch(actions.save_to_file())
-                return res;
-            });
-    }
+   
 
 
     actions.save_global = () => (dispatch, getState) => {
@@ -253,12 +251,7 @@ export default (getModule) => {
                 }
 
 
-            )/*.then(res => {
-                debugger;
-
-                return dispatch(actions.save_to_file()).then(_ => res);
-                //return res;
-            })*/.catch(res => {
+            ).catch(res => {
                 return dispatch(actions.add_error(res.message || res))
             });
 
@@ -357,6 +350,27 @@ export default (getModule) => {
             })
     }
 
+    //actions that depends on backend
+    actions.edit_patient = id => (dispatch, getState) => {
+        const api = getBackend(getState);
+        const { actions } = editorModule
+        return dispatch(api.get_patient(id)).then(res => {
+            return dispatch(actions.edit_patient(res));
+        })
+
+    }
+
+
+    actions.update_patient = (id, patient, mesure, mesure_id) => (dispatch, getState) => {
+        const api = getBackend(getState);
+        return dispatch(api.update_patient({ id, patient, mesure, mesure_id }))
+            .then(res => {
+                dispatch(actions.save_to_file())
+                return res;
+            });
+    }
+
+    
     return actions;
 
 }

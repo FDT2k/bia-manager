@@ -5,14 +5,13 @@ import { URL } from 'url';
 import fs from 'fs/promises';
 import { is_nil, deep_merge } from '@karsegard/composite-js';
 import { Mutex } from 'async-mutex';
-
 import menuFactoryService from './menu';
-
 import i18n, { i18nextOptions } from './i18next.config';
 import config from './app.config';
 import updater from "./updater"
 import openDB from './sqlcipher'
 
+import fileContext,{determine_file_type} from './fileContext';
 
 const mutex = new Mutex();
 let openedFilePath;
@@ -39,7 +38,17 @@ const settingsFile = (import.meta.env.MODE === 'development') ? join(__dirname, 
 const langCollectionFile = resolve(__dirname, '../.langs');
 createFileIfNeeded(settingsFile, '{"lang":"fr"}');
 
+/*
 
+
+
+openDB(join(app.getPath('home'), 'testdb2.sqlite'),'superkey').then ( ({db})=>db.exec(`CREATE TABLE IF NOT EXISTS hello (
+	column_1 data_type PRIMARY KEY,
+   	column_2 data_type NOT NULL,
+	column_3 data_type DEFAULT 0,
+	table_constraints
+)`)  );
+*/
 
 
 const getSettings = _ => fs.readFile(settingsFile, { encoding: 'utf8' }).then(res => JSON.parse(res));
@@ -127,15 +136,6 @@ const loadContent = mainWindow => {
 }
 
 
-const setupAutoUpdate = _ => {
-  if (import.meta.env.PROD) {
-
-    return import('electron-updater')
-      .then(({ autoUpdater }) => autoUpdater.checkForUpdatesAndNotify())
-      .catch((e) => console.error('Failed check updates:', e));
-  }
-  return false;
-}
 
 ipcMain.handle('ready', async _ => {
   console.log('client reported ready')
@@ -172,6 +172,7 @@ ipcMain.handle('update', () => {
   updater.autoUpdater.downloadUpdate();
 })
 
+
 ipcMain.handle('file-open', async (event, filename) => {
 
   console.log('want to open file', filename);
@@ -180,11 +181,19 @@ ipcMain.handle('file-open', async (event, filename) => {
   if (!canceled) {
     cleanState = false;
     console.log('reading');
-    openedFilePath = filePaths[0];
-    let content = await fs.readFile(filePaths[0], { encoding: 'utf8' });
 
+
+
+    openedFilePath = filePaths[0];
+    const type = await determine_file_type(openedFilePath);
+    let content = null 
+
+    if(type === 'json'){
+      content = await fs.readFile(filePaths[0], { encoding: 'utf8' });
+    }
     return {
       canceled: false,
+      type,
       content,
       file: filePaths[0],
 
@@ -236,8 +245,13 @@ ipcMain.handle('save-settings', async (event, content) => {
 
 ipcMain.handle('quit', async event => {
   console.log('client trigerred quit')
-  cleanState=true;
+  cleanState = true;
   app.quit();
+})
+
+
+ipcMain.handle('sqlite',async event => {
+  
 })
 
 if (import.meta.env.MODE === 'development') {
@@ -312,9 +326,9 @@ app.on('window-all-closed', () => {
 });
 
 app.on('before-quit', e => {
-  console.log('app will quit',cleanState);
+  console.log('app will quit', cleanState);
 
-  if (!cleanState) {
+  if (!app.commandLine.hasSwitch('allow-dirty-quit') && !cleanState) {
     console.log('quitting prevented because app is not cleaned up')
     mainWindow.webContents.send('app-quit')
     e.preventDefault()
@@ -329,3 +343,7 @@ app.whenReady()
   })
   .catch((e) => console.error('Failed create window:', e));
 
+app.on('uncaughtException', function (error) {
+  // Handle the error
+  console.error(error)
+});

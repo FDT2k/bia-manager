@@ -128,20 +128,7 @@ export default (getModule) => {
 
             const sort_by_name = (a, b) => a.name.localeCompare(b.name)
             return dispatch(actions.async_api('get_lists'))
-            //let result = {}
-            /*result.patho = await dispatch(actions.async_api('all_pathological_groups'))
-                .then(result => result.map(map_keyval).sort(sort_by_name))
-            result.ethno = await dispatch(actions.async_api('all_ethnological_groups'))
-                .then(result => result.map(map_keyval).sort(sort_by_name))
-            result.gender = await dispatch(actions.async_api('all_genders'))
-                .then(result => result.map(map_keyval).sort(sort_by_name))
-            result.sport_type = await dispatch(actions.async_api('all_sport_types'))
-                .then(result => result.map(map_keyval).sort(sort_by_name))
-            result.sport_rate = await dispatch(actions.async_api('all_sport_rates'))
-                .then(result => result.map(map_keyval).sort(sort_by_name))
-            result.machine = await dispatch(actions.async_api('all_machines'))
-                .then(result => result.map(map_keyval).sort(sort_by_name))
-            return result*/
+           
         }))
 
     }

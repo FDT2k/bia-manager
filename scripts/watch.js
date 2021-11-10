@@ -70,7 +70,7 @@ const setupMainPackageWatcher = (viteDevServer) => {
         spawnProcess = null;
       }
 
-      spawnProcess = spawn(electronPath, ['.']);
+      spawnProcess = spawn(electronPath, ['.','--allow-dirty-quit']);
 
       spawnProcess.stdout.on('data', d => d.toString().trim() && logger.warn(d.toString(), {timestamp: true}));
       spawnProcess.stderr.on('data', d => d.toString().trim() && logger.error(d.toString(), {timestamp: true}));

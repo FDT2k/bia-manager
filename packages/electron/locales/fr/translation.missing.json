@@ -46,5 +46,17 @@
    "BMI Reference": "BMI Reference",
    "Remarques / Interprétations": "Remarques / Interprétations",
    "FAT_FREE_MASS_Y_LABEL": "FAT_FREE_MASS_Y_LABEL",
-   "FAT_MASS_Y_LABEL": "FAT_MASS_Y_LABEL"
+   "FAT_MASS_Y_LABEL": "FAT_MASS_Y_LABEL",
+   "SEARCH_table_column_lastname": "SEARCH_table_column_lastname",
+   "SEARCH_table_column_firstname": "SEARCH_table_column_firstname",
+   "SEARCH_table_column_birthdate": "SEARCH_table_column_birthdate",
+   "SEARCH_table_column_pathological_group": "SEARCH_table_column_pathological_group",
+   "SEARCH_table_column_sex": "SEARCH_table_column_sex",
+   "SEARCH_table_column_sample_count": "SEARCH_table_column_sample_count",
+   "Nom": "Nom",
+   "Prénom": "Prénom",
+   "Date de Naissance": "Date de Naissance",
+   "Groupe Pathologique": "Groupe Pathologique",
+   "Recherche": "Recherche",
+   "SEARCH_CREATE_NEW_SUBJECT": "SEARCH_CREATE_NEW_SUBJECT"
 }
