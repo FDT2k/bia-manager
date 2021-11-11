@@ -1,4 +1,5 @@
 $asides-value: 44px;
+$editor-value: (552px - (16 * 10)) /11;
 
 .content {
   grid-area: content;
@@ -11,7 +12,11 @@ $asides-value: 44px;
     [header] "header header header header header header header header header header header header header header header header header header" min-content
     [content] "left-aside left-aside . editor editor editor editor editor editor editor editor editor editor editor . right-aside right-aside right-aside" auto
     [comments] "left-aside left-aside . comments comments comments comments comments comments comments comments comments comments comments . right-aside right-aside right-aside" auto
-    / minmax($asides-value, 1fr) minmax($asides-value, 1fr) 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr minmax($asides-value, 1fr) minmax($asides-value, 1fr) minmax($asides-value, 1fr)
+    / minmax($asides-value, 1fr) minmax($asides-value, 1fr)
+    1fr
+    minmax($editor-value, 1fr) minmax($editor-value, 1fr) minmax($editor-value, 1fr) minmax($editor-value, 1fr) minmax($editor-value, 1fr) minmax($editor-value, 1fr) minmax($editor-value, 1fr) minmax($editor-value, 1fr) minmax($editor-value, 1fr) minmax($editor-value, 1fr) minmax($editor-value, 1fr)
+    1fr
+    minmax($asides-value, 1fr) minmax($asides-value, 1fr) minmax($asides-value, 1fr)
     ;
 
     @include mq-width-and-lower(1200px+64px) {
@@ -21,5 +26,78 @@ $asides-value: 44px;
 }
 
 .editor {
-  grid-area: editor;
+    grid-area: editor;
+
+    .tabs {
+        display: flex;
+        align-items: center;
+        justify-content: start;
+	    background-color: var(--tertiary);
+        width: fit-content;
+        @extend %radius;
+        @extend %large-body;
+
+
+        &__container {
+            display: flex;
+            position: relative;
+            background-color: var(--tertiary);
+            padding: 3px;
+            border-radius: 4px;
+
+            & > * {
+                z-index: 2;
+            }
+        }
+
+        &__tab {
+            display: flex;
+            align-items: center;
+            justify-content: start;
+            height: 32px;
+            width: 150px;
+            padding: 0px 16px;
+            border-radius: 4px;
+            color: var(--tertiary--dark);
+            /* // just a high number to create pill effect */
+            cursor: pointer;
+            transition: color 0.15s ease-in;
+        }
+
+        input[type="radio"] {
+            display: none;
+        }
+
+        input[type="radio"]:checked + label {
+            color: var(--primary);
+        }
+
+        input[id="radio-1"]:checked ~ .glider {
+            transform: translateX(0);
+        }
+
+        input[id="radio-2"]:checked ~ .glider {
+            transform: translateX(100%);
+        }
+
+        input[id="radio-3"]:checked ~ .glider {
+            transform: translateX(200%);
+        }
+
+        .glider {
+            position: absolute;
+            display: flex;
+            height: 32px;
+            width: 150px;
+            padding: 0px 16px;
+            background-color: var(--secondary);
+            z-index: 1;
+            border-radius: 4px;
+          /* // just a high number to create pill effect */
+            transition: 0.25s ease-out;
+        }
+
+    }
+
+
 }

@@ -2766,7 +2766,7 @@ font-size: 2.1875rem;
                     <div class="field__field">
                         <div class="react-datepicker-wrapper">
                             <div class="react-datepicker__input-container">
-                                <div class="editable-field">13.06.1996</div>
+                                <div class="">13.06.1996</div>
                             </div>
                         </div>
                     </div>
@@ -2780,25 +2780,25 @@ font-size: 2.1875rem;
                 <div class="field">
                     <label class="field__label">Sexe</label>
                     <div class="field__field">
-                        <div class="editable-field">F</div>
+                        <div class="">F</div>
                     </div>
                 </div>
                 <div class="field">
                     <label class="field__label">Taille&nbsp;(cm)</label>
                     <div class="field__field">
-                        <div class="editable-field">159.5</div>
+                        <div class="">159.5</div>
                     </div>
                 </div>
                 <div class="field">
                     <label class="field__label">Poids&nbsp;habituel&nbsp;(kg)</label>
                     <div class="field__field">
-                        <div class="editable-field">53</div>
+                        <div class="">53</div>
                     </div>
                 </div>
                 <div class="field">
                     <label class="field__label">Groupe&nbsp;pathologique</label>
                     <div class="field__field">
-                        <div class="editable-field">VENS2015</div>
+                        <div class="">VENS2015</div>
                     </div>
                 </div>
                 <div class="field">
@@ -2856,7 +2856,18 @@ font-size: 2.1875rem;
         </aside>
 
         <section class="editor">
-            editor
+            <!-- editor -->
+            <div class="tabs">
+              <div class="tabs__container">
+                  <input type="radio" id="radio-1" name="tabs" checked />
+                  <label class="tabs__tab" for="radio-1">BIA</label>
+                  <input type="radio" id="radio-2" name="tabs" />
+                  <label class="tabs__tab" for="radio-2">Force de serrement</label>
+                  <input type="radio" id="radio-3" name="tabs" />
+                  <label class="tabs__tab" for="radio-3">Récapitulatif</label>
+                  <span class="glider"></span>
+              </div>
+            </div>
         </section>
 
         <section class="comments">
