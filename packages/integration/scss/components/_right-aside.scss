@@ -1,6 +1,13 @@
 @use '../eksass/base' as *;
 @use '../layout' as *;
+@use '../fonts' as *;
 
 .right-aside {
   grid-area: right-aside;
+
+  gap: 16px;
+
+  .button {
+      width: 100%;
+  }
 }
