@@ -1,4 +1,5 @@
 import DexieModule from '@/Redux/DexieDB'
+import SQLiteModule from '@/Redux/SQLite'
 import BIASearchModule from '@/Redux/BIASearch'
 import PatientModule from '@/Redux/Patient';
 import ListsModule from '@/Redux/Lists';
@@ -12,7 +13,8 @@ export const createSubModules = getModule => {
 
     const module = {
         backends:{
-            dexie:  DexieModule(compose(state => state.backends.dexie, baseSelector), `${prefix}_DEXIE`)
+            dexie:  DexieModule(compose(state => state.backends.dexie, baseSelector), `${prefix}_DEXIE`),
+            sqlite:  SQLiteModule(compose(state => state.backends.sqlite, baseSelector), `${prefix}_SQLITE`)
         },
         features:{
             lists: ListsModule(compose(state=> state.features.lists,baseSelector),`${prefix}_LISTS`),

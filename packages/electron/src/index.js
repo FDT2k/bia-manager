@@ -11,11 +11,12 @@ import config from './app.config';
 import updater from "./updater"
 import openDB from './sqlcipher'
 
-import fileContext,{determine_file_type} from './fileContext';
+import fileContext, { determine_file_type } from './fileContext';
 
 const mutex = new Mutex();
 let openedFilePath;
-let currentBackend ='json'
+let currentSQLite;
+let currentBackend = 'json'
 
 let cleanState = false;
 
@@ -41,13 +42,13 @@ createFileIfNeeded(settingsFile, '{"lang":"fr"}');
 
 
 
-let DB = openDB(join(app.getPath('home'), 'testdb3.sqlite'),'superkey')
+let DB = openDB(join(app.getPath('home'), 'testdb3.sqlite'), 'superkey')
 
-console.log(DB.api.genInsertSQL('subjects',{id:1,firstname:'12'}));
-console.log(DB.api.genUpdateSQL('subjects',{firstname:'12'},{id:1}));
+console.log(DB.api.genInsertSQL('subjects', { id: 1, firstname: '12' }));
+console.log(DB.api.genUpdateSQL('subjects', { firstname: '12' }, { id: 1 }));
 DB.api.addSubject({
-  firstname:'hello',
-  lastname:'world'
+  firstname: 'hello',
+  lastname: 'world'
 })
 const getSettings = _ => fs.readFile(settingsFile, { encoding: 'utf8' }).then(res => JSON.parse(res));
 
@@ -184,9 +185,9 @@ ipcMain.handle('file-open', async (event, filename) => {
 
     openedFilePath = filePaths[0];
     const type = await determine_file_type(openedFilePath);
-    let content = null 
+    let content = null
 
-    if(type === 'json'){
+    if (type === 'json') {
       content = await fs.readFile(filePaths[0], { encoding: 'utf8' });
     }
     return {
@@ -201,24 +202,6 @@ ipcMain.handle('file-open', async (event, filename) => {
   return { canceled: true };
 });
 
-ipcMain.handle('sqlite-open', async (event, filename, key) => {
-  console.log('want to sqlite db', filename, key);
-  let { canceled, filePaths } = await dialog.showOpenDialog({ defaultPath: filename });
-
-  if (!canceled) {
-    console.log('reading');
-    openedSQLiteDB = openDB(filePaths[0], key);
-
-    return {
-      canceled: false,
-      file: filePaths[0],
-
-    }
-  }
-
-  return { canceled: true };
-})
-
 ipcMain.handle('read-settings', async (event,) => {
   return getSettings();
 });
@@ -226,7 +209,7 @@ ipcMain.handle('read-settings', async (event,) => {
 
 ipcMain.handle('current-filename', async (event,) => {
   console.log('requested last opened filename')
-  return {file:openedFilePath,backend:currentBackend};
+  return { file: openedFilePath, backend: currentBackend };
 });
 
 ipcMain.handle('clear-filename', async (event,) => {
@@ -248,9 +231,36 @@ ipcMain.handle('quit', async event => {
 })
 
 
-ipcMain.handle('sqlite',async event => {
-  
+ipcMain.handle('sqlite', async event => {
+
 })
+
+ipcMain.handle('sqlite-open', async (event, {filename, key}) => {
+  try {
+    console.log('want to sqlite db', filename, key);
+    currentSQLite = openDB(filename)
+    return true;
+  } catch (e) {
+    return Promise.reject(e);
+  }
+  /* let { canceled, filePaths } = await dialog.showOpenDialog({ defaultPath: filename });
+ 
+   if (!canceled) {
+     console.log('reading');
+     openedSQLiteDB = openDB(filePaths[0], key);
+ 
+     return {
+       canceled: false,
+       file: filePaths[0],
+ 
+     }
+   }
+ 
+   return { canceled: true };*/
+
+})
+
+
 
 if (import.meta.env.MODE === 'development') {
   ipcMain.handle('missing-translations', (event, lngs, ns, key, fallbackValue, updateMissing, options) => {

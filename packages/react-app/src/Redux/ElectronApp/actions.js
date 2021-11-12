@@ -98,22 +98,13 @@ export default (getModule) => {
         debugger;
 
             
-         /*   if(result.type ==='sqlite'){
+            if(result.type ==='sqlite'){
                 dispatch(actions.set_backend('sqlite'))
             }
-*/
-        
-            const backend_actions = getBackend(getState);
-            
 
-            if (result && !result.canceled && result.type ==='json') {
-                return dispatch(backend_actions.open_file(result));
-            } else if (result && result.canceled) {
-                return dispatch({ type: action_types.OPEN_CANCELED_BY_USER })
-            }else{
-                 dispatch(actions.add_error('unkown file type'))
-                return Promise.reject('unkown file type')
-            }
+        
+            return dispatch(actions.backend_open_file(result))
+         
 
         }).then(previous => {
             if (previous.type && previous.type !== action_types.OPEN_CANCELED_BY_USER) {
@@ -124,6 +115,21 @@ export default (getModule) => {
 
     }
     
+
+    actions.backend_open_file = result => (dispatch,getState)=>{
+        const backend_actions = getBackend(getState);
+        debugger;
+
+        if (result && !result.canceled) {
+            return dispatch(backend_actions.open_file(result));
+        } else if (result && result.canceled) {
+            return dispatch({ type: action_types.OPEN_CANCELED_BY_USER })
+        }else{
+             dispatch(actions.add_error('unkown file type'))
+            return Promise.reject('unkown file type')
+        }
+    }
+
 
     actions.opened_file = _ => (dispatch, getState) => {
         dispatch(actions.refresh_editor_lists())

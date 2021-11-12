@@ -1,27 +1,37 @@
 import { createActionTypes, createPrefixableActionTypes } from '@karsegard/react-redux';
 
+
 export const ACTIONS_TYPES = createActionTypes(
-    'SET_BACKEND',
-    'SAVING',
+
+    'ADD_ERROR',
+
     'API_CALL_SUCCESS',
     'API_CALL_ERROR',
     'API_CALL_STARTED',
-    'OPEN_CANCELED_BY_USER',
-    'OPEN_FILE',
-    'OPEN_FILE_SUCCESS',
-    'SAVE_FILE_SUCCESS',
-    'OPEN_FILE_FAILS',
-    'SAVE',
-    'SAVE_AS',
-    'LOADING',
-    'LOADING_DONE',
-    'INIT',
-    'CLOSE_FILE',
-    'ADD_ERROR',
-    'REMOVE_ERROR',
+
+    'SET_DB_NAME',
+
+    'UPDATE_STAT',
+
+
+    'CLEAR_DATABASE',
+    'IMPORT_DATABASE',
+
+
+    'SAVE_PATIENT',
+    'CREATE_PATIENT',
+    'DELETE_PATIENT',
+    'SEARCH_PATIENT',
     
+    'CREATE_MESURE',
+    'DELETE_MESURE',
+    'SAVE_MESURE',
+
+    'CONNECTED',
+
 )
 
 export const makeActionTypes = createPrefixableActionTypes(ACTIONS_TYPES);
-
 export default makeActionTypes
+
+

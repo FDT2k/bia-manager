@@ -24,7 +24,7 @@ export default (getModule) => {
     )
 
 
-    module.fileReducer = createReducer({ file: null,saving:false,last_saved:null }, {
+    module.fileReducer = createReducer({ file: null,saving:false,opening:false,last_saved:null }, {
         [action_types.SAVING]:(state,{payload})=>({...state,saving:true}),
         [action_types.OPEN_FILE_SUCCESS]: (state, { payload }) => ({ ...state, file: (is_nil(payload.file))? '': payload.file,saving:false }),
         [action_types.SAVE_FILE_SUCCESS]: (state, { payload }) => ({ ...state, file: (is_nil(payload.file))? '': payload.file,last_saved:new Date(),saving:false })
@@ -32,7 +32,8 @@ export default (getModule) => {
 
 
     module.backends = combineReducers({
-        dexie:submodules.backends.dexie.reducer
+        dexie:submodules.backends.dexie.reducer,
+        sqlite:submodules.backends.sqlite.reducer
     })
 
     module.features = combineReducers({
@@ -46,7 +47,9 @@ export default (getModule) => {
 
     
 
-    module.backend = createReducer("dexie",{})
+    module.backend = createReducer("dexie",{
+        [action_types.SET_BACKEND]: (state,action) => action.payload
+    })
 
 
     module.errors =createReducer([], {
