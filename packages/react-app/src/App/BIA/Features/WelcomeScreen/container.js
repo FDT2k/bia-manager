@@ -15,6 +15,7 @@ export default Component => props => {
         start_loading("Waiting on user confirmation");
         open_file(open)
             .then(result => {
+                
                 stop_loading()
                 if (result) {
                     window.location.hash = '#/search'

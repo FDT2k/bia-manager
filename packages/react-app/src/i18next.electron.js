@@ -13,7 +13,7 @@ export const setHandler = fn => {
   .use(initReactI18next) // bind react-i18next to the instance
   .init({
     fallbackLng: 'fr',
-    debug: true,
+    debug: false,
     saveMissing:import.meta.env.MODE ==="development",
     missingKeyHandler: (...args)=> {
         handler && handler(...args)

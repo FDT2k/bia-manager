@@ -15,8 +15,7 @@ import fileContext,{determine_file_type} from './fileContext';
 
 const mutex = new Mutex();
 let openedFilePath;
-
-let openedSQLiteDB;
+let currentBackend ='json'
 
 let cleanState = false;
 
@@ -227,7 +226,7 @@ ipcMain.handle('read-settings', async (event,) => {
 
 ipcMain.handle('current-filename', async (event,) => {
   console.log('requested last opened filename')
-  return openedFilePath;
+  return {file:openedFilePath,backend:currentBackend};
 });
 
 ipcMain.handle('clear-filename', async (event,) => {

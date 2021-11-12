@@ -55,7 +55,6 @@ const API = db => {
 
 
     module.genInsertSQL = (table,schema,pkey=['id'])=> {
-
         const [keys,_fields] = spreadObjectPresentIn(['id'],schema);
         const fields = enlist(_fields).map(item=> key(item));
         const tmpl = `insert into ${table} (${fields.join(',')}) values (${fields.map(item=> `@${item}`).join(',')})` ;

@@ -29,15 +29,18 @@ export const Component = props => {
         start_loading("Waiting on user confirmation");
         open_file()
             .then(result => {
+                debugger;
                 stop_loading()
                 if (result) {
                     window.location.hash = '#/search'
                 }
 
             })
-            .catch(_=> {
+            .catch(err=> {
+                debugger;
+
                 stop_loading();
-                console.error()
+                console.error(err)
             });
 
     }

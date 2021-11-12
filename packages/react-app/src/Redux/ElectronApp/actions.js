@@ -32,7 +32,7 @@ export default (getModule) => {
     actions.init_app = () => (dispatch, getState) => {
         dispatch(actions.init_started());
         dispatch(actions.async_api('current_filename')).then(res => {
-            dispatch(actions.openFileSuccess({ file: res }))
+            dispatch(actions.openFileSuccess(res))
         })
         dispatch(actions.refresh_backend_stats());
     }
