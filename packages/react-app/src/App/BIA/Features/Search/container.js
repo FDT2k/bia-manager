@@ -46,6 +46,14 @@ export default Component => props => {
         clear_custom_filter(filter)
         search(tags)
     }
+
+    const handlers = {
+        handleSelectRow,
+        handleCreate,
+        handleSearch,
+        setFilter,
+        clearFilter
+    }
     
 
     return (
@@ -55,11 +63,7 @@ export default Component => props => {
                 results={patients}
                 tags={tags}
                 custom_filters={custom_filters}
-                setFilter={setFilter}
-                clearFilter={clearFilter}
-                handleSearch={handleSearch}
-                handleCreate={handleCreate}
-                handleSelectRow={handleSelectRow} />
+                handlers={handlers}/>
         </>
     )
 }

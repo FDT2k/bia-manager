@@ -106,7 +106,11 @@ export const Component = props => {
     const [selectedIndex, setSelectedIndex] = useState(-1);
     const [searchBarFocused, setSearchBarFocused] = useState(false);
 
-    const { results, handleSearch, handleCreate, tags, t, handleSelectRow: _handleSelectRow, setFilter, custom_filters,clearFilter } = props;
+    const {t} = props;
+
+    const {handleSearch,handleCreate,handleSelectRow: _handleSelectRow,} = props.handlers ;
+    const {clearFilter,setFilter} = props.handlers
+    const { results, tags,custom_filters } = props;
 
 
     useEffect(() => {
@@ -186,13 +190,11 @@ export const Component = props => {
             <SearchArea area="search">
                 <TagInput tabIndex={1} placeholder={t(`Recherche`)} tags={tags} handleFocus={v => setSearchBarFocused(v)} handleChange={_handleSearch} fields={searchableFields} />
                 <Button tabIndex={5} className="button--big" onClick={handleCreate}>{t('SEARCH_CREATE_NEW_SUBJECT')}</Button>
-
             </SearchArea>
             <AdvancedSearch style={{ gridGap: '8px' }} area="filter">
                 <RangeFilter label="Mesures" currentValues={custom_filters.mesure_range} handleSubmit={values=>setFilter('mesure_range','mesures_dates',values)} handleClear={_ => clearFilter('mesure_range')}/>
                 <RangeFilter label="Dates de naissances" currentValues={custom_filters.birthday_range} handleSubmit={values=>setFilter('birthday_range','birthdate',values)} handleClear={_ => clearFilter('birthday_range')}/>
                 <Button tabIndex={5}>{t('EXPORT_CSV')}</Button>
-               
             </AdvancedSearch>
             <ListWithAreaWithRef
 

@@ -94,5 +94,13 @@
    "right_recap": "right_recap",
    "Mise à jour disponible": "Mise à jour disponible",
    "Installer": "Installer",
-   "Téléchargement de la version": "Téléchargement de la version"
+   "Téléchargement de la version": "Téléchargement de la version",
+   "gender": "gender",
+   "groups.ethno": "groups.ethno",
+   "groups.patho": "groups.patho",
+   "Nouveau Patient": "Nouveau Patient",
+   "Prenom": "Prenom",
+   "Taille": "Taille",
+   "Poids habituel": "Poids habituel",
+   "Diagnostic": "Diagnostic"
 }

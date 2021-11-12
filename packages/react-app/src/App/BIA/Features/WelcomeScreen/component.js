@@ -7,7 +7,7 @@ import React from 'react';
 
 export const Page = props => {
 
-    const { t,handleOpenDatabase,handleCreateDatabase,handleConnect,handleOpenSQLite, ...rest } = props;
+    const { t,handleOpenDatabase,handleCreateDatabase,handleConnect, ...rest } = props;
     return (<MainView className="page-create-subject">
         <LayoutFlex cover centered>
             <Container className="login-container">
