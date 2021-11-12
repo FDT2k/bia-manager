@@ -2,7 +2,6 @@ import { is_nil, safe_path, is_empty } from '@karsegard/composite-js';
 //import { useKeypress } from '@karsegard/react-hooks';
 
 import React, { useEffect, useRef, useState } from 'react';
-import { useReactToPrint } from 'react-to-print';
 
 import { useLocation, useRoute } from "wouter";
 import ErrorModal from '@/App/BIA/Features/Editor/ErrorModal';
@@ -30,12 +29,10 @@ export default Component => props => {
     const { patient_id, mesure_id } = props.params;
 
     const { patient, mesure, current_mesure_id, error, err_message } = props;
-    const { populate_sportrate, populate_sporttype, populate_machines, fetch_normes } = props;
+    const { fetch_normes } = props;
     const { edit_patient, edit_mesure, create_mesure, change_mesure, refresh_recap, recompute_current_mesure, change_subject, update_patient, save, delete_mesure, set_examinator, last_saved_diff, current_mesures, last_saved, is_file_saving } = props;
 
-    const handlePrint = useReactToPrint({
-        content: () => componentRef.current
-    })
+
 
     const [last_diff, setDiff]  = useIntervalState('',last_saved_diff, 60*1000)
     useEffect(()=>{

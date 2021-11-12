@@ -27,9 +27,7 @@ export const TestEditor = props => {
 function App() {
   return (
     <Provider>
-      <ViewsProvider>
         <TestEditor/>
-      </ViewsProvider>
     </Provider>
   );
 
