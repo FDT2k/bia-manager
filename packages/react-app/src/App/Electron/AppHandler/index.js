@@ -127,18 +127,11 @@ export const Component = props => {
 
 
 
-
-    //silent save
-    const handleSave = _ => {
-        save_to_file();
-
-    }
-
     return (
         <>
             <I18nextProvider i18n={i18n} initialI18nStore={initialI18nStore} initialLanguage="fr">
                 <ViewsProvider>
-                <BIAManager dbname="default" handleSave={handleSave} />
+                    <BIAManager />
                 </ViewsProvider>
                 <Modal visible={update}>
                     <UpdateAvailable download={download_update} close={_=>setUpdate(false)}/>

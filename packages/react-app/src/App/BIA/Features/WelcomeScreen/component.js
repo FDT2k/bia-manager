@@ -19,7 +19,6 @@ export const Page = props => {
                     <InputGroup>
                         <Button onClick={handleCreateDatabase}>{t('Créer une base de données')}</Button>
                     </InputGroup>
-                 
                 </LayoutFlex>
             </Container>
         </LayoutFlex>
