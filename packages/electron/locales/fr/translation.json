@@ -95,5 +95,12 @@
    "SEARCH_table_column_sample_count": "Mesures",
 
    "left_recap": "Gauche",
-   "right_recap": "Droite"
+   "right_recap": "Droite",
+
+
+   "BIA_RECAP_TITLE": "BIA",
+   "FDS_RECAP_TITLE": "Force de serrement",
+   "BODY_MASS_CHART_RECAP_TITLE": "Evolution de la composition corporelle",
+   "FFMI_RECAP_TITLE": "Indice de masse maigre - FFMI",
+   "FMI_RECAP_TITLE": "Indice de masse grasse - FMI"
 }

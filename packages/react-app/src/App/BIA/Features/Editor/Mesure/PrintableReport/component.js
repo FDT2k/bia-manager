@@ -37,11 +37,11 @@ export default props => {
             templateAreas={[
                 'header header',
                 'r r',
+                'fds fds',
                 'z z',
                 'a a',
                 'y y',
                 'b c',
-                'fds fds',
                 'footer footer'
             ]}
         >
