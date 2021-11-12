@@ -39,7 +39,6 @@
   "dependencies": {
     "@karsegard/composite-js": "^2.10.11",
     "async-mutex": "^0.3.2",
-    "better-sqlite3-sqleet": "^7.1.2",
     "electron-devtools-installer": "^3.2.0",
     "electron-is-dev": "^2.0.0",
     "electron-updater": "^4.3.9",
