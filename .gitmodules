@@ -7,7 +7,6 @@
 [submodule "packages/kda-react-hooks"]
 	path = packages/kda-react-hooks
 	url = git@gitlab.com:karsegard/react-hooks.git
-
 [submodule "packages/better-sqlite3"]
 	path = packages/better-sqlite3
 	url = git@github.com:FDT2k/better-sqlite3.git

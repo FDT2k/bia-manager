@@ -2,6 +2,13 @@
 //var sqlite3 = require('better-sqlite3-sqleet');
 
 
+
+const getSubjects = db => ()=> {
+
+    db.prepare("Select * from subjects")
+}
+
+
 const opendb = (file, key = '') => new Promise((resolve, reject) => {
     const db = new sqlite3(file, { verbose: console.log });
 
