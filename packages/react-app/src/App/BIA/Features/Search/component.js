@@ -36,14 +36,10 @@ export const SearchArea = compose(
 )
     (LayoutFlex)
 
-/*
-export const ListWithArea = React.forwardRef((props,ref)=> {
-const Component = compose(withGridArea)(List);
-return <Component {...props} forwardedRef={ref}/>
-})*/
+
 
 export const ListWithAreaWithRef = compose(forwardRef, withForwardRef, withGridArea)(List);
-//export const ListWithAreaWithRef = React.forwardRef(ListWithArea);
+
 
 
 export const AdvancedSearch = compose(
