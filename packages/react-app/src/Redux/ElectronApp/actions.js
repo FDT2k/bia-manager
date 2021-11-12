@@ -76,7 +76,10 @@ export default (getModule) => {
              * 
              * implement cancel event situation
              */
-            return dispatch(actions.saveFileSuccess(res));
+            if(res !==false){
+                return dispatch(actions.saveFileSuccess(res));
+            }
+            return false
         }).catch(res => {
             dispatch(actions.add_error(res.message || res))
             //return Promise.reject();
