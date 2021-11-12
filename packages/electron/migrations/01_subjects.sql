@@ -1,4 +1,5 @@
 
+
 CREATE TABLE IF NOT EXISTS subjects (
 	id INTEGER PRIMARY KEY AUTOINCREMENT,
    	lastname TEXT ,
@@ -12,12 +13,4 @@ CREATE TABLE IF NOT EXISTS subjects (
     usual_height FLOAT,
     usual_weight FLOAT,
     medical_data TEXT
-);
-
-CREATE TABLE IF NOT EXISTS mesures (
-	id INTEGER PRIMARY KEY AUTOINCREMENT,
-    mesure_id INTEGER,
-   	date TEXT,
-    examinator TEXT,
-    medical_data: TEXT
 );

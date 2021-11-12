@@ -38,19 +38,18 @@ const settingsFile = (import.meta.env.MODE === 'development') ? join(__dirname, 
 const langCollectionFile = resolve(__dirname, '../.langs');
 createFileIfNeeded(settingsFile, '{"lang":"fr"}');
 
-/*
 
 
 
-openDB(join(app.getPath('home'), 'testdb2.sqlite'),'superkey').then ( ({db})=>db.exec(`CREATE TABLE IF NOT EXISTS hello (
-	column_1 data_type PRIMARY KEY,
-   	column_2 data_type NOT NULL,
-	column_3 data_type DEFAULT 0,
-	table_constraints
-)`)  );
-*/
 
+let DB = openDB(join(app.getPath('home'), 'testdb3.sqlite'),'superkey')
 
+console.log(DB.api.genInsertSQL('subjects',{id:1,firstname:'12'}));
+console.log(DB.api.genUpdateSQL('subjects',{firstname:'12'},{id:1}));
+DB.api.addSubject({
+  firstname:'hello',
+  lastname:'world'
+})
 const getSettings = _ => fs.readFile(settingsFile, { encoding: 'utf8' }).then(res => JSON.parse(res));
 
 

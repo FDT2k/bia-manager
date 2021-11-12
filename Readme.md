@@ -2,6 +2,9 @@
 
 ## First time clone
 
+    
+    you have to install git lfs before checking out 
+    
     git submodule init
     git submodule update
     yarn install
@@ -13,4 +16,4 @@
 
     some deps require make to be built.
 
-    ubuntu: apt install build-essential
+    
