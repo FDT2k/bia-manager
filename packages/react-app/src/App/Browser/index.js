@@ -2,10 +2,32 @@ import React from 'react';
 import BIAManager from '@/App/BIA/Features/BIAManager';
 import Provider from '@/Providers/Stores/ElectronApp';
 
+import { Provider as ViewsProvider } from '@/Providers/ViewsProvider'
+import { Provider as EditorProvider } from '@/Providers/EditorProvider'
+
+import Welcome from './welcome'
+import Editor from '@/App/BIA/Features/Editor/component';
+
+
+
+
+
+export const TestEditor = props => {
+  
+  
+  
+  return (<Editor patient={{}} mesure={{}}></Editor>)
+ 
+}
+
+
+
 function App() {
   return (
     <Provider>
-      <BIAManager />
+      <ViewsProvider>
+        <TestEditor/>
+      </ViewsProvider>
     </Provider>
   );
 

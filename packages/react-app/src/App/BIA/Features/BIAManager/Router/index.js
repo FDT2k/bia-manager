@@ -7,10 +7,10 @@ import WelcomeScreen from '@/App/BIA/Features/WelcomeScreen';
 import { is_nil } from '@karsegard/composite-js';
 import { Fullscreen } from '@karsegard/react-core-layout';
 import React, { useCallback, useEffect, useState } from 'react';
-import { Route, Router, Switch,useLocation, useRouter } from "wouter";
+import { Route, Router, Switch, useLocation, useRouter } from "wouter";
 
 
-
+import { useViewProvider } from '@/Providers/ViewsProvider';
 
 
 
@@ -20,29 +20,6 @@ export default props => {
 
     const { appLocation } = props;
     const [location, setLocation] = useLocation(appLocation);
-    //const [loaded, setLoaded] = useState();
-
-    //const { api, patient_count } = useBIAManager();
-
-
-    const NestedRoutes = (props) => {
-        const router = useRouter();
-        const [parentLocation] = useLocation();
-      
-        const nestedBase = `${router.base}${props.base}`;
-        // don't render anything outside of the scope
-        if (!parentLocation.startsWith(nestedBase)) return null;
-        
-
-        // we need key to make sure the router will remount when base changed
-        return (
-          <Router base={nestedBase} key={nestedBase}>
-              nested
-            {props.children}
-          </Router>
-        );
-      };   
-
 
     const currentLoc = () => window.location.hash.replace("#", "") || "/";
 
@@ -67,34 +44,31 @@ export default props => {
         }
     }, [appLocation]);
 
+    const views = useViewProvider();
+    debugger;
     return (<Fullscreen>
 
         <Router hook={useHashLocation}>
-      
-        <Switch>
 
-            <Route path="/database"><Database /></Route>
+            <Switch>
 
-            <Route path="/database/listes"><DatabaseListManager /></Route>
-            <Route path="/database/listes/:list_id"><DatabaseListManager /></Route>
+                <Route path="/database"><views.Database /></Route>
+                <Route path="/database/listes"><views.DatabaseListManager /></Route>
+                <Route path="/database/listes/:list_id"><views.DatabaseListManager /></Route>
+                <Route path="/editor/:patient_id">{params => {
+                    return (<views.Editor params={params} />)
+                }
+                }</Route>
+                <Route path="/editor/:patient_id/:mesure_id">{params => {
+                    return (<views.Editor params={params} />)
+                }
+                }</Route>
+                <Route path="/search" component={views.Search} />
+                <Route path="/create_subject" component={views.CreatePatient} />
 
-
-            <Route path="/editor/:patient_id">{params => { 
-                return (<Editor params={params}/>)
-            }
-            }</Route>
-            <Route path="/editor/:patient_id/:mesure_id">{params => { 
-                return (<Editor params={params}/>)
-            }
-            }</Route>
-            <Route path="/search" component={Search}/>
-            <Route path="/create_subject"  component={CreatePatient}/>
-
-
-
-            <Route path="/"><WelcomeScreen /></Route>
-            <Route>Unknown state, <a href="#">return home</a></Route>
-</Switch>
+                <Route path="/"><views.Welcome /></Route>
+                <Route>Unknown state, <a href="#">return home</a></Route>
+            </Switch>
         </Router>
     </Fullscreen>);
 }

@@ -91,5 +91,8 @@
    "fmi_recap": "fmi_recap",
    "ffmi_recap": "ffmi_recap",
    "left_recap": "left_recap",
-   "right_recap": "right_recap"
+   "right_recap": "right_recap",
+   "Mise à jour disponible": "Mise à jour disponible",
+   "Installer": "Installer",
+   "Téléchargement de la version": "Téléchargement de la version"
 }

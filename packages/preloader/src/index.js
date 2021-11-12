@@ -1,24 +1,6 @@
 import {camelize} from '@karsegard/composite-js'
-const { contextBridge, ipcRenderer,app } = require('electron')
-console.log('hello from preload',app)
+import {expose,clientEvent,invokeOnMainProcess} from '@karsegard/electron-preloader';
 
-
-
-const clientAddListener = channel => callback =>  ipcRenderer.on(channel, (...args) => {
-  return  callback(...args)
-});
-const clientRemoveListener = channel => callback => {
-  console.log('removing ',channel,callback)
-  ipcRenderer.removeListener(channel,callback)
-};
-
-const clientEvent = (key,channel) => ({
-    [camelize(`revoke-${key}`)]: clientRemoveListener(channel),
-    [camelize(`handle-${key}`)]: clientAddListener(channel),
-
-})
-
-const invokeOnMainProcess = channel => (...args) =>  ipcRenderer.invoke(channel,...args)
 
 
 let electronAPI = {
@@ -50,13 +32,12 @@ let electronAPI = {
 if (import.meta.env.MODE === 'development') {
   electronAPI.collect_translation =invokeOnMainProcess('collect-translation')
 }
-console.log(electronAPI)
-  contextBridge.exposeInMainWorld(
+  expose(
     'electron',
     electronAPI
   )
 
-  contextBridge.exposeInMainWorld(
+  expose(
     'isElectron',
     true
   )

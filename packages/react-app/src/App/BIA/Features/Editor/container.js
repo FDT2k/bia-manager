@@ -42,33 +42,11 @@ export default Component => props => {
         setDiff(last_saved_diff())
     },[last_saved])
 
-    /*
-    const mass_chart = useSelector(select_mass_chart);
-    const recap = useSelector(select_recap_list);
-    const list_dates = useSelector(select_recap_headers);
-*/
+   
 
 
     useEffect(() => {
-        /* populate_sportrate([
-             { 'id': 'low', 'name': 'faible' },
-             { 'id': 'average', 'name': 'modérée', default: true },
-             { 'id': 'high', 'name': 'élevée' },
-             { 'id': 'very_high', 'name': 'très élevée' },
-         ]);
- 
-         populate_sporttype([
-             { 'id': 'endu', 'name': 'endurance' },
-             { 'id': 'res', 'name': 'résistance' },
-             { 'id': 'other', 'name': 'autre' },
-             { 'id': 'unknown', 'name': 'inconnue', default: true },
-         ]);
-         
-         populate_machines([
-             { 'id': 'BIO-Z', 'name': 'BIO-Z' },
-             { 'id': 'NUTRIGUARD', 'name': 'Nutriguard' },
-             { 'id': 'ZX-1000', 'name': 'ZX-1000', default: true },
-         ]);*/
+       
         fetch_normes()
     }, []);
 
@@ -80,10 +58,7 @@ export default Component => props => {
     useEffect(() => {
         //   console.log('patient changed?',patient_id)
         if (!is_nil(patient_id) && ((patient && patient_id != patient.id) || !patient)) {
-            /*  api.get_patient(patient_id).then(res => {
-                  dispatch(edit_patient(res));
-  
-              });*/
+           
             edit_patient(patient_id);
         }
     }, [patient_id]);

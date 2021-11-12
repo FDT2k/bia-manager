@@ -7,9 +7,9 @@ import { useElectron } from '@/Providers/ElectronProvider';
 import { ConnectApp } from '@/Providers/Stores/ElectronApp';
 
 import Modal from '@/App/Components/Modal';
-import {LayoutFlexColumn,LayoutFlex} from '@karsegard/react-core-layout';
-import Button from '@/bia-layout/components/Form/Button';
 import ErrorHandler from '@/App/BIA/Features/ErrorMessageHandler'
+import UpdateAvailable from '@/App/Electron/UpdateAvailable';
+import DownloadUpdate from '@/App/Electron/DownloadUpdate';
 //const api = makeAPI('electron')
 
 
@@ -20,8 +20,8 @@ export const Component = props => {
     const { open_file, save_to_file, start_loading, stop_loading, current_file, close, init_app,add_error } = props;
     const [initialI18nStore, setInitialTranslation] = useState({});
 
-    const [update, setUpdate] = useState(false);
-    const [download, setDownload] = useState(null);
+    const [update, setUpdate] = useState(false); // update system
+    const [download, setDownload] = useState(null); // download system
     const [updateMessage, setUpdateMessage] = useState({});
 
 
@@ -138,25 +138,13 @@ export const Component = props => {
             <I18nextProvider i18n={i18n} initialI18nStore={initialI18nStore} initialLanguage="fr">
                 <BIAManager dbname="default" handleSave={handleSave} />
                 <Modal visible={update}>
-                    <LayoutFlexColumn justCenter alignCenter>
-                        <h2>Mise à jour disponible</h2>
-                        <div dangerouslySetInnerHTML={{ __html: updateMessage.releaseNotes }}></div>
-                        <LayoutFlex style={{ width: '100%' }} justBetween>
-                            <Button onClick={_ => download_update()}>Installer</Button>
-                            <Button onClick={_ => setUpdate(false)}>Fermer</Button>
-                        </LayoutFlex>
-                    </LayoutFlexColumn>
+                    <UpdateAvailable download={download_update} close={_=>setUpdate(false)}/>
                 </Modal>
 
                 <Modal visible={download!==null}>
-                    <LayoutFlexColumn justCenter alignCenter>
-                        <h2>Téléchargement de la version {updateMessage.version}</h2>
-                        {download && Math.round(download.percent)}%
-                    </LayoutFlexColumn>
+                    <DownloadUpdate download={download} updateMessage={updateMessage}/>
                 </Modal>
-
                <ErrorHandler />
-
             </I18nextProvider>
         </>
     );
