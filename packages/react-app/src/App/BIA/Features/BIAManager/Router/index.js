@@ -45,7 +45,6 @@ export default props => {
     }, [appLocation]);
 
     const views = useViewProvider();
-    debugger;
     return (<Fullscreen>
 
         <Router hook={useHashLocation}>

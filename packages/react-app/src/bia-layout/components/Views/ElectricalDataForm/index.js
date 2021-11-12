@@ -48,7 +48,7 @@ const recomputeGroup = (conversionFunctions, groups, columns, rows) => (group, v
                         }
                         newState[fieldKey] = (new Number(result)).toFixed(precision);
                     } catch (e) {
-                        console.error(e)
+                        console.log(e)
                         newState[fieldKey] = -1;
 
                     }

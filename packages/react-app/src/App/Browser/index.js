@@ -16,7 +16,9 @@ export const TestEditor = props => {
   
   
   
-  return (<Editor patient={{}} mesure={{}}></Editor>)
+  return (<Editor patient={{}}  handlers={{
+    handleChange:_=>alert('hey')
+  }} mesure={{date:'2012-01-21',data:{}}} handlers={{}}></Editor>)
  
 }
 

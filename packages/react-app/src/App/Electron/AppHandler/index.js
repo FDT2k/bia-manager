@@ -11,6 +11,7 @@ import ErrorHandler from '@/App/BIA/Features/ErrorMessageHandler'
 import UpdateAvailable from '@/App/Electron/UpdateAvailable';
 import DownloadUpdate from '@/App/Electron/DownloadUpdate';
 //const api = makeAPI('electron')
+import { Provider as ViewsProvider } from '@/Providers/ViewsProvider'
 
 
 export const Component = props => {
@@ -136,7 +137,9 @@ export const Component = props => {
     return (
         <>
             <I18nextProvider i18n={i18n} initialI18nStore={initialI18nStore} initialLanguage="fr">
+                <ViewsProvider>
                 <BIAManager dbname="default" handleSave={handleSave} />
+                </ViewsProvider>
                 <Modal visible={update}>
                     <UpdateAvailable download={download_update} close={_=>setUpdate(false)}/>
                 </Modal>

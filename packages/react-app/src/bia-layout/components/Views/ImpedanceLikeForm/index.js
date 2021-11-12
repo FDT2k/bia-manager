@@ -123,7 +123,7 @@ const Component = props => {
                             tabIndex={tabIndexOffset+tabIndex}
                             area={name}
                             name={name}
-                            value={values[name]}
+                            value={values[name] || ''}
                             onBlur={_handleFormBlur}
                             onChange={_handleChange}
                         />

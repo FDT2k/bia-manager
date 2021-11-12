@@ -170,6 +170,16 @@ export default Component => props => {
         }
     }
 
+    const handleGoBack = _ => setLocation('/search')
+    const handlers = {
+        handleChange,
+        handleSubjectChange,
+        handleClickSave,
+        handleMesureDelete,
+        handleMesureOpen,
+        handleMesureCreate,
+        handleGoBack
+    }
 
     return (
         <>
@@ -177,13 +187,9 @@ export default Component => props => {
 
             {!error && <Component
                 RightFooter={<RightFooter  is_file_saving={is_file_saving} last_saved={last_saved} last_diff={last_diff} />}
-                handleGoBack={_ => setLocation('/search')}
-                handleChange={handleChange}
-                handleSubjectChange={handleSubjectChange}
-                handleClickSave={handleClickSave}
-                handleMesureDelete={handleMesureDelete}
-                handleMesureOpen={handleMesureOpen}
-                handleMesureCreate={handleMesureCreate}
+
+                handlers={handlers}
+               
                 data={patient}
                 selectedMesureIndex={current_mesure_id}
                 mesure={mesure}

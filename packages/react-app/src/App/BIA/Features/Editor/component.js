@@ -31,10 +31,9 @@ const NavComponent = compose(
 )(LayoutFlex);
 
 const Editor = props => {
-    //const { className, renderFooter, handleClickSave, t,  lines, data, mesure, handlePrint, selectedMesureIndex, ...rest } = getClasseNames(__base_class, props);
-    const {className, ...handlers} = getClasseNames(__base_class, props);
+    const {className, handlers,defaultHandlers,...renderers} = getClasseNames(__base_class, props);
 
-    const {handleGoBack,handlePrint,handleMesureCreate, handleMesureOpen,handleMesureDelete, handleSubjectChange,handleChange,handleClickSave, ...renderers} = handlers;
+    const {handleGoBack,handlePrint,handleMesureCreate, handleMesureOpen,handleMesureDelete, handleSubjectChange,handleChange,handleClickSave} = Object.assign({},defaultHandlers,handlers);
 
 
     const {RightFooter, ...remaining} = renderers;
@@ -86,7 +85,16 @@ Editor.defaultProps = {
     selectedMesureIndex: 0,
     handleMesureOpen:x=> console.warn('no handler set for handleMesureOpen'),
     handleMesureDelete:x=>console.warn('no handler set for handleMesureDelete'),
-    t: x => x
+    t: x => x,
+    defaultHandlers:{
+        handleChange: _=> console.warn ('no handler set for handleChange'),
+        handleSubjectChange: _=> console.warn ('no handler set for handleSubjectChange'),
+        handleClickSave: _=> console.warn ('no handler set for handleClickSave'),
+        handleMesureDelete: _=> console.warn ('no handler set for handleMesureDelete'),
+        handleMesureOpen: _=> console.warn ('no handler set for handleMesureOpen'),
+        handleMesureCreate: _=> console.warn ('no handler set for handleMesureCreate'),
+        handleGoBack: _=> console.warn ('no handler set for handleGoBack'),
+    }
 }
 
 

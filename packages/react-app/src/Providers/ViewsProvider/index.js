@@ -7,6 +7,7 @@ import DatabaseListManager from '@/App/BIA/Features/Database/ListManager/page';
 import Editor from '@/App/BIA/Features/Editor';
 import Search from '@/App/BIA/Features/Search/page';
 import Welcome from '@/App/BIA/Features/WelcomeScreen';
+import { is_nil } from '@karsegard/composite-js';
 
 
 
@@ -37,8 +38,7 @@ export const makeProvider = (Context) => (props) => {
 
 export const makeUse = Context => _ => {
     const context = useContext(Context);
-
-    if (context === undefined) {
+    if (is_nil(context)) {
         throw new Error('useViewProvider must be used within a provider');
     }
     return context;
