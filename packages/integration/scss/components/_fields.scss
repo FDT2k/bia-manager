@@ -21,6 +21,10 @@
         @extend .flex-row;
         @extend .just-start;
         @extend .align-start;
+
+        .button__svg {
+            height: 18px;
+        }
     }
 
     &__field {
