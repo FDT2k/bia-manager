@@ -1,4 +1,6 @@
-@use 'eksass/base';
+@use '../eksass/base' as *;
+@use '../layout' as *;
+@use '../fonts' as *;
 
 .page-create-subject{
     .field{
@@ -8,25 +10,24 @@
 }
 
 .field{
-
-    margin-right: var(--gut-width);
-    margin-bottom: 16px;
-
-    // &:last-child {
-    //     margin-right: inherit;
-    // }
+    @extend %body;
 
     &--one {
       margin-right: inherit;
     }
     &__label{
-        display: inline-block;
         margin-bottom: 8px;
+        @extend %large-body;
+        @extend .flex-row;
+        @extend .just-start;
+        @extend .align-start;
     }
 
     &__field {
 
         width: 100%;
+        overflow: auto;
+        border-radius: 4px;
 
         & > *, & input {
             width: 100%;
@@ -39,6 +40,7 @@
         input:not([type="checkbox"]), select {
             width: 100%;
             border: solid 1px var(--primary);
+            padding: 0px 16px;
         }
 
         select.editable-field {
@@ -61,35 +63,22 @@
 
 
     .editable-field {
+        @extend .flex-column;
         min-height: 30px;
+        padding: 0px 16px;
+        width: auto;
         background-color: var(--tertiary);
       }
 
     &--calculated {
 
     }
-    &.date-examen,
-    &.birthdate,
-    &.activite-physique,
-    &.type-activite-physique,
-    &.poids-actuel {
-        @extend %col-3;
-    }
-    &.fumeur,
-    &.cote-mesure,
-    &.taille {
-        @extend %col-2;
-    }
 
-    &.fumeur {
-        margin-right: inherit;
-    }
 }
 
 .editable-field {
   //  height: 100%;
     border: 1px solid var(--tertiary);
-    display: flex;
     justify-content: center;
     flex-direction: column;
     align-items: flex-start;

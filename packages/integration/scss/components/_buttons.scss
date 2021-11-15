@@ -1,0 +1,60 @@
+@use '../eksass/base' as *;
+@use '../layout' as *;
+@use '../fonts';
+
+.button {
+    width: auto;
+
+    @extend %buttons;
+    @extend %colors-negative;
+    &:hover, &:active, &:focus{
+        @extend %colors-positive;
+        cursor: pointer;
+    }
+
+    padding: 8px 16px;
+    background-color: var(--primary);
+    border: 1px solid var(--primary);
+    @extend %radius;
+
+    &:hover{
+        border: 1px solid var(--primary);
+    }
+
+    &--big {
+        height: 42px;
+    }
+    &--small{
+        height: 21px;
+        padding:0px;
+        max-width:100%;
+    }
+    &.btn--primary {
+
+    }
+    &.btn--secondary {
+        @extend %colors-positive;
+        border: 1px solid var(--primary);
+        // margin-left: var(--gut-width);
+        &:hover, &:active, &:focus{
+            @extend %colors-negative;
+        }
+    }
+  &__svg {
+    margin-left: 8px;
+
+    &.info {
+        background-image: url(../assets/icons/info_black_24dp.svg);
+        height: 14px;
+        width: 14px;
+        background-position: center center;
+        background-repeat: no-repeat;
+
+        svg {
+            width: 100%;
+            height: auto;
+        }
+    }
+  }
+
+}

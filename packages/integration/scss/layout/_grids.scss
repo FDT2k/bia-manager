@@ -1,0 +1,30 @@
+%main-grid {
+  display: grid;
+  grid-template-columns: repeat(18, 1fr);
+  grid-gap: 16px;
+}
+
+/* grid children's size CSS */
+@mixin column-span($value) {
+  grid-column: span $value;
+}
+
+/* grid children's size Class */
+.col-span-1 { @include column-span(1); }
+.col-span-2 { @include column-span(2); }
+.col-span-3 { @include column-span(3); }
+.col-span-4 { @include column-span(4); }
+.col-span-5 { @include column-span(5); }
+.col-span-6 { @include column-span(6); }
+.col-span-7 { @include column-span(7); }
+.col-span-8 { @include column-span(8); }
+.col-span-9 { @include column-span(9); }
+.col-span-10 { @include column-span(10); }
+.col-span-11 { @include column-span(11); }
+.col-span-12 { @include column-span(12); }
+.col-span-13 { @include column-span(13); }
+.col-span-14 { @include column-span(14); }
+.col-span-15 { @include column-span(15); }
+.col-span-16 { @include column-span(16); }
+.col-span-17 { @include column-span(17); }
+.col-span-18 { @include column-span(18); }

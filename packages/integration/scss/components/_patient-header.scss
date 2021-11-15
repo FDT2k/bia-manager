@@ -1,0 +1,24 @@
+@use '../eksass/base' as *;
+@use '../layout' as *;
+@use '../fonts' as *;
+
+.patient-header{
+  grid-area: header;
+  padding: 32px 0px 16px;
+  border-bottom: solid 1px var(--primary);
+
+  h2 {
+    @extend %title;
+    margin-bottom: 16px;
+  }
+
+  &__fieldset {
+      gap: 16px;
+  }
+  .field {
+
+
+  }
+
+
+}
