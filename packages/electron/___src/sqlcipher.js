@@ -88,19 +88,20 @@ const API = db => {
 
     module.migrate = () => {
 
+
         const migrationPath = resolve(__dirname, '../migrations');
 
         let latest = module.getLatestMigration();
 
         const migration_files = fs.readdirSync(migrationPath);
+        console.log(migration_files)
+
 
         let current = 0;
 
         migration_files.map(migration => {
             if (current >= latest) {
-                const migrationFile= join(migrationPath, migration)
-                console.log('[SQLITE]: running migration '+migrationFile)
-                db.exec(fs.readFileSync(migrationFile, 'utf8'))
+                db.exec(fs.readFileSync(join(migrationPath, migration), 'utf8'))
                 module.getStatements().insert_migration.run({ migration })
             }
             current++;
@@ -121,12 +122,23 @@ const API = db => {
 }
 
 
-const  defaultOptions = {fileMustExist:true, verbose: (...args)=> console.log('[SQLITE]:',...args)}
+const opendb = (file, key = '') => {
+    const db = new sqlite3(file, { verbose: console.log });
 
 
-const opendb = (file, key = '',options=defaultOptions) => {
-    const db = new sqlite3(file, options);
-
+    /* db.run("PRAGMA key = '" + key + "'", (err) => {
+         console.log('apply key',err);
+         if(err!==null){
+             reject(err)
+         }
+     });
+     db.run("SELECT count(*) FROM sqlite_master", (err) => {
+         console.log('check',err);
+         if(err!==null){
+             reject(err)
+         }
+     });
+ */
 
     const api = API(db);
     console.log(api);

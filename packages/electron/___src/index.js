@@ -4,16 +4,16 @@ import { join, resolve } from 'path';
 import { URL } from 'url';
 import fs from 'fs/promises';
 import { is_nil, deep_merge } from '@karsegard/composite-js';
-
+import { Mutex } from 'async-mutex';
 import menuFactoryService from './menu';
-
+import i18n, { i18nextOptions } from './i18next.config';
+import config from './app.config';
 import updater from "./updater"
 import openDB from './sqlcipher'
 
 import fileContext, { determine_file_type } from './fileContext';
 
-import init18next from './plugins/i18next'
-
+const mutex = new Mutex();
 let openedFilePath;
 let currentSQLite;
 let currentBackend = 'json'
@@ -74,6 +74,8 @@ let mainWindow = null;
 
 const createWindow = async () => {
 
+
+
   mainWindow = new BrowserWindow({
     width: 1280,
     minWidth: 1000,
@@ -99,18 +101,26 @@ const createWindow = async () => {
     }
   });
 
+  menuFactoryService.buildMenu(app, mainWindow, i18n);
+  i18n.on('loaded', (loaded) => {
+    i18n.changeLanguage('fr');
+    i18n.off('loaded');
+  });
 
-
+  i18n.on('languageChanged', (lng) => {
+    console.log('changing language to ', lng)
+    menuFactoryService.buildMenu(app, mainWindow, i18n);
+    mainWindow.webContents.send('language-change', {
+      language: lng,
+      namespace: config.namespace,
+      resource: i18n.getResourceBundle(lng, config.namespace)
+    });
+  });
 
   return mainWindow
 };
 
-const initMenu = async (window) => {
-  menuFactoryService.buildMenu(app, window);
-  return window
-}
-
-const loadContent = async mainWindow => {
+const loadContent = mainWindow => {
   /**
     * URL for main window.
     * Vite dev server for development.
@@ -121,9 +131,15 @@ const loadContent = async mainWindow => {
     : new URL('../react-app/dist/index.html', 'file://' + __dirname).toString();
 
 
-  mainWindow.loadURL(pageUrl);
-  return mainWindow
+  return mainWindow.loadURL(pageUrl);
 }
+
+
+
+ipcMain.handle('ready', async _ => {
+  console.log('client reported ready')
+  i18n.changeLanguage('fr');
+})
 
 ipcMain.handle('file-save', async (event, content, filename = '') => {
 
@@ -151,6 +167,9 @@ ipcMain.handle('file-save', async (event, content, filename = '') => {
   return false;
 });
 
+ipcMain.handle('update', () => {
+  updater.autoUpdater.downloadUpdate();
+})
 
 
 ipcMain.handle('file-open', async (event, filename) => {
@@ -216,7 +235,7 @@ ipcMain.handle('sqlite', async event => {
 
 })
 
-ipcMain.handle('sqlite-open', async (event, { filename, key }) => {
+ipcMain.handle('sqlite-open', async (event, {filename, key}) => {
   try {
     console.log('want to sqlite db', filename, key);
     currentSQLite = openDB(filename)
@@ -224,14 +243,78 @@ ipcMain.handle('sqlite-open', async (event, { filename, key }) => {
   } catch (e) {
     return Promise.reject(e);
   }
+  /* let { canceled, filePaths } = await dialog.showOpenDialog({ defaultPath: filename });
+ 
+   if (!canceled) {
+     console.log('reading');
+     openedSQLiteDB = openDB(filePaths[0], key);
+ 
+     return {
+       canceled: false,
+       file: filePaths[0],
+ 
+     }
+   }
+ 
+   return { canceled: true };*/
 
 })
 
 
 
-ipcMain.handle('update', () => {
-  updater.autoUpdater.downloadUpdate();
-})
+if (import.meta.env.MODE === 'development') {
+  ipcMain.handle('missing-translations', (event, lngs, ns, key, fallbackValue, updateMissing, options) => {
+    mutex
+      .acquire()
+      .then(function (release) {
+
+        let p = i18nextOptions.backend.addPath.replace('{{ns}}', ns).replace('{{lng}}', lngs[0]);
+        return fs.readFile(p).then(res => {
+          return JSON.parse(res);
+        }).then(trans => {
+          return deep_merge(trans, { [key]: key });
+        }).then(res => {
+
+          return fs.writeFile(p, JSON.stringify(res, null, 3)).then(res => typeof result === 'undefined');
+        }).then(res => release());
+
+      }).catch(res => console.error(res));
+
+
+  })
+}
+ipcMain.handle('get-translations', (event, arg) => {
+  return new Promise((resolve, reject) => {
+
+    i18n.loadLanguages('en', (err, t) => {
+      const initial = {
+        'fr': {
+          'translation': i18n.getResourceBundle('fr', config.namespace)
+        }
+      };
+      resolve(initial);
+    });
+  })
+
+});
+
+if (import.meta.env.MODE === 'development') {
+
+  ipcMain.handle('collect-translation', async (event, content) => {
+    console.log('translation collecting', content)
+
+    return fs.readFile(langCollectionFile).then(res => {
+      return JSON.parse(res);
+    }).then(trans => {
+      return deep_merge(trans, content);
+    }).then(res => {
+      return fs.writeFile(langCollectionFile, JSON.stringify(res)).then(res => typeof result === 'undefined');
+    });
+
+  });
+
+
+}
 
 app.on('second-instance', () => {
   // Someone tried to run a second instance, we should focus our window.
@@ -243,7 +326,11 @@ app.on('second-instance', () => {
 
 
 app.on('window-all-closed', () => {
+  // if (process.platform !== 'darwin') {
+  //   console.log('quit app')
+  // }
   app.quit();
+  //mainWindow.webContents.send('app-quit')
 });
 
 app.on('before-quit', e => {
@@ -258,9 +345,10 @@ app.on('before-quit', e => {
 
 app.whenReady()
   .then(createWindow)
-  .then(initMenu)
-  .then(init18next( (i18n,menu) => {menuFactoryService.buildMenu(app, mainWindow, i18n.t.bind(i18n),menu) }))
-  .then(loadContent)
+  .then(window => {
+    console.log(process.env)
+    loadContent(window);
+  })
   .catch((e) => console.error('Failed create window:', e));
 
 app.on('uncaughtException', function (error) {

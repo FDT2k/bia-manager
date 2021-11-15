@@ -5,7 +5,7 @@ import config from '../app.config';
 import darwinTemplate from './menu.darwin';
 import otherTemplate from './menu.other';
 
-const menu = null
+const menu = []
 
 function MenuFactoryService(menu) {
   this.menu = menu;
@@ -13,13 +13,19 @@ function MenuFactoryService(menu) {
 }
 
 
-function buildMenu(app, mainWindow,i18n) {
+function buildMenu(app, mainWindow,labelEnhancer,moreMenu) {
   if (config.platform === 'darwin') {
-    this.menu = Menu.buildFromTemplate(darwinTemplate(app, mainWindow, i18n));
-    Menu.setApplicationMenu(this.menu);
+    this.menu = darwinTemplate(app, mainWindow,labelEnhancer);
   } else {
-    this.menu = Menu.buildFromTemplate(otherTemplate(app, mainWindow, i18n));
-    mainWindow.setMenu(this.menu)
+    this.menu = otherTemplate(app, mainWindow,labelEnhancer);
+  }
+  if(moreMenu){
+    this.menu.push(moreMenu)
+  }
+  if (config.platform === 'darwin') {
+    Menu.setApplicationMenu( Menu.buildFromTemplate(this.menu));
+  } else {
+    mainWindow.setMenu( Menu.buildFromTemplate(this.menu))
   }
 }
 export default  new MenuFactoryService(menu);

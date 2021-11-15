@@ -62,7 +62,7 @@ export default (getModule) => {
 
     actions.async_api = (fn_name, ...args) => (dispatch, getState) => {
         dispatch(actions.api_call_started(fn_name))
-        return dispatch(actions.call_api(api[fn_name], ...args))
+        return dispatch(actions.call_api(window.electron.actions[fn_name], ...args))
     }
 
     actions.save_to_file = _ => (dispatch, getState) => {
@@ -94,9 +94,7 @@ export default (getModule) => {
     actions.open_file = _ => (dispatch, getState) => {
 
 
-        return dispatch(actions.async_open(api.open)).then((result) => {
-        debugger;
-
+        return dispatch(actions.async_open(api.actions.open)).then((result) => {
             
             if(result.type ==='sqlite'){
                 dispatch(actions.set_backend('sqlite'))

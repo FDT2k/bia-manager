@@ -1,34 +1,34 @@
-import { identity } from '@karsegard/composite-js';
 import config from '../app.config';
 import updater from "../updater"
 
-export default (app, window,labelEnhancer=identity ) => {
+export default (app, window, i18n) => {
+  const {t} = i18n;
   let menu = [
     {
-      label: labelEnhancer('&File'),
+      label: i18n.t('&File'),
       submenu: [
         {
-          label: labelEnhancer('Ouvrir'),
+          label: i18n.t('Ouvrir'),
           click() {
             window.webContents.send('trigger-open');
           }
         },
         {
-          label: labelEnhancer('Enregistrer'),
+          label: i18n.t('Enregistrer'),
           click() {
             window.webContents.send('trigger-save');
           },
           //enabled: !is_nil(openedFilePath)&& openedFilePath!="" 
         },
         {
-          label: labelEnhancer('Fermer'),
+          label: i18n.t('Fermer'),
           click() {
             window.webContents.send('trigger-close');
           },
         },
        
         {
-          label: labelEnhancer('&Quit'),
+          label: i18n.t('&Quit'),
           accelerator: 'Ctrl+Q',
           click: function () {
             app.quit();
@@ -37,10 +37,10 @@ export default (app, window,labelEnhancer=identity ) => {
       ]
     },
     {
-      label: labelEnhancer('View'),
+      label: i18n.t('View'),
       submenu: [
         {
-          label: labelEnhancer('Reload'),
+          label: i18n.t('Reload'),
           accelerator: 'Command+R',
           click: function (item, focusedWindow) {
             focusedWindow.reload();
@@ -51,7 +51,7 @@ export default (app, window,labelEnhancer=identity ) => {
           type: 'separator'
         },
         {
-          label: labelEnhancer('Toggle Developer Tools'),
+          label: i18n.t('Toggle Developer Tools'),
           accelerator: 'Alt+Command+I',
           click: function (item, focusedWindow) {
             focusedWindow.webContents.toggleDevTools();
@@ -60,22 +60,22 @@ export default (app, window,labelEnhancer=identity ) => {
       ]
     },
     {
-      label: labelEnhancer('Outils'),
+      label: i18n.t('Outils'),
       submenu: [
         {
-          label: labelEnhancer('Importer'),
+          label: i18n.t('Importer'),
           click() {
             window.webContents.send('location-change', '#/database');
           }
         },
         {
-          label: labelEnhancer('Gestion des listes'),
+          label: i18n.t('Gestion des listes'),
           click() {
             window.webContents.send('location-change', '#/database/listes');
           }
         },
         {
-          label: labelEnhancer('Recherche'),
+          label: i18n.t('Recherche'),
           click() {
             window.webContents.send('location-change', '#/search');
           }
@@ -85,23 +85,56 @@ export default (app, window,labelEnhancer=identity ) => {
     },
    
   ];
-  
+  const languageMenu = config.languages.map((languageCode) => {
+    return {
+      label: i18n.t(languageCode),
+      type: 'radio',
+      checked: i18n.language === languageCode,
+      click: () => {
+        i18n.changeLanguage(languageCode);
+       
+      }
+    }
+  });
+  menu.push({
+    label: i18n.t('Language'),
+    submenu: languageMenu
+  });
   menu.push( {
-    label: labelEnhancer('Help'),
+    label: i18n.t('Help'),
     submenu: [
       {
-        label: labelEnhancer('check for updates'),
+        label: i18n.t('check for updates'),
         click: updater.menu
       },
       {
-        label: labelEnhancer('About App'),
-        click() {
+        label: i18n.t('About App'),
+        click: function (item, focusedWindow) {
           window.webContents.send('location-change', '#/about');
         }
       }
     ]
   })
 
+  if(import.meta.env.MODE === 'development'){
+    menu.push({
+      label: i18n.t('DEV'),
+    submenu: [
+      {
+        label: i18n.t('simulate check for updates'),
+        click: _=> window.webContents.send('update-available',{releaseNotes:"Testing autoupdate",version:"0.0.44"})
+      },
+      {
+        label: i18n.t('Download progress'),
+        click: _=> window.webContents.send('download-progress',{percent:8})
+      },
+      {
+        label: i18n.t('Error'),
+        click: _=> window.webContents.send('error',{message:"fake error message"})
+      },
+    ]
+    })
+  }
 
   return menu;
 };

@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { Provider as ElectronProvider } from '@/Providers/ElectronProvider'
+import { Provider as ElectronProvider } from '@/Context/Electron'
 
 import AppHandler from '@/App/Electron/AppHandler'
 import Loading from '@/App/Electron//Loading'
@@ -10,23 +10,24 @@ import Provider from '@/Providers/Stores/ElectronApp';
 
 
 
+import I18Next from '@/Features/Electron/i18Next';
+import UpdateManager from '@/App/Electron/AutoUpdate';
 
 
 
-function App() {
+
+export default props => {
 
 
     return (
         <Provider>
             <ElectronProvider api={window.electron}>
-                <Loading/>
-                <AppHandler />
+                <I18Next>
+                    <AppHandler />
+                    <UpdateManager />
+                </I18Next>
             </ElectronProvider>
         </Provider>
     );
 
 }
-
-export default App;
-
-

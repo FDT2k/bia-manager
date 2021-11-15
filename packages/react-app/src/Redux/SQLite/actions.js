@@ -22,9 +22,8 @@ export default (getModule) => {
     actions.connected = createAction(action_types.CONNECTED)
 
     actions.async_api = (fn_name, ...args) => (dispatch, getState) => {
-        debugger;
         dispatch(actions.api_call_started(fn_name))
-        return dispatch(actions.call_api(api[fn_name], ...args))
+        return dispatch(actions.call_api(api.actions[fn_name], ...args))
     }
 
     actions.update_stat = createAction(action_types.UPDATE_STAT)

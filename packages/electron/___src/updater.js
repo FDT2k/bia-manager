@@ -20,7 +20,22 @@
  
  autoUpdater.on('update-available', (info) => {
     _window.send('update-available',info)
-  
+  /* dialog.showMessageBox({
+     type: 'info',
+     title: 'Found Updates',
+     message: 'Found updates, do you want update now?',
+     buttons: ['Sure', 'No']
+   }).then((result) => {
+    console.log(result)
+
+     if (result.response === 0) {
+       autoUpdater.downloadUpdate()
+     }
+     else {
+       updater.enabled = true
+       updater = null
+     }
+   })*/
  })
 
  autoUpdater.on('download-progress',(info)=>{
@@ -29,7 +44,10 @@
  })
  
  autoUpdater.on('update-not-available', () => {
-  _window.send('no-update-available')
+   dialog.showMessageBox({
+     title: 'No Updates',
+     message: 'Current version is up-to-date.'
+   })
    updater.enabled = true
    updater = null
  })
