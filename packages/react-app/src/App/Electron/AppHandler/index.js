@@ -8,6 +8,7 @@ import { ConnectApp } from '@/Providers/Stores/ElectronApp';
 import ErrorHandler from '@/App/BIA/Features/ErrorMessageHandler'
 import { Provider as ViewsProvider } from '@/Providers/ViewsProvider'
 
+import SQLiteUnlock from '@/App/Electron/SQLiteUnlock'
 
 export const Component = props => {
 
@@ -21,10 +22,8 @@ export const Component = props => {
             quit
         }
     } = useElectron();
-    const { open_file, save_to_file, start_loading, stop_loading, close, init_app, add_error } = props;
+    const { open_file, save_to_file, start_loading, stop_loading, current_file,is_sqlite_need_unlock, close, init_app, add_error } = props;
 
-
-debugger;
     const handleFileOpen = _ => {
         start_loading("Waiting on user confirmation");
         open_file()
@@ -110,6 +109,7 @@ debugger;
                 </ViewsProvider>
                 <ErrorHandler />
 
+                <SQLiteUnlock visible={is_sqlite_need_unlock} unlock={} cancel={}/>
         </>
     );
 

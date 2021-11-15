@@ -51,7 +51,9 @@ export const {
   current_error,
   last_saved,
   is_file_saving,
-  last_saved_diff
+  last_saved_diff,
+  current_backend,
+  is_sqlite_need_unlock
 } = ElectronModule.selectors;
 
 /*
@@ -240,7 +242,8 @@ export const Context = createContext();
 export const ConnectApp = connect(state => ({
   is_loading: is_loading(state),
   loading_message: loading_message(state),
-  current_file: current_file(state)
+  current_file: current_file(state),
+  is_sqlite_need_unlock: is_sqlite_need_unlock(state)
 }),  {
   create_database,
   add_error,

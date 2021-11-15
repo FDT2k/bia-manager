@@ -26,6 +26,12 @@ export default getModule => {
 
    module.get_backend_stats = createSelector(module.current_backend, state => state.stats)
 
+   module.sqlite = createSelector(baseSelector,state=> state.backends.sqlite)
+
+   module.is_sqlite_need_unlock = createSelector (module.select_backend,module.current_file, module.sqlite, (backend,file,sqlite) => {
+      return backend ==='sqlite' && file !="" && sqlite.unlocked === false
+
+   })
 
 
    module.edited_subject = submodules.features.create.selectors.select_subject_form;
