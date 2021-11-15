@@ -138,9 +138,10 @@ export default (getModule) => {
 
     actions.close = _ => (dispatch, getState) => {
         const backend_actions = getBackend(getState);
+        
         dispatch(actions.close_file());
         dispatch(submodules.features.search.actions.clear());
-        return dispatch(backend_actions.clear_database())
+        return dispatch(actions.async_api('clear_opened_filename')).then(res => dispatch(backend_actions.clear_database()));
     }
 
     actions.create_database = _ => (dispatch, getState) => {

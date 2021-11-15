@@ -18,10 +18,10 @@ export const Component = props => {
             handleError,handleWillQuit
         },
         actions: {
-            get_translations, missing_translations, download_update, i18next_ready, quit
+            quit
         }
     } = useElectron();
-    const { open_file, save_to_file, start_loading, stop_loading, current_file, close, init_app, add_error } = props;
+    const { open_file, save_to_file, start_loading, stop_loading, close, init_app, add_error } = props;
 
 
 debugger;
