@@ -14,11 +14,11 @@ export const Component = props => {
 
 
 
-    const { fields,getValue,inputProps,replaceValues,handleFieldChange, handleInput } = useForm(initialValues, { usePath: true,onValuesChange: handleChange })
+    const { values,getValue,checkboxProps,inputProps,replaceValues,handleFieldChange, handleInput } = useForm(initialValues, { usePath: true,onValuesChange: handleChange })
 
-
+    console.log(values)
     useEffect(()=>{
-        replaceValues(initialValues)
+        let res = replaceValues(initialValues)
     },[initialValues])
     return (
         <>
@@ -32,12 +32,11 @@ export const Component = props => {
                 <div className="header">Gauche</div>
                 <div className="header">Droite</div>
 
-               {/* <LineForm label={t('Gauche')} checked={true} handleChangeValue={handleChangeGroup('left')} />
-                <LineForm label={t('Droite')} handleChangeValue={handleChangeGroup('right')} />*/}
+             
                 <div className="header header--left">{t('Main dominante')}</div>
 
-                <div> <input type="checkbox" name="left.main" onChange={handleFieldChange} checked={getValue('left.main')}/></div>
-                <div> <input type="checkbox" name="right.main" onChange={handleFieldChange}  checked={getValue('right.main')}/></div>
+                <div> <input type="checkbox" {...checkboxProps('left.main')}/></div>
+                <div> <input type="checkbox" {...checkboxProps('right.main')}/></div>
 
 
                 <div className="header header--left">{t('Mesure 1')}</div>
