@@ -6,7 +6,7 @@ import { useElectron } from '@/Context/Electron';
 import { ConnectApp } from '@/Providers/Stores/ElectronApp';
 
 import ErrorHandler from '@/App/BIA/Features/ErrorMessageHandler'
-import { Provider as ViewsProvider } from '@/Providers/ViewsProvider'
+import { Provider as ViewsProvider } from '@/Context/BIAViews'
 
 import SQLiteUnlock from '@/App/Electron/SQLiteUnlock'
 
@@ -19,10 +19,23 @@ export const Component = props => {
             handleError,handleWillQuit
         },
         actions: {
-            quit
+            quit,
+            sqlite_unlock,
+            sqlite_query
         }
     } = useElectron();
-    const { open_file, save_to_file, start_loading, stop_loading, current_file,is_sqlite_need_unlock, close, init_app, add_error } = props;
+    
+    const { 
+        sqlite_unlock: do_sqlite_unlock, 
+        open_file, 
+        save_to_file, 
+        start_loading,
+         stop_loading, 
+         current_file,
+         is_sqlite_need_unlock, 
+         close, 
+         init_app, 
+         add_error } = props;
 
     const handleFileOpen = _ => {
         start_loading("Waiting on user confirmation");
@@ -68,11 +81,29 @@ export const Component = props => {
         })
     }
 
+    const unlockSQLite = key=> {
+        debugger;
+
+        sqlite_unlock(key).then(res=> {
+            debugger;
+            do_sqlite_unlock();
+            sqlite_query({query:"select count(*) from subjects;",values:{}}).then(console.log)
+            window.location.hash = '#/search'
+        }).catch(err=>{
+            debugger;
+            add_error(err.message)
+        })
+
+    }
+
+    const cancelUnlock = ()=>{
+        close();
+    }
+
 
 
     useEffect(() => {
        
-        init_app();
 
         handleWillQuit(_ => {
             close().then(_ => {
@@ -95,6 +126,7 @@ export const Component = props => {
             add_error('Une erreur est survenue')
         });
 
+      //  init_app();
 
 
     }, []);
@@ -109,7 +141,7 @@ export const Component = props => {
                 </ViewsProvider>
                 <ErrorHandler />
 
-                <SQLiteUnlock visible={is_sqlite_need_unlock} unlock={} cancel={}/>
+                <SQLiteUnlock visible={is_sqlite_need_unlock} unlock={unlockSQLite} cancel={cancelUnlock}/>
         </>
     );
 

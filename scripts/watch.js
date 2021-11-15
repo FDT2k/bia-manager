@@ -79,12 +79,28 @@ const setupMainPackageWatcher = (viteDevServer) => {
 };
 
 
+
+const setupExternalLibWatcher = (configFile,name) => (viteDevServer) => {
+  return getWatcher({
+    name,
+    configFile,
+    writeBundle() {
+      viteDevServer.ws.send({
+        type: 'full-reload',
+      });
+    },
+  });
+};
+
+
+
+
 /**
  * Start or restart App when source files are changed
  * @param {import('vite').ViteDevServer} viteDevServer
  * @returns {Promise<import('vite').RollupOutput | Array<import('vite').RollupOutput> | import('vite').RollupWatcher>}
  */
-const setupPreloadPackageWatcher = (viteDevServer) => {
+/*const setupPreloadPackageWatcher = (viteDevServer) => {
   return getWatcher({
     name: 'reload-page-on-preload-package-change',
     configFile: 'packages/preloader/vite.config.js',
@@ -95,6 +111,9 @@ const setupPreloadPackageWatcher = (viteDevServer) => {
     },
   });
 };
+*/
+const setupPreloadPackageWatcher = setupExternalLibWatcher('packages/preloader/vite.config.js', 'reload-page-on-preload-package-change');
+const setupReactLayout = setupExternalLibWatcher('packages/kda-react-core-layout/vite.config.js', 'reload-page-layout-change');
 
 (async () => {
   try {

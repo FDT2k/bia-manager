@@ -18,7 +18,7 @@ export default props => {
 
               <Container className="setup-container" style={{width:'300px',height:'200px'}}>
                   <h2>Importer une base</h2>
-                  <p>Importer une base csv de la version précédente (java)</p>
+                  <p>Importer une base csv </p>
                  <DatabaseImport/>
               </Container>
             </LayoutFlex>

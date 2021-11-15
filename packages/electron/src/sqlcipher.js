@@ -111,7 +111,14 @@ const API = db => {
 
     module.unlock = key => {
 
-        return db.pragma("key='" + key + "'");
+        db.pragma("key='" + key + "'");
+        try {   
+            
+            db.exec("select count(*) from sqlite_master;")
+            return true;
+        }catch (e){
+            throw  new Error("Invalid database or key is wrong")
+        } 
     }
     
     
@@ -138,7 +145,7 @@ const opendb = (file, key = '',options=defaultOptions) => {
     return {
         db,
         file,
-        api
+        ...api
     }
 
 }

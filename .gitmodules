@@ -16,3 +16,6 @@
 [submodule "packages/electron-preloader"]
 	path = packages/electron-preloader
 	url = git@gitlab.com:karsegard/electron-preloader.git
+[submodule "packages/kda-react-core-layout"]
+	path = packages/kda-react-core-layout
+	url = git@gitlab.com:karsegard/react-core-layout.git

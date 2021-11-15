@@ -32,6 +32,7 @@ export default (getModule) => {
 
     actions.add_error = createAction(action_types.ADD_ERROR)
 
+    actions.unlock = createAction(action_types.UNLOCK)
     actions.call_api = createAsyncAction(actions.api_call_error, actions.api_call_success)
 
     actions.imported_database = createAction(action_types.IMPORT_DATABASE)
@@ -52,6 +53,8 @@ export default (getModule) => {
     actions.clear_database = _ => (dispatch, getState) => {
 
     }
+
+    actions.close = createAction(action_types.CLOSE)
 
     actions.open_file = ({ file }) => (dispatch, getState) => {
         console.log(file)

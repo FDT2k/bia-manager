@@ -11,7 +11,8 @@ export default (getModule) => {
 
 
     module.name = createReducer("",{
-        [action_types.CONNECTED]: (state,{payload}) => payload
+        [action_types.CONNECTED]: (state,{payload}) => payload,
+        [action_types.CLOSE]: (state,{payload}) => ""
     })
 
 
@@ -21,7 +22,11 @@ export default (getModule) => {
 
     })
 
-    module.unlocked = createReducer(false,{})
+    module.unlocked = createReducer(false,{
+        [action_types.CLOSE]: (state,{payload}) => false,
+        [action_types.UNLOCK]: (state,{payload}) => true
+
+    })
 
     module.reducer = combineReducers({
         unlocked:module.unlocked,

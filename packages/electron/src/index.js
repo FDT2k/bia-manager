@@ -41,7 +41,7 @@ createFileIfNeeded(settingsFile, '{"lang":"fr"}');
 
 
 
-
+/*
 let DB = openDB(join(app.getPath('home'), 'testdb3.sqlite'), 'superkey')
 
 console.log(DB.api.genInsertSQL('subjects', { id: 1, firstname: '12' }));
@@ -51,7 +51,7 @@ DB.api.addSubject({
   lastname: 'world'
 })
 const getSettings = _ => fs.readFile(settingsFile, { encoding: 'utf8' }).then(res => JSON.parse(res));
-
+*/
 
 
 app.disableHardwareAcceleration();
@@ -107,6 +107,8 @@ const createWindow = async () => {
 
 const initMenu = async (window) => {
   menuFactoryService.buildMenu(app, window);
+
+  
   return window
 }
 
@@ -212,9 +214,6 @@ ipcMain.handle('quit', async event => {
 })
 
 
-ipcMain.handle('sqlite', async event => {
-
-})
 
 ipcMain.handle('sqlite-open', async (event, { filename, key }) => {
   try {
@@ -226,6 +225,29 @@ ipcMain.handle('sqlite-open', async (event, { filename, key }) => {
   }
 
 })
+
+
+ipcMain.handle('sqlite-unlock', async (event, key) => {
+  try {
+    console.log('unlocking sqlite db', key);
+    return currentSQLite.unlock(key);
+  } catch (e) {
+    return Promise.reject(e);
+  }
+
+})
+
+
+
+ipcMain.handle('sqlite-query', async (event, {query,values}) => {
+  try {
+    return currentSQLite.db.prepare(query).all(values);
+  } catch (e) {
+    return Promise.reject(e);
+  }
+
+})
+
 
 
 

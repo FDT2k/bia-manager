@@ -10,7 +10,7 @@ import './modal.scss';
 
 export default props=>{
 
-  const{children,...rest}=props;
+  const{children,type,...rest}=props;
 
   const modal_prop_keys = enlist(ModalComponent.defaultProps).map(item => key(item));
 
@@ -23,7 +23,7 @@ export default props=>{
 
   return(
 
-    <ModalComponent {...modal_props}>
+    <ModalComponent contentClassName={`modal-content modal-content--${type}`}  overlayClassName={`modal-overlay modal-overlay--${type}`} {...modal_props}>
         <Container className="modal-form"  fit grow>
             {children}
         </Container>

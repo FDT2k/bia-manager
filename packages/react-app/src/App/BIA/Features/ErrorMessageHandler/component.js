@@ -12,7 +12,7 @@ export const Component = props => {
 
 
     return (<>
-        <Modal visible={ !is_nil(error) && error !==""}>
+        <Modal type="error" visible={ !is_nil(error) && error !==""}>
             <LayoutFlexColumn justCenter alignCenter>
                 <h2>{t('Erreur')}</h2>
                 {error}

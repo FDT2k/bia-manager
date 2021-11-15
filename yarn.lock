@@ -3326,7 +3326,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@karsegard/composite-js@npm:^2.1.2, @karsegard/composite-js@npm:^2.10.0, @karsegard/composite-js@npm:^2.4.0":
+"@karsegard/composite-js@npm:^2.1.2, @karsegard/composite-js@npm:^2.10.0":
   version: 2.10.0
   resolution: "@karsegard/composite-js@npm:2.10.0"
   checksum: 7691cb47455fce5ad480b91a87cbef13d966b5014cf3a343be7c5d138a331fa3f4de341c0b518f556dacc39e13baeb699625083b09079138001409ab94d6cbf9
@@ -3372,25 +3372,26 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@karsegard/react-core-layout@npm:^1.5.1":
-  version: 1.5.1
-  resolution: "@karsegard/react-core-layout@npm:1.5.1"
+"@karsegard/react-core-layout@^1.5.1, @karsegard/react-core-layout@workspace:packages/kda-react-core-layout":
+  version: 0.0.0-use.local
+  resolution: "@karsegard/react-core-layout@workspace:packages/kda-react-core-layout"
   dependencies:
-    "@karsegard/composite-js": ^2.4.0
+    "@karsegard/composite-js": ^2.10.3
     "@karsegard/react-compose": ^1.2.0
     rollup-plugin-terser: ^7.0.2
+    sass: ^1.38.0
+    vite: ^2.5.3
   peerDependencies:
     react: ^17.0.2
     react-dom: ^17.0.2
-  checksum: 9518a8a40d8ead9accd27d9234215c7ae117cd16a92f9085ecbb65549dd0e1431829609233bbc9c0d4a043e2c2a99e58f4f64e8c90068d9df4144829272795c1
-  languageName: node
-  linkType: hard
+  languageName: unknown
+  linkType: soft
 
 "@karsegard/react-crud@workspace:packages/kda-react-crud":
   version: 0.0.0-use.local
   resolution: "@karsegard/react-crud@workspace:packages/kda-react-crud"
   dependencies:
-    "@karsegard/composite-js": ^2.10.0
+    "@karsegard/composite-js": ^2.10.3
     "@karsegard/react-core-layout": ^1.5.1
     "@karsegard/react-hooks": ^2.8.0
     "@karsegard/react-redux": "workspace:packages/kda-react-redux"
@@ -24627,7 +24628,7 @@ resolve@^2.0.0-next.3:
   languageName: node
   linkType: hard
 
-"sass@npm:^1.38.2":
+"sass@npm:^1.38.0, sass@npm:^1.38.2":
   version: 1.43.4
   resolution: "sass@npm:1.43.4"
   dependencies:

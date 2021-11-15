@@ -1,16 +1,10 @@
-import CreatePatient from '@/App/BIA/Features/CreatePatient';
-import Database from '@/App/BIA/Features/Database';
-import DatabaseListManager from '@/App/BIA/Features/Database/ListManager/page';
-import Editor from '@/App/BIA/Features/Editor';
-import Search from '@/App/BIA/Features/Search/page';
-import WelcomeScreen from '@/App/BIA/Features/WelcomeScreen';
+import { useViewProvider } from '@/Context/BIAViews';
 import { is_nil } from '@karsegard/composite-js';
 import { Fullscreen } from '@karsegard/react-core-layout';
 import React, { useCallback, useEffect, useState } from 'react';
-import { Route, Router, Switch, useLocation, useRouter } from "wouter";
+import { Route, Router, Switch, useLocation } from "wouter";
 
 
-import { useViewProvider } from '@/Providers/ViewsProvider';
 
 
 

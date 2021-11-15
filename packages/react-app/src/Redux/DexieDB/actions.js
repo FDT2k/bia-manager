@@ -70,6 +70,13 @@ export default (getModule) => {
         return dispatch(actions.async_api('export_database'));
     }
 
+
+    actions._close = createAction(action_types.CLOSE);
+    actions.close = _=> (dispatch,getState)=> {
+        dispatch(actions._close())
+        return dispatch(actions.clear_database());
+    }
+
     actions.clear_database = _ => (dispatch, getState) => {
         const lists = [
             'genders',
@@ -108,10 +115,12 @@ export default (getModule) => {
 
         return dispatch(actions.async_api('create_patient', patient))
     }
+
     actions.get_patient = id => (dispatch, getState) => {
 
         return dispatch(actions.async_api('get_patient', id))
     }
+    
     actions.update_patient = payload => (dispatch, getState) => {
 
         return dispatch(actions.async_api('update_patient', payload))

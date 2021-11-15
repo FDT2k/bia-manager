@@ -1,6 +1,30 @@
 @import "@/bia-layout/sass/theme/default/main.scss";
 
 
+// this is supposed to always show errors above dialogs
+.modal{
+  &-overlay{
+    &--dialog{
+      z-index: 500;
+    }
+    &--error{
+      z-index: 600;
+
+    }
+  }
+  &-content{
+    &--dialog{
+      z-index: 501;
+
+    }
+    &--error{
+      z-index: 601;
+
+    }
+  }
+}
+
+
 .container-modal{
   border-radius: 4px;
   box-shadow: #5a5a5a 0px 0px 5px 0px;

@@ -23,7 +23,6 @@ let electronAPI = {
   actions: {
     save: invokeOnMainProcess('file-save'),
     open: invokeOnMainProcess('file-open'),
-    sqlite_open: invokeOnMainProcess('sqlite-open'),
     get_settings: invokeOnMainProcess('read-settings'),
     current_filename: invokeOnMainProcess('current-filename'),
     clear_opened_filename: invokeOnMainProcess('clear-filename'),
@@ -37,6 +36,13 @@ let electronAPI = {
     get_translations: invokeOnMainProcess('get-translations'),
     missing_translations: invokeOnMainProcess('missing-translations'),
     i18next_ready: invokeOnMainProcess('i18next-client-ready'),
+
+    //sqlite
+
+    sqlite_open: invokeOnMainProcess('sqlite-open'),
+    sqlite_unlock: invokeOnMainProcess('sqlite-unlock'),
+    sqlite_query: invokeOnMainProcess('sqlite-query'),
+    
   }
 };
 

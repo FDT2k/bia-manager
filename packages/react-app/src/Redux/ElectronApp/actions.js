@@ -140,8 +140,9 @@ export default (getModule) => {
         const backend_actions = getBackend(getState);
         
         dispatch(actions.close_file());
+        dispatch(backend_actions.close());
         dispatch(submodules.features.search.actions.clear());
-        return dispatch(actions.async_api('clear_opened_filename')).then(res => dispatch(backend_actions.clear_database()));
+        return dispatch(actions.async_api('clear_opened_filename'));
     }
 
     actions.create_database = _ => (dispatch, getState) => {
@@ -222,7 +223,7 @@ export default (getModule) => {
     actions.refresh_editor_lists = _ => (dispatch, getState) => {
         const backend_actions = getBackend(getState);
         //api.all_pahological_groups()
-        return dispatch(backend_actions.refresh_data_list())
+        return Promise.resolve(dispatch(backend_actions.refresh_data_list()))
             .then(result => {
                 //      return dispatch(actions.fetch_options(result))
                 return dispatch(submodules.features.lists.actions.fetch({ items: result }))

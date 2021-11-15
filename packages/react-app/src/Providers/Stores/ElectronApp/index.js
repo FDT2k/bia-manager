@@ -32,6 +32,7 @@ export const {
   create_patient,
   import_csv,
   dismiss_error
+
 } = ElectronModule.actions;
 
 
@@ -204,6 +205,13 @@ export const {
   select_recap: select_recap_fds,
   select_headers: select_headers_fds
 } =  RecapFDSModule.selectors;
+
+export const  {
+  unlock:sqlite_unlock
+
+} = ElectronModule.submodules.backends.sqlite.actions
+
+
 /* main store reducer */
 
 
@@ -243,9 +251,10 @@ export const ConnectApp = connect(state => ({
   is_loading: is_loading(state),
   loading_message: loading_message(state),
   current_file: current_file(state),
-  is_sqlite_need_unlock: is_sqlite_need_unlock(state)
+  is_sqlite_need_unlock: is_sqlite_need_unlock(state),
 }),  {
   create_database,
+  sqlite_unlock,
   add_error,
   start_loading,
   stop_loading,

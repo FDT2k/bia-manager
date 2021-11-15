@@ -1,7 +1,8 @@
-import { enlist, is_type_string, is_type_object, is_type_function, is_nil, identity } from '@karsegard/composite-js';
+import { enlist, is_type_string, is_type_object, is_type_function, is_nil,is_empty, identity } from '@karsegard/composite-js';
 import { key, value, keyval } from '@karsegard/composite-js/ObjectUtils';
 import { filterPropPresentIn } from '@karsegard/react-compose'
 import { as_safe_path } from '@karsegard/composite-js'
+import { nanoid } from 'nanoid';
 import faker from 'faker'
 import { format, parseISO } from 'date-fns'
 export const remap = (obj, mapping, ref = {}) => (carry, item) => {
@@ -25,7 +26,7 @@ export const remap = (obj, mapping, ref = {}) => (carry, item) => {
 
 export const parse = ({
     text, line_separator, mapping, separator, identifier, anonymous
-}, progress, total_count, callback) => {
+}, progress, total_count, callback,import_subject,import_mesure,import_list_item) => {
 
     console.log('parsing ', anonymous);
     let data = text.split(line_separator);
@@ -45,7 +46,7 @@ export const parse = ({
     let collectors = {};
     let extract_lists = enlist(mapping.lists);
 
-    data.shift();
+    data.shift(); //remove the first line
     data = data.map((line) => {
         let values = line.split(separator);
 
@@ -60,7 +61,6 @@ export const parse = ({
             progress(total, idx);
             count = 0;
         }
-        //console.log(item)
         //import relational data
         for (let list of extract_lists) {
             const [collector_key, value] = keyval(list);
@@ -71,13 +71,18 @@ export const parse = ({
 
             const collectible_value = transform('', item);
 
-            if (!is_nil(collectible_value) && collectible_value !== "") {
-                carry.collectors = as_safe_path(`${value.name}`, carry.collectors, { [collectible_value]: collectible_value });
+            if (!is_empty(collectible_value) ) {
+             //   carry.collectors = as_safe_path(`${value.name}`, carry.collectors, { [collectible_value]: collectible_value });
+                import_list_item(value.name,collectible_value);
             }
+
         }
         const patient_keys = Object.keys(mapping.patient);
         const [patient, mesure] = filterPropPresentIn(patient_keys, item);
         const index_key = item[identifier];
+        if(carry.index_key !== index_key){
+            delete carry.data[carry.index_key]
+        }
         if (typeof carry.data[index_key] == "undefined") {
 
             const p = enlist(patient).reduce(remap(patient, mapping.patient), {});
@@ -93,7 +98,8 @@ export const parse = ({
                 }
             }
             carry.data[index_key] = p;
-            carry.list.push(p);
+          // carry.list.push(p);
+            import_subject(p,index_key);
             carry.countPatient++;
 
         }
@@ -105,13 +111,14 @@ export const parse = ({
 
         let remapped_mesure = enlist(mesure).reduce(remap(mesure, mapping.mesure, carry.data[index_key]), {});
 
+        import_mesure(remapped_mesure,index_key);
         carry.data[index_key].mesures.push(remapped_mesure);
         carry.data[index_key].mesures_dates.push(remapped_mesure.date);
 
         carry.countMesure++;
 
         return carry;
-    }, { data: {}, collectors, list: [], countPatient: 0, countMesure: 0 });
+    }, { data: {}, collectors, list: [], countPatient: 0, countMesure: 0,index_key:'' });
     progress(total, 100);
 
     callback({ result: data })

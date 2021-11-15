@@ -28,7 +28,8 @@ export const ACTIONS_TYPES = createActionTypes(
     'SAVE_MESURE',
 
     'CONNECTED',
-
+    'CLOSE',
+    'UNLOCK'
 )
 
 export const makeActionTypes = createPrefixableActionTypes(ACTIONS_TYPES);
