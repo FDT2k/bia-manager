@@ -44,6 +44,7 @@
         input:not([type="checkbox"]), select {
             width: 100%;
             border: solid 1px var(--primary);
+            background-color: var(--secondary);
             padding: 0px 16px;
         }
 

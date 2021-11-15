@@ -1944,63 +1944,146 @@
                     </div>
                 </div>
 
-                <div class="container  container--fit container--grow">
-                    <div class="layout-grid impedance-form electrical-data-form">
-                        <div class="impedance-form__header" style="grid-area: h_5 / h_5 / h_5 / h_5;">
-                            5khz
-                        </div>
-                        <div class="impedance-form__header" style="grid-area: h_50 / h_50 / h_50 / h_50;">
-                            50khz
-                        </div>
-                        <div class="impedance-form__header" style="grid-area: h_100 / h_100 / h_100 / h_100;">
-                            100khz
-                        </div>
-                        <div class="impedance-form__header" style="grid-area: h_nor / h_nor / h_nor / h_nor;">
-                            Normes
-                        </div>
-                        <div class="impedance-form__line-header" style="grid-area: h_res / h_res / h_res / h_res;">
-                            Resistance(Ω)
-                        </div>
-                        <div class="impedance-form__line-header" style="grid-area: h_a / h_a / h_a / h_a;">
-                            Angle de phase(°)
-                        </div>
-                        <div class="impedance-form__line-header" style="grid-area: h_rea / h_rea / h_rea / h_rea;">
-                            Reactance(Ω)
-                        </div>
-                        <div class="impedance-form__line-header" style="grid-area: h_z / h_z / h_z / h_z;">
-                            Impédance(Ω)
-                        </div>
-                        <div style="grid-area: f_res_nor / f_res_nor / f_res_nor / f_res_nor;"></div>
-                        <div style="grid-area: f_rea_nor / f_rea_nor / f_rea_nor / f_rea_nor;"></div>
-                        <div style="grid-area: f_z_nor / f_z_nor / f_z_nor / f_z_nor;"></div>
-                        <div style="grid-area: f_a_nor / f_a_nor / f_a_nor / f_a_nor;">
-                            6.3-8.2
-                        </div>
-                        <input type="text" class="editable-field impedance-form__field impedance-form__field--valid editable" tabindex="7" name="res5" value="774" style="grid-area: res5 / res5 / res5 / res5;">
-                        <input type="text" class="editable-field impedance-form__field impedance-form__field--valid editable" tabindex="8" name="res50" value="668" style="grid-area: res50 / res50 / res50 / res50;">
-                        <input type="text" class="editable-field impedance-form__field impedance-form__field--valid editable" tabindex="9" name="res100" value="630" style="grid-area: res100 / res100 / res100 / res100;">
-                        <input type="text" class="editable-field impedance-form__field impedance-form__field--valid editable" tabindex="10" name="rea5" value="20" style="grid-area: rea5 / rea5 / rea5 / rea5;">
-                        <input type="text" class="editable-field impedance-form__field impedance-form__field--valid editable" tabindex="11" name="rea50" value="80" style="grid-area: rea50 / rea50 / rea50 / rea50;">
-                        <input type="text" class="editable-field impedance-form__field impedance-form__field--valid editable" tabindex="12" name="rea100" value="76" style="grid-area: rea100 / rea100 / rea100 / rea100;">
-                        <div class="editable-field impedance-form__field impedance-form__field--valid" name="z5" style="grid-area: z5 / z5 / z5 / z5;">
-                            774
-                        </div>
-                        <div class="editable-field impedance-form__field impedance-form__field--valid" name="z50" style="grid-area: z50 / z50 / z50 / z50;">
-                            673
-                        </div>
-                        <div class="editable-field impedance-form__field impedance-form__field--valid" name="z100" style="grid-area: z100 / z100 / z100 / z100;">
-                            635
-                        </div>
-                        <div class="editable-field impedance-form__field impedance-form__field--invalid" name="a5" style="grid-area: a5 / a5 / a5 / a5;">
-                            1.5
-                        </div>
-                        <div class="editable-field impedance-form__field impedance-form__field--valid" name="a50" style="grid-area: a50 / a50 / a50 / a50;">
-                            6.8
-                        </div>
-                        <div class="editable-field impedance-form__field impedance-form__field--valid" name="a100" style="grid-area: a100 / a100 / a100 / a100;">
-                            6.9
+                <!-- Impedance form -->
+                <div class="tabs__panel__impedance-form flex-column">
+                    <div class="field impedance-form__header span-3">
+                        <label class="field__label"></label>
+                    </div>
+                    <div class="field tabs__panel__impedance-form__header tabs__panel__impedance-form__header--top span-2">
+                        <label class="field__label">Normes</label>
+                    </div>
+                    <div class="field tabs__panel__impedance-form__header tabs__panel__impedance-form__header--top span-2">
+                        <label class="field__label">5kHz</label>
+                    </div>
+                    <div class="field tabs__panel__impedance-form__header tabs__panel__impedance-form__header--top span-2">
+                        <label class="field__label">50kHz</label>
+                    </div>
+                    <div class="field tabs__panel__impedance-form__header tabs__panel__impedance-form__header--top span-2">
+                        <label class="field__label">100kHz</label>
+                    </div>
+
+                    <div class="field tabs__panel__impedance-form__header tabs__panel__impedance-form__header--left span-3">
+                        <label class="field__label">Resistance(Ω)</label>
+                    </div>
+                    <div class="field tabs__panel__impedance-form__header span-2">
+                        <label class="field__label"></label>
+                    </div>
+                    <div class="field tabs__panel__impedance-form__header span-2">
+                        <div class="field__field">
+                            <input type="text" tabindex="5" name="weight" value="56.5">
                         </div>
                     </div>
+                    <div class="field tabs__panel__impedance-form__header span-2">
+                        <div class="field__field">
+                            <input type="text" tabindex="5" name="weight" value="56.5">
+                        </div>
+                    </div>
+                    <div class="field tabs__panel__impedance-form__header span-2">
+                        <div class="field__field">
+                            <input type="text" tabindex="5" name="weight" value="56.5">
+                        </div>
+                    </div>
+
+                    <div class="field tabs__panel__impedance-form__header tabs__panel__impedance-form__header--left span-3">
+                        <label class="field__label">Angle&nbsp;de&nbsp;phase(°)</label>
+                    </div>
+                    <div class="field tabs__panel__impedance-form__header span-2">
+                        <label class="field__label">6.3-8.2</label>
+                    </div>
+                    <div class="field tabs__panel__impedance-form__header span-2">
+                        <div class="field__field">
+                            <input class="editable-field" type="text" tabindex="5" name="weight" value="56.5">
+                        </div>
+                    </div>
+                    <div class="field tabs__panel__impedance-form__header span-2">
+                        <div class="field__field">
+                            <input class="editable-field" type="text" tabindex="5" name="weight" value="56.5">
+                        </div>
+                    </div>
+                    <div class="field tabs__panel__impedance-form__header span-2">
+                        <div class="field__field">
+                            <input class="editable-field" type="text" tabindex="5" name="weight" value="56.5">
+                        </div>
+                    </div>
+
+                    <div class="field tabs__panel__impedance-form__header tabs__panel__impedance-form__header--left span-3">
+                        <label class="field__label">Reactance(Ω)</label>
+                    </div>
+                    <div class="field tabs__panel__impedance-form__header span-2">
+                        <label class="field__label"></label>
+                    </div>
+                    <div class="field tabs__panel__impedance-form__header span-2">
+                        <div class="field__field">
+                            <input class="editable-field" type="text" tabindex="5" name="weight" value="56.5">
+                        </div>
+                    </div>
+                    <div class="field tabs__panel__impedance-form__header span-2">
+                        <div class="field__field">
+                            <input class="editable-field" type="text" tabindex="5" name="weight" value="56.5">
+                        </div>
+                    </div>
+                    <div class="field tabs__panel__impedance-form__header span-2">
+                        <div class="field__field">
+                            <input class="editable-field" type="text" tabindex="5" name="weight" value="56.5">
+                        </div>
+                    </div>
+
+                    <div class="field tabs__panel__impedance-form__header tabs__panel__impedance-form__header--left span-3">
+                        <label class="field__label">Impédance(Ω)</label>
+                    </div>
+                    <div class="field tabs__panel__impedance-form__header span-2">
+                        <label class="field__label"></label>
+                    </div>
+                    <div class="field tabs__panel__impedance-form__header span-2">
+                        <div class="field__field">
+                            <input type="text" tabindex="5" name="weight" value="56.5">
+                        </div>
+                    </div>
+                    <div class="field tabs__panel__impedance-form__header span-2">
+                        <div class="field__field">
+                            <input type="text" tabindex="5" name="weight" value="56.5">
+                        </div>
+                    </div>
+                    <div class="field tabs__panel__impedance-form__header span-2">
+                        <div class="field__field">
+                            <input type="text" tabindex="5" name="weight" value="56.5">
+                        </div>
+                    </div>
+                    <!-- </div> -->
+
+
+                         <!-- <div class="field impedance-form__field impedance-form__field--valid"> -->
+                            <!-- <label class="field__label">Poids&nbsp;Actuel(kg)</label> -->
+                            <!--<div class="field__field editable-field editable">
+                                <input class="field__field editable-field editable" type="text" tabindex="7" name="res5" value="774" style="grid-area: res5 / res5 / res5 / res5;">
+                            </div>
+                        </div>
+
+                        <input type="text" class="field field__field editable-field impedance-form__field impedance-form__field--valid editable" tabindex="7" name="res5" value="774" style="grid-area: res5 / res5 / res5 / res5;">
+                        <input type="text" class="field field__field editable-field impedance-form__field impedance-form__field--valid editable" tabindex="8" name="res50" value="668" style="grid-area: res50 / res50 / res50 / res50;">
+                        <input type="text" class="field field__field editable-field impedance-form__field impedance-form__field--valid editable" tabindex="9" name="res100" value="630" style="grid-area: res100 / res100 / res100 / res100;">
+                        <input type="text" class="field field__field editable-field impedance-form__field impedance-form__field--valid editable" tabindex="10" name="rea5" value="20" style="grid-area: rea5 / rea5 / rea5 / rea5;">
+                        <input type="text" class="field field__field editable-field impedance-form__field impedance-form__field--valid editable" tabindex="11" name="rea50" value="80" style="grid-area: rea50 / rea50 / rea50 / rea50;">
+                        <input type="text" class="field field__field editable-field impedance-form__field impedance-form__field--valid editable" tabindex="12" name="rea100" value="76" style="grid-area: rea100 / rea100 / rea100 / rea100;">
+                        <div class="field field__field editable-field impedance-form__field impedance-form__field--valid" name="z5" style="grid-area: z5 / z5 / z5 / z5;">
+                            774
+                        </div>
+                        <div class="field field__field editable-field impedance-form__field impedance-form__field--valid" name="z50" style="grid-area: z50 / z50 / z50 / z50;">
+                            673
+                        </div>
+                        <div class="field field__field editable-field impedance-form__field impedance-form__field--valid" name="z100" style="grid-area: z100 / z100 / z100 / z100;">
+                            635
+                        </div>
+                        <div class="field field__field editable-field impedance-form__field impedance-form__field--invalid" name="a5" style="grid-area: a5 / a5 / a5 / a5;">
+                            1.5
+                        </div>
+                        <div class="field field__field editable-field impedance-form__field impedance-form__field--valid" name="a50" style="grid-area: a50 / a50 / a50 / a50;">
+                            6.8
+                        </div>
+                        <div class="field field__field editable-field impedance-form__field impedance-form__field--valid" name="a100" style="grid-area: a100 / a100 / a100 / a100;">
+                            6.9
+                        </div> -->
+                    <!-- </div> -->
                 </div>
                 <div class="container  container--fit container--grow">
                     <div class="layout-grid comparison-grid" style="grid-template-columns: 2fr 1fr 1fr 1fr; grid-auto-rows: 1fr;">

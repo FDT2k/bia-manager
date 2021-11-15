@@ -1,5 +1,6 @@
 $asides-value: 44px;
-$editor-value: (552px - (16 * 10)) /11;
+$editor-value: (552px - (16 * 10)) / 11;
+$max-editor-value: (727px - (16 * 10)) / 11;
 
 .content {
   grid-area: content;
@@ -121,6 +122,59 @@ $editor-value: (552px - (16 * 10)) /11;
                     max-width: calc( #{$editor-value} * 3 );
                 }
 
+            }
+        }
+
+        &__impedance-form {
+            display: grid;
+            grid-template-rows: auto;
+            grid-template-columns: repeat(11, 1fr);
+            gap: 16px;
+            align-items: center;
+
+            > * {
+                height: 100%;
+                // border: solid 1px;
+                align-items: center;
+            }
+
+            .field {
+                & > *, input {
+                    height: 100%;
+                    align-items: center;
+                    justify-content: center;
+                }
+                input {
+                    min-height: 32px;
+                    text-align: center;
+
+                    &.editable-field {
+                        min-height: inherit;
+                        background-color: var(--tertiary);
+                        border: none;
+                    }
+                }
+            }
+
+            .span-2 {
+                grid-column: span 2;
+            }
+
+            .span-3 {
+                grid-column: span 3;
+            }
+
+            &__header {
+                .field__label {
+                    margin-bottom: inherit;
+                }
+
+                &--left {
+                    .field__label {
+                        justify-content: left;
+                        // border: solid 1px red;
+                    }
+                }
             }
         }
     }
