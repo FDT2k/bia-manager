@@ -1,0 +1,104 @@
+@use '../eksass/base' as *;
+@use '../layout' as *;
+@use '../fonts';
+
+$color-switch: var(--secondary);
+$color-yes: var(--primary);
+$color-no: var(--primary);
+$color-text: var(--secondary);
+$color-focus: var(--color-invalid);
+
+.toggle-switch {
+    min-width:60px;
+    position: relative;
+    overflow: hidden;
+    display: inline-block;
+    vertical-align: middle;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    text-align: left;
+
+    &--focus{
+        box-shadow: 0 0 1px 3px rgba(59, 153, 252, .7);
+        box-shadow: 0 0 0 3px activeborder; /* Blink, Chrome */
+        box-shadow: 0 0 0 3px -moz-mac-focusring; /* Firefox */
+        outline: 2px solid -webkit-focus-ring-color; /* Webkit, Safari */
+    }
+    
+    &-checkbox {
+        position:absolute;
+        top:-1000px;
+        left:-5000px;
+    }
+    &-label {
+        width:100%;
+        border-radius: 4px;
+        display: block;
+        overflow: hidden;
+        cursor: pointer;
+        margin: 0;
+    }
+    &-inner {
+        display: block;
+        width: 200%;
+        margin-left: -100%;
+        transition: margin 0.3s ease-in 0s;
+        &:before,
+        &:after {
+            display: block;
+            float: left;
+            width: 50%;
+            height: 34px;
+            padding: 0;
+            line-height: 34px;
+            font-size: 14px;
+            color: white;
+            font-weight: bold;
+            box-sizing: border-box;
+        }
+        &:before {
+            content: attr(data-yes);
+            text-transform: uppercase;
+            padding-left: 10px;
+            background-color: $color-yes;
+            color: $color-text;
+        }
+    }
+    &-disabled {
+        background-color: #ddd;
+        cursor: not-allowed;
+        &:before {
+            background-color: #ddd;
+            cursor: not-allowed;
+        }
+    }
+    &-inner:after {
+        content: attr(data-no);
+        text-transform: uppercase;
+        padding-right: 10px;
+        background-color: $color-no;
+        color: $color-text;
+        text-align: right;
+    }
+    &-switch {
+        display: block;
+        width: 24px;
+        border-radius: 2px;
+        margin: 5px;
+        background: $color-switch;
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        right: calc( 100% - 34px);
+        transition: all 0.3s ease-in 0s;
+    }
+    &-checkbox:checked + &-label {
+        .toggle-switch-inner {
+            margin-left: 0;
+        }
+        .toggle-switch-switch {
+            right: 0px;
+        }
+    }
+}

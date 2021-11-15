@@ -34,6 +34,7 @@ $editor-value: (552px - (16 * 10)) /11;
         justify-content: start;
 	    background-color: var(--tertiary);
         width: fit-content;
+        margin-bottom: 16px;
         @extend %radius;
         @extend %large-body;
 
@@ -97,6 +98,31 @@ $editor-value: (552px - (16 * 10)) /11;
             transition: 0.25s ease-out;
         }
 
+    }
+
+    .tabs__panel {
+        gap: 16px;
+
+        &__form {
+            gap: 16px;
+
+            .field {
+                flex-grow: 2;
+                &.date-examen,
+                &.activite-physique,
+                &.type-activite-physique,
+                &.taille,
+                &.poids-actuel {
+                    flex-grow: 3;
+                }
+
+                &.fumeur,
+                &.cote-mesure {
+                    max-width: calc( #{$editor-value} * 3 );
+                }
+
+            }
+        }
     }
 
 

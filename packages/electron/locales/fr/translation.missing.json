@@ -84,5 +84,11 @@
    "Prenom": "Prenom",
    "Taille": "Taille",
    "Poids habituel": "Poids habituel",
-   "Diagnostic": "Diagnostic"
+   "Diagnostic": "Diagnostic",
+   "BIAManager": "BIAManager",
+   "About BIAManager": "About BIAManager",
+   "Hide App": "Hide App",
+   "Hide Others": "Hide Others",
+   "Show All": "Show All",
+   "Quit": "Quit"
 }

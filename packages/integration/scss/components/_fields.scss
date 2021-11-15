@@ -16,14 +16,18 @@
       margin-right: inherit;
     }
     &__label{
-        display: inline-block;
         margin-bottom: 8px;
         @extend %large-body;
+        @extend .flex-row;
+        @extend .just-start;
+        @extend .align-start;
     }
 
     &__field {
 
         width: 100%;
+        overflow: auto;
+        border-radius: 4px;
 
         & > *, & input {
             width: 100%;
@@ -36,6 +40,7 @@
         input:not([type="checkbox"]), select {
             width: 100%;
             border: solid 1px var(--primary);
+            padding: 0px 16px;
         }
 
         select.editable-field {
@@ -58,8 +63,9 @@
 
 
     .editable-field {
+        @extend .flex-column;
         min-height: 30px;
-        padding: 4px 16px;
+        padding: 0px 16px;
         width: auto;
         background-color: var(--tertiary);
       }
@@ -67,22 +73,7 @@
     &--calculated {
 
     }
-    &.date-examen,
-    &.birthdate,
-    &.activite-physique,
-    &.type-activite-physique,
-    &.poids-actuel {
-        @extend %col-3;
-    }
-    &.fumeur,
-    &.cote-mesure,
-    &.taille {
-        @extend %col-2;
-    }
 
-    &.fumeur {
-        margin-right: inherit;
-    }
 }
 
 .editable-field {

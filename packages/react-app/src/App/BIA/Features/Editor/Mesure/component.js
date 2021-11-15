@@ -91,7 +91,7 @@ const Editor = props => {
 
     const current_bia = get_current_bia(['fmi', 'ffmi'])
     const _handleChange = (...args) => {
-        
+
         parentHandleChange && parentHandleChange(...args);
     }
     const { values, handleChangeValue, inputProps, handleChange, assignValues, replaceValues } = useFieldValues(mesure, { onValuesChange: _handleChange, usePath: true });
