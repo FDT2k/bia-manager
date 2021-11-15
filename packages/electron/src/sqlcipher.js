@@ -9,6 +9,7 @@ const API = db => {
 
     const module = {}
 
+    module.unlocked = false;
     module.getStatements = _ => ({
         insert_migration: db.prepare('insert into migrations (name) values(@migration)'),
         migration_table: db.prepare("SELECT name FROM sqlite_master WHERE type='table' AND name= ?")
@@ -112,9 +113,14 @@ const API = db => {
     module.unlock = key => {
 
         db.pragma("key='" + key + "'");
+
         try {   
             
             db.exec("select count(*) from sqlite_master;")
+            db.pragma('journal_mode = WAL');
+            module.unlocked=true
+            module.migrate();
+
             return true;
         }catch (e){
             throw  new Error("Invalid database or key is wrong")
@@ -137,7 +143,6 @@ const opendb = (file, key = '',options=defaultOptions) => {
 
     const api = API(db);
     console.log(api);
-
     if (!is_empty(key)) {
         api.unlock(key);
         api.migrate();

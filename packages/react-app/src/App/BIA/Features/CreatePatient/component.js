@@ -75,7 +75,7 @@ export const Page = props => {
         return true;
     }
 
-    const { fields: values, inputProps, formProps, handleChangeValue, fieldValidation, replaceValues } = useForm(relevantFields, {usePath:true, validate, onSubmit: handleSubmit })
+    const {  values, inputProps, formProps, handleChangeValue, handleError, replaceValues } = useForm(relevantFields, {usePath:true, validate, onSubmit: handleSubmit })
     useEffect(_ => {
         replaceValues(relevantFields)
     }, [relevantFields])
@@ -109,7 +109,7 @@ export const Page = props => {
                             const options = field.options;
                             const tabIndex = idx + 1;
 
-                            const hasErrorClass=  fieldValidation(fieldKey, ({ error, touched, valid }) => {
+                            const hasErrorClass=  handleError(fieldKey, ({ error, touched, valid }) => {
 
                                 return ( (!valid && touched) ? "error" :"")
                             });
@@ -123,7 +123,7 @@ export const Page = props => {
                                     handleChange={x => {
                                         handleChangeValue(fieldKey,x)
                                     }} />}
-                                {fieldValidation(fieldKey, ({ error, touched, valid }) => {
+                                {handleError(fieldKey, ({ error, touched, valid }) => {
 
                                     return (<>
                                         {!valid && touched && <span className="error">{error}</span>}

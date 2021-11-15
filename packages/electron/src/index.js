@@ -3,7 +3,7 @@ import { app, ipcMain, BrowserWindow, Menu, dialog } from 'electron';
 import { join, resolve } from 'path';
 import { URL } from 'url';
 import fs from 'fs/promises';
-import { is_nil, deep_merge } from '@karsegard/composite-js';
+import { is_nil } from '@karsegard/composite-js';
 
 import menuFactoryService from './menu';
 
@@ -239,14 +239,18 @@ ipcMain.handle('sqlite-unlock', async (event, key) => {
 
 
 
-ipcMain.handle('sqlite-query', async (event, {query,values}) => {
+ipcMain.handle('sqlite-query', async (event, {type,table,query,values,fn='all'}) => {
   try {
-    return currentSQLite.db.prepare(query).all(values);
+    if(type ==='geninsert'){
+      query = currentSQLite.genInsertSQL(table, values)
+    }
+    return currentSQLite.db.prepare(query)[fn](values);
   } catch (e) {
     return Promise.reject(e);
   }
 
 })
+
 
 
 

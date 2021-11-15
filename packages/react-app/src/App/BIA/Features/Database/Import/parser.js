@@ -97,6 +97,7 @@ export const parse = ({
                     debugger;
                 }
             }
+            p.uuid = index_key
             carry.data[index_key] = p;
           // carry.list.push(p);
             import_subject(p,index_key);

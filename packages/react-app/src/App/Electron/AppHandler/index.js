@@ -9,14 +9,13 @@ import ErrorHandler from '@/App/BIA/Features/ErrorMessageHandler'
 import { Provider as ViewsProvider } from '@/Context/BIAViews'
 
 import SQLiteUnlock from '@/App/Electron/SQLiteUnlock'
+import SQLiteDatabase from '@/App/BIA/Features/Database/Import/sqlite'
 
 export const Component = props => {
-
-
     const {
         subscribers: {
             handleOpenRequest, handleSaveRequest, handleLocationChange, handleCloseRequest,
-            handleError,handleWillQuit
+            handleError, handleWillQuit
         },
         actions: {
             quit,
@@ -24,18 +23,18 @@ export const Component = props => {
             sqlite_query
         }
     } = useElectron();
-    
-    const { 
-        sqlite_unlock: do_sqlite_unlock, 
-        open_file, 
-        save_to_file, 
+
+    const {
+        sqlite_unlock: do_sqlite_unlock,
+        open_file,
+        save_to_file,
         start_loading,
-         stop_loading, 
-         current_file,
-         is_sqlite_need_unlock, 
-         close, 
-         init_app, 
-         add_error } = props;
+        stop_loading,
+        current_file,
+        is_sqlite_need_unlock,
+        close,
+        init_app,
+        add_error } = props;
 
     const handleFileOpen = _ => {
         start_loading("Waiting on user confirmation");
@@ -81,29 +80,29 @@ export const Component = props => {
         })
     }
 
-    const unlockSQLite = key=> {
+    const unlockSQLite = key => {
         debugger;
 
-        sqlite_unlock(key).then(res=> {
+        sqlite_unlock(key).then(res => {
             debugger;
             do_sqlite_unlock();
-            sqlite_query({query:"select count(*) from subjects;",values:{}}).then(console.log)
+            sqlite_query({ query: "select count(*) from subjects;", values: {} }).then(console.log)
             window.location.hash = '#/search'
-        }).catch(err=>{
+        }).catch(err => {
             debugger;
             add_error(err.message)
         })
 
     }
 
-    const cancelUnlock = ()=>{
+    const cancelUnlock = () => {
         close();
     }
 
 
 
     useEffect(() => {
-       
+
 
         handleWillQuit(_ => {
             close().then(_ => {
@@ -126,7 +125,7 @@ export const Component = props => {
             add_error('Une erreur est survenue')
         });
 
-      //  init_app();
+        //  init_app();
 
 
     }, []);
@@ -135,13 +134,16 @@ export const Component = props => {
 
     return (
         <>
-           
-                <ViewsProvider>
-                    <BIAManager />
-                </ViewsProvider>
-                <ErrorHandler />
 
-                <SQLiteUnlock visible={is_sqlite_need_unlock} unlock={unlockSQLite} cancel={cancelUnlock}/>
+            <ViewsProvider views={{
+                Database: SQLiteDatabase
+            }
+            }>
+                <BIAManager />
+            </ViewsProvider>
+            <ErrorHandler />
+
+            <SQLiteUnlock visible={is_sqlite_need_unlock} unlock={unlockSQLite} cancel={cancelUnlock} />
         </>
     );
 

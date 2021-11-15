@@ -14,7 +14,7 @@ import { CircularProgressbar } from 'react-circular-progressbar';
 
 export default props => {
 
-    const { import_csv } = props;
+    const { callback } = props;
 
     const [location, setLocation] = useLocation();
     const [imported_data, setImportedData] = useState();
@@ -48,18 +48,8 @@ export default props => {
             //console.log(data.result.list[5])
         }
 
-        if (data.type && data.type == 'import_subject') {
-            debugger;
-            console.log(data)
-        }
-        if (data.type && data.type == 'import_mesure') {
-            debugger;
-            console.log(data)
-        }
-        if (data.type && data.type == 'import_list_item') {
-            debugger;
-            console.log(data)
-        }
+     
+        callback && callback(data);
     }
 
 
