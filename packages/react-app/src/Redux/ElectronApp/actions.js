@@ -159,7 +159,6 @@ export default (getModule) => {
 
     actions.close = (close_fn) => (dispatch, getState) => {
         const backend_actions = getBackend(getState);
-
         dispatch(actions.close_file());
         dispatch(backend_actions.close());
         dispatch(submodules.features.search.actions.clear());

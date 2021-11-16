@@ -41,9 +41,9 @@ createFileIfNeeded(settingsFile, '{"lang":"fr"}');
 
 
 
-/*
-let DB = openDB(join(app.getPath('home'), 'testdb3.sqlite'), 'superkey')
 
+let DB = openDB(join(app.getPath('home'), 'testdb3.sqlite'), 'test')
+/*
 console.log(DB.api.genInsertSQL('subjects', { id: 1, firstname: '12' }));
 console.log(DB.api.genUpdateSQL('subjects', { firstname: '12' }, { id: 1 }));
 DB.api.addSubject({
@@ -52,6 +52,9 @@ DB.api.addSubject({
 })
 const getSettings = _ => fs.readFile(settingsFile, { encoding: 'utf8' }).then(res => JSON.parse(res));
 */
+DB.subject.import()([
+  {firstname:'prout',lastname:'test',birthdate:'',gender:'M',uuid:'aaa',mesures:[{date:'1980-01-01',examinator:'bob'}]}
+])
 
 
 app.disableHardwareAcceleration();
@@ -277,10 +280,12 @@ ipcMain.handle('sqlite-unlock', async (event, key) => {
 
 
 
-ipcMain.handle('sqlite-query', async (event, {type,table,query,values,fn='all'}) => {
+ipcMain.handle('sqlite-query', async (event, {type,table,query,values,filter,fn='all'}) => {
   try {
     if(type ==='geninsert'){
       query = currentSQLite.genInsertSQL(table, values)
+    }else if(type ==='genupdate'){
+      query = currentSQLite.genUpdateSQL(table, values,filter)
     }
     console.log('prepare query ',query, fn ,values)
     return currentSQLite.db.prepare(query)[fn](values);
@@ -288,6 +293,15 @@ ipcMain.handle('sqlite-query', async (event, {type,table,query,values,fn='all'})
     return Promise.reject(e);
   }
 
+})
+
+ipcMain.handle('sqlite-import', async (event,message)=>{
+  try{
+  console.log(message)
+   currentSQLite.subject.import()(message);
+  }catch(e){
+    return Promise.reject(e)
+  }
 })
 
 

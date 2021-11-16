@@ -72,17 +72,17 @@ export const parse = ({
             const collectible_value = transform('', item);
 
             if (!is_empty(collectible_value) ) {
-             //   carry.collectors = as_safe_path(`${value.name}`, carry.collectors, { [collectible_value]: collectible_value });
-                import_list_item(value.name,collectible_value);
+               carry.collectors = as_safe_path(`${value.name}`, carry.collectors, { [collectible_value]: collectible_value });
+            //    import_list_item(value.name,collectible_value);
             }
 
         }
         const patient_keys = Object.keys(mapping.patient);
         const [patient, mesure] = filterPropPresentIn(patient_keys, item);
         const index_key = item[identifier];
-        if(carry.index_key !== index_key){
+      /*  if(carry.index_key !== index_key){
             delete carry.data[carry.index_key]
-        }
+        }*/
         if (typeof carry.data[index_key] == "undefined") {
 
             const p = enlist(patient).reduce(remap(patient, mapping.patient), {});
@@ -101,8 +101,8 @@ export const parse = ({
             }
             p.uuid = index_key
             carry.data[index_key] = p;
-          // carry.list.push(p);
-            import_subject(p,index_key);
+           carry.list.push(p);
+          //  import_subject(p,index_key);
             carry.countPatient++;
 
         }
@@ -114,7 +114,7 @@ export const parse = ({
 
         let remapped_mesure = enlist(mesure).reduce(remap(mesure, mapping.mesure, carry.data[index_key]), {});
 
-        import_mesure(remapped_mesure,index_key);
+      //  import_mesure(remapped_mesure,index_key);
         carry.data[index_key].mesures.push(remapped_mesure);
         carry.data[index_key].mesures_dates.push(remapped_mesure.date);
 

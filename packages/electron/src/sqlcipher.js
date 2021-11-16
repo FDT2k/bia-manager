@@ -3,7 +3,13 @@ import { key } from '@karsegard/composite-js/ObjectUtils';
 import { spreadObjectPresentIn } from '@karsegard/composite-js/ReactUtils'
 import { resolve, join } from 'path'
 import fs from 'fs'
+import { off } from 'process';
+import { get } from 'http';
 var sqlite3 = require('better-sqlite3');
+
+
+
+
 
 const API = db => {
 
@@ -11,35 +17,48 @@ const API = db => {
 
     let unlocked = false;
 
-    module.isUnlocked=()=>unlocked
+    module.isUnlocked = () => unlocked
     module.getStatements = _ => ({
         insert_migration: db.prepare('insert into migrations (name) values(@migration)'),
         migration_table: db.prepare("SELECT name FROM sqlite_master WHERE type='table' AND name= ?")
     });
 
-  
+
 
     module.getLatestMigration = () => {
-        const migration_table = module.getStatements().migration_table
+        try {
+            const migration_table = module.getStatements().migration_table
 
-        const result = migration_table.get('migrations');
+            const result = migration_table.get('migrations');
 
-        let latest_migration = -1;
-        if (!is_nil(result)) {
-            let result = db.prepare('select max(id) as latest_migration from migrations').get();
-            latest_migration = result.latest_migration
+            let latest_migration = -1;
+            if (!is_nil(result)) {
+                let result = db.prepare('select max(id) as latest_migration from migrations').get();
+                latest_migration = result.latest_migration
 
+            }
+            return latest_migration;
+        } catch (e) {
+            console.error(e)
+            return 0
         }
-        return latest_migration;
     }
 
-  
-    module.genInsertSQL = (table, schema, pkey = ['id']) => {
-        const [keys, _fields] = spreadObjectPresentIn(['id'], schema);
+
+    module.genInsertSQL = (table, schema, ignore = ['id']) => {
+        const [keys, _fields] = spreadObjectPresentIn(ignore, schema);
         const fields = enlist(_fields).map(item => key(item));
         const tmpl = `insert into ${table} (${fields.join(',')}) values (${fields.map(item => `@${item}`).join(',')})`;
         return tmpl;
     }
+
+    module.genSelectSQL = (table, filter) => {
+        const fields = enlist(filter).map(item => key(item));
+        const tmpl = `select * from ${table} where  ${fields.map(item => `${item}=@${item}`).join(' and ')}`;
+        console.log(tmpl)
+        return tmpl;
+    }
+
 
     module.genUpdateSQL = (table, schema, filter) => {
 
@@ -58,6 +77,7 @@ const API = db => {
         });
 
         const tmpl = `update ${table} set ${set.join(',')} where ${where.join(' and ')}`;
+        console.log(tmpl)
         return tmpl;
     }
 
@@ -73,8 +93,8 @@ const API = db => {
 
         migration_files.map(migration => {
             if (current >= latest) {
-                const migrationFile= join(migrationPath, migration)
-                console.log('[SQLITE]: running migration '+migrationFile)
+                const migrationFile = join(migrationPath, migration)
+                console.log('[SQLITE]: running migration ' + migrationFile)
                 db.exec(fs.readFileSync(migrationFile, 'utf8'))
                 module.getStatements().insert_migration.run({ migration })
             }
@@ -88,43 +108,147 @@ const API = db => {
 
         db.pragma("key='" + key + "'");
 
-        try {   
-            
+        try {
+
             db.exec("select count(*) from sqlite_master;")
             db.pragma('journal_mode = WAL');
-            unlocked=true
+    //        db.pragma('synchronous = FULL');
+            unlocked = true
             module.migrate();
 
             return true;
-        }catch (e){
-            throw  new Error("Invalid database or key is wrong")
-        } 
+        } catch (e) {
+            console.error(e)
+            throw new Error("Invalid database or key is wrong")
+        }
     }
-    
-    
+
+
 
     return module;
 
 }
 
 
-const  defaultOptions = {fileMustExist:true, verbose: (...args)=> console.log('[SQLITE]:',...args)}
+const mesure= (db,api)=> {
+
+    const schema = {
+        date:'',
+        examinator:'',
+        subject_id:'',
+    }
 
 
-const opendb = (file, key = '',options=defaultOptions) => {
+    const pkeys = ['id']
+   
+
+    const module ={};
+
+    module.select = filters => db.prepare(api.genSelectSQL('mesures',filters));
+    module.insert = (schema,ignore)=> db.prepare(api.genInsertSQL('mesures',schema,ignore))
+    module.update = (schema,filter)=> db.prepare(api.genUpdateSQL('mesures',schema,filter))
+
+    module.upsert = keys=> db.transaction(subject=> {
+
+        const [filter,_values] =  spreadObjectPresentIn(keys,subject);
+        const [values,_] =  spreadObjectPresentIn(Object.keys(schema),_values);
+        console.log(values,filter)
+        let result =module.select(filter).get(filter)
+
+        if( !is_empty(result)){
+            
+            module.update(values,filter).run({...values,...filter});
+        }else{
+            module.insert({...values,...filter},pkeys).run({...values,...filter});
+        }
+    })
+
+    module.import = subject_id=> db.transaction((mesures)=>{
+        console.log('importing',mesures.length)
+        for(let mesure of mesures) {
+            mesure.subject_id=subject_id;
+            module.upsert(['subject_id','date'])(mesure)
+        }
+    })
+
+
+    return module;
+
+}
+
+const subject= (db,api)=> {
+
+    const schema = {
+        firstname:'',
+        lastname:'',
+        birthdate:'',
+        gender:'',
+        uuid:''
+    }
+
+
+    const pkeys = ['id']
+   
+
+    const module ={};
+
+    module.select = filters => db.prepare(api.genSelectSQL('subjects',filters));
+    module.insert = (schema,ignore)=> db.prepare(api.genInsertSQL('subjects',schema,ignore))
+    module.update = (schema,filter)=> db.prepare(api.genUpdateSQL('subjects',schema,filter))
+
+    module.upsert = keys=> db.transaction(subject=> {
+
+        const [filter,_values] =  spreadObjectPresentIn(keys,subject);
+        const [values,_] =  spreadObjectPresentIn(Object.keys(schema),_values);
+        console.log(values,filter)
+        let result =module.select({uuid:''}).get(filter)
+
+        let ret
+        if( !is_empty(result)){
+            
+          module.update(values,filter).run({...values,...filter});
+          ret = result.id;
+        }else{
+          let res = module.insert({...values,...filter},pkeys).run({...values,...filter});
+          ret = res.lastInsertRowid;
+        }
+        return ret;
+    })
+
+    let _mesure = mesure(db,api);
+    module.import = _=> db.transaction((subjects)=>{
+        console.log('importing',subject.length)
+        for(let subject of subjects) {
+            let subject_id = module.upsert(['uuid'])(subject)
+            
+            _mesure.import(subject_id)(subject.mesures);
+        }
+    })
+
+
+    return module;
+
+}
+
+const defaultOptions = { fileMustExist: true, verbose: (...args) => console.log('[SQLITE]:', ...args) }
+
+
+const opendb = (file, key = '', options = defaultOptions) => {
     const db = new sqlite3(file, options);
 
 
     const api = API(db);
-    console.log(api);
+
     if (!is_empty(key)) {
         api.unlock(key);
-        api.migrate();
+        //api.migrate();
     }
     return {
         db,
         file,
-        ...api
+        subject:subject(db,api),
+
+        ...api,
     }
 
 }
