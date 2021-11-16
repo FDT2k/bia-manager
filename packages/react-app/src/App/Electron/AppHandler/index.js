@@ -1,15 +1,16 @@
 import React, { useState, useEffect, useRef, useMemo } from 'react';
-import BIAManager from '@/App/BIA/Features/BIAManager';
+import BIAManager from '@/App/BIA/BIAManager';
 import i18n, { setHandler } from '@/i18next.electron';
 
 import { useElectron } from '@/Context/Electron';
 import { ConnectApp } from '@/Providers/Stores/ElectronApp';
 
-import ErrorHandler from '@/App/BIA/Features/ErrorMessageHandler'
 import { Provider as ViewsProvider } from '@/Context/BIAViews'
 
 import SQLiteUnlock from '@/App/Electron/SQLiteUnlock'
 import SQLiteDatabase from '@/App/BIA/Features/Database/Import/sqlite'
+
+import { Provider as HostProvider } from '@/Context/Host'
 
 export const Component = props => {
     const {
@@ -20,7 +21,10 @@ export const Component = props => {
         actions: {
             quit,
             sqlite_unlock,
-            sqlite_query
+            sqlite_query,
+            open: electron_open,
+            get_file_state,
+            close: electron_close,
         }
     } = useElectron();
 
@@ -38,7 +42,7 @@ export const Component = props => {
 
     const handleFileOpen = _ => {
         start_loading("Waiting on user confirmation");
-        open_file()
+        open_file(electron_open)
             .then(result => {
                 debugger;
                 stop_loading()
@@ -48,10 +52,8 @@ export const Component = props => {
 
             })
             .catch(err => {
-                debugger;
-
+                add_error(err)
                 stop_loading();
-                console.error(err)
             });
 
     }
@@ -74,10 +76,10 @@ export const Component = props => {
     }
 
     const handleClose = _ => {
-        close().then(res => {
+        close(electron_close).then(res => {
             window.location.hash = '#/'
 
-        })
+        }).catch(add_error)
     }
 
     const unlockSQLite = key => {
@@ -86,7 +88,6 @@ export const Component = props => {
         sqlite_unlock(key).then(res => {
             debugger;
             do_sqlite_unlock();
-            sqlite_query({ query: "select count(*) from subjects;", values: {} }).then(console.log)
             window.location.hash = '#/search'
         }).catch(err => {
             debugger;
@@ -97,6 +98,16 @@ export const Component = props => {
 
     const cancelUnlock = () => {
         close();
+    }
+
+    const init = () => {
+        get_file_state().then(res=> {
+        debugger;
+
+            init_app(res);
+        }).catch(add_error)
+        
+
     }
 
 
@@ -125,25 +136,32 @@ export const Component = props => {
             add_error('Une erreur est survenue')
         });
 
-        //  init_app();
 
-
+        init();
     }, []);
 
 
+    const electronActions = useMemo(()=>{
+        return {
+            open_file:handleFileOpen
+        }
+    },[])
 
     return (
         <>
+            <HostProvider actions={electronActions}>
+                <ViewsProvider views={{
+                    Database: SQLiteDatabase
+                }
+                }>
+                    <BIAManager />
+                </ViewsProvider>
+                <SQLiteUnlock
+                    visible={is_sqlite_need_unlock}
+                    unlock={unlockSQLite}
+                    cancel={cancelUnlock} />
+            </HostProvider>
 
-            <ViewsProvider views={{
-                Database: SQLiteDatabase
-            }
-            }>
-                <BIAManager />
-            </ViewsProvider>
-            <ErrorHandler />
-
-            <SQLiteUnlock visible={is_sqlite_need_unlock} unlock={unlockSQLite} cancel={cancelUnlock} />
         </>
     );
 

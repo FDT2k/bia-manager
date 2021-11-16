@@ -95,6 +95,8 @@ export const parse = ({
                     p.birthdate = format(faker.date.between(`${year}-01-01`, `${year}-12-31`), "yyyy-MM-dd");
                 }catch (err){
                     debugger;
+
+                    p.birthdate = format(faker.date.between(`1901-01-01`, `2021-12-31`), "yyyy-MM-dd");
                 }
             }
             p.uuid = index_key

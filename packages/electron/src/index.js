@@ -3,7 +3,7 @@ import { app, ipcMain, BrowserWindow, Menu, dialog } from 'electron';
 import { join, resolve } from 'path';
 import { URL } from 'url';
 import fs from 'fs/promises';
-import { is_nil } from '@karsegard/composite-js';
+import { is_empty, is_nil } from '@karsegard/composite-js';
 
 import menuFactoryService from './menu';
 
@@ -16,7 +16,7 @@ import init18next from './plugins/i18next'
 
 let openedFilePath;
 let currentSQLite;
-let currentBackend = 'json'
+let currentBackend;
 
 let cleanState = false;
 
@@ -170,6 +170,7 @@ ipcMain.handle('file-open', async (event, filename) => {
     const type = await determine_file_type(openedFilePath);
     let content = null
 
+    currentBackend = type;
     if (type === 'json') {
       content = await fs.readFile(filePaths[0], { encoding: 'utf8' });
     }
@@ -188,8 +189,15 @@ ipcMain.handle('file-open', async (event, filename) => {
 ipcMain.handle('read-settings', async (event,) => {
   return getSettings();
 });
-
-
+ipcMain.handle('get-file-state', async (event,) => {
+  console.log('requested file state')
+  let additionalprops = {};
+  if(currentBackend=='sqlite'){
+    additionalprops.unlocked= currentSQLite.isUnlocked();
+  }
+  return { file: openedFilePath, type: currentBackend,canceled:false, ...additionalprops };
+});
+/*
 ipcMain.handle('current-filename', async (event,) => {
   console.log('requested last opened filename')
   return { file: openedFilePath, backend: currentBackend };
@@ -200,7 +208,7 @@ ipcMain.handle('clear-filename', async (event,) => {
   openedFilePath = "";
   return true
 });
-
+*/
 ipcMain.handle('save-settings', async (event, content) => {
   let filecontent = JSON.stringify(content);
   return fs.writeFile(settingsFile, filecontent).then(res => typeof result === 'undefined');
@@ -227,6 +235,36 @@ ipcMain.handle('sqlite-open', async (event, { filename, key }) => {
 })
 
 
+
+ipcMain.handle('close', async (event) => {
+  try {
+    if(!is_nil(currentSQLite)){
+      currentSQLite.db.close()
+      currentSQLite = null;
+    }else if(openedFilePath){
+      openedFilePath=null;
+    }
+    currentBackend=null
+    return true;
+  } catch (e) {
+    return Promise.reject(e);
+  }
+
+})
+/*
+ipcMain.handle('sqlite-close', async (event, { filename, key }) => {
+  try {
+    console.log('want to close sqlite db', filename, key);
+    currentSQLite.db.close();
+    currentSQLite = null;
+    return true;
+  } catch (e) {
+    return Promise.reject(e);
+  }
+
+})
+
+*/
 ipcMain.handle('sqlite-unlock', async (event, key) => {
   try {
     console.log('unlocking sqlite db', key);
@@ -244,6 +282,7 @@ ipcMain.handle('sqlite-query', async (event, {type,table,query,values,fn='all'})
     if(type ==='geninsert'){
       query = currentSQLite.genInsertSQL(table, values)
     }
+    console.log('prepare query ',query, fn ,values)
     return currentSQLite.db.prepare(query)[fn](values);
   } catch (e) {
     return Promise.reject(e);

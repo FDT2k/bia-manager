@@ -9,16 +9,15 @@ const API = db => {
 
     const module = {}
 
-    module.unlocked = false;
+    let unlocked = false;
+
+    module.isUnlocked=()=>unlocked
     module.getStatements = _ => ({
         insert_migration: db.prepare('insert into migrations (name) values(@migration)'),
         migration_table: db.prepare("SELECT name FROM sqlite_master WHERE type='table' AND name= ?")
     });
 
-    module.getSubjects = () => {
-
-        db.prepare("Select * from subjects")
-    }
+  
 
     module.getLatestMigration = () => {
         const migration_table = module.getStatements().migration_table
@@ -34,27 +33,7 @@ const API = db => {
         return latest_migration;
     }
 
-    module.getSubject = (subject) => {
-        return db.prepare('select * from subjects where id  = @id ').get(subhect);
-    }
-
-    module.upsertSubject = (subject, filter) => {
-        if (is_nil(filter)) {
-            throw new Error('upsert without filter will result in insert')
-        }
-        const { id } = subject;
-        if (!id || module.getSubject({ id }) === undefined) {
-            //insert
-            return module.addSubject(subject);
-        } else {
-            //update
-            return module.updateSubject(subject);
-        }
-    }
-
-
-
-
+  
     module.genInsertSQL = (table, schema, pkey = ['id']) => {
         const [keys, _fields] = spreadObjectPresentIn(['id'], schema);
         const fields = enlist(_fields).map(item => key(item));
@@ -80,11 +59,6 @@ const API = db => {
 
         const tmpl = `update ${table} set ${set.join(',')} where ${where.join(' and ')}`;
         return tmpl;
-    }
-
-    module.addSubject = (subject) => {
-        const stmt = db.prepare(module.genInsertSQL('subjects', subject));
-        return stmt.run(subject);
     }
 
     module.migrate = () => {
@@ -118,7 +92,7 @@ const API = db => {
             
             db.exec("select count(*) from sqlite_master;")
             db.pragma('journal_mode = WAL');
-            module.unlocked=true
+            unlocked=true
             module.migrate();
 
             return true;

@@ -1,11 +1,11 @@
 import { createAction, createAsyncAction, bindSelectors } from '@karsegard/react-redux';
 
-import api from '@/Backends/Electron'
+
 import { compare } from '@karsegard/composite-js/List';
 
 
 import { normalize as normalize_patient } from '@/references/Patient'
-import { enlist } from '@karsegard/composite-js';
+import { enlist, is_empty } from '@karsegard/composite-js';
 
 import { keyval } from '@karsegard/composite-js/ObjectUtils'
 
@@ -23,18 +23,30 @@ export default (getModule) => {
 
     const actions = {};
 
-    actions.is_saving= createAction(action_types.SAVING)
+    actions.is_saving = createAction(action_types.SAVING)
 
     actions.add_error = createAction(action_types.ADD_ERROR)
     actions.dismiss_error = createAction(action_types.REMOVE_ERROR)
     actions.init_started = createAction(action_types.INIT)
 
-    actions.init_app = () => (dispatch, getState) => {
-        dispatch(actions.init_started());
-        dispatch(actions.async_api('current_filename')).then(res => {
+    actions.init_app = (result) => (dispatch, getState) => {
+        dispatch(actions.init_started(result));
+        if (!result.canceled) {
+            if (result.type === 'sqlite') {
+                dispatch(actions.set_backend('sqlite'))
+                if(result.unlocked===true){
+                    dispatch(submodules.backends.sqlite.actions.unlock())
+                }
+            } else if (result.type === 'json') {
+                dispatch(actions.set_backend('dexie'))
+            } else {
+                return Promise.reject('unkown file type')
+            }
+        }
+       /* dispatch(actions.async_api('current_filename')).then(res => {
             dispatch(actions.openFileSuccess(res))
-        })
-        dispatch(actions.refresh_backend_stats());
+        })*/
+       // dispatch(actions.refresh_backend_stats());
     }
 
     actions.refresh_backend_stats = () => (dispatch, getState) => {
@@ -65,6 +77,10 @@ export default (getModule) => {
         return dispatch(actions.call_api(window.electron.actions[fn_name], ...args))
     }
 
+    actions.async_call = (fn, ...args) => (dispatch, getState) => {
+        dispatch(actions.api_call_started(fn))
+        return dispatch(actions.call_api(fn, ...args))
+    }
     actions.save_to_file = _ => (dispatch, getState) => {
         dispatch(actions.is_saving());
         const backend_actions = getBackend(getState);
@@ -76,7 +92,7 @@ export default (getModule) => {
              * 
              * implement cancel event situation
              */
-            if(res !==false){
+            if (res !== false) {
                 return dispatch(actions.saveFileSuccess(res));
             }
             return false
@@ -91,18 +107,26 @@ export default (getModule) => {
     actions.stop_loading = createAction(action_types.LOADING_DONE);
     actions.async_open = createAsyncAction(actions.openFileFails, actions.openFileSuccess)
     actions.set_backend = createAction(action_types.SET_BACKEND)
-    actions.open_file = _ => (dispatch, getState) => {
 
 
-        return dispatch(actions.async_open(api.actions.open)).then((result) => {
-            
-            if(result.type ==='sqlite'){
-                dispatch(actions.set_backend('sqlite'))
+
+
+    actions.open_file = open_function => (dispatch, getState) => {
+
+
+        return dispatch(actions.async_open(open_function)).then((result) => {
+
+            if (!result.canceled) {
+                if (result.type === 'sqlite') {
+                    dispatch(actions.set_backend('sqlite'))
+                } else if (result.type === 'json') {
+                    dispatch(actions.set_backend('dexie'))
+                } else {
+                    return Promise.reject('unkown file type')
+                }
             }
 
-        
             return dispatch(actions.backend_open_file(result))
-         
 
         }).then(previous => {
             if (previous.type && previous.type !== action_types.OPEN_CANCELED_BY_USER) {
@@ -112,19 +136,16 @@ export default (getModule) => {
         })
 
     }
-    
 
-    actions.backend_open_file = result => (dispatch,getState)=>{
+
+    actions.backend_open_file = result => (dispatch, getState) => {
         const backend_actions = getBackend(getState);
-        debugger;
+      
 
         if (result && !result.canceled) {
             return dispatch(backend_actions.open_file(result));
         } else if (result && result.canceled) {
             return dispatch({ type: action_types.OPEN_CANCELED_BY_USER })
-        }else{
-             dispatch(actions.add_error('unkown file type'))
-            return Promise.reject('unkown file type')
         }
     }
 
@@ -136,13 +157,13 @@ export default (getModule) => {
 
     actions.close_file = createAction(action_types.CLOSE_FILE)
 
-    actions.close = _ => (dispatch, getState) => {
+    actions.close = (close_fn) => (dispatch, getState) => {
         const backend_actions = getBackend(getState);
-        
+
         dispatch(actions.close_file());
         dispatch(backend_actions.close());
         dispatch(submodules.features.search.actions.clear());
-        return dispatch(actions.async_api('clear_opened_filename'));
+        return dispatch(actions.async_call(close_fn));
     }
 
     actions.create_database = _ => (dispatch, getState) => {
@@ -169,7 +190,7 @@ export default (getModule) => {
     actions.search = (tags = []) => (dispatch, getState) => {
 
         const { filter_results, update_search_tags, fetched_patient, clear } = submodules.features.search.actions;
-        const { select_tags, has_custom_filters ,select_custom_filters} = submodules.features.search.selectors;
+        const { select_tags, has_custom_filters, select_custom_filters } = submodules.features.search.selectors;
         const current_tags = select_tags(getState());
         const has_filters = has_custom_filters(getState());
         const custom_filters = select_custom_filters(getState());
@@ -179,14 +200,14 @@ export default (getModule) => {
 
         if (tags.length == 0 && !has_filters) {
             dispatch(clear());
-            return ;
+            return;
         }
         if (!has_filters && compare(current_tags, tags)) { // can happen
             console.log('tag did not changed')
             return;
         }
 
-       
+
 
         dispatch(update_search_tags(tags));
 
@@ -199,8 +220,8 @@ export default (getModule) => {
 
             });
         } else if (has_filters) {
-            return dispatch(backend_actions.search_custom_filters(custom_filters)).then(result=> {
-                return dispatch(fetched_patient(result));                
+            return dispatch(backend_actions.search_custom_filters(custom_filters)).then(result => {
+                return dispatch(fetched_patient(result));
             }).then(_ => {
 
                 return dispatch(filter_results());
@@ -237,7 +258,7 @@ export default (getModule) => {
     const editorModule = submodules.features.editor;
 
 
-   
+
 
 
     actions.save_global = () => (dispatch, getState) => {
@@ -346,9 +367,9 @@ export default (getModule) => {
 
     actions.sort_list_editor = items => (dispatch, getState) => {
         const backend_actions = getBackend(getState);
-       
+
         return dispatch(submodules.features.list_editor.actions.fetch({ items: items }))
-        
+
     }
 
     actions.fetch_lists_editor = list_key => (dispatch, getState) => {

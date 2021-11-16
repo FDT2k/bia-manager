@@ -2,36 +2,23 @@ import Modal from '@/App/Components/Modal';
 import { LayoutFlex, LayoutFlexColumn } from '@karsegard/react-core-layout';
 import Button from '@/bia-layout/components/Form/Button';
 import React,{useState} from 'react';
-
+import { useHostProvider } from '@/Context/Host';
 
 export default Component => props => {
-    const { open_file, start_loading, stop_loading, create_database } = props;
+    const { /*open_file,*/ start_loading, stop_loading, create_database } = props;
 
     const [warn,setWarn] = useState(false)
     const [dev ,setDev] = useState(false)
 
+    const {actions:{open_file,create_file}}= useHostProvider();
     const handleOpen = _ => {
 
-        start_loading("Waiting on user confirmation");
-        open_file(open)
-            .then(result => {
-                
-                stop_loading()
-                if (result) {
-                    window.location.hash = '#/search'
-                }
-
-            })
-            .catch(res => { stop_loading() });
+        open_file();
     }
 
     const handleCreate = _ => {
 
-        create_database().then(res => {
-            if(res !==false){
-                window.location.hash = '#/search'
-            }
-        }).catch(_=> alert('something went wrong'))
+        create_file();
     }
 
     const handleConnect = _ => {

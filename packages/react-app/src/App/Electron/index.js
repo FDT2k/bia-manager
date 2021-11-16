@@ -3,8 +3,8 @@ import React from 'react';
 import { Provider as ElectronProvider } from '@/Context/Electron'
 
 import AppHandler from '@/App/Electron/AppHandler'
-import Loading from '@/App/Electron//Loading'
-
+import ErrorHandler from '@/App/Features/ErrorMessageHandler'
+import LoadingHandler from '@/App/Features/Loading'
 
 import Provider from '@/Providers/Stores/ElectronApp';
 
@@ -27,6 +27,8 @@ export default props => {
                     <UpdateManager />
                 </I18Next>
             </ElectronProvider>
+            <ErrorHandler/>
+            <LoadingHandler/>
         </Provider>
     );
 

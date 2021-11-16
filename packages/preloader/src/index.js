@@ -24,8 +24,8 @@ let electronAPI = {
     save: invokeOnMainProcess('file-save'),
     open: invokeOnMainProcess('file-open'),
     get_settings: invokeOnMainProcess('read-settings'),
-    current_filename: invokeOnMainProcess('current-filename'),
-    clear_opened_filename: invokeOnMainProcess('clear-filename'),
+    get_file_state: invokeOnMainProcess('get-file-state'),
+    close: invokeOnMainProcess('close'),
     quit: invokeOnMainProcess('quit'),
 
 
