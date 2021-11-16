@@ -49,7 +49,6 @@
         }
 
         select.editable-field {
-            padding-top:6px;
         }
 
         &.error {
@@ -70,8 +69,8 @@
     .editable-field {
         @extend .flex-column;
         min-height: 30px;
-        padding: 0px 16px;
         width: auto;
+        padding: 0px 16px;
         background-color: var(--tertiary);
       }
 
@@ -84,6 +83,7 @@
 .editable-field {
   //  height: 100%;
     border: 1px solid var(--tertiary);
+    font-family: var(--font-family);
     justify-content: center;
     flex-direction: column;
     align-items: flex-start;

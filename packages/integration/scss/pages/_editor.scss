@@ -125,7 +125,7 @@ $max-editor-value: (727px - (16 * 10)) / 11;
             }
         }
 
-        &__impedance-form {
+        &__impedance {
             display: grid;
             grid-template-rows: auto;
             grid-template-columns: repeat(11, 1fr);
@@ -147,12 +147,12 @@ $max-editor-value: (727px - (16 * 10)) / 11;
                 input {
                     min-height: 32px;
                     text-align: center;
-
-                    &.editable-field {
-                        min-height: inherit;
-                        background-color: var(--tertiary);
-                        border: none;
-                    }
+                }
+                .editable-field {
+                    min-height: inherit;
+                    background-color: var(--tertiary);
+                    border: none;
+                    width: 100%;
                 }
             }
 
@@ -164,11 +164,16 @@ $max-editor-value: (727px - (16 * 10)) / 11;
                 grid-column: span 3;
             }
 
-            &__header {
-                .field__label {
-                    margin-bottom: inherit;
-                }
+            .span-5 {
+                grid-column: span 5;
+            }
 
+            .field__label {
+                margin-bottom: inherit;
+            }
+
+            &__header {
+                @extend %large-body;
                 &--left {
                     .field__label {
                         justify-content: left;
@@ -176,6 +181,16 @@ $max-editor-value: (727px - (16 * 10)) / 11;
                     }
                 }
             }
+
+            &__content {
+                .field__label,
+                input,
+                select,
+                option {
+                    @extend %small-body;
+                }
+            }
+
         }
     }
 
