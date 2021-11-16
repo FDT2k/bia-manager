@@ -42,7 +42,7 @@ createFileIfNeeded(settingsFile, '{"lang":"fr"}');
 
 
 
-let DB = openDB(join(app.getPath('home'), 'testdb3.sqlite'), 'test')
+//let DB = openDB(join(app.getPath('home'), 'testdb3.sqlite'), 'test')
 /*
 console.log(DB.api.genInsertSQL('subjects', { id: 1, firstname: '12' }));
 console.log(DB.api.genUpdateSQL('subjects', { firstname: '12' }, { id: 1 }));
@@ -52,10 +52,10 @@ DB.api.addSubject({
 })
 const getSettings = _ => fs.readFile(settingsFile, { encoding: 'utf8' }).then(res => JSON.parse(res));
 */
-DB.subject.import()([
-  {firstname:'prout',lastname:'test',birthdate:'',gender:'M',uuid:'aaa',mesures:[{date:'1980-01-01',examinator:'bob'}]}
+/*DB.subject.import()([
+  {firstname:'hello',lastname:'test',birthdate:'',gender:'M',uuid:'aaa',mesures:[]}
 ])
-
+*/
 
 app.disableHardwareAcceleration();
 
@@ -298,7 +298,8 @@ ipcMain.handle('sqlite-query', async (event, {type,table,query,values,filter,fn=
 ipcMain.handle('sqlite-import', async (event,message)=>{
   try{
   console.log(message)
-   currentSQLite.subject.import()(message);
+   let res = currentSQLite.subject.import().immediate(message);
+   console.log(res);
   }catch(e){
     return Promise.reject(e)
   }

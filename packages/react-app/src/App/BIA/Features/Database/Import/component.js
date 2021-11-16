@@ -80,7 +80,8 @@ export default props => {
                 'age': 'age',
                 'sexe': { name: 'gender', transform: "(state,value) => value.sexe =='H'? 'M': 'F'" },
                 'poidsHab': 'usual_weight',
-                'tailleHab': 'usual_height'
+                'tailleHab': 'usual_height',
+                'PatientUuid' : 'uuid'
             },
             mesure: {
                 'dateExam': 'date',
@@ -107,6 +108,7 @@ export default props => {
                 'nomExaminateur': 'examinator',
                 'taille': 'height',
                 'appareil': 'machine',
+                'mesureUuid': 'uuid'
 
                 /*  't2R': {name:'bia', transform: "(state={},value)=>({...state,ht2r: value.t2R})"},
                   'dens': {name:'bia', transform: "(state={},value)=>({...state,density: value.dens})"},

@@ -39,6 +39,8 @@ export const parse = ({
 
     const total = data.length;
     const report_every = 2000;
+    const post_every = 200;
+    let count_post = 0;
     let count = 0;
     total_count(total);
     progress(total, 0);
@@ -57,6 +59,8 @@ export const parse = ({
 
     }).reduce((carry, item, idx) => {
         count++;
+        count_post++;
+
         if (count > report_every) {
             progress(total, idx);
             count = 0;
@@ -80,9 +84,7 @@ export const parse = ({
         const patient_keys = Object.keys(mapping.patient);
         const [patient, mesure] = filterPropPresentIn(patient_keys, item);
         const index_key = item[identifier];
-      /*  if(carry.index_key !== index_key){
-            delete carry.data[carry.index_key]
-        }*/
+        
         if (typeof carry.data[index_key] == "undefined") {
 
             const p = enlist(patient).reduce(remap(patient, mapping.patient), {});
@@ -118,12 +120,21 @@ export const parse = ({
         carry.data[index_key].mesures.push(remapped_mesure);
         carry.data[index_key].mesures_dates.push(remapped_mesure.date);
 
-        carry.countMesure++;
 
+        if(carry.index_key !== index_key &&count_post> post_every  ){
+            callback({ count:count_post, post:{
+                list:carry.list,
+               
+              }});
+            carry.data={}
+            carry.list = []
+            count_post = 0;
+        }
+        carry.countMesure++;
         return carry;
     }, { data: {}, collectors, list: [], countPatient: 0, countMesure: 0,index_key:'' });
     progress(total, 100);
 
-    callback({ result: data })
+    callback({ result: data,count:count_post })
 
 }

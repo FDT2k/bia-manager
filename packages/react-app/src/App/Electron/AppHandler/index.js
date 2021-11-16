@@ -44,7 +44,6 @@ export const Component = props => {
         start_loading("Waiting on user confirmation");
         open_file(electron_open)
             .then(result => {
-                debugger;
                 stop_loading()
                 if (result) {
                     window.location.hash = '#/search'
@@ -83,14 +82,11 @@ export const Component = props => {
     }
 
     const unlockSQLite = key => {
-        debugger;
 
         sqlite_unlock(key).then(res => {
-            debugger;
             do_sqlite_unlock();
             window.location.hash = '#/search'
         }).catch(err => {
-            debugger;
             add_error(err.message)
         })
 
@@ -102,7 +98,6 @@ export const Component = props => {
 
     const init = () => {
         get_file_state().then(res=> {
-        debugger;
 
             init_app(res);
         }).catch(add_error)

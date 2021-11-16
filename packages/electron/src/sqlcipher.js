@@ -1,10 +1,9 @@
-import { is_nil, enlist, is_empty } from '@karsegard/composite-js';
-import { key } from '@karsegard/composite-js/ObjectUtils';
+import { is_nil, enlist, is_empty, is_undefined } from '@karsegard/composite-js';
+import { key,keyval } from '@karsegard/composite-js/ObjectUtils';
 import { spreadObjectPresentIn } from '@karsegard/composite-js/ReactUtils'
 import { resolve, join } from 'path'
 import fs from 'fs'
-import { off } from 'process';
-import { get } from 'http';
+
 var sqlite3 = require('better-sqlite3');
 
 
@@ -129,6 +128,37 @@ const API = db => {
 
 }
 
+const _to_boolean = (value)=> {
+    if(value ===true){
+        return 1;
+    }
+    return 0;
+}
+
+const _to_json = (values)=>{
+    return JSON.stringify(values);
+}
+
+const _transform = (schema,data)=> {
+    let result =  enlist(schema).reduce((carry,item)=>{
+        const [field,type]= keyval(item);
+        console.log(type)
+        if(!is_empty(type) && !is_undefined(data[field])){
+            if(type==='boolean'){
+                carry[field] = _to_boolean(data[field])
+            }else if(type==='json') {
+                carry[field] = _to_json(data[field])
+
+            }
+        }else{
+            carry[field]= data[field] || '';
+        }
+
+        return carry;
+    },{})
+    return result;
+}
+
 
 const mesure= (db,api)=> {
 
@@ -136,6 +166,23 @@ const mesure= (db,api)=> {
         date:'',
         examinator:'',
         subject_id:'',
+        height: '',
+        weight: '',
+        bmi: '',
+        left_side: 'boolean',
+        machine: '',
+        smoker: 'boolean',
+        bmi_ref: '',
+        status: '',
+        ideal_weight: '',
+        pct_ideal_weight: '',
+        most_accurate_formula: '',
+        current_age: '',
+        data:'json',
+        sport:'json',
+        fds:'json',
+        uuid:''
+
     }
 
 
@@ -149,10 +196,8 @@ const mesure= (db,api)=> {
     module.update = (schema,filter)=> db.prepare(api.genUpdateSQL('mesures',schema,filter))
 
     module.upsert = keys=> db.transaction(subject=> {
-
-        const [filter,_values] =  spreadObjectPresentIn(keys,subject);
+        const [filter,_values] =  spreadObjectPresentIn(keys,subject);  
         const [values,_] =  spreadObjectPresentIn(Object.keys(schema),_values);
-        console.log(values,filter)
         let result =module.select(filter).get(filter)
 
         if( !is_empty(result)){
@@ -164,10 +209,11 @@ const mesure= (db,api)=> {
     })
 
     module.import = subject_id=> db.transaction((mesures)=>{
-        console.log('importing',mesures.length)
+        console.log('importing mesures','count',mesures.length)
         for(let mesure of mesures) {
             mesure.subject_id=subject_id;
-            module.upsert(['subject_id','date'])(mesure)
+
+            module.upsert(['uuid'])(_transform(schema,mesure))
         }
     })
 
@@ -200,7 +246,6 @@ const subject= (db,api)=> {
 
         const [filter,_values] =  spreadObjectPresentIn(keys,subject);
         const [values,_] =  spreadObjectPresentIn(Object.keys(schema),_values);
-        console.log(values,filter)
         let result =module.select({uuid:''}).get(filter)
 
         let ret
@@ -219,9 +264,9 @@ const subject= (db,api)=> {
     module.import = _=> db.transaction((subjects)=>{
         console.log('importing',subject.length)
         for(let subject of subjects) {
-            let subject_id = module.upsert(['uuid'])(subject)
+            let subject_id = module.upsert(['uuid'])(_transform(schema,subject))
             
-            _mesure.import(subject_id)(subject.mesures);
+          //  _mesure.import(subject_id)(subject.mesures);
         }
     })
 

@@ -58,7 +58,6 @@ export default (getModule) => {
 
     actions.open_file = ({ file }) => (dispatch, getState) => {
         console.log(file)
-        debugger;
 
         return dispatch(actions.async_api('sqlite_open', { filename: file }))
             .then(res => {

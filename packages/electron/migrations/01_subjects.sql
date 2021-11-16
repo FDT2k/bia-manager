@@ -12,5 +12,6 @@ CREATE TABLE IF NOT EXISTS subjects (
     search_terms TEXT,
     usual_height FLOAT,
     usual_weight FLOAT,
-    medical_data TEXT
+    medical_data TEXT,
+    uuid TEXT
 );
