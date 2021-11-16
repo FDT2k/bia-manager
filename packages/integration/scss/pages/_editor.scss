@@ -11,7 +11,7 @@ $max-editor-value: (727px - (16 * 10)) / 11;
   // grid-template-rows: [header] min-content [content] auto [comments] auto;
   grid-template:
     [header] "header header header header header header header header header header header header header header header header header header" min-content
-    [content] "left-aside left-aside . editor editor editor editor editor editor editor editor editor editor editor . right-aside right-aside right-aside" auto
+    [content] "left-aside left-aside . editor editor editor editor editor editor editor editor editor editor editor . right-aside right-aside right-aside" min-content
     [comments] "left-aside left-aside . comments comments comments comments comments comments comments comments comments comments comments . right-aside right-aside right-aside" auto
     / minmax($asides-value, 1fr) minmax($asides-value, 1fr)
     1fr
@@ -35,7 +35,7 @@ $max-editor-value: (727px - (16 * 10)) / 11;
         justify-content: start;
 	    background-color: var(--tertiary);
         width: fit-content;
-        margin-bottom: 16px;
+        margin-bottom: 32px;
         @extend %radius;
         @extend %large-body;
 
@@ -102,34 +102,42 @@ $max-editor-value: (727px - (16 * 10)) / 11;
     }
 
     .tabs__panel {
-        gap: 16px;
+        column-gap: 16px;
+        row-gap: 32px;
 
         &__form {
             gap: 16px;
+            
+            &__line {
+                column-gap: 16px;
+                row-gap: 32px;
 
-            .field {
-                flex-grow: 2;
-                &.date-examen,
-                &.activite-physique,
-                &.type-activite-physique,
-                &.taille,
-                &.poids-actuel {
-                    flex-grow: 3;
+                .field {
+                    flex-grow: 2;
+                    &.date-examen,
+                    &.activite-physique,
+                    &.type-activite-physique,
+                    &.taille,
+                    &.poids-actuel {
+                        flex-grow: 3;
+                    }
+
+                    &.fumeur,
+                    &.cote-mesure {
+                        max-width: calc( #{$editor-value} * 3 );
+                    }
+
                 }
-
-                &.fumeur,
-                &.cote-mesure {
-                    max-width: calc( #{$editor-value} * 3 );
-                }
-
             }
+
         }
 
         &__impedance {
             display: grid;
             grid-template-rows: auto;
             grid-template-columns: repeat(11, 1fr);
-            gap: 16px;
+            column-gap: 16px;
+            row-gap: 8px;
             align-items: center;
 
             > * {
@@ -154,6 +162,9 @@ $max-editor-value: (727px - (16 * 10)) / 11;
                     border: none;
                     width: 100%;
                 }
+            }
+            .field__label {
+                margin-bottom: inherit;
             }
 
             &__header {
@@ -205,9 +216,7 @@ $max-editor-value: (727px - (16 * 10)) / 11;
             grid-column: span 11;
         }
 
-        .field__label {
-            margin-bottom: inherit;
-        }
+
     }
 
 

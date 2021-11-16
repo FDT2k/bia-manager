@@ -184,78 +184,79 @@
 
             <!-- BIA -->
             <div class="tabs__panel tabs__panel--bia active flex-column">
-                <div class="tabs__panel__form flex-row just-between no-wrap">
-                    <div class="field date-examen">
-                        <label class="field__label">Date&nbsp;d'Examen</label>
-                        <div class="field__field">
-                            <div class="react-datepicker-wrapper">
-                                <div class="react-datepicker__input-container">
-                                    <div class="editable-field">02.12.2017</div>
+                <div class="tabs__panel__form flex-column">
+                    <div class="tabs__panel__form__line flex-row just-between no-wrap">
+                        <div class="field date-examen">
+                            <label class="field__label">Date&nbsp;d'Examen</label>
+                            <div class="field__field">
+                                <div class="react-datepicker-wrapper">
+                                    <div class="react-datepicker__input-container">
+                                        <div class="editable-field">02.12.2017</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="field activite-physique">
+                            <label class="field__label">Activité&nbsp;physique</label>
+                            <div class="field__field">
+                                <select tabindex="2" name="sport.rate">
+                                    <option value="inconnue">inconnue</option>
+                                    <option value="modérée">modérée</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="field type-activite-physique">
+                            <label class="field__label">Type&nbsp;d'Activité&nbsp;physique</label>
+                            <div class="field__field">
+                                <select tabindex="2" name="sport.type">
+                                    <option value="inconnue">inconnue</option>
+                                    <option value="N/A">N/A</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="field fumeur">
+                            <label class="field__label">Fumeur</label>
+                            <div class="field__field">
+                                <div class="toggle-switch">
+                                    <input type="checkbox" class="toggle-switch-checkbox" tabindex="3" id="smoker" name="smoker">
+                                    <label class="toggle-switch-label" for="smoker">
+                                        <span class="toggle-switch-inner" data-yes="Oui" data-no="Non"></span>
+                                        <span class="toggle-switch-switch"></span>
+                                    </label>
                                 </div>
                             </div>
                         </div>
                     </div>
-
-                    <div class="field activite-physique">
-                        <label class="field__label">Activité&nbsp;physique</label>
-                        <div class="field__field">
-                            <select tabindex="2" name="sport.rate">
-                                <option value="inconnue">inconnue</option>
-                                <option value="modérée">modérée</option>
-                            </select>
+                    <div class="tabs__panel__form__line flex-row just-between no-wrap">
+                        <div class="field taille">
+                            <label class="field__label">Taille(cm)</label>
+                            <div class="field__field">
+                                <input type="text" tabindex="4" name="height" value="161.0">
+                            </div>
                         </div>
-                    </div>
-
-                    <div class="field type-activite-physique">
-                        <label class="field__label">Type&nbsp;d'Activité&nbsp;physique</label>
-                        <div class="field__field">
-                            <select tabindex="2" name="sport.type">
-                                <option value="inconnue">inconnue</option>
-                                <option value="N/A">N/A</option>
-                            </select>
+                        <div class="field poids-actuel">
+                            <label class="field__label">Poids&nbsp;Actuel(kg)</label>
+                            <div class="field__field">
+                                <input type="text" tabindex="5" name="weight" value="56.5">
+                            </div>
                         </div>
-                    </div>
-
-                    <div class="field fumeur">
-                        <label class="field__label">Fumeur</label>
-                        <div class="field__field">
-                            <div class="toggle-switch">
-                                <input type="checkbox" class="toggle-switch-checkbox" tabindex="3" id="smoker" name="smoker">
-                                <label class="toggle-switch-label" for="smoker">
-                                    <span class="toggle-switch-inner" data-yes="Oui" data-no="Non"></span>
-                                    <span class="toggle-switch-switch"></span>
-                                </label>
+                        <div class="field cote-mesure">
+                            <label class="field__label">Coté&nbsp;mesuré</label>
+                            <div class="field__field">
+                                <div class="toggle-switch">
+                                    <input type="checkbox" class="toggle-switch-checkbox" tabindex="6" name="left_side" id="left_side">
+                                    <label class="toggle-switch-label" for="left_side">
+                                        <span class="toggle-switch-inner" data-yes="Gauche" data-no="Droit"></span>
+                                        <span class="toggle-switch-switch"></span>
+                                    </label>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
-                <div class="tabs__panel__form flex-row just-between no-wrap">
-                    <div class="field taille">
-                        <label class="field__label">Taille(cm)</label>
-                        <div class="field__field">
-                            <input type="text" tabindex="4" name="height" value="161.0">
-                        </div>
-                    </div>
-                    <div class="field poids-actuel">
-                        <label class="field__label">Poids&nbsp;Actuel(kg)</label>
-                        <div class="field__field">
-                            <input type="text" tabindex="5" name="weight" value="56.5">
-                        </div>
-                    </div>
-                    <div class="field cote-mesure">
-                        <label class="field__label">Coté&nbsp;mesuré</label>
-                        <div class="field__field">
-                            <div class="toggle-switch">
-                                <input type="checkbox" class="toggle-switch-checkbox" tabindex="6" name="left_side" id="left_side">
-                                <label class="toggle-switch-label" for="left_side">
-                                    <span class="toggle-switch-inner" data-yes="Gauche" data-no="Droit"></span>
-                                    <span class="toggle-switch-switch"></span>
-                                </label>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
                 <!-- Impedance form -->
                 <div class="tabs__panel__impedance tabs__panel__impedance--form flex-column">
                     <div class="field tabs__panel__impedance__header span-3">
@@ -275,7 +276,7 @@
                     </div>
 
                     <div class="field tabs__panel__impedance__header tabs__panel__impedance__header--left span-3">
-                        <label class="field__label">Resistance(Ω)</label>
+                        <label class="field__label">Résistance(Ω)</label>
                     </div>
                     <div class="field tabs__panel__impedance__content span-2">
                         <label class="field__label"></label>
@@ -319,7 +320,7 @@
                     </div>
 
                     <div class="field tabs__panel__impedance__header tabs__panel__impedance__header--left span-3">
-                        <label class="field__label">Reactance(Ω)</label>
+                        <label class="field__label">Réactance(Ω)</label>
                     </div>
                     <div class="field tabs__panel__impedance__content span-2">
                         <label class="field__label"></label>
@@ -502,174 +503,25 @@
                         <label class="field__label invalid">69.5</label>
                     </div>
 
+                    <!-- Border -->
+                    <div class="field field__line tabs__panel__impedance__content span-11"></div>
+
                 </div>
 
-
-
-
-
-
-                <div class="container  container--fit container--grow">
-                    <!-- <div class="layout-grid comparison-grid" style="grid-template-columns: 2fr 1fr 1fr 1fr; grid-auto-rows: 1fr;">
-                        <div></div>
-                        <div class="row header">Norme</div>
-                        <div class="row header">
-                            <select>
-                                <option value="kushner" disabled="">Kushner</option>
-                                <option value="segal">Segal</option>
-                                <option disabled="" value="gva">Gva</option>
-                            </select>
-                        </div>
-                        <div class="row header">
-                            <select>
-                                <option value="kushner" disabled="">Kushner</option>
-                                <option value="segal">Segal</option>
-                                <option disabled="" value="gva">Gva</option>
-                            </select>
-                        </div>
-                    </div> -->
-                    <!-- Récapitulatif -->
-                    <!-- <div class="tabs__panel">
-                        <div class="layout-flex layout-flex--column" style="gap: 10px;">
-                            <h4>BIA</h4>
-                            <div class="layout-grid recap-grid" style="grid-template-columns: auto auto repeat(6, 1fr); grid-auto-rows: 18px;">
-                                <div class="row header--column"><span>Dates</span></div>
-                                <div class="row header--column"><span>Norme</span></div>
-                                <div class="row header--column"><span>05.12.2015</span></div>
-                                <div class="row header--column"><span>03.12.2016</span></div>
-                                <div class="row header--column"><span>02.12.2017</span></div>
-                                <div class="row header--column"><span> </span></div>
-                                <div class="row header--column"><span> </span></div>
-                                <div class="row header--column"><span> </span></div>
-                                <div class="row header--line">Poids [kg]</div>
-                                <div class="row norme"><span></span></div>
-                                <div class="row value"><span>53.5</span></div>
-                                <div class="row value"><span>54.1</span></div>
-                                <div class="row value"><span>56.5</span></div>
-                                <div class="row value"><span></span></div>
-                                <div class="row value"><span></span></div>
-                                <div class="row value"><span></span></div>
-                                <div class="row header--line">Poids idéal (±10%) [kg]</div>
-                                <div class="row norme"><span></span></div>
-                                <div class="row value"><span>56.9</span></div>
-                                <div class="row value"><span>58.3</span></div>
-                                <div class="row value"><span>58.3</span></div>
-                                <div class="row value"><span></span></div>
-                                <div class="row value"><span></span></div>
-                                <div class="row value"><span></span></div>
-                                <div class="row header--line">% poids idéal</div>
-                                <div class="row norme"><span></span></div>
-                                <div class="row value"><span>94.1%</span></div>
-                                <div class="row value"><span>92.8%</span></div>
-                                <div class="row value"><span>96.9%</span></div>
-                                <div class="row value"><span></span></div>
-                                <div class="row value"><span></span></div>
-                                <div class="row value"><span></span></div>
-                                <div class="row header--line">Taille [cm]</div>
-                                <div class="row norme"><span></span></div>
-                                <div class="row value"><span>159.5</span></div>
-                                <div class="row value"><span>161.0</span></div>
-                                <div class="row value"><span>161.0</span></div>
-                                <div class="row value"><span></span></div>
-                                <div class="row value"><span></span></div>
-                                <div class="row value"><span></span></div>
-                                <div class="row header--line">Eau [kg]</div>
-                                <div class="row norme"><span></span></div>
-                                <div class="row value"><span>28.5</span></div>
-                                <div class="row value"><span>29.2</span></div>
-                                <div class="row value"><span>29.1</span></div>
-                                <div class="row value"><span></span></div>
-                                <div class="row value"><span></span></div>
-                                <div class="row value"><span></span></div>
-                                <div class="row header--line">Eau %</div>
-                                <div class="row norme"><span></span></div>
-                                <div class="row value"><span>53.3%</span></div>
-                                <div class="row value"><span>54.0%</span></div>
-                                <div class="row value"><span>51.5%</span></div>
-                                <div class="row value"><span></span></div>
-                                <div class="row value"><span></span></div>
-                                <div class="row value"><span></span></div>
-                                <div class="row header--line">Masse maigre [kg]</div>
-                                <div class="row norme"><span></span></div>
-                                <div class="row value"><span>38.0</span></div>
-                                <div class="row value"><span>39.0</span></div>
-                                <div class="row value"><span>39.3</span></div>
-                                <div class="row value"><span></span></div>
-                                <div class="row value"><span></span></div>
-                                <div class="row value"><span></span></div>
-                                <div class="row bold header--line">Masse maigre %</div>
-                                <div class="row bold norme"><span>64.6-82.3</span></div>
-                                <div class="row bold value"><span>71.0%</span></div>
-                                <div class="row bold value"><span>72.0%</span></div>
-                                <div class="row bold value"><span>69.6%</span></div>
-                                <div class="row bold value"><span></span></div>
-                                <div class="row bold value"><span></span></div>
-                                <div class="row bold value"><span></span></div>
-                                <div class="row header--line">Masse maigre sèche [kg]</div>
-                                <div class="row norme"><span></span></div>
-                                <div class="row value"><span>9.5</span></div>
-                                <div class="row value"><span>9.8</span></div>
-                                <div class="row value"><span>10.2</span></div>
-                                <div class="row value"><span></span></div>
-                                <div class="row value"><span></span></div>
-                                <div class="row value"><span></span></div>
-                                <div class="row bold header--line">Masse maigre sèche %</div>
-                                <div class="row bold norme"><span>17.5-20.4</span></div>
-                                <div class="row bold value"><span>17.7%</span></div>
-                                <div class="row bold value"><span>18.1%</span></div>
-                                <div class="row bold value"><span>18.1%</span></div>
-                                <div class="row bold value"><span></span></div>
-                                <div class="row bold value"><span></span></div>
-                                <div class="row bold value"><span></span></div>
-                                <div class="row header--line">Masse grasse [kg]</div>
-                                <div class="row norme"><span></span></div>
-                                <div class="row value"><span>15.5</span></div>
-                                <div class="row value"><span>15.1</span></div>
-                                <div class="row value"><span>17.2</span></div>
-                                <div class="row value"><span></span></div>
-                                <div class="row value"><span></span></div>
-                                <div class="row value"><span></span></div>
-                                <div class="row bold header--line">Masse grasse %</div>
-                                <div class="row bold norme"><span>17.7-35.4</span></div>
-                                <div class="row bold value"><span>29.0%</span></div>
-                                <div class="row bold value"><span>28.0%</span></div>
-                                <div class="row bold value"><span>30.4%</span></div>
-                                <div class="row bold value"><span></span></div>
-                                <div class="row bold value"><span></span></div>
-                                <div class="row bold value"><span></span></div>
-                                <div class="row header--line">Indice de masse corporelle (BMI) [kg/m2]</div>
-                                <div class="row norme"><span></span></div>
-                                <div class="row value"><span>21.0</span></div>
-                                <div class="row value"><span>20.9</span></div>
-                                <div class="row value"><span>21.8</span></div>
-                                <div class="row value"><span></span></div>
-                                <div class="row value"><span></span></div>
-                                <div class="row value"><span></span></div>
-                                <div class="row header--line">Indice de masse grasse (FMI) [kg/m2]</div>
-                                <div class="row norme"><span>3.5-8.7</span></div>
-                                <div class="row value"><span>6.1</span></div>
-                                <div class="row value"><span>5.8</span></div>
-                                <div class="row value"><span>6.6</span></div>
-                                <div class="row value"><span></span></div>
-                                <div class="row value"><span></span></div>
-                                <div class="row value"><span></span></div>
-                                <div class="row header--line">Indice de masse maigre (FFMI) [kg/m2]</div>
-                                <div class="row norme"><span></span></div>
-                                <div class="row value"><span>14.9</span></div>
-                                <div class="row value"><span>15.0</span></div>
-                                <div class="row value"><span>15.2</span></div>
-                                <div class="row value"><span></span></div>
-                                <div class="row value"><span></span></div>
-                                <div class="row value"><span></span></div>
-                            </div>
-                        </div>
-                    </div> -->
-                </div>
             </div>
         </section>
 
         <section class="comments">
-            comments
+            <!-- comments -->
+            <div class="field">
+                <label class="field__label">
+                    Commentaire
+                </label>
+                <div class="field__field">
+                    <textarea class="editable-field" placeholder="Votre remarque..."></textarea>
+                    <!-- <div class="editable-field">21.8</div> -->
+                </div>
+            </div>
         </section>
 
         <aside class="right-aside flex-column">
