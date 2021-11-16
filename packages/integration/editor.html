@@ -5,1739 +5,51 @@
     <link rel="icon" type="image/svg+xml" href="src/favicon.svg">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>BIA-Manager</title>
-    <style type="text/css">
 
-    /* .field.fumeur,
-    .field.cote-mesure,
-    .field.taille {
-    width: calc((var(--col-width) * 2) + (var(--gut-width) * 1));
-            }
-
-            .field.date-examen,
-            .field.birthdate,
-            .field.activite-physique,
-            .field.type-activite-physique,
-            .field.poids-actuel {
-            width: calc((var(--col-width) * 3) + (var(--gut-width) * 2));
-            }
-
-            input,
-            select,
-            textarea,
-            .editable-field,
-            .input-group input[type=text],
-            .field__field>*,
-            .field__field input,
-            .button {
-            border-radius: 4px;
-            } */
-
-
-            /* .bia-main .navbar,
-            .search-grid-layout .autocomplete__item--selected,
-            .button.btn--secondary:hover,
-            .button.btn--secondary:active,
-            .button.btn--secondary:focus,
-            .button {
-            background-color: var(--primary);
-            color: var(--secondary);
-            outline-color: var(--secondary);
-            border-color: var(--secondary);
-            --selected-color: var(--primary);
-            }
-
-            .tabs__tab.selected,
-            .tabs,
-            .button.btn--secondary,
-            .button:hover,
-            .button:active,
-            .button:focus {
-            background-color: var(--secondary);
-            color: var(--primary);
-            outline-color: var(--secondary);
-            border-color: var(--secondary);
-            --selected-color: var(--secondary);
-            } */
-
-
-
-
-            /* Character Styles */
-
-            /* .modal-content h1,
-            .bia-main h1 {
-            font-style: var(--font-style-normal);
-            font-weight: var(--font-weight-bold);
-            font-size: var(--font-size-40);
-            line-height: var(--line-spacing-50);
-            }
-
-            .modal-content h2,
-            .bia-main h2 {
-            font-style: var(--font-style-normal);
-            font-weight: var(--font-weight-normal);
-            font-size: var(--font-size-30);
-            line-height: var(--line-spacing-37-5);
-            }
-
-            .modal-content h3,
-            .bia-main h3 {
-            font-style: var(--font-style-normal);
-            font-weight: var(--font-weight-normal);
-            font-size: var(--font-size-20);
-            line-height: var(--line-spacing-25);
-            }
-
-            tr.selected,
-            tr:hover,
-            .modal-content label,
-            .bia-main label {
-            font-style: var(--font-style-normal);
-            font-weight: var(--font-weight-bold);
-            font-size: var(--font-size-14);
-            line-height: var(--line-spacing-17-5);
-            }
-
-            .modal-content p,
-            .bia-main p {
-            font-style: var(--font-style-normal);
-            font-weight: var(--font-weight-normal);
-            font-size: var(--font-size-14);
-            line-height: var(--line-spacing-17-5);
-            }
-
-            .impedance-form input,
-            .modal-content ::placeholder,
-            .bia-main ::placeholder {
-            font-style: var(--font-style-italic);
-            font-weight: var(--font-weight-normal);
-            font-size: var(--font-size-12);
-            line-height: var(--line-spacing-15);
-            }
-
-            .button,
-            .modal-content h4,
-            .bia-main h4,
-            .modal-content button,
-            .bia-main button {
-            font-style: var(--font-style-normal);
-            font-weight: var(--font-weight-bold);
-            font-size: var(--font-size-14);
-            line-height: var(--line-spacing-17-5);
-            text-transform: var(--text-transform-uppercase);
-            cursor: pointer;
-            }
-
-            .modal-content,
-            .bia-main {
-            font: var(--font-style-normal) normal var(--font-weight-normal) var(--font-size-14)/var(--line-spacing-17-5) var(--font-family-aktiv-grotesk);
-            letter-spacing: var(--character-spacing-0);
-            }
-
-            .modal-content b,
-            .bia-main b,
-            .modal-content label,
-            .bia-main label {
-            font-weight: var(--font-weight-bold);
-            }
-
-            .button {
-            min-width: calc((var(--col-width) * 3) + (var(--gut-width) * 2));
-            width: auto;
-            padding: 8px 16px;
-            background-color: var(--primary);
-            border: 1px solid var(--primary);
-            }
-
-            .button:hover,
-            .button:active,
-            .button:focus {
-            cursor: pointer;
-            }
-
-            .button:hover {
-            border: 1px solid var(--primary);
-            }
-
-            .button--big {
-            height: 42px;
-            min-width: calc((var(--col-width) * 5) + (var(--gut-width) * 4));
-            }
-
-            .button--small {
-            height: 21px;
-            padding: 0px;
-            max-width: 100%;
-            }
-
-            .button.btn--secondary {
-            border: 1px solid var(--primary);
-            }
-
-            .button__svg {
-            margin-left: 8px;
-            } */
-
-            /* .page-create-subject .field {
-            margin-right: 0;
-            margin-bottom: 0;
-            }
-
-            .field {
-            margin-right: var(--gut-width);
-            margin-bottom: 16px;
-            }
-
-            .field--one {
-            margin-right: inherit;
-            }
-
-            .field__label {
-            display: inline-block;
-            margin-bottom: 8px;
-            }
-
-            .field__field {
-            width: 100%;
-            }
-
-            .field__field>*,
-            .field__field input {
-            width: 100%;
-            height: 32px;
-            display: flex;
-            align-items: center;
-            }
-
-            .field__field input:not([type=checkbox]),
-            .field__field select {
-            width: 100%;
-            border: solid 1px var(--primary);
-            }
-
-            .field__field select.editable-field {
-            padding-top: 6px;
-            }
-
-            .field__field.error input,
-            .field__field.error input:focus {
-            border: solid 1px var(--color-invalid);
-            }
-
-            .field__field .error {
-            font-size: 12px;
-            color: var(--color-invalid);
-            margin-top: 8px;
-            height: inherit;
-            }
-
-            .field .editable-field {
-            min-height: 30px;
-            background-color: var(--tertiary);
-            }
-
-            .field.fumeur {
-            margin-right: inherit;
-            } */
-            /*
-            .editable-field {
-            border: 1px solid var(--tertiary);
-            display: flex;
-            justify-content: center;
-            flex-direction: column;
-            align-items: flex-start;
-            }
-
-            .editable-field.edited {
-            display: inline-block;
-            }
-
-            .editable {
-            border: 1px solid var(--primary);
-            }
-
-            .input-group {
-            padding-bottom: 16px;
-            }
-
-            .input-group label {
-            padding-bottom: 8px;
-            }
-
-            .input-group input[type=text] {
-            height: 32px;
-            border: 1px solid var(--primary);
-            padding: 0px 16px;
-            }
-
-            .list-mesure--selected {
-            font-weight: bold;
-            }
-
-            .list-mesure .action-icon {
-            cursor: pointer;
-            }
-
-            .impedance-form {
-            margin-bottom: 16px;
-            }
-
-            .impedance-form__line-header {
-            font-weight: bold;
-            text-align: left;
-            }
-
-            .impedance-form__header {
-            font-weight: bold;
-            }
-
-            .impedance-form input {
-            width: 100%;
-            height: 100%;
-            text-align: center;
-            color: var(--tertiary--dark);
-            }
-
-            .impedance-form .editable-field {
-            align-items: center;
-            } */
-
-
-            /*ca va bouger, j'ai fait une betise (fabien) */
-
-            /* .bia-main-layout {
-            grid-template-columns: 100%;
-            grid-template-rows: 52px auto 52px;
-            grid-template-areas: " header "" maincontent "" footer ";
-            } */
-
-            /* .bia-main__content {
-            max-width: 100%;
-            padding: 0px var(--marge-width);
-            }
-
-            .bia-main .navbar {
-            padding: 0px var(--marge-width);
-            }
-
-            .bia-main__content {
-            overflow-y: auto;
-            }
-
-            button { */
-            /*  &:hover, &:active, &:focus{
-            @extend %colors-positive;
-            }*/
-            /* }
-
-            input,
-            select,
-            textarea,
-            .editable-field {
-            box-sizing: border-box;
-            padding: 0px 16px;
-            }
-
-            input,
-            select,
-            textarea {
-            border: 1px solid var(--primary);
-            }
-
-            tr {
-            cursor: pointer;
-            }
-
-            .modal-overlay {
-            background-color: var(--primary);
-            opacity: 0.3;
-            }
-
-            .modal-content {
-            z-index: 100000;
-            background-color: var(--secondary);
-            }
-
-            .modal-content-box {
-            max-width: 300px;
-            z-index: 100001;
-            min-width: 300px;
-            min-height: 300px;
-            }
-
-            .modal-content-box .title {
-            text-align: center;
-            }
-
-            .page-header {
-            border-bottom: 1px solid black;
-            } */
-
-            /* .page-header__field b {
-            margin-bottom: 4px;
-            } */
-
-            /* .field--radio {
-            background-color: red;
-            } */
-
-            /* Character Styles */
-            /* .recap-grid .row {
-            font-style: var(--font-style-normal);
-            font-weight: var(--font-weight-normal);
-            font-size: var(--font-size-10);
-            line-height: var(--line-spacing-15);
-            }
-
-            .impedance-form input {
-            font-style: var(--font-style-italic);
-            font-weight: var(--font-weight-normal);
-            font-size: var(--font-size-12);
-            line-height: var(--line-spacing-15);
-            }
-
-            .button {
-            font-style: var(--font-style-normal);
-            font-weight: var(--font-weight-bold);
-            font-size: var(--font-size-14);
-            line-height: var(--line-spacing-17-5);
-            text-transform: var(--text-transform-uppercase);
-            cursor: pointer;
-            } */
-            </style>
-            <style type="text/css">
-            /*
-            * react-circular-progressbar styles
-            * All of the styles in this file are configurable!
-            */
-
-            /* .CircularProgressbar { */
-            /*
-            * This fixes an issue where the CircularProgressbar svg has
-            * 0 width inside a "display: flex" container, and thus not visible.
-            */
-            /* width: 100%; */
-            /*
-            * This fixes a centering issue with CircularProgressbarWithChildren:
-            * https://github.com/kevinsqi/react-circular-progressbar/issues/94
-            */
-            /* vertical-align: middle;
-            }
-
-            .CircularProgressbar .CircularProgressbar-path {
-            stroke: #3e98c7;
-            stroke-linecap: round;
-            -webkit-transition: stroke-dashoffset 0.5s ease 0s;
-            transition: stroke-dashoffset 0.5s ease 0s;
-            }
-
-            .CircularProgressbar .CircularProgressbar-trail {
-            stroke: #d6d6d6; */
-            /* Used when trail is not full diameter, i.e. when props.circleRatio is set */
-            /* stroke-linecap: round;
-            }
-
-            .CircularProgressbar .CircularProgressbar-text {
-            fill: #3e98c7;
-            font-size: 20px;
-            dominant-baseline: middle;
-            text-anchor: middle;
-            }
-
-            .CircularProgressbar .CircularProgressbar-background {
-            fill: #d6d6d6;
-            } */
-
-            /*
-            * Sample background styles. Use these with e.g.:
-            *
-            *   <CircularProgressbar
-            *     className="CircularProgressbar-inverted"
-            *     background
-            *     percentage={50}
-            *   />
-            */
-            /* .CircularProgressbar.CircularProgressbar-inverted .CircularProgressbar-background {
-            fill: #3e98c7;
-            }
-
-            .CircularProgressbar.CircularProgressbar-inverted .CircularProgressbar-text {
-            fill: #fff;
-            }
-
-            .CircularProgressbar.CircularProgressbar-inverted .CircularProgressbar-path {
-            stroke: #fff;
-            }
-
-            .CircularProgressbar.CircularProgressbar-inverted .CircularProgressbar-trail {
-            stroke: transparent;
-            } */
-            </style>
-            <style type="text/css">
-
-            /* .setup-container {
-            width: calc((var(--col-width) * 6) + (var(--gut-width) * 5));
-            }
-
-            .setup-container h2 {
-            margin-bottom: 16px;
-            } */
-            </style>
-            <style type="text/css">
-            /* .container-modal {
-            border-radius: 4px;
-            box-shadow: #5a5a5a 0px 0px 5px 0px;
-            position: absolute;
-            /* never goes more than the viewport*/
-            /* }
-            .container-modal--cover {
-            width: 100%;
-            min-width: 100%;
-            height: 100%;
-            min-height: 100%;
-            }
-
-            .container-modal--contained {
-            max-width: 100%;
-            max-height: 100%;
-            }
-
-            .container-modal--grow {
-            max-height: none;
-            max-width: none;
-            }
-
-            .container-modal--fit {
-            height: auto;
-            width: auto;
-            min-width: auto;
-            min-height: auto;
-            }
-
-            .container-modal--scrollable {
-            overflow-y: auto;
-            }
-
-            .container-modal--debug {
-            background-color: #17cf10 !important;
-            outline: 2px solid #c4dff2 !important;
-            }
-
-            .container-modal--bottom {
-            bottom: 0px;
-            }
-
-            .container-modal--contained {
-            max-width: 100%;
-            max-height: 100%;
-            overflow: hidden;
-            }
-
-            .container-modal--scrollable {
-            overflow: auto;
-            }
-
-            .modal-form {
-            width: calc((var(--col-width) * 8) + (var(--gut-width) * 5));
-            padding: 20px;
-            }
-
-            .modal-form input {
-            width: 100%;
-            }
-
-            .modal-form h2,
-            .modal-form h3,
-            .modal-form p {
-            margin-bottom: 16px;
-            } */
-
-            </style>
-            <style type="text/css">
-            /* .list-editor .item-actions {
-            cursor: pointer;
-            align-items: center;
-            }
-
-            .list-editor .item-actions div {
-            padding: 5px;
-            }
-
-            .list-editor .crud-filter {
-            width: 100%;
-            height: 100%;
-            }
-
-            .list-editor .crud .column-header {
-            font-weight: bold;
-            }
-
-            .list-editor .crud--list {
-            align-items: center;
-            } */
-            </style>
-
-            <style type="text/css">
-            /*
-            @media print {
-
-            html,
-            body {
-            height: initial !important;
-            overflow: initial !important;
-            -webkit-print-color-adjust: exact;
-            }
-
-            .page-break {
-            margin-top: 1rem;
-            display: block;
-            page-break-before: auto;
-            }
-
-            .printable {
-            display: block;
-            max-height: 100vh;
-            }
-            }
-
-            @page {
-            size: A4 portrait;
-            margin: 10mm;
-            }
-
-            @media screen {
-            .printable {
-            page-break-inside: avoid;
-            display: none;
-            }
-
-            .printable div {
-            display: block;
-            }
-            } */
-            </style>
-            <style type="text/css">
-            /* .recap-grid {
-            align-items: center;
-            justify-items: center;
-            max-height: 100%;
-            }
-
-            .recap-grid .sep {
-            grid-column-start: 1;
-            grid-column-end: 9;
-            min-height: 1px;
-            width: 100%;
-            background-color: red;
-            }
-
-            .recap-grid .header--column {
-            font-weight: bold;
-            }
-
-            .recap-grid .row {
-            display: flex;
-            align-items: center;
-            border-bottom: 1px solid black;
-            min-width: 100%;
-            min-height: 100%;
-            }
-
-            .recap-grid .row.bold {
-            font-weight: bold;
-            }
-
-            .recap-grid .row span {
-            padding-left: 5px;
-            padding-right: 5px;
-            } */
-            </style>
-            <style type="text/css">
-            /* .debug div {
-            outline: 1px solid red;
-            }
-
-            .debug.layout-grid {
-            height: 100%;
-            min-height: 100%;
-            }
-
-            .report sup {
-            vertical-align: super;
-            font-size: smaller;
-            } */
-            </style>
-            <style type="text/css">
-            /* :root {
-            --tab-width: 150px;
-            --tab-height: 32px;
-            --active-tab: 1;
-            --selected-color: red;
-            --focused-color: blue;
-            }
-
-            .tabs__list {
-            height: 32px;
-            }
-
-            .tabs__wrapper {
-            position: relative;
-            height: 32px;
-            max-width: 100%;
-            }
-
-            .tabs__container {
-            position: absolute;
-            z-index: 1;
-            height: var(--tab-height);
-            }
-
-            .tabs__tab {
-            width: var(--tab-width);
-            max-width: var(--tab-width);
-            overflow: hidden;
-            cursor: pointer;
-            text-overflow: ellipsis;
-            }
-
-            .tabs__tab:focus {
-            outline: 1px dashed var(--focused-color);
-            }
-
-            .tabs__tab .content {
-            padding: 3px;
-            }
-
-            .tabs__panel {
-            display: none;
-            }
-
-            .tabs__panel.active {
-            display: block;
-            }
-
-            .tabs__background {
-            position: absolute;
-            z-index: 0;
-            border-radius: 4px;
-            max-height: 100%;
-            height: 26px;
-            width: var(--tab-width);
-            transform: translateX(calc(var(--tab-width) * var(--active-tab)));
-            transition: 0.3s ease-in-out;
-            }
-
-            .tabs__background .bg {
-            min-height: 100%;
-            min-width: 100%;
-            background-color: var(--selected-color);
-            margin: 3px;
-            } */
-            </style>
-            <style type="text/css"></style>
-            <style type="text/css"></style>
-            <style type="text/css">
-            /* :root {
-            --template-area: "";
-            --color-invalid: red;
-            }
-
-            .impedance-form {
-            min-height: auto;
-            height: auto;
-            grid-template-columns: var(--width--3-col) var(--width--2-col) var(--width--2-col) var(--width--2-col) var(--width--2-col);
-            grid-template-rows: 16px 32px 32px 32px 32px;
-            column-gap: var(--gut-width);
-            row-gap: 8px;
-            align-items: center;
-            justify-items: stretch;
-            text-align: center;
-            grid-template-areas: ". h_nor h_5 h_50 h_100 ""h_res  f_res_nor res5 res50 res100 ""h_rea f_rea_nor rea5 rea50 rea100 ""h_z f_z_nor z5 z50 z100 ""h_a f_a_nor a5 a50 a100 ";
-            } */
-
-            /* .impedance-form__field--invalid {
-            color: var(--color-invalid);
-            }
-
-            .impedance-form div.editable-field {
-            min-height: 45px;
-            } */
-            </style>
-            <style type="text/css">
-            /* Tooltip container */
-            /* .tooltip {
-            position: relative;
-            display: inline-block;
-            border-bottom: 1px dotted black;
-            /* If you want dots under the hoverable text */
-            /*}
-
-            Tooltip text */
-            /* .tooltip .tooltiptext {
-            visibility: hidden;
-            width: 120px;
-            background-color: black;
-            color: #fff;
-            text-align: center;
-            padding: 5px 0;
-            border-radius: 6px; */
-            /* Position the tooltip text - see examples below! */
-            /* position: absolute;
-            z-index: 1;
-            }
-
-            .tooltip .tooltiptext--right {
-            top: -5px;
-            left: 105%;
-            }
-
-            .tooltip .tooltiptext--left {
-            top: -5px;
-            right: 105%;
-            }
-
-            .tooltip .tooltiptext--top {
-            width: 120px;
-            bottom: 100%;
-            left: 50%;
-            margin-left: -60px; */
-            /* Use half of the width (120/2 = 60), to center the tooltip */
-            /* }
-
-            .tooltip .tooltiptext--bottom {
-            width: 120px;
-            top: 100%;
-            left: 50%;
-            margin-left: -60px;
-            // Use half of the width (120/2 = 60), to center the tooltip
-            } */
-
-            /* Show the tooltip text when you mouse over the tooltip container */
-            /* .tooltip:hover .tooltiptext {
-            visibility: visible;
-            } */
-            </style>
-            <style type="text/css">
-            /* .comparison-grid {
-            align-items: center;
-            }
-
-            .comparison-grid .row.lineheader {
-            font-weight: bold;
-            align-self: center;
-            } */
-            </style>
-            <style type="text/css">
-            /* .force-serrement {
-            align-items: center;
-            }
-
-            .force-serrement input[type=text] {
-            width: 56px;
-            height: 30px;
-            }
-
-            .header,
-            .lineheader {
-            font-weight: bold;
-            } */
-            </style>
-
-            <style type="text/css">
-
-            /* Character Styles */
-
-            /* .printable .recharts-text h1,
-            .printable .recharts-label h1,
-            .printable h1 {
-            font-style: var(--font-style-normal);
-            font-weight: var(--font-weight-bold);
-            font-size: var(--font-size-40);
-            line-height: var(--line-spacing-50);
-            }
-
-            .printable .recharts-text h2,
-            .printable .recharts-label h2,
-            .printable h2 {
-            font-style: var(--font-style-normal);
-            font-weight: var(--font-weight-normal);
-            font-size: var(--font-size-30);
-            line-height: var(--line-spacing-37-5);
-            }
-
-            .printable .recharts-text h3,
-            .printable .recharts-label h3,
-            .printable h3 {
-            font-style: var(--font-style-normal);
-            font-weight: var(--font-weight-normal);
-            font-size: var(--font-size-20);
-            line-height: var(--line-spacing-25);
-            }
-
-            .printable .recharts-text label,
-            .printable .recharts-label label,
-            .printable label {
-            font-style: var(--font-style-normal);
-            font-weight: var(--font-weight-bold);
-            font-size: var(--font-size-14);
-            line-height: var(--line-spacing-17-5);
-            }
-
-            .printable .recharts-text p,
-            .printable .recharts-label p,
-            .printable p {
-            font-style: var(--font-style-normal);
-            font-weight: var(--font-weight-normal);
-            font-size: var(--font-size-14);
-            line-height: var(--line-spacing-17-5);
-            }
-
-            .impedance-form input,
-            .printable .recharts-text ::placeholder,
-            .printable .recharts-label ::placeholder,
-            .printable ::placeholder {
-            font-style: var(--font-style-italic);
-            font-weight: var(--font-weight-normal);
-            font-size: var(--font-size-12);
-            line-height: var(--line-spacing-15);
-            }
-
-            .button,
-            .printable .recharts-text h4,
-            .printable .recharts-label h4,
-            .printable h4,
-            .printable .recharts-text button,
-            .printable .recharts-label button,
-            .printable button {
-            font-style: var(--font-style-normal);
-            font-weight: var(--font-weight-bold);
-            font-size: var(--font-size-14);
-            line-height: var(--line-spacing-17-5);
-            text-transform: var(--text-transform-uppercase);
-            cursor: pointer;
-            }
-
-            .printable .recharts-text,
-            .printable .recharts-label,
-            .printable {
-            font-family: arial, verdana, tahoma, sans-serif;
-            }
-
-
-
-
-
-
-
-
-
-
-
-            .impedance-form__line-header {
-            font-weight: bold;
-            text-align: left;
-            }
-
-            .impedance-form__header {
-            font-weight: bold;
-            }
-
-            .impedance-form input {
-            width: 56px;
-            }
-
-            .bia-mesure-editor {
-            min-width: 100%;
-            width: 100%;
-            }
-
-            .bia-editor__form div.editable-field {
-            min-height: 30px;
-            background-color: var(--tertiary);
-            }
-
-            .bia-editor__form .result-row--upper {
-            color: var(--color-valid);
-            }
-
-            .bia-editor__form .result-row--lesser {
-            color: var(--color-invalid);
-            }
-
-            .printable h3 {
-            margin-bottom: 8px;
-            } */
-            </style>
-            <style type="text/css"></style>
-            <style type="text/css">
-            /* .list-mesure {
-            min-height: 30px;
-            }
-
-            .list-mesure__item {
-            cursor: pointer;
-            } */
-            </style>
-            <style type="text/css">
-
-            /* Character Styles */
-            /*
-            .bia-editor h1 {
-            font-style: var(--font-style-normal);
-            font-weight: var(--font-weight-bold);
-            font-size: var(--font-size-40);
-            line-height: var(--line-spacing-50);
-            }
-
-            .bia-editor h2 {
-            font-style: var(--font-style-normal);
-            font-weight: var(--font-weight-normal);
-            font-size: var(--font-size-30);
-            line-height: var(--line-spacing-37-5);
-            }
-
-            .bia-editor h3 {
-            font-style: var(--font-style-normal);
-            font-weight: var(--font-weight-normal);
-            font-size: var(--font-size-20);
-            line-height: var(--line-spacing-25);
-            }
-
-            .bia-editor label {
-            font-style: var(--font-style-normal);
-            font-weight: var(--font-weight-bold);
-            font-size: var(--font-size-14);
-            line-height: var(--line-spacing-17-5);
-            }
-
-            .bia-editor p {
-            font-style: var(--font-style-normal);
-            font-weight: var(--font-weight-normal);
-            font-size: var(--font-size-14);
-            line-height: var(--line-spacing-17-5);
-            }
-
-            .recap-grid {
-            font-style: var(--font-style-normal);
-            font-weight: var(--font-weight-normal);
-            font-size: var(--font-size-12);
-            line-height: var(--line-spacing-15);
-            }
-
-            .impedance-form input,
-            .bia-editor ::placeholder {
-            font-style: var(--font-style-italic);
-            font-weight: var(--font-weight-normal);
-            font-size: var(--font-size-12);
-            line-height: var(--line-spacing-15);
-            }
-
-            .button,
-            .bia-editor h4,
-            .bia-editor button {
-            font-style: var(--font-style-normal);
-            font-weight: var(--font-weight-bold);
-            font-size: var(--font-size-14);
-            line-height: var(--line-spacing-17-5);
-            text-transform: var(--text-transform-uppercase);
-            cursor: pointer;
-            }
-
-            .bia-editor {
-            font: var(--font-style-normal) normal var(--font-weight-normal) var(--font-size-14)/var(--line-spacing-17-5) var(--font-family-aktiv-grotesk);
-            letter-spacing: var(--character-spacing-0);
-            }
-
-            .bia-editor b,
-            .bia-editor label {
-            font-weight: var(--font-weight-bold);
-            }
-
-            .tabs {
-            --tab-width: calc((var(--col-width) * 2) + var(--gut-width));
-            }
-
-            .tabs__tab.selected {
-            background-color: transparent;
-            }
-
-            .tabs__wrapper {
-            border-radius: 4px;
-            background-color: var(--tertiary);
-            }
-
-            .tabs .tabs__panel {
-            padding-top: var(--gut-width);
-            }
-
-            .page-header {
-            margin-top: calc(var(--gut-2));
-            margin-bottom: calc(var(--gut-2));
-            padding-bottom: calc(var(--gut-2));
-            }
-
-            .bia-editor__patient h2 {
-            margin-bottom: 8px;
-            } */
-
-            /* .bia-editor__patient .patient-header__field b {
-            margin-bottom: 4px;
-            }
-
-            .bia-editor__patient .patient-header___fieldset {
-            padding-top: 11px;
-            padding-bottom: 17px;
-            } */
-
-            /* .bia-editor__mesures .list-mesure__title {
-            margin-bottom: 4px;
-            }
-
-            .bia-editor__mesures .list-mesure__item {
-            margin: 4px 0px;
-            }
-
-            .editor-grid {
-            grid-gap: 10px;
-            } */
-            </style>
-            <style type="text/css">
-
-            /* Character Styles */
-
-            /* .search-grid-layout h1 {
-            font-style: var(--font-style-normal);
-            font-weight: var(--font-weight-bold);
-            font-size: var(--font-size-40);
-            line-height: var(--line-spacing-50);
-            }
-
-            .search-grid-layout h2 {
-            font-style: var(--font-style-normal);
-            font-weight: var(--font-weight-normal);
-            font-size: var(--font-size-30);
-            line-height: var(--line-spacing-37-5);
-            }
-
-            .search-grid-layout h3 {
-            font-style: var(--font-style-normal);
-            font-weight: var(--font-weight-normal);
-            font-size: var(--font-size-20);
-            line-height: var(--line-spacing-25);
-            }
-
-            .search-grid-layout label {
-            font-style: var(--font-style-normal);
-            font-weight: var(--font-weight-bold);
-            font-size: var(--font-size-14);
-            line-height: var(--line-spacing-17-5);
-            }
-
-            .search-grid-layout p {
-            font-style: var(--font-style-normal);
-            font-weight: var(--font-weight-normal);
-            font-size: var(--font-size-14);
-            line-height: var(--line-spacing-17-5);
-            }
-
-            .impedance-form input,
-            .search-grid-layout ::placeholder {
-            font-style: var(--font-style-italic);
-            font-weight: var(--font-weight-normal);
-            font-size: var(--font-size-12);
-            line-height: var(--line-spacing-15);
-            }
-
-            .button,
-            .search-grid-layout h4,
-            .search-grid-layout button {
-            font-style: var(--font-style-normal);
-            font-weight: var(--font-weight-bold);
-            font-size: var(--font-size-14);
-            line-height: var(--line-spacing-17-5);
-            text-transform: var(--text-transform-uppercase);
-            cursor: pointer;
-            }
-
-            .search-grid-layout {
-            font: var(--font-style-normal) normal var(--font-weight-normal) var(--font-size-14)/var(--line-spacing-17-5) var(--font-family-aktiv-grotesk);
-            letter-spacing: var(--character-spacing-0);
-            }
-
-            .search-grid-layout b,
-            .search-grid-layout label {
-            font-weight: var(--font-weight-bold);
-            }
-
-            .search-grid-layout .autocomplete {
-            border: 2px solid var(--primary);
-            }
-
-            .search-grid-layout .pagination {
-            padding-bottom: 8px;
-            }
-
-            .search-grid-layout .pagination .button {
-            min-width: 64px;
-            max-width: 64px;
-            width: 64px;
-            }
-
-            .search-grid-layout .listing thead {
-            font-weight: var(--font-weight-bold);
-            }
-
-            .search-grid-layout .listing th>div {
-            display: flex;
-            flex-direction: row;
-            align-items: center;
-            justify-content: flex-start;
-            }
-
-            .search-grid-layout .listing tr>td,
-            .search-grid-layout .listing th {
-            vertical-align: middle;
-            text-align: left;
-            padding-right: var(--gut-width);
-            width: calc((var(--col-width) * 3) + (var(--gut-width) * 2));
-            }
-
-            .search-grid-layout .listing tr>td:last-child,
-            .search-grid-layout .listing th:last-child {
-            padding-right: 0px;
-            }
-
-            .search-grid-layout .listing tr {
-            border-bottom: 1px solid black;
-            min-height: 48px;
-            height: 48px;
-            }
-
-            .search-grid-layout .advanced-filters {
-            padding-top: 4px;
-            padding-bottom: 16px;
-            }
-
-            .search-grid-layout .tag-input {
-            align-self: center;
-            }
-
-            .search-grid-layout .search {
-            margin: 16px 0px 4px;
-            justify-content: space-between;
-            }
-
-            .search-grid-layout .search .tag-input {
-            height: 40px;
-            min-width: calc((var(--col-width) * 13) + (var(--gut-width) * 12));
-            border: 1px solid var(--primary);
-            border-radius: 4px;
-            opacity: 1;
-            flex-grow: 6;
-            margin-right: var(--gut-width);
-            }
-
-            .search-grid-layout .search .tag-input .tag {
-            background-color: var(--primary);
-            color: var(--secondary);
-            padding: 0px 0px 0px 16px;
-            margin: 2px;
-            height: 34px;
-            border-radius: 4px;
-            }
-
-            .search-grid-layout .search .tag-input .tag button {
-            cursor: pointer;
-            height: 100%;
-            width: auto;
-            padding: 0px 8px;
-            border-radius: 0px 4px 4px 0px;
-            background-color: var(--primary);
-            border: none;
-            color: var(--secondary);
-            }
-
-            .search-grid-layout .search .tag-input input {
-            height: 35px;
-            padding: 0px 16px;
-            }
-
-            .search-grid-layout .search .tag-input input:focus {
-            border: 0px;
-            outline: 0px;
-            }
-
-            .search-grid-layout .search .tag-input input:active {
-            border: 0px;
-            outline: 0px;
-            } */
-            </style>
-            <style type="text/css">
-            /* .tag-input {
-            display: flex;
-            align-items: center;
-            position: relative;
-            max-width: 100%;
-            cursor: text;
-            flex-wrap: wrap;
-            border: 1px solid black;
-            }
-
-            .tag-input .tag {
-            border-radius: 2px;
-            background-color: orange;
-            padding: 2px;
-            margin: 5px;
-            }
-
-            .tag-input input {
-            border: 0;
-            }
-
-            .autocomplete {
-            position: absolute;
-            display: none;
-            z-index: 1000;
-            }
-
-            .autocomplete--visible {
-            display: block;
-            }
-
-            .autocomplete__item {
-            cursor: pointer;
-            min-height: 30px;
-            background-color: white;
-            }
-
-            .autocomplete__item--selected {
-            background-color: pink;
-            } */
-            </style>
-            <style type="text/css">
-            /* .listing {
-            width: 100%;
-            } */
-            </style>
-            <style type="text/css">
-            /* :root {
-            --search-left-margin: 5%;
-            --search-right-margin: 5%;
-            }
-
-            .search-grid-layout {
-            grid-template-columns: 100%;
-            grid-template-rows: fit-content(62px) fit-content(200px) auto;
-            grid-template-areas: "search""filter""list";
-            justify-content: center;
-            align-items: flex-start;
-            } */
-            </style>
-            <style type="text/css">
-            /* .dropdown {
-            position: relative;
-            border: 1px solid black;
-            border-radius: 2px;
-            cursor: pointer;
-            padding: 8px 12px 8px 16px;
-            z-index: 1;
-            }
-
-            .dropdown__content {
-            position: absolute;
-            bottom: 0px;
-            left: 0px;
-            }
-
-            .dropdown__content--visible {
-            display: block;
-            }
-
-            .dropdown__content--hidden {
-            display: none;
-            }
-
-            .dropdown__item {
-            background-color: white;
-            z-index: 9999;
-            padding: 8px 16px;
-            border: 1px solid var(--primary);
-            border-top: none;
-            border-radius: none;
-            min-width: 100%;
-            }
-
-            .dropdown__item:first-child {
-            border-top: solid 1px var(--primary);
-            border-radius: 4px 4px 0px 0px;
-            }
-
-            .dropdown__item:last-child {
-            border-radius: 0px 0px 4px 4px;
-            }
-
-            .dropdown__label {
-            font-weight: bold;
-            }
-
-            .dropdown .react-datepicker-wrapper {
-            text-align: right;
-            }
-
-            .dropdown .react-datepicker-wrapper input {
-            padding: 0px;
-            width: 70px;
-            border: none;
-            } */
-            </style>
-            <style type="text/css">
-            /*** PARENTS ***/
-            /* Order */
-            /* Direction */
-            /* Wrap */
-            /* Justify-Content */
-            /* Align-Items */
-            /* Align-Content */
-            /*** CHILDREN ***/
-            /* Flex-Grow */
-            /* Flex-Shrink */
-            /* Align-Self */
-            /* .layout-flex {
-            display: -webkit-box;
-            display: -moz-box;
-            display: -ms-flexbox;
-            display: -webkit-flex;
-            display: flex;
-            -webkit-box-direction: normal;
-            -webkit-box-orient: horizontal;
-            -webkit-flex-direction: row;
-            -moz-flex-direction: row;
-            -ms-flex-direction: row;
-            flex-direction: row;
-            }
-
-            .layout-flex--inline-reverse-centered {
-            -webkit-box-direction: reverse;
-            -webkit-box-orient: horizontal;
-            -webkit-flex-direction: row-reverse;
-            -moz-flex-direction: row-reverse;
-            -ms-flex-direction: row-reverse;
-            flex-direction: row-reverse;
-            -webkit-box-pack: end;
-            -ms-flex-pack: end;
-            -webkit-justify-content: flex-end;
-            -moz-justify-content: flex-end;
-            justify-content: flex-end;
-            -ms-align-items: center;
-            -webkit-align-items: center;
-            -moz-align-items: center;
-            align-items: center;
-            }
-
-            .layout-flex--inline-centered {
-            -webkit-box-direction: normal;
-            -webkit-box-orient: horizontal;
-            -webkit-flex-direction: row;
-            -moz-flex-direction: row;
-            -ms-flex-direction: row;
-            flex-direction: row;
-            -webkit-box-pack: start;
-            -ms-flex-pack: start;
-            -webkit-justify-content: flex-start;
-            -moz-justify-content: flex-start;
-            justify-content: flex-start;
-            -ms-align-items: center;
-            -webkit-align-items: center;
-            -moz-align-items: center;
-            align-items: center;
-            }
-
-            .layout-flex--column {
-            -webkit-box-direction: normal;
-            -webkit-box-orient: vertical;
-            -webkit-flex-direction: column;
-            -moz-flex-direction: column;
-            -ms-flex-direction: column;
-            flex-direction: column;
-            }
-
-            .layout-flex--list {
-            -webkit-box-direction: normal;
-            -webkit-box-orient: vertical;
-            -webkit-flex-direction: column;
-            -moz-flex-direction: column;
-            -ms-flex-direction: column;
-            flex-direction: column;
-            -ms-align-items: center;
-            -webkit-align-items: center;
-            -moz-align-items: center;
-            align-items: center;
-            height: 100%;
-            width: 100%;
-            }
-
-            .layout-flex--column-reverse {
-            -webkit-box-direction: reverse;
-            -webkit-box-orient: vertical;
-            -webkit-flex-direction: column-reverse;
-            -moz-flex-direction: column-reverse;
-            -ms-flex-direction: column-reverse;
-            flex-direction: column-reverse;
-            }
-
-            .layout-flex--row-reverse {
-            -webkit-box-direction: reverse;
-            -webkit-box-orient: horizontal;
-            -webkit-flex-direction: row-reverse;
-            -moz-flex-direction: row-reverse;
-            -ms-flex-direction: row-reverse;
-            flex-direction: row-reverse;
-            }
-
-            .layout-flex--between {
-            -webkit-box-pack: justify;
-            -ms-flex-pack: justify;
-            -webkit-justify-content: space-between;
-            -moz-justify-content: space-between;
-            justify-content: space-between;
-            }
-
-            .layout-flex--around {
-            -ms-flex-pack: distribute;
-            -webkit-justify-content: space-around;
-            -moz-justify-content: space-around;
-            justify-content: space-around;
-            }
-
-            .layout-flex--evenly {
-            -webkit-justify-content: space-evenly;
-            -moz-justify-content: space-evenly;
-            justify-content: space-evenly;
-            }
-
-            .layout-flex--center {
-            -webkit-box-pack: center;
-            -ms-flex-pack: center;
-            -webkit-justify-content: center;
-            -moz-justify-content: center;
-            justify-content: center;
-            }
-
-            .layout-flex--start {
-            -webkit-box-pack: start;
-            -ms-flex-pack: start;
-            -webkit-justify-content: flex-start;
-            -moz-justify-content: flex-start;
-            justify-content: flex-start;
-            }
-
-            .layout-flex--end {
-            -webkit-box-pack: end;
-            -ms-flex-pack: end;
-            -webkit-justify-content: flex-end;
-            -moz-justify-content: flex-end;
-            justify-content: flex-end;
-            }
-
-            .layout-flex--centered {
-            -ms-align-items: center;
-            -webkit-align-items: center;
-            -moz-align-items: center;
-            align-items: center;
-            -webkit-box-pack: center;
-            -ms-flex-pack: center;
-            -webkit-justify-content: center;
-            -moz-justify-content: center;
-            justify-content: center;
-            }
-
-            .layout-flex--align-stretch {
-            -webkit-box-align: stretch;
-            -ms-flex-align: stretch;
-            -webkit-align-items: stretch;
-            -moz-align-items: stretch;
-            align-items: stretch;
-            }
-
-            .layout-flex--stretch {
-            -webkit-box-pack: stretch;
-            -ms-flex-pack: stretch;
-            -webkit-justify-content: stretch;
-            -moz-justify-content: stretch;
-            justify-content: stretch;
-            }
-
-            .layout-flex--align-start {
-            -webkit-box-align: start;
-            -ms-flex-align: start;
-            -webkit-align-items: flex-start;
-            -moz-align-items: flex-start;
-            align-items: flex-start;
-            }
-
-            .layout-flex--align-center {
-            -ms-align-items: center;
-            -webkit-align-items: center;
-            -moz-align-items: center;
-            align-items: center;
-            }
-
-            .layout-flex--cover {
-            width: 100%;
-            height: 100%;
-            }
-
-            .layout-flex--aspect-fit {
-            display: -webkit-box;
-            display: -moz-box;
-            display: -ms-flexbox;
-            display: -webkit-flex;
-            display: flex;
-            -ms-align-items: center;
-            -webkit-align-items: center;
-            -moz-align-items: center;
-            align-items: center;
-            -webkit-box-pack: center;
-            -ms-flex-pack: center;
-            -webkit-justify-content: center;
-            -moz-justify-content: center;
-            justify-content: center;
-            height: 100%;
-            }
-
-            .layout-flex--aspect-fit>* {
-            max-width: 100%;
-            width: 100%;
-            max-height: 100%;
-            }
-
-            .layout-flex--aspect-fill {
-            display: -webkit-box;
-            display: -moz-box;
-            display: -ms-flexbox;
-            display: -webkit-flex;
-            display: flex;
-            -ms-align-items: center;
-            -webkit-align-items: center;
-            -moz-align-items: center;
-            align-items: center;
-            -webkit-box-pack: center;
-            -ms-flex-pack: center;
-            -webkit-justify-content: center;
-            -moz-justify-content: center;
-            justify-content: center;
-            height: 100%;
-            }
-
-            .layout-flex--aspect-fill>* {
-            object-fit: cover;
-            width: 100%;
-            height: 100%;
-            }
-
-            .layout-flex--wrap {
-            -webkit-flex-wrap: wrap;
-            -moz-flex-wrap: wrap;
-            -ms-flex-wrap: wrap;
-            flex-wrap: wrap;
-            }
-
-            .layout-flex--content-start {
-            -webkit-align-content: flex-start;
-            -moz-align-content: flex-start;
-            -ms-flex-line-pack: start;
-            align-content: flex-start;
-            } */
-
-            /* .layout-grid {
-            display: grid;
-            //Warning, if a grid is has auto cell or row IT WILL NOT GROW To 100% if the child isnot at 100%
-            /*    }
-
-            .layout-grid--cover {
-            width: 100%;
-            min-width: 100%;
-            height: 100%;
-            min-height: 100%;
-            }
-
-            .layout-grid--contained {
-            max-width: 100%;
-            max-height: 100%;
-            }
-
-            .layout-grid--grow {
-            max-height: none;
-            max-width: none;
-            }
-
-            .layout-grid--fit {
-            height: auto;
-            width: auto;
-            min-width: auto;
-            min-height: auto;
-            }
-
-            .layout-grid--scrollable {
-            overflow-y: auto;
-            }
-
-            .layout-grid--debug {
-            background-color: #f6feaa !important;
-            outline: 2px solid #60fecb !important;
-            }
-
-            .layout-grid--r3c1 {
-            grid-template-columns: 100%;
-            grid-template-areas: "top""center""bottom";
-            }
-
-
-            </style>
-            <style data-jss="" data-meta="MuiSvgIcon">
-            .MuiSvgIcon-root {
-            fill: currentColor;
-            width: 1em;
-            height: 1em;
-            display: inline-block;
-            font-size: 1.5rem;
-            transition: fill 200ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
-            flex-shrink: 0;
-            user-select: none;
-            }
-
-            .MuiSvgIcon-colorPrimary {
-            color: #3f51b5;
-            }
-
-            .MuiSvgIcon-colorSecondary {
-            color: #f50057;
-            }
-
-            .MuiSvgIcon-colorAction {
-            color: rgba(0, 0, 0, 0.54);
-            }
-
-            .MuiSvgIcon-colorError {
-            color: #f44336;
-            }
-
-            .MuiSvgIcon-colorDisabled {
-            color: rgba(0, 0, 0, 0.26);
-            }
-
-            .MuiSvgIcon-fontSizeInherit {
-            font-size: inherit;
-            }
-
-            .MuiSvgIcon-fontSizeSmall {
-            font-size: 1.25rem;
-            }
-
-            .MuiSvgIcon-fontSizeLarge {
-            font-size: 2.1875rem;
-            }*/
-            </style>
+    <style data-jss="" data-meta="MuiSvgIcon">
+    .MuiSvgIcon-root {
+    fill: currentColor;
+    width: 1em;
+    height: 1em;
+    display: inline-block;
+    font-size: 1.5rem;
+    transition: fill 200ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
+    flex-shrink: 0;
+    user-select: none;
+    }
+
+    .MuiSvgIcon-colorPrimary {
+    color: #3f51b5;
+    }
+
+    .MuiSvgIcon-colorSecondary {
+    color: #f50057;
+    }
+
+    .MuiSvgIcon-colorAction {
+    color: rgba(0, 0, 0, 0.54);
+    }
+
+    .MuiSvgIcon-colorError {
+    color: #f44336;
+    }
+
+    .MuiSvgIcon-colorDisabled {
+    color: rgba(0, 0, 0, 0.26);
+    }
+
+    .MuiSvgIcon-fontSizeInherit {
+    font-size: inherit;
+    }
+
+    .MuiSvgIcon-fontSizeSmall {
+    font-size: 1.25rem;
+    }
+
+    .MuiSvgIcon-fontSizeLarge {
+    font-size: 2.1875rem;
+    }
+    </style>
 </head>
 
 <body>
@@ -1872,161 +184,344 @@
 
             <!-- BIA -->
             <div class="tabs__panel tabs__panel--bia active flex-column">
-                <div class="tabs__panel__form flex-row just-between no-wrap">
-                    <div class="field date-examen">
-                        <label class="field__label">Date&nbsp;d'Examen</label>
-                        <div class="field__field">
-                            <div class="react-datepicker-wrapper">
-                                <div class="react-datepicker__input-container">
-                                    <div class="editable-field">02.12.2017</div>
+                <div class="tabs__panel__form flex-column">
+                    <div class="tabs__panel__form__line flex-row just-between no-wrap">
+                        <div class="field date-examen">
+                            <label class="field__label">Date&nbsp;d'Examen</label>
+                            <div class="field__field">
+                                <div class="react-datepicker-wrapper">
+                                    <div class="react-datepicker__input-container">
+                                        <div class="editable-field">02.12.2017</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="field activite-physique">
+                            <label class="field__label">Activité&nbsp;physique</label>
+                            <div class="field__field">
+                                <select tabindex="2" name="sport.rate">
+                                    <option value="inconnue">inconnue</option>
+                                    <option value="modérée">modérée</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="field type-activite-physique">
+                            <label class="field__label">Type&nbsp;d'Activité&nbsp;physique</label>
+                            <div class="field__field">
+                                <select tabindex="2" name="sport.type">
+                                    <option value="inconnue">inconnue</option>
+                                    <option value="N/A">N/A</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="field fumeur">
+                            <label class="field__label">Fumeur</label>
+                            <div class="field__field">
+                                <div class="toggle-switch">
+                                    <input type="checkbox" class="toggle-switch-checkbox" tabindex="3" id="smoker" name="smoker">
+                                    <label class="toggle-switch-label" for="smoker">
+                                        <span class="toggle-switch-inner" data-yes="Oui" data-no="Non"></span>
+                                        <span class="toggle-switch-switch"></span>
+                                    </label>
                                 </div>
                             </div>
                         </div>
                     </div>
-
-                    <div class="field activite-physique">
-                        <label class="field__label">Activité&nbsp;physique</label>
-                        <div class="field__field">
-                            <select tabindex="2" name="sport.rate">
-                                <option value="inconnue">inconnue</option>
-                                <option value="modérée">modérée</option>
-                            </select>
+                    <div class="tabs__panel__form__line flex-row just-between no-wrap">
+                        <div class="field taille">
+                            <label class="field__label">Taille(cm)</label>
+                            <div class="field__field">
+                                <input type="text" tabindex="4" name="height" value="161.0">
+                            </div>
                         </div>
-                    </div>
-
-                    <div class="field type-activite-physique">
-                        <label class="field__label">Type&nbsp;d'Activité&nbsp;physique</label>
-                        <div class="field__field">
-                            <select tabindex="2" name="sport.type">
-                                <option value="inconnue">inconnue</option>
-                                <option value="N/A">N/A</option>
-                            </select>
+                        <div class="field poids-actuel">
+                            <label class="field__label">Poids&nbsp;Actuel(kg)</label>
+                            <div class="field__field">
+                                <input type="text" tabindex="5" name="weight" value="56.5">
+                            </div>
                         </div>
-                    </div>
-
-                    <div class="field fumeur">
-                        <label class="field__label">Fumeur</label>
-                        <div class="field__field">
-                            <div class="toggle-switch">
-                                <input type="checkbox" class="toggle-switch-checkbox" tabindex="3" id="smoker" name="smoker">
-                                <label class="toggle-switch-label" for="smoker">
-                                    <span class="toggle-switch-inner" data-yes="Oui" data-no="Non"></span>
-                                    <span class="toggle-switch-switch"></span>
-                                </label>
+                        <div class="field cote-mesure">
+                            <label class="field__label">Coté&nbsp;mesuré</label>
+                            <div class="field__field">
+                                <div class="toggle-switch">
+                                    <input type="checkbox" class="toggle-switch-checkbox" tabindex="6" name="left_side" id="left_side">
+                                    <label class="toggle-switch-label" for="left_side">
+                                        <span class="toggle-switch-inner" data-yes="Gauche" data-no="Droit"></span>
+                                        <span class="toggle-switch-switch"></span>
+                                    </label>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
-                <div class="tabs__panel__form flex-row just-between no-wrap">
-                    <div class="field taille">
-                        <label class="field__label">Taille(cm)</label>
-                        <div class="field__field">
-                            <input type="text" tabindex="4" name="height" value="161.0">
-                        </div>
+                <!-- Impedance form -->
+                <div class="tabs__panel__impedance tabs__panel__impedance--form flex-column">
+                    <div class="field tabs__panel__impedance__header span-3">
+                        <label class="field__label"></label>
                     </div>
-                    <div class="field poids-actuel">
-                        <label class="field__label">Poids&nbsp;Actuel(kg)</label>
+                    <div class="field tabs__panel__impedance__header tabs__panel__impedance__header--top span-2">
+                        <label class="field__label">Normes</label>
+                    </div>
+                    <div class="field tabs__panel__impedance__header tabs__panel__impedance__header--top span-2">
+                        <label class="field__label">5kHz</label>
+                    </div>
+                    <div class="field tabs__panel__impedance__header tabs__panel__impedance__header--top span-2">
+                        <label class="field__label">50kHz</label>
+                    </div>
+                    <div class="field tabs__panel__impedance__header tabs__panel__impedance__header--top span-2">
+                        <label class="field__label">100kHz</label>
+                    </div>
+
+                    <div class="field tabs__panel__impedance__header tabs__panel__impedance__header--left span-3">
+                        <label class="field__label">Résistance(Ω)</label>
+                    </div>
+                    <div class="field tabs__panel__impedance__content span-2">
+                        <label class="field__label"></label>
+                    </div>
+                    <div class="field tabs__panel__impedance__content span-2">
                         <div class="field__field">
                             <input type="text" tabindex="5" name="weight" value="56.5">
                         </div>
                     </div>
-                    <div class="field cote-mesure">
-                        <label class="field__label">Coté&nbsp;mesuré</label>
+                    <div class="field tabs__panel__impedance__content span-2">
                         <div class="field__field">
-                            <div class="toggle-switch">
-                                <input type="checkbox" class="toggle-switch-checkbox" tabindex="6" name="left_side" id="left_side">
-                                <label class="toggle-switch-label" for="left_side">
-                                    <span class="toggle-switch-inner" data-yes="Gauche" data-no="Droit"></span>
-                                    <span class="toggle-switch-switch"></span>
-                                </label>
-                            </div>
+                            <input type="text" tabindex="5" name="weight" value="56.5">
+                        </div>
+                    </div>
+                    <div class="field tabs__panel__impedance__content span-2">
+                        <div class="field__field">
+                            <input type="text" tabindex="5" name="weight" value="56.5">
+                        </div>
+                    </div>
+
+                    <div class="field tabs__panel__impedance__header tabs__panel__impedance__header--left span-3">
+                        <label class="field__label">Angle&nbsp;de&nbsp;phase(°)</label>
+                    </div>
+                    <div class="field tabs__panel__impedance__content span-2">
+                        <label class="field__label">6.3-8.2</label>
+                    </div>
+                    <div class="field tabs__panel__impedance__content span-2">
+                        <div class="field__field">
+                            <input class="editable-field" type="text" tabindex="5" name="weight" value="56.5">
+                        </div>
+                    </div>
+                    <div class="field tabs__panel__impedance__content span-2">
+                        <div class="field__field">
+                            <input class="editable-field" type="text" tabindex="5" name="weight" value="56.5">
+                        </div>
+                    </div>
+                    <div class="field tabs__panel__impedance__content span-2">
+                        <div class="field__field">
+                            <input class="editable-field" type="text" tabindex="5" name="weight" value="56.5">
+                        </div>
+                    </div>
+
+                    <div class="field tabs__panel__impedance__header tabs__panel__impedance__header--left span-3">
+                        <label class="field__label">Réactance(Ω)</label>
+                    </div>
+                    <div class="field tabs__panel__impedance__content span-2">
+                        <label class="field__label"></label>
+                    </div>
+                    <div class="field tabs__panel__impedance__content span-2">
+                        <div class="field__field">
+                            <input class="editable-field" type="text" tabindex="5" name="weight" value="56.5">
+                        </div>
+                    </div>
+                    <div class="field tabs__panel__impedance__content span-2">
+                        <div class="field__field">
+                            <input class="editable-field" type="text" tabindex="5" name="weight" value="56.5">
+                        </div>
+                    </div>
+                    <div class="field tabs__panel__impedance__content span-2">
+                        <div class="field__field">
+                            <input class="editable-field" type="text" tabindex="5" name="weight" value="56.5">
+                        </div>
+                    </div>
+
+                    <div class="field tabs__panel__impedance__header tabs__panel__impedance__header--left span-3">
+                        <label class="field__label">Impédance(Ω)</label>
+                    </div>
+                    <div class="field tabs__panel__impedance__content span-2">
+                        <label class="field__label"></label>
+                    </div>
+                    <div class="field tabs__panel__impedance__content span-2">
+                        <div class="field__field">
+                            <input type="text" tabindex="5" name="weight" value="56.5">
+                        </div>
+                    </div>
+                    <div class="field tabs__panel__impedance__content span-2">
+                        <div class="field__field">
+                            <input type="text" tabindex="5" name="weight" value="56.5">
+                        </div>
+                    </div>
+                    <div class="field tabs__panel__impedance__content span-2">
+                        <div class="field__field">
+                            <input type="text" tabindex="5" name="weight" value="56.5">
                         </div>
                     </div>
                 </div>
 
-                <div class="container  container--fit container--grow">
-                    <div class="layout-grid impedance-form electrical-data-form">
-                        <div class="impedance-form__header" style="grid-area: h_5 / h_5 / h_5 / h_5;">
-                            5khz
-                        </div>
-                        <div class="impedance-form__header" style="grid-area: h_50 / h_50 / h_50 / h_50;">
-                            50khz
-                        </div>
-                        <div class="impedance-form__header" style="grid-area: h_100 / h_100 / h_100 / h_100;">
-                            100khz
-                        </div>
-                        <div class="impedance-form__header" style="grid-area: h_nor / h_nor / h_nor / h_nor;">
-                            Normes
-                        </div>
-                        <div class="impedance-form__line-header" style="grid-area: h_res / h_res / h_res / h_res;">
-                            Resistance(Ω)
-                        </div>
-                        <div class="impedance-form__line-header" style="grid-area: h_a / h_a / h_a / h_a;">
-                            Angle de phase(°)
-                        </div>
-                        <div class="impedance-form__line-header" style="grid-area: h_rea / h_rea / h_rea / h_rea;">
-                            Reactance(Ω)
-                        </div>
-                        <div class="impedance-form__line-header" style="grid-area: h_z / h_z / h_z / h_z;">
-                            Impédance(Ω)
-                        </div>
-                        <div style="grid-area: f_res_nor / f_res_nor / f_res_nor / f_res_nor;"></div>
-                        <div style="grid-area: f_rea_nor / f_rea_nor / f_rea_nor / f_rea_nor;"></div>
-                        <div style="grid-area: f_z_nor / f_z_nor / f_z_nor / f_z_nor;"></div>
-                        <div style="grid-area: f_a_nor / f_a_nor / f_a_nor / f_a_nor;">
-                            6.3-8.2
-                        </div>
-                        <input type="text" class="editable-field impedance-form__field impedance-form__field--valid editable" tabindex="7" name="res5" value="774" style="grid-area: res5 / res5 / res5 / res5;">
-                        <input type="text" class="editable-field impedance-form__field impedance-form__field--valid editable" tabindex="8" name="res50" value="668" style="grid-area: res50 / res50 / res50 / res50;">
-                        <input type="text" class="editable-field impedance-form__field impedance-form__field--valid editable" tabindex="9" name="res100" value="630" style="grid-area: res100 / res100 / res100 / res100;">
-                        <input type="text" class="editable-field impedance-form__field impedance-form__field--valid editable" tabindex="10" name="rea5" value="20" style="grid-area: rea5 / rea5 / rea5 / rea5;">
-                        <input type="text" class="editable-field impedance-form__field impedance-form__field--valid editable" tabindex="11" name="rea50" value="80" style="grid-area: rea50 / rea50 / rea50 / rea50;">
-                        <input type="text" class="editable-field impedance-form__field impedance-form__field--valid editable" tabindex="12" name="rea100" value="76" style="grid-area: rea100 / rea100 / rea100 / rea100;">
-                        <div class="editable-field impedance-form__field impedance-form__field--valid" name="z5" style="grid-area: z5 / z5 / z5 / z5;">
-                            774
-                        </div>
-                        <div class="editable-field impedance-form__field impedance-form__field--valid" name="z50" style="grid-area: z50 / z50 / z50 / z50;">
-                            673
-                        </div>
-                        <div class="editable-field impedance-form__field impedance-form__field--valid" name="z100" style="grid-area: z100 / z100 / z100 / z100;">
-                            635
-                        </div>
-                        <div class="editable-field impedance-form__field impedance-form__field--invalid" name="a5" style="grid-area: a5 / a5 / a5 / a5;">
-                            1.5
-                        </div>
-                        <div class="editable-field impedance-form__field impedance-form__field--valid" name="a50" style="grid-area: a50 / a50 / a50 / a50;">
-                            6.8
-                        </div>
-                        <div class="editable-field impedance-form__field impedance-form__field--valid" name="a100" style="grid-area: a100 / a100 / a100 / a100;">
-                            6.9
-                        </div>
+                <div class="tabs__panel__impedance tabs__panel__impedance--results flex-column">
+
+                    <!-- header -->
+                    <div class="field tabs__panel__impedance__header span-5">
+                        <label class="field__label"></label>
                     </div>
-                </div>
-                <div class="container  container--fit container--grow">
-                    <div class="layout-grid comparison-grid" style="grid-template-columns: 2fr 1fr 1fr 1fr; grid-auto-rows: 1fr;">
-                        <div></div>
-                        <div class="row header">Norme</div>
-                        <div class="row header">
-                            <select>
-                                <option value="kushner" disabled="">Kushner</option>
+                    <div class="field tabs__panel__impedance__header tabs__panel__impedance__header tabs__panel__impedance__header--top span-2">
+                        <div class="field__field">
+                            <select class="editable-field">
+                                <option value="normes" >Normes</option>
+                                <option value="kushner">Kushner</option>
                                 <option value="segal">Segal</option>
-                                <option disabled="" value="gva">Gva</option>
-                            </select>
-                        </div>
-                        <div class="row header">
-                            <select>
-                                <option value="kushner" disabled="">Kushner</option>
-                                <option value="segal">Segal</option>
-                                <option disabled="" value="gva">Gva</option>
+                                <option value="gva">Gva</option>
                             </select>
                         </div>
                     </div>
+                    <div class="field tabs__panel__impedance__header tabs__panel__impedance__header tabs__panel__impedance__header--top span-2">
+                        <div class="field__field">
+                            <select class="editable-field">
+                                <option value="normes">Normes</option>
+                                <option value="kushner">Kushner</option>
+                                <option value="segal">Segal</option>
+                                <option value="gva">Gva</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="field tabs__panel__impedance__header tabs__panel__impedance__header tabs__panel__impedance__header--top span-2">
+                        <div class="field__field">
+                            <select class="editable-field">
+                                <option value="normes">Normes</option>
+                                <option value="kushner">Kushner</option>
+                                <option value="segal">Segal</option>
+                                <option value="gva">Gva</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <!-- Border -->
+                    <div class="field field__line tabs__panel__impedance__content span-11"></div>
+
+                    <!-- ligne -->
+                    <div class="field tabs__panel__impedance__header--left span-5">
+                        <label class="field__label">masse maigre (kg)</label>
+                    </div>
+                    <div class="field tabs__panel__impedance__content span-2">
+                        <label class="field__label"></label>
+                    </div>
+                    <div class="field tabs__panel__impedance__content span-2">
+                        <label class="field__label">43.5</label>
+                    </div>
+                    <div class="field tabs__panel__impedance__content span-2">
+                        <label class="field__label">42.0</label>
+                    </div>
+
+                    <!-- Border -->
+                    <div class="field field__line tabs__panel__impedance__content span-11"></div>
+
+                    <!-- ligne -->
+                    <div class="field tabs__panel__impedance__header--left span-5">
+                        <label class="field__label">masse maigre (%)</label>
+                    </div>
+                    <div class="field tabs__panel__impedance__content span-2">
+                        <label class="field__label">65.1-81.0</label>
+                    </div>
+                    <div class="field tabs__panel__impedance__content span-2">
+                        <label class="field__label valid">72.0</label>
+                    </div>
+                    <div class="field tabs__panel__impedance__content span-2">
+                        <label class="field__label invalid">69.5</label>
+                    </div>
+
+                    <!-- Border -->
+                    <div class="field field__line tabs__panel__impedance__content span-11"></div>
+
+                    <!-- ligne -->
+                    <div class="field tabs__panel__impedance__header--left span-5">
+                        <label class="field__label">Indice de masse maigre FFMI (kg/m2)</label>
+                    </div>
+                    <div class="field tabs__panel__impedance__content span-2">
+                        <label class="field__label"></label>
+                    </div>
+                    <div class="field tabs__panel__impedance__content span-2">
+                        <label class="field__label">43.5</label>
+                    </div>
+                    <div class="field tabs__panel__impedance__content span-2">
+                        <label class="field__label">42.0</label>
+                    </div>
+
+                    <!-- Border -->
+                    <div class="field field__line tabs__panel__impedance__content span-11"></div>
+
+                    <!-- ligne -->
+                    <div class="field tabs__panel__impedance__header--left span-5">
+                        <label class="field__label">Masse maigre sèche (kg)</label>
+                    </div>
+                    <div class="field tabs__panel__impedance__content span-2">
+                        <label class="field__label">65.1-81.0</label>
+                    </div>
+                    <div class="field tabs__panel__impedance__content span-2">
+                        <label class="field__label valid">72.0</label>
+                    </div>
+                    <div class="field tabs__panel__impedance__content span-2">
+                        <label class="field__label invalid">69.5</label>
+                    </div>
+
+                    <!-- Border -->
+                    <div class="field field__line tabs__panel__impedance__content span-11"></div>
+
+                    <!-- ligne -->
+                    <div class="field tabs__panel__impedance__header--left span-5">
+                        <label class="field__label">Indice de masse grasse FMI (kg/m2)</label>
+                    </div>
+                    <div class="field tabs__panel__impedance__content span-2">
+                        <label class="field__label"></label>
+                    </div>
+                    <div class="field tabs__panel__impedance__content span-2">
+                        <label class="field__label">43.5</label>
+                    </div>
+                    <div class="field tabs__panel__impedance__content span-2">
+                        <label class="field__label">42.0</label>
+                    </div>
+
+                    <!-- Border -->
+                    <div class="field field__line tabs__panel__impedance__content span-11"></div>
+
+                    <!-- ligne -->
+                    <div class="field tabs__panel__impedance__header--left span-5">
+                        <label class="field__label">Masse maigre sèche (%)</label>
+                    </div>
+                    <div class="field tabs__panel__impedance__content span-2">
+                        <label class="field__label">65.1-81.0</label>
+                    </div>
+                    <div class="field tabs__panel__impedance__content span-2">
+                        <label class="field__label valid">72.0</label>
+                    </div>
+                    <div class="field tabs__panel__impedance__content span-2">
+                        <label class="field__label invalid">69.5</label>
+                    </div>
+
+                    <!-- Border -->
+                    <div class="field field__line tabs__panel__impedance__content span-11"></div>
+
                 </div>
+
             </div>
         </section>
 
         <section class="comments">
-            comments
+            <!-- comments -->
+            <div class="field">
+                <label class="field__label">
+                    Commentaire
+                </label>
+                <div class="field__field">
+                    <textarea class="editable-field" placeholder="Votre remarque..."></textarea>
+                    <!-- <div class="editable-field">21.8</div> -->
+                </div>
+            </div>
         </section>
 
         <aside class="right-aside flex-column">
@@ -2047,16 +542,16 @@
                 <label class="field__label">
                     Poids Idéal (%)
                     <div class="button__svg info"></div>
-                    <svg class="positive-colors" xmlns="http://www.w3.org/2000/svg" height="24px" width="24px">
-                        <path d="M0 0h24v24H0z" fill="none"/>
-                        <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z"/>
-                    </svg>
                 </label>
                 <div class="field__field">
                     <div>58.3 (96.9%)</div>
                 </div>
             </div>
-            <div class="field"><label class="field__label">BMI Actuel</label>
+            <div class="field">
+                <label class="field__label">
+                    BMI Actuel
+                    <div class="button__svg info"></div>
+                </label>
                 <div class="field__field">
                     <div>21.8</div>
                 </div>
@@ -2075,197 +570,7 @@
 </div>
 <!--
 
-<div class="bia-editor__mesures" style="grid-area: mesures / mesures / mesures / mesures;">
-<div class="layout-flex layout-flex--column list-mesure">
-<div
-class="layout-flex layout-flex--between layout-flex--align-center list-mesure__title">
-<b>Mesures</b></div>
-<div
-class="layout-flex layout-flex--between layout-flex--align-center list-mesure__item">
-05.12.2015 <svg class="MuiSvgIcon-root action-icon" focusable="false"
-viewBox="0 0 24 24" aria-hidden="true">
-<path
-d="M6 19c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V7H6v12zM19 4h-3.5l-1-1h-5l-1 1H5v2h14V4z">
-</path>
-</svg></div>
-<div
-class="layout-flex layout-flex--between layout-flex--align-center list-mesure__item">
-03.12.2016 <svg class="MuiSvgIcon-root action-icon" focusable="false"
-viewBox="0 0 24 24" aria-hidden="true">
-<path
-d="M6 19c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V7H6v12zM19 4h-3.5l-1-1h-5l-1 1H5v2h14V4z">
-</path>
-</svg></div>
-<div
-class="layout-flex layout-flex--between layout-flex--align-center list-mesure__item list-mesure--selected">
-02.12.2017 <svg class="MuiSvgIcon-root action-icon" focusable="false"
-viewBox="0 0 24 24" aria-hidden="true">
-<path
-d="M6 19c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V7H6v12zM19 4h-3.5l-1-1h-5l-1 1H5v2h14V4z">
-</path>
-</svg></div>
-<div
-class="layout-flex layout-flex--between layout-flex--align-center list-mesure__item">
-04.11.2021 <svg class="MuiSvgIcon-root action-icon" focusable="false"
-viewBox="0 0 24 24" aria-hidden="true">
-<path
-d="M6 19c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V7H6v12zM19 4h-3.5l-1-1h-5l-1 1H5v2h14V4z">
-</path>
-</svg></div>
-<div
-class="layout-flex layout-flex--between layout-flex--align-center list-mesure__item">
-Créer</div>
-</div>
-</div>
-<div class="container bia-editor__form container--scrollable"
-style="grid-area: content / content / content / content;">
-<div class="layout-grid mesure-editor-grid-layout bia-mesure-editor">
-<div class="tabs"
-style="grid-area: mesure-editor-main / mesure-editor-main / mesure-editor-main / mesure-editor-main; --active-tab:0;">
-<div class="tabs__wrapper">
-<div class="tabs__background">
-<div class="bg"></div>
-</div>
-<div class="layout-flex layout-flex--align-center tabs__container">
-<div class="tabs__tab selected" tabindex="20">
-<div class="content">BIA</div>
-</div>
-<div class="tabs__tab" tabindex="21">
-<div class="content">Force de serrement</div>
-</div>
-<div class="tabs__tab" tabindex="22">
-<div class="content">Récapitulatif</div>
-</div>
-</div>
-</div>
-<div class="tabs__panel active">
-<div class="layout-flex layout-flex--column">
-<div class="layout-flex layout-flex--wrap">
-<div class="field date-examen"><label class="field__label">Date
-d'Examen</label>
-<div class="field__field">
-<div class="react-datepicker-wrapper">
-<div class="react-datepicker__input-container">
-<div class="editable-field">02.12.2017</div>
-</div>
-</div>
-</div>
-</div>
-<div class="field activite-physique"><label
-class="field__label">Activité physique</label>
-<div class="field__field"><select tabindex="2" name="sport.rate">
-<option value="inconnue">inconnue</option>
-<option value="modérée">modérée</option>
-</select></div>
-</div>
-<div class="field type-activite-physique"><label
-class="field__label">Type d'Activité physique</label>
-<div class="field__field"><select tabindex="2" name="sport.type">
-<option value="inconnue">inconnue</option>
-<option value="N/A">N/A</option>
-</select></div>
-</div>
-<div class="field fumeur"><label class="field__label">Fumeur</label>
-<div class="field__field">
-<div class="toggle-switch"><input type="checkbox"
-class="toggle-switch-checkbox" tabindex="3" id="smoker"
-name="smoker"><label class="toggle-switch-label"
-for="smoker"><span class="toggle-switch-inner"
-data-yes="Oui" data-no="Non"></span><span
-class="toggle-switch-switch"></span></label></div>
-</div>
-</div>
-<div class="field taille"><label class="field__label">Taille
-(cm)</label>
-<div class="field__field"><input type="text" tabindex="4"
-name="height" value="161.0"></div>
-</div>
-<div class="field poids-actuel"><label class="field__label">Poids Actuel
-(kg)</label>
-<div class="field__field"><input type="text" tabindex="5"
-name="weight" value="56.5"></div>
-</div>
-<div class="field cote-mesure"><label class="field__label">Coté
-mesuré</label>
-<div class="field__field">
-<div class="toggle-switch"><input type="checkbox"
-class="toggle-switch-checkbox" tabindex="6"
-name="left_side" id="left_side"><label
-class="toggle-switch-label" for="left_side"><span
-class="toggle-switch-inner" data-yes="Gauche"
-data-no="Droit"></span><span
-class="toggle-switch-switch"></span></label></div>
-</div>
-</div>
-</div>
-<div class="container  container--fit container--grow">
-<div class="layout-grid impedance-form electrical-data-form">
-<div class="impedance-form__header"
-style="grid-area: h_5 / h_5 / h_5 / h_5;">5khz</div>
-<div class="impedance-form__header"
-style="grid-area: h_50 / h_50 / h_50 / h_50;">50khz</div>
-<div class="impedance-form__header"
-style="grid-area: h_100 / h_100 / h_100 / h_100;">100khz</div>
-<div class="impedance-form__header"
-style="grid-area: h_nor / h_nor / h_nor / h_nor;">Normes</div>
-<div class="impedance-form__line-header"
-style="grid-area: h_res / h_res / h_res / h_res;">Resistance (Ω)
-</div>
-<div class="impedance-form__line-header"
-style="grid-area: h_a / h_a / h_a / h_a;">Angle de phase (°)
-</div>
-<div class="impedance-form__line-header"
-style="grid-area: h_rea / h_rea / h_rea / h_rea;">Reactance (Ω)
-</div>
-<div class="impedance-form__line-header"
-style="grid-area: h_z / h_z / h_z / h_z;">Impédance (Ω)</div>
-<div
-style="grid-area: f_res_nor / f_res_nor / f_res_nor / f_res_nor;">
-</div>
-<div
-style="grid-area: f_rea_nor / f_rea_nor / f_rea_nor / f_rea_nor;">
-</div>
-<div style="grid-area: f_z_nor / f_z_nor / f_z_nor / f_z_nor;">
-</div>
-<div style="grid-area: f_a_nor / f_a_nor / f_a_nor / f_a_nor;">
-6.3-8.2</div><input type="text"
-class="editable-field impedance-form__field impedance-form__field--valid editable"
-tabindex="7" name="res5" value="774"
-style="grid-area: res5 / res5 / res5 / res5;"><input type="text"
-class="editable-field impedance-form__field impedance-form__field--valid editable"
-tabindex="8" name="res50" value="668"
-style="grid-area: res50 / res50 / res50 / res50;"><input
-type="text"
-class="editable-field impedance-form__field impedance-form__field--valid editable"
-tabindex="9" name="res100" value="630"
-style="grid-area: res100 / res100 / res100 / res100;"><input
-type="text"
-class="editable-field impedance-form__field impedance-form__field--valid editable"
-tabindex="10" name="rea5" value="20"
-style="grid-area: rea5 / rea5 / rea5 / rea5;"><input type="text"
-class="editable-field impedance-form__field impedance-form__field--valid editable"
-tabindex="11" name="rea50" value="80"
-style="grid-area: rea50 / rea50 / rea50 / rea50;"><input
-type="text"
-class="editable-field impedance-form__field impedance-form__field--valid editable"
-tabindex="12" name="rea100" value="76"
-style="grid-area: rea100 / rea100 / rea100 / rea100;">
-<div class="editable-field impedance-form__field impedance-form__field--valid"
-name="z5" style="grid-area: z5 / z5 / z5 / z5;">774</div>
-<div class="editable-field impedance-form__field impedance-form__field--valid"
-name="z50" style="grid-area: z50 / z50 / z50 / z50;">673</div>
-<div class="editable-field impedance-form__field impedance-form__field--valid"
-name="z100" style="grid-area: z100 / z100 / z100 / z100;">635
-</div>
-<div class="editable-field impedance-form__field impedance-form__field--invalid"
-name="a5" style="grid-area: a5 / a5 / a5 / a5;">1.5</div>
-<div class="editable-field impedance-form__field impedance-form__field--valid"
-name="a50" style="grid-area: a50 / a50 / a50 / a50;">6.8</div>
-<div class="editable-field impedance-form__field impedance-form__field--valid"
-name="a100" style="grid-area: a100 / a100 / a100 / a100;">6.9
-</div>
-</div>
-</div>
+
 <div class="container  container--fit container--grow">
 <div class="layout-grid comparison-grid"
 style="grid-template-columns: 2fr 1fr 1fr 1fr; grid-auto-rows: 1fr;">

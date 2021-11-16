@@ -22,3 +22,11 @@
     border-color: var(--secondary);
     --selected-color: var(--secondary);
 }
+
+.valid {
+    color: var(--color-valid);
+}
+
+.invalid {
+    color: var(--color-invalid);
+}

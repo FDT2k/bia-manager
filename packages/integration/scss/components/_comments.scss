@@ -1,6 +1,21 @@
 @use '../eksass/base' as *;
 @use '../layout' as *;
+@use '../fonts' as *;
 
 .comments {
-  grid-area: comments;
+    grid-area: comments;
+    padding: 32px 0px;
+    border-top: solid 1px var(--primary);
+
+    .field__field {
+
+
+        textarea {
+            width: 100%;
+            height: auto;
+            padding: 8px 16px;
+            resize: vertical;
+
+        }
+    }
 }

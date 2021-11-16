@@ -1,5 +1,6 @@
 $asides-value: 44px;
-$editor-value: (552px - (16 * 10)) /11;
+$editor-value: (552px - (16 * 10)) / 11;
+$max-editor-value: (727px - (16 * 10)) / 11;
 
 .content {
   grid-area: content;
@@ -10,7 +11,7 @@ $editor-value: (552px - (16 * 10)) /11;
   // grid-template-rows: [header] min-content [content] auto [comments] auto;
   grid-template:
     [header] "header header header header header header header header header header header header header header header header header header" min-content
-    [content] "left-aside left-aside . editor editor editor editor editor editor editor editor editor editor editor . right-aside right-aside right-aside" auto
+    [content] "left-aside left-aside . editor editor editor editor editor editor editor editor editor editor editor . right-aside right-aside right-aside" min-content
     [comments] "left-aside left-aside . comments comments comments comments comments comments comments comments comments comments comments . right-aside right-aside right-aside" auto
     / minmax($asides-value, 1fr) minmax($asides-value, 1fr)
     1fr
@@ -34,7 +35,7 @@ $editor-value: (552px - (16 * 10)) /11;
         justify-content: start;
 	    background-color: var(--tertiary);
         width: fit-content;
-        margin-bottom: 16px;
+        margin-bottom: 32px;
         @extend %radius;
         @extend %large-body;
 
@@ -101,28 +102,121 @@ $editor-value: (552px - (16 * 10)) /11;
     }
 
     .tabs__panel {
-        gap: 16px;
+        column-gap: 16px;
+        row-gap: 32px;
 
         &__form {
             gap: 16px;
+            
+            &__line {
+                column-gap: 16px;
+                row-gap: 32px;
+
+                .field {
+                    flex-grow: 2;
+                    &.date-examen,
+                    &.activite-physique,
+                    &.type-activite-physique,
+                    &.taille,
+                    &.poids-actuel {
+                        flex-grow: 3;
+                    }
+
+                    &.fumeur,
+                    &.cote-mesure {
+                        max-width: calc( #{$editor-value} * 3 );
+                    }
+
+                }
+            }
+
+        }
+
+        &__impedance {
+            display: grid;
+            grid-template-rows: auto;
+            grid-template-columns: repeat(11, 1fr);
+            column-gap: 16px;
+            row-gap: 8px;
+            align-items: center;
+
+            > * {
+                height: 100%;
+                // border: solid 1px;
+                align-items: center;
+            }
 
             .field {
-                flex-grow: 2;
-                &.date-examen,
-                &.activite-physique,
-                &.type-activite-physique,
-                &.taille,
-                &.poids-actuel {
-                    flex-grow: 3;
+                & > *, input {
+                    height: 100%;
+                    align-items: center;
+                    justify-content: center;
+                }
+                input {
+                    min-height: 32px;
+                    text-align: center;
+                }
+                .editable-field {
+                    min-height: inherit;
+                    background-color: var(--tertiary);
+                    border: none;
+                    width: 100%;
+                }
+            }
+            .field__label {
+                margin-bottom: inherit;
+            }
+
+            &__header {
+                @extend %large-body;
+                &--left {
+                    .field__label {
+                        justify-content: left;
+                        // border: solid 1px red;
+                    }
+                }
+                &--top {
+                    select {
+                        height: 100%;
+                        padding-left: 8px;
+                    }
+                }
+            }
+
+            &__content {
+                .field__label, input, select, option {
+                    @extend %small-body;
+                }
+            }
+
+            &--results {
+                row-gap: 2px;
+
+                .field__line {
+                    border-bottom: 1px solid var(--primary);
                 }
 
-                &.fumeur,
-                &.cote-mesure {
-                    max-width: calc( #{$editor-value} * 3 );
-                }
 
             }
+
         }
+
+        .span-2 {
+            grid-column: span 2;
+        }
+
+        .span-3 {
+            grid-column: span 3;
+        }
+
+        .span-5 {
+            grid-column: span 5;
+        }
+        .span-11 {
+            grid-column: span 11;
+        }
+
+
     }
 
 

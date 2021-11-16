@@ -1,7 +1,8 @@
 %main-grid {
   display: grid;
   grid-template-columns: repeat(18, 1fr);
-  grid-gap: 16px;
+  column-gap: 16px;
+  row-gap: 32px;
 }
 
 /* grid children's size CSS */
