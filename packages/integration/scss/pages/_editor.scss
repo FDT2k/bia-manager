@@ -156,22 +156,6 @@ $max-editor-value: (727px - (16 * 10)) / 11;
                 }
             }
 
-            .span-2 {
-                grid-column: span 2;
-            }
-
-            .span-3 {
-                grid-column: span 3;
-            }
-
-            .span-5 {
-                grid-column: span 5;
-            }
-
-            .field__label {
-                margin-bottom: inherit;
-            }
-
             &__header {
                 @extend %large-body;
                 &--left {
@@ -180,17 +164,49 @@ $max-editor-value: (727px - (16 * 10)) / 11;
                         // border: solid 1px red;
                     }
                 }
+                &--top {
+                    select {
+                        height: 100%;
+                        padding-left: 8px;
+                    }
+                }
             }
 
             &__content {
-                .field__label,
-                input,
-                select,
-                option {
+                .field__label, input, select, option {
                     @extend %small-body;
                 }
             }
 
+            &--results {
+                row-gap: 2px;
+
+                .field__line {
+                    border-bottom: 1px solid var(--primary);
+                }
+
+
+            }
+
+        }
+
+        .span-2 {
+            grid-column: span 2;
+        }
+
+        .span-3 {
+            grid-column: span 3;
+        }
+
+        .span-5 {
+            grid-column: span 5;
+        }
+        .span-11 {
+            grid-column: span 11;
+        }
+
+        .field__label {
+            margin-bottom: inherit;
         }
     }
 
