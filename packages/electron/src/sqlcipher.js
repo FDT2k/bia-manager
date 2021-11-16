@@ -229,9 +229,13 @@ const subject= (db,api)=> {
         lastname:'',
         birthdate:'',
         gender:'',
+        age:'',
+        groups:'json',
+        usual_height:'',
+        usual_weight:'',
         uuid:''
     }
-
+   
 
     const pkeys = ['id']
    
@@ -266,7 +270,7 @@ const subject= (db,api)=> {
         for(let subject of subjects) {
             let subject_id = module.upsert(['uuid'])(_transform(schema,subject))
             
-          //  _mesure.import(subject_id)(subject.mesures);
+            _mesure.import(subject_id)(subject.mesures);
         }
     })
 
