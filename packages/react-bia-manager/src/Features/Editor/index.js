@@ -10,10 +10,10 @@ import MainView from '@/Components/MainView';
 import EditorLayout from '@/Components/EditorLayout';
 
 import ReactLoading from 'react-loading'
-import React, { forwardRef, useState,useMemo } from 'react';
+import React, { forwardRef, useState, useMemo } from 'react';
 
 
-import {Container,LayoutFlex,withGridArea ,ComponentWithArea as Area} from '@karsegard/react-core-layout'
+import { Container, LayoutFlex, withGridArea, ComponentWithArea as Area } from '@karsegard/react-core-layout'
 import MesureEditor from './Mesure';
 import PatientHeader from './PatientHeader';
 
@@ -30,13 +30,13 @@ const NavComponent = compose(
 )(LayoutFlex);
 
 const Editor = props => {
-    const {className, handlers,defaultHandlers,...renderers} = getClasseNames(__base_class, props);
+    const { className, handlers, defaultHandlers, ...renderers } = getClasseNames(__base_class, props);
 
-    const {handleGoBack,handlePrint,handleMesureCreate, handleMesureOpen,handleMesureDelete, handleSubjectChange,handleChange,handleClickSave} = Object.assign({},defaultHandlers,handlers);
+    const { handleGoBack, handlePrint, handleMesureCreate, handleMesureOpen, handleMesureDelete, handleSubjectChange, handleChange, handleClickSave } = Object.assign({}, defaultHandlers, handlers);
 
 
-    const {RightFooter, ...remaining} = renderers;
-    const {t,  lines, data, mesure,selectedMesureIndex, ...rest} = remaining
+    const { RightFooter, ...remaining } = renderers;
+    const { t, lines, data, mesure, selectedMesureIndex, ...rest } = remaining
 
 
     return (
@@ -49,21 +49,26 @@ const Editor = props => {
         }>
             <EditorLayout className={className}>
 
-                {<Area className={element('patient')} area="patient"><PatientHeader handleChange={handleSubjectChange} data={data} /></Area>}
+                <Area className={element('patient')} area="patient">
+                    <PatientHeader handleChange={handleSubjectChange} data={data} />
+                </Area>
                 <Area className={element('mesures')} area="mesures">
-
                     <ListMesure selectedIndex={selectedMesureIndex} title={t('Mesures')} itemLabelKey="date" handleItemListClick={handleMesureOpen} handleCreateClick={
                         handleMesureCreate
                     } data={data.mesures}
                         renderActions={
                             (data, item, idx) => {
-                                return (<Delete className="action-icon" onClick={_=> handleMesureDelete(idx)}/>)
+                                return (<Delete className="action-icon" onClick={_ => handleMesureDelete(idx)} />)
                             }
                         }
                     />
                 </Area>
                 <ContainerWithArea className={element('form')} area="content" scrollable>
-                    {mesure && <MesureEditor  handleClickSave={handleClickSave} handlePrint={handlePrint} handleChange={handleChange} mesure={mesure} />}
+                    {mesure && <MesureEditor
+                        handleClickSave={handleClickSave}
+                        handlePrint={handlePrint}
+                        handleChange={handleChange}
+                        mesure={mesure} />}
                     {!mesure && "Aucune mesure "}
                 </ContainerWithArea>
 
@@ -82,17 +87,17 @@ Editor.defaultProps = {
         age: 'N/A',
     },
     selectedMesureIndex: 0,
-    handleMesureOpen:x=> console.warn('no handler set for handleMesureOpen'),
-    handleMesureDelete:x=>console.warn('no handler set for handleMesureDelete'),
+    handleMesureOpen: x => console.warn('no handler set for handleMesureOpen'),
+    handleMesureDelete: x => console.warn('no handler set for handleMesureDelete'),
     t: x => x,
-    defaultHandlers:{
-        handleChange: _=> console.warn ('no handler set for handleChange'),
-        handleSubjectChange: _=> console.warn ('no handler set for handleSubjectChange'),
-        handleClickSave: _=> console.warn ('no handler set for handleClickSave'),
-        handleMesureDelete: _=> console.warn ('no handler set for handleMesureDelete'),
-        handleMesureOpen: _=> console.warn ('no handler set for handleMesureOpen'),
-        handleMesureCreate: _=> console.warn ('no handler set for handleMesureCreate'),
-        handleGoBack: _=> console.warn ('no handler set for handleGoBack'),
+    defaultHandlers: {
+        handleChange: _ => console.warn('no handler set for handleChange'),
+        handleSubjectChange: _ => console.warn('no handler set for handleSubjectChange'),
+        handleClickSave: _ => console.warn('no handler set for handleClickSave'),
+        handleMesureDelete: _ => console.warn('no handler set for handleMesureDelete'),
+        handleMesureOpen: _ => console.warn('no handler set for handleMesureOpen'),
+        handleMesureCreate: _ => console.warn('no handler set for handleMesureCreate'),
+        handleGoBack: _ => console.warn('no handler set for handleGoBack'),
     }
 }
 

@@ -1,8 +1,14 @@
 import { is_nil, is_type_object } from '@karsegard/composite-js';
 import { keyval } from '@karsegard/composite-js/ObjectUtils';
-import { cEx, withBaseClass } from '@karsegard/react-compose';
+
+import { withForwardedRef,compose,cEx, withBaseClass } from '@karsegard/react-compose';
 import { useFocus, useKeypress } from '@karsegard/react-hooks';
-import React, { useEffect, useRef, useState } from 'react';
+
+import React, {forwardRef, useEffect, useRef, useState } from 'react';
+import Select from '@/Components/Form/Select'
+
+
+export const SelectWithRef = compose(forwardRef, withForwardedRef)(Select);
 
 
 
@@ -12,7 +18,7 @@ const EditableSelect = withBaseClass('editable-field')(props => {
     const ref = useRef()
     const { hasFocus } = useFocus({ ref, debug: true });
 
-    const { children, className, options, value, ...rest } = props;
+    const { children, className, value, ...rest } = props;
 
     useEffect(() => {
         if (ref.current && enterPressed && hasFocus) {
@@ -33,25 +39,10 @@ const EditableSelect = withBaseClass('editable-field')(props => {
         _=> editable ? 'edited': '',
     ])
 
-    const renderChildren = is_nil(options);
+   debugger;
 
     return (<>
-        {editable && <select ref={ref} onBlur={_ => setEditable(false)} className={classes}  value={value||''} {...rest} >
-            {renderChildren && children}
-            {!renderChildren && options.map((option,idx) => {
-                let value = option;
-                let label = option;
-
-                if(is_type_object(option)){
-                    //[value,label] = keyval(option);
-                    value = option.id,
-                    label = option.name
-                }
-
-                return (<option key={idx} value={value}>{label}</option>)
-            }
-            )}
-        </select>}
+        {editable && <SelectWithRef ref={ref} onBlur={_ => setEditable(false)} className={classes}  value={value||''} {...rest} ></SelectWithRef>}
         {!editable && <div className={props.className} onClick={_ => setEditable(true)}>{props.value}</div>}
     </>
     )

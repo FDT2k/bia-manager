@@ -34,6 +34,8 @@ import MaskedInput from 'react-maskedinput';
 import moment from 'moment';
 import "react-datepicker/dist/react-datepicker.css";
 
+import {useCustomList} from '@'
+
 const LayoutFlexColumnWithArea = withGridArea(LayoutFlexColumn);
 const TabsWithArea = withGridArea(Tabs);
 
@@ -165,8 +167,7 @@ const Editor = props => {
 
     const result_columns = useMemo(() => ['norme', values.most_accurate_formula || 'kuschner', 'gva'], [values.most_accurate_formula]);
 
-
-
+    const lists = useCustomList();
     return (
         <MesureEditorLayout className={className}>
             <TabsWithArea tabIndexOffset={20} renderDisabledPanels={true} area="mesure-editor-main">
@@ -189,12 +190,12 @@ const Editor = props => {
 
                             <Field className="activite-physique" label={t("Activité physique")}>
 
-                                <Select tabIndex={2}  {...inputProps('sport.rate')} options={safe_path([],'sport_rate.list',custom_lists)} />
+                                <Select tabIndex={2}  {...inputProps('sport.rate')} options={safe_path([],'sport_rate',lists)} />
 
                             </Field>
 
                             <Field className="type-activite-physique" label={t("Type d'Activité physique")}>
-                                <Select tabIndex={2}  {...inputProps('sport.type')} options={safe_path([],'sport_type.list',custom_lists)} />
+                                <Select tabIndex={2}  {...inputProps('sport.type')} options={safe_path([],'sport_type',lists)} />
 
                             </Field>
 
@@ -262,7 +263,7 @@ const Editor = props => {
                     <EditableTextInput value={values.examinator} name="examinator" onChange={handleChange} />
                 </Field>
                 <Field label={t("Bio-impédancemètre")}>
-                    <EditableSelect {...inputProps('machine')} options={[{ id: '', name: t('- Choisissez une valeur -') }, ...safe_path([],'machine.list',custom_lists) ]} />
+                    <EditableSelect {...inputProps('machine')} options={safe_path([],'machines',lists) } />
                 </Field>
                 <Field label={t("Poids Idéal (%)")}>
                     <div>{oneDecimal(values.ideal_weight)} ({oneDecimalPct(values.pct_ideal_weight)})</div>
