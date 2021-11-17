@@ -1,0 +1,34 @@
+@use '../eksass/base' as *;
+@use '../layout' as *;
+@use '../fonts' as *;
+
+$asides-value: 44px;
+$editor-value: (552px - (16 * 10)) / 11;
+$max-editor-value: (727px - (16 * 10)) / 11;
+
+.form {
+    &--line {
+        column-gap: 16px;
+        row-gap: 32px;
+
+        .field {
+            &.date-examen {
+                .field__field > * {
+                    display: block;
+                }
+            }
+            &.fumeur,
+            &.cote-mesure {
+                flex-grow: 2;
+                max-width: calc( #{$editor-value} * 3 );
+            }
+        }
+    }
+
+    &--table {
+        grid-template-columns: repeat(11, 1fr);
+        column-gap: 16px;
+        row-gap: 8px;
+    }
+
+}

@@ -1,9 +1,7 @@
 @use '../mixin/flex' as *;
 
 /*** PARENTS ***/
-.flex {
-  @include flex;
-}
+.flex { @include flex; }
 
 /* Direction */
 .flex-row {
@@ -23,124 +21,52 @@
   @include flex-direction(column-reverse);
 }
 
-
 /* Wrap */
-.wrap {
-  @include flex-wrap-parent(wrap);
-}
-.no-wrap {
-  @include flex-wrap-parent(nowrap);
-}
-.wrap-reverse {
-  @include flex-wrap-parent(wrap-reverse);
-}
+.wrap { @include flex-wrap-parent(wrap); }
+.no-wrap { @include flex-wrap-parent(nowrap); }
+.wrap-reverse { @include flex-wrap-parent(wrap-reverse); }
 
 /* Justify-Content */
-.just-start {
-  @include flex-just(flex-start);
-}
-.just-end {
-  @include flex-just(flex-end);
-}
-.just-center {
-  @include flex-just(center);
-}
-.just-between{
-  @include flex-just(space-between);
-}
-.just-around {
-  @include flex-just(space-around);
-}
-.just-evenly {
-  @include flex-just(space-evenly);
-}
+.just-start { @include flex-just(flex-start); }
+.just-end { @include flex-just(flex-end); }
+.just-center { @include flex-just(center); }
+.just-between { @include flex-just(space-between); }
+.just-around { @include flex-just(space-around); }
+.just-evenly { @include flex-just(space-evenly); }
 
 /* Align-Items */
-.align-start {
-  @include flex-align(flex-start);
-}
-.align-end{
-  @include flex-align(flex-end);
-}
-.align-center {
-  @include flex-align(center);
-}
-.align-base {
-  @include flex-align(baseline);
-}
-.align-stretch {
-  @include flex-align(stretch);
-}
+.align-start { @include flex-align(flex-start); }
+.align-end { @include flex-align(flex-end); }
+.align-center { @include flex-align(center); }
+.align-base { @include flex-align(baseline); }
+.align-stretch { @include flex-align(stretch); }
 
 /* Align-Content */
-.content-start {
-  @include flex-align-content(flex-start);
-}
-.content-end {
-  @include flex-align-content(flex-end);
-}
-.content-center {
-  @include flex-align-content(center);
-}
-.content-between {
-  @include flex-align-content(space-between);
-}
-.content-around {
-  @include flex-align-content(space-around);
-}
-.content-stretch {
-  @include flex-align-content(stretch);
-}
-
+.content-start { @include flex-align-content(flex-start); }
+.content-end { @include flex-align-content(flex-end); }
+.content-center { @include flex-align-content(center); }
+.content-between { @include flex-align-content(space-between); }
+.content-around { @include flex-align-content(space-around); }
+.content-stretch { @include flex-align-content(stretch); }
 
 /*** CHILDREN ***/
 /* Flex-Grow */
-.grow-1 {
-  @include flex-grow-children(1);
-}
-.grow-2 {
-  @include flex-grow-children(2);
-}
-.grow-3 {
-  @include flex-grow-children(3);
-}
-.grow-4 {
-  @include flex-grow-children(4);
-}
-.grow-5 {
-  @include flex-grow-children(5);
-}
+.grow-1 { @include flex-grow-children(1); }
+.grow-2 { @include flex-grow-children(2); }
+.grow-3 { @include flex-grow-children(3); }
+.grow-4 { @include flex-grow-children(4); }
+.grow-5 { @include flex-grow-children(5); }
 
 /* Flex-Shrink */
-.shrink-1 {
-  @include flex-shrink-children(1);
-}
-.shrink-2 {
-  @include flex-shrink-children(2);
-}
-.shrink-3 {
-  @include flex-shrink-children(3);
-}
-.shrink-4 {
-  @include flex-shrink-children(4);
-}
-.shrink-5 {
-  @include flex-shrink-children(5);
-}
+.shrink-1 { @include flex-shrink-children(1); }
+.shrink-2 { @include flex-shrink-children(2); }
+.shrink-3 { @include flex-shrink-children(3); }
+.shrink-4 { @include flex-shrink-children(4); }
+.shrink-5 { @include flex-shrink-children(5); }
 
 /* Align-Self */
-.self-start {
-  @include flex-align-self-children(flex-start);
-}
-.self-end {
-  @include flex-align-self-children(flex-end);
-}
-.self-center {
-  @include flex-align-self-children(center);
-}
-.self-base {
-  @include flex-align-self-children(baseline);
-}
-.self-stretch {
-  @include flex-align-self-children(stretch);
-}
+.self-start { @include flex-align-self-children(flex-start); }
+.self-end { @include flex-align-self-children(flex-end); }
+.self-center { @include flex-align-self-children(center); }
+.self-base { @include flex-align-self-children(baseline); }
+.self-stretch { @include flex-align-self-children(stretch); }
