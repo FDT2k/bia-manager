@@ -166,7 +166,7 @@ const Editor = props => {
         setEditedGroup(g)
     }
 
-    const result_columns = useMemo(() => ['norme', values.most_accurate_formula || 'kuschner', 'gva'], [values.most_accurate_formula]);
+    const result_columns = useMemo(() => ['norme', values.most_accurate_formula || 'kushner', 'gva'], [values.most_accurate_formula]);
 
     const lists = useCustomList();
 

@@ -48,7 +48,13 @@ export const Component = props => {
 }
 
 Component.defaultProps = {
-    data: [],
+    data: [
+        {label:'test',values:{'kushner':12,segal:'43',gva:12}, display:true},
+        {label:'test2',values:{'kushner':12,segal:'43',gva:12}, display:true},
+        {label:'test3',values:{'kushner':12,segal:'43',gva:12}, display:true},
+        {label:'test4',values:{'kushner':12,segal:'43',gva:12}, display:true},
+        {label:'test5',values:{'kushner':12,segal:'43',gva:12}, display:true}
+    ],
     available_columns: [
         { name: 'kushner', label: 'Kushner', selectable: true },
         { name: 'segal', label: 'Segal', selectable: true },
