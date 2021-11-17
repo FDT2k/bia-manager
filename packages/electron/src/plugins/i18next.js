@@ -2,6 +2,8 @@ import { app, ipcMain, BrowserWindow, Menu, dialog } from 'electron';
 import { Mutex } from 'async-mutex';
 import i18n, { i18nextOptions,defaultOptions } from './config';
 import fs from 'fs/promises'
+
+import {deep_merge} from '@karsegard/composite-js'
 const mutex = new Mutex();
 
 

@@ -1,20 +1,22 @@
-import React, { useEffect, useMemo } from 'react';
-import MainView from "@/bia-layout/components/Views/MainView"
-import PageHeader from '@/bia-layout/components/PageHeader';
-import { Container, Grid, LayoutFlex, ComponentWithArea } from '@karsegard/react-core-layout';
-import Field from '@/bia-layout/components/Form/Fields';
 import Button from '@/bia-layout/components/Form/Button';
-import { enlist, is_nil, identity, safe_path, repeat,is_type_array } from '@karsegard/composite-js';
+import DatePicker from '@/bia-layout/components/Form/DatePicker';
+import Field from '@/bia-layout/components/Form/Fields';
+import Select from '@/bia-layout/components/Form/Select';
+import PageHeader from '@/bia-layout/components/PageHeader';
+import MainView from "@/bia-layout/components/Views/MainView";
+import { enlist, identity, is_nil, repeat, safe_path } from '@karsegard/composite-js';
 import { curry } from '@karsegard/composite-js/Curry';
-import Select from '@/bia-layout/components/Form/Select'
-import { useFieldValues, useForm } from '@karsegard/react-hooks';
 import { keyval } from '@karsegard/composite-js/ObjectUtils';
-import DatePicker from '@/bia-layout/components/Form/DatePicker'
-import { useLocation, useRoute } from "wouter";
+import { ComponentWithArea, Grid } from '@karsegard/react-core-layout';
+import { useForm } from '@karsegard/react-hooks';
+import React, { useEffect, useMemo } from 'react';
+import { useLocation } from "wouter";
 
 const mapItemListAsoption = (item) => {
     return { [item.id]: item.name }
 }
+
+
 export const Page = props => {
 
     const { available_options, t, patient, handleChange, handleSave, ...rest } = props;

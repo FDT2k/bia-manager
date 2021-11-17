@@ -3376,7 +3376,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@karsegard/react-core-layout@workspace:packages/kda-react-core-layout"
   dependencies:
-    "@karsegard/composite-js": ^2.10.3
+    "@karsegard/composite-js": ^2.10.11
     "@karsegard/react-compose": ^1.2.0
     rollup-plugin-terser: ^7.0.2
     sass: ^1.38.0
