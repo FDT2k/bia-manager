@@ -2,10 +2,12 @@ import React from 'react';
 import { Grid } from '@karsegard/react-core-layout'
 import { cEx } from '@karsegard/react-compose'
 
-import { dateSysToHuman, oneDecimal } from '@/references/format';
+
+import {useTranslation}  from '@'
 
 export const Component = props => {
-    const { t, data, headers, lines,boldlines } = props;
+    const {t,oneDecimal,dateSysToHuman} =useTranslation();
+    const { data, headers, lines,boldlines } = props;
     return (<Grid
         className="recap-grid"
 
@@ -25,6 +27,7 @@ export const Component = props => {
         {lines.map((k, idx) => {
             
             const line = data.find(item => item.label == k)
+            debugger;
 
             const bold = boldlines.includes(k);
 
@@ -57,7 +60,12 @@ export const Component = props => {
 
 Component.defaultProps = {
     t: x => x,
-    data:[],
+    data:[
+
+        {label:'weight',values:{'2021-01-01':-1000,'2021-01-02':-1000}},
+        {label:'ideal_weight',values:{'2021-01-01':-1000,'2021-01-02':-1000}}
+    ],
+    headers:['2021-01-01','2021-01-02','','','',''], // toujours 6
     lines: [
         'weight',
         'ideal_weight',

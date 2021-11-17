@@ -10,7 +10,7 @@ import PageHeader from '@/Components/PageHeader';
 import {LayoutFlex} from '@karsegard/react-core-layout'
 
 import React, { useEffect } from 'react';
-import {useCustomList} from '@'
+import {useCustomList,useTranslation} from '@'
 
 
 
@@ -27,12 +27,14 @@ const FieldSet = compose(
 const PatientHeader = props => {
     // console.log('patientHeader',props);
 
-    const { data, t,refresh_editor_lists, handleChange:handleParentChange,custom_lists ,...rest } = props
+    const { data, refresh_editor_lists, handleChange:handleParentChange,custom_lists ,...rest } = props
 
     const {className} = rest;
 
 
     const lists = useCustomList();
+
+    const {t} = useTranslation();
 
     const fields = {
         'birthdate': { type: 'date', editable: true, label: t('Date de naissance'), className:'birthdate' },

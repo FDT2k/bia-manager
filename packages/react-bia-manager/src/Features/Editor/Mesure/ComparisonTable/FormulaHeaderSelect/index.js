@@ -2,7 +2,7 @@
 import React from 'react';
 
 export default props => {
-    const { handleChange, disabled_col, options, idx, defaultValue, t, className,...rest } = props;
+    const { handleChange, disabled_col, options, idx, defaultValue, className,...rest } = props;
 
 
     const _onChange = e => {

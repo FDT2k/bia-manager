@@ -69,7 +69,6 @@ const Editor = props => {
         handleClickSave,
         className,
         gender,
-
         handleGoBack,
         handlePrint,
         handleChange: parentHandleChange,

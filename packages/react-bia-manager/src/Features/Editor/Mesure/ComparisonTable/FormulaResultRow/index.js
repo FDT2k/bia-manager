@@ -1,8 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import { bem, cEx, getClasseNames } from '@karsegard/react-compose';
 
+import { useTranslation } from '@';
+
 const FormulaResultRow = (props) => {
-    const { columns, values, logs, limits, available_columns, t, label } = props;
+    const { columns, values, logs, limits, available_columns,label } = props;
+    const {t,oneDecimal} = useTranslation();
     let colByName = available_columns.reduce(function (carry, item) {
         carry[item['name']] = item;
         return carry;
@@ -24,7 +27,7 @@ const FormulaResultRow = (props) => {
             let val = values[col]
             if (type !== 'norme') {
                 let limit = limits[col];
-                val = (new Number(val)).toFixed(1);
+                val = oneDecimal(val);
                 
                 let classes = _classes;
                 if (limit) {

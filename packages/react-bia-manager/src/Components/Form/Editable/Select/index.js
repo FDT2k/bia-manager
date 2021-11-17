@@ -39,7 +39,6 @@ const EditableSelect = withBaseClass('editable-field')(props => {
         _=> editable ? 'edited': '',
     ])
 
-   debugger;
 
     return (<>
         {editable && <SelectWithRef ref={ref} onBlur={_ => setEditable(false)} className={classes}  value={value||''} {...rest} ></SelectWithRef>}

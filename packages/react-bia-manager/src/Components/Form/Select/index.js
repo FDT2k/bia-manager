@@ -7,12 +7,10 @@ export default props => {
     const { forwardedRef: ref,children, options,value,...rest } = props
     const renderChildren = is_nil(options);
 
-    debugger;
 
     return (<select ref={ref}  value={value||''} {...rest} >
         {renderChildren && children}
         {!renderChildren && options.map((option, idx) => {
-    debugger;
 
             let value = option;
             let label = option; 

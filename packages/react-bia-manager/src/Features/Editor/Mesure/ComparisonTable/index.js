@@ -1,6 +1,7 @@
 import { bem, cEx, getClasseNames } from '@karsegard/react-compose';
 import {Grid} from '@karsegard/react-core-layout'
 import React, { useEffect, useState } from 'react';
+import { useTranslation } from '@';
 
 import FormulaResultHeader from './FormulaResultHeader'
 import FormulaResultRow from './FormulaResultRow'
@@ -10,9 +11,11 @@ import FormulaResultRow from './FormulaResultRow'
 export const Component = props => {
 
 
-    const { data, t, available_columns, selectable, columns, ...rest } = props;
+    const { data,  available_columns, selectable, columns, ...rest } = props;
     const [state, setState] = useState(columns);
    
+    const {t} = useTranslation();
+    
     useEffect(()=>{
         setState(columns);
     },[columns])

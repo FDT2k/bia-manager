@@ -1,24 +1,24 @@
 // lib externes
 //nos libs externes
-import { applyModifiers, bem, compose, getClasseNames } from '@karsegard/react-compose';
+import { useTranslation } from '@';
+import EditorLayout from '@/Components/EditorLayout';
 import { ArrowBack, Delete } from '@/Components/Icons';
 //nos libs internes
 import MainView from '@/Components/MainView';
-
-
-
-import EditorLayout from '@/Components/EditorLayout';
-
-import ReactLoading from 'react-loading'
-import React, { forwardRef, useState, useMemo } from 'react';
-
-
-import { Container, LayoutFlex, withGridArea, ComponentWithArea as Area } from '@karsegard/react-core-layout'
+import { applyModifiers, bem, compose, getClasseNames } from '@karsegard/react-compose';
+import { ComponentWithArea as Area, Container, LayoutFlex, withGridArea } from '@karsegard/react-core-layout';
+import React from 'react';
+import ListMesure from './ListMesure';
 import MesureEditor from './Mesure';
 import PatientHeader from './PatientHeader';
 
 
-import ListMesure from './ListMesure';
+
+
+
+
+
+
 
 const ContainerWithArea = withGridArea(Container);
 
@@ -36,9 +36,9 @@ const Editor = props => {
 
 
     const { RightFooter, ...remaining } = renderers;
-    const { t, lines, data, mesure, selectedMesureIndex, ...rest } = remaining
+    const { lines, data, mesure, selectedMesureIndex, ...rest } = remaining
 
-
+    const {t} = useTranslation();
     return (
         <MainView RightFooter={RightFooter} className="bia-main--editor" renderLeftNav={
             _ => {
