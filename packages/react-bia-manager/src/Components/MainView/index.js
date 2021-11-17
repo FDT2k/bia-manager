@@ -9,14 +9,6 @@ import React from 'react';
 import { useLocation } from "wouter";
 
 
-
-
-
-
-
-
-
-
 const MainLayout = withBaseClass('bia-main-layout')(Grid);
 
 

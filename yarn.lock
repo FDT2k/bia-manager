@@ -3290,6 +3290,15 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@karsegard/bia-manager-theme@workspace:packages/integration":
+  version: 0.0.0-use.local
+  resolution: "@karsegard/bia-manager-theme@workspace:packages/integration"
+  dependencies:
+    node-sass: ^6.0.1
+    vite: ^2.6.4
+  languageName: unknown
+  linkType: soft
+
 "@karsegard/bia-website@workspace:packages/website":
   version: 0.0.0-use.local
   resolution: "@karsegard/bia-website@workspace:packages/website"
@@ -3364,6 +3373,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@karsegard/react-bia-manager@workspace:packages/react-bia-manager"
   dependencies:
+    "@karsegard/bia-manager-theme": "workspace:packages/integration"
     "@karsegard/composite-js": ^2.10.3
     "@karsegard/react-core-layout": ^1.5.1
     "@karsegard/react-hooks": ^2.8.0
@@ -14825,15 +14835,6 @@ fsevents@^1.2.7:
   checksum: 4d387fc1eb6126acbd58cbdb9ad99d2887d181df86ab0c2b9abdf734e751093e2d5882c2b6dc7144d9ab16b7ab30a78a1d7f01fb6a2850a44aeb175d1e3f8778
   languageName: node
   linkType: hard
-
-"integration@workspace:packages/integration":
-  version: 0.0.0-use.local
-  resolution: "integration@workspace:packages/integration"
-  dependencies:
-    node-sass: ^6.0.1
-    vite: ^2.6.4
-  languageName: unknown
-  linkType: soft
 
 "internal-ip@npm:^4.3.0":
   version: 4.3.0

@@ -28,6 +28,7 @@
     "vite": "^2.5.3"
   },
   "dependencies": {
+    "@karsegard/bia-manager-theme": "workspace:packages/integration",
     "@karsegard/composite-js": "^2.10.3",
     "@karsegard/react-hooks": "^2.8.0",
     "@karsegard/react-redux": "workspace:packages/kda-react-redux",
