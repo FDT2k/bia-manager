@@ -17,7 +17,7 @@ import PrintableReport from '@/Features/Editor/Mesure/PrintableReport';
 import Tabs, { Tab, TabList, TabPanel } from '@/Components/Tabs';
 import ElectricalDataForm from '@/Components/ElectricalDataForm';
 
-
+import {safe_path} from '@karsegard/composite-js'
 import ComparisonTable from './ComparisonTable';
 import Serrement from './Serrement';
 import RecapGrid from './RecapGrid';
@@ -109,13 +109,7 @@ const Editor = props => {
 
     useEffect(() => {
         _handleChange(values);
-        //        _handleChange(values);
-        /*const [o1,rest] = spreadObjectPresentIn(['rea50','res50','z50','a50'],values.data)
-        const [o2,rest2] = spreadObjectPresentIn(['rea50','res50','z50','a50'],mesure.data)
-        if(!compare_objects(o1,o2)){
-            console.warn('data-change',values.data,mesure.data)
-            _handleChange(values);
-        }*/
+        
     }, [values.data]);
 
 
@@ -195,12 +189,12 @@ const Editor = props => {
 
                             <Field className="activite-physique" label={t("Activité physique")}>
 
-                                <Select tabIndex={2}  {...inputProps('sport.rate')} options={custom_lists.sport_rate.list} />
+                                <Select tabIndex={2}  {...inputProps('sport.rate')} options={safe_path([],'sport_rate.list',custom_lists)} />
 
                             </Field>
 
                             <Field className="type-activite-physique" label={t("Type d'Activité physique")}>
-                                <Select tabIndex={2}  {...inputProps('sport.type')} options={custom_lists.sport_type.list} />
+                                <Select tabIndex={2}  {...inputProps('sport.type')} options={safe_path([],'sport_type.list',custom_lists)} />
 
                             </Field>
 
@@ -268,7 +262,7 @@ const Editor = props => {
                     <EditableTextInput value={values.examinator} name="examinator" onChange={handleChange} />
                 </Field>
                 <Field label={t("Bio-impédancemètre")}>
-                    <EditableSelect {...inputProps('machine')} options={[{ id: '', name: t('- Choisissez une valeur -') }, ...custom_lists.machine.list]} />
+                    <EditableSelect {...inputProps('machine')} options={[{ id: '', name: t('- Choisissez une valeur -') }, ...safe_path([],'machine.list',custom_lists) ]} />
                 </Field>
                 <Field label={t("Poids Idéal (%)")}>
                     <div>{oneDecimal(values.ideal_weight)} ({oneDecimalPct(values.pct_ideal_weight)})</div>
@@ -307,6 +301,8 @@ Editor.defaultProps = {
         current_age: 0
 
     },
+    get_current_bia: _=> [],
+    custom_lists:{},
     gender: 'm',
     t: x => x,
     data: [

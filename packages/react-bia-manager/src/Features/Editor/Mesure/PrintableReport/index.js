@@ -12,7 +12,7 @@ import { dateSysToHuman } from '@/references/format';
 
 import RecapFDS from '@/Features/Editor/Mesure/RecapGrid/FDS';
 
-export default props => {
+export const Component =  props => {
 
     const {
      mesure   ,
@@ -90,3 +90,10 @@ export default props => {
         </Grid>
     )
 }
+
+
+Component.defaultProps = {
+    get_current_bia: x=>[]
+}
+
+export default Component

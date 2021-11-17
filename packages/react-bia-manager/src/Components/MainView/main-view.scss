@@ -1,0 +1,78 @@
+
+/*ca va bouger, j'ai fait une betise (fabien) */
+.bia-main-layout {
+  grid-template-columns: 100%;
+  grid-template-rows: 52px auto 52px;
+  grid-template-areas:
+    " header "
+    " maincontent "
+    " footer ";
+}
+
+.bia-main {
+
+  &__content {
+    max-width: 100%;
+    padding: 0px var(--marge-width);
+  }
+
+  .navbar {
+    padding: 0px var(--marge-width);
+  }
+
+  .nav-main {
+  }
+  &__content {
+    overflow-y: auto;
+  }
+}
+
+button {
+  //  width: calc((var(--col-width) * 3) + (var(--gut-width) * 2));
+  /*  &:hover, &:active, &:focus{
+        @extend %colors-positive;
+    }*/
+}
+
+input,
+select,
+textarea,
+.editable-field
+ {
+  box-sizing: border-box;
+  padding: 0px 16px;
+}
+
+input,
+select,
+textarea {
+  border: 1px solid var(--primary);
+}
+
+tr.selected,
+tr:hover {
+}
+
+tr {
+  cursor: pointer;
+}
+
+.modal-overlay {
+  background-color: var(--primary);
+  opacity:0.3;
+}
+.modal-content{
+  z-index:100000;
+  background-color: var(--secondary);
+
+}
+
+.modal-content-box{
+  .title{
+    text-align: center;
+  }
+  max-width:300px;
+  z-index:100001;
+  min-width: 300px;
+  min-height: 300px;
+}

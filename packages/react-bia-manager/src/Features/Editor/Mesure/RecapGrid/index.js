@@ -57,6 +57,7 @@ export const Component = props => {
 
 Component.defaultProps = {
     t: x => x,
+    data:[],
     lines: [
         'weight',
         'ideal_weight',

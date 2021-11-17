@@ -6,13 +6,14 @@ import { useForm } from '@karsegard/react-hooks';
 import { value } from '@karsegard/composite-js/ObjectUtils';
 
 import { oneDecimal, oneDecimalPct } from '@/references/format'
-import { is_type_number } from '@karsegard/composite-js';
+import { safe_path,is_type_number } from '@karsegard/composite-js';
 
+import {useTranslation} from '@/Context/Translation'
 
 export const Component = props => {
-    const { t,initialValues,handleChange } = props;
+    const { initialValues,handleChange } = props;
 
-
+    const {t} = useTranslation();
 
     const { values,getValue,checkboxProps,inputProps,replaceValues,handleFieldChange, handleInput } = useForm(initialValues, { usePath: true,onValuesChange: handleChange })
 
@@ -20,6 +21,12 @@ export const Component = props => {
     useEffect(()=>{
         let res = replaceValues(initialValues)
     },[initialValues])
+
+    const left_avg = safe_path("N/A",'left.avg',initialValues);
+    const right_avg = safe_path("N/A",'right.avg',initialValues);
+
+    const left_norme = safe_path("N/A",'left.norme',initialValues);
+    const right_norme = safe_path("N/A",'right.norme',initialValues);
     return (
         <>
             <Grid
@@ -50,11 +57,11 @@ export const Component = props => {
                 <div> <input type="text"  {...inputProps('left.data.2')}/></div>
                 <div> <input type="text"  {...inputProps('right.data.2')}/></div>
                 <div className="header header--left">{t('Moyenne des mesures')}</div>
-                <div> {(is_type_number(initialValues.left.avg)) ? oneDecimal(initialValues.left.avg) : "N/A"} </div>
-                <div> {(is_type_number(initialValues.right.avg)) ? oneDecimal(initialValues.right.avg) : "N/A"} </div>
+                <div> {left_avg} </div>
+                <div> {right_avg} </div>
                 <div className="header header--left">{t('Normes')}</div>
-                <div> {initialValues.left.norme.toString()}  </div>
-                <div> {initialValues.right.norme.toString()} </div>
+                <div> {left_norme.toString()}  </div>
+                <div> {right_norme.toString()} </div>
 
             </Grid>
         </>

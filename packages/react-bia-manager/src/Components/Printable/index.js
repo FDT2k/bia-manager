@@ -1,5 +1,5 @@
 import React, { forwardRef } from 'react';
-
+import './printable.scss'
 
 
 
