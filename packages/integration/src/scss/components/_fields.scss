@@ -51,6 +51,20 @@
         select.editable-field {
         }
 
+        input[type="checkbox"] {
+            &.checkbox--basic {
+                width: 16px;
+                height: 16px;
+                border: 1px solid var(--primary);
+                margin: auto;
+                background-color: var(--secondary);
+
+                &:checked {
+                    filter:hue-rotate(-13deg) grayscale(0.95) saturate(2);
+                }
+            }
+        }
+
         &.error {
           input, input:focus {
             border: solid 1px var(--color-invalid);

@@ -107,7 +107,7 @@ $max-editor-value: (727px - (16 * 10)) / 11;
 
         &__form {
             gap: 16px;
-            
+
             &__line {
                 column-gap: 16px;
                 row-gap: 32px;
@@ -195,29 +195,7 @@ $max-editor-value: (727px - (16 * 10)) / 11;
                 .field__line {
                     border-bottom: 1px solid var(--primary);
                 }
-
-
             }
-
         }
-
-        .span-2 {
-            grid-column: span 2;
-        }
-
-        .span-3 {
-            grid-column: span 3;
-        }
-
-        .span-5 {
-            grid-column: span 5;
-        }
-        .span-11 {
-            grid-column: span 11;
-        }
-
-
     }
-
-
 }
