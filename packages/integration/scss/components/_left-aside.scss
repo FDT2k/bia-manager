@@ -1,0 +1,19 @@
+@use '../eksass/base' as *;
+@use '../layout' as *;
+@use '../fonts' as *;
+
+.left-aside {
+  grid-area: left-aside;
+  gap: 8px;
+
+  h3 {
+      @extend %large-body;
+  }
+  ul, li {
+      gap: 8px;
+  }
+
+  .button {
+      width: 100%;
+  }
+}

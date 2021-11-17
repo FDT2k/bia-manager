@@ -69,4 +69,3 @@ Component.defaultProps = {
     handleChange: values => console.warn('values changed but no handler',values)
 }
 export default Component
-

@@ -1,0 +1,60 @@
+@use '../eksass/base' as *;
+@use '../layout' as *;
+@use '../fonts' as *;
+
+.dropdown{
+    position:relative;
+    border: 1px solid black;
+    border-radius: 2px;
+    cursor:pointer;
+    padding:8px 12px 8px 16px;
+    z-index:1;
+    &__content{
+        position:absolute;
+
+        bottom:0px;
+        left:0px;
+
+        &--visible{
+            display:block
+        }
+
+        &--hidden{
+            display:none;
+        }
+    }
+    &__item{
+        background-color: white;
+        z-index: 9999;
+        padding:8px 16px;
+        border:1px solid var(--primary);
+        border-top: none;
+        border-radius: none;
+        min-width:100%;
+
+        &:first-child {
+          border-top: solid 1px var(--primary);
+          border-radius: 4px 4px 0px 0px;
+        }
+        &:last-child {
+          border-radius: 0px 0px 4px 4px;
+        }
+    }
+    &__label{
+        font-weight: bold;;
+    }
+
+    input{
+        // height: 24px;
+        // max-width: 120px;
+    }
+
+    .react-datepicker-wrapper {
+      text-align: right;
+      input {
+        padding: 0px;
+        width: 70px;
+        border: none;
+      }
+    }
+}

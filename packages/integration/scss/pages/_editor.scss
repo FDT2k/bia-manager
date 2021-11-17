@@ -1,0 +1,223 @@
+$asides-value: 44px;
+$editor-value: (552px - (16 * 10)) / 11;
+$max-editor-value: (727px - (16 * 10)) / 11;
+
+.content {
+  grid-area: content;
+  margin: 0px auto;
+  width: 100%;
+  max-width: 1200px;
+  @extend %main-grid;
+  // grid-template-rows: [header] min-content [content] auto [comments] auto;
+  grid-template:
+    [header] "header header header header header header header header header header header header header header header header header header" min-content
+    [content] "left-aside left-aside . editor editor editor editor editor editor editor editor editor editor editor . right-aside right-aside right-aside" min-content
+    [comments] "left-aside left-aside . comments comments comments comments comments comments comments comments comments comments comments . right-aside right-aside right-aside" auto
+    / minmax($asides-value, 1fr) minmax($asides-value, 1fr)
+    1fr
+    minmax($editor-value, 1fr) minmax($editor-value, 1fr) minmax($editor-value, 1fr) minmax($editor-value, 1fr) minmax($editor-value, 1fr) minmax($editor-value, 1fr) minmax($editor-value, 1fr) minmax($editor-value, 1fr) minmax($editor-value, 1fr) minmax($editor-value, 1fr) minmax($editor-value, 1fr)
+    1fr
+    minmax($asides-value, 1fr) minmax($asides-value, 1fr) minmax($asides-value, 1fr)
+    ;
+
+    @include mq-width-and-lower(1200px+64px) {
+      margin: 0px 32px;
+      width: auto;
+    }
+}
+
+.editor {
+    grid-area: editor;
+
+    .tabs {
+        display: flex;
+        align-items: center;
+        justify-content: start;
+	    background-color: var(--tertiary);
+        width: fit-content;
+        margin-bottom: 32px;
+        @extend %radius;
+        @extend %large-body;
+
+
+        &__container {
+            display: flex;
+            position: relative;
+            background-color: var(--tertiary);
+            padding: 3px;
+            border-radius: 4px;
+
+            & > * {
+                z-index: 2;
+            }
+        }
+
+        &__tab {
+            display: flex;
+            align-items: center;
+            justify-content: start;
+            height: 32px;
+            width: 150px;
+            padding: 0px 16px;
+            border-radius: 4px;
+            color: var(--tertiary--dark);
+            /* // just a high number to create pill effect */
+            cursor: pointer;
+            transition: color 0.15s ease-in;
+        }
+
+        input[type="radio"] {
+            display: none;
+        }
+
+        input[type="radio"]:checked + label {
+            color: var(--primary);
+        }
+
+        input[id="radio-1"]:checked ~ .glider {
+            transform: translateX(0);
+        }
+
+        input[id="radio-2"]:checked ~ .glider {
+            transform: translateX(100%);
+        }
+
+        input[id="radio-3"]:checked ~ .glider {
+            transform: translateX(200%);
+        }
+
+        .glider {
+            position: absolute;
+            display: flex;
+            height: 32px;
+            width: 150px;
+            padding: 0px 16px;
+            background-color: var(--secondary);
+            z-index: 1;
+            border-radius: 4px;
+          /* // just a high number to create pill effect */
+            transition: 0.25s ease-out;
+        }
+
+    }
+
+    .tabs__panel {
+        column-gap: 16px;
+        row-gap: 32px;
+
+        &__form {
+            gap: 16px;
+            
+            &__line {
+                column-gap: 16px;
+                row-gap: 32px;
+
+                .field {
+                    flex-grow: 2;
+                    &.date-examen,
+                    &.activite-physique,
+                    &.type-activite-physique,
+                    &.taille,
+                    &.poids-actuel {
+                        flex-grow: 3;
+                    }
+
+                    &.fumeur,
+                    &.cote-mesure {
+                        max-width: calc( #{$editor-value} * 3 );
+                    }
+
+                }
+            }
+
+        }
+
+        &__impedance {
+            display: grid;
+            grid-template-rows: auto;
+            grid-template-columns: repeat(11, 1fr);
+            column-gap: 16px;
+            row-gap: 8px;
+            align-items: center;
+
+            > * {
+                height: 100%;
+                // border: solid 1px;
+                align-items: center;
+            }
+
+            .field {
+                & > *, input {
+                    height: 100%;
+                    align-items: center;
+                    justify-content: center;
+                }
+                input {
+                    min-height: 32px;
+                    text-align: center;
+                }
+                .editable-field {
+                    min-height: inherit;
+                    background-color: var(--tertiary);
+                    border: none;
+                    width: 100%;
+                }
+            }
+            .field__label {
+                margin-bottom: inherit;
+            }
+
+            &__header {
+                @extend %large-body;
+                &--left {
+                    .field__label {
+                        justify-content: left;
+                        // border: solid 1px red;
+                    }
+                }
+                &--top {
+                    select {
+                        height: 100%;
+                        padding-left: 8px;
+                    }
+                }
+            }
+
+            &__content {
+                .field__label, input, select, option {
+                    @extend %small-body;
+                }
+            }
+
+            &--results {
+                row-gap: 2px;
+
+                .field__line {
+                    border-bottom: 1px solid var(--primary);
+                }
+
+
+            }
+
+        }
+
+        .span-2 {
+            grid-column: span 2;
+        }
+
+        .span-3 {
+            grid-column: span 3;
+        }
+
+        .span-5 {
+            grid-column: span 5;
+        }
+        .span-11 {
+            grid-column: span 11;
+        }
+
+
+    }
+
+
+}

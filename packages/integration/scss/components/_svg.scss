@@ -1,0 +1,12 @@
+@use '../eksass/base' as *;
+@use '../layout' as *;
+@use '../fonts' as *;
+
+svg {
+    width: auto;
+    height: 100%;
+    
+    &.positive-colors {
+        fill: var(--primary);
+    }
+}
