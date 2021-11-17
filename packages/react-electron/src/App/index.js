@@ -21,7 +21,7 @@ export default props => {
         <Provider>
             <ElectronProvider api={window.electron}>
                 <I18Next>
-                    <AppHandler />
+                    "hello world"
                     <UpdateManager />
                 </I18Next>
             </ElectronProvider>

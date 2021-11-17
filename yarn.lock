@@ -3360,6 +3360,25 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@karsegard/react-bia-manager@workspace:packages/react-bia-manager":
+  version: 0.0.0-use.local
+  resolution: "@karsegard/react-bia-manager@workspace:packages/react-bia-manager"
+  dependencies:
+    "@karsegard/composite-js": ^2.10.3
+    "@karsegard/react-core-layout": ^1.5.1
+    "@karsegard/react-hooks": ^2.8.0
+    "@karsegard/react-redux": "workspace:packages/kda-react-redux"
+    immutability-helper: ^3.1.1
+    react-dnd: ^14.0.4
+    react-dnd-html5-backend: ^14.0.2
+    react-table: ^7.7.0
+    vite: ^2.5.3
+  peerDependencies:
+    react: ^17.0.2
+    react-dom: ^17.0.2
+  languageName: unknown
+  linkType: soft
+
 "@karsegard/react-compose@npm:^1.2.0, @karsegard/react-compose@npm:^1.3.2":
   version: 1.3.2
   resolution: "@karsegard/react-compose@npm:1.3.2"
@@ -7138,6 +7157,68 @@ __metadata:
     spectron: ^15.0.0
     vite: ^2.5.2
     vite-react-jsx: ^1.1.2
+  languageName: unknown
+  linkType: soft
+
+"bia-manager-react-electron@workspace:packages/react-electron":
+  version: 0.0.0-use.local
+  resolution: "bia-manager-react-electron@workspace:packages/react-electron"
+  dependencies:
+    "@karsegard/cex": ^1.4.4
+    "@karsegard/composite-js": ^2.10.11
+    "@karsegard/indexeddb-export-import": ^2.1.4
+    "@karsegard/react-compose": ^1.3.2
+    "@karsegard/react-core-layout": ^1.5.1
+    "@karsegard/react-crud": "workspace:packages/kda-react-crud"
+    "@karsegard/react-hooks": ^2.9.0
+    "@karsegard/react-redux": ^1.7.0
+    "@material-ui/core": ^4.11.4
+    "@material-ui/icons": ^4.11.2
+    "@reduxjs/toolkit": ^1.6.0
+    "@testing-library/jest-dom": ^5.11.4
+    "@testing-library/react": ^11.1.0
+    "@testing-library/user-event": ^12.1.10
+    babel-jest: ^27.3.1
+    classnames: ^2.3.1
+    crypto-js: ^4.0.0
+    date-fns: ^2.23.0
+    dexie: ^3.0.3
+    faker: ^5.5.3
+    jest: ^27.3.1
+    match-sorter: ^6.3.0
+    math-expression-evaluator: ^1.3.8
+    moment: ^2.29.1
+    namor: ^2.0.3
+    node-sass: ^6.0.1
+    react: ^17.0.2
+    react-circular-progressbar: ^2.0.4
+    react-datepicker: ^4.1.1
+    react-dom: ^17.0.2
+    react-dump: ^0.3.3
+    react-i18next: ^11.12.0
+    react-input-date-mask: ^2.0.0
+    react-input-mask: ^2.0.4
+    react-ionicons: ^4.2.0
+    react-loading: ^2.0.3
+    react-maskedinput: ^4.0.1
+    react-popper: ^2.2.5
+    react-redux: ^7.2.4
+    react-scripts: 4.0.3
+    react-table: ^7.7.0
+    react-text-mask: ^5.4.3
+    react-to-print: ^2.13.0
+    recharts: ^2.1.0
+    redux: ^4.1.0
+    redux-logger: ^3.0.6
+    redux-mock-store: ^1.5.4
+    redux-persist: ^6.0.0
+    redux-persist-transform-encrypt: ^3.0.1
+    remote-redux-devtools: ^0.5.16
+    styled-components: ^5.3.0
+    vite: ^2.5.3
+    web-vitals: ^1.0.1
+    webpack-cli: ^4.7.2
+    wouter: ^2.7.4
   languageName: unknown
   linkType: soft
 
