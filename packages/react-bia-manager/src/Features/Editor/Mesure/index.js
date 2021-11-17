@@ -17,7 +17,7 @@ import PrintableReport from '@/Features/Editor/Mesure/PrintableReport';
 import Tabs, { Tab, TabList, TabPanel } from '@/Components/Tabs';
 import ElectricalDataForm from '@/Components/ElectricalDataForm';
 
-import {safe_path} from '@karsegard/composite-js'
+import { safe_path } from '@karsegard/composite-js'
 import ComparisonTable from './ComparisonTable';
 import Serrement from './Serrement';
 import RecapGrid from './RecapGrid';
@@ -29,12 +29,12 @@ import MesureEditorLayout from '@/Components/MesureEditorLayout';
 import React, { useEffect, useMemo, useRef, useState } from 'react';
 import { useReactToPrint } from 'react-to-print';
 
-import { oneDecimal, oneDecimalPct } from '@/references/format'
+//import { oneDecimal, oneDecimalPct } from '@/references/format'
 import MaskedInput from 'react-maskedinput';
 import moment from 'moment';
 import "react-datepicker/dist/react-datepicker.css";
 
-import {useCustomList} from '@'
+import { useCustomList, useTranslation } from '@'
 
 const LayoutFlexColumnWithArea = withGridArea(LayoutFlexColumn);
 const TabsWithArea = withGridArea(Tabs);
@@ -46,10 +46,11 @@ const DateMask = ({
 
 }) => {
 
+    const {momentHumanDateFormat} = useTranslation()
 
     const updateDate = value => {
-        let fieldValue = moment(value, 'DD/MM/YYYY').isValid() ?
-            moment(value, 'DD/MM/YYYY').format('DD/MM/YYYY') :
+        let fieldValue = moment(value, momentHumanDateFormat).isValid() ?
+            moment(value, momentHumanDateFormat).format(momentHumanDateFormat) :
             value;
         console.log(value)
         return fieldValue
@@ -63,11 +64,12 @@ const DateMask = ({
 const [__base_class, element, modifier] = bem('bia-mesure-editor')
 
 const Editor = props => {
+    const { t,oneDecimal, oneDecimalPct } = useTranslation();
     const {
         handleClickSave,
         className,
         gender,
-        t,
+
         handleGoBack,
         handlePrint,
         handleChange: parentHandleChange,
@@ -111,7 +113,7 @@ const Editor = props => {
 
     useEffect(() => {
         _handleChange(values);
-        
+
     }, [values.data]);
 
 
@@ -168,6 +170,7 @@ const Editor = props => {
     const result_columns = useMemo(() => ['norme', values.most_accurate_formula || 'kuschner', 'gva'], [values.most_accurate_formula]);
 
     const lists = useCustomList();
+
     return (
         <MesureEditorLayout className={className}>
             <TabsWithArea tabIndexOffset={20} renderDisabledPanels={true} area="mesure-editor-main">
@@ -190,12 +193,12 @@ const Editor = props => {
 
                             <Field className="activite-physique" label={t("Activité physique")}>
 
-                                <Select tabIndex={2}  {...inputProps('sport.rate')} options={safe_path([],'sport_rate',lists)} />
+                                <Select tabIndex={2}  {...inputProps('sport.rate')} options={safe_path([], 'sport_rate', lists)} />
 
                             </Field>
 
                             <Field className="type-activite-physique" label={t("Type d'Activité physique")}>
-                                <Select tabIndex={2}  {...inputProps('sport.type')} options={safe_path([],'sport_type',lists)} />
+                                <Select tabIndex={2}  {...inputProps('sport.type')} options={safe_path([], 'sport_type', lists)} />
 
                             </Field>
 
@@ -244,11 +247,11 @@ const Editor = props => {
                         <MassChart data={mass_chart} />
                         <LayoutFlex>
                             <LayoutFlexColumn alignCenter>
-                            <h4>{t('FFMI_RECAP_TITLE')}</h4> 
+                                <h4>{t('FFMI_RECAP_TITLE')}</h4>
                                 <TESTChart data_key="ffmi" />
                             </LayoutFlexColumn>
                             <LayoutFlexColumn alignCenter>
-                            <h4>{t('FMI_RECAP_TITLE')}</h4>
+                                <h4>{t('FMI_RECAP_TITLE')}</h4>
                                 <TESTChart data_key="fmi" />
                             </LayoutFlexColumn>
                         </LayoutFlex>
@@ -263,7 +266,7 @@ const Editor = props => {
                     <EditableTextInput value={values.examinator} name="examinator" onChange={handleChange} />
                 </Field>
                 <Field label={t("Bio-impédancemètre")}>
-                    <EditableSelect {...inputProps('machine')} options={safe_path([],'machines',lists) } />
+                    <EditableSelect {...inputProps('machine')} options={safe_path([], 'machines', lists)} />
                 </Field>
                 <Field label={t("Poids Idéal (%)")}>
                     <div>{oneDecimal(values.ideal_weight)} ({oneDecimalPct(values.pct_ideal_weight)})</div>
@@ -302,8 +305,8 @@ Editor.defaultProps = {
         current_age: 0
 
     },
-    get_current_bia: _=> [],
-    custom_lists:{},
+    get_current_bia: _ => [],
+    custom_lists: {},
     gender: 'm',
     t: x => x,
     data: [

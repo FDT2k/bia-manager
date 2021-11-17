@@ -8,21 +8,25 @@ export const Context = createContext(null)
 
 
 export const makeProvider = (Context) => (props) => {
-    const { children, t:_t } = props;
+    const { children,  value:_value } = props;
 
     
-    let t = _t;
-    if(is_nil(t)){
-        t=identity
-    }
-    
-    
+    const defaultValue = {
+      t:identity,
+      oneDecimal:identity, 
+      oneDecimalPct:identity,
+      momentHumanDateFormat:'DD/MM/YYYY',
+    };
+
+    let value = Object.assign({},defaultValue,_value)
+
+
     const formatDate = identity;
 
     const formatFloat = identity;
 
     return (
-        <Context.Provider value={{t,formatDate,formatFloat}}>
+        <Context.Provider value={value}>
             {children}
         </Context.Provider>
     )
