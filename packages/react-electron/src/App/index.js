@@ -2,32 +2,30 @@ import React from 'react';
 
 import { Provider as ElectronProvider } from '@/Context/Electron'
 
-import AppHandler from '@/App/Electron/AppHandler'
-import ErrorHandler from '@/App/Features/ErrorMessageHandler'
-import LoadingHandler from '@/App/Features/Loading'
 
-import Provider from '@/Providers/Stores/ElectronApp';
+
+import Store from '@/Store';
 
 import I18Next from '@/Features/Electron/i18Next';
 import UpdateManager from '@/App/Electron/AutoUpdate';
-
+import ErrorHandler from '@/Features/ErrorMessageHandler'
+import LoadingHandler from '@/Features/Loading'
 
 
 
 export default props => {
 
-
+debugger;
     return (
-        <Provider>
+        <Store>
             <ElectronProvider api={window.electron}>
                 <I18Next>
-                    "hello world"
                     <UpdateManager />
                 </I18Next>
             </ElectronProvider>
-            <ErrorHandler/>
-            <LoadingHandler/>
-        </Provider>
+           {/* <ErrorHandler/>
+            <LoadingHandler/>*/}
+        </Store>
     );
 
 }

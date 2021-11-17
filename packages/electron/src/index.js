@@ -17,6 +17,7 @@ import init18next from './plugins/i18next'
 let openedFilePath;
 let currentSQLite;
 let currentBackend;
+let mainWindow = null;
 
 let cleanState = false;
 
@@ -59,7 +60,7 @@ const getSettings = _ => fs.readFile(settingsFile, { encoding: 'utf8' }).then(re
 
 app.disableHardwareAcceleration();
 
-// Install "Vue.js devtools"
+// Install "React.js devtools"
 if (import.meta.env.MODE === 'development') {
   createFileIfNeeded(langCollectionFile, '{}');
 
@@ -71,7 +72,6 @@ if (import.meta.env.MODE === 'development') {
     .catch(e => console.error('Failed install extension:', e));
 }
 
-let mainWindow = null;
 
 
 

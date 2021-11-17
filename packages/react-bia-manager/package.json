@@ -4,9 +4,9 @@
   "description": "",
   "author": "FDT2k",
   "license": "MIT",
-  "main": "dist/kda-react-crud.cjs.js",
-  "module": "dist/kda-react-crud.es.js",
-  "browser": "dist/kda-react-crud.umd.js",
+  "main": "dist/react-bia-manager.cjs.js",
+  "module": "dist/react-bia-manager.es.js",
+  "browser": "dist/react-bia-manager.umd.js",
   "scripts": {
     "test": "cross-env CI=1 react-scripts test --env=jsdom",
     "test:watch": "react-scripts test --env=jsdom",

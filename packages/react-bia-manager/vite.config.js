@@ -45,9 +45,9 @@ module.exports = {
   build:{
     lib: {
       entry: resolve(PACKAGE_ROOT, 'src/index.js'),
-      name: 'ReactCrud',
+      name: 'BIAManager',
       formats:['es','umd','cjs'],
-      fileName: (format) => `kda-react-crud.${format}.js`
+      fileName: (format) => `react-bia-manager.${format}.js`
     },
     rollupOptions: {
       external: require('./externals').default,

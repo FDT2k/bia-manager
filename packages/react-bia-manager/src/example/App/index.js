@@ -5,7 +5,7 @@ import { BIARouter, ViewProvider, TranslationProvider,CustomListProvider } from 
 
 import Editor from '@/Features/Editor';
 import { useTranslation } from '@';
-
+import {ErrorMessage,Modal,Loading} from '@'
 
 
 const TestEditor = props => {
@@ -55,6 +55,7 @@ export default props => {
             <ViewProvider views={{ Editor: TestEditor }}>
                 <BIARouter />
             </ViewProvider>
+            <Loading label="something"/>
         </TranslationProvider>
     )
 
