@@ -84,7 +84,7 @@ const PatientHeader = props => {
                             <Field key={key(_item)} label={label} className={className}>
 
                                 {editable && type === "select" && <EditableSelect {...inputProps(field)}  options={options}/>}
-                                {editable && type === "text" && <EditableTextInput value={values[field]} name={field} onChange={handleChange} />}
+                                {editable && type === "text" && <EditableTextInput {...inputProps(field)}/>}
                                 {editable && type === "date" && <SafeDatePicker 
                                     selected={values.birthdate}
                                     handleChange={handleChangeValue('birthdate')}

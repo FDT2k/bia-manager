@@ -3356,6 +3356,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@karsegard/composite-js@npm:^2.11.1":
+  version: 2.11.1
+  resolution: "@karsegard/composite-js@npm:2.11.1"
+  checksum: 8c2576894e9fbfb33f0f74c67979a22cd24fb8be1ae1671070f5ee9de520dcbcc2e0e7a090a40ba863c94f7f769d77f0fa8e6e74c8b30d1ae73d7866f5e3562c
+  languageName: node
+  linkType: hard
+
 "@karsegard/electron-preloader@workspace:packages/electron-preloader":
   version: 0.0.0-use.local
   resolution: "@karsegard/electron-preloader@workspace:packages/electron-preloader"
@@ -3374,7 +3381,7 @@ __metadata:
   resolution: "@karsegard/react-bia-manager@workspace:packages/react-bia-manager"
   dependencies:
     "@karsegard/bia-manager-theme": "workspace:packages/integration"
-    "@karsegard/composite-js": ^2.10.3
+    "@karsegard/composite-js": ^2.11.1
     "@karsegard/react-core-layout": ^1.5.1
     "@karsegard/react-hooks": ^2.8.0
     "@karsegard/react-redux": "workspace:packages/kda-react-redux"
@@ -3459,7 +3466,7 @@ __metadata:
     "@babel/plugin-syntax-import-meta": ^7.0.0
     "@babel/preset-env": ^7.0.0
     "@babel/preset-react": ^7.0.0
-    "@karsegard/composite-js": ^2.10.3
+    "@karsegard/composite-js": ^2.11.1
     "@karsegard/react-core-layout": ^1.5.1
     "@rollup/plugin-babel": ^5.3.0
     "@rollup/plugin-commonjs": ^19.0.1
