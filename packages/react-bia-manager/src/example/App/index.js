@@ -12,7 +12,7 @@ const TestEditor = props => {
     return (<Editor
         patient={{}}
         handlers={{
-            handleChange: _ => alert('hey')
+           
         }}
         mesure={{ date: '2012-01-21', data: {},left_side:true }}></Editor>)
 }

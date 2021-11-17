@@ -3,6 +3,8 @@ import { useFocus } from '@karsegard/react-hooks';
 import { LayoutFlex } from '@karsegard/react-core-layout'
 
 import React, { Children, cloneElement, useRef, useState } from 'react';
+import './tabs.scss';
+
 
 function makeTypeChecker(tabsRole) {
     return (element) => !!element.type && element.type.tabsRole === tabsRole;
