@@ -1,7 +1,7 @@
 import { bem, compose, withBaseClass } from '@karsegard/react-compose';
 import { Person } from '@/bia-layout/components/Icons';
 import Navbar from '@/bia-layout/components/Navbar';
-
+import { is_nil } from '@karsegard/composite-js';
 
 
 import { Grid, LayoutFlex, Container, withGridArea } from '@karsegard/react-core-layout'
@@ -33,7 +33,7 @@ const Content = compose(
 )(Container)
 
 const MainView = props => {
-    const { className, renderFooter, renderLeftNav, t, showUser, ...rest } = props;
+    const { className, renderFooter, renderLeftNav, t,RightFooter, showUser, ...rest } = props;
     const [location, setLocation] = useLocation();
 
     return (
@@ -47,7 +47,7 @@ const MainView = props => {
                 {props.children}
             </Content>
             <Footer area="footer">
-                <div>{renderFooter && renderFooter()}</div>
+                <div>{renderFooter && renderFooter()} { !is_nil( RightFooter) && RightFooter}</div>
 
                 <div>bia-manager: v{process.env.RENDERER_VERSION} - bia-electron: v{process.env.ELECTRON_VERSION} - {import.meta.env.MODE}</div>
             </Footer>

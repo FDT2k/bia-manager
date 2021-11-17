@@ -24,7 +24,7 @@ const FormulaResultRow = (props) => {
             let val = values[col]
             if (type !== 'norme') {
                 let limit = limits[col];
-                val = (new Number(val)).toFixed(2);
+                val = (new Number(val)).toFixed(1);
                 
                 let classes = _classes;
                 if (limit) {

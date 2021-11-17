@@ -40,7 +40,7 @@ export const Component = props => {
                 <div> <input type="checkbox" name="right.main" onChange={handleFieldChange}  checked={getValue('right.main')}/></div>
 
 
-                <div className="header">{t('Mesure 1')}</div>
+                <div className="header header--left">{t('Mesure 1')}</div>
                 <div> <input type="text" {...inputProps('left.data.0')}/></div>
                 <div> <input type="text"  {...inputProps('right.data.0')}/></div>
                 <div className="header header--left">{t('Mesure 2')}</div>

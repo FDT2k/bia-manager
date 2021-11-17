@@ -48,7 +48,10 @@ export const {
   edited_subject,
   form_options_loaded,
   select_form_lists,
-  current_error
+  current_error,
+  last_saved,
+  is_file_saving,
+  last_saved_diff
 } = ElectronModule.selectors;
 
 /*

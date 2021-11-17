@@ -14,7 +14,6 @@ export const Component = props => {
 
 
     const handleSave = () => {
-        debugger;
         if (editedList) {
             props.save_list(editedList)
         }

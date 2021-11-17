@@ -1,9 +1,10 @@
 import { safe_path } from '@karsegard/composite-js';
 import { createSelector } from '@karsegard/react-redux';
+import { format } from 'date-fns';
 
 
-
-
+import formatDistance from 'date-fns/formatDistance';
+import eoLocale from 'date-fns/locale/fr'
 export default getModule => {
    const { baseSelector, submodules } = getModule();
    const safe_array = safe_path([]);
@@ -61,6 +62,23 @@ export default getModule => {
          return result
       }
    )
+
+
+   module.is_file_saving = createSelector(module.fileStatus,state=>{
+      return state.saving ===true;
+   })
+
+
+   module.last_saved = createSelector(module.fileStatus,state=>{
+
+      return state.last_saved ? format(state.last_saved,'kk:mm:ss')  :''
+   })
+
+
+   module.last_saved_diff = _=> createSelector(module.fileStatus,state=>{
+
+      return state.last_saved ? formatDistance(new Date(),state.last_saved, {locale:eoLocale})  :''
+   })
 
 
    module.current_error = createSelector(baseSelector,state => {

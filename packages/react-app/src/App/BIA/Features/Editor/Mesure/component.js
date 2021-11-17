@@ -110,7 +110,7 @@ const Editor = props => {
 
     useEffect(() => {
         _handleChange(values);
-//        _handleChange(values);
+        //        _handleChange(values);
         /*const [o1,rest] = spreadObjectPresentIn(['rea50','res50','z50','a50'],values.data)
         const [o2,rest2] = spreadObjectPresentIn(['rea50','res50','z50','a50'],mesure.data)
         if(!compare_objects(o1,o2)){
@@ -157,7 +157,6 @@ const Editor = props => {
 
     const _handleClickSave = e => {
         // commit the form before saving
-        debugger;
         Promise.resolve(_handleChange(values)).then(_ => {
             handleClickSave()
 
@@ -240,22 +239,25 @@ const Editor = props => {
                     <Serrement />
                 </TabPanel>
                 <TabPanel>
-                    <LayoutFlexColumn style={{gap:'10px'}}>
-                        <h4>BIA</h4>
+                    <LayoutFlexColumn style={{ gap: '10px' }}>
+                        <h4>{t('BIA_RECAP_TITLE')}</h4>
                         <RecapGrid data={recap} headers={list_dates} />
-                        <h4>Evolution de la composition corporelle</h4>
+                        <h4>{t('FDS_RECAP_TITLE')}</h4>
+
+                        <RecapFDS />
+
+                        <h4>{t('BODY_MASS_CHART_RECAP_TITLE')}</h4>
                         <MassChart data={mass_chart} />
                         <LayoutFlex>
                             <LayoutFlexColumn alignCenter>
-                                <h4>Indice de masse maigre - FFMI</h4>
+                            <h4>{t('FFMI_RECAP_TITLE')}</h4> 
                                 <TESTChart data_key="ffmi" />
                             </LayoutFlexColumn>
                             <LayoutFlexColumn alignCenter>
-                                <h4>Indice de masse grasse - FMI</h4>
+                            <h4>{t('FMI_RECAP_TITLE')}</h4>
                                 <TESTChart data_key="fmi" />
                             </LayoutFlexColumn>
                         </LayoutFlex>
-                        <RecapFDS />
                     </LayoutFlexColumn>
                 </TabPanel>
 

@@ -1,17 +1,33 @@
 
-var sqlite3 = require('@journeyapps/sqlcipher');
+//var sqlite3 = require('better-sqlite3-sqleet');
 
 
-const opendb = (file,key='')=> {
-    console.log('hello world')
-    const db= new sqlite3.Database(file);
-    db.run("PRAGMA key = '"+key+"'");
-    db.run("SELECT count(*) FROM sqlite_master");
+const opendb = (file, key = '') => new Promise((resolve, reject) => {
+    const db = new sqlite3(file, { verbose: console.log });
 
-    return {
+    db.pragma("key='"+key+"'");
+
+    db.prepare("SELECT * FROM hello").all()
+
+   /* db.run("PRAGMA key = '" + key + "'", (err) => {
+        console.log('apply key',err);
+        if(err!==null){
+            reject(err)
+        }
+    });
+    db.run("SELECT count(*) FROM sqlite_master", (err) => {
+        console.log('check',err);
+        if(err!==null){
+            reject(err)
+        }
+    });
+*/
+    return resolve({
         db,
         file,
-    }
-}
+    })
+
+})
+
 
 export default opendb;

@@ -37,13 +37,12 @@ const Editor = props => {
     const {handleGoBack,handlePrint,handleMesureCreate, handleMesureOpen,handleMesureDelete, handleSubjectChange,handleChange,handleClickSave, ...renderers} = handlers;
 
 
-    const {renderFooter, ...remaining} = renderers;
+    const {RightFooter, ...remaining} = renderers;
     const {t,  lines, data, mesure,selectedMesureIndex, ...rest} = remaining
 
-   
 
     return (
-        <MainView renderFooter={renderFooter} className="bia-main--editor" renderLeftNav={
+        <MainView RightFooter={RightFooter} className="bia-main--editor" renderLeftNav={
             _ => {
                 return (<NavComponent className={element('nav')} area="nav" onClick={handleGoBack}>
                     <ArrowBack /> <h4>{t('Retour à la liste')}</h4>
