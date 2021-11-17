@@ -32,6 +32,12 @@ const TestEditor = props => {
                 {'high':'Normal'},
                 {'average':'Elevé'},
             ],
+            ethno:[
+                'europeen',
+                'europeen',
+                'europeen',
+                'europeen',
+            ]
         }}>
             <Editor
                 patient={{}}

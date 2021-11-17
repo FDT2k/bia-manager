@@ -10,6 +10,7 @@ import PageHeader from '@/Components/PageHeader';
 import {LayoutFlex} from '@karsegard/react-core-layout'
 
 import React, { useEffect } from 'react';
+import {useCustomList} from '@'
 
 
 
@@ -29,16 +30,18 @@ const PatientHeader = props => {
     const { data, t,refresh_editor_lists, handleChange:handleParentChange,custom_lists ,...rest } = props
 
     const {className} = rest;
-    const getGenderList = safe_path([],'gender.list',custom_lists)
-    const getPathos = safe_path([],'patho.list',custom_lists)
+
+
+    const lists = useCustomList();
 
     const fields = {
         'birthdate': { type: 'date', editable: true, label: t('Date de naissance'), className:'birthdate' },
         'age': { type: 'date', editable: false, label:  t('Âge') },
-        'gender': { type: 'select', editable: true, label:  t('Sexe'),options:getGenderList },
+        'gender': { type: 'select', editable: true, label:  t('Sexe'),options:safe_path([],'gender',lists) },
         'usual_height': { type: 'text', editable: true, label:  t('Taille (cm)') },
         'usual_weight': { type: 'text', editable: true, label:  t('Poids habituel (kg)') },
-        'groups.patho': { type: 'select', editable: true, label:  t('Groupe pathologique'), options:getGenderList},
+        'groups.patho': { type: 'select', editable: true, label:  t('Groupe pathologique'), options:safe_path([],'patho',lists)},
+        'groups.ethno': { type: 'select', editable: true, label:  t('Groupe ethnologique'), options:safe_path([],'ethno',lists)},
         'mesure_count': { type: 'date', editable: false, label:  t('Nombre de mesures') }
     }
     useEffect(() => {
