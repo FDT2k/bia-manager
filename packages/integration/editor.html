@@ -5,52 +5,7 @@
     <link rel="icon" type="image/svg+xml" href="src/favicon.svg">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>BIA-Manager</title>
-    <link rel="stylesheet" src="/css/react-datepicker.css"/>
-
-    <style data-jss="" data-meta="MuiSvgIcon">
-    .MuiSvgIcon-root {
-    fill: currentColor;
-    width: 1em;
-    height: 1em;
-    display: inline-block;
-    font-size: 1.5rem;
-    transition: fill 200ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
-    flex-shrink: 0;
-    user-select: none;
-    }
-
-    .MuiSvgIcon-colorPrimary {
-    color: #3f51b5;
-    }
-
-    .MuiSvgIcon-colorSecondary {
-    color: #f50057;
-    }
-
-    .MuiSvgIcon-colorAction {
-    color: rgba(0, 0, 0, 0.54);
-    }
-
-    .MuiSvgIcon-colorError {
-    color: #f44336;
-    }
-
-    .MuiSvgIcon-colorDisabled {
-    color: rgba(0, 0, 0, 0.26);
-    }
-
-    .MuiSvgIcon-fontSizeInherit {
-    font-size: inherit;
-    }
-
-    .MuiSvgIcon-fontSizeSmall {
-    font-size: 1.25rem;
-    }
-
-    .MuiSvgIcon-fontSizeLarge {
-    font-size: 2.1875rem;
-    }
-    </style>
+    <link rel="stylesheet" src="./public/css/react-datepicker.css"/>
 </head>
 
 <body>
@@ -184,10 +139,12 @@
             </div>
 
             <!-- BIA -->
-            <div class="tabs__panel tabs__panel--bia active flex-column">
-                <div class="tabs__panel__form flex-column">
-                    <div class="tabs__panel__form__line flex-row just-between no-wrap">
-                        <div class="field date-examen">
+            <div class="tabs__panel active flex-column">
+                <div class="form form--line flex-column">
+
+                    <div class="form--line flex-row just-between no-wrap">
+
+                        <div class="field date-examen grow-3">
                             <label class="field__label">Date&nbsp;d'Examen</label>
                             <div class="field__field">
                                 <div class="react-datepicker-wrapper">
@@ -198,7 +155,7 @@
                             </div>
                         </div>
 
-                        <div class="field activite-physique">
+                        <div class="field activite-physique grow-3">
                             <label class="field__label">Activité&nbsp;physique</label>
                             <div class="field__field">
                                 <select tabindex="2" name="sport.rate">
@@ -208,7 +165,7 @@
                             </div>
                         </div>
 
-                        <div class="field type-activite-physique">
+                        <div class="field type-activite-physique grow-3">
                             <label class="field__label">Type&nbsp;d'Activité&nbsp;physique</label>
                             <div class="field__field">
                                 <select tabindex="2" name="sport.type">
@@ -218,7 +175,7 @@
                             </div>
                         </div>
 
-                        <div class="field fumeur">
+                        <div class="field fumeur grow-2">
                             <label class="field__label">Fumeur</label>
                             <div class="field__field">
                                 <div class="toggle-switch">
@@ -230,21 +187,23 @@
                                 </div>
                             </div>
                         </div>
+
                     </div>
-                    <div class="tabs__panel__form__line flex-row just-between no-wrap">
-                        <div class="field taille">
+
+                    <div class="form--line flex-row just-between no-wrap">
+                        <div class="field taille grow-3">
                             <label class="field__label">Taille(cm)</label>
                             <div class="field__field">
                                 <input type="text" tabindex="4" name="height" value="161.0">
                             </div>
                         </div>
-                        <div class="field poids-actuel">
+                        <div class="field poids-actuel grow-3">
                             <label class="field__label">Poids&nbsp;Actuel(kg)</label>
                             <div class="field__field">
                                 <input type="text" tabindex="5" name="weight" value="56.5">
                             </div>
                         </div>
-                        <div class="field cote-mesure">
+                        <div class="field cote-mesure grow-2">
                             <label class="field__label">Coté&nbsp;mesuré</label>
                             <div class="field__field">
                                 <div class="toggle-switch">
@@ -257,121 +216,123 @@
                             </div>
                         </div>
                     </div>
+
                 </div>
-                <!-- Impedance form -->
-                <div class="tabs__panel__impedance tabs__panel__impedance--form flex-column">
-                    <div class="field tabs__panel__impedance__header col-span-3">
+
+                <!-- Form-table Impedance form -->
+                <div class="form--table table flex-column">
+                    <div class="field table__header table__header--top col-span-3">
                         <label class="field__label"></label>
                     </div>
-                    <div class="field tabs__panel__impedance__header tabs__panel__impedance__header--top col-span-2">
+                    <div class="field table__header table__header--top col-span-2">
                         <label class="field__label">Normes</label>
                     </div>
-                    <div class="field tabs__panel__impedance__header tabs__panel__impedance__header--top col-span-2">
+                    <div class="field table__header table__header--top col-span-2">
                         <label class="field__label">5kHz</label>
                     </div>
-                    <div class="field tabs__panel__impedance__header tabs__panel__impedance__header--top col-span-2">
+                    <div class="field table__header table__header--top col-span-2">
                         <label class="field__label">50kHz</label>
                     </div>
-                    <div class="field tabs__panel__impedance__header tabs__panel__impedance__header--top col-span-2">
+                    <div class="field table__header table__header--top col-span-2">
                         <label class="field__label">100kHz</label>
                     </div>
 
-                    <div class="field tabs__panel__impedance__header tabs__panel__impedance__header--left col-span-3">
+                    <div class="field table__header table__header--left col-span-3">
                         <label class="field__label">Résistance(Ω)</label>
                     </div>
-                    <div class="field tabs__panel__impedance__content col-span-2">
+                    <div class="field table__content col-span-2">
                         <label class="field__label"></label>
                     </div>
-                    <div class="field tabs__panel__impedance__content col-span-2">
+                    <div class="field table__content col-span-2">
                         <div class="field__field">
                             <input type="text" tabindex="5" name="weight" value="56.5">
                         </div>
                     </div>
-                    <div class="field tabs__panel__impedance__content col-span-2">
+                    <div class="field table__content col-span-2">
                         <div class="field__field">
                             <input type="text" tabindex="5" name="weight" value="56.5">
                         </div>
                     </div>
-                    <div class="field tabs__panel__impedance__content col-span-2">
+                    <div class="field table__content col-span-2">
                         <div class="field__field">
                             <input type="text" tabindex="5" name="weight" value="56.5">
                         </div>
                     </div>
 
-                    <div class="field tabs__panel__impedance__header tabs__panel__impedance__header--left col-span-3">
+                    <div class="field table__header table__header--left col-span-3">
                         <label class="field__label">Angle&nbsp;de&nbsp;phase(°)</label>
                     </div>
-                    <div class="field tabs__panel__impedance__content col-span-2">
+                    <div class="field table__content col-span-2">
                         <label class="field__label">6.3-8.2</label>
                     </div>
-                    <div class="field tabs__panel__impedance__content col-span-2">
+                    <div class="field table__content col-span-2">
                         <div class="field__field">
                             <input class="editable-field" type="text" tabindex="5" name="weight" value="56.5">
                         </div>
                     </div>
-                    <div class="field tabs__panel__impedance__content col-span-2">
+                    <div class="field table__content col-span-2">
                         <div class="field__field">
                             <input class="editable-field" type="text" tabindex="5" name="weight" value="56.5">
                         </div>
                     </div>
-                    <div class="field tabs__panel__impedance__content col-span-2">
+                    <div class="field table__content col-span-2">
                         <div class="field__field">
                             <input class="editable-field" type="text" tabindex="5" name="weight" value="56.5">
                         </div>
                     </div>
 
-                    <div class="field tabs__panel__impedance__header tabs__panel__impedance__header--left col-span-3">
+                    <div class="field table__header table__header--left col-span-3">
                         <label class="field__label">Réactance(Ω)</label>
                     </div>
-                    <div class="field tabs__panel__impedance__content col-span-2">
+                    <div class="field table__content col-span-2">
                         <label class="field__label"></label>
                     </div>
-                    <div class="field tabs__panel__impedance__content col-span-2">
+                    <div class="field table__content col-span-2">
                         <div class="field__field">
                             <input class="editable-field" type="text" tabindex="5" name="weight" value="56.5">
                         </div>
                     </div>
-                    <div class="field tabs__panel__impedance__content col-span-2">
+                    <div class="field table__content col-span-2">
                         <div class="field__field">
                             <input class="editable-field" type="text" tabindex="5" name="weight" value="56.5">
                         </div>
                     </div>
-                    <div class="field tabs__panel__impedance__content col-span-2">
+                    <div class="field table__content col-span-2">
                         <div class="field__field">
                             <input class="editable-field" type="text" tabindex="5" name="weight" value="56.5">
                         </div>
                     </div>
 
-                    <div class="field tabs__panel__impedance__header tabs__panel__impedance__header--left col-span-3">
+                    <div class="field table__header table__header--left col-span-3">
                         <label class="field__label">Impédance(Ω)</label>
                     </div>
-                    <div class="field tabs__panel__impedance__content col-span-2">
+                    <div class="field table__content col-span-2">
                         <label class="field__label"></label>
                     </div>
-                    <div class="field tabs__panel__impedance__content col-span-2">
+                    <div class="field table__content col-span-2">
                         <div class="field__field">
                             <input type="text" tabindex="5" name="weight" value="56.5">
                         </div>
                     </div>
-                    <div class="field tabs__panel__impedance__content col-span-2">
+                    <div class="field table__content col-span-2">
                         <div class="field__field">
                             <input type="text" tabindex="5" name="weight" value="56.5">
                         </div>
                     </div>
-                    <div class="field tabs__panel__impedance__content col-span-2">
+                    <div class="field table__content col-span-2">
                         <div class="field__field">
                             <input type="text" tabindex="5" name="weight" value="56.5">
                         </div>
                     </div>
                 </div>
 
-                <div class="tabs__panel__impedance tabs__panel__impedance--results flex-column">
+                <div class="table--comparison table flex-column">
 
                     <!-- header -->
-                    <div class="field tabs__panel__impedance__header col-span-5">
+                    <div class="field table__header table__header--top col-span-5">
                         <label class="field__label"></label>
                     </div>
-                    <div class="field tabs__panel__impedance__header tabs__panel__impedance__header tabs__panel__impedance__header--top col-span-2">
+                    <div class="field table__header table__header--top col-span-2">
                         <div class="field__field">
                             <select class="editable-field">
                                 <option value="normes" >Normes</option>
@@ -381,7 +342,7 @@
                             </select>
                         </div>
                     </div>
-                    <div class="field tabs__panel__impedance__header tabs__panel__impedance__header tabs__panel__impedance__header--top col-span-2">
+                    <div class="field table__header table__header--top col-span-2">
                         <div class="field__field">
                             <select class="editable-field">
                                 <option value="normes">Normes</option>
@@ -391,7 +352,7 @@
                             </select>
                         </div>
                     </div>
-                    <div class="field tabs__panel__impedance__header tabs__panel__impedance__header tabs__panel__impedance__header--top col-span-2">
+                    <div class="field table__header table__header--top col-span-2">
                         <div class="field__field">
                             <select class="editable-field">
                                 <option value="normes">Normes</option>
@@ -403,109 +364,109 @@
                     </div>
 
                     <!-- Border -->
-                    <div class="field field__line tabs__panel__impedance__content col-span-11"></div>
+                    <div class="field table__separator table__separator--row col-span-11"></div>
 
                     <!-- ligne -->
-                    <div class="field tabs__panel__impedance__header--left col-span-5">
+                    <div class="field table__header--left col-span-5">
                         <label class="field__label">masse maigre (kg)</label>
                     </div>
-                    <div class="field tabs__panel__impedance__content col-span-2">
+                    <div class="field table__content col-span-2">
                         <label class="field__label"></label>
                     </div>
-                    <div class="field tabs__panel__impedance__content col-span-2">
+                    <div class="field table__content col-span-2">
                         <label class="field__label">43.5</label>
                     </div>
-                    <div class="field tabs__panel__impedance__content col-span-2">
+                    <div class="field table__content col-span-2">
                         <label class="field__label">42.0</label>
                     </div>
 
                     <!-- Border -->
-                    <div class="field field__line tabs__panel__impedance__content col-span-11"></div>
+                    <div class="field table__separator table__separator--row col-span-11"></div>
 
                     <!-- ligne -->
-                    <div class="field tabs__panel__impedance__header--left col-span-5">
+                    <div class="field table__header--left col-span-5">
                         <label class="field__label">masse maigre (%)</label>
                     </div>
-                    <div class="field tabs__panel__impedance__content col-span-2">
+                    <div class="field table__content col-span-2">
                         <label class="field__label">65.1-81.0</label>
                     </div>
-                    <div class="field tabs__panel__impedance__content col-span-2">
+                    <div class="field table__content col-span-2">
                         <label class="field__label valid">72.0</label>
                     </div>
-                    <div class="field tabs__panel__impedance__content col-span-2">
+                    <div class="field table__content col-span-2">
                         <label class="field__label invalid">69.5</label>
                     </div>
 
                     <!-- Border -->
-                    <div class="field field__line tabs__panel__impedance__content col-span-11"></div>
+                    <div class="field table__separator table__separator--row col-span-11"></div>
 
                     <!-- ligne -->
-                    <div class="field tabs__panel__impedance__header--left col-span-5">
+                    <div class="field table__header--left col-span-5">
                         <label class="field__label">Indice de masse maigre FFMI (kg/m2)</label>
                     </div>
-                    <div class="field tabs__panel__impedance__content col-span-2">
+                    <div class="field table__content col-span-2">
                         <label class="field__label"></label>
                     </div>
-                    <div class="field tabs__panel__impedance__content col-span-2">
+                    <div class="field table__content col-span-2">
                         <label class="field__label">43.5</label>
                     </div>
-                    <div class="field tabs__panel__impedance__content col-span-2">
+                    <div class="field table__content col-span-2">
                         <label class="field__label">42.0</label>
                     </div>
 
                     <!-- Border -->
-                    <div class="field field__line tabs__panel__impedance__content col-span-11"></div>
+                    <div class="field table__separator table__separator--row col-span-11"></div>
 
                     <!-- ligne -->
-                    <div class="field tabs__panel__impedance__header--left col-span-5">
+                    <div class="field table__header--left col-span-5">
                         <label class="field__label">Masse maigre sèche (kg)</label>
                     </div>
-                    <div class="field tabs__panel__impedance__content col-span-2">
+                    <div class="field table__content col-span-2">
                         <label class="field__label">65.1-81.0</label>
                     </div>
-                    <div class="field tabs__panel__impedance__content col-span-2">
+                    <div class="field table__content col-span-2">
                         <label class="field__label valid">72.0</label>
                     </div>
-                    <div class="field tabs__panel__impedance__content col-span-2">
+                    <div class="field table__content col-span-2">
                         <label class="field__label invalid">69.5</label>
                     </div>
 
                     <!-- Border -->
-                    <div class="field field__line tabs__panel__impedance__content col-span-11"></div>
+                    <div class="field table__separator table__separator--row col-span-11"></div>
 
                     <!-- ligne -->
-                    <div class="field tabs__panel__impedance__header--left col-span-5">
+                    <div class="field table__header--left col-span-5">
                         <label class="field__label">Indice de masse grasse FMI (kg/m2)</label>
                     </div>
-                    <div class="field tabs__panel__impedance__content col-span-2">
+                    <div class="field table__content col-span-2">
                         <label class="field__label"></label>
                     </div>
-                    <div class="field tabs__panel__impedance__content col-span-2">
+                    <div class="field table__content col-span-2">
                         <label class="field__label">43.5</label>
                     </div>
-                    <div class="field tabs__panel__impedance__content col-span-2">
+                    <div class="field table__content col-span-2">
                         <label class="field__label">42.0</label>
                     </div>
 
                     <!-- Border -->
-                    <div class="field field__line tabs__panel__impedance__content col-span-11"></div>
+                    <div class="field table__separator table__separator--row col-span-11"></div>
 
                     <!-- ligne -->
-                    <div class="field tabs__panel__impedance__header--left col-span-5">
+                    <div class="field table__header--left col-span-5">
                         <label class="field__label">Masse maigre sèche (%)</label>
                     </div>
-                    <div class="field tabs__panel__impedance__content col-span-2">
+                    <div class="field table__content col-span-2">
                         <label class="field__label">65.1-81.0</label>
                     </div>
-                    <div class="field tabs__panel__impedance__content col-span-2">
+                    <div class="field table__content col-span-2">
                         <label class="field__label valid">72.0</label>
                     </div>
-                    <div class="field tabs__panel__impedance__content col-span-2">
+                    <div class="field table__content col-span-2">
                         <label class="field__label invalid">69.5</label>
                     </div>
 
                     <!-- Border -->
-                    <div class="field field__line tabs__panel__impedance__content col-span-11"></div>
+                    <div class="field table__separator table__separator--row col-span-11"></div>
 
                 </div>
 

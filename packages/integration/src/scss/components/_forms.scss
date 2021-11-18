@@ -1,0 +1,30 @@
+@use '../eksass/base' as *;
+@use '../layout' as *;
+@use '../fonts' as *;
+
+.form {
+    &--line {
+        column-gap: 16px;
+        row-gap: 32px;
+
+        .field {
+            &.date-examen {
+                .field__field > * {
+                    display: block;
+                }
+            }
+            &.fumeur,
+            &.cote-mesure {
+                flex-grow: 2;
+                max-width: calc( var(--editor-value) * 3 );
+            }
+        }
+    }
+
+    &--table {
+        grid-template-columns: repeat(11, 1fr);
+        column-gap: 16px;
+        row-gap: 8px;
+    }
+
+}

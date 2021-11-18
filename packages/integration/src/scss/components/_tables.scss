@@ -1,0 +1,113 @@
+@use '../eksass/base' as *;
+@use '../layout' as *;
+@use '../fonts' as *;
+
+
+
+.table {
+    display: grid;
+    grid-template-rows: auto;
+    align-items: center;
+
+    &--comparison {
+        row-gap: 2px;
+        grid-template-columns: repeat(11, 1fr);
+        column-gap: 16px;
+    }
+
+    &--recap {
+        $recap-value: 50px;
+        row-gap: 0px;
+        column-gap: 0px;
+        grid-template-columns:
+            minmax($recap-value, 1fr) minmax($recap-value, 1fr) minmax($recap-value, 1fr) auto
+            minmax($recap-value, 1fr) auto minmax($recap-value, 1fr) auto
+            minmax($recap-value, 1fr) auto minmax($recap-value, 1fr) auto
+            minmax($recap-value, 1fr) auto minmax($recap-value, 1fr)
+        ;
+
+        .table {
+            &__header {
+                &--top,
+                &--left {
+                    .field__label {
+                        @extend %xsmall-body;
+                    }
+
+                }
+            }
+        }
+
+        .field:not(.table__separator) {
+            padding: 2px;
+        }
+
+    }
+
+    > * {
+        height: 100%;
+        align-items: center;
+        // border: solid 1px;
+    }
+
+    .field__label {
+        margin-bottom: inherit;
+    }
+
+    .field {
+        & > *, input {
+            height: 100%;
+            align-items: center;
+            justify-content: center;
+        }
+        input {
+            min-height: 32px;
+            text-align: center;
+        }
+        .editable-field {
+            min-height: inherit;
+            background-color: var(--tertiary);
+            border: none;
+            width: 100%;
+        }
+    }
+
+    &__separator {
+        &--row {
+            height: 0px;
+            border-bottom: 1px solid var(--primary);
+        }
+        &--col {
+            width: 0px;
+            border-right: 1px solid var(--primary);
+        }
+    }
+
+    &__header {
+        @extend %large-body;
+        &--left {
+            .field__label {
+                justify-content: left;
+                // border: solid 1px red;
+            }
+        }
+        &--top {
+            label {
+                text-align: center;
+            }
+            select {
+                height: 100%;
+                padding-left: 8px;
+            }
+        }
+    }
+
+
+    &__content {
+        .field__label, input, select, option {
+            @extend %small-body;
+        }
+    }
+
+
+}
