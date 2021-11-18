@@ -1,6 +1,7 @@
 import { CustomListProvider, TranslationProvider, useTranslation } from '@';
 import StoreProvider, { editorModule } from '@/example/Store';
 import MesureEditor from '@/Features/Editor/Mesure';
+import Editor from '@/Features/Editor';
 import React, { useEffect } from 'react';
 
 import patientSample from './patient'
@@ -37,26 +38,21 @@ const ReduxEditor = props => {
 
     const { select_edited_mesure } = editorModule.selectors
 
-    const { edit_mesure,edit_patient,change_mesure,save } = editorModule.actions;
+    const { edit_mesure,create_mesure,edit_patient,change_mesure,save } = editorModule.actions;
 
     const mesure = useSelector(select_edited_mesure)
     const dispatch = useDispatch();
 
     useEffect(() => {
         dispatch(edit_patient( patientSample ));
-        dispatch(edit_mesure(2, 4));
+        dispatch(create_mesure());
 
     }, [])
 
 
     const handleChange = (values, changed_field) => {
-        console.log('form changed', values, changed_field);
 
-        if (changed_field === 'examinator') {
-            set_examinator(values.examinator);
-        }
-        console.log('changed', values)
-        dispatch(change_mesure(values))
+        dispatch(change_mesure(values,changed_field))
     }
 
     const handleClickSave=  _=> {

@@ -4,7 +4,7 @@ import { useFocus, useKeypress } from '@karsegard/react-hooks';
 import classNames from 'classnames';
 import { is_type_string } from '@karsegard/composite-js';
 
-
+import './style.scss'
 
 const AutoComplete = props => {
     const { options, style, search, visible, handleSelect, handleHoldFocus } = props;

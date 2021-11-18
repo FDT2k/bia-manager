@@ -17,6 +17,8 @@ import { dateSysToHuman } from '@/references/format';
 import MainView from '@/Components/MainView'
 import { filter_active_mesure } from '@/references/Mesure'
 
+import {useTranslation} from '@'
+
 const withForwardRef = Component => (props, ref) => {
 
     return <Component {...props} forwardedRef={ref} />
@@ -106,7 +108,7 @@ export const Component = props => {
     const [selectedIndex, setSelectedIndex] = useState(-1);
     const [searchBarFocused, setSearchBarFocused] = useState(false);
 
-    const { t } = props;
+    const { t } = useTranslation();
 
     const { handleSearch, handleCreate, handleSelectRow: _handleSelectRow, } = props.handlers;
     const { clearFilter, setFilter } = props.handlers
@@ -228,6 +230,8 @@ Component.defaultProps = {
 export const Page = props => {
     const {db_name,stats,patients, ...rest } = props;
     const {count,count_mesures} = stats;
+
+    const {t} = useTranslation();
     const renderFooter = _ => {
         return (
             <>

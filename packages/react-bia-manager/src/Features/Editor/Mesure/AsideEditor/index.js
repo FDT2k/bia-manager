@@ -19,6 +19,12 @@ export default props => {
     const { values,  inputProps, handleChange, replaceValues } = useFieldValues(data, { onValuesChange, usePath: true });    
 
 
+    const _handleClickSave = () => {
+        Promise.resolve(onValuesChange(values)).then(_ => {
+            handleClickSave()
+
+        });
+    }
     useEffect(()=>{
         replaceValues(data);
     },[data])
@@ -26,7 +32,7 @@ export default props => {
     return (
 
         <>
-         <Button style={{ minWidth: '100%', width: '100%', maxWidth: '100%' }} tabIndex={33} onClick={handleClickSave}>{t('Enregistrer')}</Button>
+         <Button style={{ minWidth: '100%', width: '100%', maxWidth: '100%' }} tabIndex={33} onClick={_handleClickSave}>{t('Enregistrer')}</Button>
                 <Button tabIndex={44} className="btn--secondary" onClick={handlePrint}>{t('Imprimer')}</Button>
                 <Field label={t("Examinateur")}>
                     <EditableTextInput value={values.examinator} name="examinator" onChange={handleChange} />

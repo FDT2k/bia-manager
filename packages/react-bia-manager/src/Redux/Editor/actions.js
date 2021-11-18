@@ -1,10 +1,10 @@
 import { spreadObjectPresentIn } from '@karsegard/composite-js/ReactUtils';
 import { compare_objects } from '@karsegard/composite-js';
 import { is_nil } from '@karsegard/composite-js';
-import {makeActionCreator as create ,makeAsyncActionCreator as createAsync} from '@karsegard/react-redux'
+import { makeActionCreator as create, makeAsyncActionCreator as createAsync } from '@karsegard/react-redux'
 
 import { bia_to_recap, generate_recap_header, normalize_mesure, recap_to_bar_chart, recompute } from '@/references/Mesure';
-import normes, { find_norme,raw as norm_list } from '@/references/Normes';
+import normes, { find_norme, raw as norm_list } from '@/references/Normes';
 import { normalize as normalize_patient } from '@/references/Patient';
 
 
@@ -29,14 +29,14 @@ const dontCommitTheseFieldsUntilSaved = ['comments', 'date']
 
 export default (getModule) => {
 
-    const { types, selectors,submodules } = getModule()
+    const { types, selectors, submodules } = getModule()
     const actions = {};
 
-    const { select_mesures, select_empty_mesure,select_examinator, select_current_mesure_id, select_current_patient_id, select_result_columns, select_normes, select_edited_patient, select_report_columns, select_charts_columns, select_edited_mesure } = selectors;
+    const { select_mesures, select_empty_mesure, select_examinator, select_current_mesure_id, select_current_patient_id, select_result_columns, select_normes, select_edited_patient, select_report_columns, select_charts_columns, select_edited_mesure } = selectors;
 
     actions.real_edit_patient = create(types.EDIT_PATIENT);
-    
-    
+
+
     actions.added_patient = create(types.ADDED_PATIENT);
     actions.add_patient_failed = create(types.ERROR_ADD_PATIENT_UNDEF);
     actions.create_patient = createAsync(actions.add_patient_failed, actions.added_patient)
@@ -46,7 +46,7 @@ export default (getModule) => {
 
 
     actions.refresh_norme = submodules.normes.actions.refresh_norme//create(types.REFRESH_NORME)
-    actions.fetched_normes =  submodules.normes.actions.fetched //create(types.FETCHED_NORMES)
+    actions.fetched_normes = submodules.normes.actions.fetched //create(types.FETCHED_NORMES)
 
 
     //refresh each norm
@@ -74,7 +74,7 @@ export default (getModule) => {
 
         dispatch(actions.fetched_normes({
             normes,
-            list:norm_list,
+            list: norm_list,
             genders: ['M', 'F']
         }));
     }
@@ -91,14 +91,14 @@ export default (getModule) => {
         }));
     }
 
-   
+
 
 
     actions.set_current_mesure = create(types.SELECT_MESURE, arg => {
         return {
-            payload: {
+           
                 mesure_id: arg
-            }
+            
         }
     });
 
@@ -109,46 +109,43 @@ export default (getModule) => {
         }
     })
 
- 
-
-    actions.create_mesure = (patient_id) => {
-        if (patient_id) {
-            return (dispatch, getState) => {
-
-                // debugger;
-                let examinator= select_examinator(getState());
-                let mesures = select_mesures(getState());
-                const patient = select_edited_patient(getState());
-
-                
-                let new_mesure_id = mesures.length;
-             
-
-                let new_mesure = {
-                    ...select_empty_mesure(getState()),
-                    examinator
-                }
 
 
-                let { mesure } = normalize_mesure({ patient, mesure: new_mesure });
+    actions.create_mesure = () => {
+
+        return (dispatch, getState) => {
+
+            // debugger;
+            let examinator = select_examinator(getState());
+            let mesures = select_mesures(getState());
+            const patient = select_edited_patient(getState());
 
 
-                let r = dispatch({
-                    type: types.CREATE_MESURE,
-                    payload: {
-                        id: patient_id,
-                        mesure: mesure,
-                        mesure_id: new_mesure_id
-                    }
-                })
-             //   dispatch(actions.refresh_normes());
-                dispatch(actions.set_current_mesure(new_mesure_id))
+            let new_mesure_id = mesures.length;
 
-                return r;
+
+            let new_mesure = {
+                ...select_empty_mesure(getState()),
+                examinator
             }
-        } else {
-            return { type: 'ERROR_CREATE_MESURE' }
+
+
+            let { mesure } = normalize_mesure({ patient, mesure: new_mesure });
+
+
+            let r = dispatch({
+                type: types.CREATE_MESURE,
+                payload: {
+                    mesure: mesure,
+                    mesure_id: new_mesure_id
+                }
+            })
+            //   dispatch(actions.refresh_normes());
+            dispatch(actions.set_current_mesure(new_mesure_id))
+
+            return r;
         }
+
     };
 
 
@@ -156,10 +153,10 @@ export default (getModule) => {
         return (dispatch, getState) => {
             let mesures = select_mesures(getState());
 
-            if(mesures.length >= mesure_id){
+            if (mesures.length >= mesure_id) {
                 return dispatch({
-                    type:types.ERROR,
-                    payload:"mesure doesn't exist"
+                    type: types.ERROR,
+                    payload: "mesure doesn't exist"
                 })
             }
 
@@ -175,7 +172,7 @@ export default (getModule) => {
                 }
             })
 
-           
+
             dispatch(actions.reinit_fds());
             dispatch(actions.refresh_current_recap());
 
@@ -184,21 +181,21 @@ export default (getModule) => {
     };
 
 
-    actions.reinit_fds = ()=>{
-        return (dispatch,getState)=>{
-            const {add_mesure,clear,refresh,normes } = submodules.recap_fds.actions
+    actions.reinit_fds = () => {
+        return (dispatch, getState) => {
+            const { add_mesure, clear, refresh, normes } = submodules.recap_fds.actions
             let mesures = select_mesures(getState());
             let mesure = select_edited_mesure(getState())
             const mesure_id = select_current_mesure_id(getState());
 
             dispatch(clear());
-            mesures.slice(0,parseInt(mesure_id)).slice(-5).map(item=> {
+            mesures.slice(0, parseInt(mesure_id)).slice(-5).map(item => {
                 dispatch(add_mesure(item));
             })
             dispatch(add_mesure(mesure))
 
             dispatch(refresh())
-            
+
         }
 
     }
@@ -217,7 +214,7 @@ export default (getModule) => {
         return (dispatch, getState) => {
             const patient = select_edited_patient(getState());
             const bia_result_columns = select_result_columns(getState());
-            const normes = select_normes(getState(),{age:values.current_age})
+            const normes = select_normes(getState(), { age: values.current_age })
             const results = recompute(patient, values, bia_result_columns, normes);
 
             return dispatch({
@@ -232,23 +229,25 @@ export default (getModule) => {
     }
 
 
-    actions.change_mesure = (values,changed_field="") => {
+    actions.change_mesure = (values, changed_field = "") => {
 
 
         return (dispatch, getState) => {
             const mesure = select_edited_mesure(getState());
-            
             //some fields does not need to be refreshed unless saved        
             if (dontCommitTheseFieldsUntilSaved.includes(changed_field)) {
                 return;
             }
-           
+
             const patient = select_edited_patient(getState());
-            const { mesure: normalized_mesure } = normalize_mesure({ patient, mesure:values });
-            
+            const { mesure: normalized_mesure } = normalize_mesure({ patient, mesure: values });
+
+            if (changed_field === 'examinator') {
+              dispatch(actions.set_examinator(values.examinator));
+            }
 
             const new_mesure = { ...mesure, ...normalized_mesure };
-        
+
             dispatch({
                 type: types.CHANGE_MESURE,
                 payload: {
@@ -259,12 +258,12 @@ export default (getModule) => {
 
             if (isChangeRequireRecompute(values, mesure)) {
                 dispatch(actions.recompute_current_mesure());
-               
+
                 dispatch(actions.refresh_current_recap());
 
-                
+
             }
-          
+
         }
     };
 
@@ -317,7 +316,7 @@ export default (getModule) => {
         return (dispatch, getState) => {
 
             dispatch(actions.attempt_refresh_recap({ patient_id, mesure_id }));
-            
+
 
             if (!is_nil(patient_id) && !is_nil(mesure_id)) {
 
@@ -327,7 +326,7 @@ export default (getModule) => {
                 if (!patient) {
                     return dispatch(actions.recap_error_patient_fail({}))
                 }
-                const normes = select_normes(getState(),{age:patient.age})
+                const normes = select_normes(getState(), { age: patient.age })
 
                 let mesures = [...patient.mesures] // NO selector here
 
@@ -407,12 +406,12 @@ export default (getModule) => {
         }
     }
 
-    actions.update_fds = values => (dispatch,getState)=> {
+    actions.update_fds = values => (dispatch, getState) => {
 
         const mesure = select_edited_mesure(getState());
-        const normes = select_normes(getState(),{age:mesure.current_age})
-        
-        dispatch(submodules.fds.actions.update({...values,normes}));
+        const normes = select_normes(getState(), { age: mesure.current_age })
+
+        dispatch(submodules.fds.actions.update({ ...values, normes }));
 
 
         dispatch(submodules.recap_fds.actions.update_mesure(select_edited_mesure(getState())))
@@ -420,7 +419,7 @@ export default (getModule) => {
     }
 
 
-    
+
 
 
 

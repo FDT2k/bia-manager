@@ -29,12 +29,10 @@ const Editor = props => {
         className,
         handleGoBack,
         handleChange: parentHandleChange,
-        mesure,
-        ...rest2 } = getClasseNames(__base_class, props)
+        mesure} = getClasseNames(__base_class, props)
 
 
     const _handleChange = (...args) => {
-
         parentHandleChange && parentHandleChange(...args);
     }
 
@@ -48,11 +46,9 @@ const Editor = props => {
 
 
     const _handleClickSave = e => {
-        // commit the form before saving
-        Promise.resolve(_handleChange(values)).then(_ => {
+      
             handleClickSave()
 
-        });
     }
 
 
