@@ -222,6 +222,9 @@ Component.defaultProps = {
     handlers: {
         handleSearch: _ => console.warn('search handler not implemented'),
         handleCreate: _ => console.warn('create handler not implemented'),
+        setFilter: _=>  console.warn('setFilter handler not implemented'),
+        clearFilter: _=>  console.warn('clearFilter handler not implemented'),
+
     },
     t: x => x
 }
