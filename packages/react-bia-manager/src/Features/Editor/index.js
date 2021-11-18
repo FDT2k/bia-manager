@@ -38,7 +38,7 @@ const Editor = props => {
     const { RightFooter, ...remaining } = renderers;
     const { lines, data, mesure, selectedMesureIndex, ...rest } = remaining
 
-    const {t} = useTranslation();
+    const { t } = useTranslation();
     return (
         <MainView RightFooter={RightFooter} className="bia-main--editor" renderLeftNav={
             _ => {
@@ -50,12 +50,21 @@ const Editor = props => {
             <EditorLayout className={className}>
 
                 <Area className={element('patient')} area="patient">
-                    <PatientHeader handleChange={handleSubjectChange} data={data} />
+                    <PatientHeader
+                        handleChange={handleSubjectChange}
+                        data={data}
+                    />
                 </Area>
                 <Area className={element('mesures')} area="mesures">
-                    <ListMesure selectedIndex={selectedMesureIndex} title={t('Mesures')} itemLabelKey="date" handleItemListClick={handleMesureOpen} handleCreateClick={
-                        handleMesureCreate
-                    } data={data.mesures}
+                    <ListMesure
+                        selectedIndex={selectedMesureIndex}
+                        title={t('Mesures')}
+                        itemLabelKey="date"
+                        handleItemListClick={handleMesureOpen}
+                        handleCreateClick={
+                            handleMesureCreate
+                        }
+                        data={data.mesures}
                         renderActions={
                             (data, item, idx) => {
                                 return (<Delete className="action-icon" onClick={_ => handleMesureDelete(idx)} />)

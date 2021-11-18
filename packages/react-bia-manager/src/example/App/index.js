@@ -55,7 +55,7 @@ export default props => {
             <ViewProvider views={{ Editor: TestEditor }}>
                 <BIARouter />
             </ViewProvider>
-            <Loading label="something"/>
+           
         </TranslationProvider>
     )
 

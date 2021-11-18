@@ -38,13 +38,13 @@ const PatientHeader = props => {
 
     const fields = {
         'birthdate': { type: 'date', editable: true, label: t('Date de naissance'), className:'birthdate' },
-        'age': { type: 'date', editable: false, label:  t('Âge') },
+        'age': { type: 'text', editable: false, label:  t('Âge') },
         'gender': { type: 'select', editable: true, label:  t('Sexe'),options:safe_path([],'gender',lists) },
         'usual_height': { type: 'text', editable: true, label:  t('Taille (cm)') },
         'usual_weight': { type: 'text', editable: true, label:  t('Poids habituel (kg)') },
         'groups.patho': { type: 'select', editable: true, label:  t('Groupe pathologique'), options:safe_path([],'patho',lists)},
         'groups.ethno': { type: 'select', editable: true, label:  t('Groupe ethnologique'), options:safe_path([],'ethno',lists)},
-        'mesure_count': { type: 'date', editable: false, label:  t('Nombre de mesures') }
+        'mesure_count': { type: 'text', editable: false, label:  t('Nombre de mesures') }
     }
     useEffect(() => {
         replaceValues(data);
@@ -108,11 +108,10 @@ PatientHeader.defaultProps = {
     data: {
         birthdate: '1970-01-25',
         age: '120',
-        gender: 'female',
+        gender: 'F',
         height: '177',
         usual_weight: '70',
-        'groups.12345': 'VENS2019',
-        data_count: '12',
+        mesure_count: '999',
     }
 }
 

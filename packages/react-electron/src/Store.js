@@ -7,10 +7,9 @@ import { connect } from 'react-redux';
 import { makeStore } from '@/Redux/utils/create-store';
 */
 
-import { combineReducers,createMigrate,connect,makeStore,exportModule} from '@karsegard/react-redux';
+import { combineReducers,createMigrate,connect,createStore,exportModule,withRemoteDevTools} from '@karsegard/react-redux';
 import {identity} from '@karsegard/composite-js'
 
-import  devToolsEnhancer from'remote-redux-devtools';
 
 
 
@@ -18,9 +17,9 @@ import  devToolsEnhancer from'remote-redux-devtools';
 
 
 
-const reducer = combineReducers({
+const reducer = {
   app: (state={},action) => state
-})
+}
 
 
 export const actions = {}
@@ -34,18 +33,23 @@ export const Store = makeStore('electron', reducer, { devTools: { name: 'App' } 
   migrate: createMigrate(migrations)
 });
 */
-export const Store = makeStore('electron', reducer, { devTools: false,enhancers: [devToolsEnhancer({secure:false,maxAge:100, hostname:'localhost',port:8000,realtime: true})] }, {
+/*export const Store = makeStore('electron', reducer, { devTools: false,enhancers: [devToolsEnhancer({secure:false,maxAge:100, hostname:'localhost',port:8000,realtime: true})] }, {
   version: 1,
 //  migrate: createMigrate(migrations)
-});
+});*/
+
+
+
+export const {Provider,store} = createStore(reducer,withRemoteDevTools({manager:true}))
+
 
 
 
 
 export default props => {
   return (
-    <Store>
+    <Provider>
         {props.children}
-    </Store>
+    </Provider>
   )
 }

@@ -81,7 +81,7 @@ export const Tab = withBaseClass(element('tab'))(props => {
         _ => selected ? 'selected' : ''
     ])
     return (
-        <div className={classe} {...rest} ref={ref}><div className="content">{children}</div></div>
+        <div className={classe} {...rest} ref={ref}><div className="tab-content">{children}</div></div>
     )
 })
 Tab.tabsRole = 'Tab';

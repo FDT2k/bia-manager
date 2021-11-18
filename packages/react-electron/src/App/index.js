@@ -22,6 +22,8 @@ export default props => {
                 <ElectronProvider api={window.electron}>
                     <Translation>
                         <UpdateManager />
+
+                        
                     </Translation>
                     {/* <ErrorHandler/>
                      <LoadingHandler/>*/}
