@@ -8,7 +8,6 @@ import SQLiteUnlock from '@/App/Electron/SQLiteUnlock'
 import SQLiteDatabase from '@/App/BIA/Features/Database/Import/sqlite'
 
 import { Provider as HostProvider } from '@/Context/Host'
-
 export const Component = props => {
     const {
         subscribers: {
