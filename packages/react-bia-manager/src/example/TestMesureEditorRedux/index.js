@@ -50,8 +50,12 @@ const ReduxEditor = props => {
     }, [])
 
 
-    const handleChange = values => {
-        debugger;
+    const handleChange = (values, changed_field) => {
+        console.log('form changed', values, changed_field);
+
+        if (changed_field === 'examinator') {
+            set_examinator(values.examinator);
+        }
         console.log('changed', values)
         dispatch(change_mesure(values))
     }
@@ -61,7 +65,6 @@ const ReduxEditor = props => {
 
     }
 
-    debugger;
 
     return (
 

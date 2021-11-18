@@ -1,6 +1,6 @@
 export default  {
-        lastname: 'ABARE',
-        firstname: 'Marguerite',
+        lastname: 'asdgasd',
+        firstname: 'asdgasdg',
         birthdate: '1952-11-27',
         age: 68,
         gender: 'F',

@@ -1,0 +1,1 @@
+These are the containers that handles the logic with Redux

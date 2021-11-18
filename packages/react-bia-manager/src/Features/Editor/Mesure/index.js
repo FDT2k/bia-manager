@@ -1,55 +1,23 @@
-import { bem, getClasseNames } from '@karsegard/react-compose';
-import { useFieldValues } from '@karsegard/react-hooks';
-
-
+import { useTranslation } from '@';
+import MesureEditorLayout from '@/Components/MesureEditorLayout';
 import Printable from '@/Components/Printable';
-import PrintableReport from '@/Features/Editor/Mesure/PrintableReport';
 import Tabs, { Tab, TabList, TabPanel } from '@/Components/Tabs';
-
-
+import PrintableReport from '@/Features/Editor/Mesure/PrintableReport';
+import { bem, getClasseNames } from '@karsegard/react-compose';
+import { Container, LayoutFlexColumn, withGridArea } from '@karsegard/react-core-layout';
+import React, { useMemo, useRef } from 'react';
+import "react-datepicker/dist/react-datepicker.css";
+import { useReactToPrint } from 'react-to-print';
+import AsideEditor from './AsideEditor';
+import BIAEditor from './BIAEditor';
+import ComparisonTable from './ComparisonTable';
+import Recap from './Recap';
 import Serrement from './Serrement';
 
 
-import { Container, LayoutFlex, LayoutFlexColumn, withGridArea } from '@karsegard/react-core-layout'
-import ComparisonTable from './ComparisonTable';
-
-import MesureEditorLayout from '@/Components/MesureEditorLayout';
-import React, { useEffect, useMemo, useRef, useState } from 'react';
-import { useReactToPrint } from 'react-to-print';
-
-//import { oneDecimal, oneDecimalPct } from '@/references/format'
-import MaskedInput from 'react-maskedinput';
-import moment from 'moment';
-import "react-datepicker/dist/react-datepicker.css";
-import Recap from './Recap'
-import { useCustomList, useTranslation } from '@'
-
-import BIAEditor from './BIAEditor'
-import AsideEditor from './AsideEditor';
 
 const LayoutFlexColumnWithArea = withGridArea(LayoutFlexColumn);
 const TabsWithArea = withGridArea(Tabs);
-
-
-const DateMask = ({
-    onChangeValue: _onChangeValue,
-    value: _value,
-
-}) => {
-
-    const { momentHumanDateFormat } = useTranslation()
-
-    const updateDate = value => {
-        let fieldValue = moment(value, momentHumanDateFormat).isValid() ?
-            moment(value, momentHumanDateFormat).format(momentHumanDateFormat) :
-            value;
-        console.log(value)
-        return fieldValue
-    }
-
-    return (<MaskedInput mask="11/11/1111" placeholder="dd/mm/yyyy" value={updateDate(_value)} onChange={e => _onChangeValue && _onChangeValue(e.target.value)} />)
-
-}
 
 
 const [__base_class, element, modifier] = bem('bia-mesure-editor')

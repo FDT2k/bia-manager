@@ -14,7 +14,7 @@ export default props => {
     const {t,oneDecimal,oneDecimalPct} = useTranslation();
     const lists = useCustomList();
 
-    const {_handleClickSave,_handlePrint,data,onValuesChange} = props;
+    const {handleClickSave,handlePrint,data,onValuesChange} = props;
 
     const { values,  inputProps, handleChange, replaceValues } = useFieldValues(data, { onValuesChange, usePath: true });    
 
@@ -26,8 +26,8 @@ export default props => {
     return (
 
         <>
-         <Button style={{ minWidth: '100%', width: '100%', maxWidth: '100%' }} tabIndex={33} onClick={_handleClickSave}>{t('Enregistrer')}</Button>
-                <Button tabIndex={44} className="btn--secondary" onClick={_ => _handlePrint()}>{t('Imprimer')}</Button>
+         <Button style={{ minWidth: '100%', width: '100%', maxWidth: '100%' }} tabIndex={33} onClick={handleClickSave}>{t('Enregistrer')}</Button>
+                <Button tabIndex={44} className="btn--secondary" onClick={handlePrint}>{t('Imprimer')}</Button>
                 <Field label={t("Examinateur")}>
                     <EditableTextInput value={values.examinator} name="examinator" onChange={handleChange} />
                 </Field>

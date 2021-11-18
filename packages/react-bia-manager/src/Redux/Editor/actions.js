@@ -1,4 +1,5 @@
-
+import { spreadObjectPresentIn } from '@karsegard/composite-js/ReactUtils';
+import { compare_objects } from '@karsegard/composite-js';
 import { is_nil } from '@karsegard/composite-js';
 import {makeActionCreator as create ,makeAsyncActionCreator as createAsync} from '@karsegard/react-redux'
 
@@ -6,6 +7,24 @@ import { bia_to_recap, generate_recap_header, normalize_mesure, recap_to_bar_cha
 import normes, { find_norme,raw as norm_list } from '@/references/Normes';
 import { normalize as normalize_patient } from '@/references/Patient';
 
+
+const isChangeRequireRecompute = (values, mesure) => {
+
+    const [d1, _] = spreadObjectPresentIn(['rea50', 'res50', 'z50', 'a50'], values.data)
+    const [d2, __] = spreadObjectPresentIn(['rea50', 'res50', 'z50', 'a50'], mesure.data)
+    if (!compare_objects(d1, d2)) {
+        return true
+    }
+
+    const [o1, ___] = spreadObjectPresentIn(['height', 'weight', 'bmi_ref'], values)
+    const [o2, ____] = spreadObjectPresentIn(['height', 'weight', 'bmi_ref'], mesure)
+
+    if (!compare_objects(o1, o2)) {
+        return true
+    }
+    return false;
+}
+const dontCommitTheseFieldsUntilSaved = ['comments', 'date']
 
 
 export default (getModule) => {
@@ -204,35 +223,39 @@ export default (getModule) => {
     }
 
 
-    actions.change_mesure = (mesure) => {
+    actions.change_mesure = (values,changed_field="") => {
 
 
         return (dispatch, getState) => {
-
-            if ( is_nil(mesure)) {
-                return dispatch({
-                    type: 'GENERAL_ERROR'
-                })
+            const mesure = select_edited_mesure(getState());
+            
+            //some fields does not need to be refreshed unless saved        
+            if (dontCommitTheseFieldsUntilSaved.includes(changed_field)) {
+                return;
             }
-    
+           
             const patient = select_edited_patient(getState());
-
-            const { mesure: normalized_mesure } = normalize_mesure({ patient, mesure });
-
+            const { mesure: normalized_mesure } = normalize_mesure({ patient, mesure:values });
             
 
             const new_mesure = { ...mesure, ...normalized_mesure };
-
-
-           return  dispatch({
+        
+            dispatch({
                 type: types.CHANGE_MESURE,
                 payload: {
                     id: patient.id,
                     mesure: new_mesure,
                 }
             })
-          //  dispatch(actions.refresh_normes());
-    //        return dispatch(actions.recompute_mesure(patient.id, new_mesure));
+
+            if (isChangeRequireRecompute(values, mesure)) {
+                dispatch(actions.recompute_current_mesure());
+               
+                dispatch(actions.refresh_current_recap());
+
+                
+            }
+          
         }
     };
 
