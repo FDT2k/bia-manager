@@ -23,13 +23,12 @@
     "react-dom": "^17.0.2"
   },
   "devDependencies": {
-    
     "vite": "^2.5.3"
   },
   "dependencies": {
-    "@karsegard/react-core-layout": "workspace:packages/kda-react-core-layout",
     "@karsegard/bia-manager-theme": "workspace:packages/integration",
     "@karsegard/composite-js": "^2.11.1",
+    "@karsegard/react-core-layout": "workspace:packages/kda-react-core-layout",
     "@karsegard/react-hooks": "^2.8.0",
     "@karsegard/react-redux": "workspace:packages/kda-react-redux",
     "react-table": "^7.7.0"

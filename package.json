@@ -6,6 +6,7 @@
   "repository": "https://github.com/FDT2k/bia-manager",
   "scripts": {
     "integrate": "cd packages/integration; yarn dev",
+    "start:browser": "cd packages/react-bia-manager; yarn dev",
     "kda": "git submodule init;git submodule update; yarn build submodules; yarn; yarn start",
     "start": "MODE=development node scripts/watch.js",
     "start:react-electron": "MODE=development node scripts/watch-new.js",
