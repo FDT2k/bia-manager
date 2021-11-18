@@ -1,29 +1,24 @@
 import { bem, getClasseNames } from '@karsegard/react-compose';
 import { useFieldValues } from '@karsegard/react-hooks';
-import FFMIChart from '@/Components/Charts/Indice';
-import TESTChart from '@/Components/Charts/FMI';
-import MassChart from '@/Components/Charts/Mass';
+
 import Button from '@/Components/Form/Button';
-import SafeDatePicker from '@/Components/Form/Editable/Date';
 import EditableSelect from '@/Components/Form/Editable/Select';
-import Select from '@/Components/Form/Select';
 import EditableTextInput from '@/Components/Form/Editable/TextInput';
 import EditableTextArea from '@/Components/Form/Editable/TextArea';
 
 import Field from '@/Components/Form/Fields';
-import ToggleSwitch from '@/Components/Form/ToggleSwitch';
+
 import Printable from '@/Components/Printable';
 import PrintableReport from '@/Features/Editor/Mesure/PrintableReport';
 import Tabs, { Tab, TabList, TabPanel } from '@/Components/Tabs';
-import ElectricalDataForm from '@/Components/ElectricalDataForm';
+
 
 import { safe_path } from '@karsegard/composite-js'
-import ComparisonTable from './ComparisonTable';
 import Serrement from './Serrement';
-import RecapGrid from './RecapGrid';
-import RecapFDS from './RecapGrid/FDS';
+
 
 import { Container, LayoutFlex, LayoutFlexColumn, withGridArea } from '@karsegard/react-core-layout'
+import ComparisonTable from './ComparisonTable';
 
 import MesureEditorLayout from '@/Components/MesureEditorLayout';
 import React, { useEffect, useMemo, useRef, useState } from 'react';
@@ -33,8 +28,10 @@ import { useReactToPrint } from 'react-to-print';
 import MaskedInput from 'react-maskedinput';
 import moment from 'moment';
 import "react-datepicker/dist/react-datepicker.css";
-
+import Recap from './Recap'
 import { useCustomList, useTranslation } from '@'
+
+import BIAEditor from './BIAEditor'
 
 const LayoutFlexColumnWithArea = withGridArea(LayoutFlexColumn);
 const TabsWithArea = withGridArea(Tabs);
@@ -46,7 +43,7 @@ const DateMask = ({
 
 }) => {
 
-    const {momentHumanDateFormat} = useTranslation()
+    const { momentHumanDateFormat } = useTranslation()
 
     const updateDate = value => {
         let fieldValue = moment(value, momentHumanDateFormat).isValid() ?
@@ -64,7 +61,7 @@ const DateMask = ({
 const [__base_class, element, modifier] = bem('bia-mesure-editor')
 
 const Editor = props => {
-    const { t,oneDecimal, oneDecimalPct } = useTranslation();
+    const { t, oneDecimal, oneDecimalPct } = useTranslation();
     const {
         handleClickSave,
         className,
@@ -73,7 +70,7 @@ const Editor = props => {
         handlePrint,
         handleChange: parentHandleChange,
         mesure,
-        data, ...rest2 } = getClasseNames(__base_class, props)
+        ...rest2 } = getClasseNames(__base_class, props)
 
 
     const {
@@ -109,48 +106,6 @@ const Editor = props => {
     }, [mesure]);
 
 
-
-    useEffect(() => {
-        _handleChange(values);
-
-    }, [values.data]);
-
-
-
-    const [editedGroup, setEditedGroup] = useState("a");
-    const electricalHandleChange = e => {
-
-        replaceValues(values => {
-
-            let newState = {
-                ...values,
-                data: {
-                    ...values.data,
-                    [e.target.name]: e.target.value
-                }
-            }
-            return newState;
-        })
-
-    }
-
-    const electricalHandleValues = new_values => {
-
-        replaceValues(values => {
-
-            let newState = {
-                ...values,
-                data: {
-                    ...values.data,
-                    ...new_values
-                }
-            }
-            return newState;
-        })
-
-    }
-
-
     const _handleClickSave = e => {
         // commit the form before saving
         Promise.resolve(_handleChange(values)).then(_ => {
@@ -161,15 +116,10 @@ const Editor = props => {
 
 
 
-
-    const handleGroupChange = g => {
-        setEditedGroup(g)
-    }
-
     const result_columns = useMemo(() => ['norme', values.most_accurate_formula || 'kushner', 'gva'], [values.most_accurate_formula]);
 
     const lists = useCustomList();
-
+debugger;
     return (
         <MesureEditorLayout className={className}>
             <TabsWithArea tabIndexOffset={20} renderDisabledPanels={true} area="mesure-editor-main">
@@ -180,81 +130,16 @@ const Editor = props => {
 
                 </TabList>
                 <TabPanel>
-                    <LayoutFlexColumnWithArea>
-                        <LayoutFlex wrap >
-                            <Field className="date-examen" label={t("Date d'Examen")}>
-
-                                <SafeDatePicker
-                                    selected={values.date}
-                                    handleChange={handleChangeValue('date')}
-                                />
-                            </Field>
-
-                            <Field className="activite-physique" label={t("Activité physique")}>
-
-                                <Select tabIndex={2}  {...inputProps('sport.rate')} options={safe_path([], 'sport_rate', lists)} />
-
-                            </Field>
-
-                            <Field className="type-activite-physique" label={t("Type d'Activité physique")}>
-                                <Select tabIndex={2}  {...inputProps('sport.type')} options={safe_path([], 'sport_type', lists)} />
-
-                            </Field>
-
-                            <Field className="fumeur" label={t("Fumeur")}>
-                                <ToggleSwitch tabIndex={3} id="smoker" labelYes="Oui" labelNo="Non" name="smoker" onChange={handleChange} checked={values.smoker} />
-                            </Field>
-
-                            <Field className="taille" label={t("Taille (cm)")}  >
-                                <input type="text" tabIndex={4}  {...inputProps('height')} />
-                            </Field>
-                            <Field className="poids-actuel" label={t("Poids Actuel (kg)")} >
-                                <input type="text" tabIndex={5}  {...inputProps('weight')} />
-                            </Field>
-
-
-                            <Field className="cote-mesure" label={t("Coté mesuré")}>
-                                <ToggleSwitch tabIndex={6} labelYes="Gauche" labelNo="Droit" name="left_side" onChange={handleChange} id="left_side" checked={values.left_side} />
-                            </Field>
-
-                        </LayoutFlex>
-                        <Container fit grow>
-                            <ElectricalDataForm tabIndexOffset={7} handleGroupChange={handleGroupChange} handleComputedChange={electricalHandleValues} handleChange={electricalHandleChange} editedGroup={editedGroup} values={values.data} />
-                        </Container>
-
-
-                        <Container fit grow>
-
-
-                            <ComparisonTable data={mesure.bia} columns={result_columns} />
-
-                        </Container>
-                    </LayoutFlexColumnWithArea>
+                    <BIAEditor data={values} onValuesChange={_handleChange}/>
+                    <Container fit grow>
+                        <ComparisonTable data={mesure.bia} columns={result_columns} />
+                    </Container>
                 </TabPanel>
                 <TabPanel>
                     <Serrement />
                 </TabPanel>
                 <TabPanel>
-                    <LayoutFlexColumn style={{ gap: '10px' }}>
-                        <h4>{t('BIA_RECAP_TITLE')}</h4>
-                        <RecapGrid data={recap} headers={list_dates} />
-                        <h4>{t('FDS_RECAP_TITLE')}</h4>
-
-                        <RecapFDS />
-
-                        <h4>{t('BODY_MASS_CHART_RECAP_TITLE')}</h4>
-                        <MassChart data={mass_chart} />
-                        <LayoutFlex>
-                            <LayoutFlexColumn alignCenter>
-                                <h4>{t('FFMI_RECAP_TITLE')}</h4>
-                                <TESTChart data_key="ffmi" />
-                            </LayoutFlexColumn>
-                            <LayoutFlexColumn alignCenter>
-                                <h4>{t('FMI_RECAP_TITLE')}</h4>
-                                <TESTChart data_key="fmi" />
-                            </LayoutFlexColumn>
-                        </LayoutFlex>
-                    </LayoutFlexColumn>
+                  <Recap/>
                 </TabPanel>
 
             </TabsWithArea>
@@ -308,9 +193,7 @@ Editor.defaultProps = {
     custom_lists: {},
     gender: 'm',
     t: x => x,
-    data: [
 
-    ],
 }
 
 

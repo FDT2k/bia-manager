@@ -2,7 +2,7 @@ import { safe_path } from '@karsegard/composite-js';
 import FFMIChart from '@/Components/Charts/FMI';
 
 import MassChart from '@/Components/Charts/Mass';
-import RecapGrid from '@/Features/Editor/Mesure/RecapGrid';
+import RecapGrid from '@/Components/RecapGrid';
 import { ComponentWithArea } from '@karsegard/react-core-layout';
 import {LayoutFlex,LayoutFlexColumn} from '@karsegard/react-core-layout'
 
@@ -10,7 +10,7 @@ import {Grid} from '@karsegard/react-core-layout'
 import React from 'react';
 import { dateSysToHuman } from '@/references/format';
 
-import RecapFDS from '@/Features/Editor/Mesure/RecapGrid/FDS';
+import RecapFDS from '@/Components/RecapGrid';
 
 export const Component =  props => {
 

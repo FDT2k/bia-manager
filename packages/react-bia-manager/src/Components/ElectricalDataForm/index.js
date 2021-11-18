@@ -5,7 +5,6 @@ import { ComponentWithArea, withGridArea } from '@karsegard/react-core-layout';
 import mexp from 'math-expression-evaluator';
 import React, { useMemo } from 'react';
 
-
 const fieldName = (row, col) => {
     return `${row}${col}`
 }

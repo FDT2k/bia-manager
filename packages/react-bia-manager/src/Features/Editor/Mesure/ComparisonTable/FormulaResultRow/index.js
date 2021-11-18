@@ -20,7 +20,6 @@ const FormulaResultRow = (props) => {
     return (<>
         <div className="row lineheader"><span>{t(`${label}_comparison_line_header`)}</span></div>
         {columns.map((col) => {
-            debugger;
             if (!colByName[col]) {
                 return (<div  key={`${col}`}>{t('Error')}</div>)
             }

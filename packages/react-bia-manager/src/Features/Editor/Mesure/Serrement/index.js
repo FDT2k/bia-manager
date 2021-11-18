@@ -1,14 +1,11 @@
-import React, { useEffect } from 'react';
+import { useTranslation } from '@/Context/Translation';
+import { safe_path } from '@karsegard/composite-js';
 import { Grid } from '@karsegard/react-core-layout';
-import Input from '@/Components/Form/Input';
-
 import { useForm } from '@karsegard/react-hooks';
-import { value } from '@karsegard/composite-js/ObjectUtils';
+import React, { useEffect } from 'react';
 
-import { oneDecimal, oneDecimalPct } from '@/references/format'
-import { safe_path, is_type_number } from '@karsegard/composite-js';
 
-import { useTranslation } from '@/Context/Translation'
+
 
 export const Component = props => {
     const { initialValues, handleChange } = props;

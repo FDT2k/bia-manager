@@ -8,13 +8,12 @@ import MainView from '@/Components/MainView';
 import { applyModifiers, bem, compose, getClasseNames } from '@karsegard/react-compose';
 import { ComponentWithArea as Area, Container, LayoutFlex, withGridArea } from '@karsegard/react-core-layout';
 import React from 'react';
-import ListMesure from './ListMesure';
-import MesureEditor from './Mesure';
-import PatientHeader from './PatientHeader';
 
 
 
-
+import DefaultListMesure from './ListMesure';
+import DefaultPatientHeader from './PatientHeader';
+import DefaultMesureEditor from './Mesure';
 
 
 
@@ -30,7 +29,7 @@ const NavComponent = compose(
 )(LayoutFlex);
 
 const Editor = props => {
-    const { className, handlers, defaultHandlers, ...renderers } = getClasseNames(__base_class, props);
+    const { MesureEditor,PatientHeader, ListMesure,className, handlers, defaultHandlers, ...renderers } = getClasseNames(__base_class, props);
 
     const { handleGoBack, handlePrint, handleMesureCreate, handleMesureOpen, handleMesureDelete, handleSubjectChange, handleChange, handleClickSave } = Object.assign({}, defaultHandlers, handlers);
 
@@ -96,8 +95,6 @@ Editor.defaultProps = {
         age: 'N/A',
     },
     selectedMesureIndex: 0,
-    handleMesureOpen: x => console.warn('no handler set for handleMesureOpen'),
-    handleMesureDelete: x => console.warn('no handler set for handleMesureDelete'),
     t: x => x,
     defaultHandlers: {
         handleChange: _ => console.warn('no handler set for handleChange'),
@@ -107,7 +104,10 @@ Editor.defaultProps = {
         handleMesureOpen: _ => console.warn('no handler set for handleMesureOpen'),
         handleMesureCreate: _ => console.warn('no handler set for handleMesureCreate'),
         handleGoBack: _ => console.warn('no handler set for handleGoBack'),
-    }
+    },
+    MesureEditor:DefaultMesureEditor,
+    PatientHeader:DefaultPatientHeader,
+    ListMesure:DefaultListMesure
 }
 
 

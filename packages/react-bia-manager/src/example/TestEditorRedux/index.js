@@ -1,59 +1,85 @@
-import React from 'react';
+import { CustomListProvider, TranslationProvider, useTranslation } from '@';
+import StoreProvider, { editorModule } from '@/example/Store';
+import MesureEditor from '@/Features/Editor/Mesure';
+import React, { useEffect } from 'react';
 
-import { BIARouter, ViewProvider, TranslationProvider,CustomListProvider } from '@'
+import patientSample from './patient'
 
 
-import Editor from '@/Features/Editor';
-import { useTranslation } from '@';
+import { useSelector, useDispatch } from '@karsegard/react-redux'
 
 
-const TestEditor = props => {
-    const {t}= useTranslation()
+
+const TestListProvider = props => {
+    const { t } = useTranslation()
+
     return (
         <CustomListProvider value={{
-            machines:[],
-            sport_rate:[
-                {'unkown':'Inconnu'},
-                {'moderate':'Modéré'},
-                {'high':'Normal'},
-                {'average':'Elevé'},
+            machines: [],
+            sport_rate: [
+
             ],
-            sport_type:[
-                {'unkown':'Inconnu'},
-                {'moderate':'Modéré'},
-                {'high':'Normal'},
-                {'average':'Elevé'},
+            sport_type: [
+
             ],
-            machines:[
-                { id: '', name: t('- Choisissez une valeur -') },
-                {'unkown':'Inconnu'},
-                {'moderate':'Modéré'},
-                {'high':'Normal'},
-                {'average':'Elevé'},
+            machines: [
+
             ],
-            ethno:[
-                'europeen',
-                'europeen',
-                'europeen',
-                'europeen',
+            ethno: [
+
             ]
         }}>
-            <Editor
-                patient={{}}
-                handlers={{
-
-                }}
-                mesure={{ date: '2012-01-21', data: {}, left_side: true }}></Editor>
+            {props.children}
         </CustomListProvider>)
+}
+
+const ReduxEditor = props => {
+
+    const { select_edited_mesure } = editorModule.selectors
+
+    const { edit_mesure,edit_patient,change_mesure,save } = editorModule.actions;
+
+    const mesure = useSelector(select_edited_mesure)
+    const dispatch = useDispatch();
+
+    useEffect(() => {
+        dispatch(edit_patient( patientSample ));
+
+        dispatch(edit_mesure(2, 1));
+
+    }, [])
+
+
+    const handleChange = values => {
+        debugger;
+        console.log('changed', values)
+        dispatch(change_mesure(values))
+    }
+
+    const handleClickSave=  _=> {
+        dispatch(save());
+
+    }
+
+    debugger;
+
+    return (
+
+        <MesureEditor mesure={mesure} handleChange={handleChange} handleClickSave={handleClickSave}></MesureEditor>
+    )
 }
 
 export default props => {
 
     return (
-        <TranslationProvider>
-           <TestEditor/>
-           
-        </TranslationProvider>
+        <StoreProvider>
+            <TranslationProvider>
+                <TestListProvider>
+                    <ReduxEditor />
+                </TestListProvider>
+            </TranslationProvider>
+
+        </StoreProvider>
     )
 
 }

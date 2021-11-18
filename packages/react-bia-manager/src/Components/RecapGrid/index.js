@@ -27,7 +27,6 @@ export const Component = props => {
         {lines.map((k, idx) => {
             
             const line = data.find(item => item.label == k)
-            debugger;
 
             const bold = boldlines.includes(k);
 
