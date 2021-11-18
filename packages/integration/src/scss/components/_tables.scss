@@ -2,6 +2,8 @@
 @use '../layout' as *;
 @use '../fonts' as *;
 
+
+
 .table {
     display: grid;
     grid-template-rows: auto;
@@ -11,6 +13,35 @@
         row-gap: 2px;
         grid-template-columns: repeat(11, 1fr);
         column-gap: 16px;
+    }
+
+    &--recap {
+        $recap-value: 50px;
+        row-gap: 0px;
+        column-gap: 0px;
+        grid-template-columns:
+            minmax($recap-value, 1fr) minmax($recap-value, 1fr) minmax($recap-value, 1fr) auto
+            minmax($recap-value, 1fr) auto minmax($recap-value, 1fr) auto
+            minmax($recap-value, 1fr) auto minmax($recap-value, 1fr) auto
+            minmax($recap-value, 1fr) auto minmax($recap-value, 1fr)
+        ;
+
+        .table {
+            &__header {
+                &--top,
+                &--left {
+                    .field__label {
+                        @extend %xsmall-body;
+                    }
+
+                }
+            }
+        }
+
+        .field:not(.table__separator) {
+            padding: 2px;
+        }
+
     }
 
     > * {
@@ -42,7 +73,14 @@
     }
 
     &__separator {
-        border-bottom: 1px solid var(--primary);
+        &--row {
+            height: 0px;
+            border-bottom: 1px solid var(--primary);
+        }
+        &--col {
+            width: 0px;
+            border-right: 1px solid var(--primary);
+        }
     }
 
     &__header {

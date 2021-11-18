@@ -2,10 +2,6 @@
 @use '../layout' as *;
 @use '../fonts' as *;
 
-$asides-value: 44px;
-$editor-value: (552px - (16 * 10)) / 11;
-$max-editor-value: (727px - (16 * 10)) / 11;
-
 .form {
     &--line {
         column-gap: 16px;
@@ -20,7 +16,7 @@ $max-editor-value: (727px - (16 * 10)) / 11;
             &.fumeur,
             &.cote-mesure {
                 flex-grow: 2;
-                max-width: calc( #{$editor-value} * 3 );
+                max-width: calc( var(--editor-value) * 3 );
             }
         }
     }
