@@ -21,7 +21,7 @@ export const ACTIONS_TYPES = createActionTypes(
     'DELETE_MESURE',
     'INIT',
     'SET_EXAMINATOR',
-
+    'ERROR'
 )
 
 

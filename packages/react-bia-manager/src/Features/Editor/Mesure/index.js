@@ -31,7 +31,7 @@ const Editor = props => {
         handleChange: parentHandleChange,
         mesure,
         ...rest2 } = getClasseNames(__base_class, props)
-  
+
 
     const _handleChange = (...args) => {
 
@@ -66,10 +66,9 @@ const Editor = props => {
                     <Tab>{t('BIA')}</Tab>
                     <Tab>{t('Force de serrement')}</Tab>
                     <Tab>{t('Récapitulatif')}</Tab>
-
                 </TabList>
                 <TabPanel>
-                    <BIAEditor data={mesure} onValuesChange={_handleChange}/>
+                    <BIAEditor data={mesure} onValuesChange={_handleChange} />
                     <Container fit grow>
                         <ComparisonTable data={mesure.bia} columns={result_columns} />
                     </Container>
@@ -78,12 +77,11 @@ const Editor = props => {
                     <Serrement />
                 </TabPanel>
                 <TabPanel>
-                  <Recap/>
+                    <Recap />
                 </TabPanel>
-
             </TabsWithArea>
             <LayoutFlexColumnWithArea style={{ gap: '10px' }} area="mesure-editor-aside">
-                <AsideEditor onValuesChange={_handleChange} handleClickSave={_handleClickSave} handlePrint={_handlePrint} data={mesure}/>
+                <AsideEditor onValuesChange={_handleChange} handleClickSave={_handleClickSave} handlePrint={_handlePrint} data={mesure} />
             </LayoutFlexColumnWithArea>
             <Printable ref={componentRef}>
                 {<PrintableReport />}

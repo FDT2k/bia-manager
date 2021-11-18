@@ -155,8 +155,17 @@ export default (getModule) => {
     actions.edit_mesure = (patient_id, mesure_id) => {
         return (dispatch, getState) => {
             let mesures = select_mesures(getState());
+
+            if(mesures.length >= mesure_id){
+                return dispatch({
+                    type:types.ERROR,
+                    payload:"mesure doesn't exist"
+                })
+            }
+
             const patient = select_edited_patient(getState());
             let { mesure } = normalize_mesure({ patient, mesure: mesures[mesure_id] });
+
             let r = dispatch({
                 type: types.EDIT_MESURE,
                 payload: {

@@ -44,8 +44,7 @@ const ReduxEditor = props => {
 
     useEffect(() => {
         dispatch(edit_patient( patientSample ));
-
-        dispatch(edit_mesure(2, 1));
+        dispatch(edit_mesure(2, 4));
 
     }, [])
 
