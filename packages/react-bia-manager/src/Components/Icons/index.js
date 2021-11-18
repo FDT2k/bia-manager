@@ -7,7 +7,7 @@ import ArrowUp from '@material-ui/icons/ArrowDropUp';
 import Info from '@material-ui/icons/Info';
 import Stats from '@material-ui/icons/Assessment';
 import Print from '@material-ui/icons/Print';
-import { SaveSharp as Save, CaretDownSharp as ArrowDown } from 'react-ionicons'
+//import { SaveSharp as Save, CaretDownSharp as ArrowDown } from 'react-ionicons'
 
 export const CaretDownSharp = props => (<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" className="CaretDownSharp button__svg" viewBox="0 0 512 512"><path d="M64 144l192 224 192-224H64z"/></svg>)
 export const ChevronDownSharp = props => (<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" className="ChevronDownSharp button__svg" viewBox="0 0 512 512"><path fill="none" stroke="currentColor" strokeLinecap="square" strokeMiterlimit="10" strokeWidth="48" d="M112 184l144 144 144-144"/></svg>)
@@ -16,9 +16,8 @@ export  {
     Delete,
     Person,
     ArrowBack,
-    ArrowDown,
+    CaretDownSharp as ArrowDown,
     ArrowUp,
-    Save,
     Stats,
     Print,
     Info

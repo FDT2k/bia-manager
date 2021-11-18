@@ -14,6 +14,7 @@ import { useFieldValues } from '@karsegard/react-hooks';
 import DatePicker from '@/Components/Form/DatePicker';
 import { identity, is_nil, replace } from '@karsegard/composite-js';
 import { dateSysToHuman } from '@/references/format';
+import MainView from '@/Components/MainView'
 import { filter_active_mesure } from '@/references/Mesure'
 
 const withForwardRef = Component => (props, ref) => {
@@ -222,4 +223,39 @@ Component.defaultProps = {
     },
     t: x => x
 }
+
+
+export const Page = props => {
+    const {db_name,stats,patients, ...rest } = props;
+    const {count,count_mesures} = stats;
+    const renderFooter = _ => {
+        return (
+            <>
+                <LayoutFlex>
+                    <div>Base de donnée: {db_name} </div>
+                    <div> — </div>
+                    <div> Patients: {count} </div>
+                    <div> — </div>
+                    <div> Mesures: {count_mesures}</div>
+                </LayoutFlex>
+                <div>Résultats de la recherche: {patients.length} patients</div>
+            </>
+        )
+    }
+
+    return (
+        <MainView renderFooter={renderFooter}>
+            <Component {...props} />
+        </MainView>
+    )
+
+}
+
+Page.defaultProps = {
+    stats:{count:0,count_mesures:0},
+    patients:[],
+    db_name:'default'
+}
+
+
 export default Component;

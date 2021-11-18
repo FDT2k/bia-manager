@@ -3382,7 +3382,7 @@ __metadata:
   dependencies:
     "@karsegard/bia-manager-theme": "workspace:packages/integration"
     "@karsegard/composite-js": ^2.11.1
-    "@karsegard/react-core-layout": ^1.5.1
+    "@karsegard/react-core-layout": "workspace:packages/kda-react-core-layout"
     "@karsegard/react-hooks": ^2.8.0
     "@karsegard/react-redux": "workspace:packages/kda-react-redux"
     immutability-helper: ^3.1.1

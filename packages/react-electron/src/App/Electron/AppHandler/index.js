@@ -2,11 +2,6 @@ import React, { useState, useEffect, useRef, useMemo } from 'react';
 
 import { useElectron } from '@/Context/Electron';
 
-
-
-import SQLiteUnlock from '@/App/Electron/SQLiteUnlock'
-import SQLiteDatabase from '@/App/BIA/Features/Database/Import/sqlite'
-
 import { Provider as HostProvider } from '@/Context/Host'
 export const Component = props => {
     const {
@@ -142,10 +137,10 @@ export const Component = props => {
         <>
             <HostProvider actions={electronActions}>
                 BIA? 
-                <SQLiteUnlock
+               {/* <SQLiteUnlock
                     visible={is_sqlite_need_unlock}
                     unlock={unlockSQLite}
-                    cancel={cancelUnlock} />
+               cancel={cancelUnlock} />*/}
             </HostProvider>
 
         </>

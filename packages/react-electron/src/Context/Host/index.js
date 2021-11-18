@@ -16,7 +16,9 @@ export const makeProvider = (Context) => (props) => {
     const defaultActions = {
         open_file: __not_implemented('open_file'),
         create_file : __not_implemented('create_file'),
-
+        add_error: __not_implemented('add_error'),
+        start_loading: __not_implemented('start_loading'),
+        stop_loading: __not_implemented('stop_loading'),
     };
 
     let actions = Object.assign({},defaultActions,_actions)

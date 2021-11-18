@@ -13,6 +13,8 @@ import UpdateManager from '@/Features/Electron/AutoUpdate';
 import ErrorHandler from '@/Features/ErrorHandler';
 import LoadingHandler from '@/Features/LoadingHandler';
 
+import AppHandler from '@/App/Electron/AppHandler'
+
 export default props => {
 
     return (
@@ -23,9 +25,9 @@ export default props => {
                         <UpdateManager />
                         <ErrorHandler/>
                         <LoadingHandler/>
+                        <AppHandler/>
+
                     </Translation>
-                    {/* <ErrorHandler/>
-                     <LoadingHandler/>*/}
                 </ElectronProvider>
 
             </Suspense>

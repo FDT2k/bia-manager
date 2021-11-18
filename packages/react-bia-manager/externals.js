@@ -21,10 +21,14 @@ module.exports.external = [
     'react-is',
     'redux-persist/integration/react',
     'redux-persist/lib/storage',
-    'redux-logger','redux-thunk'
+    'redux-logger','redux-thunk',
+    'react-table'
   ];
   module.exports.kda = [
     '@karsegard/react-core-layout',
+    '@karsegard/react-redux',
+    '@karsegard/react-hooks',
+    '@karsegard/bia-manager-theme'
   ];
   
   
