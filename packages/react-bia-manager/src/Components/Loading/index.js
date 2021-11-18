@@ -6,11 +6,11 @@ import Loading from 'react-loading';
 
 
 export default props => {
-  const { label,visible } = props;
+  const { message,visible } = props;
 
   return (<Modal type="loading" visible={visible}>
     <LayoutFlexColumn alignCenter justBetween>
-      <div className="title"><h1>{label}</h1></div>
+      <div className="title"><h1>{message}</h1></div>
       <Loading type="spin" color="#000000" />
     </LayoutFlexColumn>
   </Modal>)

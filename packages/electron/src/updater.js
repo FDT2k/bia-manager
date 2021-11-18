@@ -28,10 +28,9 @@
 
  })
  
- autoUpdater.on('update-not-available', () => {
-  _window.send('no-update-available')
+ autoUpdater.on('update-not-available', (info) => {
+  _window.send('no-update-available',info)
    updater.enabled = true
-   updater = null
  })
  
  autoUpdater.on('update-downloaded', () => {

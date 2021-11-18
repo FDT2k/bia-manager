@@ -41,7 +41,7 @@ export const makeProvider = (Context) => (props) => {
 export const makeUse = Context => _ => {
     const context = useContext(Context);
     if (is_nil(context)) {
-        throw new Error('useViewProvider must be used within a provider');
+        throw new Error('useTranslation must be used within a provider');
     }
     return context;
 }

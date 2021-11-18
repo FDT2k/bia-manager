@@ -141,12 +141,7 @@ export const Component = props => {
     return (
         <>
             <HostProvider actions={electronActions}>
-               {/* <ViewsProvider views={{
-                    Database: SQLiteDatabase
-                }
-                }>
-                    <BIAManager />
-            </ViewsProvider>*/}
+                BIA? 
                 <SQLiteUnlock
                     visible={is_sqlite_need_unlock}
                     unlock={unlockSQLite}

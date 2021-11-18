@@ -8,11 +8,10 @@ import Store from '@/Store';
 
 import Translation from '@/Context/Translation'
 
-import UpdateManager from '@/App/Electron/AutoUpdate';
-import ErrorHandler from '@/Features/ErrorMessageHandler'
-import LoadingHandler from '@/Features/Loading'
+import UpdateManager from '@/Features/Electron/AutoUpdate';
 
-
+import ErrorHandler from '@/Features/ErrorHandler';
+import LoadingHandler from '@/Features/LoadingHandler';
 
 export default props => {
 
@@ -22,8 +21,8 @@ export default props => {
                 <ElectronProvider api={window.electron}>
                     <Translation>
                         <UpdateManager />
-
-                        
+                        <ErrorHandler/>
+                        <LoadingHandler/>
                     </Translation>
                     {/* <ErrorHandler/>
                      <LoadingHandler/>*/}

@@ -10,7 +10,7 @@ import DownloadUpdate from './DownloadUpdate';
 export const Component = ({ children }) => {
 
 
-    const { subscribers: { handleUpdateAvailable, handleDownloadProgress }, actions:{download_update} } = useElectron();
+    const { subscribers: { handleUpdateAvailable,handleUpdateNotAvailable, handleDownloadProgress }, actions:{download_update} } = useElectron();
 
 
     const [update, setUpdate] = useState(false); // update system
@@ -31,6 +31,10 @@ export const Component = ({ children }) => {
             console.log('update is downloading', message)
             setUpdate(false);
             setDownload(message);
+        })
+
+        handleUpdateNotAvailable((sender,message)=>{
+            console.warn(message)
         })
 
 
