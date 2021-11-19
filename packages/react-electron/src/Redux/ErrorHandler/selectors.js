@@ -13,7 +13,6 @@ export default getModule => {
 
 
    module.current_error = createSelector(baseSelector,state => {
-      debugger;
       return (state && state.length> 0) ? state[0] : null
    })
 

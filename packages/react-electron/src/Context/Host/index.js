@@ -6,16 +6,23 @@ import { is_nil } from '@karsegard/composite-js';
 
 export const Context = createContext(null)
 
+import {useDispatch,useSelector} from '@karsegard/react-redux'
+
+import {actions as errorActions} from '@/Features/ErrorHandler'
+import {actions as loadingActions} from '@/Features/LoadingHandler'
 
 const __not_implemented = text => _=> console.warn(text+' not implemented for host')
 
 
+
+
 export const makeProvider = (Context) => (props) => {
     const { children, actions:_actions } = props;
+    const dispatch = useDispatch();
+
 
     const defaultActions = {
-        open_file: __not_implemented('open_file'),
-        create_file : __not_implemented('create_file'),
+       
         add_error: __not_implemented('add_error'),
         start_loading: __not_implemented('start_loading'),
         stop_loading: __not_implemented('stop_loading'),
@@ -23,7 +30,7 @@ export const makeProvider = (Context) => (props) => {
 
     let actions = Object.assign({},defaultActions,_actions)
     return (
-        <Context.Provider value={{actions}}>
+        <Context.Provider value={actions}>
             {children}
         </Context.Provider>
     )

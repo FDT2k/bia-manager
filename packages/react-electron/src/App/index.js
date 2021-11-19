@@ -7,13 +7,21 @@ import { Provider as ElectronProvider } from '@/Context/Electron'
 import Store from '@/Store';
 
 import Translation from '@/Context/Translation'
-
+import { Provider as FileProvider,useFileProvider } from '@/Context/File'
 import UpdateManager from '@/Features/Electron/AutoUpdate';
 
-import ErrorHandler from '@/Features/ErrorHandler';
-import LoadingHandler from '@/Features/LoadingHandler';
 
-import AppHandler from '@/App/Electron/AppHandler'
+import HostContext from '@/App/HostContext'
+
+
+
+const Test = props => {
+    const {selectors:{file,type}} = useFileProvider()
+
+    return (
+        <pre>{file} - { type}</pre>
+    )
+}
 
 export default props => {
 
@@ -23,9 +31,12 @@ export default props => {
                 <ElectronProvider api={window.electron}>
                     <Translation>
                         <UpdateManager />
-                        <ErrorHandler/>
-                        <LoadingHandler/>
-                        <AppHandler/>
+                        <HostContext>
+                            {<FileProvider>
+                                <Test/>
+                            </FileProvider>}
+                        </HostContext>
+
 
                     </Translation>
                 </ElectronProvider>

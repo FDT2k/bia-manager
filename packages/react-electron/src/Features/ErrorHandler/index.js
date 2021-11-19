@@ -19,7 +19,6 @@ export default props => {
     const dispatch = useDispatch();
     const current_error = useSelector(selectors.current_error);
 
-    debugger;
 
     return (<>
         {!is_empty(current_error) && <ErrorMessage 

@@ -19,7 +19,6 @@ export default props => {
     const dispatch = useDispatch();
     const is_loading = useSelector(selectors.is_loading);
     const message = useSelector(selectors.message);
-    debugger;
     return (<>
         <Loading visible={is_loading}
             message={message}

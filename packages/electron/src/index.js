@@ -111,7 +111,7 @@ const createWindow = async () => {
 const initMenu = async (window) => {
   menuFactoryService.buildMenu(app, window);
 
-  
+
   return window
 }
 
@@ -166,21 +166,25 @@ ipcMain.handle('file-open', async (event, filename) => {
   if (!canceled) {
     cleanState = false;
     console.log('reading');
-
-
-
+    let additionalprops = {};
+   
     openedFilePath = filePaths[0];
     const type = await determine_file_type(openedFilePath);
     let content = null
 
     currentBackend = type;
+    let unlocked = true
     if (type === 'json') {
       content = await fs.readFile(filePaths[0], { encoding: 'utf8' });
+    } else if (type === 'sqlite') {
+      currentSQLite = openDB(filename)
+      additionalprops.unlocked = currentSQLite.isUnlocked();
     }
     return {
       canceled: false,
       type,
       content,
+      ...additionalprops,
       file: filePaths[0],
 
     }
@@ -195,10 +199,10 @@ ipcMain.handle('read-settings', async (event,) => {
 ipcMain.handle('get-file-state', async (event,) => {
   console.log('requested file state')
   let additionalprops = {};
-  if(currentBackend=='sqlite'){
-    additionalprops.unlocked= currentSQLite.isUnlocked();
+  if (currentBackend == 'sqlite') {
+    additionalprops.unlocked = currentSQLite.isUnlocked();
   }
-  return { file: openedFilePath, type: currentBackend,canceled:false, ...additionalprops };
+  return { file: openedFilePath, type: currentBackend, canceled: false, ...additionalprops };
 });
 /*
 ipcMain.handle('current-filename', async (event,) => {
@@ -225,7 +229,7 @@ ipcMain.handle('quit', async event => {
 })
 
 
-
+//should not be used anymore
 ipcMain.handle('sqlite-open', async (event, { filename, key }) => {
   try {
     console.log('want to sqlite db', filename, key);
@@ -241,13 +245,13 @@ ipcMain.handle('sqlite-open', async (event, { filename, key }) => {
 
 ipcMain.handle('close', async (event) => {
   try {
-    if(!is_nil(currentSQLite)){
+    if (!is_nil(currentSQLite)) {
       currentSQLite.db.close()
       currentSQLite = null;
-    }else if(openedFilePath){
-      openedFilePath=null;
+    } else if (openedFilePath) {
+      openedFilePath = null;
     }
-    currentBackend=null
+    currentBackend = null
     return true;
   } catch (e) {
     return Promise.reject(e);
@@ -280,14 +284,14 @@ ipcMain.handle('sqlite-unlock', async (event, key) => {
 
 
 
-ipcMain.handle('sqlite-query', async (event, {type,table,query,values,filter,fn='all'}) => {
+ipcMain.handle('sqlite-query', async (event, { type, table, query, values, filter, fn = 'all' }) => {
   try {
-    if(type ==='geninsert'){
+    if (type === 'geninsert') {
       query = currentSQLite.genInsertSQL(table, values)
-    }else if(type ==='genupdate'){
-      query = currentSQLite.genUpdateSQL(table, values,filter)
+    } else if (type === 'genupdate') {
+      query = currentSQLite.genUpdateSQL(table, values, filter)
     }
-    console.log('prepare query ',query, fn ,values)
+    console.log('prepare query ', query, fn, values)
     return currentSQLite.db.prepare(query)[fn](values);
   } catch (e) {
     return Promise.reject(e);
@@ -295,12 +299,12 @@ ipcMain.handle('sqlite-query', async (event, {type,table,query,values,filter,fn=
 
 })
 
-ipcMain.handle('sqlite-import', async (event,message)=>{
-  try{
-  console.log(message)
-   let res = currentSQLite.subject.import().immediate(message);
-   console.log(res);
-  }catch(e){
+ipcMain.handle('sqlite-import', async (event, message) => {
+  try {
+    console.log(message)
+    let res = currentSQLite.subject.import().immediate(message);
+    console.log(res);
+  } catch (e) {
     return Promise.reject(e)
   }
 })
@@ -339,7 +343,7 @@ app.on('before-quit', e => {
 app.whenReady()
   .then(createWindow)
   .then(initMenu)
-  .then(init18next( (i18n,menu) => {menuFactoryService.buildMenu(app, mainWindow, i18n.t.bind(i18n),menu) }))
+  .then(init18next((i18n, menu) => { menuFactoryService.buildMenu(app, mainWindow, i18n.t.bind(i18n), menu) }))
   .then(loadContent)
   .catch((e) => console.error('Failed create window:', e));
 
