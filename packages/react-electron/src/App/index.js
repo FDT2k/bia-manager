@@ -11,22 +11,12 @@ import { Provider as FileProvider, useFileProvider } from '@/Context/File'
 import UpdateManager from '@/Features/Electron/AutoUpdate';
 
 
-import HostContext from '@/App/HostContext'
+import HostProviderRedux from '@/Providers/HostProviderRedux'
 
-import SQLiteUnlock from './SQLiteUnlock';
-
-
-const Test = props => {
-    const { actions: { modified }, selectors: { file, type,is_modified } } = useFileProvider()
+import FileTypeBackendProvider from '../Providers/FileTypeBackendProvider';
 
 
-    return (
-        <>
-            <pre>{file} - {type} - {is_modified===true ? 'modified': ''}</pre>
-            <button onClick={modified}>modify file</button>
-        </>
-    )
-}
+
 
 export default props => {
 
@@ -36,16 +26,18 @@ export default props => {
                 <ElectronProvider api={window.electron}>
                     <Translation>
                         <UpdateManager />
-                        <HostContext>
-                            {<FileProvider>
-                                <SQLiteUnlock/>
-                            </FileProvider>}
-                        </HostContext>
+                        <HostProviderRedux>
+                            <FileProvider>
+                               <FileTypeBackendProvider>
+                                   
+                                    BIA 
 
 
+                               </FileTypeBackendProvider>
+                            </FileProvider>
+                        </HostProviderRedux>
                     </Translation>
                 </ElectronProvider>
-
             </Suspense>
         </Store>
     );

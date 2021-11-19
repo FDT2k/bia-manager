@@ -95,10 +95,7 @@ export const makeProvider = (Context) => {
 
 
             });
-            /*close(electron_close).then(res => {
-                window.location.hash = '#/'
-
-            }).catch(add_error)*/
+         
 
         }
 

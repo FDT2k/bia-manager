@@ -9,7 +9,7 @@ import { useFileProvider } from '@/Context/File';
 
 export default (props)=> {
 
-    const {actions:{unlock,close_file},selectors:{type,locked}} = useFileProvider()
+    const {actions:{unlock,close_file},selectors:{type,locked}} = useFileProvider();
     const {values,inputProps,replaceValues} = useFieldValues({});
 
     const [visible,setVisible] = useState(false)
