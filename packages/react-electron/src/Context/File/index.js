@@ -27,9 +27,6 @@ export const makeProvider = (Context) => {
                 handleOpenRequest, handleSaveRequest, handleLocationChange, handleCloseRequest,
                 handleError, handleWillQuit
             },
-            revokers:{
-                revokeOpenRequest
-            },
             actions: {
                 quit,
                 open: electron_open,
@@ -39,10 +36,14 @@ export const makeProvider = (Context) => {
         } = useElectron();
 
         const dispatch = useDispatch();
+        const selectors = {
+            file: useSelector(Module.selectors.file),
+            type: useSelector(Module.selectors.type),
+            locked: useSelector(Module.selectors.locked),
+            is_modified:useSelector(Module.selectors.modified)
 
-        let modified = useSelector(Module.selectors.modified);
-
-      
+        }
+        
 
         const open_file = _ => {
             start_loading("Waiting on user confirmation");
@@ -86,7 +87,8 @@ export const makeProvider = (Context) => {
         }
 
         const close_file = _ => {
-            if (modified) {
+            debugger;
+            if (selectors.is_modified) {
                 add_error("file has been modified, save it first")
             } else {
                 electron_close()
@@ -95,10 +97,6 @@ export const makeProvider = (Context) => {
 
                 }).catch(add_error)*/
             }
-        }
-        const test =_=> {
-            return close_file()
-
         }
 
         useEffect(() => {
@@ -110,7 +108,7 @@ export const makeProvider = (Context) => {
 
             handleWillQuit(handleQuit)
             handleOpenRequest(open_file);
-            handleCloseRequest(test);
+            handleCloseRequest(close_file);
             handleSaveRequest(save_file);
 
             handleError((sender, message) => {
@@ -118,7 +116,7 @@ export const makeProvider = (Context) => {
             });
 
             return ()=>{
-                revokeOpenRequest(open_file)
+                
             }
         }, [])
 
@@ -131,13 +129,7 @@ export const makeProvider = (Context) => {
         };
 
         let actions = Object.assign({}, defaultActions, _actions)
-        const selectors = {
-            file: useSelector(Module.selectors.file),
-            type: useSelector(Module.selectors.type),
-            locked: useSelector(Module.selectors.locked),
-            is_modified:modified
-
-        }
+       
         return (
             <Context.Provider value={{ actions, selectors }}>
                 {children}

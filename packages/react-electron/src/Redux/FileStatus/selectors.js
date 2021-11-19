@@ -19,7 +19,6 @@ export default getModule => {
 
    })
    module.modified = createSelector (baseSelector,state => {
-      debugger;
       return state.modified === true
 
    })
