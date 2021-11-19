@@ -17,7 +17,8 @@ export default (getModule) => {
         saved:false,
         opening: false,
         last_saved: null,
-        type:''
+        type:'',
+        modified:false
     };
 
     module.reducer = createReducer(initialState, {
@@ -27,10 +28,12 @@ export default (getModule) => {
             file: (is_nil(file)) ? '' :file, 
             saving: false,
             unlocked,
+            modified:false,
             type
         }),
 
-        [types.CLOSE]: (state, { payload }) => ({ ...state, file: "", last_saved: null, saving: false })
+        [types.MODIFIED]: (state, { payload}) => ({ ...state, modified:true }),
+        [types.CLOSE]: (state, { payload }) => ({ ...initialState })
     });
 
 

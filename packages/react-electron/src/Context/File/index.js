@@ -27,6 +27,9 @@ export const makeProvider = (Context) => {
                 handleOpenRequest, handleSaveRequest, handleLocationChange, handleCloseRequest,
                 handleError, handleWillQuit
             },
+            revokers:{
+                revokeOpenRequest
+            },
             actions: {
                 quit,
                 open: electron_open,
@@ -37,24 +40,26 @@ export const makeProvider = (Context) => {
 
         const dispatch = useDispatch();
 
+        let modified = useSelector(Module.selectors.modified);
 
+      
 
-        const handleFileOpen = _ => {
+        const open_file = _ => {
             start_loading("Waiting on user confirmation");
             electron_open()
                 .then(result => {
                     stop_loading()
                     dispatch(Module.actions.open(result))
-                   /* if (result) {
-                        window.location.hash = '#/search'
-                    }*/
+                    /* if (result) {
+                         window.location.hash = '#/search'
+                     }*/
 
                 })
                 .catch(add_error)
 
         }
 
-        const handleFileSave = _ => {
+        const save_file = _ => {
             start_loading('saving');
             save_to_file().then(
 
@@ -68,11 +73,32 @@ export const makeProvider = (Context) => {
 
         }
 
-        const handleClose = _ => {
-            close(electron_close).then(res => {
-                window.location.hash = '#/'
+        const handleQuit = _ => {
+            debugger;
+            if (modified) {
+                add_error("file has been modified, save it first")
+            } else {
+             /*   close().then(_ => {
+                    quit();
 
-            }).catch(add_error)
+                })*/
+            }
+        }
+
+        const close_file = _ => {
+            if (modified) {
+                add_error("file has been modified, save it first")
+            } else {
+                electron_close()
+                /*close(electron_close).then(res => {
+                    window.location.hash = '#/'
+
+                }).catch(add_error)*/
+            }
+        }
+        const test =_=> {
+            return close_file()
+
         }
 
         useEffect(() => {
@@ -82,44 +108,38 @@ export const makeProvider = (Context) => {
                 stop_loading();
             }).catch(add_error)
 
-
-            handleWillQuit(_ => {
-                close().then(_ => {
-                    quit();
-
-                })
-            })
-            handleOpenRequest(handleFileOpen);
-            handleCloseRequest(handleClose);
-            handleLocationChange((sender, arg) => {
-                window.location.href = arg;
-            });
-
-
-            handleSaveRequest(handleFileSave);
-
-
+            handleWillQuit(handleQuit)
+            handleOpenRequest(open_file);
+            handleCloseRequest(test);
+            handleSaveRequest(save_file);
 
             handleError((sender, message) => {
                 add_error('Une erreur est survenue')
             });
 
+            return ()=>{
+                revokeOpenRequest(open_file)
+            }
         }, [])
 
 
         const defaultActions = {
-
+            modified: _ => dispatch(Module.actions.modified()),
+            open_file,
+            save_file,
+            close_file
         };
 
         let actions = Object.assign({}, defaultActions, _actions)
         const selectors = {
-            file:useSelector(Module.selectors.file),
-            type:useSelector(Module.selectors.type),
-            locked:useSelector(Module.selectors.locked),
+            file: useSelector(Module.selectors.file),
+            type: useSelector(Module.selectors.type),
+            locked: useSelector(Module.selectors.locked),
+            is_modified:modified
 
         }
         return (
-            <Context.Provider value={{ actions,selectors }}>
+            <Context.Provider value={{ actions, selectors }}>
                 {children}
             </Context.Provider>
         )

@@ -7,7 +7,7 @@ import { Provider as ElectronProvider } from '@/Context/Electron'
 import Store from '@/Store';
 
 import Translation from '@/Context/Translation'
-import { Provider as FileProvider,useFileProvider } from '@/Context/File'
+import { Provider as FileProvider, useFileProvider } from '@/Context/File'
 import UpdateManager from '@/Features/Electron/AutoUpdate';
 
 
@@ -16,10 +16,14 @@ import HostContext from '@/App/HostContext'
 
 
 const Test = props => {
-    const {selectors:{file,type}} = useFileProvider()
+    const { actions: { modified }, selectors: { file, type,is_modified } } = useFileProvider()
+
 
     return (
-        <pre>{file} - { type}</pre>
+        <>
+            <pre>{file} - {type} - {is_modified===true ? 'modified': ''}</pre>
+            <button onClick={modified}>modify file</button>
+        </>
     )
 }
 
@@ -33,7 +37,7 @@ export default props => {
                         <UpdateManager />
                         <HostContext>
                             {<FileProvider>
-                                <Test/>
+                                <Test />
                             </FileProvider>}
                         </HostContext>
 

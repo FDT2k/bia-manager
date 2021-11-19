@@ -12,7 +12,7 @@ export default (getModule) => {
 
     actions.open = createAction(types.OPEN)
     actions.close = createAction(types.CLOSE)
-
+    actions.modified = createAction(types.MODIFIED)
     return actions;
 }
 

@@ -18,7 +18,11 @@ export default getModule => {
       return state.unlocked ===false
 
    })
+   module.modified = createSelector (baseSelector,state => {
+      debugger;
+      return state.modified === true
 
+   })
    return module;
 
 }
