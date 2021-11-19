@@ -13,6 +13,7 @@ import UpdateManager from '@/Features/Electron/AutoUpdate';
 
 import HostContext from '@/App/HostContext'
 
+import SQLiteUnlock from './SQLiteUnlock';
 
 
 const Test = props => {
@@ -37,7 +38,7 @@ export default props => {
                         <UpdateManager />
                         <HostContext>
                             {<FileProvider>
-                                <Test />
+                                <SQLiteUnlock/>
                             </FileProvider>}
                         </HostContext>
 

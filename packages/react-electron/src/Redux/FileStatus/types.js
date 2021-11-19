@@ -3,7 +3,8 @@ import { createActionTypes, createPrefixableActionTypes } from '@karsegard/react
 export const ACTIONS_TYPES = createActionTypes(
     'OPEN',
     'CLOSE',
-    'MODIFIED'
+    'MODIFIED',
+    'UNLOCK'
     
 )
 

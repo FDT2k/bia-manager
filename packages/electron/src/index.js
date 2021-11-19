@@ -177,7 +177,7 @@ ipcMain.handle('file-open', async (event, filename) => {
     if (type === 'json') {
       content = await fs.readFile(filePaths[0], { encoding: 'utf8' });
     } else if (type === 'sqlite') {
-      currentSQLite = openDB(filename)
+      currentSQLite = openDB(openedFilePath)
       additionalprops.unlocked = currentSQLite.isUnlocked();
     }
     return {
@@ -244,8 +244,10 @@ ipcMain.handle('sqlite-open', async (event, { filename, key }) => {
 
 
 ipcMain.handle('close', async (event) => {
+  console.log('closing file')
   try {
     if (!is_nil(currentSQLite)) {
+      openedFilePath=null;
       currentSQLite.db.close()
       currentSQLite = null;
     } else if (openedFilePath) {

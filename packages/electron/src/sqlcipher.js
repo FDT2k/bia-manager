@@ -1,5 +1,5 @@
 import { is_nil, enlist, is_empty, is_undefined } from '@karsegard/composite-js';
-import { key,keyval } from '@karsegard/composite-js/ObjectUtils';
+import { key, keyval } from '@karsegard/composite-js/ObjectUtils';
 import { spreadObjectPresentIn } from '@karsegard/composite-js/ReactUtils'
 import { resolve, join } from 'path'
 import fs from 'fs'
@@ -111,7 +111,7 @@ const API = db => {
 
             db.exec("select count(*) from sqlite_master;")
             db.pragma('journal_mode = WAL');
-    //        db.pragma('synchronous = FULL');
+            //        db.pragma('synchronous = FULL');
             unlocked = true
             module.migrate();
 
@@ -128,44 +128,44 @@ const API = db => {
 
 }
 
-const _to_boolean = (value)=> {
-    if(value ===true){
+const _to_boolean = (value) => {
+    if (value === true) {
         return 1;
     }
     return 0;
 }
 
-const _to_json = (values)=>{
+const _to_json = (values) => {
     return JSON.stringify(values);
 }
 
-const _transform = (schema,data)=> {
-    let result =  enlist(schema).reduce((carry,item)=>{
-        const [field,type]= keyval(item);
+const _transform = (schema, data) => {
+    let result = enlist(schema).reduce((carry, item) => {
+        const [field, type] = keyval(item);
         console.log(type)
-        if(!is_empty(type) && !is_undefined(data[field])){
-            if(type==='boolean'){
+        if (!is_empty(type) && !is_undefined(data[field])) {
+            if (type === 'boolean') {
                 carry[field] = _to_boolean(data[field])
-            }else if(type==='json') {
+            } else if (type === 'json') {
                 carry[field] = _to_json(data[field])
 
             }
-        }else{
-            carry[field]= data[field] || '';
+        } else {
+            carry[field] = data[field] || '';
         }
 
         return carry;
-    },{})
+    }, {})
     return result;
 }
 
 
-const mesure= (db,api)=> {
+const mesure = (db, api) => {
 
     const schema = {
-        date:'',
-        examinator:'',
-        subject_id:'',
+        date: '',
+        examinator: '',
+        subject_id: '',
         height: '',
         weight: '',
         bmi: '',
@@ -178,42 +178,42 @@ const mesure= (db,api)=> {
         pct_ideal_weight: '',
         most_accurate_formula: '',
         current_age: '',
-        data:'json',
-        sport:'json',
-        fds:'json',
-        uuid:''
+        data: 'json',
+        sport: 'json',
+        fds: 'json',
+        uuid: ''
 
     }
 
 
     const pkeys = ['id']
-   
 
-    const module ={};
 
-    module.select = filters => db.prepare(api.genSelectSQL('mesures',filters));
-    module.insert = (schema,ignore)=> db.prepare(api.genInsertSQL('mesures',schema,ignore))
-    module.update = (schema,filter)=> db.prepare(api.genUpdateSQL('mesures',schema,filter))
+    const module = {};
 
-    module.upsert = keys=> db.transaction(subject=> {
-        const [filter,_values] =  spreadObjectPresentIn(keys,subject);  
-        const [values,_] =  spreadObjectPresentIn(Object.keys(schema),_values);
-        let result =module.select(filter).get(filter)
+    module.select = filters => db.prepare(api.genSelectSQL('mesures', filters));
+    module.insert = (schema, ignore) => db.prepare(api.genInsertSQL('mesures', schema, ignore))
+    module.update = (schema, filter) => db.prepare(api.genUpdateSQL('mesures', schema, filter))
 
-        if( !is_empty(result)){
-            
-            module.update(values,filter).run({...values,...filter});
-        }else{
-            module.insert({...values,...filter},pkeys).run({...values,...filter});
+    module.upsert = keys => db.transaction(subject => {
+        const [filter, _values] = spreadObjectPresentIn(keys, subject);
+        const [values, _] = spreadObjectPresentIn(Object.keys(schema), _values);
+        let result = module.select(filter).get(filter)
+
+        if (!is_empty(result)) {
+
+            module.update(values, filter).run({ ...values, ...filter });
+        } else {
+            module.insert({ ...values, ...filter }, pkeys).run({ ...values, ...filter });
         }
     })
 
-    module.import = subject_id=> db.transaction((mesures)=>{
-        console.log('importing mesures','count',mesures.length)
-        for(let mesure of mesures) {
-            mesure.subject_id=subject_id;
+    module.import = subject_id => db.transaction((mesures) => {
+        console.log('importing mesures', 'count', mesures.length)
+        for (let mesure of mesures) {
+            mesure.subject_id = subject_id;
 
-            module.upsert(['uuid'])(_transform(schema,mesure))
+            module.upsert(['uuid'])(_transform(schema, mesure))
         }
     })
 
@@ -222,54 +222,54 @@ const mesure= (db,api)=> {
 
 }
 
-const subject= (db,api)=> {
+const subject = (db, api) => {
 
     const schema = {
-        firstname:'',
-        lastname:'',
-        birthdate:'',
-        gender:'',
-        age:'',
-        groups:'json',
-        usual_height:'',
-        usual_weight:'',
-        uuid:''
+        firstname: '',
+        lastname: '',
+        birthdate: '',
+        gender: '',
+        age: '',
+        groups: 'json',
+        usual_height: '',
+        usual_weight: '',
+        uuid: ''
     }
-   
+
 
     const pkeys = ['id']
-   
 
-    const module ={};
 
-    module.select = filters => db.prepare(api.genSelectSQL('subjects',filters));
-    module.insert = (schema,ignore)=> db.prepare(api.genInsertSQL('subjects',schema,ignore))
-    module.update = (schema,filter)=> db.prepare(api.genUpdateSQL('subjects',schema,filter))
+    const module = {};
 
-    module.upsert = keys=> db.transaction(subject=> {
+    module.select = filters => db.prepare(api.genSelectSQL('subjects', filters));
+    module.insert = (schema, ignore) => db.prepare(api.genInsertSQL('subjects', schema, ignore))
+    module.update = (schema, filter) => db.prepare(api.genUpdateSQL('subjects', schema, filter))
 
-        const [filter,_values] =  spreadObjectPresentIn(keys,subject);
-        const [values,_] =  spreadObjectPresentIn(Object.keys(schema),_values);
-        let result =module.select({uuid:''}).get(filter)
+    module.upsert = keys => db.transaction(subject => {
+
+        const [filter, _values] = spreadObjectPresentIn(keys, subject);
+        const [values, _] = spreadObjectPresentIn(Object.keys(schema), _values);
+        let result = module.select({ uuid: '' }).get(filter)
 
         let ret
-        if( !is_empty(result)){
-            
-          module.update(values,filter).run({...values,...filter});
-          ret = result.id;
-        }else{
-          let res = module.insert({...values,...filter},pkeys).run({...values,...filter});
-          ret = res.lastInsertRowid;
+        if (!is_empty(result)) {
+
+            module.update(values, filter).run({ ...values, ...filter });
+            ret = result.id;
+        } else {
+            let res = module.insert({ ...values, ...filter }, pkeys).run({ ...values, ...filter });
+            ret = res.lastInsertRowid;
         }
         return ret;
     })
 
-    let _mesure = mesure(db,api);
-    module.import = _=> db.transaction((subjects)=>{
-        console.log('importing',subject.length)
-        for(let subject of subjects) {
-            let subject_id = module.upsert(['uuid'])(_transform(schema,subject))
-            
+    let _mesure = mesure(db, api);
+    module.import = _ => db.transaction((subjects) => {
+        console.log('importing', subject.length)
+        for (let subject of subjects) {
+            let subject_id = module.upsert(['uuid'])(_transform(schema, subject))
+
             _mesure.import(subject_id)(subject.mesures);
         }
     })
@@ -283,21 +283,25 @@ const defaultOptions = { fileMustExist: true, verbose: (...args) => console.log(
 
 
 const opendb = (file, key = '', options = defaultOptions) => {
-    const db = new sqlite3(file, options);
+    try {
+        const db = new sqlite3(file, options);
 
 
-    const api = API(db);
+        const api = API(db);
 
-    if (!is_empty(key)) {
-        api.unlock(key);
-        //api.migrate();
-    }
-    return {
-        db,
-        file,
-        subject:subject(db,api),
+        if (!is_empty(key)) {
+            api.unlock(key);
+            //api.migrate();
+        }
+        return {
+            db,
+            file,
+            subject: subject(db, api),
 
-        ...api,
+            ...api,
+        }
+    }catch (e){
+        return false;
     }
 
 }

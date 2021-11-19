@@ -27,23 +27,28 @@ export const makeProvider = (Context) => {
                 handleOpenRequest, handleSaveRequest, handleLocationChange, handleCloseRequest,
                 handleError, handleWillQuit
             },
+            revokers:{
+                revokeWillQuit,
+                revokeOpenRequest,
+                revokeCloseRequest,
+                revokeSaveRequest,
+            },
             actions: {
                 quit,
                 open: electron_open,
                 get_file_state,
                 close: electron_close,
+                sqlite_unlock
             }
         } = useElectron();
-
         const dispatch = useDispatch();
         const selectors = {
             file: useSelector(Module.selectors.file),
             type: useSelector(Module.selectors.type),
             locked: useSelector(Module.selectors.locked),
-            is_modified:useSelector(Module.selectors.modified)
+            is_modified: useSelector(Module.selectors.modified)
 
         }
-        
 
         const open_file = _ => {
             start_loading("Waiting on user confirmation");
@@ -75,32 +80,30 @@ export const makeProvider = (Context) => {
         }
 
         const handleQuit = _ => {
-            debugger;
-            if (modified) {
-                add_error("file has been modified, save it first")
-            } else {
-             /*   close().then(_ => {
-                    quit();
 
-                })*/
-            }
+            close().then(_ => {
+                quit();
+
+            })
+
         }
 
         const close_file = _ => {
-            debugger;
-            if (selectors.is_modified) {
-                add_error("file has been modified, save it first")
-            } else {
-                electron_close()
-                /*close(electron_close).then(res => {
-                    window.location.hash = '#/'
 
-                }).catch(add_error)*/
-            }
+            electron_close().then(res => {
+                dispatch(Module.actions.close())
+
+
+            });
+            /*close(electron_close).then(res => {
+                window.location.hash = '#/'
+
+            }).catch(add_error)*/
+
         }
 
         useEffect(() => {
-            start_loading('Loading stuff')
+            start_loading('Loading file')
             get_file_state().then(res => {
                 dispatch(Module.actions.open(res))
                 stop_loading();
@@ -115,21 +118,24 @@ export const makeProvider = (Context) => {
                 add_error('Une erreur est survenue')
             });
 
-            return ()=>{
-                
-            }
         }, [])
 
+        const unlock = key=> {
+            sqlite_unlock(key).then((res)=>{
+                dispatch(Module.actions.unlock())
+            }).catch(add_error)
+        }
 
         const defaultActions = {
             modified: _ => dispatch(Module.actions.modified()),
             open_file,
             save_file,
-            close_file
+            close_file,
+            unlock
         };
 
         let actions = Object.assign({}, defaultActions, _actions)
-       
+
         return (
             <Context.Provider value={{ actions, selectors }}>
                 {children}
@@ -142,7 +148,7 @@ export const makeProvider = (Context) => {
 export const makeUse = Context => _ => {
     const context = useContext(Context);
     if (is_nil(context)) {
-        throw new Error('useHostProvider must be used within a provider');
+        throw new Error('useFileProvider must be used within a provider');
     }
     return context;
 }

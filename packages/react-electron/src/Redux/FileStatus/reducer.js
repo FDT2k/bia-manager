@@ -33,7 +33,8 @@ export default (getModule) => {
         }),
 
         [types.MODIFIED]: (state, { payload}) => ({ ...state, modified:true }),
-        [types.CLOSE]: (state, { payload }) => ({ ...initialState })
+        [types.CLOSE]: (state, { payload }) => ({ ...initialState }),
+        [types.UNLOCK]: (state, { payload }) => ({ ...state,unlocked:true })
     });
 
 
