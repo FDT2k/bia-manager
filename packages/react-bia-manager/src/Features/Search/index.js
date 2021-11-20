@@ -224,14 +224,14 @@ Component.defaultProps = {
         handleCreate: _ => console.warn('create handler not implemented'),
         setFilter: _=>  console.warn('setFilter handler not implemented'),
         clearFilter: _=>  console.warn('clearFilter handler not implemented'),
-
+        handleSelectRow: _=> console.warn('handleSelectRow not impl')
     },
     t: x => x
 }
 
 
 export const Page = props => {
-    const {db_name,stats,patients, ...rest } = props;
+    const {db_name,stats,patients,children, ...rest } = props;
     const {count,count_mesures} = stats;
 
     const {t} = useTranslation();
@@ -252,7 +252,7 @@ export const Page = props => {
 
     return (
         <MainView renderFooter={renderFooter}>
-            <Component {...props} />
+            {children}
         </MainView>
     )
 

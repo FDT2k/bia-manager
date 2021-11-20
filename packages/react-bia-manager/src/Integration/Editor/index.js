@@ -9,7 +9,7 @@ const MonComposant = ({children,...attributes}) => {
 
 const VuePrincipale = ({children,...attributes}) => {
     return (
-        <div {...attributes}>{children}</div>
+        <div  className="main-container container" {...attributes}>{children}</div>
     )
 }
 
@@ -183,7 +183,7 @@ const Tabs = ({children,...attributes}) => {
 export default props => {
 
     return (
-        <VuePrincipale id="root" className="main-container container">
+        <VuePrincipale >
             <Navigation />
             <EditorContent>
                 <PatientHeader>

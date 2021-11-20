@@ -8,6 +8,8 @@ import { Grid, LayoutFlex, Container, withGridArea } from '@karsegard/react-core
 import React from 'react';
 import { useLocation } from "wouter";
 
+
+
 import './main-view.scss'
 
 const MainLayout = withBaseClass('bia-main-layout')(Grid);

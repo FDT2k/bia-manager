@@ -1,12 +1,10 @@
+import { TranslationProvider } from '@';
+import { Page } from '@/Features/Search';
+import { Fullscreen } from '@karsegard/react-core-layout';
 import React from 'react';
 
-import { BIARouter, ViewProvider, TranslationProvider,CustomListProvider } from '@'
 
 
-import Search,{Page} from '@/Features/Search';
-import { useTranslation } from '@';
-import {ErrorMessage,Modal,Loading} from '@'
-import { Fullscreen } from '@karsegard/react-core-layout';
 
 
 
