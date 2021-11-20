@@ -110,7 +110,7 @@ export const Component = props => {
 
     const { t } = useTranslation();
 
-    const { handleSearch, handleCreate, handleSelectRow: _handleSelectRow, } = props.handlers;
+    const { handleSearch, handleCSVExport, handleCreate, handleSelectRow: _handleSelectRow, } = props.handlers;
     const { clearFilter, setFilter } = props.handlers
     const { results, tags, custom_filters } = props;
 
@@ -196,7 +196,7 @@ export const Component = props => {
             <AdvancedSearch style={{ gridGap: '8px' }} area="filter">
                 <RangeFilter label="Mesures" currentValues={custom_filters.mesure_range} handleSubmit={values => setFilter('mesure_range', 'mesures_dates', values)} handleClear={_ => clearFilter('mesure_range')} />
                 <RangeFilter label="Dates de naissances" currentValues={custom_filters.birthday_range} handleSubmit={values => setFilter('birthday_range', 'birthdate', values)} handleClear={_ => clearFilter('birthday_range')} />
-                <Button tabIndex={5}>{t('EXPORT_CSV')}</Button>
+                <Button onClick={handleCSVExport} tabIndex={5}>{t('EXPORT_CSV')}</Button>
             </AdvancedSearch>
             <ListWithAreaWithRef
 
@@ -224,7 +224,8 @@ Component.defaultProps = {
         handleCreate: _ => console.warn('create handler not implemented'),
         setFilter: _=>  console.warn('setFilter handler not implemented'),
         clearFilter: _=>  console.warn('clearFilter handler not implemented'),
-        handleSelectRow: _=> console.warn('handleSelectRow not impl')
+        handleSelectRow: _=> console.warn('handleSelectRow not impl'),
+        handleCSVExport: _=> console.warn('handleCSVExport not impl'),
     },
     t: x => x
 }
