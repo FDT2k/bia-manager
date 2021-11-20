@@ -1,22 +1,26 @@
-import React,{useEffect,useState} from 'react';
+import React, { useEffect, useState } from 'react';
 import { useElectron } from '@/Context/Electron';
 import SQLiteUnlock from '@/Components/SQLiteUnlock';
-import { Provider as BackendProvider } from '@/Context/Backend'
+import { BackendProvider } from '@karsegard/react-bia-manager'
 
-export default  ({ children }) => {
+import { useFileProvider } from '@/Context/File'
 
-    const {actions:{sqlite_query}} = useElectron();
+export default ({ children }) => {
 
-    const [subject,setState]= useState({})
+    const { actions: { sqlite_query } } = useElectron();
+    const { selectors: { locked } } = useFileProvider();
+    const [subject, setState] = useState({})
 
-    useEffect(()=>{
-        sqlite_query({query:"select count(id)  from subjects",values:{}}).then(res=> {
-            setState(res)
-        })
-    },[])
+    useEffect(() => {
+        if (!locked) {
+           /* sqlite_query({ query: "select s.* from subjects as s left join mesures as m on s.id=m.subject_id where s.firstname like 's%' ;", values: {} }).then(res => {
+                setState(res)
+            })*/
+        }
+    }, [locked])
     return (
         <BackendProvider type="sqlite">
-            {JSON.stringify(subject,null,3)}
+            {/*<pre>{JSON.stringify(subject, null, 3)}</pre>*/}
             {children}
             <SQLiteUnlock />
         </BackendProvider>

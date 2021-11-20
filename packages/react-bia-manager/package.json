@@ -31,6 +31,10 @@
     "@karsegard/react-core-layout": "workspace:packages/kda-react-core-layout",
     "@karsegard/react-hooks": "^2.8.0",
     "@karsegard/react-redux": "workspace:packages/kda-react-redux",
-    "react-table": "^7.7.0"
+    "classnames": "^2.3.1",
+    "date-fns": "^2.26.0",
+    "react-table": "^7.7.0",
+    "recharts": "^2.1.6",
+    "wouter": "^2.8.0-alpha.2"
   }
 }

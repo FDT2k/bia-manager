@@ -43,6 +43,8 @@ module.exports = {
     },
   },
   build:{
+
+   
     lib: {
       entry: resolve(PACKAGE_ROOT, 'src/index.js'),
       name: 'BIAManager',

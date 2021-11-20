@@ -43,7 +43,7 @@ export const makeUse = Context => _ => {
 
 export const Provider = makeProvider(Context);
 
-export const useBackendProvider = makeUse(Context);
+export const useBackend= makeUse(Context);
 
 
 

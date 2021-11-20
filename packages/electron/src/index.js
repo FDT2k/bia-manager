@@ -312,9 +312,6 @@ ipcMain.handle('sqlite-import', async (event, message) => {
 })
 
 
-
-
-
 ipcMain.handle('update', () => {
   updater.autoUpdater.downloadUpdate();
 })

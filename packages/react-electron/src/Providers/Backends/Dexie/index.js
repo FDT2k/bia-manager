@@ -1,5 +1,5 @@
 import React,{useEffect} from 'react';
-import { Provider as BackendProvider } from '@/Context/Backend'
+import { BackendProvider } from '@karsegard/react-bia-manager'
 
 export default ({ children }) => {
 
