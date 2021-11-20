@@ -1,7 +1,8 @@
 import withBackend from "./withBackend";
-import withRedux from "./withRedux";
+import withReduxModule,{Container as SearchReduxContainer} from "./withRedux";
 
 export {
     withBackend,
-    withRedux
+    withReduxModule,
+    SearchReduxContainer
 }

@@ -12,7 +12,7 @@ const TestEditor = props => {
     const {t}= useTranslation()
     return (
         <CustomListProvider value={{
-            machines:[],
+            
             sport_rate:[
                 {'unkown':'Inconnu'},
                 {'moderate':'Modéré'},
