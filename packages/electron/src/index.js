@@ -12,6 +12,10 @@ import openDB from './sqlcipher'
 
 import fileContext, { determine_file_type } from './fileContext';
 
+import Store from 'electron-store'
+
+let store = new Store();
+
 import init18next from './plugins/i18next'
 
 let openedFilePath;
@@ -34,10 +38,8 @@ const createFileIfNeeded = (file, content) => fs.stat(file).catch(_ => {
 });
 
 
-const settingsFile = (import.meta.env.MODE === 'development') ? join(__dirname, '../bim-settings.json') : join(app.getPath('home'), 'bim-settings.json')
-
 const langCollectionFile = resolve(__dirname, '../.langs');
-createFileIfNeeded(settingsFile, '{"lang":"fr"}');
+
 
 
 
@@ -167,7 +169,7 @@ ipcMain.handle('file-open', async (event, filename) => {
     cleanState = false;
     console.log('reading');
     let additionalprops = {};
-   
+
     openedFilePath = filePaths[0];
     const type = await determine_file_type(openedFilePath);
     let content = null
@@ -194,7 +196,7 @@ ipcMain.handle('file-open', async (event, filename) => {
 });
 
 ipcMain.handle('read-settings', async (event,) => {
-  return getSettings();
+
 });
 ipcMain.handle('get-file-state', async (event,) => {
   console.log('requested file state')
@@ -217,8 +219,7 @@ ipcMain.handle('clear-filename', async (event,) => {
 });
 */
 ipcMain.handle('save-settings', async (event, content) => {
-  let filecontent = JSON.stringify(content);
-  return fs.writeFile(settingsFile, filecontent).then(res => typeof result === 'undefined');
+
 });
 
 
@@ -247,7 +248,7 @@ ipcMain.handle('close', async (event) => {
   console.log('closing file')
   try {
     if (!is_nil(currentSQLite)) {
-      openedFilePath=null;
+      openedFilePath = null;
       currentSQLite.db.close()
       currentSQLite = null;
     } else if (openedFilePath) {
@@ -338,13 +339,16 @@ app.on('before-quit', e => {
     e.preventDefault()
   }
 })
-
+const handleLanguageChange = (i18n, menu) => { 
+  menuFactoryService.buildMenu(app, mainWindow, i18n.t.bind(i18n), menu) 
+  store.set('language',i18n.language)
+}
 app.whenReady()
   .then(createWindow)
   .then(initMenu)
-  .then(init18next((i18n, menu) => { menuFactoryService.buildMenu(app, mainWindow, i18n.t.bind(i18n), menu) }))
-  .then(loadContent)
-  .catch((e) => console.error('Failed create window:', e));
+  .then(init18next(handleLanguageChange,store.get('language')))
+    .then(loadContent)
+    .catch((e) => console.error('Failed create window:', e));
 
 app.on('uncaughtException', function (error) {
   // Handle the error

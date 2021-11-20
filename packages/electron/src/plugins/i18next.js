@@ -26,9 +26,9 @@ const buildMenu = ()=>{
 }
 
 
-export default  (handleLanguageChange) => mainWindow=> {
+export default  (handleLanguageChange,language='fr') => mainWindow=> {
     i18n.on('loaded', (loaded) => {
-        i18n.changeLanguage('fr');
+        i18n.changeLanguage(language);
         i18n.off('loaded');
     });
 
@@ -45,7 +45,7 @@ export default  (handleLanguageChange) => mainWindow=> {
 
     ipcMain.handle('i18next-client-ready', async _ => {
         console.log('client reported ready')
-        i18n.changeLanguage('fr');
+        i18n.changeLanguage(language);
     })
 
     if (import.meta.env.MODE === 'development') {
