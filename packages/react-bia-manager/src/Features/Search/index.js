@@ -124,7 +124,7 @@ export const Component = props => {
                 setSelectedIndex(idx => idx > 0 ? idx - 1 : results.length - 1);
             }
             if (enterPressed && selectedIndex >= 0) {
-                _handleSelectRow(selectedIndex, data[selectedIndex])
+                _handleSelectRow && _handleSelectRow(selectedIndex, data[selectedIndex])
             }
 
         }
