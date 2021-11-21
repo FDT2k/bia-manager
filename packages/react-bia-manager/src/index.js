@@ -4,6 +4,8 @@ import { Provider as TranslationProvider, useTranslation } from "@/Context/Trans
 import { Provider as CustomListProvider, useCustomList } from "@/Context/CustomList"
 import { Provider as BackendProvider, useBackend } from "@/Context/Backend"
 
+import {useLocation} from 'wouter';
+
 import Modal from '@/Components/Modal'
 import Button from '@/Components/Form/Button'
 import ErrorMessage from '@/Components/ErrorMessage'
@@ -19,8 +21,11 @@ import {
 } from '@/Containers/Search'
 
 
+import WelcomeScreen from '@/Features/WelcomeScreen'
+
 export {
     BIARouter,
+    useLocation,
 
     ViewProvider,
     TranslationProvider,
@@ -39,6 +44,7 @@ export {
     ErrorMessage,
     Loading,
 
+    WelcomeScreen,
 
 
     searchWithBackend,

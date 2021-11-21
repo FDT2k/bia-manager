@@ -34,12 +34,12 @@ export default props => {
     }, [appLocation]);
 
     const views = useViewProvider();
+    const BIARouting = views.Router;
     return (<Fullscreen>
-
         <Router hook={useHashLocation}>
+            {BIARouting && <BIARouting />}
 
             <Switch>
-
                 <Route path="/database"><views.Database /></Route>
                 <Route path="/database/listes"><views.DatabaseListManager /></Route>
                 <Route path="/database/listes/:list_id"><views.DatabaseListManager /></Route>

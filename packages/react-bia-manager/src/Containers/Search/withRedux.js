@@ -17,7 +17,7 @@ export const { actions, selectors } = Module;
 export const Container = ({selectors,actions}) => Component => props => {
 
 
-    const {handleCreate:_handleCreate} = props;
+    const {handleCreate:_handleCreate,handlers:_handlers} = props;
 
     const dispatch = useDispatch();
 
@@ -44,6 +44,7 @@ export const Container = ({selectors,actions}) => Component => props => {
 
 
     const handlers = {
+        ..._handlers,
         handleSearch,
         setFilter,
         clearFilter,

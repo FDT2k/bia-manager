@@ -17,7 +17,7 @@ import FileTypeBackendProvider from '../Providers/FileTypeBackendProvider';
 
 import Search from '@/App/Features/Search'
 
-
+import App from '@/App/Features/App'
 export default props => {
 
     return (
@@ -28,12 +28,9 @@ export default props => {
                         <UpdateManager />
                         <HostProviderRedux>
                             <FileProvider>
-                               <FileTypeBackendProvider>
-                                   
-                                    <Search/>
-
-
-                               </FileTypeBackendProvider>
+                                <FileTypeBackendProvider>
+                                    <App />
+                                </FileTypeBackendProvider>
                             </FileProvider>
                         </HostProviderRedux>
                     </Translation>
