@@ -333,7 +333,7 @@ const subject = (db, api) => {
     if (!is_nil(from) && !is_nil(until)) {
         return ` ( ${key} BETWEEN '${from}' AND '${until}')`
     } else if (!is_nil(from) && is_nil(until)) {
-        return ` ( ${key} >= '${from})'`
+        return ` ( ${key} >= '${from}')`
 
     } else if (is_nil(from) && !is_nil(until)) {
         return ` ( ${key} <='${until}')`
@@ -357,6 +357,7 @@ const subject = (db, api) => {
         ${(custom_filters.mesure_range) ? `having ${custom_partial("m.date",custom_filters.mesure_range.from,custom_filters.mesure_range.to)}`:''}
         `
 
+        console.log(sql)
         let stmt = db.prepare(sql).raw(true);
         const res = [];
         for (let result of stmt.iterate()) {

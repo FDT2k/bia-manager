@@ -39,7 +39,7 @@ export const Container = ({selectors,actions}) => Component => props => {
     }
 
     const clearFilter = filter => {
-        dispatch(clear_custom_filter(filter))
+        dispatch(actions.clear_custom_filter(filter))
     }
 
 
