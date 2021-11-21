@@ -3290,6 +3290,15 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@karsegard/bia-manager-theme-legacy@workspace:packages/integration-legacy":
+  version: 0.0.0-use.local
+  resolution: "@karsegard/bia-manager-theme-legacy@workspace:packages/integration-legacy"
+  dependencies:
+    node-sass: ^6.0.1
+    vite: ^2.6.4
+  languageName: unknown
+  linkType: soft
+
 "@karsegard/bia-manager-theme@workspace:packages/integration":
   version: 0.0.0-use.local
   resolution: "@karsegard/bia-manager-theme@workspace:packages/integration"
@@ -3381,6 +3390,7 @@ __metadata:
   resolution: "@karsegard/react-bia-manager@workspace:packages/react-bia-manager"
   dependencies:
     "@karsegard/bia-manager-theme": "workspace:packages/integration"
+    "@karsegard/bia-manager-theme-legacy": "workspace:packages/integration-legacy"
     "@karsegard/composite-js": ^2.11.1
     "@karsegard/react-core-layout": "workspace:packages/kda-react-core-layout"
     "@karsegard/react-hooks": ^2.8.0

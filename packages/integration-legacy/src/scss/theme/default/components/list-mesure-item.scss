@@ -1,0 +1,18 @@
+.list-mesure{
+
+    &__title{
+
+    }
+
+    &__item{
+
+    }
+
+    &--selected{
+        font-weight:bold;
+    }
+
+    .action-icon{
+        cursor:pointer;
+    }
+}

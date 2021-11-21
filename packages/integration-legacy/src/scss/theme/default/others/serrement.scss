@@ -1,0 +1,20 @@
+.force-serrement {
+  input[type="text"] {
+    width: var(--width--2-col);
+    height:30px;
+  }
+
+  align-items: center;
+  justify-items: center;
+}
+
+
+.header, .lineheader {
+    font-weight: bold;
+}
+
+.header {
+  &--left {
+    justify-self: start;
+  }
+}

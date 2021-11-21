@@ -1,0 +1,66 @@
+@mixin mod__cover() {
+    &--cover{
+        width:100%;
+        min-width:100%;
+        height:100%;
+        min-height:100%;
+    }
+}
+
+@mixin mod__debug () {
+    background-color: rgb(random(255) , random(255) , random(255) ) !important;
+    outline: 2px solid rgb(random(255) , random(255) , random(255) ) !important;
+}
+
+@mixin debugColor($elements) {
+    @each $element in $elements {
+        #{$element} {
+          background-color: rgb(random(255) , random(255) , random(255) ) !important;
+        }
+    }
+}
+
+@mixin mod__grow(){
+    &--grow{
+        max-height:none;
+        max-width:none;
+    }
+}
+
+@mixin mod__contained(){
+    &--contained{
+        max-width:100%;
+        max-height:100%;
+    }
+}
+
+@mixin mod__fit(){
+    &--fit{
+        height:auto;
+        width:auto;
+        min-width:auto;
+        min-height:auto;
+
+    }
+}
+
+@mixin mod__scrollable(){
+    &--scrollable{
+        overflow-y:auto;
+    }
+}
+
+
+@mixin genmodifiers(){
+    
+        @include mod__cover();
+        @include mod__contained();
+        @include mod__grow();
+        @include mod__fit();
+        @include mod__scrollable();
+
+    &--debug{
+        @include mod__debug();
+    }
+}
+

@@ -1,0 +1,18 @@
+.input-group{
+
+    label{
+        padding-bottom: 8px;
+    }
+
+    input[type="text"]{
+        height:32px;
+        @extend %radius;
+        border: 1px solid var(--primary);
+        padding: 0px 16px;
+    }
+    padding-bottom: 16px;
+}
+
+.input {
+
+}

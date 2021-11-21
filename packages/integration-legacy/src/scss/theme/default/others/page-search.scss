@@ -1,0 +1,113 @@
+
+
+.page-search {
+
+}
+
+.search-grid-layout{
+    @extend %base_font;
+
+    .autocomplete{
+        border: 2px solid var(--primary)
+    }
+    .autocomplete__item {
+        &--selected {
+            @extend %colors-negative;
+        }
+
+    }
+    .pagination{
+        
+        padding-bottom:8px;
+        .button{
+            min-width: 64px;
+            max-width: 64px;
+            width:64px;
+        }
+    }
+    .listing{
+        thead{
+            font-weight: var(--font-weight-bold);
+        }
+
+        th > div {
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            justify-content: flex-start;
+        }
+
+        tr > td, th {
+            vertical-align: middle;
+            text-align: left;
+            padding-right: var(--gut-width);
+            width: calc((var(--col-width) * 3) + (var(--gut-width) * 2));
+            &:last-child {
+                padding-right: 0px;
+            }
+        }
+
+        tr{
+            border-bottom: 1px solid black;
+            min-height:48px;
+            height:48px;
+        }
+    }
+    .advanced-filters{
+        padding-top: 4px;
+        padding-bottom: 16px;
+    }
+
+    .tag-input{
+        align-self: center;
+    }
+
+    .search{
+        margin: 16px 0px 4px;
+        justify-content: space-between;
+
+        .tag-input{
+
+            & .tag{
+                background-color: var(--primary);
+                color: var(--secondary);
+                padding: 0px 0px 0px 16px;
+                margin: 2px;
+                height:34px;
+                border-radius:4px;
+                button{
+                    cursor: pointer;
+                    height:100%;
+                    width: auto;
+                    padding:0px 8px;
+                    border-radius: 0px 4px 4px 0px;
+                    background-color: var(--primary);
+                    border: none;
+                    color: var(--secondary);
+                }
+            }
+            height: 40px;
+            min-width: calc((var(--col-width) * 13) + (var(--gut-width) * 12));
+            border: 1px solid var(--primary);
+            border-radius: 4px;
+            opacity: 1;
+            flex-grow: 6;
+            margin-right: var(--gut-width);
+            input{
+                height:35px;
+                padding: 0px 16px;
+            }
+            input:focus{
+                border:0px;
+                outline:0px;
+            }
+            input:active{
+                border:0px;
+                outline:0px;
+            }
+        }
+        button{
+        }
+    }
+}
+

@@ -1,0 +1,19 @@
+.debug{
+    
+    div{
+        outline: 1px solid red;
+    }
+
+    &.layout-grid{
+        height:100%;
+        min-height:100%;
+   }
+}
+
+.report {
+    sup {
+        vertical-align: super;
+        font-size: smaller;
+    }
+    
+}
