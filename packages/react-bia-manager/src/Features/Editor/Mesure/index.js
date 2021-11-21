@@ -103,7 +103,6 @@ Editor.defaultProps = {
         current_age: 0
 
     },
-    get_current_bia: _ => [],
     custom_lists: {},
     t: x => x,
 
