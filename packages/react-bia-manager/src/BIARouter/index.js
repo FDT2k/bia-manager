@@ -52,7 +52,7 @@ export default props => {
                 }
                 }</Route>
                 <Route path="/search" component={views.Search} />
-                <Route path="/create_subject" component={views.CreatePatient} />
+                <Route path="/create_subject" component={views.CreateSubject} />
 
                 <Route path="/"><views.Welcome /></Route>
                 <Route>Unknown state, <a href="#">return home</a></Route>

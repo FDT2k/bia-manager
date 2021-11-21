@@ -1,13 +1,7 @@
+import { is_nil } from '@karsegard/composite-js';
 import React, { createContext, useContext } from 'react';
 
 
-import CreatePatient from '@/Features/CreatePatient';
-import Database from '@/Features/Database';
-import DatabaseListManager from '@/Features/ListManager';
-import Editor from '@/Features/Editor';
-import Search from '@/Features/Search';
-import Welcome from '@/Features/WelcomeScreen';
-import { is_nil } from '@karsegard/composite-js';
 
 
 

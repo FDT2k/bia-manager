@@ -12,6 +12,6 @@ export default props => {
 
 
     return (<SearchPage>
-        <Search />
+        <Search handlers={{handleCreate:_=>window.location.hash='#/create_subject'}}/>
     </SearchPage>)
 }

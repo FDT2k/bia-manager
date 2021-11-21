@@ -4,13 +4,16 @@ import Field from '@/Components/Form/Fields';
 import Select from '@/Components/Form/Select';
 import PageHeader from '@/Components/PageHeader';
 import MainView from "@/Components/MainView";
-import { enlist, identity, is_nil, repeat, safe_path } from '@karsegard/composite-js';
+import { enlist, identity, is_nil, is_numeric, repeat, safe_path,is_empty } from '@karsegard/composite-js';
 import { curry } from '@karsegard/composite-js/Curry';
 import { keyval } from '@karsegard/composite-js/ObjectUtils';
 import { ComponentWithArea, Grid } from '@karsegard/react-core-layout';
 import { useForm } from '@karsegard/react-hooks';
 import React, { useEffect, useMemo } from 'react';
 import { useLocation } from "wouter";
+
+import { useCustomList } from '@';
+import { useTranslation } from '@';
 
 const mapItemListAsoption = (item) => {
     return { [item.id]: item.name }
@@ -19,30 +22,30 @@ const mapItemListAsoption = (item) => {
 
 export const Page = props => {
 
-    const { available_options, t, patient, handleChange, handleSave, ...rest } = props;
+    const {   patient, handleChange, handleSave, ...rest } = props;
     const [location, setLocation] = useLocation();
 
-
-
-
+    const {t} = useTranslation()
+    const lists = useCustomList();
     let fields = {
         'lastname': { type: 'text', label: 'Nom' },
         'firstname': { type: 'text', label: 'Prenom' },
         'birthdate': { type: 'date', label: 'Date de naissance' },
-    
+
         'usual_height': { type: 'text', label: 'Taille' },
         'usual_weight': { type: 'text', label: 'Poids habituel' },
         'diag': { type: 'textarea', label: 'Diagnostic' },
     }
 
     // inject custom fields
-    fields = useMemo(()=> available_options.reduce((carry,item)=>{
-        const {path,default_value,list} = item;
-        if(list ){
-            carry[path] = { type: 'select', label: t(path), options:list}
-        }
-        return carry;
-    },fields),[available_options]);
+     fields = useMemo(()=> enlist(lists).reduce((carry,item)=>{
+         const [path,list] = keyval(item);
+         //const {path,default_value,list} = item;
+         if(list ){
+             carry[path] = { type: 'select', label: t(path), options:list}
+         }
+         return carry;
+     },fields),[lists]);
 
     const relevantFields = useMemo(() => {
         const { age, mesures, mesure_count, ...result } = patient
@@ -55,7 +58,7 @@ export const Page = props => {
     }
 
 
-    const required = curry((min, max, value) => {
+    const required_string = curry((min, max, value) => {
         if (min > 0 && value.length < min) {
             return `at least ${min} characters`;
         }
@@ -68,16 +71,39 @@ export const Page = props => {
         return true;
     });
 
+    const required_number = curry((min, max, value) => {
+        if(isNaN(value)){
+            return `must be a number`
+        }
+        if(is_empty(value)){
+            return `is required`
+        }
+        if (!is_nil(min) && value < min) {
+            return `at least ${min}`;
+        }
+        if (!is_nil(max) && value > max) {
+            return `max ${max}`;
+        }
+        if (is_nil(value) || value === "") {
+            return `is required`;
+        }
+        return true;
+    });
+
     const validate = (name, value, values) => {
         const r = ['lastname', 'firstname', 'birthdate']
 
         if (r.includes(name)) {
-            return required(4, 0, value)
+            return required_string(4, 0, value)
+        }else if(name ==='usual_weight'){
+            return required_number(20,200,value)
+        }else if(name ==='usual_height'){
+            return required_number(50,240,value)
         }
         return true;
     }
 
-    const {  values, inputProps, formProps, handleChangeValue, handleError, replaceValues } = useForm(relevantFields, {usePath:true, validate, onSubmit: handleSubmit })
+    const { values, inputProps, formProps, handleChangeValue, handleError, replaceValues } = useForm(relevantFields, { usePath: true, validate, onSubmit: handleSubmit })
     useEffect(_ => {
         replaceValues(relevantFields)
     }, [relevantFields])
@@ -111,20 +137,18 @@ export const Page = props => {
                             const options = field.options;
                             const tabIndex = idx + 1;
 
-                            const hasErrorClass=  handleError(fieldKey, ({ error, touched, valid }) => {
+                            const hasErrorClass = handleError(fieldKey, ({ error, touched, valid }) => {
 
-                                return ( (!valid && touched) ? "error" :"")
+                                return ((!valid && touched) ? "error" : "")
                             });
                             return (<ComponentWithArea key={fieldKey} area={fieldKey.replace('.', '_')}><Field label={label}>
 
                                 {type === "select" && <Select tabIndex={tabIndex} {...inputProps(fieldKey)} options={options} />}
-                                {type === "text" && <input tabIndex={tabIndex}  className={hasErrorClass} type="text" {...inputProps(fieldKey)} options={options} />}
+                                {type === "text" && <input tabIndex={tabIndex} className={hasErrorClass} type="text" {...inputProps(fieldKey)} options={options} />}
                                 {type === "textarea" && <textarea tabIndex={tabIndex} {...inputProps(fieldKey)} options={options}></textarea>}
                                 {type === "date" && <DatePicker tabIndex={tabIndex}
                                     selected={values[fieldKey]}
-                                    handleChange={x => {
-                                        handleChangeValue(fieldKey,x)
-                                    }} />}
+                                    handleChange={handleChangeValue(fieldKey)} />}
                                 {handleError(fieldKey, ({ error, touched, valid }) => {
 
                                     return (<>
@@ -151,8 +175,14 @@ Page.defaultProps = {
 
     t: identity,
     handleSave: _ => console.warn('save handler not setup'),
-    patient: {},
-    available_options:{}
+    patient: {
+        firstname:'',
+        lastname:'',
+        usual_height:'',
+        usual_weight:'',
+        birthdate: new Date()
+    },
+    available_options: {}
 }
 
 

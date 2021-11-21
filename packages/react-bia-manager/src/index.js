@@ -13,6 +13,7 @@ import Loading from '@/Components/Loading'
 
 
 import {Component as SearchFeature, Page as SearchPage} from '@/Features/Search'
+import {Page as CreateSubjectFeature} from '@/Features/CreateSubject'
 
 import {
     withBackend as searchWithBackend,
@@ -51,7 +52,9 @@ export {
     searchWithReduxModule,
     SearchReduxContainer,
     SearchFeature,
-    SearchPage
+    SearchPage,
+
+    CreateSubjectFeature,
 
 
 }

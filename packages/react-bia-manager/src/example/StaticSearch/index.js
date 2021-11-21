@@ -26,8 +26,8 @@ export default props => {
     return (
         <Fullscreen>
         <TranslationProvider value={{t:translate}}>
+      
             <Page/>
-           
         </TranslationProvider>
         </Fullscreen>
     )

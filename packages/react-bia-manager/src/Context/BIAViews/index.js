@@ -1,7 +1,7 @@
 import React, { createContext, useContext } from 'react';
 
 
-import CreatePatient from '@/Features/CreatePatient';
+import CreateSubject from '@/Features/CreateSubject';
 import Database from '@/Features/Database';
 import DatabaseListManager from '@/Features/ListManager';
 import Editor from '@/Features/Editor';
@@ -19,7 +19,7 @@ export const makeProvider = (Context) => (props) => {
 
     const defaultViews = {
         Welcome,
-        CreatePatient,
+        CreateSubject,
         Database,
         DatabaseListManager,
         Editor,
