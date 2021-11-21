@@ -2,9 +2,10 @@ import React, { useEffect } from 'react';
 import Button from '@/Components/Form/Button';
 import EditableSelect from '@/Components/Form/Editable/Select';
 import EditableTextInput from '@/Components/Form/Editable/TextInput';
-import EditableTextArea from '@/Components/Form/Editable/TextArea';
 import { safe_path } from '@karsegard/composite-js'
 import Field from '@/Components/Form/Fields';
+import EditableTextArea from '@/Components/Form/Editable/TextArea';
+
 import { useFieldValues } from '@karsegard/react-hooks';
 
 
@@ -49,9 +50,7 @@ export default props => {
                 <Field label={t("BMI Reference")}>
                     <EditableTextInput value={values.bmi_ref} name="bmi_ref" onChange={handleChange} />
                 </Field>
-                <Field label={t("Remarques / Interprétations")}>
-                    <EditableTextArea value={values.comments} name="comments" onChange={handleChange} />
-                </Field>
+                
         </>
     )
 }

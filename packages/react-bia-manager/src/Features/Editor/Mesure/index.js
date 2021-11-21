@@ -13,7 +13,7 @@ import BIAEditor from './BIAEditor';
 import ComparisonTable from './ComparisonTable';
 import Recap from './Recap';
 import Serrement from './Serrement';
-
+import Comment from './Comment';
 
 
 const LayoutFlexColumnWithArea = withGridArea(LayoutFlexColumn);
@@ -68,6 +68,7 @@ const Editor = props => {
                     <Container fit grow>
                         <ComparisonTable data={mesure.bia} columns={result_columns} />
                     </Container>
+
                 </TabPanel>
                 <TabPanel>
                     <Serrement />
@@ -76,6 +77,7 @@ const Editor = props => {
                     <Recap />
                 </TabPanel>
             </TabsWithArea>
+            <Comment/>
             <LayoutFlexColumnWithArea style={{ gap: '10px' }} area="mesure-editor-aside">
                 <AsideEditor onValuesChange={_handleChange} handleClickSave={_handleClickSave} handlePrint={_handlePrint} data={mesure} />
             </LayoutFlexColumnWithArea>
