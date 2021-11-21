@@ -2,6 +2,7 @@ import React from 'react';
 
 import { BIARouter, ViewProvider, TranslationProvider,CustomListProvider } from '@'
 
+import {Fullscreen} from '@karsegard/react-core-layout'
 
 import Editor from '@/Features/Editor';
 import { useTranslation } from '@';
@@ -52,7 +53,9 @@ export default props => {
 
     return (
         <TranslationProvider>
+            <Fullscreen>
            <TestEditor/>
+         </Fullscreen>
            
         </TranslationProvider>
     )
