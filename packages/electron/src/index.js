@@ -45,7 +45,23 @@ const langCollectionFile = resolve(__dirname, '../.langs');
 
 
 
-//let DB = openDB(join(app.getPath('home'), 'testdb3.sqlite'), 'test')
+let DB = openDB(join(app.getPath('home'), 'testdb5.sqlite'), 'test')
+
+DB.subject.custom_search(
+{mesure_range:{
+  "from": "2021-11-01",
+  "to": "2021-11-30",
+  "type": "date_range",
+  "key": "mesures_dates"
+},
+mesure_range:{
+  "from": "2021-11-01",
+  "to": "2021-11-30",
+  "type": "date_range",
+  "key": "birthdate"
+}
+})
+
 /*
 console.log(DB.api.genInsertSQL('subjects', { id: 1, firstname: '12' }));
 console.log(DB.api.genUpdateSQL('subjects', { firstname: '12' }, { id: 1 }));
@@ -296,6 +312,25 @@ ipcMain.handle('sqlite-query', async (event, { type, table, query, values, filte
     }
     console.log('prepare query ', query, fn, values)
     return currentSQLite.db.prepare(query)[fn](values);
+  } catch (e) {
+    return Promise.reject(e);
+  }
+
+})
+
+ipcMain.handle('sqlite-search', async (event, tag) => {
+  try {
+    return currentSQLite.subject.search(tag)
+  } catch (e) {
+    return Promise.reject(e);
+  }
+
+})
+
+
+ipcMain.handle('sqlite-custom-search', async (event, arg) => {
+  try {
+    return currentSQLite.subject.custom_search(arg)
   } catch (e) {
     return Promise.reject(e);
   }

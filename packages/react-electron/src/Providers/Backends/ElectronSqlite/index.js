@@ -7,9 +7,21 @@ import { useFileProvider } from '@/Context/File'
 
 export default ({ children }) => {
 
-    const { actions: { sqlite_query } } = useElectron();
+    const { actions: { sqlite_search,sqlite_custom_search } } = useElectron();
     const { selectors: { locked } } = useFileProvider();
     const [subject, setState] = useState({})
+
+    const search = async ([tag] )=>{
+        
+        let result = await sqlite_search(tag)
+        return result;
+    }
+
+    const search_custom_filters = async (arg )=>{
+        let result = await sqlite_custom_search(arg)
+        return result;
+        return [];
+    }
 
     useEffect(() => {
         if (!locked) {
@@ -19,7 +31,7 @@ export default ({ children }) => {
         }
     }, [locked])
     return (
-        <BackendProvider type="sqlite">
+        <BackendProvider type="sqlite" actions={{search,search_custom_filters}}>
             {/*<pre>{JSON.stringify(subject, null, 3)}</pre>*/}
             {children}
             <SQLiteUnlock />

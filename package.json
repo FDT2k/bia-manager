@@ -16,6 +16,7 @@
     "build:redux": "cd packages/kda-react-redux; yarn build ; ",
     "build:hooks": "cd packages/kda-react-hooks; yarn build ; ",
     "build:layout": "cd packages/kda-react-core-layout; yarn build ; ",
+    "build:react-bia-manager": "cd packages/react-bia-manager; yarn build ; ",
     "build:submodules": "yarn build:theme; yarn build:hooks;  yarn build:layout;yarn build:crud; yarn build:redux; ",
     "build": "node scripts/build.js",
     "postinstall": "electron-builder install-app-deps",

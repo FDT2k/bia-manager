@@ -27,7 +27,7 @@ let electronAPI = {
     get_file_state: invokeOnMainProcess('get-file-state'),
     close: invokeOnMainProcess('close'),
     quit: invokeOnMainProcess('quit'),
-
+    
 
     //updates
     download_update: invokeOnMainProcess('update'),
@@ -43,7 +43,9 @@ let electronAPI = {
     sqlite_unlock: invokeOnMainProcess('sqlite-unlock'),
     sqlite_query: invokeOnMainProcess('sqlite-query'),
     sqlite_import: invokeOnMainProcess('sqlite-import'),
-    
+    sqlite_search: invokeOnMainProcess('sqlite-search'),
+    sqlite_custom_search: invokeOnMainProcess('sqlite-custom-search'),
+
   }
 };
 

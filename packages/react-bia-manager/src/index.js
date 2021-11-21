@@ -10,6 +10,8 @@ import ErrorMessage from '@/Components/ErrorMessage'
 import Loading from '@/Components/Loading'
 
 
+import {Component as SearchFeature, Page as SearchPage} from '@/Features/Search'
+
 import {
     withBackend as searchWithBackend,
     withReduxModule as searchWithReduxModule,
@@ -41,8 +43,9 @@ export {
 
     searchWithBackend,
     searchWithReduxModule,
-    SearchReduxContainer
-
+    SearchReduxContainer,
+    SearchFeature,
+    SearchPage
 
 
 }

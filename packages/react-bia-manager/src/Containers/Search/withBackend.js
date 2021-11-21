@@ -24,12 +24,14 @@ export default Component => ({tags,custom_filters,has_filters,handlers,...rest})
         
     },[tags,custom_filters]);
  
+    console.log(custom_filters)
 
     return (
 
         <Component
             {...rest}
             handlers={handlers}
+            custom_filters ={custom_filters}
            
               />
     )

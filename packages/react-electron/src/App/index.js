@@ -6,7 +6,7 @@ import { Provider as ElectronProvider } from '@/Context/Electron'
 
 import Store from '@/Store';
 
-import Translation from '@/Context/Translation'
+import Translation from '@/Providers/Translation'
 import { Provider as FileProvider, useFileProvider } from '@/Context/File'
 import UpdateManager from '@/Features/Electron/AutoUpdate';
 
@@ -15,7 +15,7 @@ import HostProviderRedux from '@/Providers/HostProviderRedux'
 
 import FileTypeBackendProvider from '../Providers/FileTypeBackendProvider';
 
-
+import Search from '@/App/Features/Search'
 
 
 export default props => {
@@ -30,7 +30,7 @@ export default props => {
                             <FileProvider>
                                <FileTypeBackendProvider>
                                    
-                                    BIA 
+                                    <Search/>
 
 
                                </FileTypeBackendProvider>

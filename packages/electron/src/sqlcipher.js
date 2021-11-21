@@ -159,6 +159,58 @@ const _transform = (schema, data) => {
     return result;
 }
 
+const _from_boolean = (value) => {
+    if (value === 'true' || value === 1 || value === '1') {
+        return true;
+    }
+    return false;
+}
+
+const _from_json = (values) => {
+    return JSON.parse(values);
+}
+
+
+const _from_array = (values) => {
+    return values.split(',')
+}
+
+const _retrieve_row = (field, type, value) => {
+    if (!is_empty(type) && !is_undefined(value)) {
+        if (type === 'boolean') {
+            return _from_boolean(value)
+        } else if (type === 'json') {
+            return _from_json(value)
+
+        } else if (type === 'array') {
+            return _from_array(value)
+        }
+    } else {
+        return value || '';
+    }
+}
+
+
+const _retrieve = (schema, data) => {
+    let result = enlist(schema).reduce((carry, item) => {
+        const [field, type] = keyval(item);
+        console.log(type)
+        _retrieve_row(field, type, data[field])
+
+        return carry;
+    }, {})
+    return result;
+}
+
+
+const _raw_to_object = (schema, columns, row) => {
+
+    return columns.reduce((carry, item, idx) => {
+        const type = schema[item.name];
+        carry[item.name] = _retrieve_row(item.name, type, row[idx]);
+        return carry;
+    }, {})
+}
 
 const mesure = (db, api) => {
 
@@ -233,7 +285,8 @@ const subject = (db, api) => {
         groups: 'json',
         usual_height: '',
         usual_weight: '',
-        uuid: ''
+        uuid: '',
+        mesures_dates: 'array'
     }
 
 
@@ -275,6 +328,77 @@ const subject = (db, api) => {
     })
 
 
+    const custom_partial = (key, from, until) =>{
+
+    if (!is_nil(from) && !is_nil(until)) {
+        return ` ( ${key} BETWEEN '${from}' AND '${until}')`
+    } else if (!is_nil(from) && is_nil(until)) {
+        return ` ( ${key} >= '${from})'`
+
+    } else if (is_nil(from) && !is_nil(until)) {
+        return ` ( ${key} <='${until}')`
+
+    }
+
+}
+
+
+    module.custom_search = (custom_filters) => {
+
+
+        let method = "where";
+
+        let sql = `Select s.*,count(m.id)as count_mesures, (s.firstname || s.lastname || s.birthdate ) as search_terms,group_concat(m.date) as mesures_dates 
+        from subjects as s left join mesures as m on s.id=m.subject_id 
+
+        ${(custom_filters.birthday_range) ? `where ${custom_partial(custom_filters.birthday_range.key,custom_filters.birthday_range.from,custom_filters.birthday_range.to)}`:''}
+
+        group by s.id
+        ${(custom_filters.mesure_range) ? `having ${custom_partial("m.date",custom_filters.mesure_range.from,custom_filters.mesure_range.to)}`:''}
+        `
+
+        let stmt = db.prepare(sql).raw(true);
+        const res = [];
+        for (let result of stmt.iterate()) {
+            // console.log(result)
+            res.push(_raw_to_object(schema, stmt.columns(), result));
+        }
+        return res;
+    }
+
+    module.search = (tag) => {
+        let hasField = tag.indexOf(':') !== -1;
+
+        let sql = `Select s.*,count(m.id)as count_mesures, (s.firstname || s.lastname || s.birthdate ) as search_terms,group_concat(m.date) as mesures_dates 
+            from subjects as s left join mesures as m on s.id=m.subject_id 
+        
+            where s.firstname like @tag 
+                or s.lastname like @tag
+                or s.birthdate like @tag
+                or s.gender =@tag
+            group by s.id
+        `;
+
+        if (hasField) {
+            let fieldpos = tag.indexOf(':');
+            let key = tag.substr(0, fieldpos).trim();
+            tag = tag.substr(fieldpos + 1).trim();
+            sql = `Select s.*,count(m.id)as count_mesures , (s.firstname || s.lastname || s.birthdate ) as search_terms ,group_concat(m.date) as mesures_dates
+            from subjects as s left join mesures as m on s.id=m.subject_id 
+        
+            where s.${key} like @tag 
+            group by s.id`;
+        }
+
+        let stmt = db.prepare(sql).raw(true);
+        const res = [];
+        for (let result of stmt.iterate({ tag: '%' + tag + '%' })) {
+            // console.log(result)
+            res.push(_raw_to_object(schema, stmt.columns(), result));
+        }
+        return res;
+    }
+
     return module;
 
 }
@@ -291,7 +415,6 @@ const opendb = (file, key = '', options = defaultOptions) => {
 
         if (!is_empty(key)) {
             api.unlock(key);
-            //api.migrate();
         }
         return {
             db,
@@ -300,7 +423,7 @@ const opendb = (file, key = '', options = defaultOptions) => {
 
             ...api,
         }
-    }catch (e){
+    } catch (e) {
         return false;
     }
 

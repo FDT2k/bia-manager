@@ -47,11 +47,12 @@ export default ({ children }) => {
             setInitialTranslation(res)
             i18n.changeLanguage('fr');
             i18next_ready();
+        }).catch(res => {
+            debugger;
         })
 
         handleLanguageChange((sender, message) => {
             console.log('language changed')
-
             if (!i18n.hasResourceBundle(message.language, message.namespace)) {
                 i18n.addResourceBundle(message.language, message.namespace, message.resource);
             }

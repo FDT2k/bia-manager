@@ -170,7 +170,7 @@ export const Component = props => {
         },
         {
             Header: t('SEARCH_table_column_sample_count'),
-            accessor: v => v.mesures.filter(filter_active_mesure).length,
+            accessor: 'count_mesures'
         },
     ]
 
@@ -185,6 +185,7 @@ export const Component = props => {
     const handleSelectRow = (index, row) => {
         _handleSelectRow && _handleSelectRow(index, row.original)
     }
+    console.log(custom_filters)
 
 
     return (
