@@ -17,7 +17,7 @@ export default props => {
             if (is_type_object(option) && !is_nil(option.id)) {
                // [value, label] = keyval(option);
                value = option.id,
-               label = option.name
+               label = option.name || option.value || '__not__found__'
             }else if(is_type_object(option)){
                 [value, label] = keyval(option);
             }

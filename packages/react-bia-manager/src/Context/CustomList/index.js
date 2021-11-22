@@ -9,15 +9,21 @@ export const Context = createContext(null)
 
 
 export const makeProvider = (Context) => (props) => {
-    const { children, value:_value } = props;
+    const { children, lists:_lists,forms:_forms } = props;
 
     const defaultValue = {
       
     };
 
-    let value = Object.assign({},defaultValue,_value)
+
+    const defaultForms = {
+
+    }
+    let lists = Object.assign({},defaultValue,_lists)
+    let forms = Object.assign({},defaultForms,_forms)
+
     return (
-        <Context.Provider value={value}>
+        <Context.Provider value={{lists,forms}}>
             {children}
         </Context.Provider>
     )

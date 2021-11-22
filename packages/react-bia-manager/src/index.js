@@ -27,7 +27,6 @@ import Input from '@/Components/Form/Input'
 
 import WelcomeScreen from '@/Features/WelcomeScreen'
 
-import CustomListProviderFromBackend from '@/Providers/CustomList'
 import DatabaseImportFeature from '@/Features/Database'
 
 export {
@@ -37,7 +36,6 @@ export {
     ViewProvider,
     TranslationProvider,
     CustomListProvider,
-    CustomListProviderFromBackend,
     BackendProvider,
 
     useTranslation,

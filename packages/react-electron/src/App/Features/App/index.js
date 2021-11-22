@@ -8,7 +8,7 @@ import DatabaseImport from '@/App/Features/DatabaseImport'
 import { BIARouter, ViewProvider } from '@karsegard/react-bia-manager';
 import React from 'react';
 
-
+import CustomListProviderFromBackend from'@/Providers/CustomList';
 
 const views = {
     Welcome,
@@ -22,8 +22,10 @@ export default props => {
 
 
     return (
-        <ViewProvider views={views}>
-            <BIARouter/>
-        </ViewProvider>
+        <CustomListProviderFromBackend>
+            <ViewProvider views={views}>
+                <BIARouter/>
+            </ViewProvider>
+        </CustomListProviderFromBackend>
     )
 }

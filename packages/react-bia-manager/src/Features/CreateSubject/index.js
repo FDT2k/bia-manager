@@ -2,6 +2,7 @@ import Button from '@/Components/Form/Button';
 import DatePicker from '@/Components/Form/DatePicker';
 import Field from '@/Components/Form/Fields';
 import Select from '@/Components/Form/Select';
+import Input from '@/Components/Form/Input';
 import PageHeader from '@/Components/PageHeader';
 import MainView from "@/Components/MainView";
 import { enlist, identity, is_nil, is_numeric, repeat, safe_path,is_empty } from '@karsegard/composite-js';
@@ -12,7 +13,6 @@ import { useForm } from '@karsegard/react-hooks';
 import React, { useEffect, useMemo } from 'react';
 import { useLocation } from "wouter";
 
-import { useCustomList } from '@';
 import { useTranslation } from '@';
 
 const mapItemListAsoption = (item) => {
@@ -22,11 +22,10 @@ const mapItemListAsoption = (item) => {
 
 export const Page = props => {
 
-    const {   patient, handleChange, handleSave, ...rest } = props;
+    const {   patient, handleChange, handleSave,lists,forms, ...rest } = props;
     const [location, setLocation] = useLocation();
 
-    const {t} = useTranslation()
-    const lists = useCustomList();
+    const {t,dateSysToHuman} = useTranslation()
     let fields = {
         'lastname': { type: 'text', label: 'Nom' },
         'firstname': { type: 'text', label: 'Prenom' },
@@ -38,9 +37,11 @@ export const Page = props => {
     }
 
     // inject custom fields
-     fields = useMemo(()=> enlist(lists).reduce((carry,item)=>{
-         const [path,list] = keyval(item);
+     fields = useMemo(()=> enlist(forms).reduce((carry,item)=>{
+         debugger;
+         const [_,{list_key,path} ]= keyval(item)
          //const {path,default_value,list} = item;
+         let list =lists[list_key];
          if(list ){
              carry[path] = { type: 'select', label: t(path), options:list}
          }
@@ -144,7 +145,7 @@ export const Page = props => {
                             return (<ComponentWithArea key={fieldKey} area={fieldKey.replace('.', '_')}><Field label={label}>
 
                                 {type === "select" && <Select tabIndex={tabIndex} {...inputProps(fieldKey)} options={options} />}
-                                {type === "text" && <input tabIndex={tabIndex} className={hasErrorClass} type="text" {...inputProps(fieldKey)} options={options} />}
+                                {type === "text" && <Input tabIndex={tabIndex} className={hasErrorClass} type="text" {...inputProps(fieldKey)} options={options} />}
                                 {type === "textarea" && <textarea tabIndex={tabIndex} {...inputProps(fieldKey)} options={options}></textarea>}
                                 {type === "date" && <DatePicker tabIndex={tabIndex}
                                     selected={values[fieldKey]}
@@ -175,14 +176,54 @@ Page.defaultProps = {
 
     t: identity,
     handleSave: _ => console.warn('save handler not setup'),
+    forms: [
+        {list_key:'pathological_groups',path:'groups.patho'},
+        {list_key:'ethnological_groups',path:'groups.ethno'},
+    ],
     patient: {
         firstname:'',
         lastname:'',
         usual_height:'',
         usual_weight:'',
-        birthdate: new Date()
+        gender:'F',
+        groups:{
+            patho:'VENS2018',
+            ethno:'Caucasien'
+        },
+        birthdate: ''
     },
-    available_options: {}
+    lists:{"ethnological_groups":[
+        {
+            "list_key": "ethnological_groups",
+            "id": "Caucasien",
+            "value": "Caucasien"
+        },
+        {
+            "list_key": "ethnological_groups",
+            "id": "Indo-Européen",
+            "value": "Indo-Européen"
+        },
+        {
+            "list_key": "ethnological_groups",
+            "id": "Asiatique",
+            "value": "Asiatique"
+        },
+        {
+            "list_key": "ethnological_groups",
+            "id": "Afro",
+            "value": "Afro"
+        },
+        {
+            "list_key": "ethnological_groups",
+            "id": "Latino-américain",
+            "value": "Latino-américain"
+        },
+        {
+            "list_key": "ethnological_groups",
+            "id": "inconnu",
+            "value": "inconnu"
+        }
+    ]}
 }
 
 

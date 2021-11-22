@@ -4,14 +4,20 @@ import SQLiteUnlock from '@/Components/SQLiteUnlock';
 import { BackendProvider } from '@karsegard/react-bia-manager'
 
 import { useFileProvider } from '@/Context/File'
-
+import { v4 as uuidv4 } from 'uuid';
 import {useHostProvider} from '@/Context/Host'
+import {reduceListByKeys} from '@karsegard/composite-js'
+import { is_empty } from '@karsegard/composite-js';
+import { useTranslation } from '@karsegard/react-bia-manager';
+
 export default ({ children }) => {
 
     const { actions: { sqlite_search,sqlite_custom_search,sqlite_create,sqlite_query } } = useElectron();
     const { selectors: { locked,file },actions:{reload_file_state} } = useFileProvider();
     const [subject, setState] = useState({})
     const {add_error} = useHostProvider();
+
+    const {dateHumanToSys} = useTranslation();
     
     const [search_count,setSearchCount] = useState(0);
     const [stats,setStats] = useState({});
@@ -45,15 +51,45 @@ export default ({ children }) => {
         setStats(stats=>({...stats,count:subjects.count,count_mesures:mesures.count}))
     }
 
+    const get_lists = async ()=> {
+
+        let lists = await sqlite_query({query:"select list_key,key as id, value from lists where status='active' order by sort asc",values:{}});
+        lists = reduceListByKeys(['list_key'],lists);
+        return lists;
+    }
+
+    const get_forms = async ()=> {
+        
+        return {"create_subject":[
+                {list_key:'pathological_groups',path:'groups.patho'},
+                {list_key:'ethnological_groups',path:'groups.ethno'},
+                {list_key:'genders',path:'gender'},
+            ]
+        }
+    }
+
+
+    const create_subject = async (values)=>{
+        debugger;
+        if(!values.uuid){
+            values.uuid = uuidv4();
+        }
+        if(values.birthdate){
+            values.birthdate= dateHumanToSys(values.birthdate)
+        }
+        return await sqlite_query({type:"geninsert",table:"subjects",values,fn:"run"})
+
+    }
+
     useEffect(() => {
-        if (!locked) {
+        if (!locked && !is_empty(file)) {
           fetch_stats();
         }
     }, [locked])
     
     const db_name = file
     return (
-        <BackendProvider type="sqlite" actions={{search,search_custom_filters,create_database,fetch_stats,stats,db_name,search_count}}>
+        <BackendProvider type="sqlite" actions={{search,search_custom_filters,create_database,fetch_stats,stats,db_name,search_count,get_lists,get_forms,create_subject}}>
             {/*<pre>{JSON.stringify(subject, null, 3)}</pre>*/}
             {children}
             <SQLiteUnlock />

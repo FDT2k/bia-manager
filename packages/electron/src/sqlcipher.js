@@ -4,6 +4,8 @@ import { spreadObjectPresentIn } from '@karsegard/composite-js/ReactUtils'
 import { resolve, join } from 'path'
 import fs from 'fs'
 
+import {format} from 'date-fns'
+
 var sqlite3 = require('better-sqlite3');
 
 
@@ -152,7 +154,8 @@ const _transform = (schema, data) => {
                 carry[field] = _to_boolean(data[field])
             } else if (type === 'json') {
                 carry[field] = _to_json(data[field])
-
+            }else if (type === 'date' && is_type_object(data[field])) {
+                carry[field] = format(data[field],'yyyy-MM-dd')
             }
         } else {
             carry[field] = data[field] || '';
@@ -219,7 +222,7 @@ const _raw_to_object = (schema, columns, row) => {
 const mesure = (db, api) => {
 
     const schema = {
-        date: '',
+        date: 'date',
         examinator: '',
         subject_id: '',
         height: '',
@@ -344,7 +347,7 @@ const subject = (db, api) => {
     const schema = {
         firstname: '',
         lastname: '',
-        birthdate: '',
+        birthdate: 'date',
         gender: '',
         age: '',
         groups: 'json',
