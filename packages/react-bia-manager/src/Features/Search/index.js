@@ -62,7 +62,6 @@ export const RangeFilter = ({ label, handleSubmit, handleClear, currentValues, t
         replaceValues(currentValues);
     }, [currentValues])
 
-    console.log(currentValues)
 
     const filled = (!is_nil(currentValues) && (!is_nil(currentValues.from) || !is_nil(currentValues.to)))
     const Icon = filled === true ? (CloseSharp) : ChevronDownSharp
@@ -185,7 +184,6 @@ export const Component = props => {
     const handleSelectRow = (index, row) => {
         _handleSelectRow && _handleSelectRow(index, row.original)
     }
-    console.log(custom_filters)
 
 
     return (

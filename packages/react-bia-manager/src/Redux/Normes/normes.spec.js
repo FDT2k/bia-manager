@@ -235,5 +235,4 @@ test('hello world', () => {
 
     let selector_result = mod.selectors.select_normes(newState,{age:15,sex:'M'})
 
-    console.log(selector_result)
 })

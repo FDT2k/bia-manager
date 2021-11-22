@@ -27,7 +27,7 @@ export const makeProvider = (Context) => {
                 handleOpenRequest, handleSaveRequest, handleLocationChange, handleCloseRequest,
                 handleError, handleWillQuit
             },
-            revokers:{
+            revokers: {
                 revokeWillQuit,
                 revokeOpenRequest,
                 revokeCloseRequest,
@@ -38,7 +38,8 @@ export const makeProvider = (Context) => {
                 open: electron_open,
                 get_file_state,
                 close: electron_close,
-                sqlite_unlock
+                sqlite_unlock,
+                save
             }
         } = useElectron();
         const dispatch = useDispatch();
@@ -67,15 +68,17 @@ export const makeProvider = (Context) => {
 
         const save_file = _ => {
             start_loading('saving');
-            save_to_file().then(
-
+            save().then(
                 result => {
                     stop_loading();
                     if (result) {
                         stop_loading();
                     }
                 }
-            ).catch(add_error)
+            ).catch(err => {
+                add_error(err);
+                stop_loading()
+            })
 
         }
 
@@ -95,16 +98,20 @@ export const makeProvider = (Context) => {
 
 
             });
-         
+
 
         }
 
-        useEffect(() => {
-            start_loading('Loading file')
+        const reload_file_state = _=> {
             get_file_state().then(res => {
                 dispatch(Module.actions.open(res))
                 stop_loading();
             }).catch(add_error)
+        }
+
+        useEffect(() => {
+            start_loading('Loading file')
+            reload_file_state();
 
             handleWillQuit(handleQuit)
             handleOpenRequest(open_file);
@@ -117,8 +124,8 @@ export const makeProvider = (Context) => {
 
         }, [])
 
-        const unlock = key=> {
-            sqlite_unlock(key).then((res)=>{
+        const unlock = key => {
+            sqlite_unlock(key).then((res) => {
                 dispatch(Module.actions.unlock())
             }).catch(add_error)
         }
@@ -128,7 +135,8 @@ export const makeProvider = (Context) => {
             open_file,
             save_file,
             close_file,
-            unlock
+            unlock,
+            reload_file_state
         };
 
         let actions = Object.assign({}, defaultActions, _actions)

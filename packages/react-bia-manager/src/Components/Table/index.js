@@ -16,7 +16,6 @@ export default props => {
     const { data,className, style,columns,tabIndex, forwardedRef,selectedIndex, handleSelect, Tools, SortUp, SortDown, ...rest } = props;
 
     function fuzzyTextFilterFn(rows, id, filterValue) {
-        console.log(rows, id, filterValue)
         return matchSorter(rows, filterValue, { keys: [row => row.values[id]] })
     }
 

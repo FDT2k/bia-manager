@@ -23,7 +23,6 @@ const flattenChildren = (children) => {
 
 export const Component = ({ children }) => {
     const { selectors: { type } } = useFileProvider();
-    console.log(type, flattenChildren(children))
     for (const element of flattenChildren(children)) {
         let match = 0;
         if (
@@ -47,7 +46,6 @@ export const Component = ({ children }) => {
 export const FileTypeRoute = ({ match, children }) => {
     const [matches, params] = match
 
-    console.log(matches)
     if (!matches) return null;
 
     return typeof children === "function" ? children(params) : children;

@@ -8,7 +8,7 @@ import { is_empty, is_nil } from '@karsegard/composite-js';
 import menuFactoryService from './menu';
 
 import updater from "./updater"
-import openDB from './sqlcipher'
+import openDB, { createdb } from './sqlcipher'
 
 import fileContext, { determine_file_type } from './fileContext';
 
@@ -45,23 +45,24 @@ const langCollectionFile = resolve(__dirname, '../.langs');
 
 
 
-let DB = openDB(join(app.getPath('home'), 'testdb5.sqlite'), 'test')
+/*let DB = openDB(join(app.getPath('home'), 'testdb5.sqlite'), 'test')
 
 DB.subject.custom_search(
-{mesure_range:{
-  "from": "2021-11-01",
-  "to": "2021-11-30",
-  "type": "date_range",
-  "key": "mesures_dates"
-},
-mesure_range:{
-  "from": "2021-11-01",
-  "to": "2021-11-30",
-  "type": "date_range",
-  "key": "birthdate"
-}
-})
-
+  {
+    mesure_range: {
+      "from": "2021-11-01",
+      "to": "2021-11-30",
+      "type": "date_range",
+      "key": "mesures_dates"
+    },
+    mesure_range: {
+      "from": "2021-11-01",
+      "to": "2021-11-30",
+      "type": "date_range",
+      "key": "birthdate"
+    }
+  })
+*/
 /*
 console.log(DB.api.genInsertSQL('subjects', { id: 1, firstname: '12' }));
 console.log(DB.api.genUpdateSQL('subjects', { firstname: '12' }, { id: 1 }));
@@ -175,6 +176,30 @@ ipcMain.handle('file-save', async (event, content, filename = '') => {
 });
 
 
+const openFile = async (filename) => {
+  let additionalprops = {};
+
+  openedFilePath = filename;
+  const type = await determine_file_type(openedFilePath);
+  let content = null
+
+  currentBackend = type;
+  if (type === 'json') {
+    content = await fs.readFile(filename, { encoding: 'utf8' });
+  } else if (type === 'sqlite') {
+    currentSQLite = openDB(openedFilePath)
+    additionalprops.unlocked = currentSQLite.isUnlocked();
+  }
+  return {
+    canceled: false,
+    type,
+    content,
+    ...additionalprops,
+    file: filename,
+
+  }
+}
+
 
 ipcMain.handle('file-open', async (event, filename) => {
 
@@ -184,28 +209,8 @@ ipcMain.handle('file-open', async (event, filename) => {
   if (!canceled) {
     cleanState = false;
     console.log('reading');
-    let additionalprops = {};
 
-    openedFilePath = filePaths[0];
-    const type = await determine_file_type(openedFilePath);
-    let content = null
-
-    currentBackend = type;
-    let unlocked = true
-    if (type === 'json') {
-      content = await fs.readFile(filePaths[0], { encoding: 'utf8' });
-    } else if (type === 'sqlite') {
-      currentSQLite = openDB(openedFilePath)
-      additionalprops.unlocked = currentSQLite.isUnlocked();
-    }
-    return {
-      canceled: false,
-      type,
-      content,
-      ...additionalprops,
-      file: filePaths[0],
-
-    }
+    return await openFile(filePaths[0])
   }
 
   return { canceled: true };
@@ -348,6 +353,19 @@ ipcMain.handle('sqlite-import', async (event, message) => {
 })
 
 
+ipcMain.handle('sqlite-create', async (event, { filename, key }) => {
+  console.log('want to create sqlite file');
+
+  let { canceled, filePath } = await dialog.showSaveDialog({ defaultPath: filename });
+  if (!canceled) {
+    console.log('saving', filePath,key);
+    createdb(filePath, key);
+    return await openFile(filePath);
+  }
+
+  return false;
+})
+
 ipcMain.handle('update', () => {
   updater.autoUpdater.downloadUpdate();
 })
@@ -374,16 +392,16 @@ app.on('before-quit', e => {
     e.preventDefault()
   }
 })
-const handleLanguageChange = (i18n, menu) => { 
-  menuFactoryService.buildMenu(app, mainWindow, i18n.t.bind(i18n), menu) 
-  store.set('language',i18n.language)
+const handleLanguageChange = (i18n, menu) => {
+  menuFactoryService.buildMenu(app, mainWindow, i18n.t.bind(i18n), menu)
+  store.set('language', i18n.language)
 }
 app.whenReady()
   .then(createWindow)
   .then(initMenu)
-  .then(init18next(handleLanguageChange,store.get('language')))
-    .then(loadContent)
-    .catch((e) => console.error('Failed create window:', e));
+  .then(init18next(handleLanguageChange, store.get('language')))
+  .then(loadContent)
+  .catch((e) => console.error('Failed create window:', e));
 
 app.on('uncaughtException', function (error) {
   // Handle the error

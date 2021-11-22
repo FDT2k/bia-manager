@@ -4,14 +4,15 @@ import { searchWithReduxModule, searchWithBackend } from '@karsegard/react-bia-m
 import { SearchPage, SearchFeature } from '@karsegard/react-bia-manager';
 
 import { Provider as StoreProvider, store } from '@/Store'
+import {useBackend} from '@karsegard/react-bia-manager'
 
 const Search = searchWithReduxModule(store)(searchWithBackend(SearchFeature))
 
 
 export default props => {
 
-
-    return (<SearchPage>
+    const {stats} = useBackend();
+    return (<SearchPage stats={stats}>
         <Search handlers={{handleCreate:_=>window.location.hash='#/create_subject'}}/>
     </SearchPage>)
 }

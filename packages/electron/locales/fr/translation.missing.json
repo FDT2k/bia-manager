@@ -109,5 +109,10 @@
    "Hide Others": "Hide Others",
    "Show All": "Show All",
    "Quit": "Quit",
-   "Fermer": "Fermer"
+   "Fermer": "Fermer",
+   "La base requiert un mot de passe:": "La base requiert un mot de passe:",
+   "Confirmez la clé:": "Confirmez la clé:",
+   "Annuler": "Annuler",
+   "Confirmez le mot de passe:": "Confirmez le mot de passe:",
+   "Définir un mot de passe:": "Définir un mot de passe:"
 }

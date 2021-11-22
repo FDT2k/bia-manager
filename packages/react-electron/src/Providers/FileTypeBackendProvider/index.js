@@ -20,9 +20,9 @@ export default ({ children }) => {
                 <Dexie>{children} </Dexie>
             </FileTypeRoute>
             <FileTypeRoute>
-                <NullBackend>
+                <ElectronSqlite>
                     {children}
-                </NullBackend>
+                </ElectronSqlite>
             </FileTypeRoute>
         </FileTypeBackendRouter>
 

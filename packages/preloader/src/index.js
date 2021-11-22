@@ -45,6 +45,7 @@ let electronAPI = {
     sqlite_import: invokeOnMainProcess('sqlite-import'),
     sqlite_search: invokeOnMainProcess('sqlite-search'),
     sqlite_custom_search: invokeOnMainProcess('sqlite-custom-search'),
+    sqlite_create: invokeOnMainProcess('sqlite-create'),
 
   }
 };

@@ -21,6 +21,7 @@ export const makeProvider = (Context) => (props) => {
         search: __not_implemented('add_error'),
         get_subject: __not_implemented('start_loading'),
         get_mesure: __not_implemented('stop_loading'),
+        type
     };
 
     let actions = Object.assign({},defaultActions,_actions)

@@ -106,7 +106,7 @@ const API = db => {
     module.unlock = key => {
 
         db.pragma("key='" + key + "'");
-
+        console.log('unlocking')
         try {
 
             db.exec("select count(*) from sqlite_master;")
@@ -430,5 +430,7 @@ const opendb = (file, key = '', options = defaultOptions) => {
 
 }
 
+
+export const createdb = (file,key) =>  opendb(file,key,{fileMustExist:false})
 
 export default opendb;

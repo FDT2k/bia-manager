@@ -14,7 +14,6 @@ export const Component = props => {
 
     const { values, getValue, checkboxProps, inputProps, replaceValues, handleFieldChange, handleInput } = useForm(initialValues, { usePath: true, onValuesChange: handleChange })
 
-    console.log(values)
     useEffect(() => {
         let res = replaceValues(initialValues)
     }, [initialValues])
