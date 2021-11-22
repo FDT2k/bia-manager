@@ -2,28 +2,27 @@ import { identity } from '@karsegard/composite-js';
 import { useFieldValues, useWorker, useWrappedWorker } from '@karsegard/react-hooks';
 import Button from '@/Components/Form/Button';
 import InputGroup from '@/Components/Form/InputGroup';
-import { LayoutFlex, LayoutFlexColumn } from '@karsegard/react-core-layout'
+import { LayoutFlex, LayoutFlexColumn,Container } from '@karsegard/react-core-layout'
 
 import React, { useEffect, useRef, useState } from 'react';
 import 'react-circular-progressbar/dist/styles.css';
 import ReactLoading from 'react-loading';
 import { useLocation } from "wouter";
 import { CircularProgressbar } from 'react-circular-progressbar';
+import Modal from '@/Components/Modal'
+import Field from '@/Components/Form/Fields'
+import ToggleSwitch from '@/Components/Form/ToggleSwitch'
+import webWorker from './csvimport.worker.js?worker&inline'
+//import parse from './parser';
+export const Component = props => {
 
-
-export default props => {
-
-    const { callback } = props;
+    const { callback,handleDone } = props;
 
     const [location, setLocation] = useLocation();
-    const [imported_data, setImportedData] = useState();
     const [anonymous, setAnon] = useState(false);
     const [parsing, setParsing] = useState();
     const [percentage, setPercentage] = useState(0);
-    const [importing, setImporting] = useState(false);
-    const [imported, setImported] = useState(false);
-    const [lines_count, setLineCount] = useState(0);
-
+    const [done,setDone] = useState(false);
 
 
     const fileRef = useRef();
@@ -32,28 +31,30 @@ export default props => {
 
 
     const workerCallback = data => {
+        debugger;
         if (data.progress) {
-            setPercentage(data.progress);
-        }
-        if (data.total) {
-            setLineCount(data.total);
-        }
-
-        // console.log('progress',data)
-        if (data.result) {
-            dataRef.current = data.result;
-            setParsing(false);
-            //setImportedData(data.result)
-            //console.log(data.result.list[5])
+            let pct = (parseInt(data.progress)* 100 /parseInt(data.total))
+            debugger;
+            setPercentage( new Number(pct).toFixed(0));
         }
 
+       
+        Promise.resolve(callback(data)). then (_=> {
+            if (!data.done) {
+                parse({message:'parse', data:{ count: 2000}})
+            }else{
+                setDone(true)
+            }
+
+        }) ;
+        
      
-        callback && callback(data);
+       
     }
 
 
     //  const [parse] = useWorker('@/Features/Database/Import/csvimport.worker.js?worker', workerCallback);
-    const [parse] = useWrappedWorker(webWorker, workerCallback);
+     const [parse] = useWrappedWorker(webWorker, workerCallback);
 
 
 
@@ -80,7 +81,7 @@ export default props => {
                 'sexe': { name: 'gender', transform: "(state,value) => value.sexe =='H'? 'M': 'F'" },
                 'poidsHab': 'usual_weight',
                 'tailleHab': 'usual_height',
-                'PatientUuid' : 'uuid'
+                'PatientUuid': 'uuid'
             },
             mesure: {
                 'dateExam': 'date',
@@ -138,68 +139,55 @@ export default props => {
 
 
     const onFileChange = _ => {
-        setImported(false);
-        setImporting(false);
         setParsing(true);
         fileRef.current.files[0].text().then(text => {
             const payload = { text, line_separator, separator, mapping: mappings.BIAManager, identifier, anonymous };
             //parse_previous_database (payload,workerCallback,identity,workerCallback);
-            parse(payload);
-
+            //   parse(payload);
+            parse({message:'init', data:payload});
         });
         //parse(fileRef.current.files[0].text());
 
     }
 
 
-    const addPatients = _ => {
-        setImporting(true)
-        // api.import_data(imported_data.list).then(_=>{setImporting(false); setImported(true);}).catch(err=> console.error(err));
-        import_csv(dataRef.current).then(res => {
-            setImporting(false);
-            setImported(true);
-        }).catch(err => {
-            console.error(err)
-        })
-    }
 
     useEffect(() => {
-        setParsing(false);
+    //    setParsing(false);
     }, [])
 
 
     return (
+        <Modal type="dialog">
         <LayoutFlex column>
             {!dataRef.current && !parsing && <LayoutFlexColumn>
-                <InputGroup>
-                    <label>anoymiser les données</label>
-                    <input type="checkbox" value={anonymous} onChange={e => setAnon(e.target.checked)} />
-                </InputGroup>
-                <InputGroup>
-                    <label>Choisir un fichier</label>
+                <Field label="anoymiser les données">
+                    <Container style={{width:'100px'}}>
+                    <ToggleSwitch labelYes="Oui" labelNo="Non" checked={anonymous}  onChange={e => setAnon(e.target.checked)}/>
+                    </Container>
+                </Field>
+                <Field label="Choisir un fichier CSV">
                     <input ref={fileRef} type="file" onChange={onFileChange} disabled={parsing} />
-                </InputGroup>
-
-
+                </Field>
             </LayoutFlexColumn>}
-            <LayoutFlex>
 
-                {!dataRef.current && parsing && <LayoutFlex alignCenter>
+                {!dataRef.current && parsing && <LayoutFlex alignCenter justBetween>
                     <div style={{ width: '50px', height: '50px' }}>
                         <CircularProgressbar value={percentage} text={`${percentage}%`} />
                     </div>
                     <div>Importation en cours (depuis CSV BIA Java)</div>
                 </LayoutFlex>}
                 <LayoutFlexColumn>
-                {dataRef.current && <span><b>Données importées: </b><br />{dataRef.current.countPatient} patients <br /> {dataRef.current.countMesure} mesures</span>}
-                {dataRef.current &&<Button onClick={_ => setLocation('/search')}>Terminé</Button>}
+                    {done && <Button onClick={handleDone}>Terminé</Button>}
                 </LayoutFlexColumn>
-
-            </LayoutFlex>
-
-          
-
         </LayoutFlex>
-
+        </Modal>
     )
 }
+
+
+Component.defaultProps = {
+    callback:x=>x
+}
+
+export default Component;

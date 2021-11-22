@@ -231,7 +231,7 @@ Component.defaultProps = {
 
 
 export const Page = props => {
-    const {db_name,stats,patients,children, ...rest } = props;
+    const {db_name,stats,search_count,children, ...rest } = props;
     const {count,count_mesures} = stats;
 
     const {t} = useTranslation();
@@ -245,7 +245,7 @@ export const Page = props => {
                     <div> — </div>
                     <div> Mesures: {count_mesures}</div>
                 </LayoutFlex>
-                <div>Résultats de la recherche: {patients.length} patients</div>
+                <div>Résultats de la recherche: {search_count} patients</div>
             </>
         )
     }

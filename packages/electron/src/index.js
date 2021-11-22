@@ -342,11 +342,15 @@ ipcMain.handle('sqlite-custom-search', async (event, arg) => {
 
 })
 
-ipcMain.handle('sqlite-import', async (event, message) => {
+ipcMain.handle('sqlite-import', async (event, {model,data}) => {
   try {
-    console.log(message)
-    let res = currentSQLite.subject.import().immediate(message);
-    console.log(res);
+    console.log(model,data)
+    if (!is_nil(currentSQLite)) {
+      let res = currentSQLite[model].import().immediate(data);
+      console.log(res);
+    } else {
+      throw new Error('No database connected')
+    }
   } catch (e) {
     return Promise.reject(e)
   }
@@ -358,7 +362,7 @@ ipcMain.handle('sqlite-create', async (event, { filename, key }) => {
 
   let { canceled, filePath } = await dialog.showSaveDialog({ defaultPath: filename });
   if (!canceled) {
-    console.log('saving', filePath,key);
+    console.log('saving', filePath, key);
     createdb(filePath, key);
     return await openFile(filePath);
   }

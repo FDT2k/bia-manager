@@ -25,7 +25,7 @@ export default props => {
     const handleSubmit = ({key})=>{
         setAskKey(false)
 
-        create_database({filename:'bia-database.sqlite',key}).catch(add_error)
+        create_database({filename:'bia-database.sqlite',key})
     }
 
     return (<>

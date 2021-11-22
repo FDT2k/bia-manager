@@ -15,7 +15,6 @@ import HostProviderRedux from '@/Providers/HostProviderRedux'
 
 import FileTypeBackendProvider from '../Providers/FileTypeBackendProvider';
 
-import Search from '@/App/Features/Search'
 
 import App from '@/App/Features/App'
 export default props => {

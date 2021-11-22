@@ -7,6 +7,7 @@ import StaticCreate from '@/example/StaticCreate'
 import SearchWithBackend from '@/example/SearchWithBackend'
 import TestMesureEditorRedux from '@/example/TestMesureEditorRedux'
 import IntegrationEditor from '@/Integration/Editor'
+import DatabaseImport from '@/example/Database/Import'
 
 import { Route, Link, Switch } from 'wouter';
 import { Fullscreen, LayoutFlexColumn } from '@karsegard/react-core-layout';
@@ -46,6 +47,11 @@ const routes = [
         path: '/redux/editor',
         component: TestMesureEditorRedux,
         menu: 'Stateful Mesure Editor with Redux'
+    },
+    {
+        path: '/database/import',
+        component: DatabaseImport,
+        menu: 'Database import'
     }
 ]
 

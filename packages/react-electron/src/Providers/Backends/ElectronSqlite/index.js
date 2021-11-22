@@ -9,20 +9,26 @@ import {useHostProvider} from '@/Context/Host'
 export default ({ children }) => {
 
     const { actions: { sqlite_search,sqlite_custom_search,sqlite_create,sqlite_query } } = useElectron();
-    const { selectors: { locked },actions:{reload_file_state} } = useFileProvider();
+    const { selectors: { locked,file },actions:{reload_file_state} } = useFileProvider();
     const [subject, setState] = useState({})
     const {add_error} = useHostProvider();
+    
+    const [search_count,setSearchCount] = useState(0);
     const [stats,setStats] = useState({});
+
     const search = async ([tag] )=>{
         
         let result = await sqlite_search(tag)
+        setSearchCount(result.length);
         return result;
     }
 
     const search_custom_filters = async (arg )=>{
         let result = await sqlite_custom_search(arg)
+        setSearchCount(result.length);
+
         return result;
-        return [];
+        
     }
 
 
@@ -45,8 +51,9 @@ export default ({ children }) => {
         }
     }, [locked])
     
+    const db_name = file
     return (
-        <BackendProvider type="sqlite" actions={{search,search_custom_filters,create_database,fetch_stats,stats}}>
+        <BackendProvider type="sqlite" actions={{search,search_custom_filters,create_database,fetch_stats,stats,db_name,search_count}}>
             {/*<pre>{JSON.stringify(subject, null, 3)}</pre>*/}
             {children}
             <SQLiteUnlock />
