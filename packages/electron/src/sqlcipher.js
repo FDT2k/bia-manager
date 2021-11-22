@@ -81,24 +81,28 @@ const API = db => {
     }
 
     module.migrate = () => {
+        try {
+            const migrationPath = resolve(__dirname, '../migrations');
 
-        const migrationPath = resolve(__dirname, '../migrations');
+            let latest = module.getLatestMigration();
 
-        let latest = module.getLatestMigration();
+            const migration_files = fs.readdirSync(migrationPath);
 
-        const migration_files = fs.readdirSync(migrationPath);
+            let current = 0;
 
-        let current = 0;
-
-        migration_files.map(migration => {
-            if (current >= latest) {
-                const migrationFile = join(migrationPath, migration)
-                console.log('[SQLITE]: running migration ' + migrationFile)
-                db.exec(fs.readFileSync(migrationFile, 'utf8'))
-                module.getStatements().insert_migration.run({ migration })
-            }
-            current++;
-        })
+            migration_files.map(migration => {
+                if (current >= latest) {
+                    const migrationFile = join(migrationPath, migration)
+                    console.log('[SQLITE]: running migration ' + migrationFile)
+                    db.exec(fs.readFileSync(migrationFile, 'utf8'))
+                    module.getStatements().insert_migration.run({ migration })
+                }
+                current++;
+            })
+        } catch (e){
+            console.error(e);
+            throw new Error("Migration error, " + e.message)
+        }
 
 
     }
@@ -274,11 +278,11 @@ const mesure = (db, api) => {
 
 }
 
-const list = (db,api)=> {
+const list = (db, api) => {
     const schema = {
-        list_key:'',
-        key:'',
-        value:''
+        list_key: '',
+        key: '',
+        value: ''
     }
 
     const module = {};
@@ -292,7 +296,7 @@ const list = (db,api)=> {
 
         const [filter, _values] = spreadObjectPresentIn(keys, list);
         const [values, _] = spreadObjectPresentIn(Object.keys(schema), _values);
-        let result = module.select({ list_key: '',key:'' }).get(filter)
+        let result = module.select({ list_key: '', key: '' }).get(filter)
 
         let ret
         if (!is_empty(result)) {
@@ -308,21 +312,21 @@ const list = (db,api)=> {
 
     module.import = _ => db.transaction((lists) => {
         console.log(lists)
-        enlist(lists).map( _list => {
-            let [list_key,values] = keyval(_list)
-            console.log(list_key,values)
+        enlist(lists).map(_list => {
+            let [list_key, values] = keyval(_list)
+            console.log(list_key, values)
 
-            enlist(values).map(item=> {
-                const [key,value] = keyval(item)
-                console.log( {
-                    
+            enlist(values).map(item => {
+                const [key, value] = keyval(item)
+                console.log({
+
                     list_key,
-                    key,value
+                    key, value
                 })
-                module.upsert(['list_key','key'])(_transform(schema, {
-                    
+                module.upsert(['list_key', 'key'])(_transform(schema, {
+
                     list_key,
-                    key,value
+                    key, value
                 }))
 
 
@@ -390,19 +394,19 @@ const subject = (db, api) => {
     })
 
 
-    const custom_partial = (key, from, until) =>{
+    const custom_partial = (key, from, until) => {
 
-    if (!is_nil(from) && !is_nil(until)) {
-        return ` ( ${key} BETWEEN '${from}' AND '${until}')`
-    } else if (!is_nil(from) && is_nil(until)) {
-        return ` ( ${key} >= '${from}')`
+        if (!is_nil(from) && !is_nil(until)) {
+            return ` ( ${key} BETWEEN '${from}' AND '${until}')`
+        } else if (!is_nil(from) && is_nil(until)) {
+            return ` ( ${key} >= '${from}')`
 
-    } else if (is_nil(from) && !is_nil(until)) {
-        return ` ( ${key} <='${until}')`
+        } else if (is_nil(from) && !is_nil(until)) {
+            return ` ( ${key} <='${until}')`
+
+        }
 
     }
-
-}
 
 
     module.custom_search = (custom_filters) => {
@@ -413,10 +417,10 @@ const subject = (db, api) => {
         let sql = `Select s.*,count(m.id)as count_mesures, (s.firstname || s.lastname || s.birthdate ) as search_terms,group_concat(m.date) as mesures_dates 
         from subjects as s left join mesures as m on s.id=m.subject_id 
 
-        ${(custom_filters.birthday_range) ? `where ${custom_partial(custom_filters.birthday_range.key,custom_filters.birthday_range.from,custom_filters.birthday_range.to)}`:''}
+        ${(custom_filters.birthday_range) ? `where ${custom_partial(custom_filters.birthday_range.key, custom_filters.birthday_range.from, custom_filters.birthday_range.to)}` : ''}
 
         group by s.id
-        ${(custom_filters.mesure_range) ? `having ${custom_partial("m.date",custom_filters.mesure_range.from,custom_filters.mesure_range.to)}`:''}
+        ${(custom_filters.mesure_range) ? `having ${custom_partial("m.date", custom_filters.mesure_range.from, custom_filters.mesure_range.to)}` : ''}
         `
 
         console.log(sql)
@@ -483,7 +487,7 @@ const opendb = (file, key = '', options = defaultOptions) => {
             db,
             file,
             subject: subject(db, api),
-            list: list(db,api),
+            list: list(db, api),
             ...api,
         }
     } catch (e) {
@@ -493,6 +497,6 @@ const opendb = (file, key = '', options = defaultOptions) => {
 }
 
 
-export const createdb = (file,key) =>  opendb(file,key,{fileMustExist:false})
+export const createdb = (file, key) => opendb(file, key, { fileMustExist: false })
 
 export default opendb;

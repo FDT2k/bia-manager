@@ -389,7 +389,9 @@ app.on('window-all-closed', () => {
 
 app.on('before-quit', e => {
   console.log('app will quit', cleanState);
-
+  if(currentSQLite && currentSQLite.db){
+    currentSQLite.db.close()
+  }
   if (!app.commandLine.hasSwitch('allow-dirty-quit') && !cleanState) {
     console.log('quitting prevented because app is not cleaned up')
     mainWindow.webContents.send('app-quit')

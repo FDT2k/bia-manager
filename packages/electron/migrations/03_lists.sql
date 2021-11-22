@@ -5,6 +5,6 @@ CREATE TABLE IF NOT EXISTS lists (
     list_key TEXT,
     key TEXT,
     value TEXT,
-    order INTEGER DEFAULT 0,
+    sort INTEGER DEFAULT 0,
     status TEXT DEFAULT 'active'
 );
