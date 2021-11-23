@@ -49,7 +49,7 @@ export const Component = props => {
 
 Component.defaultProps = {
     data: [
-        {
+       /* {
             "label": "water",
             "values": { "segal": 31.4451456162, "kushner": 41.062085810810814 },
             "limits": {},
@@ -198,7 +198,7 @@ Component.defaultProps = {
                 "kushner": "1.967248916216224 / ((177/100)^2 )"
             },
             "display": true
-        }
+        }*/
     ]
     ,
     available_columns: [
