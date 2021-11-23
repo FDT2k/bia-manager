@@ -83,6 +83,14 @@ export default ({ children }) => {
 
     }
 
+
+    const get_subject = async (id)=> {
+        let subject = await sqlite_model({model:"subject",fn:"fetchWithMesures",args:[id]})
+
+        debugger;
+        return subject;
+    }
+
     useEffect(() => {
         if (!locked && !is_empty(file)) {
           fetch_stats();
@@ -97,9 +105,11 @@ export default ({ children }) => {
         }
     }, [locked,file])
 
+
+
     const db_name = file
     return (
-        <BackendProvider type="sqlite" actions={{ready,search,search_custom_filters,create_database,fetch_stats,stats,db_name,search_count,get_lists,get_forms,create_subject}}>
+        <BackendProvider type="sqlite" actions={{get_subject,ready,search,search_custom_filters,create_database,fetch_stats,stats,db_name,search_count,get_lists,get_forms,create_subject}}>
             {/*<pre>{JSON.stringify(subject, null, 3)}</pre>*/}
             {children}
             <SQLiteUnlock />

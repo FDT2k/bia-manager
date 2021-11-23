@@ -34,7 +34,7 @@ export const _transform = (schema, data) => {
                 carry[field] = _to_json(data[field])
             } else if (type === 'date' && is_type_object(data[field])) {
                 carry[field] = format(data[field], 'yyyy-MM-dd')
-            }else if (type === 'date'){
+            } else if (type === 'date') {
                 carry[field] = data[field];
             }
         } else {
@@ -54,12 +54,16 @@ export const _from_boolean = (value) => {
 }
 
 export const _from_json = (values) => {
-    return JSON.parse(values);
+    try {
+        return JSON.parse(values);
+    } catch (e) {
+        return  null
+    }
 }
 
 
 export const _from_array = (values) => {
-    if(!values){
+    if (!values) {
         return []
     }
     return values.split(',')
@@ -74,12 +78,25 @@ export const _retrieve_row = (field, type, value) => {
 
         } else if (type === 'array') {
             return _from_array(value)
+        } else {
+            return value;
         }
     } else {
         return value || '';
     }
 }
 
+
+export const _retrieve_entity = (entity_name, schema, columns, row) => {
+
+    return columns.reduce((carry, column, idx) => {
+        const type = schema[column.name];
+        if (column.table === entity_name) {
+            carry[column.name] = _retrieve_row(column.name, type, row[idx]);
+        }
+        return carry;
+    }, {})
+}
 
 export const _retrieve = (schema, data) => {
     let result = enlist(schema).reduce((carry, item) => {

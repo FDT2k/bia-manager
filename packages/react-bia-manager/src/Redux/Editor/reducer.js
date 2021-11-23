@@ -73,7 +73,14 @@ export default (getModule) => {
                         ...action.payload.mesure
                     }
                 }
-
+            case types.CLEAR_BIA:
+                return {
+                    mesure:{
+                        ...state.mesure,
+                        bia:[]
+                    }
+                }
+                
         }
 
         //plugins should flow through here

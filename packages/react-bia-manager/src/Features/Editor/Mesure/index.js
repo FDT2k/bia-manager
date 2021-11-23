@@ -2,18 +2,18 @@ import { useTranslation } from '@';
 import MesureEditorLayout from '@/Components/MesureEditorLayout';
 import Printable from '@/Components/Printable';
 import Tabs, { Tab, TabList, TabPanel } from '@/Components/Tabs';
-import PrintableReport from '@/Features/Editor/Mesure/PrintableReport';
 import { bem, getClasseNames } from '@karsegard/react-compose';
 import { Container, LayoutFlexColumn, withGridArea } from '@karsegard/react-core-layout';
 import React, { useMemo, useRef } from 'react';
 import "react-datepicker/dist/react-datepicker.css";
 import { useReactToPrint } from 'react-to-print';
-import AsideEditor from './AsideEditor';
-import BIAEditor from './BIAEditor';
-import ComparisonTable from './ComparisonTable';
-import Recap from './Recap';
-import Serrement from './Serrement';
-import Comment from './Comment';
+import DefaultAsideEditor from './AsideEditor';
+import DefaultBIAEditor from './BIAEditor';
+import DefaultComparisonTable from './ComparisonTable';
+import DefaultRecap from './Recap';
+import DefaultSerrement from './Serrement';
+import DefaultCommentEditor from './Comment';
+import DefaultPrintableReport from '@/Features/Editor/Mesure/PrintableReport';
 
 
 const LayoutFlexColumnWithArea = withGridArea(LayoutFlexColumn);
@@ -23,6 +23,8 @@ const TabsWithArea = withGridArea(Tabs);
 const [__base_class, element, modifier] = bem('bia-mesure-editor')
 
 const Editor = props => {
+
+    const { BIAEditor,ComparisonTable, Serrement,Recap,AsideEditor,PrintableReport,CommentEditor } = props;
     const { t, oneDecimal, oneDecimalPct } = useTranslation();
     const {
         handleClickSave,
@@ -53,7 +55,7 @@ const Editor = props => {
 
 
     const result_columns = useMemo(() => ['norme', mesure.most_accurate_formula || 'kushner', 'gva'], [mesure.most_accurate_formula]);
-
+    console.log(mesure.bia)
     return (
         <MesureEditorLayout className={className}>
             <TabsWithArea tabIndexOffset={20} renderDisabledPanels={true} area="mesure-editor-main">
@@ -76,7 +78,7 @@ const Editor = props => {
                     <Recap />
                 </TabPanel>
             </TabsWithArea>
-            <Comment/>
+            <CommentEditor/>
             <LayoutFlexColumnWithArea style={{ gap: '10px' }} area="mesure-editor-aside">
                 <AsideEditor onValuesChange={_handleChange} handleClickSave={_handleClickSave} handlePrint={_handlePrint} data={mesure} />
             </LayoutFlexColumnWithArea>
@@ -105,8 +107,13 @@ Editor.defaultProps = {
 
     },
     custom_lists: {},
-    t: x => x,
-
+    BIAEditor: DefaultBIAEditor,
+    ComparisonTable: DefaultComparisonTable,
+    Serrement: DefaultSerrement,
+    Recap: DefaultRecap,
+    AsideEditor: DefaultAsideEditor,
+    PrintableReport: DefaultPrintableReport,
+    CommentEditor : DefaultCommentEditor ,
 }
 
 

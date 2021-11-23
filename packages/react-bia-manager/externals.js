@@ -9,7 +9,14 @@
 module.exports.external = [
     'electron',
     'electron-updater',
+    'faker',
+    'math-expression-evaluator',
+    'date-fns',
+    
+    'uuid',
+  
   ];
+  
   module.exports.react = [
     'react',
     'react-dom',
@@ -23,18 +30,34 @@ module.exports.external = [
     'redux-persist/lib/storage',
     'redux-logger','redux-thunk',
     'react-table',
-    "date-fns",
     "moment",
     "wouter",
     "recharts",
-    "classnames"
+    "classnames",
+    'react-datepicker',
+    'react-text-mask',
+    'react-to-print',
+    'prop-types',
+    'react-i18next',
+    '@material-ui',
+      '@material-ui/icons/Delete',
+  '@material-ui/icons/Person',
+  '@material-ui/icons/ArrowBack',
+  '@material-ui/icons/ArrowDropDown',
+  '@material-ui/icons/ArrowDropUp',
+  '@material-ui/icons/Info',
+  '@material-ui/icons/Assessment',
+  '@material-ui/icons/Print',
+    '@material-ui/icons/Print'
   ];
   module.exports.kda = [
     '@karsegard/react-core-layout',
     '@karsegard/react-redux',
     '@karsegard/react-hooks',
+    '@karsegard/bia-manager-theme-legacy',
     '@karsegard/react-compose',
     '@karsegard/bia-manager-theme',
+    '@karsegard/composite-js'
   ];
   
   

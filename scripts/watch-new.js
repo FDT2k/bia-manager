@@ -93,7 +93,7 @@ const setupExternalLibWatcher = (configFile,name) => (viteDevServer) => {
 
 
 const setupPreloadPackageWatcher = setupExternalLibWatcher('packages/preloader/vite.config.js', 'reload-page-on-preload-package-change');
-const setupReactLayout = setupExternalLibWatcher('packages/kda-react-core-layout/vite.config.js', 'reload-page-layout-change');
+const setupBIA = setupExternalLibWatcher('packages/react-bia-manager/vite.config.js', 'reload-page-layout-change');
 
 (async () => {
   try {
@@ -106,6 +106,7 @@ const setupReactLayout = setupExternalLibWatcher('packages/kda-react-core-layout
 
     await setupPreloadPackageWatcher(viteDevServer);
     await setupMainPackageWatcher(viteDevServer);
+    //await setupBIA(viteDevServer)
   } catch (e) {
     console.error(e);
     process.exit(1);

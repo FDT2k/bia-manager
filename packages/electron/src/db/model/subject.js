@@ -2,7 +2,7 @@ import mesure from './mesure'
 import { is_nil, enlist, is_empty, is_undefined } from '@karsegard/composite-js';
 import { key, keyval, spec } from '@karsegard/composite-js/ObjectUtils';
 import { spreadObjectPresentIn } from '@karsegard/composite-js/ReactUtils'
-import {_transform,_retrieve,_raw_to_object} from '../sqlcipher'
+import { _transform, _retrieve, _retrieve_from_raw, _retrieve_entity, _raw_to_object, _retrieve_row } from '../sqlcipher'
 const subject = (db, api) => {
 
     const schema = {
@@ -73,8 +73,29 @@ const subject = (db, api) => {
     }
 
 
-    module.create = (subject)=> {
-        let res = module.insert(subject,pkeys).run(_transform(schema,subject));
+
+    module.fetchWithMesures = id => {
+
+        let stmt = db.prepare("Select s.*,m.* from subjects as s left join mesures m on s.id=m.subject_id where s.id =@id").raw();
+
+        //  let result =  stmt.all({id});
+
+        let res;
+        for (let result of stmt.iterate({ id })) {
+            if (!res) {
+                res = _retrieve_entity('subjects', schema, stmt.columns(), result);
+            }
+
+            if (!res.mesures) {
+                res.mesures = [];
+            }
+            res.mesures.push(_mesure.retrieveFromRaw(stmt, result))
+        }
+
+       return res;
+    };
+    module.create = (subject) => {
+        let res = module.insert(subject, pkeys).run(_transform(schema, subject));
         return res.lastInsertRowid;
     }
 

@@ -39,6 +39,8 @@ export const Container = ({ selectors, actions }) => Component => props => {
         if (!is_nil(patient_id) && ((patient && patient_id != patient.id) || !is_empty(patient))) {
             handleFetch(patient_id).then(patient => {
                 dispatch(actions.edit_patient(patient));
+            }).catch(err=> {
+                console.error(err)
             })
         }
     }, [patient_id]);
@@ -92,6 +94,7 @@ export const Container = ({ selectors, actions }) => Component => props => {
 
         <Component
             {...props}
+
             handlers={handlers}
             data={patient}
             selectedMesureIndex={current_mesure_id}

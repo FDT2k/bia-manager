@@ -1,4 +1,4 @@
-import {_transform,_retrieve,_raw_to_object} from '../sqlcipher'
+import {_transform,_retrieve,_raw_to_object,_retrieve_entity} from '../sqlcipher'
 import { is_nil, enlist, is_empty, is_undefined } from '@karsegard/composite-js';
 import { key, keyval, spec } from '@karsegard/composite-js/ObjectUtils';
 import { spreadObjectPresentIn } from '@karsegard/composite-js/ReactUtils'
@@ -58,6 +58,9 @@ const mesure = (db, api) => {
             module.upsert(['uuid'])(_transform(schema, mesure))
         }
     })
+
+
+    module.retrieveFromRaw = (stmt,result) => _retrieve_entity('mesures',schema, stmt.columns(), result)
 
 
     return module;

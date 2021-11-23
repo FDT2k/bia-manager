@@ -1,4 +1,4 @@
-const { join,resolve } = require('path');
+const { join, resolve, dirname } = require('path');
 import reactRefresh from '@vitejs/plugin-react-refresh';
 const { chrome } = require('../../electron-vendors.config.json');
 import fs from 'fs/promises';
@@ -7,7 +7,8 @@ import mainpkg from '../../package.json';
 
 const PACKAGE_ROOT = __dirname;
 
-console.log ( 'ALIAS',resolve(PACKAGE_ROOT, 'src'))
+console.log('ALIAS', resolve(PACKAGE_ROOT, 'src'))
+console.log ( dirname(require.resolve('@karsegard/react-bia-manager/package.json')))
 module.exports = {
   base: '',
   define: {
@@ -22,6 +23,7 @@ module.exports = {
     exclude: [],
   },
   optimizeDeps: {
+    link: ['@karsegard/react-bia-manager'],
     esbuildOptions: {
       plugins: [
         {
@@ -33,14 +35,17 @@ module.exports = {
             }));
           },
         },
-        
+
       ],
     },
   },
+ 
   root: PACKAGE_ROOT,
   resolve: {
     alias: {
       '@': resolve(PACKAGE_ROOT, './src') + '/',
+      //'@karsegard/react-bia-manager': '/@linked/@karsegard/react-bia-manager/index.js',
+     // '/@linked/@karsegard/react-bia-manager/': resolve(dirname(require.resolve('@karsegard/react-bia-manager/package.json')),'../src')
     },
   },
   plugins: [reactRefresh()],
@@ -50,9 +55,9 @@ module.exports = {
     outDir: 'dist',
     assetsDir: './assets',
     rollupOptions: {
-   //   external: require('../../externals').default,
+      //   external: require('../../externals').default,
     },
     emptyOutDir: true,
   },
- 
+
 };

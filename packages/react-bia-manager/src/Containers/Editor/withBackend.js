@@ -1,25 +1,35 @@
-import React,{useEffect} from 'react';
+import React, { useEffect } from 'react';
 
 
 
-import {useBackend} from '@'
+import { useBackend } from '@'
 
 
 export default Component => (props) => {
-    const { get_subject,get_mesure } =  useBackend();
-    
-    
-    const { handlers:_handlers, ...rest} = props;
+    const { get_subject, get_mesure } = useBackend();
+
+    console.log('withBackend', props)
+    const { handlers: _handlers, ...rest } = props;
 
     const handleFetch = async patient_id => {
         return get_subject(patient_id)
     }
 
+    const handleMesureOpen = async (value, idx) => {
+
+    }
 
 
-    const handlers=  {
+    const handleMesureCreate = async (patient_id) => {
+
+    }
+
+
+    const handlers = {
         ..._handlers,
-        handleFetch
+        handleFetch,
+        handleMesureCreate,
+        handleMesureOpen,
     }
 
     return (
@@ -27,6 +37,6 @@ export default Component => (props) => {
         <Component
             {...rest}
             handlers={handlers}
-              />
+        />
     )
 }

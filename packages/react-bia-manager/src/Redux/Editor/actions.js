@@ -37,7 +37,7 @@ export default (getModule) => {
     actions.real_edit_patient = create(types.EDIT_PATIENT);
 
 
-    
+    actions.clear_bia = create(types.CLEAR_BIA);
 
     actions.added_patient = create(types.ADDED_PATIENT);
     actions.add_patient_failed = create(types.ERROR_ADD_PATIENT_UNDEF);
@@ -122,6 +122,7 @@ export default (getModule) => {
             let mesures = select_mesures(getState());
             const patient = select_edited_patient(getState());
 
+            
 
             let new_mesure_id = mesures.length;
 
@@ -144,7 +145,7 @@ export default (getModule) => {
             })
             //   dispatch(actions.refresh_normes());
             dispatch(actions.set_current_mesure(new_mesure_id))
-
+            dispatch(actions.clear_bia());
             return r;
         }
 
@@ -216,7 +217,7 @@ export default (getModule) => {
         return (dispatch, getState) => {
             const patient = select_edited_patient(getState());
             const bia_result_columns = select_result_columns(getState());
-            const normes = select_normes(getState(), { age: values.current_age })
+            const normes = select_normes(getState(), { age: values.current_age,sex:patient.gender })
             const results = recompute(patient, values, bia_result_columns, normes);
 
             return dispatch({
@@ -328,7 +329,7 @@ export default (getModule) => {
                 if (!patient) {
                     return dispatch(actions.recap_error_patient_fail({}))
                 }
-                const normes = select_normes(getState(), { age: patient.age })
+                const normes = select_normes(getState(), { age: patient.age,sex:patient.gender })
 
                 let mesures = [...patient.mesures] // NO selector here
 
@@ -411,7 +412,8 @@ export default (getModule) => {
     actions.update_fds = values => (dispatch, getState) => {
 
         const mesure = select_edited_mesure(getState());
-        const normes = select_normes(getState(), { age: mesure.current_age })
+        const patient = select_edited_patient(getState());
+        const normes = select_normes(getState(), { age: mesure.current_age,sex:patient.gender })
 
         dispatch(submodules.fds.actions.update({ ...values, normes }));
 

@@ -43,7 +43,7 @@ module.exports = {
     },
   },
   build:{
-
+    minify:false,
    
     lib: {
       entry: resolve(PACKAGE_ROOT, 'src/index.js'),

@@ -13,7 +13,6 @@ export default getModule => {
 
 
    module.select_normes = createSelector([baseSelector, (state, args) => args || {}], ( state, args) => {
-      
       const { age,sex } = args;
   
       let normes = safe_array(`byKey.${sex}`, state);
