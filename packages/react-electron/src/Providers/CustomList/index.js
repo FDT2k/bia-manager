@@ -18,8 +18,10 @@ export default ({ children }) => {
         if (ready) {
             get_lists().then(res => {
                 setList(res)
+
                 return get_forms()
             }).then(forms => {
+
                 setForms(forms)
             })
 

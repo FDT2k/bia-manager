@@ -24,13 +24,25 @@ const TestListProvider = props => {
 
     return (
         <CustomListProvider lists={{
-            sport_rate:[
+            ethnological_groups:[
                 {'unkown':'Inconnu'},
                 {'moderate':'Modéré'},
                 {'high':'Normal'},
                 {'average':'Elevé'},
             ],
-            sport_type:[
+            pathological_groups:[
+                {'unkown':'Inconnu'},
+                {'moderate':'Modéré'},
+                {'high':'Normal'},
+                {'average':'Elevé'},
+            ],
+            physical_activity_rate:[
+                {'unkown':'Inconnu'},
+                {'moderate':'Modéré'},
+                {'high':'Normal'},
+                {'average':'Elevé'},
+            ],
+            physical_activity_type:[
                 {'unkown':'Inconnu'},
                 {'moderate':'Modéré'},
                 {'high':'Normal'},
@@ -49,12 +61,26 @@ const TestListProvider = props => {
                 'europeen',
                 'europeen',
             ]
+        }} forms={{
+            "create_subject": [
+                { list_key: 'pathological_groups', path: 'groups.patho' },
+                { list_key: 'ethnological_groups', path: 'groups.ethno' },
+                { list_key: 'genders', path: 'gender' },
+            ],
+            "edit_subject": [
+                { list_key: 'pathological_groups', path: 'groups.patho' },
+                { list_key: 'genders', path: 'gender' },
+            ],
+            "mesure": [
+                { list_key: 'physical_activity_type', path: 'sport.type' },
+                { list_key: 'physical_activity_rate', path: 'sport.rate' },
+                { list_key: 'machines', path: 'machines' },
+            ]
         }}>
             {props.children}
         </CustomListProvider>)
 }
-//const Editor = withReduxModule(store)(withBackend(EditorComponent))
-//const Editor = withReduxModule(store)(EditorComponent)
+
 const Editor = withBackend(withReduxModule(store)(EditorComponent))
 export default props => {
     const lists = {};

@@ -15,9 +15,8 @@ export const Component = props => {
     const {t}= useTranslation();
     const [editedGroup, setEditedGroup] = useState("a");
 
-    const {lists} = useCustomList();
+    const {lists,forms} = useCustomList();
     const {onValuesChange,data} = props
-
 
     const {values,handleChangeValue,inputProps,replaceValues,handleChange} = useFieldValues(data,{usePath:true,onValuesChange})
 
@@ -73,11 +72,11 @@ export const Component = props => {
                 />
             </Field>
             <Field className="activite-physique" label={t("Activité physique")}>
-                <Select tabIndex={2}  {...inputProps('sport.rate')} options={safe_path([], 'sport_rate', lists)} />
+                <Select tabIndex={2}  {...inputProps('sport.rate')} options={safe_path([], 'physical_activity_rate', lists)} />
 
             </Field>
             <Field className="type-activite-physique" label={t("Type d'Activité physique")}>
-                <Select tabIndex={2}  {...inputProps('sport.type')} options={safe_path([], 'sport_type', lists)} />
+                <Select tabIndex={2}  {...inputProps('sport.type')} options={safe_path([], 'physical_activity_type', lists)} />
 
             </Field>
             <Field className="fumeur" label={t("Fumeur")}>

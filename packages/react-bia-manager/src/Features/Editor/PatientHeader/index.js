@@ -42,8 +42,8 @@ const PatientHeader = props => {
         'gender': { type: 'select', editable: true, label:  t('Sexe'),options:safe_path([],'gender',lists) },
         'usual_height': { type: 'text', editable: true, label:  t('Taille (cm)') },
         'usual_weight': { type: 'text', editable: true, label:  t('Poids habituel (kg)') },
-        'groups.patho': { type: 'select', editable: true, label:  t('Groupe pathologique'), options:safe_path([],'patho',lists)},
-        'groups.ethno': { type: 'select', editable: true, label:  t('Groupe ethnologique'), options:safe_path([],'ethno',lists)},
+        'groups.patho': { type: 'select', editable: true, label:  t('Groupe pathologique'), options:safe_path([],'pathological_groups',lists)},
+        'groups.ethno': { type: 'select', editable: true, label:  t('Groupe ethnologique'), options:safe_path([],'ethnological_groups',lists)},
         'mesure_count': { type: 'text', editable: false, label:  t('Nombre de mesures') }
     }
     useEffect(() => {

@@ -13,7 +13,7 @@ import {useTranslation,useCustomList} from '@'
 
 export default props => {
     const {t,oneDecimal,oneDecimalPct} = useTranslation();
-    const lists = useCustomList();
+    const {lists} = useCustomList();
 
     const {handleClickSave,handlePrint,data,onValuesChange} = props;
 

@@ -3,6 +3,7 @@ import { Provider as ViewProvider, useViewProvider } from "@/Context/BIAViews"
 import { Provider as TranslationProvider, useTranslation } from "@/Context/Translation"
 import { Provider as CustomListProvider, useCustomList } from "@/Context/CustomList"
 import { Provider as BackendProvider, useBackend } from "@/Context/Backend"
+import { Provider as EditorProvider, useEditor } from "@/Context/Editor"
 
 import {useLocation} from 'wouter';
 
@@ -54,6 +55,7 @@ export {
     useCustomList,
     useViewProvider,
     useBackend,
+    EditorProvider, useEditor,
 
     Modal,
     Button,

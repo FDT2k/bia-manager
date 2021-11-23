@@ -5,87 +5,97 @@ import { BackendProvider } from '@karsegard/react-bia-manager'
 
 import { useFileProvider } from '@/Context/File'
 import { v4 as uuidv4 } from 'uuid';
-import {useHostProvider} from '@/Context/Host'
-import {reduceListByKeys} from '@karsegard/composite-js'
+import { useHostProvider } from '@/Context/Host'
+import { reduceListByKeys } from '@karsegard/composite-js'
 import { is_empty } from '@karsegard/composite-js';
 import { useTranslation } from '@karsegard/react-bia-manager';
 
 export default ({ children }) => {
 
-    const { actions: { sqlite_search,sqlite_custom_search,sqlite_create,sqlite_query,sqlite_model } } = useElectron();
-    const { selectors: { locked,file },actions:{reload_file_state} } = useFileProvider();
+    const { actions: { sqlite_search, sqlite_custom_search, sqlite_create, sqlite_query, sqlite_model } } = useElectron();
+    const { selectors: { locked, file }, actions: { reload_file_state } } = useFileProvider();
     const [subject, setState] = useState({})
-    const {add_error} = useHostProvider();
+    const { add_error } = useHostProvider();
 
-    const {dateHumanToSys} = useTranslation();
-    
-    const [search_count,setSearchCount] = useState(0);
-    const [stats,setStats] = useState({});
+    const { dateHumanToSys } = useTranslation();
 
-    const [ready,setReady] = useState(false);
+    const [search_count, setSearchCount] = useState(0);
+    const [stats, setStats] = useState({});
 
-    const search = async ([tag] )=>{
-        
+    const [ready, setReady] = useState(false);
+
+    const search = async ([tag]) => {
+
         let result = await sqlite_search(tag)
         setSearchCount(result.length);
         return result;
     }
 
-    const search_custom_filters = async (arg )=>{
+    const search_custom_filters = async (arg) => {
         let result = await sqlite_custom_search(arg)
         setSearchCount(result.length);
 
         return result;
-        
+
     }
 
 
-    const create_database = async (arg)=>{
-        sqlite_create(arg).then(res=>{
+    const create_database = async (arg) => {
+        sqlite_create(arg).then(res => {
             reload_file_state();
         }).catch(add_error)
     }
 
 
-    const fetch_stats = async ()=>{
-        let subjects = await sqlite_query({query:"select count(*) as count from subjects",values:{},fn:'get'})
-        let mesures = await sqlite_query({query:"select count(*) as count from mesures",values:{}, fn:'get'})
-        setStats(stats=>({...stats,count:subjects.count,count_mesures:mesures.count}))
+    const fetch_stats = async () => {
+        let subjects = await sqlite_query({ query: "select count(*) as count from subjects", values: {}, fn: 'get' })
+        let mesures = await sqlite_query({ query: "select count(*) as count from mesures", values: {}, fn: 'get' })
+        setStats(stats => ({ ...stats, count: subjects.count, count_mesures: mesures.count }))
     }
 
-    const get_lists = async ()=> {
+    const get_lists = async () => {
 
-        let lists = await sqlite_query({query:"select list_key,key as id, value from lists where status='active' order by sort asc",values:{}});
-        lists = reduceListByKeys(['list_key'],lists);
+        let lists = await sqlite_query({ query: "select list_key,key as id, value from lists where status='active' order by sort asc", values: {} });
+        lists = reduceListByKeys(['list_key'], lists);
         return lists;
     }
 
-    const get_forms = async ()=> {
-        
-        return {"create_subject":[
-                {list_key:'pathological_groups',path:'groups.patho'},
-                {list_key:'ethnological_groups',path:'groups.ethno'},
-                {list_key:'genders',path:'gender'},
+    const get_forms = async () => {
+
+        return {
+            "create_subject": [
+                { list_key: 'pathological_groups', path: 'groups.patho' },
+                { list_key: 'ethnological_groups', path: 'groups.ethno' },
+                { list_key: 'genders', path: 'gender' },
+            ],
+            "edit_subject": [
+                { list_key: 'pathological_groups', path: 'groups.patho' },
+                { list_key: 'genders', path: 'gender' },
+            ],
+            "mesure": [
+                { list_key: 'physical_activity_type', path: 'sport.type' },
+                { list_key: 'physical_activity_rate', path: 'sport.rate' },
+                { list_key: 'machines', path: 'machines' },
             ]
         }
     }
 
 
-    const create_subject = async (values)=>{
+    const create_subject = async (values) => {
         debugger;
-        if(!values.uuid){
+        if (!values.uuid) {
             values.uuid = uuidv4();
         }
-        if(values.birthdate){
-            values.birthdate= dateHumanToSys(values.birthdate)
+        if (values.birthdate) {
+            values.birthdate = dateHumanToSys(values.birthdate)
         }
-        return await sqlite_model({model:"subject",fn:"create",args:[values]})
+        return await sqlite_model({ model: "subject", fn: "create", args: [values] })
 
     }
 
 
-    const get_subject = async (id)=> {
-        let subject = await sqlite_model({model:"subject",fn:"fetchWithMesures",args:[id]})
+    const get_subject = async (id) => {
+        let subject = await sqlite_model({ model: "subject", fn: "fetchWithMesures", args: [id] })
 
         debugger;
         return subject;
@@ -93,24 +103,24 @@ export default ({ children }) => {
 
     useEffect(() => {
         if (!locked && !is_empty(file)) {
-          fetch_stats();
+            fetch_stats();
         }
     }, [ready])
 
     useEffect(() => {
-        
+
         if (!locked && !is_empty(file)) {
             setReady(true)
-        }else{
+        } else {
             setReady(false)
         }
-    }, [locked,file])
+    }, [locked, file])
 
 
 
     const db_name = file
     return (
-        <BackendProvider type="sqlite" actions={{get_subject,ready,search,search_custom_filters,create_database,fetch_stats,stats,db_name,search_count,get_lists,get_forms,create_subject}}>
+        <BackendProvider type="sqlite" actions={{ get_subject, ready, search, search_custom_filters, create_database, fetch_stats, stats, db_name, search_count, get_lists, get_forms, create_subject }}>
             {/*<pre>{JSON.stringify(subject, null, 3)}</pre>*/}
             {children}
             <SQLiteUnlock />
