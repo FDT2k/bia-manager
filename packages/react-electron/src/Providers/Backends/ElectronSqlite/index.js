@@ -12,7 +12,7 @@ import { useTranslation } from '@karsegard/react-bia-manager';
 
 export default ({ children }) => {
 
-    const { actions: { sqlite_search,sqlite_custom_search,sqlite_create,sqlite_query } } = useElectron();
+    const { actions: { sqlite_search,sqlite_custom_search,sqlite_create,sqlite_query,sqlite_model } } = useElectron();
     const { selectors: { locked,file },actions:{reload_file_state} } = useFileProvider();
     const [subject, setState] = useState({})
     const {add_error} = useHostProvider();
@@ -21,6 +21,8 @@ export default ({ children }) => {
     
     const [search_count,setSearchCount] = useState(0);
     const [stats,setStats] = useState({});
+
+    const [ready,setReady] = useState(false);
 
     const search = async ([tag] )=>{
         
@@ -77,7 +79,7 @@ export default ({ children }) => {
         if(values.birthdate){
             values.birthdate= dateHumanToSys(values.birthdate)
         }
-        return await sqlite_query({type:"geninsert",table:"subjects",values,fn:"run"})
+        return await sqlite_model({model:"subject",fn:"create",args:[values]})
 
     }
 
@@ -86,10 +88,18 @@ export default ({ children }) => {
           fetch_stats();
         }
     }, [locked])
-    
+
+    useEffect(() => {
+        if (!locked && !is_empty(file)) {
+            setReady(true)
+        }else{
+            setReady(false)
+        }
+    }, [locked,file])
+
     const db_name = file
     return (
-        <BackendProvider type="sqlite" actions={{search,search_custom_filters,create_database,fetch_stats,stats,db_name,search_count,get_lists,get_forms,create_subject}}>
+        <BackendProvider type="sqlite" actions={{ready,search,search_custom_filters,create_database,fetch_stats,stats,db_name,search_count,get_lists,get_forms,create_subject}}>
             {/*<pre>{JSON.stringify(subject, null, 3)}</pre>*/}
             {children}
             <SQLiteUnlock />

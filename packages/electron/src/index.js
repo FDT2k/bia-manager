@@ -8,7 +8,7 @@ import { is_empty, is_nil } from '@karsegard/composite-js';
 import menuFactoryService from './menu';
 
 import updater from "./updater"
-import openDB, { createdb } from './sqlcipher'
+import openDB, { createdb } from './db'
 
 import fileContext, { determine_file_type } from './fileContext';
 
@@ -322,6 +322,20 @@ ipcMain.handle('sqlite-query', async (event, { type, table, query, values, filte
   }
 
 })
+
+
+
+ipcMain.handle('sqlite-model', async (event, { model,fn,args}) => {
+  try {
+    
+    return currentSQLite[model][fn](...args);
+  } catch (e) {
+    return Promise.reject(e);
+  }
+
+})
+
+
 
 ipcMain.handle('sqlite-search', async (event, tag) => {
   try {

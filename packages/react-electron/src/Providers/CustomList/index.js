@@ -3,40 +3,28 @@ import { CustomListProvider } from '@karsegard/react-bia-manager';
 
 import { useBackend } from '@karsegard/react-bia-manager';
 
+export default ({ children }) => {
 
-export default ({children}) => {
 
-
-    const {get_lists, get_forms} = useBackend();
-    const [lists,setList]= useState({})
-    const [forms,setForms]= useState({})
-
-    const [patient, setPatient] = useState( {
-        firstname:'',
-        lastname:'',
-        usual_height:'',
-        usual_weight:'',
-        groups:{
-            patho:'',
-            ethno:''
-        },
-        birthdate: ''
-    });
+    const { get_lists, get_forms, ready } = useBackend();
+    const [lists, setList] = useState({})
+    const [forms, setForms] = useState({})
 
 
 
-    useEffect(()=>{
-        get_lists().then(res=> {
 
-            setList(res)
-            return get_forms()
-        }).then(res=>{
-            setForms(res)
 
-           
-        })
+    useEffect(() => {
+        if (ready) {
+            get_lists().then(res => {
+                setList(res)
+                return get_forms()
+            }).then(forms => {
+                setForms(forms)
+            })
 
-    },[])
+        }
+    }, [ready,get_forms,get_lists])
     return (
 
 

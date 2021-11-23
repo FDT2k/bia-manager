@@ -190,7 +190,7 @@ Page.defaultProps = {
             patho:'VENS2018',
             ethno:'Caucasien'
         },
-        birthdate: ''
+        birthdate: new Date()
     },
     lists:{"ethnological_groups":[
         {

@@ -1,8 +1,6 @@
 import fs from 'fs/promises';
 
 
-import openDB from './sqlcipher'
-
 const size = async file => {
     const stats = await fs.stat(file)
     return stats.size;
