@@ -95,9 +95,10 @@ export default ({ children }) => {
         if (!locked && !is_empty(file)) {
           fetch_stats();
         }
-    }, [locked])
+    }, [ready])
 
     useEffect(() => {
+        
         if (!locked && !is_empty(file)) {
             setReady(true)
         }else{
