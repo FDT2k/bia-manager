@@ -59,6 +59,9 @@ export const _from_json = (values) => {
 
 
 export const _from_array = (values) => {
+    if(!values){
+        return []
+    }
     return values.split(',')
 }
 

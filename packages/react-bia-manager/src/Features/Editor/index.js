@@ -33,7 +33,6 @@ const Editor = props => {
 
     const { handleGoBack, handlePrint, handleMesureCreate, handleMesureOpen, handleMesureDelete, handleSubjectChange, handleChange, handleClickSave } = Object.assign({}, defaultHandlers, handlers);
 
-
     const { RightFooter, ...remaining } = renderers;
     const { lines, data, mesure, selectedMesureIndex, ...rest } = remaining
 

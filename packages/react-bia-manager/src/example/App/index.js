@@ -5,6 +5,7 @@ import StaticEditor from '@/example/StaticEditor'
 import StaticSearch from '@/example/StaticSearch'
 import StaticCreate from '@/example/StaticCreate'
 import SearchWithBackend from '@/example/SearchWithBackend'
+import EditorWithBackend from '@/example/EditorWithBackend'
 import TestMesureEditorRedux from '@/example/TestMesureEditorRedux'
 import IntegrationEditor from '@/Integration/Editor'
 import DatabaseImport from '@/example/Database/Import'
@@ -52,6 +53,11 @@ const routes = [
         path: '/database/import',
         component: DatabaseImport,
         menu: 'Database import'
+    },
+    {
+        path: '/backend/editor',
+        component: EditorWithBackend,
+        menu: 'Editor With backend'
     }
 ]
 
@@ -62,7 +68,7 @@ export default props => {
 
         <Switch>
             {routes.map((route,idx) => {
-                return <Route key={idx} path={route.path}><route.component /></Route>
+                return <Route key={idx} path={route.path}>{params => <route.component params={params} />}</Route>
             })}
 
             <Route>

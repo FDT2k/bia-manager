@@ -15,6 +15,11 @@ export default props => {
 
     
     return (<SearchPage stats={stats} db_name={db_name} search_count={search_count}>
-        <Search handlers={{handleCreate:_=>window.location.hash='#/create_subject'}}/>
+        <Search handlers={{
+            handlehandleCreate:_=>window.location.hash='#/create_subject',
+            handleSelectRow: (idx,patient)=> {
+                window.location.hash=`#/editor/${patient.id}`
+            }
+            }}/>
     </SearchPage>)
 }

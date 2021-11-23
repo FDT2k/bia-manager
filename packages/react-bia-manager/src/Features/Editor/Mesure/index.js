@@ -27,7 +27,6 @@ const Editor = props => {
     const {
         handleClickSave,
         className,
-        handleGoBack,
         handleChange: parentHandleChange,
         mesure} = getClasseNames(__base_class, props)
 

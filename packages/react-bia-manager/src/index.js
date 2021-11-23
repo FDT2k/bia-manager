@@ -29,6 +29,14 @@ import WelcomeScreen from '@/Features/WelcomeScreen'
 
 import DatabaseImportFeature from '@/Features/Database'
 
+
+import EditorFeature from '@/Features/Editor';
+import PatientHeaderFeature from '@/Features/Editor/PatientHeader';
+import MesureEditorFeature from '@/Features/Editor/Mesure';
+import ListMesureFeature from '@/Features/Editor/ListMesure';
+
+
+
 export {
     BIARouter,
     useLocation,
@@ -66,5 +74,10 @@ export {
     Field,
     Input,
 
-    DatabaseImportFeature
+    DatabaseImportFeature,
+
+    EditorFeature,
+    PatientHeaderFeature,
+    MesureEditorFeature,
+    ListMesureFeature
 }

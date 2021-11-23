@@ -37,6 +37,8 @@ export default (getModule) => {
     actions.real_edit_patient = create(types.EDIT_PATIENT);
 
 
+    
+
     actions.added_patient = create(types.ADDED_PATIENT);
     actions.add_patient_failed = create(types.ERROR_ADD_PATIENT_UNDEF);
     actions.create_patient = createAsync(actions.add_patient_failed, actions.added_patient)
@@ -152,8 +154,8 @@ export default (getModule) => {
     actions.edit_mesure = (patient_id, mesure_id) => {
         return (dispatch, getState) => {
             let mesures = select_mesures(getState());
-
-            if (mesures.length >= mesure_id) {
+            debugger;
+            if (mesures.length <= mesure_id) {
                 return dispatch({
                     type: types.ERROR,
                     payload: "mesure doesn't exist"

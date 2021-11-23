@@ -3,6 +3,7 @@ import { createActionTypes, createPrefixableActionTypes } from '@karsegard/react
 
 
 export const ACTIONS_TYPES = createActionTypes(
+
     'EDIT_PATIENT',
     'ADDED_PATIENT',
     'EDIT_MESURE',
