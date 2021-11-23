@@ -21,6 +21,11 @@ import {
     SearchReduxContainer
 } from '@/Containers/Search'
 
+import {
+    withBackend as editorWithBackend,
+    withReduxModule as editorWithReduxModule,
+    EditorReduxContainer
+} from '@/Containers/Editor'
 
 import Field from '@/Components/Form/Fields'
 import Input from '@/Components/Form/Input'
@@ -67,6 +72,12 @@ export {
     SearchFeature,
     SearchPage,
 
+
+    editorWithBackend,
+    editorWithReduxModule,
+    EditorReduxContainer,
+    EditorFeature,
+
     CreateSubjectFeature,
 
 
@@ -76,7 +87,6 @@ export {
 
     DatabaseImportFeature,
 
-    EditorFeature,
     PatientHeaderFeature,
     MesureEditorFeature,
     ListMesureFeature
