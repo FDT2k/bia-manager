@@ -32,7 +32,7 @@ const PatientHeader = props => {
     const {className} = rest;
 
 
-    const lists = useCustomList();
+    const {lists} = useCustomList();
 
     const {t} = useTranslation();
 

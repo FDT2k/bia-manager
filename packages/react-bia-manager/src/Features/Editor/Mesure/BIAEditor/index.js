@@ -15,7 +15,7 @@ export const Component = props => {
     const {t}= useTranslation();
     const [editedGroup, setEditedGroup] = useState("a");
 
-    const lists = useCustomList();
+    const {lists} = useCustomList();
     const {onValuesChange,data} = props
 
 

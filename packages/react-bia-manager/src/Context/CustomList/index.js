@@ -21,7 +21,6 @@ export const makeProvider = (Context) => (props) => {
     }
     let lists = Object.assign({},defaultValue,_lists)
     let forms = Object.assign({},defaultForms,_forms)
-
     return (
         <Context.Provider value={{lists,forms}}>
             {children}

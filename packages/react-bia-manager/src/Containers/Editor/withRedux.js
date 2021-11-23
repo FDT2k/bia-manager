@@ -51,8 +51,6 @@ export const Container = ({ selectors, actions }) => Component => props => {
     useEffect(() => {
         //  console.log('ba', mesure_id,patient)
         if (!is_empty(patient)) {
-            debugger;
-            console.log(Object.keys(patient).length,is_empty(patient))
             if (!is_nil(mesure_id) && mesure_id < current_mesures.length) {
                 dispatch(actions.edit_mesure(patient_id, mesure_id));
                 dispatch(actions.recompute_current_mesure())

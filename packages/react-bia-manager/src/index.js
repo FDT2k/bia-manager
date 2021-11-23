@@ -40,7 +40,6 @@ import PatientHeaderFeature from '@/Features/Editor/PatientHeader';
 import MesureEditorFeature from '@/Features/Editor/Mesure';
 import ListMesureFeature from '@/Features/Editor/ListMesure';
 
-debugger;
 
 export {
     BIARouter,

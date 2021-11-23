@@ -16,18 +16,30 @@ const TestListProvider = props => {
 
     return (
         <CustomListProvider value={{
-            machines: [],
-            sport_rate: [
-
+            sport_rate:[
+                {'unkown':'Inconnu'},
+                {'moderate':'Modéré'},
+                {'high':'Normal'},
+                {'average':'Elevé'},
             ],
-            sport_type: [
-
+            sport_type:[
+                {'unkown':'Inconnu'},
+                {'moderate':'Modéré'},
+                {'high':'Normal'},
+                {'average':'Elevé'},
             ],
-            machines: [
-
+            machines:[
+                { id: '', name: t('- Choisissez une valeur -') },
+                {'unkown':'Inconnu'},
+                {'moderate':'Modéré'},
+                {'high':'Normal'},
+                {'average':'Elevé'},
             ],
-            ethno: [
-
+            ethno:[
+                'europeen',
+                'europeen',
+                'europeen',
+                'europeen',
             ]
         }}>
             {props.children}
