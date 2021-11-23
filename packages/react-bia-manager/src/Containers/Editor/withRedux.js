@@ -79,7 +79,6 @@ export const Container = ({ selectors, actions }) => Component => props => {
 
   
     const handleChange = (values, changed_field) => {
-
         dispatch(actions.change_mesure(values,changed_field))
     }
 
