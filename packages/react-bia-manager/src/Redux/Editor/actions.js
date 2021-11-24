@@ -83,14 +83,20 @@ export default (getModule) => {
 
     actions.save = () => async (dispatch, getState) => {
         const patient_id = select_current_patient_id(getState());
+        const patient = select_edited_patient(getState());
         const mesure = select_edited_mesure(getState());
         const mesure_id = select_current_mesure_id(getState());
-        return dispatch(create(types.SAVE, {
+
+        
+
+        dispatch(create(types.SAVE, {
             patient_id,
             mesure,
             mesure_id
-
         }));
+        if(patient.mesures.length >= mesure_id){
+            dispatch(actions.set_current_mesure(mesure_id))
+        }
     }
 
 

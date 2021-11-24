@@ -46,6 +46,7 @@ export const Container = ({ selectors, actions }) => (Component,MesureEditor) =>
     const {  patient_id, mesure_id, handlers: _handlers, ...rest } = props;
 
     const { handleFetch,
+        handleSave,
         handleMesureCreate:_handleMesureCreate,
         handleMesureOpen:_handleMesureOpen } = _handlers
     const dispatch = useDispatch();
@@ -63,6 +64,7 @@ export const Container = ({ selectors, actions }) => (Component,MesureEditor) =>
         if (!is_nil(patient_id) && ((patient && patient_id != patient.id) || !is_empty(patient))) {
             handleFetch(patient_id).then(patient => {
                 dispatch(actions.edit_patient(patient));
+                dispatch(actions.create_mesure(patient_id))
             }).catch(err=> {
                 console.error(err)
             })
@@ -70,10 +72,9 @@ export const Container = ({ selectors, actions }) => (Component,MesureEditor) =>
     }, [patient_id]);
 
 
-
+/*
 
     useEffect(() => {
-        //  console.log('ba', mesure_id,patient)
         if (!is_empty(patient)) {
             if (!is_nil(mesure_id) && mesure_id < current_mesures.length) {
                 dispatch(actions.edit_mesure(patient_id, mesure_id));
@@ -83,7 +84,7 @@ export const Container = ({ selectors, actions }) => (Component,MesureEditor) =>
             }
 
         }
-    }, [mesure_id, patient]);
+    }, [mesure_id, patient]);*/
 
 
     const handleMesureCreate = _ => {
@@ -91,6 +92,22 @@ export const Container = ({ selectors, actions }) => (Component,MesureEditor) =>
         dispatch(actions.create_mesure(patient_id))
 
     }
+
+    const handleClickSave = _ => {
+        Promise.resolve(dispatch(actions.save())).then(
+            res => {
+//put save function here
+            }
+        )
+            // .then(_=>update_patient(patient.id, patient, mesure, current_mesure_id))
+            /*.then(res => {
+                if (current_mesure_id <= current_mesures.length) {
+                    setLocation(`/editor/${patient_id}/${current_mesure_id}`);
+                }
+            })*/
+
+    }
+    
 
     const handleMesureOpen = (value, idx) => {
         if (idx < current_mesures.length) {
@@ -108,6 +125,8 @@ export const Container = ({ selectors, actions }) => (Component,MesureEditor) =>
 
     const handlers = {
         ..._handlers,
+        
+        handleClickSave,
         handleMesureCreate,
         handleMesureOpen,
         handleChange
