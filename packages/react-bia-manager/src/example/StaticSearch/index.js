@@ -1,5 +1,5 @@
 import { TranslationProvider } from '@';
-import { Page } from '@/Features/Search';
+import { Page,Component } from '@/Features/Search';
 import { Fullscreen } from '@karsegard/react-core-layout';
 import React from 'react';
 
@@ -27,7 +27,9 @@ export default props => {
         <Fullscreen>
         <TranslationProvider value={{t:translate}}>
       
-            <Page/>
+            <Page>
+                <Component results={[{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},]}/>
+                </Page>
         </TranslationProvider>
         </Fullscreen>
     )
