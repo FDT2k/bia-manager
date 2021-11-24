@@ -120,5 +120,13 @@
    "Droite": "Droite",
    "poids (kg)": "poids (kg)",
    "masse maigre": "masse maigre",
-   "masse grasse": "masse grasse"
+   "masse grasse": "masse grasse",
+   "Evolution de la composition corporelle": "Evolution de la composition corporelle",
+   "Votre position par rapport aux normes": "Votre position par rapport aux normes",
+   "Indice de masse maigre": "Indice de masse maigre",
+   "masse maigre / taille": "masse maigre / taille",
+   "Indice de masse grasse": "Indice de masse grasse",
+   "masse grasse / taille": "masse grasse / taille",
+   "Crée avec BIM": "Crée avec BIM",
+   "Mesure de la composition corporelle par bio-impédance électrique": "Mesure de la composition corporelle par bio-impédance électrique"
 }

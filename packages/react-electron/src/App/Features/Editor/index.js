@@ -12,5 +12,5 @@ const Editor = ReduxEditor(editorModule,EditorFeature)
 export default props => {
     const {params} = props;
     return (<>
-    <Editor {...params}/></>)
+    <Editor {...params} handlers={{handleGoBack:_=> window.location.href='#/search'}}/></>)
 }
