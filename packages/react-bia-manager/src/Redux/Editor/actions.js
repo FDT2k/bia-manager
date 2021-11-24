@@ -153,9 +153,9 @@ export default (getModule) => {
 
 
     actions.edit_mesure = (patient_id, mesure_id) => {
+        console.log('test')
         return (dispatch, getState) => {
             let mesures = select_mesures(getState());
-            debugger;
             if (mesures.length <= mesure_id) {
                 return dispatch({
                     type: types.ERROR,

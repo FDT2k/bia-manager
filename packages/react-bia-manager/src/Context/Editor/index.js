@@ -1,20 +1,25 @@
 import React, { createContext, useContext } from 'react';
 
-import {compose,curry, identity, is_nil } from '@karsegard/composite-js';
+import { compose, curry, identity, is_nil } from '@karsegard/composite-js';
 
 
 
 export const Context = createContext(null)
 
-export const makeProvider = (Context) => (props) => {
-    const { children, selectors,actions } = props;
+export const makeProvider = (Context) =>  {
 
-    
-    return (
-        <Context.Provider value={{selectors,actions}}>
-            {children}
-        </Context.Provider>
-    )
+  
+
+    return (props) => {
+        const { children, selectors, actions } = props;
+
+
+        return (
+            <Context.Provider value={{ selectors:Module.selectors, actions:Module.actions }}>
+                {children}
+            </Context.Provider>
+        )
+    }
 }
 
 
@@ -30,6 +35,7 @@ export const makeUse = Context => _ => {
 export const Provider = makeProvider(Context);
 
 export const useEditor = makeUse(Context);
+
 
 
 

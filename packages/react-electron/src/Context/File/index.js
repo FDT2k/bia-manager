@@ -99,7 +99,6 @@ export const makeProvider = (Context) => {
 
             });
 
-
         }
 
         const reload_file_state = _=> {
