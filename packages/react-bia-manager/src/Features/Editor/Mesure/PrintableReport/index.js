@@ -1,31 +1,29 @@
-import { safe_path } from '@karsegard/composite-js';
-import FFMIChart from '@/Components/Charts/Indice';
 
-import MassChart from '@/Components/Charts/Mass';
-import RecapGrid from '@/Components/RecapGrid';
+import React from 'react';
+
 import { ComponentWithArea } from '@karsegard/react-core-layout';
 import {LayoutFlex,LayoutFlexColumn} from '@karsegard/react-core-layout'
 
 import {Grid} from '@karsegard/react-core-layout'
-import React from 'react';
-import { dateSysToHuman } from '@/references/format';
+import { useTranslation } from '@';
 
 import RecapFDS from '@/Components/RecapGrid';
+import Header from '@/Features/Editor/Mesure/PrintableReport/Header';
+import IndiceChart from '@/Components/Charts/Indice';
+import MassChart from '@/Components/Charts/Mass';
+import RecapGrid from '@/Components/RecapGrid';
+
+
 
 export const Component =  props => {
+    const {IndiceChartComponent,
+        RecapFDSComponent,
+        RecapGridComponent,
+        HeaderComponent,
+        MassChartComponent} = props;
 
-    const {
-     mesure   ,
-     patient   ,
-     recap   ,
-     list_dates   ,
-     mass_chart   ,
-     norm_chart   ,
-     get_current_bia   ,
-    } = props;
-
-    const current_bia = get_current_bia(['fmi','ffmi'])
-    const safe_string = safe_path('');
+        
+    const {t,dateSysToHuman} = useTranslation();
     return (
         <Grid
             className="report"
@@ -46,54 +44,51 @@ export const Component =  props => {
             ]}
         >
             <ComponentWithArea area="header" >
-                <h3>  Mesure de la composition corporelle par bio-impédance électrique</h3>
-                <LayoutFlex justBetween>
-                    <div>
-                        <div>  Nom: {safe_string('lastname',patient)}</div>
-                        <div>  Prénom:  {safe_string('firstname',patient)} </div>
-                    </div>
-                    <div>  Date de naissance:  {safe_string('birthdate',patient)}</div>
-                </LayoutFlex>
+               <HeaderComponent/>
             </ComponentWithArea>
-
             <ComponentWithArea area="r" >
-                <RecapGrid data={recap} headers={list_dates} />
+                <RecapGridComponent/>
             </ComponentWithArea>
             <ComponentWithArea area="z" >
-                <h3>Evolution de la composition corporelle</h3></ComponentWithArea>
+                <h4>{t('Evolution de la composition corporelle')}</h4></ComponentWithArea>
             <ComponentWithArea area="a" >
-                <MassChart width={550}  height={200}  data={mass_chart} />
+                <MassChartComponent width={550}  height={200} />
             </ComponentWithArea>
             <ComponentWithArea area="y" >
-                <h3>Votre position par rapport aux normes</h3></ComponentWithArea>
+                <h4>{t('Votre position par rapport aux normes')}</h4></ComponentWithArea>
             <ComponentWithArea area="b" >
                 <LayoutFlexColumn justCenter alignCenter>
-                    <h4>Indice de masse maigre</h4>
-                    <span>masse maigre / taille<sup>2</sup></span>
-                    <FFMIChart width={350}  height={200}  data_key="ffmi" />
+                    <h4>{t('Indice de masse maigre')}</h4>
+                    <span>{t('masse maigre / taille')}<sup>2</sup></span>
+                    <IndiceChartComponent width={350}  height={200}  data_key="ffmi" />
                 </LayoutFlexColumn>
             </ComponentWithArea>
             <ComponentWithArea area="c" >
                 <LayoutFlexColumn justCenter alignCenter>
-                    <h4>Indice de masse grasse</h4>
-                    <span>masse grasse / taille<sup>2</sup></span>
-                    <FFMIChart width={350}  height={200}  data_key="fmi"/>
+                    <h4>{t('Indice de masse grasse')}</h4>
+                    <span>{t('masse grasse / taille')}<sup>2</sup></span>
+                    <IndiceChartComponent width={350}  height={200}  data_key="fmi"/>
                 </LayoutFlexColumn>
             </ComponentWithArea>
             <ComponentWithArea area="fds" >
-            <h4>Force de serrement</h4>
-            <RecapFDS />
+            <h4>{t('Force de serrement')}</h4>
+            <RecapFDSComponent />
             </ComponentWithArea>
             <ComponentWithArea area="footer" >
-                <span>Crée avec BIM v{process.env.ELECTRON_VERSION} le {dateSysToHuman(new Date())}</span>
+                <span>{t('Crée avec BIM')} v{process.env.ELECTRON_VERSION} le {dateSysToHuman(new Date())}</span>
             </ComponentWithArea>
         </Grid>
     )
 }
 
 
+
 Component.defaultProps = {
-    get_current_bia: x=>[]
+    HeaderComponent: Header,
+    IndiceChartComponent: IndiceChart,
+    RecapFDSComponent: RecapFDS,
+    RecapGridComponent: RecapGrid,
+    MassChartComponent: MassChart,
 }
 
 export default Component
