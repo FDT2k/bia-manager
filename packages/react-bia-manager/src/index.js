@@ -3,7 +3,6 @@ import { Provider as ViewProvider, useViewProvider } from "@/Context/BIAViews"
 import { Provider as TranslationProvider, useTranslation } from "@/Context/Translation"
 import { Provider as CustomListProvider, useCustomList } from "@/Context/CustomList"
 import { Provider as BackendProvider, useBackend } from "@/Context/Backend"
-import { Provider as EditorProvider, useEditor } from "@/Context/Editor"
 
 import {useLocation} from 'wouter';
 
@@ -22,11 +21,6 @@ import {
     SearchReduxContainer
 } from '@/Containers/Search'
 
-import {
-    withBackend as editorWithBackend,
-    withReduxModule as editorWithReduxModule,
-    EditorReduxContainer
-} from '@/Containers/Editor'
 
 import Field from '@/Components/Form/Fields'
 import Input from '@/Components/Form/Input'
@@ -41,6 +35,9 @@ import PatientHeaderFeature from '@/Features/Editor/PatientHeader';
 import MesureEditorFeature from '@/Features/Editor/Mesure';
 import ListMesureFeature from '@/Features/Editor/ListMesure';
 
+import ReduxEditor from '@/Containers/Editor';
+
+import ReduxEditorModule from '@/Redux/Editor';
 
 export {
     BIARouter,
@@ -55,7 +52,6 @@ export {
     useCustomList,
     useViewProvider,
     useBackend,
-    EditorProvider, useEditor,
 
     Modal,
     Button,
@@ -73,22 +69,20 @@ export {
     SearchFeature,
     SearchPage,
 
-
-    editorWithBackend,
-    editorWithReduxModule,
-    EditorReduxContainer,
-    EditorFeature,
-
     CreateSubjectFeature,
-
-
 
     Field,
     Input,
 
-    DatabaseImportFeature,
 
+    EditorFeature,
+    DatabaseImportFeature,
     PatientHeaderFeature,
     MesureEditorFeature,
-    ListMesureFeature
+    ListMesureFeature,
+
+    ReduxEditor,
+    ReduxEditorModule
+
+
 }

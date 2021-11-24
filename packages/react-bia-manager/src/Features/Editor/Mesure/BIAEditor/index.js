@@ -28,17 +28,7 @@ export const Component = props => {
 
     const electricalHandleChange = e => {
 
-       /* replaceValues(values => {
-
-            let newState = {
-                ...values,
-                data: {
-                    ...values.data,
-                    [e.target.name]: e.target.value
-                }
-            }
-            return newState;
-        })*/
+      
         handleChangeValue(`data.${e.target.name}`,e.target.value)
     }
 

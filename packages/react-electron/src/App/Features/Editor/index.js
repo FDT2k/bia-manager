@@ -1,10 +1,12 @@
 import React from 'react';
-import { EditorFeature,PatientHeaderFeature,MesureEditorFeature,ListMesureFeature } from '@karsegard/react-bia-manager';
-import { editorWithReduxModule, editorWithBackend } from '@karsegard/react-bia-manager';
+import { EditorFeature} from '@karsegard/react-bia-manager';
+import { ReduxEditor } from '@karsegard/react-bia-manager';
 
-import { Provider as StoreProvider, store } from '@/Store'
+import {editorModule} from '@/Store'
 
-const Editor = editorWithBackend(editorWithReduxModule(store)(EditorFeature))
+
+
+const Editor = ReduxEditor(editorModule,EditorFeature)
 
 
 export default props => {

@@ -1,9 +1,11 @@
 import { identity, is_nil } from "@karsegard/composite-js";
 import React from "react";
 import { Area, ComposedChart, Label, Line, ReferenceDot, Tooltip, XAxis, YAxis } from 'recharts';
-
+import { useTranslation  } from "@";
 export const LineChart = props => {
-    const { data,data_key, noi, width, height, age, value, t,
+
+    const {t} = useTranslation()
+    const { data,data_key, noi, width, height, age, value, 
 
         XLabel,YLabel,
         XTicks,YTicks

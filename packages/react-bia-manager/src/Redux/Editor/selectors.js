@@ -14,6 +14,10 @@ export default getModule => {
   const defaultToArray = defaultTo([]);
   const module = {};
 
+
+  module.select_recap_fds = submodules.recap_fds.selectors.select_recap;
+  module.select_headers_fds= submodules.recap_fds.selectors.select_headers;
+
   module.select_current_patient_id = createSelector(baseSelector, state => {
     return state.current_patient_id
   });

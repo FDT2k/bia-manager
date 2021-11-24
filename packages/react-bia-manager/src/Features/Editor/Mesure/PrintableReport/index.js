@@ -1,5 +1,5 @@
 import { safe_path } from '@karsegard/composite-js';
-import FFMIChart from '@/Components/Charts/FMI';
+import FFMIChart from '@/Components/Charts/Indice';
 
 import MassChart from '@/Components/Charts/Mass';
 import RecapGrid from '@/Components/RecapGrid';

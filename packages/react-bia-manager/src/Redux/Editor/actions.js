@@ -177,6 +177,7 @@ export default (getModule) => {
 
 
             dispatch(actions.reinit_fds());
+            dispatch(actions.recompute_current_mesure());
             dispatch(actions.refresh_current_recap());
 
             return r;

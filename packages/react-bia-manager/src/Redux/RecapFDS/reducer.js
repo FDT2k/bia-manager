@@ -1,6 +1,6 @@
 import { safe_path } from '@karsegard/composite-js';
 import { createReducer } from '@karsegard/react-redux';
-
+import {generate_recap_header} from '@/references/Mesure'
 
 
 export default (getModule) => {
@@ -27,9 +27,7 @@ export default (getModule) => {
 
     module.headers = createReducer([], {
         [types.CLEAR]: (state, {payload}) => ([]),
-        [types.ADD_MESURE]: (state, {payload}) => {
-            return payload.map(item => item.date);
-        }
+        [types.ADD_MESURE]: (state, {payload}) => generate_recap_header(payload.length,payload)
     })
 
     module.recap = createReducer([], {
@@ -41,7 +39,7 @@ export default (getModule) => {
     module.refresh = (state)=> {
         return ['left','right'].reduce ( (carry,side)=>{
             let values = state.mesures.reduce((_values,mesure)=>{
-                _values[mesure.date] = safe_path('N/A',`fds.${side}.avg`,mesure);
+                _values[mesure.date] = safe_path('',`fds.${side}.avg`,mesure);
                 return _values;
             },{})
 

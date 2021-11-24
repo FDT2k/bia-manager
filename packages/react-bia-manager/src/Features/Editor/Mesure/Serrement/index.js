@@ -12,7 +12,7 @@ export const Component = props => {
 
     const { t } = useTranslation();
 
-    const { values, getValue, checkboxProps, inputProps, replaceValues, handleFieldChange, handleInput } = useForm(initialValues, { usePath: true, onValuesChange: handleChange })
+    const { checkboxProps, inputProps, replaceValues } = useForm(initialValues, { usePath: true, onValuesChange: handleChange })
 
     useEffect(() => {
         let res = replaceValues(initialValues)
@@ -20,7 +20,6 @@ export const Component = props => {
 
     const left_avg = safe_path("N/A", 'left.avg', initialValues);
     const right_avg = safe_path("N/A", 'right.avg', initialValues);
-
     const left_norme = safe_path("N/A", 'left.norme', initialValues);
     const right_norme = safe_path("N/A", 'right.norme', initialValues);
     return (
@@ -34,19 +33,13 @@ export const Component = props => {
                 <div className="header header--left"></div>
                 <div className="header">{t('Gauche')}</div>
                 <div className="header">{t('Droite')}</div>
-
-
                 <div className="header header--left">{t('Main dominante')}</div>
-
                 <div><input type="checkbox" {...checkboxProps('left.main')} /></div>
                 <div><input type="checkbox" {...checkboxProps('right.main')} /></div>
-
-
                 <div className="header header--left">{t('Mesure 1')}</div>
                 <div><input type="text" {...inputProps('left.data.0')} /></div>
                 <div><input type="text" {...inputProps('right.data.0')} /></div>
                 <div className="header header--left">{t('Mesure 2')}</div>
-
                 <div><input type="text" {...inputProps('left.data.1')} /></div>
                 <div><input type="text" {...inputProps('right.data.1')} /></div>
                 <div className="header header--left">{t('Mesure 3')}</div>

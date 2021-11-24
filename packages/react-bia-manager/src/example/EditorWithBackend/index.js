@@ -1,15 +1,12 @@
 import { TranslationProvider, CustomListProvider } from '@';
-import EditorComponent from '@/Features/Editor';
 import { Fullscreen } from '@karsegard/react-core-layout';
 import React from 'react';
-
 import { BackendProvider } from '@';
-
 import { useTranslation } from '@';
-import { withReduxModule, withBackend } from '@/Containers/Editor';
 import { Provider as StoreProvider, store } from '@/example/Store'
-
 import sample from './patient'
+
+import Editor from '@/example/ReduxEditor'
 
 const translations = {
 
@@ -81,7 +78,6 @@ const TestListProvider = props => {
         </CustomListProvider>)
 }
 
-const Editor = withBackend(withReduxModule(store)(EditorComponent))
 export default props => {
     const lists = {};
     const forms = {};

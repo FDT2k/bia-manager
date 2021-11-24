@@ -25,6 +25,8 @@ const [__base_class, element, modifier] = bem('bia-mesure-editor')
 const Editor = props => {
 
     const { BIAEditor,ComparisonTable, Serrement,Recap,AsideEditor,PrintableReport,CommentEditor } = props;
+
+
     const { t, oneDecimal, oneDecimalPct } = useTranslation();
     const {
         handleClickSave,
@@ -46,11 +48,7 @@ const Editor = props => {
 
 
 
-    const _handleClickSave = e => {
-      
-            handleClickSave()
-
-    }
+   
 
 
 
@@ -74,12 +72,12 @@ const Editor = props => {
                     <Serrement />
                 </TabPanel>
                 <TabPanel>
-                    <Recap />
+                    <Recap/>
                 </TabPanel>
             </TabsWithArea>
             <CommentEditor/>
             <LayoutFlexColumnWithArea style={{ gap: '10px' }} area="mesure-editor-aside">
-                <AsideEditor onValuesChange={_handleChange} handleClickSave={_handleClickSave} handlePrint={_handlePrint} data={mesure} />
+                <AsideEditor onValuesChange={_handleChange} handleClickSave={handleClickSave} handlePrint={_handlePrint} data={mesure} />
             </LayoutFlexColumnWithArea>
             <Printable ref={componentRef}>
                 {<PrintableReport />}
@@ -108,11 +106,12 @@ Editor.defaultProps = {
     custom_lists: {},
     BIAEditor: DefaultBIAEditor,
     ComparisonTable: DefaultComparisonTable,
+    AsideEditor: DefaultAsideEditor,
+    CommentEditor : DefaultCommentEditor ,
     Serrement: DefaultSerrement,
     Recap: DefaultRecap,
-    AsideEditor: DefaultAsideEditor,
     PrintableReport: DefaultPrintableReport,
-    CommentEditor : DefaultCommentEditor ,
+
 }
 
 

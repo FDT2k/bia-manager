@@ -23,7 +23,7 @@ module.exports = {
     exclude: [],
   },
   optimizeDeps: {
-    link: ['@karsegard/react-bia-manager'],
+   // link: ['@karsegard/react-bia-manager'],
     esbuildOptions: {
       plugins: [
         {

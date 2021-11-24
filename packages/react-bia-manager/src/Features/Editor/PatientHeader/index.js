@@ -53,7 +53,6 @@ const PatientHeader = props => {
 
 
     const onValuesChange = values => {
-       // console.log(values);
        handleParentChange && handleParentChange(values);
     }
 
@@ -104,7 +103,6 @@ const PatientHeader = props => {
 }
 
 PatientHeader.defaultProps = {
-    t: identity,
     data: {
         birthdate: '1970-01-25',
         age: '120',

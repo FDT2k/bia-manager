@@ -75,7 +75,9 @@ const Editor = props => {
                         handleClickSave={handleClickSave}
                         handlePrint={handlePrint}
                         handleChange={handleChange}
-                        mesure={mesure} />}
+                        mesure={mesure} 
+                        
+                        />}
                     {!mesure && "Aucune mesure "}
                 </ContainerWithArea>
 

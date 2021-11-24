@@ -11,11 +11,11 @@ export const makeProvider = (Context) =>  {
   
 
     return (props) => {
-        const { children, selectors, actions } = props;
+        const { children } = props;
 
 
         return (
-            <Context.Provider value={{ selectors:Module.selectors, actions:Module.actions }}>
+            <Context.Provider value={{}}>
                 {children}
             </Context.Provider>
         )
@@ -26,7 +26,7 @@ export const makeProvider = (Context) =>  {
 export const makeUse = Context => _ => {
     const context = useContext(Context);
     if (is_nil(context)) {
-        throw new Error('useEditor must be used within a provider');
+        throw new Error('useResults must be used within a provider');
     }
     return context;
 }
@@ -34,7 +34,7 @@ export const makeUse = Context => _ => {
 
 export const Provider = makeProvider(Context);
 
-export const useEditor = makeUse(Context);
+export const useResults = makeUse(Context);
 
 
 
