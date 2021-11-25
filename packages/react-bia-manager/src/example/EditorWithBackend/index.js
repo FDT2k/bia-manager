@@ -15,7 +15,7 @@ const translations = {
 }
 
 const translate = key => {
-    console.warn('translator',key)
+   // console.warn('translator',key)
     return translations[key] || key;
 }
 

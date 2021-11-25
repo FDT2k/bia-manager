@@ -106,6 +106,10 @@ export const Container = ({ selectors, actions }) => (Component, MesureEditor) =
 
         dispatch(actions.change_mesure(values, changed_field))
     }
+    const handleSubjectChange= (...args)=>{
+
+        debugger;
+    }
 
     const handlers = {
         ..._handlers,
@@ -114,7 +118,8 @@ export const Container = ({ selectors, actions }) => (Component, MesureEditor) =
         handleMesureCreate,
         handleMesureOpen,
         handleMesureDelete,
-        handleChange
+        handleChange,
+        handleSubjectChange
     }
     return (
 
