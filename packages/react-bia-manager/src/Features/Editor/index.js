@@ -65,7 +65,7 @@ const Editor = props => {
                         data={data.mesures}
                         renderActions={
                             (data, item, idx) => {
-                                return (<Delete className="action-icon" onClick={_ => handleMesureDelete(idx)} />)
+                                return (<Delete className="action-icon" onClick={e => handleMesureDelete(idx)} />)
                             }
                         }
                     />

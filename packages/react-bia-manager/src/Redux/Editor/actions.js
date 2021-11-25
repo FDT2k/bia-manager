@@ -81,22 +81,25 @@ export default (getModule) => {
         }));
     }
 
-    actions.save = () => async (dispatch, getState) => {
+    actions.save = (values) => async (dispatch, getState) => {
         const patient_id = select_current_patient_id(getState());
         const patient = select_edited_patient(getState());
         const mesure = select_edited_mesure(getState());
         const mesure_id = select_current_mesure_id(getState());
 
-        
+
+
+
 
         dispatch(create(types.SAVE, {
             patient_id,
             mesure,
             mesure_id
         }));
-        if(patient.mesures.length >= mesure_id){
+        if (patient.mesures.length >= mesure_id) {
             dispatch(actions.set_current_mesure(mesure_id))
         }
+        return true;
     }
 
 
@@ -104,9 +107,9 @@ export default (getModule) => {
 
     actions.set_current_mesure = create(types.SELECT_MESURE, arg => {
         return {
-           
-                mesure_id: arg
-            
+
+            mesure_id: arg
+
         }
     });
 
@@ -128,13 +131,14 @@ export default (getModule) => {
             let mesures = select_mesures(getState());
             const patient = select_edited_patient(getState());
 
-            
+
 
             let new_mesure_id = mesures.length;
 
 
             let new_mesure = {
                 ...select_empty_mesure(getState()),
+                mesure_id:new_mesure_id,
                 examinator
             }
 
@@ -224,7 +228,7 @@ export default (getModule) => {
         return (dispatch, getState) => {
             const patient = select_edited_patient(getState());
             const bia_result_columns = select_result_columns(getState());
-            const normes = select_normes(getState(), { age: values.current_age,sex:patient.gender })
+            const normes = select_normes(getState(), { age: values.current_age, sex: patient.gender })
             const results = recompute(patient, values, bia_result_columns, normes);
 
             return dispatch({
@@ -245,15 +249,15 @@ export default (getModule) => {
         return (dispatch, getState) => {
             const mesure = select_edited_mesure(getState());
             //some fields does not need to be refreshed unless saved        
-            if (dontCommitTheseFieldsUntilSaved.includes(changed_field)) {
-                return;
-            }
+     //       if (dontCommitTheseFieldsUntilSaved.includes(changed_field)) {
+                //      return;
+      //      }
 
             const patient = select_edited_patient(getState());
             const { mesure: normalized_mesure } = normalize_mesure({ patient, mesure: values });
 
             if (changed_field === 'examinator') {
-              dispatch(actions.set_examinator(values.examinator));
+                dispatch(actions.set_examinator(values.examinator));
             }
 
             const new_mesure = { ...mesure, ...normalized_mesure };
@@ -266,12 +270,14 @@ export default (getModule) => {
                 }
             })
 
-            if (isChangeRequireRecompute(values, mesure)) {
-                dispatch(actions.recompute_current_mesure());
+            if (!dontCommitTheseFieldsUntilSaved.includes(changed_field)) {
+                if (isChangeRequireRecompute(values, mesure)) {
+                    dispatch(actions.recompute_current_mesure());
 
-                dispatch(actions.refresh_current_recap());
+                    dispatch(actions.refresh_current_recap());
 
 
+                }
             }
 
         }
@@ -336,7 +342,7 @@ export default (getModule) => {
                 if (!patient) {
                     return dispatch(actions.recap_error_patient_fail({}))
                 }
-                const normes = select_normes(getState(), { age: patient.age,sex:patient.gender })
+                const normes = select_normes(getState(), { age: patient.age, sex: patient.gender })
 
                 let mesures = [...patient.mesures] // NO selector here
 
@@ -420,7 +426,7 @@ export default (getModule) => {
 
         const mesure = select_edited_mesure(getState());
         const patient = select_edited_patient(getState());
-        const normes = select_normes(getState(), { age: mesure.current_age,sex:patient.gender })
+        const normes = select_normes(getState(), { age: mesure.current_age, sex: patient.gender })
 
         dispatch(submodules.fds.actions.update({ ...values, normes }));
 

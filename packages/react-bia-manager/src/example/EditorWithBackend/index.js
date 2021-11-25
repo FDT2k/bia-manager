@@ -1,9 +1,11 @@
 import { TranslationProvider, CustomListProvider } from '@';
 import { Fullscreen } from '@karsegard/react-core-layout';
 import React from 'react';
-import { BackendProvider } from '@';
+import { BackendProvider,ConfirmProvider,ConfirmDialog } from '@';
 import { useTranslation } from '@';
 import { Provider as StoreProvider, store } from '@/example/Store'
+import { useBackend,useConfirm } from '@'
+
 import sample from './patient'
 
 import Editor from '@/example/ReduxEditor'
@@ -13,6 +15,7 @@ const translations = {
 }
 
 const translate = key => {
+    console.warn('translator',key)
     return translations[key] || key;
 }
 
@@ -78,6 +81,58 @@ const TestListProvider = props => {
         </CustomListProvider>)
 }
 
+
+
+
+export const FakeBackendContainer = Component => (props) => {
+    const { get_subject,save_subject, get_mesure } = useBackend();
+
+ 
+    const { handlers: _handlers, ...rest } = props;
+
+    const handleFetch = async patient_id => {
+        return get_subject(patient_id)
+    }
+
+
+    const handleSave = async(subject) => {
+
+       alert('saved')
+    }
+
+    const handleMesureOpen = async (value, idx) => {
+
+    }
+
+
+    const handleMesureCreate = async (patient_id) => {
+
+    }
+
+    const handleDelete = async (patient_id,idx) => {
+        
+    }
+  
+    const handlers = {
+        ..._handlers,
+        handleFetch,
+        handleSave,
+        handleDelete,
+        handleMesureCreate,
+        handleMesureOpen,
+    }
+
+    return (
+
+        <Component
+            {...rest}
+            handlers={handlers}
+        />
+    )
+}
+
+const EditorWithBackend = FakeBackendContainer(Editor)
+
 export default props => {
     const lists = {};
     const forms = {};
@@ -96,19 +151,22 @@ export default props => {
         <Fullscreen>
             <StoreProvider>
                 <TranslationProvider value={{ t: translate }}>
+                    <ConfirmProvider>
+                        <ConfirmDialog/>
                     <BackendProvider actions={{
                         get_subject: async (id)=> {
                             return sample
                         },
                         get_mesure: (subject_id,id)=>{
 
-                        }
+                        },
+                        delete_mesure:(patient_id,idx)=> {}
                     }}>
                         <TestListProvider >
-                            <Editor patient_id={1} handlers={handlers}/>
+                            <EditorWithBackend patient_id={1} handlers={handlers}/>
                         </TestListProvider>
                     </BackendProvider>
-
+                    </ConfirmProvider>
                 </TranslationProvider>
             </StoreProvider>
         </Fullscreen>

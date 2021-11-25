@@ -19,7 +19,8 @@ export default props => {
             <HostProvider actions={{
                 add_error: m => dispatch(error_handler.add(m)),
                 start_loading: m => dispatch(loading_handler.start_loading(m)),
-                stop_loading: _ => dispatch(loading_handler.stop_loading())
+                stop_loading: _ => dispatch(loading_handler.stop_loading()),
+                
             }}>
                 {props.children}
             </HostProvider>

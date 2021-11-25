@@ -29,7 +29,6 @@ export const makeProvider = (Context) => (props) => {
     const formatDate = identity;
 
     const formatFloat = identity;
-
     return (
         <Context.Provider value={value}>
             {children}

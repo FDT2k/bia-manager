@@ -6,7 +6,7 @@ import {key} from '@karsegard/composite-js/ObjectUtils'
 
 import {filterPropPresentIn} from '@karsegard/react-compose'
 
-import './modal.scss' // important pour l'ordre d'affichage des modales
+//import './modal.scss' // important pour l'ordre d'affichage des modales
 
 export default props=>{
 

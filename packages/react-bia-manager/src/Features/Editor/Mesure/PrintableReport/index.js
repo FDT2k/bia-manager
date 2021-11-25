@@ -8,7 +8,7 @@ import {Grid} from '@karsegard/react-core-layout'
 import { useTranslation } from '@';
 
 import RecapFDS from '@/Components/RecapGrid';
-import Header from '@/Features/Editor/Mesure/PrintableReport/Header';
+import ReportHeader from '@/Features/Editor/Mesure/PrintableReport/ReportHeader';
 import IndiceChart from '@/Components/Charts/Indice';
 import MassChart from '@/Components/Charts/Mass';
 import RecapGrid from '@/Components/RecapGrid';
@@ -84,7 +84,7 @@ export const Component =  props => {
 
 
 Component.defaultProps = {
-    HeaderComponent: Header,
+    HeaderComponent: ReportHeader,
     IndiceChartComponent: IndiceChart,
     RecapFDSComponent: RecapFDS,
     RecapGridComponent: RecapGrid,

@@ -3,6 +3,8 @@ import { Provider as ViewProvider, useViewProvider } from "@/Context/BIAViews"
 import { Provider as TranslationProvider, useTranslation } from "@/Context/Translation"
 import { Provider as CustomListProvider, useCustomList } from "@/Context/CustomList"
 import { Provider as BackendProvider, useBackend } from "@/Context/Backend"
+import { Provider as ConfirmProvider, useConfirm } from "@/Context/Confirm"
+import ConfirmDialog from "@/Components/ConfirmDialog"
 
 import {useLocation} from 'wouter';
 
@@ -36,6 +38,7 @@ import MesureEditorFeature from '@/Features/Editor/Mesure';
 import ListMesureFeature from '@/Features/Editor/ListMesure';
 
 import ReduxEditor from '@/Containers/Editor';
+import EditorWithBackend from '@/Containers/EditorWithBackend';
 
 import ReduxEditorModule from '@/Redux/Editor';
 
@@ -52,6 +55,8 @@ export {
     useCustomList,
     useViewProvider,
     useBackend,
+
+    ConfirmProvider, useConfirm , ConfirmDialog,
 
     Modal,
     Button,
@@ -82,7 +87,8 @@ export {
     ListMesureFeature,
 
     ReduxEditor,
-    ReduxEditorModule
+    ReduxEditorModule,
+    EditorWithBackend
 
 
 }

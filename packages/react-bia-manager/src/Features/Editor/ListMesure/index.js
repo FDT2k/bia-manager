@@ -37,8 +37,8 @@ export const Component = props => {
                     BEM={BEM}
                     key={idx}
                     selected={selectedIndex == idx}
-                    onClick={_ => handleItemListClick(item, idx)}>
-                    {dateSysToHuman(item[itemLabelKey])} {renderActions && renderActions(data, item, idx)}
+                    >
+                    <div onClick={_ => handleItemListClick(item, idx)}>{dateSysToHuman(item[itemLabelKey])}</div> {renderActions && renderActions(data, item, idx)}
                 </ItemListItem>
             })}
 

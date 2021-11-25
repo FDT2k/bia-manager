@@ -10,7 +10,6 @@ import { useLocation } from "wouter";
 
 
 
-import './main-view.scss'
 
 const MainLayout = withBaseClass('bia-main-layout')(Grid);
 

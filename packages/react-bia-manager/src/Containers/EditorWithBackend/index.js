@@ -1,16 +1,6 @@
 import React from 'react';
-import { EditorFeature} from '@karsegard/react-bia-manager';
-import { ReduxEditor } from '@karsegard/react-bia-manager';
-//import { EditorWithBackend } from '@karsegard/react-bia-manager';
-import {useBackend,useConfirm} from '@karsegard/react-bia-manager'
-import {editorModule} from '@/Store'
-
-
-
-const Editor = ReduxEditor(editorModule,EditorFeature)
-
-
-const EditorWithBackend = (props) => {
+import { useBackend,useConfirm } from '@'
+export default  Component => (props) => {
     const { get_subject,save_subject, get_mesure,delete_mesure } = useBackend();
     const { isConfirmed } = useConfirm();
  
@@ -55,15 +45,9 @@ const EditorWithBackend = (props) => {
 
     return (
 
-        <Editor
+        <Component
             {...rest}
             handlers={handlers}
         />
     )
-}
-
-export default props => {
-    const {params} = props;
-    return (<>
-    <EditorWithBackend {...params} handlers={{handleGoBack:_=> window.location.href='#/search'}}/></>)
 }

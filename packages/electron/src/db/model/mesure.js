@@ -23,7 +23,8 @@ const mesure = (db, api) => {
         data: 'json',
         sport: 'json',
         fds: 'json',
-        uuid: ''
+        uuid: '',
+        mesure_id:''
 
     }
 
@@ -58,6 +59,8 @@ const mesure = (db, api) => {
             module.upsert(['uuid'])(_transform(schema, mesure))
         }
     })
+
+    module.softDelete = (mesure_id) => module.update({status:'deleted'},{id:mesure_id}).run({id:mesure_id,status:'deleted'});
 
 
     module.retrieveFromRaw = (stmt,result) => _retrieve_entity('mesures',schema, stmt.columns(), result)

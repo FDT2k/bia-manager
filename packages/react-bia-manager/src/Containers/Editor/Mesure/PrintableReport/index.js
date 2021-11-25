@@ -2,7 +2,7 @@ import React from 'react';
 import PrintableReport from '@/Features/Editor/Mesure/PrintableReport';
 import { connect, bindSelectors } from '@karsegard/react-redux';
 
-import Header from '@/Features/Editor/Mesure/PrintableReport/Header';
+import ReportHeader from '@/Features/Editor/Mesure/PrintableReport/ReportHeader';
 
 
 import RecapGridComponent from '@/Containers/Editor/Mesure/RecapGrid';
@@ -27,7 +27,7 @@ export default module => props => {
     const { select_edited_patient } = module.selectors;
     const ConnectedHeader = connect(bindSelectors({
         patient: select_edited_patient
-    }))(Header)
+    }))(ReportHeader)
 
 
     const components = {

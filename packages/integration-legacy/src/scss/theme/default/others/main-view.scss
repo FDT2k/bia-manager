@@ -60,24 +60,3 @@ tr:hover {
 tr {
   cursor: pointer;
 }
-
-.modal-overlay {
-  background-color: var(--primary);
-  opacity:0.3;
-}
-.modal-content{
-  z-index:100000;
-  @extend %base_font;
-  background-color: var(--secondary);
-
-}
-
-.modal-content-box{
-  .title{
-    text-align: center;
-  }
-  max-width:300px;
-  z-index:100001;
-  min-width: 300px;
-  min-height: 300px;
-}

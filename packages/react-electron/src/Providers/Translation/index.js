@@ -7,10 +7,7 @@ import { useTranslation } from 'react-i18next';
 
 const BIATranslation = ({ children }) => {
     const {t} = useTranslation(['translation'])
-
     const _t = key => {
-
-
         let res =  t(key)
         return res;
     }

@@ -6,18 +6,17 @@ import { BackendProvider } from '@karsegard/react-bia-manager'
 import { useFileProvider } from '@/Context/File'
 import { v4 as uuidv4 } from 'uuid';
 import { useHostProvider } from '@/Context/Host'
-import { reduceListByKeys } from '@karsegard/composite-js'
+import { reduceListByKeys, safe_path } from '@karsegard/composite-js'
 import { is_empty } from '@karsegard/composite-js';
 import { useTranslation } from '@karsegard/react-bia-manager';
 
 export default ({ children }) => {
-
-    const { actions: { sqlite_search, sqlite_custom_search, sqlite_create, sqlite_query, sqlite_model } } = useElectron();
+    const { actions: { sqlite_model_transaction, sqlite_search, sqlite_custom_search, sqlite_create, sqlite_query, sqlite_model } } = useElectron();
     const { selectors: { locked, file }, actions: { reload_file_state } } = useFileProvider();
     const [subject, setState] = useState({})
-    const { add_error } = useHostProvider();
+    const { add_error, start_loading, stop_loading } = useHostProvider();
 
-    const { dateHumanToSys } = useTranslation();
+    const { t, dateHumanToSys } = useTranslation();
 
     const [search_count, setSearchCount] = useState(0);
     const [stats, setStats] = useState({});
@@ -97,8 +96,33 @@ export default ({ children }) => {
     const get_subject = async (id) => {
         let subject = await sqlite_model({ model: "subject", fn: "fetchWithMesures", args: [id] })
 
-        debugger;
+
         return subject;
+    }
+
+    const save_subject = async (subject) => {
+        start_loading(t('Saving'))
+        let mesures = await sqlite_model_transaction({ model: 'mesure', fn: 'import', args: [subject.id], arg_stmt: subject.mesures }).catch(add_error)
+        stop_loading();
+    }
+
+    const delete_mesure = async (patient, idx) => {
+        // debugger;
+        start_loading(t('Deleting'))
+
+        let mesure_id = patient.mesures[idx].id;
+        if (!is_empty(mesure_id)) {
+            return await sqlite_model({ model: "mesure", fn: 'softDelete', args: [mesure_id] })
+                .catch(err => {
+                    add_error(err)
+                    stop_loading();
+                }).then(res => {
+                    stop_loading();
+                    return res
+                })
+        }
+        
+
     }
 
     useEffect(() => {
@@ -120,7 +144,7 @@ export default ({ children }) => {
 
     const db_name = file
     return (
-        <BackendProvider type="sqlite" actions={{ get_subject, ready, search, search_custom_filters, create_database, fetch_stats, stats, db_name, search_count, get_lists, get_forms, create_subject }}>
+        <BackendProvider type="sqlite" actions={{ get_subject, ready, search, search_custom_filters, create_database, fetch_stats, stats, db_name, search_count, get_lists, get_forms, create_subject, save_subject, delete_mesure }}>
             {/*<pre>{JSON.stringify(subject, null, 3)}</pre>*/}
             {children}
             <SQLiteUnlock />

@@ -5,7 +5,12 @@ import React,{useEffect} from 'react';
 import {useBackend} from '@'
 
 
-export default Component => ({tags,custom_filters,has_filters,handlers,...rest}) => {
+export default Component => ({
+    tags,
+    custom_filters,
+    has_filters,
+    handlers,
+    ...rest}) => {
     const {search,search_custom_filters} =  useBackend();
     useEffect(()=>{
       
@@ -30,6 +35,7 @@ export default Component => ({tags,custom_filters,has_filters,handlers,...rest})
 
         <Component
             {...rest}
+            tags={tags}
             handlers={handlers}
             custom_filters ={custom_filters}
            

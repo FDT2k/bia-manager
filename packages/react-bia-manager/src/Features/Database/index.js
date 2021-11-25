@@ -108,6 +108,7 @@ export const Component = props => {
                 'nomExaminateur': 'examinator',
                 'taille': 'height',
                 'appareil': 'machine',
+                'noMesure':'mesure_id',
                 'mesureUuid': 'uuid'
 
                 /*  't2R': {name:'bia', transform: "(state={},value)=>({...state,ht2r: value.t2R})"},

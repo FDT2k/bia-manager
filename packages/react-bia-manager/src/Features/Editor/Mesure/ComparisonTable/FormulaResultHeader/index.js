@@ -5,7 +5,6 @@ import { useTranslation } from '@';
 
 
 export default props => {
-    const{t} =useTranslation();
     const { available_columns, columns, handleChange, selectable, ...rest } = props;
 
     let colByName = available_columns.reduce(function (carry, item) {

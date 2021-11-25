@@ -10,7 +10,7 @@ import React, { useEffect } from 'react';
 export const Component = props => {
     const { initialValues, handleChange } = props;
 
-    const { t } = useTranslation();
+    const { t,oneDecimal } = useTranslation();
 
     const { checkboxProps, inputProps, replaceValues } = useForm(initialValues, { usePath: true, onValuesChange: handleChange })
 
@@ -46,8 +46,8 @@ export const Component = props => {
                 <div><input type="text" {...inputProps('left.data.2')} /></div>
                 <div><input type="text" {...inputProps('right.data.2')} /></div>
                 <div className="header header--left">{t('Moyenne des mesures')}</div>
-                <div>{left_avg} </div>
-                <div>{right_avg} </div>
+                <div>{oneDecimal(left_avg)} </div>
+                <div>{oneDecimal(right_avg)} </div>
                 <div className="header header--left">{t('Normes')}</div>
                 <div>{left_norme.toString()} </div>
                 <div>{right_norme.toString()} </div>

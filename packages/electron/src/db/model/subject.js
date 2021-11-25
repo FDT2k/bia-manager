@@ -76,7 +76,7 @@ const subject = (db, api) => {
 
     module.fetchWithMesures = id => {
 
-        let stmt = db.prepare("Select s.*,m.* from subjects as s left join mesures m on s.id=m.subject_id where s.id =@id").raw();
+        let stmt = db.prepare("Select s.*,m.* from subjects as s left join mesures m on s.id=m.subject_id where s.id =@id and m.status !='deleted' ").raw();
 
         //  let result =  stmt.all({id});
 
@@ -94,6 +94,7 @@ const subject = (db, api) => {
 
        return res;
     };
+    
     module.create = (subject) => {
         let res = module.insert(subject, pkeys).run(_transform(schema, subject));
         return res.lastInsertRowid;

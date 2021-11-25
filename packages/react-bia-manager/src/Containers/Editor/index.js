@@ -1,52 +1,18 @@
-import React,{useEffect} from 'react';
+import React,{useEffect,useState} from 'react';
 import { is_nil ,is_empty} from '@karsegard/composite-js'
 import { useDispatch, useSelector } from '@karsegard/react-redux';
 import Mesure from './Mesure'
-import { useBackend } from '@'
+import {useTranslation } from '@'
 
-export const BackendContainer = Component => (props) => {
-    const { get_subject, get_mesure } = useBackend();
-
- 
-    const { handlers: _handlers, ...rest } = props;
-
-    const handleFetch = async patient_id => {
-        return get_subject(patient_id)
-    }
-
-    const handleMesureOpen = async (value, idx) => {
-
-    }
-
-
-    const handleMesureCreate = async (patient_id) => {
-
-    }
-
-
-    const handlers = {
-        ..._handlers,
-        handleFetch,
-        handleMesureCreate,
-        handleMesureOpen,
-    }
-
-    return (
-
-        <Component
-            {...rest}
-            handlers={handlers}
-        />
-    )
-}
 
 export const Container = ({ selectors, actions }) => (Component,MesureEditor) => props => {
 
-
+    const {t} = useTranslation();
     const {  patient_id, mesure_id, handlers: _handlers, ...rest } = props;
 
-    const { handleFetch,
+    const { handleFetch = _=> console.warn('not implemented'),
         handleSave,
+        handleDelete,
         handleMesureCreate:_handleMesureCreate,
         handleMesureOpen:_handleMesureOpen } = _handlers
     const dispatch = useDispatch();
@@ -54,6 +20,8 @@ export const Container = ({ selectors, actions }) => (Component,MesureEditor) =>
     const mesure = useSelector(selectors.select_edited_mesure);
     const current_mesure_id =  useSelector(selectors.select_current_mesure_id);
     const current_mesures = useSelector(selectors.select_mesures)
+
+    const [should_save,setShouldSave] = useState(false);
 
     useEffect(() => {
         dispatch(actions.fetch_normes());
@@ -94,19 +62,24 @@ export const Container = ({ selectors, actions }) => (Component,MesureEditor) =>
     }
 
     const handleClickSave = _ => {
-        Promise.resolve(dispatch(actions.save())).then(
-            res => {
-//put save function here
-            }
-        )
-            // .then(_=>update_patient(patient.id, patient, mesure, current_mesure_id))
-            /*.then(res => {
-                if (current_mesure_id <= current_mesures.length) {
-                    setLocation(`/editor/${patient_id}/${current_mesure_id}`);
-                }
-            })*/
+
+        dispatch(actions.save())
+        setShouldSave(true) // it's mandatory since useSelector will not be updated until next render
 
     }
+
+
+    /* save effect */
+    useEffect(()=>{
+        if(should_save){
+            if(handleSave){
+                handleSave(patient)
+            }else{
+                console.warn('handleSave not set');
+            }
+            setShouldSave(false);
+        }
+    },[should_save]);
     
 
     const handleMesureOpen = (value, idx) => {
@@ -117,9 +90,18 @@ export const Container = ({ selectors, actions }) => (Component,MesureEditor) =>
             return _handleMesureCreate()
         }
     }
+  
+  
+    const handleMesureDelete = async (idx)=> {
+   
+          Promise.resolve(handleDelete(patient,idx)).then(res=>{
+            dispatch(actions.delete_mesure(patient.id,idx));
+          })
+    }
 
   
     const handleChange = (values, changed_field) => {
+        
         dispatch(actions.change_mesure(values,changed_field))
     }
 
@@ -129,6 +111,7 @@ export const Container = ({ selectors, actions }) => (Component,MesureEditor) =>
         handleClickSave,
         handleMesureCreate,
         handleMesureOpen,
+        handleMesureDelete,
         handleChange
     }
     return (
@@ -150,6 +133,6 @@ export default (module,Component) =>{
 
     const MesureEditor = Mesure(module);
 
-    return BackendContainer(Container(module)(Component,MesureEditor));
+    return Container(module)(Component,MesureEditor);
 
 }

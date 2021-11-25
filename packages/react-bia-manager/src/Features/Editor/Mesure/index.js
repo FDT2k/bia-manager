@@ -48,7 +48,7 @@ const Editor = props => {
 
 
 
-   
+    
 
 
 
@@ -75,7 +75,7 @@ const Editor = props => {
                     <Recap/>
                 </TabPanel>
             </TabsWithArea>
-            <CommentEditor/>
+            <CommentEditor onValuesChange={_handleChange}/>
             <LayoutFlexColumnWithArea style={{ gap: '10px' }} area="mesure-editor-aside">
                 <AsideEditor onValuesChange={_handleChange} handleClickSave={handleClickSave} handlePrint={_handlePrint} data={mesure} />
             </LayoutFlexColumnWithArea>

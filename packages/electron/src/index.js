@@ -335,6 +335,15 @@ ipcMain.handle('sqlite-model', async (event, { model,fn,args}) => {
 
 })
 
+ipcMain.handle('sqlite-model-transaction', async (event, { model,fn,args,arg_stmt={}}) => {
+  try {
+    
+    return currentSQLite[model][fn](...args)(arg_stmt);
+  } catch (e) {
+    return Promise.reject(e);
+  }
+
+})
 
 
 ipcMain.handle('sqlite-search', async (event, tag) => {

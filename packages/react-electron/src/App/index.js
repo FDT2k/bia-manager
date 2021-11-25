@@ -17,6 +17,7 @@ import FileTypeBackendProvider from '../Providers/FileTypeBackendProvider';
 
 
 import App from '@/App/Features/App'
+import { ConfirmDialog, ConfirmProvider } from '@karsegard/react-bia-manager';
 export default props => {
 
     return (
@@ -24,14 +25,17 @@ export default props => {
             <Suspense fallback="loading">
                 <ElectronProvider api={window.electron}>
                     <Translation>
-                        <UpdateManager />
-                        <HostProviderRedux>
-                            <FileProvider>
-                                <FileTypeBackendProvider>
-                                    <App />
-                                </FileTypeBackendProvider>
-                            </FileProvider>
-                        </HostProviderRedux>
+                        <ConfirmProvider>
+                            <ConfirmDialog/>
+                            <UpdateManager />
+                            <HostProviderRedux>
+                                <FileProvider>
+                                    <FileTypeBackendProvider>
+                                        <App />
+                                    </FileTypeBackendProvider>
+                                </FileProvider>
+                            </HostProviderRedux>
+                        </ConfirmProvider>
                     </Translation>
                 </ElectronProvider>
             </Suspense>

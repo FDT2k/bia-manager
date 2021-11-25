@@ -1,10 +1,45 @@
-import { compose, is_nil } from '@karsegard/composite-js';
+import { compose, is_empty, is_nil } from '@karsegard/composite-js';
 import { get_bmi, get_ideal_weight, get_most_accurate_formula } from '@/references';
 import { calc_age } from '@/references/age';
 import { calculate } from '@/references/formulas';
 
+import { v4 as uuidv4 } from 'uuid';
 
 
+export const fds = () => {
+    const sideState = {
+        main: false,
+        data: {
+            0: '',
+            1: '',
+            2: '',
+        },
+        avg: '',
+        norme: ''
+    }
+    const initialState = {
+        left: {...sideState},
+        right: {...sideState}
+    }
+    return initialState
+}
+
+
+const init_fds = ({patient,mesure})=>{
+
+    let _fds = mesure.fds;
+    if(is_empty(_fds)){
+        _fds = fds();
+    }
+
+    return {
+        patient,
+        mesure: {
+            ...mesure,
+            fds:_fds
+        }
+    }
+}
 
 const mesure_age = ({ patient, mesure }) => {
 
@@ -112,10 +147,23 @@ export const status = ({ patient, mesure }) => {
     })
 }
 
+export const set_uuid = ({patient,mesure})=> {
+    let uuid = mesure.uuid;
+    if(is_empty(uuid)){
+        uuid = uuidv4();
+    }
+    return {
+        patient,
+        mesure:{
+            ...mesure,
+            uuid
+        }
+    }
+}
 
 export const filter_active_mesure = item=> item.status!='deleted';
 
-export const normalize_mesure = compose(mesure_age, clear_bmi_ref, best_formula, null_keys, bmi_weight, status);
+export const normalize_mesure = compose(init_fds,mesure_age, clear_bmi_ref, best_formula, null_keys, bmi_weight, status,set_uuid);
 
 
 export const recompute = (patient, mesure, bia_result_columns, normes) => {

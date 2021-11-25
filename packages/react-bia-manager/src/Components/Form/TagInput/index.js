@@ -100,12 +100,12 @@ const TagInput = (props) => {
     const { hasFocus, handleFocus, handleBlur } = useFocus({ ref, focused: true });
 
     const [inputBounds, setInputBounds] = useState({ top: 0, left: 0 });
-/*
+
 
     useEffect(()=>{
         setTags(initialTags)
     },[initialTags]);
-*/
+
     useEffect(() => {
         if (hasFocus) {
             handleFocusChange(true);
