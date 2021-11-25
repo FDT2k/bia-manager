@@ -1,5 +1,5 @@
 {
-    "version": "0.1.0",
+    "version": "0.2.0",
     "configurations": [
         {
             "name": "Launch localhost",
@@ -7,6 +7,15 @@
             "request": "launch",
             "url": "http://localhost:3000",
             "webRoot": "${workspaceFolder}/react-bia-manager"
-        }
+        },
+        {
+            "name": "React-Electron",
+            "type": "node",
+            "request": "launch",
+            "cwd": "${workspaceFolder}",
+            "runtimeExecutable": "node ${workspaceFolder}/scripts/watch-new.js",
+           
+            "outputCapture": "std"
+          }
     ]
 }

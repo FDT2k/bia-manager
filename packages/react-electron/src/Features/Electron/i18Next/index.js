@@ -1,7 +1,9 @@
 import { useElectron } from '@/Context/Electron';
+import { enlist } from '@karsegard/composite-js';
+import { keyval } from '@karsegard/composite-js/ObjectUtils';
 import i18n from 'i18next';
-import React, { useEffect,useState } from 'react';
-import { I18nextProvider, initReactI18next } from 'react-i18next';
+import React, { useEffect, useState } from 'react';
+import { I18nextProvider, useSSR, initReactI18next } from 'react-i18next';
 
 
 
@@ -36,19 +38,23 @@ i18n
 
 
 export default ({ children }) => {
-    const [initialI18nStore, setInitialTranslation] = useState({});
 
-    const {actions:{get_translations,missing_translations,i18next_ready},subscribers:{handleLanguageChange}} = useElectron();
+
+    const { actions: { get_translations, missing_translations, i18next_ready }, subscribers: { handleLanguageChange } } = useElectron();
 
     useEffect(() => {
         setHandler(missing_translations)
 
         get_translations().then(res => {
-            setInitialTranslation(res)
-            i18n.changeLanguage('fr');
+            enlist(res).map(l => {
+                let [lang, nss] = keyval(l);
+                enlist(nss).map(ns => {
+                    let [namespace, translations] = keyval(ns);
+                    i18n.addResourceBundle(lang, namespace, translations);
+                })
+            })
             i18next_ready();
         }).catch(res => {
-            debugger;
         })
 
         handleLanguageChange((sender, message) => {
@@ -61,7 +67,7 @@ export default ({ children }) => {
 
     }, []);
     return (
-        <I18nextProvider i18n={i18n} initialI18nStore={initialI18nStore} initialLanguage="fr">
+        <I18nextProvider i18n={i18n}>
             {children}
         </I18nextProvider>
     )

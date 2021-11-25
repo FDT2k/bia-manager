@@ -4,6 +4,7 @@ import { cEx } from '@karsegard/react-compose'
 
 
 import {useTranslation}  from '@'
+import { is_empty } from '@karsegard/composite-js';
 
 export const Component = props => {
     const {t,oneDecimal,dateSysToHuman} =useTranslation();
@@ -35,14 +36,14 @@ export const Component = props => {
                 {'bold ': _=> bold === true}
             ])
             if (line) {
+             
                 const is_pct = line.label.startsWith('pct_')
                 return (<React.Fragment key={idx}>
                     <div className={`${className} header--line`}>{t(`${line.label}_recap`)}</div>
                     <div className={`${className} norme`}><span>{line.values['norme']}</span></div>
                     {headers && headers.map((key, idx) => {
                         let val = line.values[key];
-                        val = oneDecimal(val);
-                        const display_value = !isNaN(val) ? val : '';
+                        const display_value = !isNaN(val) && !is_empty(val) ? oneDecimal(val) : '';
                         return (<div className={`${className} value`} key={idx}><span>{display_value}{(display_value !== "" && is_pct) ? '%' : ''}</span></div>)
                     })}
 

@@ -76,5 +76,18 @@
    "Date de Naissance": "Date de Naissance",
    "Groupe Pathologique": "Groupe Pathologique",
    "Recherche": "Recherche",
-   "SEARCH_CREATE_NEW_SUBJECT": "SEARCH_CREATE_NEW_SUBJECT"
+   "SEARCH_CREATE_NEW_SUBJECT": "SEARCH_CREATE_NEW_SUBJECT",
+   "Erreur": "Erreur",
+   "Fermer": "Fermer",
+   "groups.patho": "groups.patho",
+   "groups.ethno": "groups.ethno",
+   "gender": "gender",
+   "Nouveau Patient": "Nouveau Patient",
+   "Prenom": "Prenom",
+   "Diagnostic": "Diagnostic",
+   "Saving": "Saving",
+   "Deleting": "Deleting",
+   "Bienvenue sur BIA": "Bienvenue sur BIA",
+   "Ouvrir une base de données": "Ouvrir une base de données",
+   "Créer une base de données": "Créer une base de données"
 }

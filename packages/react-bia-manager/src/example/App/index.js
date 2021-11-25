@@ -14,7 +14,7 @@ import { Route, Link, Switch } from 'wouter';
 import { Fullscreen, LayoutFlexColumn } from '@karsegard/react-core-layout';
 
 
-
+import ListManager from '@/example/StaticListManager';
 
 
 const routes = [
@@ -58,7 +58,13 @@ const routes = [
         path: '/backend/editor',
         component: EditorWithBackend,
         menu: 'Editor With backend'
-    }
+    },
+    {
+        path: '/database/listmanager',
+        component: ListManager,
+        menu: 'ListManager'
+    },
+    
 ]
 
 export default props => {

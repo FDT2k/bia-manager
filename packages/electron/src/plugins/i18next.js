@@ -28,7 +28,7 @@ const buildMenu = ()=>{
 
 export default  (handleLanguageChange,language='fr') => mainWindow=> {
     i18n.on('loaded', (loaded) => {
-        i18n.changeLanguage(language);
+        i18n.changeLanguage('fr');
         i18n.off('loaded');
     });
 
@@ -71,11 +71,13 @@ export default  (handleLanguageChange,language='fr') => mainWindow=> {
     }
     ipcMain.handle('get-translations', (event, arg) => {
         return new Promise((resolve, reject) => {
-
-            i18n.loadLanguages('en', (err, t) => {
+            i18n.loadLanguages(['en','fr'], (err, t) => {
                 const initial = {
                     'fr': {
                         'translation': i18n.getResourceBundle('fr', defaultOptions.namespace)
+                    },
+                    'en': {
+                        'translation': i18n.getResourceBundle('en', defaultOptions.namespace)
                     }
                 };
                 resolve(initial);

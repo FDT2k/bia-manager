@@ -94,10 +94,13 @@ export default ({ children }) => {
 
 
     const get_subject = async (id) => {
-        let subject = await sqlite_model({ model: "subject", fn: "fetchWithMesures", args: [id] })
+        return sqlite_model({ model: "subject", fn: "fetchWithMesures", args: [id] }).then(res=> {
+            if(!res){
+                add_error('subject not found in database')
+            }
+            return res;
+        })
 
-
-        return subject;
     }
 
     const save_subject = async (subject) => {
@@ -108,6 +111,8 @@ export default ({ children }) => {
 
     const delete_mesure = async (patient, idx) => {
         // debugger;
+
+        
         start_loading(t('Deleting'))
 
         let mesure_id = patient.mesures[idx].id;
@@ -118,8 +123,11 @@ export default ({ children }) => {
                     stop_loading();
                 }).then(res => {
                     stop_loading();
-                    return res
+                    return true
                 })
+        }else {
+
+            return false;
         }
         
 

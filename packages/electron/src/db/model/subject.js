@@ -76,12 +76,13 @@ const subject = (db, api) => {
 
     module.fetchWithMesures = id => {
 
-        let stmt = db.prepare("Select s.*,m.* from subjects as s left join mesures m on s.id=m.subject_id where s.id =@id and m.status !='deleted' ").raw();
+        let stmt = db.prepare("Select s.* from subjects s  where s.id =@id ").raw();
+        let stmt_mesures = db.prepare("Select m.* from mesures m  where m.subject_id =@id and status!='deleted'").raw();
 
         //  let result =  stmt.all({id});
 
         let res;
-        for (let result of stmt.iterate({ id })) {
+      /*  for (let result of stmt.iterate({ id })) {
             if (!res) {
                 res = _retrieve_entity('subjects', schema, stmt.columns(), result);
             }
@@ -90,8 +91,15 @@ const subject = (db, api) => {
                 res.mesures = [];
             }
             res.mesures.push(_mesure.retrieveFromRaw(stmt, result))
-        }
+        }*/
 
+
+        res =_retrieve_entity('subjects', schema, stmt.columns(),  stmt.get({id})); 
+        res.mesures = [];
+        for (let result of stmt_mesures.iterate({ id })) {
+            
+            res.mesures.push(_mesure.retrieveFromRaw(stmt_mesures, result))
+        }
        return res;
     };
     
