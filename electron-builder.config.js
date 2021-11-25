@@ -29,6 +29,10 @@ const config = {
     {
       from: 'packages/electron/migrations',
       to: 'packages/electron/migrations'
+    },
+    {
+      from: 'packages/react-electron/public/fonts',
+      to: 'packages/react-electron/dist/assets/fonts'
     }
   ],
   win: {
