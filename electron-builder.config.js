@@ -25,6 +25,10 @@ const config = {
     {
       from: 'packages/electron/locales',
       to: 'packages/electron/locales'
+    },
+    {
+      from: 'packages/electron/migrations',
+      to: 'packages/electron/migrations'
     }
   ],
   win: {

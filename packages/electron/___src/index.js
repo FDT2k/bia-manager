@@ -128,7 +128,7 @@ const loadContent = mainWindow => {
     */
   const pageUrl = import.meta.env.MODE === 'development' && import.meta.env.VITE_DEV_SERVER_URL !== undefined
     ? import.meta.env.VITE_DEV_SERVER_URL
-    : new URL('../react-electron/dist/index.html', 'file://' + __dirname).toString();
+    : new URL('../react-app/dist/index.html', 'file://' + __dirname).toString();
 
 
   return mainWindow.loadURL(pageUrl);
