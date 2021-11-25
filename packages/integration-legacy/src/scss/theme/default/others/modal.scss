@@ -6,6 +6,9 @@
     &--dialog{
       z-index: 500;
     }
+    &--confirm{
+      z-index: 500;
+    }
     &--error{
       z-index: 600;
 
@@ -17,6 +20,10 @@
   }
   &-content{
     &--dialog{
+      z-index: 501;
+
+    }
+    &--confirm{
       z-index: 501;
 
     }
