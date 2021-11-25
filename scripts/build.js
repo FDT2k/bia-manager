@@ -8,7 +8,8 @@ const mode = process.env.MODE = process.env.MODE || 'production';
 const packagesConfigs = [
   'packages/electron/vite.config.js',
   'packages/preloader/vite.config.js',
-  'packages/react-app/vite.config.js',
+  'packages/react-bia-manager/vite.config.js',
+  'packages/react-electron/vite.config.js',
 ];
 
 
