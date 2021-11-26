@@ -14,7 +14,6 @@ import {
 
 } from '../ListManager';
 
-debugger;
 
 export const ConnectCrudList = connect(
     bindSelectors(

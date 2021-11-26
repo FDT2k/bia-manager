@@ -9,6 +9,7 @@ import { useHostProvider } from '@/Context/Host'
 import { reduceListByKeys, safe_path } from '@karsegard/composite-js'
 import { is_empty } from '@karsegard/composite-js';
 import { useTranslation } from '@karsegard/react-bia-manager';
+import { add } from 'date-fns';
 
 export default ({ children }) => {
     const { actions: { sqlite_model_transaction, sqlite_search, sqlite_custom_search, sqlite_create, sqlite_query, sqlite_model } } = useElectron();
@@ -94,8 +95,8 @@ export default ({ children }) => {
 
 
     const get_subject = async (id) => {
-        return sqlite_model({ model: "subject", fn: "fetchWithMesures", args: [id] }).then(res=> {
-            if(!res){
+        return sqlite_model({ model: "subject", fn: "fetchWithMesures", args: [id] }).then(res => {
+            if (!res) {
                 add_error('subject not found in database')
             }
             return res;
@@ -103,33 +104,58 @@ export default ({ children }) => {
 
     }
 
-    const save_subject = async (subject) => {
+    const save_subject_mesures = async (subject) => {
         start_loading(t('Saving'))
         let mesures = await sqlite_model_transaction({ model: 'mesure', fn: 'import', args: [subject.id], arg_stmt: subject.mesures }).catch(add_error)
         stop_loading();
+
+       // return get_subject(subject.id);
+
+
+    }
+
+    const save_subject = async ({ age,
+        birthdate,
+        gender,
+        usual_height,
+        usual_weight,
+        groups ,id   })=> {
+        
+        
+         return  sqlite_model({ model: 'subject', fn: 'save', args: [{
+             age,
+             birthdate,
+             gender,
+             usual_height,
+             usual_weight,
+             groups,
+             id   
+         }]}).catch(add_error)
     }
 
     const delete_mesure = async (patient, idx) => {
-        // debugger;
+         debugger;
 
-        
+
         start_loading(t('Deleting'))
 
-        let mesure_id = patient.mesures[idx].id;
-        if (!is_empty(mesure_id)) {
-            return await sqlite_model({ model: "mesure", fn: 'softDelete', args: [mesure_id] })
+        let uuid = patient.mesures[idx].uuid;
+
+        if (!is_empty(uuid)) {
+            await sqlite_model({ model: "mesure", fn: 'softDelete', args: [uuid] })
                 .catch(err => {
                     add_error(err)
                     stop_loading();
-                }).then(res => {
-                    stop_loading();
-                    return true
                 })
-        }else {
+            stop_loading();
 
+            return true
+        } else {
+            add_error('impossible de supprimer la mesure')
+            stop_loading();
             return false;
         }
-        
+
 
     }
 
@@ -152,7 +178,7 @@ export default ({ children }) => {
 
     const db_name = file
     return (
-        <BackendProvider type="sqlite" actions={{ get_subject, ready, search, search_custom_filters, create_database, fetch_stats, stats, db_name, search_count, get_lists, get_forms, create_subject, save_subject, delete_mesure }}>
+        <BackendProvider type="sqlite" actions={{ get_subject, ready, search, search_custom_filters, create_database, fetch_stats, stats, db_name, search_count, get_lists, get_forms, create_subject, save_subject,save_subject_mesures, delete_mesure }}>
             {/*<pre>{JSON.stringify(subject, null, 3)}</pre>*/}
             {children}
             <SQLiteUnlock />

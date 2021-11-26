@@ -42,13 +42,18 @@ const mesure = (db, api) => {
         const [filter, _values] = spreadObjectPresentIn(keys, subject);
         const [values, _] = spreadObjectPresentIn(Object.keys(schema), _values);
         let result = module.select(filter).get(filter)
+        let ret
 
         if (!is_empty(result)) {
 
             module.update(values, filter).run({ ...values, ...filter });
+            ret = result.id;
         } else {
-            module.insert({ ...values, ...filter }, pkeys).run({ ...values, ...filter });
+            let res = module.insert({ ...values, ...filter }, pkeys).run({ ...values, ...filter });
+            ret = res.lastInsertRowid;
         }
+
+        return ret;
     })
 
     module.import = subject_id => db.transaction((mesures) => {
@@ -60,7 +65,7 @@ const mesure = (db, api) => {
         }
     })
 
-    module.softDelete = (mesure_id) => module.update({status:'deleted'},{id:mesure_id}).run({id:mesure_id,status:'deleted'});
+    module.softDelete = (uuid) => module.update({status:'deleted'},{uuid}).run({uuid,status:'deleted'});
 
 
     module.retrieveFromRaw = (stmt,result) => _retrieve_entity('mesures',schema, stmt.columns(), result)

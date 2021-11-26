@@ -60,8 +60,16 @@ export const Container = ({ selectors, actions }) => (Component, MesureEditor) =
 
 
     const handleMesureCreate = _ => {
-        _handleMesureCreate(patient_id);
-        dispatch(actions.create_mesure(patient_id))
+        Promise.resolve(_handleMesureCreate(patient_id,is_clean)).then(result => {
+
+            if (result !== false) {
+                dispatch(actions.create_mesure(patient_id))
+            }
+
+
+        })
+        
+       
 
     }
 
@@ -77,7 +85,8 @@ export const Container = ({ selectors, actions }) => (Component, MesureEditor) =
     useEffect(() => {
         if (should_save) {
             if (handleSave) {
-                handleSave(patient)
+                Promise.resolve(handleSave(patient,current_mesure_id))
+               
             } else {
                 console.warn('handleSave not set');
             }
@@ -89,7 +98,9 @@ export const Container = ({ selectors, actions }) => (Component, MesureEditor) =
                 dispatch(actions.edit_mesure(patient_id, should_open));
 
             } else {
-                handleMesureCreate()
+               /* debugger;
+                dispatch(actions.create_mesure(patient_id))*/
+                alert('this should not happen.')
             }
 
             setShouldOpen(false);

@@ -10,7 +10,8 @@ CREATE TABLE IF NOT EXISTS subjects (
     groups TEXT,
     usual_height FLOAT,
     usual_weight FLOAT,
-    uuid TEXT
+    uuid TEXT,
+    diag TEXT
 
      
 );

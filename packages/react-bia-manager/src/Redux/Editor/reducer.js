@@ -169,13 +169,13 @@ export default (getModule) => {
             let res = 
                 {
                     ...state,
-                    mesures:  mesures.map( (mesure,idx) => {
+                    mesures:  delete_from_list_by_index(mesures,payload.mesure_id) /*mesures.map( (mesure,idx) => {
                         if(idx == payload.mesure_id){
                             mesure.status='deleted'
                             mesure.deleted_on= new Date()
                         }
                         return mesure
-                    })
+                    })*/
                 }
             
             return res

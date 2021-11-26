@@ -180,7 +180,6 @@ const ListCrudWithBackend = Component=>  props => {
 
 const ListsManagerWithRedux =  ListsManagerWithBackend(connectLists(ListsHoc(ListsManager)));
 const ListCrudWithRedux = ListCrudWithBackend(ConnectCrudList(ListCrudHOC(ListCrud)));
-debugger;
 
 export default props => {
 

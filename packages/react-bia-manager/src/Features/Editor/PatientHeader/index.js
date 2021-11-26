@@ -39,7 +39,7 @@ const PatientHeader = props => {
     const fields = {
         'birthdate': { type: 'date', editable: true, label: t('Date de naissance'), className:'birthdate' },
         'age': { type: 'text', editable: false, label:  t('Âge') },
-        'gender': { type: 'select', editable: true, label:  t('Sexe'),options:safe_path([],'gender',lists) },
+        'gender': { type: 'select', editable: true, label:  t('Sexe'),options:safe_path([],'genders',lists) },
         'usual_height': { type: 'text', editable: true, label:  t('Taille (cm)') },
         'usual_weight': { type: 'text', editable: true, label:  t('Poids habituel (kg)') },
         'groups.patho': { type: 'select', editable: true, label:  t('Groupe pathologique'), options:safe_path([],'pathological_groups',lists)},

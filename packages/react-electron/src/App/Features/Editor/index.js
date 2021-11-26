@@ -11,7 +11,7 @@ const Editor = ReduxEditor(editorModule,EditorFeature)
 
 
 const EditorWithBackend = (props) => {
-    const { get_subject,save_subject, get_mesure,delete_mesure } = useBackend();
+    const { get_subject,save_subject_mesures,save_subject, get_mesure,delete_mesure } = useBackend();
     const { isConfirmed } = useConfirm();
     const {t} = useTranslation();
  
@@ -22,9 +22,10 @@ const EditorWithBackend = (props) => {
     }
 
 
-    const handleSave = async(subject) => {
+    const handleSave = async(subject,current_mesure_id) => {
 
-        return save_subject(subject);
+        let result =  save_subject_mesures(subject);
+        debugger;
     }
 
     const handleMesureOpen = async (value, idx, editor_status) => {
@@ -34,8 +35,11 @@ const EditorWithBackend = (props) => {
         return undefined;
     }
 
-    const handleMesureCreate = async (patient_id) => {
-
+    const handleMesureCreate = async (patient_id,editor_status) => {
+        if (editor_status === false) {
+            return await isConfirmed(t("The changes you made will not be saved, continue ?"))
+        }
+        return undefined;
     }
 
     const handleMesureDelete = async (patient_id,idx) => {
@@ -46,6 +50,11 @@ const EditorWithBackend = (props) => {
 
         return false;        
     }
+
+    const handleSaveSubject = async (subject)=> {
+
+        return save_subject({...subject,mesures:[]});
+    }
   
     const handlers = {
         ..._handlers,
@@ -53,6 +62,7 @@ const EditorWithBackend = (props) => {
         handleSave,
         handleMesureDelete,
         handleMesureCreate,
+        handleSaveSubject,
         handleMesureOpen,
     }
 

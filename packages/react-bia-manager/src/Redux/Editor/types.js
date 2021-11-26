@@ -24,7 +24,8 @@ export const ACTIONS_TYPES = createActionTypes(
     'INIT',
     'SET_EXAMINATOR',
     'ERROR',
-    'CLEAR_BIA'
+    'CLEAR_BIA',
+    'SET_MESURE_REMOTE_ID'
 )
 
 

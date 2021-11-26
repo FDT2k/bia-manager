@@ -15,7 +15,8 @@ const subject = (db, api) => {
         usual_height: '',
         usual_weight: '',
         uuid: '',
-        mesures_dates: 'array'
+        mesures_dates: 'array',
+        diag:''
     }
 
 
@@ -106,6 +107,16 @@ const subject = (db, api) => {
     module.create = (subject) => {
         let res = module.insert(subject, pkeys).run(_transform(schema, subject));
         return res.lastInsertRowid;
+    }
+
+    module.save = subject => {
+       console.log('saving',subject)
+
+       const {id,...rest}=subject;
+
+
+        let res = module.update(rest,{id}).run({..._transform(schema, subject),id});
+        return res;
     }
 
     module.custom_search = (custom_filters) => {

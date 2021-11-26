@@ -96,9 +96,10 @@ export const FakeBackendContainer = Component => (props) => {
     }
 
 
-    const handleSave = async (subject) => {
-
-        alert('saved')
+    const handleSave = async (subject,mesure_id) => {
+        debugger;
+        //alert('saved' +mesure_id)
+        return subject.mesures[mesure_id];
     }
 
     const handleMesureOpen = async (value, idx, editor_status) => {
@@ -143,6 +144,7 @@ export default props => {
     const handleMesureOpen = (subject_id, mesure_idx) => {
 
     }
+
     const handleMesureCreate = (subject_id) => {
 
     }
