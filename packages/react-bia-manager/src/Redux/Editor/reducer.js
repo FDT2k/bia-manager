@@ -151,10 +151,12 @@ export default (getModule) => {
         [types.SAVE]: (state, action) => {
 
             const mesures = safe_path([],`mesures`,state);
+            let new_mesures = module.patient_mesures(mesures,action);
             let res =  
                 {
                     ...state,
-                    mesures: module.patient_mesures(mesures,action)
+                    mesures: new_mesures,
+                    mesure_count : new_mesures.length
                 }
             
 

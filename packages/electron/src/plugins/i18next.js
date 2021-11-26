@@ -27,6 +27,8 @@ const buildMenu = ()=>{
 
 
 export default  (handleLanguageChange,language='fr') => mainWindow=> {
+
+    let client_ready = false;
     i18n.on('loaded', (loaded) => {
         i18n.changeLanguage('fr');
         i18n.off('loaded');
@@ -45,6 +47,7 @@ export default  (handleLanguageChange,language='fr') => mainWindow=> {
 
     ipcMain.handle('i18next-client-ready', async _ => {
         console.log('client reported ready')
+        client_ready= true;
         i18n.changeLanguage(language);
     })
 
@@ -53,7 +56,10 @@ export default  (handleLanguageChange,language='fr') => mainWindow=> {
             mutex
                 .acquire()
                 .then(function (release) {
-
+                    if(!client_ready){
+                        console.warn('client is sending missing translation but is not ready yet')
+                        return ;
+                    }
                     let p = i18nextOptions.backend.addPath.replace('{{ns}}', ns).replace('{{lng}}', lngs[0]);
                     return fs.readFile(p).then(res => {
                         return JSON.parse(res);

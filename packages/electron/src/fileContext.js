@@ -28,7 +28,7 @@ export const determine_file_type = async (file) => {
 
     }
 
-    return null;
+    return 'unknown';
 }
 
 

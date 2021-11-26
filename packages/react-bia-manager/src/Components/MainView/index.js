@@ -42,7 +42,7 @@ const MainView = props => {
             <Footer area="footer">
                 <div>{renderFooter && renderFooter()} { !is_nil( RightFooter) && RightFooter}</div>
 
-                <div>bia-manager: v{process.env.RENDERER_VERSION} - bia-electron: v{process.env.ELECTRON_VERSION} - {import.meta.env.MODE}</div>
+                <div>bia-manager: v{process.env.RENDERER_VERSION} - {import.meta.env.MODE}</div>
             </Footer>
         </MainLayout>
     )

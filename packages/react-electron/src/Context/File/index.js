@@ -6,6 +6,7 @@ import { useDispatch, useSelector } from '@karsegard/react-redux'
 import { store } from '@/Store'
 import ReduxModule from '@/Redux/FileStatus';
 import { useHostProvider } from '@/Context/Host';
+import { useTranslation } from '@karsegard/react-bia-manager';
 
 export const Context = createContext(null)
 
@@ -15,11 +16,12 @@ const __not_implemented = text => _ => console.warn(text + ' not implemented for
 
 export const makeProvider = (Context) => {
 
-
     const Module = ReduxModule(state => state.file, 'file', {});
     store.manager.addModule(Module);
 
     return (props) => {
+        const { t } = useTranslation();
+
         const { add_error, start_loading, stop_loading } = useHostProvider();
         const { children, actions: _actions } = props;
         const {
@@ -50,13 +52,18 @@ export const makeProvider = (Context) => {
             is_modified: useSelector(Module.selectors.modified)
 
         }
-
         const open_file = _ => {
-            start_loading("Waiting on user confirmation");
+            start_loading(t("Waiting on user confirmation"));
             electron_open()
                 .then(result => {
                     stop_loading()
-                    dispatch(Module.actions.open(result))
+                    if (result.type !== "unknown") {
+                        dispatch(Module.actions.open(result))
+                    }else{
+                        add_error(t("Ce format de fichier n'est pas supporté"))
+                        close_file();
+
+                    }
                     /* if (result) {
                          window.location.hash = '#/search'
                      }*/
@@ -67,7 +74,7 @@ export const makeProvider = (Context) => {
         }
 
         const save_file = _ => {
-            start_loading('saving');
+            start_loading(t('saving'));
             save().then(
                 result => {
                     stop_loading();
@@ -101,7 +108,7 @@ export const makeProvider = (Context) => {
 
         }
 
-        const reload_file_state = _=> {
+        const reload_file_state = _ => {
             get_file_state().then(res => {
                 dispatch(Module.actions.open(res))
                 stop_loading();

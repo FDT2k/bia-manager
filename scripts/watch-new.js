@@ -106,7 +106,7 @@ const setupBIA = setupExternalLibWatcher('packages/react-bia-manager/vite.config
 
     await setupPreloadPackageWatcher(viteDevServer);
     await setupMainPackageWatcher(viteDevServer);
-    //await setupBIA(viteDevServer)
+    await setupBIA(viteDevServer)
   } catch (e) {
     console.error(e);
     process.exit(1);
