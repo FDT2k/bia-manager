@@ -57,8 +57,11 @@ export const makeProvider = (Context) => {
             electron_open()
                 .then(result => {
                     stop_loading()
-                    if (result.type !== "unknown") {
+                    if (result.type !== "unknown" && result.type!=='json') {
                         dispatch(Module.actions.open(result))
+                    }else if (result.type==='json') {
+                        add_error(t("Ce format de fichier n'est plus supporté"))
+                        close_file();
                     }else{
                         add_error(t("Ce format de fichier n'est pas supporté"))
                         close_file();

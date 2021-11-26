@@ -3,7 +3,12 @@ import React from 'react';
 
 
 const Input = props => {
-    return (<input type="text" {...props}/>)
+    let {forwardedRef, ...rest}= props;
+    
+    if(forwardedRef){
+        rest.ref= forwardedRef
+    }
+    return (<input type="text" {...rest}/>)
 }
 
 /*

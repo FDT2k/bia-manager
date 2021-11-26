@@ -51,13 +51,7 @@ export default  (app, window, labelEnhancer=identity) => {
             window.webContents.send('trigger-open');
           }
         },
-        {
-          label: labelEnhancer('Enregistrer'),
-          click() {
-            window.webContents.send('trigger-save');
-          },
-          //enabled: !is_nil(openedFilePath)&& openedFilePath!="" 
-        },
+       
         {
           label: labelEnhancer('Fermer'),
           click() {

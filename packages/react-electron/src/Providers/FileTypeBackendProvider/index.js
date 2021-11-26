@@ -16,10 +16,10 @@ export default ({ children }) => {
             <FileTypeRoute type="sqlite">
                 <ElectronSqlite>{children}</ElectronSqlite>
             </FileTypeRoute>
-            <FileTypeRoute type="json">
+          {/*  <FileTypeRoute type="json">
                 <Dexie>{children} </Dexie>
             </FileTypeRoute>
-           
+    */}
             
             <FileTypeRoute>
                 <ElectronSqlite>
