@@ -20,6 +20,7 @@ jobs:
         uses: actions/checkout@v2
         with:
           submodules: true
+          lfs: true
           ssh-known-hosts: 'gitlab.com,172.65.251.78 ecdsa-sha2-nistp256 AAAAE2VjZHNhLXNoYTItbmlzdHAyNTYAAAAIbmlzdHAyNTYAAABBBFSMqzJeV9rUzU4kWitGjeR4PWSa29SPqJ1fVkhtj3Hw9xjLVXVYrU9QlYWrOLXBpQ6KWjbjTDTdDkoohFzgbEY='
           ssh-key: ${{ secrets.GITLAB_SSH_KEY }}
 
