@@ -236,6 +236,8 @@ export const Page = props => {
 
     const {t} = useTranslation();
     const renderFooter = _ => {
+
+        
         return (
             <>
                 <LayoutFlex>
