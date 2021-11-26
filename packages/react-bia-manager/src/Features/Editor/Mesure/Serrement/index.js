@@ -1,10 +1,20 @@
 import { useTranslation } from '@/Context/Translation';
+import { is_empty } from '@karsegard/composite-js';
 import { safe_path } from '@karsegard/composite-js';
 import { Grid } from '@karsegard/react-core-layout';
 import { useForm } from '@karsegard/react-hooks';
 import React, { useEffect } from 'react';
 
 
+
+const get_norme = (path,obj) => {
+    let val = safe_path([],path, obj);
+    if(is_empty(val)){
+        val = [];
+    }
+
+    return val.join('-');
+}
 
 
 export const Component = props => {
@@ -20,8 +30,10 @@ export const Component = props => {
 
     const left_avg = safe_path("N/A", 'left.avg', initialValues);
     const right_avg = safe_path("N/A", 'right.avg', initialValues);
-    const left_norme = safe_path("N/A", 'left.norme', initialValues);
-    const right_norme = safe_path("N/A", 'right.norme', initialValues);
+    const left_norme =  get_norme('left.norme', initialValues);
+    const right_norme =  get_norme( 'right.norme', initialValues);
+
+   
     return (
         <>
             <Grid
@@ -49,8 +61,8 @@ export const Component = props => {
                 <div>{oneDecimal(left_avg)} </div>
                 <div>{oneDecimal(right_avg)} </div>
                 <div className="header header--left">{t('Normes')}</div>
-                <div>{left_norme.toString()} </div>
-                <div>{right_norme.toString()} </div>
+                <div>{left_norme} </div>
+                <div>{right_norme} </div>
 
             </Grid>
         </>

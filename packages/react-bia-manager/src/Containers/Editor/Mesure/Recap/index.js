@@ -9,6 +9,7 @@ import  RecapGridComponent from '@/Containers/Editor/Mesure/RecapGrid';
 import  RecapGridFDSComponent from '@/Containers/Editor/Mesure/RecapFDS';
 import  MassChartComponent from '@/Containers/Editor/Mesure/MassChart';
 
+import {useSelector } from '@karsegard/react-redux'
 
 export default (module) => {
 
@@ -26,12 +27,18 @@ export default (module) => {
         RecapGridComponent: ConnectedRecapGrid,
         MassChartComponent: ConnectedMassChart,
     }
+
+
+
+
     return props => {
 
 
+        const valid = useSelector(module.selectors.recap_is_valid)
 
         return <Recap
             {...components}
+            valid ={valid}
 
         />;
     }

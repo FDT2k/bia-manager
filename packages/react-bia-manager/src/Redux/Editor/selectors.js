@@ -3,6 +3,7 @@ import { createSelector } from 'reselect';
 
 import { dateSysToHuman } from '@/references/format'
 import { value } from '@karsegard/composite-js/ObjectUtils';
+import { is_empty } from '@karsegard/composite-js';
 
 
 
@@ -34,6 +35,8 @@ export default getModule => {
    })
 
   });
+
+
 
   module.select_edited_mesure = createSelector([module.select_current_patient_id, baseSelector], (current_patient, state) => {
     if (state.mesure && state.mesure && state.mesure.mesure) {
@@ -83,6 +86,11 @@ export default getModule => {
       return state.recap[current];
     }
   });
+
+
+  module.recap_is_valid = createSelector( module.select_recap,state => {
+    return !is_nil(state) && !is_empty(state) && state.list.length > 0 && state.headers.length>0
+  })
 
   module.select_recap_list = createSelector([module.select_recap], (recap) => {
     if (recap)

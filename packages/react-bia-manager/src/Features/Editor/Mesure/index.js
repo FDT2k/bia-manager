@@ -24,7 +24,7 @@ const [__base_class, element, modifier] = bem('bia-mesure-editor')
 
 const Editor = props => {
 
-    const { BIAEditor,ComparisonTable, Serrement,Recap,AsideEditor,PrintableReport,CommentEditor } = props;
+    const { BIAEditor,canPrint,ComparisonTable, Serrement,Recap,AsideEditor,PrintableReport,CommentEditor } = props;
 
 
     const { t, oneDecimal, oneDecimalPct } = useTranslation();
@@ -42,10 +42,18 @@ const Editor = props => {
 
     const componentRef = useRef();
 
-    const _handlePrint = useReactToPrint({
+    const print = useReactToPrint({
         content: () => componentRef.current
     })
 
+
+    const _handlePrint = ()=> {
+        if(canPrint){
+            print()
+        }else{
+            alert('Pour imprimer, remplissez le formulaire ou choisissez une mesure valide')
+        }
+    }
 
 
     
@@ -103,6 +111,7 @@ Editor.defaultProps = {
         current_age: 0
 
     },
+    canPrint:true,
     custom_lists: {},
     BIAEditor: DefaultBIAEditor,
     ComparisonTable: DefaultComparisonTable,
