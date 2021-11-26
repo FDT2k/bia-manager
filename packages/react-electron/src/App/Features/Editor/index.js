@@ -26,17 +26,19 @@ const EditorWithBackend = (props) => {
         return save_subject(subject);
     }
 
-    const handleMesureOpen = async (value, idx) => {
-
+    const handleMesureOpen = async (value, idx, editor_status) => {
+        if (editor_status === false) {
+            return await isConfirmed("The changes you made will not be saved, continue ?")
+        }
+        return undefined;
     }
-
 
     const handleMesureCreate = async (patient_id) => {
 
     }
 
-    const handleDelete = async (patient_id,idx) => {
-        const confirmed = await isConfirmed("Are you sure?");
+    const handleMesureDelete = async (patient_id,idx) => {
+        const confirmed = await isConfirmed(t("Are you sure that you want to delete this ?"));
         if (confirmed) {
             return delete_mesure(patient_id,idx);
         }
@@ -48,7 +50,7 @@ const EditorWithBackend = (props) => {
         ..._handlers,
         handleFetch,
         handleSave,
-        handleDelete,
+        handleMesureDelete,
         handleMesureCreate,
         handleMesureOpen,
     }

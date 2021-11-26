@@ -72,8 +72,8 @@
    "ffmi_recap": "Indice de masse maigre (FFMI) [kg/m2]",
 
    
-   "FAT_FREE_MASS_Y_LABEL":"Masse Grasse (kg/m2)",
-   "FAT_MASS_Y_LABEL":"Masse Maigre (kg/m2)",
+   "FAT_FREE_MASS_Y_LABEL":"Masse Maigre (kg/m2)",
+   "FAT_MASS_Y_LABEL":"Masse Grasse (kg/m2)",
 
    
    "water_comparison_line_header": "Eau [kg]",

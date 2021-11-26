@@ -1,10 +1,10 @@
 import { TranslationProvider, CustomListProvider } from '@';
 import { Fullscreen } from '@karsegard/react-core-layout';
 import React from 'react';
-import { BackendProvider,ConfirmProvider,ConfirmDialog } from '@';
+import { BackendProvider, ConfirmProvider, ConfirmDialog } from '@';
 import { useTranslation } from '@';
 import { Provider as StoreProvider, store } from '@/example/Store'
-import { useBackend,useConfirm } from '@'
+import { useBackend, useConfirm } from '@'
 
 import sample from './patient'
 
@@ -15,7 +15,7 @@ const translations = {
 }
 
 const translate = key => {
-   // console.warn('translator',key)
+    // console.warn('translator',key)
     return translations[key] || key;
 }
 
@@ -24,38 +24,38 @@ const TestListProvider = props => {
 
     return (
         <CustomListProvider lists={{
-            ethnological_groups:[
-                {'unkown':'Inconnu'},
-                {'moderate':'Modéré'},
-                {'high':'Normal'},
-                {'average':'Elevé'},
+            ethnological_groups: [
+                { 'unkown': 'Inconnu' },
+                { 'moderate': 'Modéré' },
+                { 'high': 'Normal' },
+                { 'average': 'Elevé' },
             ],
-            pathological_groups:[
-                {'unkown':'Inconnu'},
-                {'moderate':'Modéré'},
-                {'high':'Normal'},
-                {'average':'Elevé'},
+            pathological_groups: [
+                { 'unkown': 'Inconnu' },
+                { 'moderate': 'Modéré' },
+                { 'high': 'Normal' },
+                { 'average': 'Elevé' },
             ],
-            physical_activity_rate:[
-                {'unkown':'Inconnu'},
-                {'moderate':'Modéré'},
-                {'high':'Normal'},
-                {'average':'Elevé'},
+            physical_activity_rate: [
+                { 'unkown': 'Inconnu' },
+                { 'moderate': 'Modéré' },
+                { 'high': 'Normal' },
+                { 'average': 'Elevé' },
             ],
-            physical_activity_type:[
-                {'unkown':'Inconnu'},
-                {'moderate':'Modéré'},
-                {'high':'Normal'},
-                {'average':'Elevé'},
+            physical_activity_type: [
+                { 'unkown': 'Inconnu' },
+                { 'moderate': 'Modéré' },
+                { 'high': 'Normal' },
+                { 'average': 'Elevé' },
             ],
-            machines:[
+            machines: [
                 { id: '', name: t('- Choisissez une valeur -') },
-                {'unkown':'Inconnu'},
-                {'moderate':'Modéré'},
-                {'high':'Normal'},
-                {'average':'Elevé'},
+                { 'unkown': 'Inconnu' },
+                { 'moderate': 'Modéré' },
+                { 'high': 'Normal' },
+                { 'average': 'Elevé' },
             ],
-            ethno:[
+            ethno: [
                 'europeen',
                 'europeen',
                 'europeen',
@@ -85,9 +85,10 @@ const TestListProvider = props => {
 
 
 export const FakeBackendContainer = Component => (props) => {
-    const { get_subject,save_subject, get_mesure } = useBackend();
+    const { get_subject, save_subject, get_mesure } = useBackend();
+    const { isConfirmed } = useConfirm();
 
- 
+
     const { handlers: _handlers, ...rest } = props;
 
     const handleFetch = async patient_id => {
@@ -95,13 +96,16 @@ export const FakeBackendContainer = Component => (props) => {
     }
 
 
-    const handleSave = async(subject) => {
+    const handleSave = async (subject) => {
 
-       alert('saved')
+        alert('saved')
     }
 
-    const handleMesureOpen = async (value, idx) => {
-
+    const handleMesureOpen = async (value, idx, editor_status) => {
+        if (editor_status === false) {
+            return await isConfirmed("The changes you made will not be saved, continue ?")
+        }
+        return undefined;
     }
 
 
@@ -109,15 +113,15 @@ export const FakeBackendContainer = Component => (props) => {
 
     }
 
-    const handleDelete = async (patient_id,idx) => {
-        
+    const handleMesureDelete = async (patient_id, idx) => {
+
     }
-  
+
     const handlers = {
         ..._handlers,
         handleFetch,
         handleSave,
-        handleDelete,
+        handleMesureDelete,
         handleMesureCreate,
         handleMesureOpen,
     }
@@ -136,14 +140,14 @@ const EditorWithBackend = FakeBackendContainer(Editor)
 export default props => {
     const lists = {};
     const forms = {};
-    const handleMesureOpen= (subject_id,mesure_idx)=> {
+    const handleMesureOpen = (subject_id, mesure_idx) => {
 
     }
-    const handleMesureCreate= (subject_id)=> {
-        
+    const handleMesureCreate = (subject_id) => {
+
     }
 
-    const handlers= {
+    const handlers = {
         handleMesureOpen,
         handleMesureCreate
     }
@@ -152,20 +156,20 @@ export default props => {
             <StoreProvider>
                 <TranslationProvider value={{ t: translate }}>
                     <ConfirmProvider>
-                        <ConfirmDialog/>
-                    <BackendProvider actions={{
-                        get_subject: async (id)=> {
-                            return sample
-                        },
-                        get_mesure: (subject_id,id)=>{
+                        <ConfirmDialog />
+                        <BackendProvider actions={{
+                            get_subject: async (id) => {
+                                return sample
+                            },
+                            get_mesure: (subject_id, id) => {
 
-                        },
-                        delete_mesure:(patient_id,idx)=> {}
-                    }}>
-                        <TestListProvider >
-                            <EditorWithBackend patient_id={1} handlers={handlers}/>
-                        </TestListProvider>
-                    </BackendProvider>
+                            },
+                            delete_mesure: (patient_id, idx) => { }
+                        }}>
+                            <TestListProvider >
+                                <EditorWithBackend patient_id={1} handlers={handlers} />
+                            </TestListProvider>
+                        </BackendProvider>
                     </ConfirmProvider>
                 </TranslationProvider>
             </StoreProvider>

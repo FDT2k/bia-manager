@@ -12,7 +12,7 @@ export const Container = ({ selectors, actions }) => (Component, MesureEditor) =
 
     const { handleFetch = _ => console.warn('not implemented'),
         handleSave,
-        handleDelete,
+        handleMesureDelete: _handleMesureDelete,
         handleMesureCreate: _handleMesureCreate,
         handleMesureOpen: _handleMesureOpen } = _handlers
     const dispatch = useDispatch();
@@ -20,8 +20,10 @@ export const Container = ({ selectors, actions }) => (Component, MesureEditor) =
     const mesure = useSelector(selectors.select_edited_mesure);
     const current_mesure_id = useSelector(selectors.select_current_mesure_id);
     const current_mesures = useSelector(selectors.select_mesures)
+    const is_clean = useSelector(selectors.is_clean)
 
     const [should_save, setShouldSave] = useState(false);
+    const [should_open, setShouldOpen] = useState(false);
 
     useEffect(() => {
         dispatch(actions.fetch_normes());
@@ -79,22 +81,36 @@ export const Container = ({ selectors, actions }) => (Component, MesureEditor) =
             }
             setShouldSave(false);
         }
-    }, [should_save]);
+
+        if(should_open!==false){
+            if (should_open < current_mesures.length) {
+                dispatch(actions.edit_mesure(patient_id, should_open));
+
+            } else {
+                handleMesureCreate()
+            }
+
+            setShouldOpen(false);
+        }
+    }, [should_save,should_open]);
 
 
     const handleMesureOpen = (value, idx) => {
-        if (idx < current_mesures.length) {
-            dispatch(actions.edit_mesure(patient_id, idx));
-            _handleMesureOpen(patient_id, idx)
-        } else {
-            return _handleMesureCreate()
-        }
+        Promise.resolve(_handleMesureOpen(patient_id, idx,is_clean)).then(result => {
+
+            if (result!==false) {
+                setShouldOpen(idx);
+            }
+
+
+        })
+
     }
 
 
     const handleMesureDelete = async (idx) => {
 
-        Promise.resolve(handleDelete(patient, idx)).then(res => {
+        Promise.resolve(_handleMesureDelete(patient, idx)).then(res => {
             if (res !== false) {
                 dispatch(actions.delete_mesure(patient.id, idx));
             }
@@ -106,7 +122,7 @@ export const Container = ({ selectors, actions }) => (Component, MesureEditor) =
 
         dispatch(actions.change_mesure(values, changed_field))
     }
-    const handleSubjectChange= (...args)=>{
+    const handleSubjectChange = (...args) => {
 
         debugger;
     }

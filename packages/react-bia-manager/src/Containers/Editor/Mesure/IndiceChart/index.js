@@ -25,10 +25,11 @@ export default (module) => {
         const y_ticks = makeSelectIndiceChartYTicks();
         const labelByKey = makeSelectYLabelByKey();
         return (state, props) => {
+            const value = bia_results(state, props);
             return {
                 age: select_edited_age(state),
                 data: select_normes_sampling(state),
-                value: bia_results(state, props),
+                value:value,
                 YTicks: y_ticks(state,props),
                 YLabel:labelByKey(state,props)
             }

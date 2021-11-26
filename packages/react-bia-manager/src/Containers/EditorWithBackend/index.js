@@ -25,7 +25,7 @@ export default  Component => (props) => {
 
     }
 
-    const handleDelete = async (patient_id,idx) => {
+    const handleMesureDelete = async (patient_id,idx) => {
         const confirmed = await isConfirmed("Are you sure?");
         if (confirmed) {
             return delete_mesure(patient_id,idx);
@@ -38,7 +38,7 @@ export default  Component => (props) => {
         ..._handlers,
         handleFetch,
         handleSave,
-        handleDelete,
+        handleMesureDelete,
         handleMesureCreate,
         handleMesureOpen,
     }

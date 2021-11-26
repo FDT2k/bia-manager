@@ -4,7 +4,7 @@ export default  {
   "firstname": "Fabien",
   "birthdate": "1982-02-24",
   "age": 33,
-  "gender": "M",
+  "gender": "F",
   "groups": {
       "ethno": "Caucasien",
       "patho": "VENS2015"

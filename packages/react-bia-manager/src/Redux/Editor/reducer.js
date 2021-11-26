@@ -269,8 +269,16 @@ export default (getModule) => {
     })
 
 
-    module.reducer = combineReducers({
+    module.clean = createReducer(true,{
+        [types.CHANGE_MESURE]: (state, action) => (false),
+        [types.EDIT_MESURE]: (state, action) => (true),
+        [types.CREATE_MESURE]: (state, action) => (true),
+        [types.SAVE]: (state, action) => (true),
+        [submodules.fds.types.UPDATE]:  (state, action) => (false),
+    });
 
+    module.reducer = combineReducers({
+        clean: module.clean,
         examinator: module.examinator,
         error: module.errors,
         empty_mesure: module.empty_mesure,

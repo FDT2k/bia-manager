@@ -639,8 +639,9 @@ export default getModule => {
     return safe_array(`normes.chartSample.${safe_gender}`, state);
   });
 
-  module.makeSelectIndiceChartYTicks = () => createSelector([module.select_normes_sampling, (state, props) => props.data_key], (norme, data_key) => {
+  module.makeSelectIndiceChartYTicks = () => createSelector([module.select_normes_sampling, (state, props) => props,state=>state], (norme, {data_key},state) => {
 
+    let value = module.makeSelectBIAResultByKey()(state,{data_key})
     let data = norme.filter(item => {
       return !is_nil(item[data_key])
     }).map(item => {
@@ -663,6 +664,12 @@ export default getModule => {
     }, min)
 
 
+    if(Math.ceil(value )> max) {
+      max = Math.ceil(value);
+    }else if(Math.floor(value ) < min){
+      min = Math.floor(value);
+
+    }
 
     let res = []
     for (let y = min - 1; y < max + 1; y++) {
@@ -674,6 +681,7 @@ export default getModule => {
   })
 
 
+  module.is_clean = createSelector(baseSelector, state=> state.clean);
 
   module.makeSelectBIAResultByKey = () => createSelector([module.select_edited_mesure, module.select_bia_by_key, (state, props) => props.data_key], (mesure, bia, data_key) => {
 
