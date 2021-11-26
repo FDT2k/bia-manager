@@ -4,6 +4,7 @@ import { useElectron } from '@/Context/Electron';
 import { spreadObjectPresentIn } from '@karsegard/composite-js/ReactUtils';
 import { is_empty, is_nil } from '@karsegard/composite-js';
 import {useHostProvider} from '@/Context/Host';
+import {useBackend} from '@karsegard/react-bia-manager';
 
 export default props => {
     const {
@@ -16,6 +17,8 @@ export default props => {
 
     const {add_error} = useHostProvider()
         const count = useRef(0);
+
+        const {fetch_stats} = useBackend()
     const callback = async data => {
         console.log(data.type);
         debugger;
@@ -38,5 +41,10 @@ export default props => {
         return true;
     }
 
-    return (<DatabaseImportFeature callback={callback} />)
+
+    const finish = _=> {
+        fetch_stats()
+        window.location.href='#/search'
+    }
+    return (<DatabaseImportFeature callback={callback} handleDone={finish} />)
 }
