@@ -138,7 +138,7 @@ export default (getModule) => {
 
             let new_mesure = {
                 ...select_empty_mesure(getState()),
-                mesure_id:new_mesure_id,
+                mesure_id: new_mesure_id,
                 examinator
             }
 
@@ -242,6 +242,7 @@ export default (getModule) => {
         }
     }
 
+   
 
     actions.change_mesure = (values, changed_field = "") => {
 
@@ -249,9 +250,9 @@ export default (getModule) => {
         return (dispatch, getState) => {
             const mesure = select_edited_mesure(getState());
             //some fields does not need to be refreshed unless saved        
-     //       if (dontCommitTheseFieldsUntilSaved.includes(changed_field)) {
-                //      return;
-      //      }
+            //       if (dontCommitTheseFieldsUntilSaved.includes(changed_field)) {
+            //      return;
+            //      }
 
             const patient = select_edited_patient(getState());
             const { mesure: normalized_mesure } = normalize_mesure({ patient, mesure: values });
@@ -289,20 +290,31 @@ export default (getModule) => {
             const patient = select_edited_patient(getState());
             const mesure = select_edited_mesure(getState());
 
-            dispatch(actions.change_mesure(patient, mesure));
+            dispatch(actions.change_mesure_silent(patient, mesure));
         }
     }
+
+    actions.change_mesure_silent = (patient,mesure) => (dispatch,getState)=>{
+        
+        const { mesure: normalized_mesure } = normalize_mesure({ patient, mesure });
+
+        const new_mesure = { ...mesure, ...normalized_mesure };
+
+        dispatch({
+            type: types.CHANGE_MESURE_SILENT,
+            payload: {
+                id: patient.id,
+                mesure: new_mesure,
+            }
+        })
+    }
+
 
     actions.change_subject = (patient_id, patient) => {
 
 
-        if (is_nil(patient)) {
-            return {
-                type: 'GENERAL_ERROR'
-            }
-        }
         return (dispatch, getState) => {
-
+            debugger;
             const mesure = select_edited_patient(getState());
 
             dispatch({

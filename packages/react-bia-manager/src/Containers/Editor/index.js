@@ -12,6 +12,7 @@ export const Container = ({ selectors, actions }) => (Component, MesureEditor) =
 
     const { handleFetch = _ => console.warn('not implemented'),
         handleSave,
+        handleSaveSubject,
         handleMesureDelete: _handleMesureDelete,
         handleMesureCreate: _handleMesureCreate,
         handleMesureOpen: _handleMesureOpen } = _handlers
@@ -24,6 +25,7 @@ export const Container = ({ selectors, actions }) => (Component, MesureEditor) =
 
     const [should_save, setShouldSave] = useState(false);
     const [should_open, setShouldOpen] = useState(false);
+    const [should_save_subject, setShouldSaveSubject] = useState(false);
 
     useEffect(() => {
         dispatch(actions.fetch_normes());
@@ -82,7 +84,7 @@ export const Container = ({ selectors, actions }) => (Component, MesureEditor) =
             setShouldSave(false);
         }
 
-        if(should_open!==false){
+        if (should_open !== false) {
             if (should_open < current_mesures.length) {
                 dispatch(actions.edit_mesure(patient_id, should_open));
 
@@ -92,13 +94,21 @@ export const Container = ({ selectors, actions }) => (Component, MesureEditor) =
 
             setShouldOpen(false);
         }
-    }, [should_save,should_open]);
+        if(should_save_subject) {
+            if(handleSaveSubject){
+                handleSaveSubject(patient);
+            }else {
+                console.warn('handleSaveSubject not set');
+            }
+            setShouldSaveSubject(false)
+        }
+    }, [should_save, should_open,should_save_subject]);
 
 
     const handleMesureOpen = (value, idx) => {
-        Promise.resolve(_handleMesureOpen(patient_id, idx,is_clean)).then(result => {
+        Promise.resolve(_handleMesureOpen(patient_id, idx, is_clean)).then(result => {
 
-            if (result!==false) {
+            if (result !== false) {
                 setShouldOpen(idx);
             }
 
@@ -121,10 +131,12 @@ export const Container = ({ selectors, actions }) => (Component, MesureEditor) =
     const handleChange = (values, changed_field) => {
 
         dispatch(actions.change_mesure(values, changed_field))
-    }
-    const handleSubjectChange = (...args) => {
 
-        debugger;
+    }
+
+    const handleSubjectChange = (values) => {
+        dispatch(actions.change_subject(patient_id, values));
+        setShouldSaveSubject(true)
     }
 
     const handlers = {

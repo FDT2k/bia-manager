@@ -50,6 +50,7 @@ export default (getModule) => {
 
 
             case types.CHANGE_MESURE:
+            case types.CHANGE_MESURE_SILENT:
                 return {
                     mesure: {
                         ...state.mesure,
@@ -145,10 +146,7 @@ export default (getModule) => {
         [types.EDIT_PATIENT]: (state, { payload }) => ({...payload}),
         [types.CHANGE_SUBJECT]: (state, { payload }) => {
             const [rest, patient] = spreadObjectPresentIn(['mesures', 'mesures_dates'], payload.patient);
-            return updateProp(payload.id, state, {
-                ...state[payload.id],
-                ...patient
-            })
+            return {...state,...patient}
         },
         [types.SAVE]: (state, action) => {
 
