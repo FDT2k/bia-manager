@@ -138,7 +138,7 @@ export default  (app, window, labelEnhancer=identity) => {
       {
         label: labelEnhancer('About App'),
         click() {
-          window.webContents.send('location-change', '#/help');
+          window.webContents.send('location-change', '#/about');
         }
       }
     ]
