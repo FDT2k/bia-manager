@@ -12,7 +12,7 @@ import { useTranslation } from '@karsegard/react-bia-manager';
 import { add } from 'date-fns';
 
 export default ({ children }) => {
-    const { actions: { sqlite_model_transaction, sqlite_search, sqlite_custom_search, sqlite_create, sqlite_query, sqlite_model } } = useElectron();
+    const { actions: { sqlite_model_transaction,sqlite_api, sqlite_search, sqlite_custom_search, sqlite_create, sqlite_query, sqlite_model } } = useElectron();
     const { selectors: { locked, file }, actions: { reload_file_state } } = useFileProvider();
     const [subject, setState] = useState({})
     const { add_error, start_loading, stop_loading } = useHostProvider();
@@ -114,6 +114,12 @@ export default ({ children }) => {
 
     }
 
+    const check_database = async()=> {
+
+        return await sqlite_api({api:'schema_check',args:[]})
+
+    }
+
     const save_subject = async ({ age,
         birthdate,
         gender,
@@ -160,7 +166,8 @@ export default ({ children }) => {
     }
 
     useEffect(() => {
-        if (!locked && !is_empty(file)) {
+        if (ready && !locked && !is_empty(file)) {
+            
             fetch_stats();
         }
     }, [ready])
@@ -168,7 +175,15 @@ export default ({ children }) => {
     useEffect(() => {
 
         if (!locked && !is_empty(file)) {
-            setReady(true)
+            start_loading('checking database')
+            check_database().then(res=> {
+                if(!res){
+                    add_error(t('Your database schema is diverging from current version.'))
+                }
+                setReady(true)
+
+                stop_loading()
+            }).catch(add_error);
         } else {
             setReady(false)
         }
@@ -179,7 +194,7 @@ export default ({ children }) => {
     const db_name = file
     return (
         <BackendProvider type="sqlite" actions={{ get_subject, ready, search, search_custom_filters, create_database, fetch_stats, stats, db_name, search_count, get_lists, get_forms, create_subject, save_subject,save_subject_mesures, delete_mesure }}>
-            {/*<pre>{JSON.stringify(subject, null, 3)}</pre>*/}
+
             {children}
             <SQLiteUnlock />
         </BackendProvider>

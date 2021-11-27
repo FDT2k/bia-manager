@@ -7,6 +7,7 @@ import DatabaseListManager from '@/Features/ListManager';
 import Editor from '@/Features/Editor';
 import Search from '@/Features/Search';
 import Welcome from '@/Features/WelcomeScreen';
+import About from '@/Features/About';
 import { is_nil } from '@karsegard/composite-js';
 
 
@@ -24,6 +25,7 @@ export const makeProvider = (Context) => (props) => {
         DatabaseListManager,
         Editor,
         Search,
+        About,
 
     };
 

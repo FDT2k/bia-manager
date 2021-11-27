@@ -312,7 +312,15 @@ ipcMain.handle('sqlite-query', async (event, { type, table, query, values, filte
 
 })
 
+ipcMain.handle('sqlite-api', async (event, { api,args}) => {
+  try {
+    
+    return currentSQLite[api](...args);
+  } catch (e) {
+    return Promise.reject(e);
+  }
 
+})
 
 ipcMain.handle('sqlite-model', async (event, { model,fn,args}) => {
   try {

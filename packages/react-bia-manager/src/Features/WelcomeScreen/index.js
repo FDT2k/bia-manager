@@ -12,7 +12,7 @@ export const Page = props => {
         <LayoutFlex cover centered>
             <Container className="login-container">
                 <LayoutFlex column justCenter >
-                    <h2>{t(`Bienvenue sur BIA`)}</h2>
+                    <h2>{t(`Bienvenue sur BIM`)}</h2>
                     <InputGroup>
                         <Button onClick={handleOpenDatabase}>{t('Ouvrir une base de données')}</Button>
                     </InputGroup>

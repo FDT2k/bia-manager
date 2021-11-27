@@ -31,7 +31,6 @@ export const Component = props => {
 
 
     const workerCallback = data => {
-        debugger;
         if (data.progress) {
             let pct = (parseInt(data.progress)* 100 /parseInt(data.total))
             debugger;

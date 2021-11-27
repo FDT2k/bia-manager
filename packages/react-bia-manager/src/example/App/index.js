@@ -3,6 +3,7 @@ import React from 'react';
 
 import StaticEditor from '@/example/StaticEditor'
 import StaticSearch from '@/example/StaticSearch'
+import StaticAbout from '@/example/StaticAbout'
 import StaticCreate from '@/example/StaticCreate'
 import SearchWithBackend from '@/example/SearchWithBackend'
 import EditorWithBackend from '@/example/EditorWithBackend'
@@ -38,6 +39,11 @@ const routes = [
         path: '/static/create',
         component: StaticCreate,
         menu: 'Static create'
+    },
+    {
+        path: '/static/about',
+        component: StaticAbout,
+        menu: 'Static about'
     },
     {
         path: '/backend/search',
