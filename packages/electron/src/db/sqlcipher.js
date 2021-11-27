@@ -6,6 +6,7 @@ import fs from 'fs'
 
 import { format } from 'date-fns'
 
+import crypto from 'crypto'
 var sqlite3 = require('better-sqlite3');
 
 
@@ -124,10 +125,11 @@ export const API = db => {
     const module = {}
 
     let unlocked = false;
-
+    const migrationPath = resolve(__dirname, '../migrations');
     module.isUnlocked = () => unlocked
     module.getStatements = _ => ({
-        insert_migration: db.prepare('insert into migrations (name) values(@migration)'),
+        insert_migration: db.prepare('insert into migrations (name,hash) values(@migration,@hash)'),
+        get_migrations: db.prepare('select * from migrations'),
         migration_table: db.prepare("SELECT name FROM sqlite_master WHERE type='table' AND name= ?")
     });
 
@@ -189,24 +191,45 @@ export const API = db => {
         return tmpl;
     }
 
+
+    module.schema_check = ()=> {
+        const migration_files = fs.readdirSync(migrationPath)
+        const applied  = module.getStatements().get_migrations.all()
+        return migration_files.reduce((carry,migration,idx) => {
+            if(!carry){
+                return carry;
+            }
+
+            const migrationFile = join(migrationPath, migration)
+            let migrationContent = fs.readFileSync(migrationFile, 'utf8');
+            let  hash = crypto.createHash('md5').update(migrationContent).digest('hex')
+
+            if(hash !== applied[idx]['hash']){
+                carry = false;
+            }
+            
+            return carry;
+
+        },true);
+    }
+
     module.migrate = () => {
         try {
-            const migrationPath = resolve(__dirname, '../migrations');
+            
 
             let latest = module.getLatestMigration();
 
-            const migration_files = fs.readdirSync(migrationPath);
+            const migration_files = fs.readdirSync(migrationPath).slice(latest);
 
-            let current = 0;
-
+            console.log('migrations ',migration_files);
             migration_files.map(migration => {
-                if (current >= latest) {
                     const migrationFile = join(migrationPath, migration)
-                    console.log('[SQLITE]: running migration ' + migrationFile)
-                    db.exec(fs.readFileSync(migrationFile, 'utf8'))
-                    module.getStatements().insert_migration.run({ migration })
-                }
-                current++;
+                    console.log('[SQLITE]: running migration ',  migrationFile)
+                    let migrationContent = fs.readFileSync(migrationFile, 'utf8');
+                    let  hash = crypto.createHash('md5').update(migrationContent).digest('hex')
+                    db.exec(migrationContent)
+                    module.getStatements().insert_migration.run({ migration,hash })
+                 
             })
         } catch (e) {
             console.error(e);

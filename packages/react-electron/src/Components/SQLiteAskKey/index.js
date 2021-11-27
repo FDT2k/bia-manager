@@ -6,6 +6,7 @@ import { LayoutFlexColumn } from '@karsegard/react-core-layout';
 import { useForm, required_string } from '@karsegard/react-hooks';
 import { useTranslation } from '@karsegard/react-bia-manager';
 import {Field,Input} from '@karsegard/react-bia-manager'
+
 export default ({ handleSubmit: _handleSubmit, handleCancel, visible }) => {
 
 
@@ -33,7 +34,7 @@ export default ({ handleSubmit: _handleSubmit, handleCancel, visible }) => {
                     <h3>Créer une base </h3>
                     <LayoutFlexColumn>
                         <Field label={t('Définir un mot de passe:')}>
-                             <Input  {...inputProps('key')} type="password" />
+                             <Input autoFocus  {...inputProps('key')} type="password" />
                         {defaultHandleError('key')}
                         </Field>
                         <Field label={t('Confirmez le mot de passe:')}>

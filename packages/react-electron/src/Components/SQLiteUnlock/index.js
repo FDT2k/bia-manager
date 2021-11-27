@@ -8,7 +8,7 @@ import { useFieldValues } from '@karsegard/react-hooks';
 import { useTranslation } from '@karsegard/react-bia-manager';
 import { useFileProvider } from '@/Context/File';
 import { Field, Input } from '@karsegard/react-bia-manager'
-import { useKeypress } from '@karsegard/react-hooks';
+import { useKeypress,useFocus } from '@karsegard/react-hooks';
 
 
 
@@ -24,6 +24,7 @@ export default (props) => {
     const { actions: { unlock, close_file }, selectors: { type, locked } } = useFileProvider();
     const { values, inputProps, replaceValues } = useFieldValues({});
 
+    const{hasFocus} = useFocus({ref})
     const enterpressed = useKeypress('Enter')
 
     const [visible, setVisible] = useState(false)
@@ -37,7 +38,8 @@ export default (props) => {
     }, [type, locked])
 
     useEffect(()=>{
-        if(enterpressed){
+        //debugger;
+        if(enterpressed && hasFocus){
             doUnlock()
         }
     },[enterpressed])
@@ -51,10 +53,10 @@ export default (props) => {
                 <LayoutFlexColumn>
                     <Field label={t('La base requiert un mot de passe:')}>
 
-                        <Input  autoFocus  {...inputProps('key')} type="password" />
+                        <InputWithRef  ref={ref}  autoFocus  {...inputProps('key')} type="password" />
                     </Field>
                 </LayoutFlexColumn>
-                <Button onClick={_ => doUnlock}>Déverouiller</Button>
+                <Button onClick={_ => doUnlock()}>Déverouiller</Button>
                 <Button onClick={_ => close_file()}>Annuler</Button>
             </Modal>
         </>

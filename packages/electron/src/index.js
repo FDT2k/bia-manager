@@ -43,10 +43,12 @@ const langCollectionFile = resolve(__dirname, '../.langs');
 
 
 
+/*
+let DB = openDB(join(app.getPath('home'), 'db-migration-test.sqlite'), 'test',{ fileMustExist: false})
+DB.migrate();
 
-
-/*let DB = openDB(join(app.getPath('home'), 'testdb5.sqlite'), 'test')
-
+console.log ('db check', DB.schema_check());*/
+/*
 DB.subject.custom_search(
   {
     mesure_range: {
@@ -251,17 +253,6 @@ ipcMain.handle('quit', async event => {
 })
 
 
-//should not be used anymore
-ipcMain.handle('sqlite-open', async (event, { filename, key }) => {
-  try {
-    console.log('want to sqlite db', filename, key);
-    currentSQLite = openDB(filename)
-    return true;
-  } catch (e) {
-    return Promise.reject(e);
-  }
-
-})
 
 
 
@@ -282,20 +273,18 @@ ipcMain.handle('close', async (event) => {
   }
 
 })
-/*
-ipcMain.handle('sqlite-close', async (event, { filename, key }) => {
+
+//should not be used anymore
+ipcMain.handle('sqlite-open', async (event, { filename, key }) => {
   try {
-    console.log('want to close sqlite db', filename, key);
-    currentSQLite.db.close();
-    currentSQLite = null;
+    console.log('want to sqlite db', filename, key);
+    currentSQLite = openDB(filename)
     return true;
   } catch (e) {
     return Promise.reject(e);
   }
 
 })
-
-*/
 ipcMain.handle('sqlite-unlock', async (event, key) => {
   try {
     console.log('unlocking sqlite db', key);

@@ -62,7 +62,7 @@ export const Component = props => {
                 />
             </Field>
             <Field className="activite-physique" label={t("Activité physique")}>
-                <Select tabIndex={2}  {...inputProps('sport.rate')} options={safe_path([], 'physical_activity_rate', lists)} />
+                <Select tabIndex={2}  autoFocus {...inputProps('sport.rate')} options={safe_path([], 'physical_activity_rate', lists)} />
 
             </Field>
             <Field className="type-activite-physique" label={t("Type d'Activité physique")}>
