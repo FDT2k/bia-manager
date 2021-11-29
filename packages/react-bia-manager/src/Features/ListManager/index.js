@@ -6,33 +6,29 @@ import List from './List';
 import ListCrud from './ListCrud';
 import React, { useState } from 'react';
 
+import {useListManager} from '@/Context/ListManager'
 
 
 export const Component = props => {
 
     const {ListsManagerComponent,ListCrudComponent} = props
-    const [editedList, setEditedList] = useState(null);
-
-    const handleEdit = item => {
-        setEditedList(item.key);
-    }
 
 
-    const handleSave = () => {
-        if (editedList) {
-            props.save_list(editedList)
-        }
-    }
+    const {editedList} = useListManager();
+
+    const {handleSave:_handleSave} = props;
+
+ 
 
     return (<>
-        {editedList == null && <ListsManagerComponent handleEdit={handleEdit} />}
-        {editedList !== null && <ListCrudComponent list_key={editedList} save={handleSave} cancel={_ => setEditedList(null)} />}
+        {editedList == null && <ListsManagerComponent />}
+        {editedList !== null && <ListCrudComponent />}
     </>)
 }
 
 Component.defaultProps={
     ListsManagerComponent: List,
-    ListCrudComponent: ListCrud
+    ListCrudComponent: ListCrud,
 }
 
 
@@ -46,7 +42,6 @@ export const Page =  (props) => {
             <LayoutFlexColumn cover centered justBetween>
                 <h1>Gestion des listes</h1>
                 <Container style={{minWidth:'600px',minHeight:'500px'}}>
-                   
                     {children}
                 </Container>
             </LayoutFlexColumn>

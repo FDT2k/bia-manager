@@ -107,7 +107,7 @@ export const Component = props => {
     const [selectedIndex, setSelectedIndex] = useState(-1);
     const [searchBarFocused, setSearchBarFocused] = useState(false);
 
-    const { t } = useTranslation();
+    const { t,dateSysToHuman } = useTranslation();
 
     const { handleSearch, handleCSVExport, handleCreate, handleSelectRow: _handleSelectRow, } = props.handlers;
     const { clearFilter, setFilter } = props.handlers
@@ -155,7 +155,7 @@ export const Component = props => {
         },
         {
             Header: t('SEARCH_table_column_birthdate'),
-            accessor: 'birthdate',
+            accessor: values => {return (dateSysToHuman(values.birthdate))}
 
         },
         {

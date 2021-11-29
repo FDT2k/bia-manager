@@ -1,32 +1,24 @@
 import { LayoutFlex, LayoutFlexColumn } from '@karsegard/react-core-layout';
 import React from 'react';
+import { useListManager } from '../../../Context/ListManager';
 
 
 
 export const Component = props => {
-
-    const { list, handleEdit } = props;
+    const {lists,handlers:{editList} } = useListManager();
     return (<LayoutFlexColumn>
 
-        {list.length === 0 && <div>aucun élément</div>}
+        {lists.length === 0 && <div>aucun élément</div>}
         {
-            list.map(item => {
+            lists.map(item => {
                 return (<LayoutFlex key={item.id} justBetween>
                     <div>{item.name}</div>
-                    <div onClick={_ => handleEdit(item)}>editer</div>
+                    <div onClick={_ => editList(item)}>editer</div>
                 </LayoutFlex>)
             })
         }
     </LayoutFlexColumn>)
 }
 
-Component.defaultProps = {
-    list: [
-
-
-
-    ],
-    handleEdit: id => _ => console.warn('click handler not set')
-}
 
 export default Component;

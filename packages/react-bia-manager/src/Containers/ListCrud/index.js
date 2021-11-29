@@ -1,20 +1,23 @@
 import React, { useEffect, useRef, useState } from 'react'
 import Button from '@/Components/Form/Button';
-import { LayoutFlex, ModalComponent, Container, LayoutFlexColumn, Grid } from '@karsegard/react-core-layout'
-import { useFieldValues } from '@karsegard/react-hooks';
 import Field from '@/Components/Form/Fields';
 import Modal from '@/Components/Modal';
+import { LayoutFlex, ModalComponent, Container, LayoutFlexColumn, Grid } from '@karsegard/react-core-layout'
+import { useFieldValues } from '@karsegard/react-hooks';
+
 
 import { bindSelectors, connect } from '@karsegard/react-redux'
 
 import ErrorBoundary from '@/Components/ErrorBoundary'
 
 import {
-    selectors, actions
+    module
+
 
 } from '../ListManager';
 
 
+const { selectors, actions } = module;
 export const ConnectCrudList = connect(
     bindSelectors(
         {
@@ -28,14 +31,13 @@ export const ConnectCrudList = connect(
         del: actions.del,
         set_filter: actions.set_filter,
         add: actions.add,
-
+        sort: actions.fetch
     })
 
 
 
 export const ListCrudHOC = Component => props => {
 
-    debugger;
     const [edited, setEdited] = useState(null)
     const [deleting, setDeleting] = useState(null)
 
@@ -51,7 +53,6 @@ export const ListCrudHOC = Component => props => {
         ...rest } = props;
 
     useEffect(() => {
-        debugger;
         getData(list_key).then(items => {
             debugger;
 
@@ -77,11 +78,12 @@ export const ListCrudHOC = Component => props => {
     }
 
     const handleSort = (list) => {
-        sort(list)
+        sort({ items: list })
 
 
     }
     const handleDragStop = _ => {
+        debugger;
         save()
     }
 
@@ -110,7 +112,6 @@ export const ListCrudHOC = Component => props => {
 
     console.log(list);
 
-    debugger
     return (<>
         <Grid templateColumns="auto" templateRows="auto 40px" contained cover >
             <Container contained scrollable>
@@ -183,4 +184,8 @@ export const ListCrudHOC = Component => props => {
 
         </Modal>
     </>)
+}
+
+ListCrudHOC.defaultProps = {
+
 }

@@ -4,6 +4,7 @@ import { Provider as TranslationProvider, useTranslation } from "@/Context/Trans
 import { Provider as CustomListProvider, useCustomList } from "@/Context/CustomList"
 import { Provider as BackendProvider, useBackend } from "@/Context/Backend"
 import { Provider as ConfirmProvider, useConfirm } from "@/Context/Confirm"
+import { Provider as ListManagerProvider, useListManager } from "@/Context/ListManager"
 import ConfirmDialog from "@/Components/ConfirmDialog"
 
 import {useLocation} from 'wouter';
@@ -41,6 +42,10 @@ import ReduxEditor from '@/Containers/Editor';
 import EditorWithBackend from '@/Containers/EditorWithBackend';
 
 import ReduxEditorModule from '@/Redux/Editor';
+
+
+import {Page as ListManagerPage,Component as ListManagerFeature} from '@/Features/ListManager';
+
 
 export {
     BIARouter,
@@ -88,7 +93,11 @@ export {
 
     ReduxEditor,
     ReduxEditorModule,
-    EditorWithBackend
+    EditorWithBackend,
+
+    ListManagerProvider,useListManager,
+    ListManagerPage,
+    ListManagerFeature
 
 
 }
