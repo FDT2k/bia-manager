@@ -10,6 +10,7 @@
     "kda": "git submodule init;git submodule update; yarn build submodules; yarn; yarn start",
     "start": "MODE=development node scripts/watch.js",
     "start:react-electron": "MODE=development node scripts/watch-new.js",
+    "start:website": "cd packages/website; yarn dev",
     "start:debug": "cd packages/remotedev; yarn start",
     "build:theme": "cd packages/integration; yarn build",
     "build:theme-legacy": "cd packages/integration-legacy; yarn build",

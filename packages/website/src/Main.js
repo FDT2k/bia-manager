@@ -57,27 +57,19 @@ export default props => {
     <>
       <nav class="flex flex-row just-center">
         <section>
-          <h4>BIM</h4>
+          <h4>BIA Manager</h4>
         </section>
       </nav>
 
 
       <div className="container">
-        <header>
-
-          <h1>
-            Version Beta
-          </h1>
-          <h4>
-            La version actuelle peut être instable, veillez à toujours faire une sauvegarde de vos données.
-          </h4>
-        </header>
+        
         {loaded &&
           <>
             <section className="downloads flex flex-row just-around">
               <article className="flex flex-column align-stretch">
                 <h4>Windows - Latest Version</h4>
-                <i>windows 7 & 10</i>
+                <i>windows 7 & 10 (64 bits)</i>
                 <a href={state.latest.assets.win} className="btn btn--primary">TELECHARGER v{state.latest.name}</a>
                 <span>
                   <a class="link" href="#/help/win">Aide pour l'installation</a>
