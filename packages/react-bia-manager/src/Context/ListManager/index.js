@@ -1,6 +1,6 @@
 import React, { createContext, useState, useContext, useEffect } from 'react';
 
-import { compose, curry, identity, is_nil } from '@karsegard/composite-js';
+import { compose, curry, identity, is_nil, is_empty } from '@karsegard/composite-js';
 
 import { oneDecimal, oneDecimalPct, twoDecimal, twoDecimalPct, dateSysToHuman, dateHumanToSys } from '@/references/format'
 
@@ -11,7 +11,7 @@ import { useBackend } from '@'
 export const Context = createContext({})
 
 export const module_lists = Modules.FilterableCollection(state => state.lists, `lists`, { default_key: '_id' })
-export const module = Modules.FilterableCollection(state => state.list, `list`, { default_key: '_id' })
+export const module = Modules.FilterableCollection(state => state.list, `list`, { default_key: '_id' ,mode:'contain'})
 
 
 
@@ -26,7 +26,7 @@ export const withReduxModule = Component => ({ children, ...rest }) => {
 
 export const makeProvider = (Context) => withReduxModule((props) => {
     const { children, handlers: _handlers, module, module_lists } = props;
-    const { fetch_lists, fetch_list } = useBackend();
+    const { fetch_lists, fetch_list, save_list, save_list_item, add_list_item, delete_list_item } = useBackend();
     const [editedList, setEditedList] = useState(null);
 
 
@@ -39,9 +39,11 @@ export const makeProvider = (Context) => withReduxModule((props) => {
     }, [])
 
     useEffect(() => {
-        fetch_list(editedList).then(res => {
-            dispatch(module.actions.fetch({ items: res }))
-        })
+        if (!is_empty(editedList)) {
+            fetch_list(editedList).then(res => {
+                dispatch(module.actions.fetch({ items: res }))
+            })
+        }
     }, [editedList])
 
     const editList = (list) => {
@@ -51,27 +53,46 @@ export const makeProvider = (Context) => withReduxModule((props) => {
     const cancelEdit = _ => {
         setEditedList(null)
     }
-    
+
     const sortList = list => {
         dispatch(module.actions.fetch({ items: list }))
     }
-    const saveList = () => {
-        debugger;
-    }
+
 
     const saveListItem = (item, values) => {
         debugger;
 
         if (item.id) {
-            dispatch(module.actions.edit({ ...item, ...values }))
-        }else{
-            dispatch(module.actions.add({ ...item, ...values }))
+            Promise.resolve(save_list_item(editedList,{ ...item, ...values })).then(_ => {
+                dispatch(module.actions.edit({ ...item, ...values }))
+            });
+        } else {
+            Promise.resolve(add_list_item(editedList,{ ...item, ...values })).then(_ => {
+                dispatch(module.actions.add({ ...item, ...values }))
+            })
         }
     }
     const deleteListItem = (item) => {
-        dispatch(module.actions.del({id:item._id}))
+        Promise.resolve(delete_list_item(editedList,item)).then(_ => {
+            dispatch(module.actions.del({ id: item._id }))
+        })
+    }
+
+    const lists = useSelector(module_lists.selectors.list)
+    const list = useSelector(module.selectors.list)
+    const list_filter = useSelector(module.selectors.filter);
+    const saveList = () => {
+        save_list(list)
         debugger;
     }
+
+    const setFilter = value => {
+        dispatch(module.actions.set_filter(value))
+    }
+    const clearFilter = _ => {
+        dispatch(module.actions.clear_filter())
+    }
+
     const defaultHandlers = {
         saveList: _ => console.warn('save_list'),
         editList,
@@ -79,12 +100,10 @@ export const makeProvider = (Context) => withReduxModule((props) => {
         sortList,
         saveList,
         saveListItem,
-        deleteListItem
+        deleteListItem,
+        setFilter,
+        clearFilter
     };
-
-
-    const lists = useSelector(module_lists.selectors.list)
-    const list = useSelector(module.selectors.list)
 
 
     let handlers = Object.assign({}, defaultHandlers, _handlers)
@@ -95,6 +114,7 @@ export const makeProvider = (Context) => withReduxModule((props) => {
         lists,
         list,
         editedList,
+        list_filter
     }
     return (
         <Context.Provider value={value}>

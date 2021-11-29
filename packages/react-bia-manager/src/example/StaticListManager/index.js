@@ -65,9 +65,15 @@ const FakeBackend = ({children}) => {
         return res &&  res.list || [];
     }
 
+
     let actions = {
         fetch_lists,
-        fetch_list
+        fetch_list,
+        save_list:_=> {},
+        save_list_item: _=> {},
+        add_list_item: _=> {},
+        delete_list_item: _=> {},
+
     }
     return (<BackendProvider actions={actions}><ListManagerProvider>{children}</ListManagerProvider></BackendProvider>)
 }

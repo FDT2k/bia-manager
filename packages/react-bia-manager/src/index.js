@@ -34,6 +34,7 @@ import DatabaseImportFeature from '@/Features/Database'
 
 
 import EditorFeature from '@/Features/Editor';
+import AboutFeature from '@/Features/About';
 import PatientHeaderFeature from '@/Features/Editor/PatientHeader';
 import MesureEditorFeature from '@/Features/Editor/Mesure';
 import ListMesureFeature from '@/Features/Editor/ListMesure';
@@ -99,5 +100,6 @@ export {
     ListManagerPage,
     ListManagerFeature
 
+    ,AboutFeature
 
 }

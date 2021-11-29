@@ -82,11 +82,7 @@ export default props => {
                 <span>
                   <a class="link" href="#/help/mac">Aide pour l'installation</a>
                 </span>
-
-
               </article>
-
-
             </section>
             <section className="downloads flex flex-row just-around">
               <article className="flex flex-column align-stretch">
@@ -100,6 +96,14 @@ export default props => {
 
                 <i>bientôt disponible</i>
               </article>
+            </section>
+            <section className="downloads flex flex-row just-around">
+              <article className="flex flex-column align-stretch">
+                <h4>Code source</h4>
+
+                <a href="https://www.gitlab.com/karsegard/bia-manager" className="btn btn--primary">GitLab</a>
+              </article>
+             
             </section>
           </>
         }

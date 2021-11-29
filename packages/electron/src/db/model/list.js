@@ -7,7 +7,9 @@ const list = (db, api) => {
     const schema = {
         list_key: '',
         key: '',
-        value: ''
+        value: '',
+        default_value:'boolean',
+        sort:'',
     }
 
     const module = {};
@@ -16,6 +18,11 @@ const list = (db, api) => {
     module.select = filters => db.prepare(api.genSelectSQL('lists', filters));
     module.insert = (schema, ignore) => db.prepare(api.genInsertSQL('lists', schema, ignore))
     module.update = (schema, filter) => db.prepare(api.genUpdateSQL('lists', schema, filter))
+
+    module.create = (values) => module.insert(schema,pkeys).run(_transform(schema,values));
+    module.save = (values,filter) => module.update(schema,filter).run({...filter,..._transform(schema,{...values,...filter})});
+
+    module.delete = (id)=> db.prepare("delete from lists where id=@id").run({id});
 
     module.upsert = keys => db.transaction(list => {
 

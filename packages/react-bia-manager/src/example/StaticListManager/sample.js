@@ -66,11 +66,14 @@ export default [
         {
           id: 'VH',
           name: 'VH',
+          sort: '0',
           _id: 'Y8p7Aow1DInGRIZQ13rlm'
         },
         {
           id: 'VENS2017',
           name: 'VENS2017',
+          sort: '1',
+
           _id: '3_Ec_Dm-btRzkeTFfxvfJ'
         },
         {

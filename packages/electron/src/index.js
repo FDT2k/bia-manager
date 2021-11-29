@@ -254,7 +254,9 @@ ipcMain.handle('quit', async event => {
 
 
 
-
+ipcMain.handle('open-url',async (event,message)=>{
+  return require('electron').shell.openExternal(message);
+})
 
 ipcMain.handle('close', async (event) => {
   console.log('closing file')
@@ -324,7 +326,7 @@ ipcMain.handle('sqlite-api', async (event, { api,args}) => {
 
 ipcMain.handle('sqlite-model', async (event, { model,fn,args}) => {
   try {
-    
+      console.log(model,fn,args)
     return currentSQLite[model][fn](...args);
   } catch (e) {
     return Promise.reject(e);

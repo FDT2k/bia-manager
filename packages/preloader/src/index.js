@@ -26,6 +26,7 @@ let electronAPI = {
     get_settings: invokeOnMainProcess('read-settings'),
     get_file_state: invokeOnMainProcess('get-file-state'),
     close: invokeOnMainProcess('close'),
+    open_url: invokeOnMainProcess('open-url'),
     quit: invokeOnMainProcess('quit'),
     
 

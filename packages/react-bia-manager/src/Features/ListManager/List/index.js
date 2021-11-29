@@ -1,6 +1,6 @@
 import { LayoutFlex, LayoutFlexColumn } from '@karsegard/react-core-layout';
 import React from 'react';
-import { useListManager } from '../../../Context/ListManager';
+import { useListManager } from '@/Context/ListManager';
 
 
 

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Table } from '@karsegard/react-crud'
+import { Table } from './table'
 import { useListManager } from '@/Context/ListManager';
 import { useFieldValues } from '@karsegard/react-hooks';
 import { LayoutFlex, ModalComponent, Container, LayoutFlexColumn, Grid } from '@karsegard/react-core-layout'
@@ -7,6 +7,14 @@ import ErrorBoundary from '@/Components/ErrorBoundary'
 import Button from '@/Components/Form/Button';
 import Field from '@/Components/Form/Fields';
 import Modal from '@/Components/Modal';
+import Input from '@/Components/Form/Input';
+
+
+
+import ToggleSwitch from '@/Components/Form/ToggleSwitch'
+
+
+
 export const Component = props => {
 
 
@@ -26,25 +34,29 @@ export const Component = props => {
                 }
             }
             ]}
-
-            enableDrag={true} {...props} />
+ {...props} />
     )
 }
 
+const empty_list_item = {
+    name:'',
+    sort:'0',
+    default_value:false
+}
 
 export const ListCrudHOC = Component => props => {
-    const { list, handlers: { cancelEdit, sortList, saveList, saveListItem, deleteListItem } } = useListManager();
+    const { list, handlers: { cancelEdit, sortList, saveList, saveListItem, deleteListItem,setFilter },list_filter } = useListManager();
 
     const [edited, setEdited] = useState(null)
     const [deleting, setDeleting] = useState(null)
 
-    const { values, inputProps, replaceValues } = useFieldValues({ name: '' })
+    const { values, inputProps, replaceValues,handleChangeValue } = useFieldValues(empty_list_item)
 
     const handleAdd = () => {
 
         setEdited({ name: '' });
         replaceValues({
-            name: ''
+           ...empty_list_item
         })
     }
 
@@ -53,7 +65,7 @@ export const ListCrudHOC = Component => props => {
         saveListItem(edited, values);
         saveList();
         replaceValues({
-            name: ''
+           ...empty_list_item
         })
         setEdited(null);
 
@@ -73,8 +85,7 @@ export const ListCrudHOC = Component => props => {
         if (action == 'edit') {
             setEdited(item)
             replaceValues({
-                default_value: item.default_value || false,
-                name: item.name
+               ...Object.assign({},empty_list_item,item)
             })
         } else if (action == 'delete') {
             /*  if (confirm('sur?')) {
@@ -86,10 +97,10 @@ export const ListCrudHOC = Component => props => {
     }
 
 
-    console.log(list);
 
     return (<>
-        <Grid templateColumns="auto" templateRows="auto 40px" contained cover >
+        <Grid templateColumns="auto" templateRows="40px auto 40px" contained cover >
+            <Input onChange={e=> setFilter(e.target.value)} value={list_filter}/>
             <Container contained scrollable>
                 <ErrorBoundary>
                     <Component
@@ -105,15 +116,24 @@ export const ListCrudHOC = Component => props => {
                             accessor: 'name',
                         },
                         {
+                            Header: 'ordre',
+                            accessor: 'sort',
+                        },
+                        {
+                            Header: 'Par défaut',
+                            accessor: (value) => {
+                              return   value.default_value === true ? 'oui' : 'non'
+                            },
+                        },
+                        {
                             id: 'actions',
                             accessor: 'id',
                             Cell: ({ row }) => {
-                                return (<><button onClick={_ => handleAction('edit', row.original)} >Edit </button>
-                                    <button onClick={_ => setDeleting(row.original)} >Del </button></>)
+                                return (<LayoutFlex justEvenly><a onClick={_ => handleAction('edit', row.original)} >Editer </a>
+                                    <a onClick={_ => setDeleting(row.original)} > Supprimer </a></LayoutFlex>)
                             }
                         }
                         ]}
-                        enableDrag={true}
 
 
 
@@ -135,10 +155,17 @@ export const ListCrudHOC = Component => props => {
         <Modal visible={edited !== null} overlayOnClick={_ => setEdited(null)}>
 
             <LayoutFlexColumn>
+                <LayoutFlex>
                 <Field className="field--one" label={'Valeur'}>
                     <input autoFocus type="text" {...inputProps('name')} />
                 </Field>
-
+                <Field className="field--one" label={'Ordre'}>
+                    <input type="text" {...inputProps('sort')} />
+                </Field>
+                <Field className="field--one" label={'Par defaut'}>
+                <ToggleSwitch labelYes="Oui" labelNo="Non" checked={values.default_value}  onChange={e => handleChangeValue('default_value',e.target.checked)}/>
+                </Field>
+</LayoutFlex>
                 <LayoutFlex justEnd>
 
                     <Button onClick={handleSave}>Enregistrer</Button>

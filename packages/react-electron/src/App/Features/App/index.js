@@ -2,6 +2,9 @@
 
 import Router from '@/App/Features/Router';
 import Search from '@/App/Features/Search';
+import About from '@/App/Features/About';
+import DatabaseListManager from '@/App/Features/DatabaseListManager';
+
 import CreateSubject from '@/App/Features/CreateSubject';
 import Editor from '@/App/Features/Editor'
 import Welcome from '@/App/Features/Welcome';
@@ -13,11 +16,13 @@ import CustomListProviderFromBackend from'@/Providers/CustomList';
 
 const views = {
     Welcome,
+    About,
     Search,
     Router,
     Editor,
     Database:DatabaseImport,
-    CreateSubject
+    CreateSubject,
+    DatabaseListManager
 }
 export default props => {
 
