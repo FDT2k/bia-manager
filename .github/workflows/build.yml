@@ -19,7 +19,7 @@ jobs:
       - name: Check out Git repository
         uses: actions/checkout@v2
         with:
-          submodules: true
+          submodules: 'recursively'
           lfs: true
           ssh-known-hosts: 'gitlab.com,172.65.251.78 ecdsa-sha2-nistp256 AAAAE2VjZHNhLXNoYTItbmlzdHAyNTYAAAAIbmlzdHAyNTYAAABBBFSMqzJeV9rUzU4kWitGjeR4PWSa29SPqJ1fVkhtj3Hw9xjLVXVYrU9QlYWrOLXBpQ6KWjbjTDTdDkoohFzgbEY='
           ssh-key: ${{ secrets.GITLAB_SSH_KEY }}
@@ -43,13 +43,11 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-yarn-90
       - name: Install Deps
-          #   if: steps.yarn-react-cache.outputs.cache-hit != 'true'
         run: |
           yarn;
         env: 
           CI: true
       - name: build submodules
-          #   if: steps.yarn-react-cache.outputs.cache-hit != 'true'
         run: |
           yarn build:submodules;
         env: 
