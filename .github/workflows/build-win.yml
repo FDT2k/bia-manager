@@ -49,13 +49,15 @@ jobs:
         working-directory: 'packages/better-sqlite3'
         run: sh -c "touch yarn.lock"
 
+      - name: Windows fix3
+        run: yarn install
 
       - name: Windows fix2 
         working-directory: 'packages/better-sqlite3'
         run: yarn install
         env: 
           YARN_ENABLE_IMMUTABLE_INSTALLS: false
-          
+
       - name: Install Deps
         run: |
           yarn install;
