@@ -27,7 +27,6 @@ jobs:
             GIT_CURL_VERBOSE: '1'
             GIT_TRACE: '1'
       - name: checkoutLFS
-        uses: actions/checkout@v2
         run: git lfs pull
 
       - name: Install Node.js, NPM and Yarn
