@@ -1,1 +1,0 @@
-update lists set sort = 999 where sort = 0;
