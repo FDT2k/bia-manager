@@ -15,6 +15,7 @@ export default ({ children }) => {
     const { actions: { sqlite_model_transaction, sqlite_api, sqlite_search, sqlite_custom_search, sqlite_create, sqlite_query, sqlite_model } } = useElectron();
     const { selectors: { locked, file }, actions: { reload_file_state } } = useFileProvider();
     const [subject, setState] = useState({})
+    const [should_reload_lists, setShouldReloadLists ] = useState(false) 
     const { add_error, start_loading, stop_loading } = useHostProvider();
 
     const { t, dateHumanToSys } = useTranslation();
@@ -217,6 +218,7 @@ export default ({ children }) => {
                 list_key
             }]
         }).catch(add_error)
+        setShouldReloadLists(true)
     }
     const delete_list_item = async (args,values) => {
         debugger;
@@ -227,6 +229,7 @@ export default ({ children }) => {
                 values.id
             ]
         });
+        setShouldReloadLists(true)
     }
     const save_list_item = async (list_key, values) => {
         let result = await sqlite_model({
@@ -241,11 +244,11 @@ export default ({ children }) => {
                     list_key
                 }, { id: values.id }]
         }).catch(add_error)
-        debugger;
+        setShouldReloadLists(true)
     }
     const db_name = file
     return (
-        <BackendProvider type="sqlite" actions={{ get_subject, ready, search, search_custom_filters, create_database, fetch_stats, stats, db_name, search_count, get_lists, get_forms, create_subject, save_subject, save_subject_mesures, delete_mesure, fetch_lists, fetch_list, save_list, add_list_item, delete_list_item, save_list_item }}>
+        <BackendProvider type="sqlite" actions={{ get_subject, ready, search, search_custom_filters, create_database, fetch_stats, stats, db_name, search_count, get_lists, get_forms, create_subject, save_subject, save_subject_mesures, delete_mesure, fetch_lists, fetch_list, save_list, add_list_item, delete_list_item, save_list_item,should_reload_lists }}>
 
             {children}
             <SQLiteUnlock />

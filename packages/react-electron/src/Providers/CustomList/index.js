@@ -6,7 +6,7 @@ import { useBackend } from '@karsegard/react-bia-manager';
 export default ({ children }) => {
 
 
-    const { get_lists, get_forms, ready } = useBackend();
+    const { get_lists, get_forms, ready,should_reload_lists } = useBackend();
     const [lists, setList] = useState({})
     const [forms, setForms] = useState({})
 
@@ -15,7 +15,8 @@ export default ({ children }) => {
 
 
     useEffect(() => {
-        if (ready) {
+        if (ready || should_reload_lists) {
+            debugger;
             get_lists().then(res => {
                 setList(res)
 
@@ -26,7 +27,7 @@ export default ({ children }) => {
             })
 
         }
-    }, [ready,get_forms,get_lists])
+    }, [ready,get_forms,get_lists,should_reload_lists])
     return (
 
 
