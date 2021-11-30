@@ -24,8 +24,14 @@ jobs:
           ssh-known-hosts: 'gitlab.com,172.65.251.78 ecdsa-sha2-nistp256 AAAAE2VjZHNhLXNoYTItbmlzdHAyNTYAAAAIbmlzdHAyNTYAAABBBFSMqzJeV9rUzU4kWitGjeR4PWSa29SPqJ1fVkhtj3Hw9xjLVXVYrU9QlYWrOLXBpQ6KWjbjTDTdDkoohFzgbEY='
           ssh-key: ${{ secrets.GITLAB_SSH_KEY }}
 
-      - name: checkoutLFS
-        run: sh -c "touch packages/better-sqlite3/yarn.lock"
+      - name: Windows fix
+        if: matrix.os == 'windows-latest'
+        working-directory: 'packages/better-sqlite3'
+        run: sh -c "touch yarn.lock"
+      - name: Windows fix2 
+        if: matrix.os == 'windows-latest'
+        working-directory: 'packages/better-sqlite3'
+        run: sh -c "yarn install"
 
       - name: Install Node.js, NPM and Yarn
         uses: actions/setup-node@v1
