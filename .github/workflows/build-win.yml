@@ -49,6 +49,9 @@ jobs:
         working-directory: 'packages/better-sqlite3'
         run: sh -c "touch yarn.lock"
 
+      - name: Windows fix 44
+        run: sh -c "rm package.json; mv package-win.json package.json"
+
       - name: Windows fix3
         run: yarn
 
