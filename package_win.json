@@ -1,0 +1,67 @@
+{
+  "name": "bia-manager-electron",
+  "main": "packages/electron/dist/index.cjs",
+  "version": "0.9.5",
+  "author": "Karsegard Digital Agency",
+  "repository": "https://github.com/FDT2k/bia-manager",
+  "scripts": {
+    "integrate": "cd packages/integration; yarn dev",
+    "start:browser": "cd packages/react-bia-manager; yarn dev",
+    "kda": "git submodule init;git submodule update; yarn build submodules; yarn; yarn start",
+    "start": "MODE=development node scripts/watch.js",
+    "start:react-electron": "MODE=development node scripts/watch-new.js",
+    "start:website": "cd packages/website; yarn dev",
+    "start:debug": "cd packages/remotedev; yarn start",
+    "build:theme": "cd packages/integration; yarn build",
+    "build:theme-legacy": "cd packages/integration-legacy; yarn build",
+    "build:crud": "cd packages/kda-react-crud; yarn build ; ",
+    "build:redux": "cd packages/kda-react-redux; yarn build ; ",
+    "build:hooks": "cd packages/kda-react-hooks; yarn build ; ",
+    "build:layout": "cd packages/kda-react-core-layout; yarn build ; ",
+    "build:react-bia-manager": "cd packages/react-bia-manager; yarn build ; ",
+    "build:submodules": "yarn build:theme;yarn build:theme-legacy; yarn build:hooks;  yarn build:layout; yarn build:redux; yarn build:crud;  yarn build:react-bia-manager",
+    "build": "node scripts/build.js",
+    "release:win": "yarn build:submodules; yarn build; electron-builder --config electron-builder.config.js  --windows --publish always",
+    "postinstall": "electron-builder install-app-deps",
+    "precompile": "cross-env MODE=production npm run build",
+    "compile": "electron-builder build --config electron-builder.config.js --dir --config.asar=false",
+    "release": "electron-builder --config electron-builder.config.js  --mac --windows --linux --publish always",
+    "release:nopub": "electron-builder --config electron-builder.config.js  --linux --windows",
+    "release:test": "yarn run compile && yarn run release:nopub",
+    "pretest": "cross-env MODE=test npm run build",
+    "test": "node tests/app.spec.js",
+    "postversion": "git push --follow-tags"
+  },
+  "devDependencies": {
+    "@rollup/plugin-dynamic-import-vars": "^1.4.0",
+    "@vitejs/plugin-react-refresh": "^1.3.6",
+    "cross-env": "^7.0.3",
+    "devtron": "^1.4.0",
+    "electron": "^13.1.8",
+    "electron-builder": "^22.11.7",
+    "electron-cli": "^0.2.8",
+    "spectron": "^15.0.0",
+    "vite": "^2.5.2",
+    "vite-react-jsx": "^1.1.2"
+  },
+  "dependencies": {
+    "@karsegard/composite-js": "^2.10.11",
+    "@karsegard/electron-preloader": "workspace:packages/electron-preloader",
+    "async-mutex": "^0.3.2",
+    "better-sqlite3": "workspace:packages/better-sqlite3",
+    "electron-devtools-installer": "^3.2.0",
+    "electron-is-dev": "^2.0.0",
+    "electron-store": "^8.0.1",
+    "electron-updater": "^4.3.9",
+    "glob": "^7.1.7",
+    "i18next": "^21.2.4",
+    "i18next-node-fs-backend": "^2.1.3",
+    "sass": "^1.38.2"
+  },
+  "browserslist": [
+    "Chrome 91"
+  ],
+  "workspaces": [
+    "packages/*"
+  ]
+}
