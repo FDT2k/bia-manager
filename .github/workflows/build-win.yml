@@ -46,18 +46,19 @@ jobs:
 
 
       - name: Windows fix
-        if: matrix.os == 'windows-latest'
         working-directory: 'packages/better-sqlite3'
         run: sh -c "touch yarn.lock"
+
+
       - name: Windows fix2 
-        if: matrix.os == 'windows-latest'
         working-directory: 'packages/better-sqlite3'
-        run: yarn
+        run: yarn install
         env: 
           YARN_ENABLE_IMMUTABLE_INSTALLS: false
+          
       - name: Install Deps
         run: |
-          yarn;
+          yarn install;
         env: 
           CI: true
       - name: build submodules
