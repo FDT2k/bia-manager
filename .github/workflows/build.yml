@@ -19,11 +19,16 @@ jobs:
       - name: Check out Git repository
         uses: actions/checkout@v2
         with:
+          submodules: true
+          ssh-known-hosts: 'gitlab.com,172.65.251.78 ecdsa-sha2-nistp256 AAAAE2VjZHNhLXNoYTItbmlzdHAyNTYAAAAIbmlzdHAyNTYAAABBBFSMqzJeV9rUzU4kWitGjeR4PWSa29SPqJ1fVkhtj3Hw9xjLVXVYrU9QlYWrOLXBpQ6KWjbjTDTdDkoohFzgbEY='
+          ssh-key: ${{ secrets.GITLAB_SSH_KEY }}
+      - name: Check out Git repository
+        uses: actions/checkout@v2
+        with:
           submodules: 'recursively'
           lfs: true
           ssh-known-hosts: 'gitlab.com,172.65.251.78 ecdsa-sha2-nistp256 AAAAE2VjZHNhLXNoYTItbmlzdHAyNTYAAAAIbmlzdHAyNTYAAABBBFSMqzJeV9rUzU4kWitGjeR4PWSa29SPqJ1fVkhtj3Hw9xjLVXVYrU9QlYWrOLXBpQ6KWjbjTDTdDkoohFzgbEY='
           ssh-key: ${{ secrets.GITLAB_SSH_KEY }}
-
 
       - name: Install Node.js, NPM and Yarn
         uses: actions/setup-node@v1
