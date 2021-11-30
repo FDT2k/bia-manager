@@ -50,7 +50,7 @@ jobs:
         run: sh -c "touch yarn.lock"
 
       - name: Windows fix3
-        run: yarn install
+        run: yarn
 
       - name: Windows fix2 
         working-directory: 'packages/better-sqlite3'
