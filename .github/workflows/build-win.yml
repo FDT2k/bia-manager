@@ -50,7 +50,7 @@ jobs:
         run: sh -c "touch yarn.lock"
 
       - name: Windows fix 44
-        run: sh -c "rm package.json; mv package-win.json package.json"
+        run: sh -c "rm package.json; mv package_win.json package.json"
 
       - name: Windows fix3
         run: yarn
