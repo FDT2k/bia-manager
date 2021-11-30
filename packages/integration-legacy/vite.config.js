@@ -13,7 +13,7 @@ module.exports = {
   root: PACKAGE_ROOT,
   resolve: {
     alias: {
-      '@': resolve(PACKAGE_ROOT, './src') + '/',
+      '@': resolve(PACKAGE_ROOT, 'src') ,
     },
   },
   build:{
@@ -22,7 +22,7 @@ module.exports = {
     target:'chrome95',
     assetsDir: './assets',
     lib: {
-      entry: resolve(PACKAGE_ROOT, '/src/theme.js'),
+      entry: resolve(PACKAGE_ROOT, 'src','theme.js'),
       name: 'BIATheme',
     
     },

@@ -14,7 +14,7 @@ const config = {
     "owner": "fdt2k",
     "repo": "bia-manager"
   }],
-
+  productName:"bia-manager",
   directories: {
     output: 'dist',
     buildResources: 'buildResources',
