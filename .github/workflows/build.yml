@@ -28,16 +28,16 @@ jobs:
         if: matrix.os == 'windows-latest'
         working-directory: 'packages/better-sqlite3'
         run: sh -c "touch yarn.lock"
-      - name: Windows fix2 
-        if: matrix.os == 'windows-latest'
-        working-directory: 'packages/better-sqlite3'
-        run: sh -c "yarn install"
-
+      
       - name: Install Node.js, NPM and Yarn
         uses: actions/setup-node@v1
         with:
           node-version: 14
 
+      - name: Windows fix2 
+        if: matrix.os == 'windows-latest'
+        working-directory: 'packages/better-sqlite3'
+        run: sh -c "yarn install"
           
       - name: Get yarn cache directory path
         id: yarn-cache-dir-path
