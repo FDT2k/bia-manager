@@ -16,7 +16,7 @@ const subject = (db, api) => {
         usual_weight: '',
         uuid: '',
         mesures_dates: 'array',
-        diag:''
+        diag: ''
     }
 
 
@@ -59,19 +59,7 @@ const subject = (db, api) => {
     })
 
 
-    const custom_partial = (key, from, until) => {
 
-        if (!is_nil(from) && !is_nil(until)) {
-            return ` ( ${key} BETWEEN '${from}' AND '${until}')`
-        } else if (!is_nil(from) && is_nil(until)) {
-            return ` ( ${key} >= '${from}')`
-
-        } else if (is_nil(from) && !is_nil(until)) {
-            return ` ( ${key} <='${until}')`
-
-        }
-
-    }
 
 
 
@@ -83,57 +71,127 @@ const subject = (db, api) => {
         //  let result =  stmt.all({id});
 
         let res;
-      /*  for (let result of stmt.iterate({ id })) {
-            if (!res) {
-                res = _retrieve_entity('subjects', schema, stmt.columns(), result);
-            }
+        /*  for (let result of stmt.iterate({ id })) {
+              if (!res) {
+                  res = _retrieve_entity('subjects', schema, stmt.columns(), result);
+              }
+  
+              if (!res.mesures) {
+                  res.mesures = [];
+              }
+              res.mesures.push(_mesure.retrieveFromRaw(stmt, result))
+          }*/
 
-            if (!res.mesures) {
-                res.mesures = [];
-            }
-            res.mesures.push(_mesure.retrieveFromRaw(stmt, result))
-        }*/
 
-
-        res =_retrieve_entity('subjects', schema, stmt.columns(),  stmt.get({id})); 
+        res = _retrieve_entity('subjects', schema, stmt.columns(), stmt.get({ id }));
         res.mesures = [];
         for (let result of stmt_mesures.iterate({ id })) {
-            
+
             res.mesures.push(_mesure.retrieveFromRaw(stmt_mesures, result))
         }
-       return res;
+        return res;
     };
-    
+
     module.create = (subject) => {
         let res = module.insert(subject, pkeys).run(_transform(schema, subject));
         return res.lastInsertRowid;
     }
 
     module.save = subject => {
-       console.log('saving',subject)
+        console.log('saving', subject)
 
-       const {id,...rest}=subject;
+        const { id, ...rest } = subject;
 
 
-        let res = module.update(rest,{id}).run({..._transform(schema, subject),id});
+        let res = module.update(rest, { id }).run({ ..._transform(schema, subject), id });
         return res;
     }
 
+
+    const custom_partial_date_range = (key, from, until) => {
+
+        if (!is_nil(from) && !is_nil(until)) {
+            return `${key} BETWEEN '${from}' AND '${until}'`
+        } else if (!is_nil(from) && is_nil(until)) {
+            return `${key} >= '${from}'`
+
+        } else if (is_nil(from) && !is_nil(until)) {
+            return `${key} <='${until}'`
+
+        }
+
+    }
+
+    const custom_partial_bools = ({ key, options }) => {
+
+        return enlist(options).reduce((carry, item) => {
+            let [str_value, isset] = keyval(item);
+            console.log(str_value, isset)
+            if (isset === true) {
+                carry.query.push(`${carry.sep} ${key} = '${str_value}'`)
+                carry.sep = 'or'
+            }
+            return carry;
+        }, { query: [], sep: '' }).query.join('')
+
+    }
+
+    module.build_search = ({ type, ...filter }, sep = 'where') => {
+        let query = ``
+        switch (type) {
+            case 'date_range':
+                query = `${sep} (${custom_partial_date_range(filter.key, filter.from, filter.to)})`
+
+                break;
+            case 'bools':
+                query = `${sep} (${custom_partial_bools(filter)})`
+
+                break;
+        }
+        return query;
+    }
+
+    module.guess_table = (key) => {
+        if (key.startsWith('mesure')) {
+            return 'mesure'
+        }
+        return 'subject'
+    }
+
+    const mainReducer = table => (carry, item) => {
+        let [name, filter] = keyval(item);
+        if (module.guess_table(filter.key) === table) {
+            let partial = module.build_search(filter, carry.sep);
+            if (!is_empty(partial)) {
+                carry.query.push(partial);
+                carry.sep = 'and';
+            }
+
+        }
+        return carry;
+    };
+
+    
     module.custom_search = (custom_filters) => {
 
 
         let method = "where";
 
-        let sql = `Select s.*,count(m.id)as count_mesures, (s.firstname || s.lastname || s.birthdate ) as search_terms,group_concat(m.date) as mesures_dates 
-        from subjects as s left join mesures as m on s.id=m.subject_id 
+        let whereClauses = enlist(custom_filters).reduce(mainReducer('subject'), { query: [], sep: 'where' }).query.join(' ');
+        let havingClauses = enlist(custom_filters).reduce(mainReducer('mesure'), { query: [], sep: 'having' }).query.join(' ');
 
-        ${(custom_filters.birthday_range) ? `where ${custom_partial(custom_filters.birthday_range.key, custom_filters.birthday_range.from, custom_filters.birthday_range.to)}` : ''}
+        let query_start = `Select s.*,count(m.id)as count_mesures, (s.firstname || s.lastname || s.birthdate ) as search_terms,group_concat(m.date) as mesures_dates from subjects as s left join mesures as m on s.id=m.subject_id `
 
-        group by s.id
-        ${(custom_filters.mesure_range) ? `having ${custom_partial("m.date", custom_filters.mesure_range.from, custom_filters.mesure_range.to)}` : ''}
+
+        let sql = `
+            ${query_start}
+            ${whereClauses}
+            group by s.id
+            ${havingClauses}
         `
 
         console.log(sql)
+
         let stmt = db.prepare(sql).raw(true);
         const res = [];
         for (let result of stmt.iterate()) {

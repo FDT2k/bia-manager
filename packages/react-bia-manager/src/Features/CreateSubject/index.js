@@ -38,7 +38,6 @@ export const Page = props => {
 
     // inject custom fields
      fields = useMemo(()=> enlist(forms).reduce((carry,item)=>{
-         debugger;
          const [_,{list_key,path} ]= keyval(item)
          //const {path,default_value,list} = item;
          let list =lists[list_key];

@@ -111,7 +111,6 @@ export const parse = ({
                     const year = format(parseISO(p.birthdate), "yyyy")
                     p.birthdate = format(faker.date.between(`${year}-01-01`, `${year}-12-31`), "yyyy-MM-dd");
                 } catch (err) {
-                    debugger;
 
                     p.birthdate = format(faker.date.between(`1901-01-01`, `2021-12-31`), "yyyy-MM-dd");
                 }

@@ -25,7 +25,6 @@ const EditorWithBackend = (props) => {
     const handleSave = async(subject,current_mesure_id) => {
 
         let result =  save_subject_mesures(subject);
-        debugger;
     }
 
     const handleMesureOpen = async (value, idx, editor_status) => {

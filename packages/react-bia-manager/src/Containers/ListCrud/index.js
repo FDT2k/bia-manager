@@ -54,7 +54,6 @@ export const ListCrudHOC = Component => props => {
 
     useEffect(() => {
         getData(list_key).then(items => {
-            debugger;
 
             fetch({ items });
 
@@ -83,7 +82,6 @@ export const ListCrudHOC = Component => props => {
 
     }
     const handleDragStop = _ => {
-        debugger;
         save()
     }
 

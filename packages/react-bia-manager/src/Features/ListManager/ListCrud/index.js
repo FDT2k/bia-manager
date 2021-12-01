@@ -162,9 +162,9 @@ export const ListCrudHOC = Component => props => {
                 <Field className="field--one" label={'Ordre'}>
                     <input type="text" {...inputProps('sort')} />
                 </Field>
-                <Field className="field--one" label={'Par defaut'}>
+               {/* <Field className="field--one" label={'Par defaut'}>
                 <ToggleSwitch labelYes="Oui" labelNo="Non" checked={values.default_value}  onChange={e => handleChangeValue('default_value',e.target.checked)}/>
-                </Field>
+            </Field>*/}
 </LayoutFlex>
                 <LayoutFlex justEnd>
 

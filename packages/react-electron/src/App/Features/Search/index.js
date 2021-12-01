@@ -19,7 +19,9 @@ export default props => {
             handleCreate:_=>{debugger; window.location.hash='#/create_subject'},
             handleSelectRow: (idx,patient)=> {
                 window.location.hash=`#/editor/${patient.id}`
-            }
+            },
+            handleCSVExport: _=> alert('yedy'),
+
             }}/>
     </SearchPage>)
 }

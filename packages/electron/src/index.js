@@ -17,6 +17,7 @@ import Store from 'electron-store'
 let store = new Store();
 
 import init18next from './plugins/i18next'
+import { exit } from 'process';
 
 let openedFilePath;
 let currentSQLite;
@@ -40,14 +41,31 @@ const createFileIfNeeded = (file, content) => fs.stat(file).catch(_ => {
 
 const langCollectionFile = resolve(__dirname, '../.langs');
 
-
-
-
 /*
-let DB = openDB(join(app.getPath('home'), 'db-migration-test.sqlite'), 'test',{ fileMustExist: false})
-DB.migrate();
 
-console.log ('db check', DB.schema_check());*/
+let searchtest ={
+
+  sex: {
+    options: {
+      F: false,
+      M: true
+    },
+    type: 'bools',
+    key: 'gender'
+  },
+  birthday_range: {
+    from: '2021-12-01',
+    to: '2021-12-01',
+    type: 'date_range',
+    key: 'birthdate'
+  }
+}
+
+let DB = openDB('/home/fabien/Documents/bia-database.sqlite', 'test123',{ fileMustExist: true})*/
+//DB.migrate();
+//DB.subject.custom_search(searchtest)
+//exit();
+//console.log ('db check', DB.schema_check());
 /*
 DB.subject.custom_search(
   {

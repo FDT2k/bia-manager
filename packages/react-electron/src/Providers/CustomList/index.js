@@ -16,7 +16,6 @@ export default ({ children }) => {
 
     useEffect(() => {
         if (ready || should_reload_lists) {
-            debugger;
             get_lists().then(res => {
                 setList(res)
 

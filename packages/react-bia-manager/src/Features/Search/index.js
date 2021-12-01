@@ -52,10 +52,10 @@ export const AdvancedSearch = compose(
 )(LayoutFlex)
 
 
-export const RangeFilter = ({ label, handleSubmit, handleClear, currentValues, t }) => {
+export const RangeFilter = ({ label, handleSubmit, handleClear, currentValues }) => {
 
 
-
+    const {t} = useTranslation();
     const { values, replaceValues, getValue, inputProps, handleChangeValue } = useFieldValues(currentValues, { usePath: true });
 
     useEffect(() => {
@@ -91,11 +91,52 @@ export const RangeFilter = ({ label, handleSubmit, handleClear, currentValues, t
 }
 
 RangeFilter.defaultProps = {
-    t: identity,
     handleClear: _ => console.warn('oups no handleclear defined')
 }
 
 
+
+
+export const GenderFilter = ({ label, handleSubmit, handleClear, currentValues }) => {
+
+    const {t} = useTranslation();
+    const { values, replaceValues,checkboxProps, getValue, inputProps, handleChangeValue } = useFieldValues(currentValues, { usePath: true });
+
+    useEffect(() => {
+        replaceValues(currentValues);
+    }, [currentValues])
+
+
+    const filled = (!is_nil(currentValues) && (!is_nil(currentValues.options.M) || !is_nil(currentValues.options.F)))
+    
+    const Icon = filled === true ? (CloseSharp) : ChevronDownSharp
+
+    const _label = filled === true ? `${label} ` : label;
+
+
+    const overrideClick = filled === true ? _ => handleClear() : undefined;
+    return (
+        <Dropdown offset={8} label={_label} icon={<Icon />} overrideClick={overrideClick}>
+            <>
+                <DropdownItem>
+                    <div>Femme</div>
+                    <input  {...checkboxProps('options.F')}  type="checkbox"/>
+                </DropdownItem>
+                <DropdownItem>
+                    <div>Homme</div>
+                    <input {...checkboxProps('options.M')} type="checkbox" />
+                </DropdownItem>
+                <DropdownItem>
+                    <button onClick={_ => handleSubmit(values)}>filtrer</button>
+                </DropdownItem>
+            </>
+        </Dropdown>
+    )
+}
+
+GenderFilter.defaultProps = {
+    handleClear: _ => console.warn('oups no handleclear defined')
+}
 
 
 export const Component = props => {
@@ -195,6 +236,7 @@ export const Component = props => {
             <AdvancedSearch style={{ gridGap: '8px' }} area="filter">
                 <RangeFilter label="Mesures" currentValues={custom_filters.mesure_range} handleSubmit={values => setFilter('mesure_range', 'mesures_dates', values)} handleClear={_ => clearFilter('mesure_range')} />
                 <RangeFilter label="Dates de naissances" currentValues={custom_filters.birthday_range} handleSubmit={values => setFilter('birthday_range', 'birthdate', values)} handleClear={_ => clearFilter('birthday_range')} />
+                <GenderFilter label="Sexe" currentValues={custom_filters.sex} handleSubmit={values => setFilter('sex', 'gender', values,'bools')} handleClear={_ => clearFilter('sex')} />
                 <Button onClick={handleCSVExport} tabIndex={5}>{t('EXPORT_CSV')}</Button>
             </AdvancedSearch>
             <ListWithAreaWithRef
@@ -226,7 +268,6 @@ Component.defaultProps = {
         handleSelectRow: _=> console.warn('handleSelectRow not impl'),
         handleCSVExport: _=> console.warn('handleCSVExport not impl'),
     },
-    t: x => x
 }
 
 

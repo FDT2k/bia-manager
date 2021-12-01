@@ -83,7 +83,6 @@ export default ({ children }) => {
 
 
     const create_subject = async (values) => {
-        debugger;
         if (!values.uuid) {
             values.uuid = uuidv4();
         }
@@ -143,7 +142,6 @@ export default ({ children }) => {
     }
 
     const delete_mesure = async (patient, idx) => {
-        debugger;
 
 
         start_loading(t('Deleting'))
@@ -221,7 +219,6 @@ export default ({ children }) => {
         setShouldReloadLists(true)
     }
     const delete_list_item = async (args,values) => {
-        debugger;
         let result = await sqlite_model({
             model: 'list',
             fn: 'delete',

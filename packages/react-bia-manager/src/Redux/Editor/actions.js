@@ -314,7 +314,6 @@ export default (getModule) => {
 
 
         return (dispatch, getState) => {
-            debugger;
             const mesure = select_edited_patient(getState());
 
             dispatch({
