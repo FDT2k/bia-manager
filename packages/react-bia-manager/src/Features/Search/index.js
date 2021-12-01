@@ -17,8 +17,9 @@ import { dateSysToHuman } from '@/references/format';
 import MainView from '@/Components/MainView'
 import { filter_active_mesure } from '@/references/Mesure'
 
-import {useTranslation} from '@'
-
+import { useTranslation } from '@'
+import { is_empty, enlist } from '@karsegard/composite-js';
+import { key, keyval, spec } from '@karsegard/composite-js/ObjectUtils';
 const withForwardRef = Component => (props, ref) => {
 
     return <Component {...props} forwardedRef={ref} />
@@ -55,7 +56,7 @@ export const AdvancedSearch = compose(
 export const RangeFilter = ({ label, handleSubmit, handleClear, currentValues }) => {
 
 
-    const {t} = useTranslation();
+    const { t } = useTranslation();
     const { values, replaceValues, getValue, inputProps, handleChangeValue } = useFieldValues(currentValues, { usePath: true });
 
     useEffect(() => {
@@ -99,8 +100,8 @@ RangeFilter.defaultProps = {
 
 export const GenderFilter = ({ label, handleSubmit, handleClear, currentValues }) => {
 
-    const {t} = useTranslation();
-    const { values, replaceValues,checkboxProps, getValue, inputProps, handleChangeValue } = useFieldValues(currentValues, { usePath: true });
+    const { t } = useTranslation();
+    const { values, replaceValues, checkboxProps, getValue, inputProps, handleChangeValue } = useFieldValues(currentValues, { usePath: true });
 
     useEffect(() => {
         replaceValues(currentValues);
@@ -108,10 +109,13 @@ export const GenderFilter = ({ label, handleSubmit, handleClear, currentValues }
 
 
     const filled = (!is_nil(currentValues) && (!is_nil(currentValues.options.M) || !is_nil(currentValues.options.F)))
-    
+
     const Icon = filled === true ? (CloseSharp) : ChevronDownSharp
 
-    const _label = filled === true ? `${label} ` : label;
+    const _label = filled === true ? `${label}: ${enlist(currentValues.options).map(item => {
+        let [_key, _] = keyval(item);
+        return t(`filter_${_key}`);
+    }).join(',')}` : label;
 
 
     const overrideClick = filled === true ? _ => handleClear() : undefined;
@@ -120,7 +124,7 @@ export const GenderFilter = ({ label, handleSubmit, handleClear, currentValues }
             <>
                 <DropdownItem>
                     <div>Femme</div>
-                    <input  {...checkboxProps('options.F')}  type="checkbox"/>
+                    <input  {...checkboxProps('options.F')} type="checkbox" />
                 </DropdownItem>
                 <DropdownItem>
                     <div>Homme</div>
@@ -139,6 +143,59 @@ GenderFilter.defaultProps = {
 }
 
 
+
+export const FieldFilter = ({ label, handleSubmit, handleClear, currentValues }) => {
+
+    const { t } = useTranslation();
+    const { values, replaceValues, checkboxProps, getValue, inputProps, handleChangeValue } = useFieldValues(currentValues, { usePath: true });
+
+    useEffect(() => {
+        replaceValues(currentValues);
+    }, [currentValues])
+
+
+    const filled = (!is_nil(currentValues) && !is_empty(currentValues) && !is_empty(currentValues.values))
+    const Icon = filled === true ? (CloseSharp) : ChevronDownSharp
+
+    const _label = filled === true ? `${label}: ${enlist(currentValues.values).map(item => {
+        let [_key, _] = keyval(item);
+        return t(`filter_${_key}`);
+    }).join(',')}` : label;
+
+
+    const overrideClick = filled === true ? _ => handleClear() : undefined;
+    return (
+        <Dropdown offset={8} label={_label} icon={<Icon />} overrideClick={overrideClick}>
+            <>
+                <DropdownItem>
+                    <div>Nom</div>
+                    <div><input type="text"  {...inputProps('values.lastname')} /></div>
+                </DropdownItem>
+                <DropdownItem>
+                    <div>Prenom</div>
+                    <input type="text"  {...inputProps('values.firstname')} />
+                </DropdownItem>
+                <DropdownItem>
+                    <div>Groupe Pathologique</div>
+                    <input type="text"  {...inputProps('values.patho')} />
+                </DropdownItem>
+                <DropdownItem>
+                    <div>Groupe Ethnique</div>
+                    <input type="text"  {...inputProps('values.ethno')} />
+                </DropdownItem>
+                <DropdownItem>
+                    <button onClick={_ => handleSubmit(values)}>filtrer</button>
+                </DropdownItem>
+            </>
+        </Dropdown>
+    )
+}
+
+FieldFilter.defaultProps = {
+    handleClear: _ => console.warn('oups no handleclear defined')
+}
+
+
 export const Component = props => {
 
     const arrowDownPressed = useKeypress('ArrowDown');
@@ -148,7 +205,7 @@ export const Component = props => {
     const [selectedIndex, setSelectedIndex] = useState(-1);
     const [searchBarFocused, setSearchBarFocused] = useState(false);
 
-    const { t,dateSysToHuman } = useTranslation();
+    const { t, dateSysToHuman } = useTranslation();
 
     const { handleSearch, handleCSVExport, handleCreate, handleSelectRow: _handleSelectRow, } = props.handlers;
     const { clearFilter, setFilter } = props.handlers
@@ -196,7 +253,7 @@ export const Component = props => {
         },
         {
             Header: t('SEARCH_table_column_birthdate'),
-            accessor: values => {return (dateSysToHuman(values.birthdate))}
+            accessor: values => { return (dateSysToHuman(values.birthdate)) }
 
         },
         {
@@ -234,10 +291,21 @@ export const Component = props => {
                 <Button tabIndex={5} className="button--big" onClick={handleCreate}>{t('SEARCH_CREATE_NEW_SUBJECT')}</Button>
             </SearchArea>
             <AdvancedSearch style={{ gridGap: '8px' }} area="filter">
+                {/*<FieldFilter
+                    label="Champs"
+                    currentValues={custom_filters.by_field}
+                    handleSubmit={values => setFilter('by_field', 'field', values, 'byfield')}
+                    handleClear={_ => clearFilter('by_field')}
+                />*/}
+                <GenderFilter
+                    label="Sexe"
+                    currentValues={custom_filters.sex}
+                    handleSubmit={values => setFilter('sex', 'gender', values, 'bools')}
+                    handleClear={_ => clearFilter('sex')} />
                 <RangeFilter label="Mesures" currentValues={custom_filters.mesure_range} handleSubmit={values => setFilter('mesure_range', 'mesures_dates', values)} handleClear={_ => clearFilter('mesure_range')} />
                 <RangeFilter label="Dates de naissances" currentValues={custom_filters.birthday_range} handleSubmit={values => setFilter('birthday_range', 'birthdate', values)} handleClear={_ => clearFilter('birthday_range')} />
-                <GenderFilter label="Sexe" currentValues={custom_filters.sex} handleSubmit={values => setFilter('sex', 'gender', values,'bools')} handleClear={_ => clearFilter('sex')} />
-                <Button onClick={handleCSVExport} tabIndex={5}>{t('EXPORT_CSV')}</Button>
+
+                {/*<Button onClick={handleCSVExport} tabIndex={5}>{t('EXPORT_CSV')}</Button>*/}
             </AdvancedSearch>
             <ListWithAreaWithRef
 
@@ -257,28 +325,28 @@ export const Component = props => {
 
 Component.defaultProps = {
     results: [],
-    custom_filters:{
+    custom_filters: {
 
     },
     handlers: {
         handleSearch: _ => console.warn('search handler not implemented'),
         handleCreate: _ => console.warn('create handler not implemented'),
-        setFilter: _=>  console.warn('setFilter handler not implemented'),
-        clearFilter: _=>  console.warn('clearFilter handler not implemented'),
-        handleSelectRow: _=> console.warn('handleSelectRow not impl'),
-        handleCSVExport: _=> console.warn('handleCSVExport not impl'),
+        setFilter: _ => console.warn('setFilter handler not implemented'),
+        clearFilter: _ => console.warn('clearFilter handler not implemented'),
+        handleSelectRow: _ => console.warn('handleSelectRow not impl'),
+        handleCSVExport: _ => console.warn('handleCSVExport not impl'),
     },
 }
 
 
 export const Page = props => {
-    const {db_name,stats,search_count,children, ...rest } = props;
-    const {count,count_mesures} = stats;
+    const { db_name, stats, search_count, children, ...rest } = props;
+    const { count, count_mesures } = stats;
 
-    const {t} = useTranslation();
+    const { t } = useTranslation();
     const renderFooter = _ => {
 
-        
+
         return (
             <>
                 <LayoutFlex>
@@ -302,9 +370,9 @@ export const Page = props => {
 }
 
 Page.defaultProps = {
-    stats:{count:0,count_mesures:0},
-    patients:[],
-    db_name:'default'
+    stats: { count: 0, count_mesures: 0 },
+    patients: [],
+    db_name: 'default'
 }
 
 
