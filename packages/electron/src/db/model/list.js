@@ -58,7 +58,9 @@ const list = (db, api) => {
                 module.upsert(['list_key', 'key'])(_transform(schema, {
 
                     list_key,
-                    key, value
+                    key, 
+                    value,
+                    sort:999
                 }))
 
 

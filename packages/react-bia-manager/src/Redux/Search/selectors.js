@@ -34,7 +34,9 @@ export default getModule => {
     })
 
 
-
+    module.count = createSelector(module.select_patients_list_filtered,state => {
+        return state.length || 0
+    })
 
     module.select_custom_filters = createSelector(baseSelector,state=> state.custom_filters)
 

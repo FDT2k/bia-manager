@@ -58,6 +58,7 @@ export default  (handleLanguageChange,language='fr') => mainWindow=> {
                 .then(function (release) {
                     if(!client_ready){
                         console.warn('client is sending missing translation but is not ready yet')
+                        release()
                         return ;
                     }
                     let p = i18nextOptions.backend.addPath.replace('{{ns}}', ns).replace('{{lng}}', lngs[0]);

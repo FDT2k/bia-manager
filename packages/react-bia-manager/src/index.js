@@ -21,7 +21,8 @@ import {Page as CreateSubjectFeature} from '@/Features/CreateSubject'
 import {
     withBackend as searchWithBackend,
     withReduxModule as searchWithReduxModule,
-    SearchReduxContainer
+    SearchReduxContainer,
+    reduxModule as searchReduxModule,
 } from '@/Containers/Search'
 
 
@@ -76,6 +77,7 @@ export {
 
     searchWithBackend,
     searchWithReduxModule,
+    searchReduxModule,
     SearchReduxContainer,
     SearchFeature,
     SearchPage,

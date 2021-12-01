@@ -305,7 +305,7 @@ export const Component = props => {
                 <RangeFilter label="Mesures" currentValues={custom_filters.mesure_range} handleSubmit={values => setFilter('mesure_range', 'mesures_dates', values)} handleClear={_ => clearFilter('mesure_range')} />
                 <RangeFilter label="Dates de naissances" currentValues={custom_filters.birthday_range} handleSubmit={values => setFilter('birthday_range', 'birthdate', values)} handleClear={_ => clearFilter('birthday_range')} />
 
-                {/*<Button onClick={handleCSVExport} tabIndex={5}>{t('EXPORT_CSV')}</Button>*/}
+                {<Button onClick={handleCSVExport} tabIndex={5}>{t('EXPORT_CSV')}</Button>}
             </AdvancedSearch>
             <ListWithAreaWithRef
 
