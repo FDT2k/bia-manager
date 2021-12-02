@@ -215,6 +215,7 @@ export default (getModule) => {
     }
 
     actions.recompute_current_mesure = () => {
+
         return (dispatch, getState) => {
 
             const patient = select_edited_patient(getState()).id;
@@ -225,7 +226,9 @@ export default (getModule) => {
 
 
     actions.recompute_mesure = (patient_id, values) => {
+
         return (dispatch, getState) => {
+
             const patient = select_edited_patient(getState());
             const bia_result_columns = select_result_columns(getState());
             const normes = select_normes(getState(), { age: values.current_age, sex: patient.gender })
@@ -248,6 +251,7 @@ export default (getModule) => {
 
 
         return (dispatch, getState) => {
+
             const mesure = select_edited_mesure(getState());
             //some fields does not need to be refreshed unless saved        
             //       if (dontCommitTheseFieldsUntilSaved.includes(changed_field)) {
@@ -324,6 +328,7 @@ export default (getModule) => {
                 }
             })
             dispatch(actions.normalize_current_mesure());
+            dispatch(actions.recompute_current_mesure());
             dispatch(actions.refresh_current_recap());
         }
     }

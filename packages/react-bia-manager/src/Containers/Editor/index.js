@@ -140,7 +140,6 @@ export const Container = ({ selectors, actions }) => (Component, MesureEditor) =
 
 
     const handleChange = (values, changed_field) => {
-
         dispatch(actions.change_mesure(values, changed_field))
 
     }

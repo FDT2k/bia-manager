@@ -656,7 +656,9 @@ export default getModule => {
 
       return [item[`${data_key}_min`], item[`${data_key}_max`]];
     })
-
+    if (!data || data.length >0){
+      return [];
+    }
     let min = data.reduce((carry, item) => {
       if (item[0] < carry) {
         return Math.floor(item[0])
@@ -672,11 +674,17 @@ export default getModule => {
     }, min)
 
 
-    if(Math.ceil(value )> max) {
+
+
+    if(Math.ceil(value) > max) {
       max = Math.ceil(value);
     }else if(Math.floor(value ) < min){
       min = Math.floor(value);
+    }
 
+
+    if(max === Infinity || min === Infinity){
+      return [];
     }
 
     let res = []
