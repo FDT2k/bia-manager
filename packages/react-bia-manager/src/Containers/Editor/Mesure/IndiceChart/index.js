@@ -26,6 +26,7 @@ export default (module) => {
         const labelByKey = makeSelectYLabelByKey();
         return (state, props) => {
             const value = bia_results(state, props);
+
             return {
                 age: select_edited_age(state),
                 data: select_normes_sampling(state),

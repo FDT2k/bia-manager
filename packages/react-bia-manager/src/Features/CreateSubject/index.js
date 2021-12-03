@@ -27,22 +27,22 @@ export const Page = props => {
 
     const {t,dateSysToHuman} = useTranslation()
     let fields = {
-        'lastname': { type: 'text', label: 'Nom' },
-        'firstname': { type: 'text', label: 'Prenom' },
-        'birthdate': { type: 'date', label: 'Date de naissance' },
+        'lastname': { type: 'text', label: 'Nom', tabIndex:1 },
+        'firstname': { type: 'text', label: 'Prenom' , tabIndex:2},
+        'birthdate': { type: 'date', label: 'Date de naissance', tabIndex:3 },
 
-        'usual_height': { type: 'text', label: 'Taille' },
-        'usual_weight': { type: 'text', label: 'Poids habituel' },
-        'diag': { type: 'textarea', label: 'Diagnostic' },
+        'usual_height': { type: 'text', label: 'Taille', tabIndex:6+1 },
+        'usual_weight': { type: 'text', label: 'Poids habituel', tabIndex: 6+2},
+        'diag': { type: 'textarea', label: 'Diagnostic', tabIndex:6+3 },
     }
 
     // inject custom fields
-     fields = useMemo(()=> enlist(forms).reduce((carry,item)=>{
+     fields = useMemo(()=> enlist(forms).reduce((carry,item,idx)=>{
          const [_,{list_key,path} ]= keyval(item)
          //const {path,default_value,list} = item;
          let list =lists[list_key];
          if(list ){
-             carry[path] = { type: 'select', label: t(path), options:list}
+             carry[path] = { type: 'select', tabIndex: 4+idx,label: t(path), options:list}
          }
          return carry;
      },fields),[lists]);
@@ -135,16 +135,18 @@ export const Page = props => {
                             const type = field.type;
                             const val = safe_path('', fieldKey, values);
                             const options = field.options;
-                            const tabIndex = idx + 1;
+                            const tabIndex = field.tabIndex;
 
                             const hasErrorClass = handleError(fieldKey, ({ error, touched, valid }) => {
 
                                 return ((!valid && touched) ? "error" : "")
                             });
+                            const autoFocus = idx ===0;
+                        
                             return (<ComponentWithArea key={fieldKey} area={fieldKey.replace('.', '_')}><Field label={label}>
 
                                 {type === "select" && <Select tabIndex={tabIndex} {...inputProps(fieldKey)} options={options} />}
-                                {type === "text" && <Input tabIndex={tabIndex} className={hasErrorClass} type="text" {...inputProps(fieldKey)} options={options} />}
+                                {type === "text" && <Input autoFocus={autoFocus} tabIndex={tabIndex} className={hasErrorClass} type="text" {...inputProps(fieldKey)} options={options} />}
                                 {type === "textarea" && <textarea tabIndex={tabIndex} {...inputProps(fieldKey)} options={options}></textarea>}
                                 {type === "date" && <DatePicker tabIndex={tabIndex}
                                     selected={values[fieldKey]}

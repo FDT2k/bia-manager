@@ -17,7 +17,9 @@ export default module => {
 
 
         const canPrint = useSelector(module.selectors.recap_is_valid)
+        
+        const normes = useSelector(state => module.submodules.normes.selectors.select_normes(state,{sex:'M',age: props.mesure.current_age}))
 
-        return (<Mesure canPrint={canPrint} {...props} Serrement={Serrement} Recap={Recap} PrintableReport={PrintableReport} />)
+        return (<Mesure canPrint={canPrint} normes={normes} {...props} Serrement={Serrement} Recap={Recap} PrintableReport={PrintableReport} />)
     }
 }

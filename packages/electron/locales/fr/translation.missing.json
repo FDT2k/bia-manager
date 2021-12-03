@@ -79,5 +79,8 @@
    "FAT_MASS_Y_LABEL": "FAT_MASS_Y_LABEL",
    "Taille": "Taille",
    "Poids habituel": "Poids habituel",
-   "Groupe Ethnologique": "Groupe Ethnologique"
+   "Groupe Ethnologique": "Groupe Ethnologique",
+   "Créé avec BIM": "Créé avec BIM",
+   "Ce format de fichier n'est pas supporté": "Ce format de fichier n'est pas supporté",
+   "Groupe Ethnique": "Groupe Ethnique"
 }

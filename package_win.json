@@ -1,7 +1,7 @@
 {
   "name": "bia-manager-electron",
   "main": "packages/electron/dist/index.cjs",
-  "version": "0.9.9",
+  "version": "1.0.0",
   "author": "Karsegard Digital Agency",
   "repository": "https://github.com/FDT2k/bia-manager",
   "scripts": {
@@ -44,7 +44,7 @@
     "vite-react-jsx": "^1.1.2"
   },
   "dependencies": {
-    "@karsegard/composite-js": "^2.10.11",
+    "@karsegard/composite-js": "^2.12.0",
     "@karsegard/electron-preloader": "workspace:packages/electron-preloader",
     "async-mutex": "^0.3.2",
     "better-sqlite3": "workspace:packages/better-sqlite3",

@@ -54,17 +54,20 @@ let searchtest ={
     key: 'gender'
   },
   birthday_range: {
-    from: '2021-12-01',
-    to: '2021-12-01',
+    from: '1982-02-01',
+    to: '1982-04-01',
     type: 'date_range',
     key: 'birthdate'
   }
 }
 
-let DB = openDB('/home/fabien/Documents/bia-database.sqlite', 'test123',{ fileMustExist: true})*/
+let DB = openDB('/home/fabien/Downloads/BIM98/bia-database-98-escalade.sqlite', '-',{ fileMustExist: true})
+
+*/
 //DB.migrate();
-//DB.subject.custom_search(searchtest)
-//exit();
+/*let res = DB.subject.export_csv(searchtest,";")
+console.log(res);
+exit();*/
 //console.log ('db check', DB.schema_check());
 /*
 DB.subject.custom_search(
@@ -272,7 +275,7 @@ ipcMain.handle('quit', async event => {
 
 
 
-ipcMain.handle('open-url',async (event,message)=>{
+ipcMain.handle('open-url', async (event, message) => {
   return require('electron').shell.openExternal(message);
 })
 
@@ -332,9 +335,9 @@ ipcMain.handle('sqlite-query', async (event, { type, table, query, values, filte
 
 })
 
-ipcMain.handle('sqlite-api', async (event, { api,args}) => {
+ipcMain.handle('sqlite-api', async (event, { api, args }) => {
   try {
-    
+
     return currentSQLite[api](...args);
   } catch (e) {
     return Promise.reject(e);
@@ -342,9 +345,9 @@ ipcMain.handle('sqlite-api', async (event, { api,args}) => {
 
 })
 
-ipcMain.handle('sqlite-model', async (event, { model,fn,args}) => {
+ipcMain.handle('sqlite-model', async (event, { model, fn, args }) => {
   try {
-      console.log(model,fn,args)
+    console.log(model, fn, args)
     return currentSQLite[model][fn](...args);
   } catch (e) {
     return Promise.reject(e);
@@ -352,15 +355,34 @@ ipcMain.handle('sqlite-model', async (event, { model,fn,args}) => {
 
 })
 
-ipcMain.handle('sqlite-model-transaction', async (event, { model,fn,args,arg_stmt={}}) => {
+ipcMain.handle('sqlite-model-transaction', async (event, { model, fn, args, arg_stmt = {} }) => {
   try {
-    
+
     return currentSQLite[model][fn](...args)(arg_stmt);
   } catch (e) {
     return Promise.reject(e);
   }
 
 })
+
+
+ipcMain.handle('sqlite-export', async (event, { query, filename }) => {
+  try {
+    console.log('want to write file', filename);
+
+    let { canceled, filePath } = await dialog.showSaveDialog({ defaultPath: filename });
+    if (!canceled) {
+      let result = currentSQLite.subject.export_csv(query).join('\n');
+
+      return fs.writeFile(filePath, result).then(res => {
+        return true;
+      });
+    }
+  } catch (e) {
+    return Promise.reject(e);
+  }
+  return false;
+});
 
 
 ipcMain.handle('sqlite-search', async (event, tag) => {
@@ -382,9 +404,9 @@ ipcMain.handle('sqlite-custom-search', async (event, arg) => {
 
 })
 
-ipcMain.handle('sqlite-import', async (event, {model,data}) => {
+ipcMain.handle('sqlite-import', async (event, { model, data }) => {
   try {
-    console.log(model,data)
+    console.log(model, data)
     if (!is_nil(currentSQLite)) {
       let res = currentSQLite[model].import().immediate(data);
       console.log(res);
@@ -429,7 +451,7 @@ app.on('window-all-closed', () => {
 
 app.on('before-quit', e => {
   console.log('app will quit', cleanState);
-  if(currentSQLite && currentSQLite.db){
+  if (currentSQLite && currentSQLite.db) {
     currentSQLite.db.close()
   }
   if (!app.commandLine.hasSwitch('allow-dirty-quit') && !cleanState) {

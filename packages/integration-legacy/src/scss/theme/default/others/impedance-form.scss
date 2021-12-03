@@ -36,10 +36,10 @@ $max-editor-value: (727px - (16 * 10)) / 11;
 
     grid-template:
     ". . . h_nor h_nor h_5 h_5 h_50 h_50 h_100 h_100" auto
-    "h_res h_res h_res f_res_nor f_res_nor res5 res5 res50 res50 res100 res100" auto
-    "h_rea h_rea h_rea f_rea_nor f_rea_nor rea5 rea5 rea50 rea50 rea100 rea100" auto
-    "h_z h_z h_z f_z_nor f_z_nor z5 z5 z50 z50 z100 z100" auto
-    "h_a h_a h_a f_a_nor f_a_nor a5 a5 a50 a50 a100 a100" auto /
+    "h_res h_res h_res f_res_nor f_res_nor res5 res5 res50 res50 res100 res100" 32px
+    "h_rea h_rea h_rea f_rea_nor f_rea_nor rea5 rea5 rea50 rea50 rea100 rea100" 32px
+    "h_z h_z h_z f_z_nor f_z_nor z5 z5 z50 z50 z100 z100" 32px
+    "h_a h_a h_a f_a_nor f_a_nor a5 a5 a50 a50 a100 a100" 32px /
     minmax($editor-value, 1fr) minmax($editor-value, 1fr) minmax($editor-value, 1fr) minmax($editor-value, 1fr)
     minmax($editor-value, 1fr) minmax($editor-value, 1fr) minmax($editor-value, 1fr) minmax($editor-value, 1fr)
     minmax($editor-value, 1fr) minmax($editor-value, 1fr) minmax($editor-value, 1fr)

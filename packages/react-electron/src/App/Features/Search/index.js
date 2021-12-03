@@ -13,16 +13,15 @@ const Search = searchWithReduxModule(store)(searchWithBackend(SearchFeature))
 
 export default props => {
 
-    const {stats,db_name} = useBackend();
+    const {stats,db_name,exportToCSV} = useBackend();
     const search_count = useSelector(searchReduxModule.selectors.count);
-    
     return (<SearchPage stats={stats} db_name={db_name} search_count={search_count}>
         <Search handlers={{
             handleCreate:_=>{debugger; window.location.hash='#/create_subject'},
             handleSelectRow: (idx,patient)=> {
                 window.location.hash=`#/editor/${patient.id}`
             },
-            handleCSVExport: _=> alert('yedy'),
+            handleCSVExport: _=> exportToCSV(),
 
             }}/>
     </SearchPage>)

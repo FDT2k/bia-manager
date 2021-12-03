@@ -21,7 +21,8 @@ CREATE TABLE IF NOT EXISTS mesures (
     data TEXT,
     sport TEXT,
     fds TEXT,
-    uuid TEXT
+    uuid TEXT,
+    comments TEXT
 
 
 );
