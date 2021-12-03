@@ -31,6 +31,7 @@ export default  {
           "pct_ideal_weight": "",
           "most_accurate_formula": "",
           "current_age": "",
+          "comments":"Reprise pondérale avec un taux de masse grasse relativement faible et une masse protéique dans les limites supérieures de la norme. Reprise pondérale avec un taux de masse grasse relativement faible et une masse protéique dans les limites supérieures de la norme.Reprise pondérale avec un taux de masse grasse relativement faible et une masse protéique dans les limites supérieures de la norme.Reprise pondérale avec un taux de masse grasse relativement faible et une masse protéique dans les limites supérieures de la norme.",
           "data": {
               "z50": "540",
               "a50": "7.1",

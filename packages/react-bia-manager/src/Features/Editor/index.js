@@ -70,7 +70,7 @@ const Editor = props => {
                         }
                     />
                 </Area>
-                <ContainerWithArea className={element('form')} area="content" scrollable>
+                <ContainerWithArea className={element('form')} area="content" grow>
                     {mesure && <MesureEditor
                         handleClickSave={handleClickSave}
                         handlePrint={handlePrint}

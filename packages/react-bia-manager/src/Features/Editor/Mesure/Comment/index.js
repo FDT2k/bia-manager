@@ -1,14 +1,19 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useFieldValues } from '@karsegard/react-hooks';
 import Field from '@/Components/Form/Fields';
 import EditableTextArea from '@/Components/Form/Editable/TextArea';
-import {useTranslation} from '@'
-export default ({onValuesChange,data}) => {
-    const {t} = useTranslation()
-    const {values,handleChange} = useFieldValues(data,{usePath:true,onValuesChange})
+import { useTranslation } from '@'
+export default ({ onValuesChange, data }) => {
+    const { t } = useTranslation()
+    const { values, handleChange, replaceValues } = useFieldValues(data, { usePath: true, onValuesChange })
+
+    useEffect(() => {
+        replaceValues(data)
+    }, [data])
     return (
-        <Field label={t("Remarques / Interprétations")}>
-                    <EditableTextArea value={values.comments} name="comments" onChange={handleChange} />
-                </Field>
+        <div>
+            <label>{t("Remarques / Interprétations")}</label>
+            <EditableTextArea value={values.comments} name="comments" onChange={handleChange} />
+        </div>
     )
 }
