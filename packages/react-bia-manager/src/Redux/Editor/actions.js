@@ -459,7 +459,7 @@ export default (getModule) => {
 
 
         dispatch(submodules.recap_fds.actions.update_mesure(select_edited_mesure(getState())))
-        dispatch(submodules.recap_fds.refresh())
+        dispatch(submodules.recap_fds.actions.refresh())
     }
 
 
