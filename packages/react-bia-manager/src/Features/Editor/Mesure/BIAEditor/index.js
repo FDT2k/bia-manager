@@ -27,12 +27,13 @@ export const Component = props => {
 
     const electricalHandleChange = e => {
 
+        debugger;
 
         handleChangeValue(`data.${e.target.name}`,e.target.value)
     }
 
     const electricalHandleValues = new_values => {
-
+        debugger;
         replaceValues(values => {
 
             let newState = {
@@ -42,9 +43,11 @@ export const Component = props => {
                     ...new_values
                 }
             }
+            onValuesChange(newState)
+
             return newState;
         })
-
+       // handleChangeValue(`data.${e.target.name}`,e.target.value)
     }
     
 

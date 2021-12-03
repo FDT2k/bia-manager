@@ -36,6 +36,7 @@ const Editor = props => {
 
 
     const _handleChange = (...args) => {
+        debugger;
         parentHandleChange && parentHandleChange(...args);
     }
 
