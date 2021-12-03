@@ -1,32 +1,48 @@
 :root{
-
     --template-area: "";
-
     --color-invalid: red;
-
 }
 
+$asides-value: 44px;
+$editor-value: (552px - (16 * 10)) / 11;
+$max-editor-value: (727px - (16 * 10)) / 11;
+
 .impedance-form{
-    min-height:auto;
-    height:auto;
+    min-height: auto;
+    height: auto;
+    width: 100%;
 
-    grid-template-columns:var(--width--3-col)  var(--width--2-col) var(--width--2-col) var(--width--2-col) var(--width--2-col) ;
-    grid-template-rows:  16px 32px 32px 32px 32px;
+    // grid-template-columns:var(--width--3-col)  var(--width--2-col) var(--width--2-col) var(--width--2-col) var(--width--2-col) ;
+    // grid-template-rows:  16px 32px 32px 32px 32px;
+    grid-template-columns: repeat(11, 1fr);
+    grid-template-rows:  auto;
 
-    column-gap: var(--gut-width);
+    // column-gap: var(--gut-width);
     row-gap: 8px;
+    column-gap: 16px;
 
     align-items: center;
     justify-items: stretch;
 
     text-align: center;
 
-    grid-template-areas:
-    ". h_nor h_5 h_50 h_100 "
-    "h_res  f_res_nor res5 res50 res100 "
-    "h_rea f_rea_nor rea5 rea50 rea100 "
-    "h_z f_z_nor z5 z50 z100 "
-    "h_a f_a_nor a5 a50 a100 "
+    // grid-template-areas:
+    // ". h_nor h_5 h_50 h_100 "
+    // "h_res  f_res_nor res5 res50 res100 "
+    // "h_rea f_rea_nor rea5 rea50 rea100 "
+    // "h_z f_z_nor z5 z50 z100 "
+    // "h_a f_a_nor a5 a50 a100 "
+    // ;
+
+    grid-template:
+    ". . . h_nor h_nor h_5 h_5 h_50 h_50 h_100 h_100" auto
+    "h_res h_res h_res f_res_nor f_res_nor res5 res5 res50 res50 res100 res100" 32px
+    "h_rea h_rea h_rea f_rea_nor f_rea_nor rea5 rea5 rea50 rea50 rea100 rea100" 32px
+    "h_z h_z h_z f_z_nor f_z_nor z5 z5 z50 z50 z100 z100" 32px
+    "h_a h_a h_a f_a_nor f_a_nor a5 a5 a50 a50 a100 a100" 32px /
+    minmax($editor-value, 1fr) minmax($editor-value, 1fr) minmax($editor-value, 1fr) minmax($editor-value, 1fr)
+    minmax($editor-value, 1fr) minmax($editor-value, 1fr) minmax($editor-value, 1fr) minmax($editor-value, 1fr)
+    minmax($editor-value, 1fr) minmax($editor-value, 1fr) minmax($editor-value, 1fr)
     ;
 
 }
@@ -38,6 +54,6 @@
 
 
     div.editable-field{
-        min-height:45px;
+        min-height: 32px;
     }
 }

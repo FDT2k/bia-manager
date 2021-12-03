@@ -10,6 +10,7 @@
     "vite": "^2.6.4"
   },
   "dependencies": {
+    "@karsegard/react-core-layout": "workspace:packages/kda-react-core-layout",
     "node-sass": "^6.0.1"
   },
   "files": [

@@ -1,7 +1,6 @@
 import { bem, compose, withBaseClass, withModifiers } from '@karsegard/react-compose';
 import {Grid} from '@karsegard/react-core-layout'
 
-import './style.scss'
 
 const modifiers = [
     'r3c1',

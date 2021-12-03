@@ -23,7 +23,6 @@
     "build:submodules": "yarn build:theme;yarn build:theme-legacy; yarn build:hooks;  yarn build:layout; yarn build:redux; yarn build:crud;  yarn build:react-bia-manager",
     "build": "node scripts/build.js",
     "release:win": "yarn build:submodules; yarn build; electron-builder --config electron-builder.config.js  --windows --publish always",
-    "postinstall": "electron-builder install-app-deps",
     "precompile": "cross-env MODE=production npm run build",
     "compile": "electron-builder build --config electron-builder.config.js --dir --config.asar=false",
     "release": "electron-builder --config electron-builder.config.js  --mac --windows --linux --publish always",

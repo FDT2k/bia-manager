@@ -49,7 +49,7 @@ const PatientHeader = props => {
     useEffect(() => {
         replaceValues(data);
     }, [data])
-  
+
 
 
     const onValuesChange = values => {
@@ -86,10 +86,12 @@ const PatientHeader = props => {
 
                                 {editable && type === "select" && <EditableSelect {...inputProps(field)}  options={options}/>}
                                 {editable && type === "text" && <EditableTextInput {...inputProps(field)}/>}
-                                {editable && type === "date" && <SafeDatePicker 
+                                {editable && type === "date" && <SafeDatePicker
                                     selected={values.birthdate}
                                     handleChange={handleChangeValue('birthdate')}
                                 />}
+
+                                
                                 {!editable && <div>{val}</div>}
                             </Field>
                         )

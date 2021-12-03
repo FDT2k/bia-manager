@@ -11,7 +11,7 @@ export default ({ onValuesChange, data }) => {
         replaceValues(data)
     }, [data])
     return (
-        <div>
+        <div className="comments">
             <label>{t("Remarques / Interprétations")}</label>
             <EditableTextArea value={values.comments} name="comments" onChange={handleChange} />
         </div>

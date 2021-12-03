@@ -31,6 +31,8 @@ export const Component = props => {
     return (
         <LayoutFlexColumn className={className}>
             <HeaderListItem BEM={BEM}><b>{title}</b></HeaderListItem>
+            {/**Peut être remplacé , simplement utiliser le onclick */}
+            <ListItem className="button btn--secondary" selected={selectedIndex >= mesures.length} onClick={handleCreateClick}>{t('Créer')}</ListItem>
             {mesures.map((item, idx) => {
 
                 return <ItemListItem
@@ -43,8 +45,7 @@ export const Component = props => {
             })}
 
             {(!mesures || mesures.length === 0) && <i>{t('aucune mesure')}</i>}
-            {/**Peut être remplacé , simplement utiliser le onclick */}
-            <ItemListItem BEM={BEM} selected={selectedIndex >= mesures.length} onClick={handleCreateClick}>{t('Créer')}</ItemListItem>
+
         </LayoutFlexColumn>
     )
 }
