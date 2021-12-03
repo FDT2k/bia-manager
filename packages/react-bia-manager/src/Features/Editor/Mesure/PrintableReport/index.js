@@ -75,7 +75,7 @@ export const Component =  props => {
             <RecapFDSComponent />
             </ComponentWithArea>
             <ComponentWithArea area="footer" >
-                <span>{t('Crée avec BIM')} v{process.env.ELECTRON_VERSION} le {dateSysToHuman(new Date())}</span>
+                <span>{t('Créé avec BIM')} v{process.env.RENDERER_VERSION} le {dateSysToHuman(new Date())}</span>
             </ComponentWithArea>
         </Grid>
     )

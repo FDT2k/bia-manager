@@ -16,8 +16,7 @@ export const Component = props => {
     const [editedGroup, setEditedGroup] = useState("a");
 
     const {lists,forms} = useCustomList();
-    const {onValuesChange,data} = props
-
+    const {onValuesChange,data,normes} = props
     const {values,handleChangeValue,inputProps,replaceValues,handleChange} = useFieldValues(data,{usePath:true,onValuesChange})
 
     useEffect(()=>{
@@ -47,12 +46,13 @@ export const Component = props => {
         })
 
     }
-
+    
 
     const handleGroupChange = g => {
         setEditedGroup(g)
     }
 
+    let norme = (normes && normes['alpha']) ? normes['alpha'].join('-') : undefined
     return (<LayoutFlexColumn>
         <LayoutFlex wrap >
             <Field className="date-examen" label={t("Date d'Examen")}>
@@ -83,7 +83,7 @@ export const Component = props => {
             </Field>
         </LayoutFlex>
         <Container fit grow>
-            <ElectricalDataForm tabIndexOffset={7} handleGroupChange={handleGroupChange} handleComputedChange={electricalHandleValues} handleChange={electricalHandleChange} editedGroup={editedGroup} values={values.data} />
+            <ElectricalDataForm tabIndexOffset={7} norme={norme} handleGroupChange={handleGroupChange} handleComputedChange={electricalHandleValues} handleChange={electricalHandleChange} editedGroup={editedGroup} values={values.data} />
         </Container>
         
     </LayoutFlexColumn>)

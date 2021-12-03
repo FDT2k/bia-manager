@@ -70,7 +70,7 @@ const Editor = props => {
                     <Tab>{t('Récapitulatif')}</Tab>
                 </TabList>
                 <TabPanel>
-                    <BIAEditor data={mesure} onValuesChange={_handleChange} />
+                    <BIAEditor normes={props.normes} data={mesure} onValuesChange={_handleChange} />
                     <Container fit grow>
                         <ComparisonTable data={mesure.bia} columns={result_columns} />
                     </Container>

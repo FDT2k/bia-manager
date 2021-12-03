@@ -656,7 +656,7 @@ export default getModule => {
 
       return [item[`${data_key}_min`], item[`${data_key}_max`]];
     })
-    if (!data || data.length >0){
+    if (!data || data.length ===0){
       return [];
     }
     let min = data.reduce((carry, item) => {
@@ -686,6 +686,7 @@ export default getModule => {
     if(max === Infinity || min === Infinity){
       return [];
     }
+    
 
     let res = []
     for (let y = min - 1; y < max + 1; y++) {

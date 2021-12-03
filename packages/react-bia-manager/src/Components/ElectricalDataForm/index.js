@@ -108,7 +108,7 @@ const findGroupForField = groups => fieldName => Object.keys(groups).reduce((res
 
 const ElectricalDataForm = props => {
 
-    const {handleComputedChange,handleGroupChange, handleChange,handleFormBlur, values, editedGroup,...rest } = props;
+    const {handleComputedChange,handleGroupChange, handleValidation, norme, handleChange,handleFormBlur, values, editedGroup,...rest } = props;
    
 
     
@@ -125,15 +125,7 @@ const ElectricalDataForm = props => {
     }
   
 
-    const handleValidation = (key,value)=>{
-        if(key == 'a5' || key =='a50' || key =='a100'){
-            return value >= 6.3 && value <=8.2
-        }
-        if(value > 0 ){
-            return true
-        }
-        return false;
-    }
+  
 
     return (
         <>
@@ -159,7 +151,7 @@ const ElectricalDataForm = props => {
                 <ComponentWithArea area="f_res_nor"></ComponentWithArea>
                 <ComponentWithArea area="f_rea_nor"></ComponentWithArea>
                 <ComponentWithArea area="f_z_nor"></ComponentWithArea>
-                <ComponentWithArea area="f_a_nor">6.3-8.2</ComponentWithArea>
+                <ComponentWithArea area="f_a_nor">{norme}</ComponentWithArea>
             </ImpedanceLayout>
         </>
     )
@@ -170,7 +162,19 @@ ElectricalDataForm.defaultProps = {
         carry[item] = 0;
         return carry;
     }, {}),
-    group: 'a'
+    group: 'a',
+    norme:'6.3-8.2',
+    handleValidation: (key,value)=> true
 }
 
+
+/**const handleValidation = (key,value)=>{
+        if(key == 'a5' || key =='a50' || key =='a100'){
+            return value >= 6.3 && value <=8.2
+        }
+        if(value > 0 ){
+            return true
+        }
+        return false;
+    } */
 export default withBaseClass('electrical-data-form')(ElectricalDataForm);

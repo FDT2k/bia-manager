@@ -16,7 +16,7 @@ export const LineChart = props => {
     });
 
     let YMin = YTicks[0] - 1
-
+    console.log(YTicks)
     return (
         <>
         <ComposedChart
