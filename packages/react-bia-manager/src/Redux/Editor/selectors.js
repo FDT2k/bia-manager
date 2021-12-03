@@ -650,6 +650,9 @@ export default getModule => {
   module.makeSelectIndiceChartYTicks = () => createSelector([module.select_normes_sampling, (state, props) => props,state=>state], (norme, {data_key},state) => {
 
     let value = module.makeSelectBIAResultByKey()(state,{data_key})
+    if(value === -Infinity || value === Infinity || value > 100 || value < 0){
+      return [];
+    }
     let data = norme.filter(item => {
       return !is_nil(item[data_key])
     }).map(item => {
@@ -664,7 +667,7 @@ export default getModule => {
         return Math.floor(item[0])
       }
       return carry;
-    }, 1000)
+    }, 100)
 
     let max = data.reduce((carry, item) => {
       if (item[1] > carry) {
@@ -683,7 +686,7 @@ export default getModule => {
     }
 
 
-    if(max === Infinity || min === Infinity){
+    if(max === Infinity || min === -Infinity){
       return [];
     }
     
