@@ -94,7 +94,7 @@ export const Page = props => {
         const r = ['lastname', 'firstname', 'birthdate']
 
         if (r.includes(name)) {
-            return required_string(4, 0, value)
+            return required_string(1, 255, value)
         }else if(name ==='usual_weight'){
             return required_number(20,200,value)
         }else if(name ==='usual_height'){
