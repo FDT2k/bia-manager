@@ -1,7 +1,7 @@
 
 
 .tabs{
-    --tab-width : calc((var(--col-width) * 2) + var(--gut-width));
+    // --tab-width : calc((var(--col-width) * 2) + var(--gut-width));
     @extend %colors-positive;
 
     &__tab.selected{
@@ -13,6 +13,7 @@
       //  width: calc(var(--tab-width) * 4);
         border-radius: 4px;
         background-color: var(--tertiary);
+        width: 100%;
 
     }
 
@@ -86,6 +87,18 @@
 
 .comments {
     grid-area: comments;
+    label {
+        margin-bottom: 8px;
+        display: block;
+    }
+    & > div,
+    & > textarea {
+        padding: 16px;
+        min-height: 64px !important;
+        height: auto;
+        width: 100%;
+        max-width: 100%;
+    }
 }
 
 

@@ -26,13 +26,16 @@
     }
 
     &__tab {
-        width: var(--tab-width);
-        max-width: var(--tab-width);
+        width: calc(var(--tab-width) - 12px);
+        max-width: calc(var(--tab-width) - 12px);
         overflow:hidden;
+        border-radius: 3px;
         cursor:pointer;
+        margin: 3px;
+        padding: 3px;
 
         &:focus{
-            outline: 1px dashed var(--focused-color);
+            outline: 1px solid var(--tertiary--dark);
         }
 
         .content{
@@ -52,20 +55,25 @@
 
     &__background{
         position: absolute;
+        top: 3px;
+        left: 3px;
 
         z-index: 0;
         border-radius: 4px;;
-        max-height:100%;
-        .bg{
-            min-height:100%;
-            min-width:100%;
-            background-color:var(--selected-color);
-            margin:3px;
-        }
+        max-height: 100%;
+
         height:26px;
-        width: var(--tab-width);
+        width: calc(var(--tab-width) - 6px );
         transform: translateX(calc( var(--tab-width) * var(--active-tab) ));
         transition: 0.3s ease-in-out;
+
+        .bg{
+            min-height: 100%;
+            min-width: 100%;
+            background-color: var(--selected-color);
+            border-radius: 3px;
+        }
+
     }
 
 }

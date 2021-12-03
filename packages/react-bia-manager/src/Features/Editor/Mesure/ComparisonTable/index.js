@@ -30,10 +30,7 @@ export const Component = props => {
 
     }
     return (
-        <Grid className="comparison-grid" style={{
-            gridTemplateColumns: "2fr 1fr 1fr 1fr",
-            gridAutoRows: "1fr"
-        }}>
+        <Grid className="comparison-grid">
             <FormulaResultHeader available_columns={available_columns} handleChange={handleChange} selectable={selectable} columns={state} />
 
             {data.filter(item => item.display == true).map((item, idx) =>
