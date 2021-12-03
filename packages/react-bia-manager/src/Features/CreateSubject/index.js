@@ -122,9 +122,9 @@ export const Page = props => {
                 <form {...formProps}>
                     <Grid
 
-                        templateColumns="repeat(18,var(--col-1))"
-                        columnGap="var(--gut-width)"
-                        rowGap="var(--gut-2)"
+                        templateColumns="repeat(18,1fr)"
+                        columnGap="16px"
+                        rowGap="8px"
 
                         templateAreas={[
                             `${repeat(5, "lastname ")} . ${repeat(3, "birthdate ")} . ${repeat(4, "groups_patho ")} . ${repeat(3, "usual_height ")}`,

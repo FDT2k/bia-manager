@@ -1,0 +1,10 @@
+.create-subject-form{
+    max-width:100%;
+    margin-top: 32px;
+
+    input.error{
+        min-height: 32px;
+        border-color: red;
+        margin-top: 0px;
+    }
+}

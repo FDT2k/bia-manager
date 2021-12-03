@@ -63,6 +63,7 @@
     }
 
     .search{
+        max-width: 100%;
         margin: 16px 0px 4px;
         justify-content: space-between;
 
@@ -87,7 +88,7 @@
                 }
             }
             height: 40px;
-            min-width: calc((var(--col-width) * 13) + (var(--gut-width) * 12));
+            //min-width: calc((var(--col-width) * 13) + (var(--gut-width) * 12));
             border: 1px solid var(--primary);
             border-radius: 4px;
             opacity: 1;
