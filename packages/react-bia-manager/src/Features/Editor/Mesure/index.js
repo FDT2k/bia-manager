@@ -63,7 +63,7 @@ const Editor = props => {
     const result_columns = useMemo(() => ['norme', mesure.most_accurate_formula || 'kushner', 'gva'], [mesure.most_accurate_formula]);
     return (
         <MesureEditorLayout className={className}>
-            <TabsWithArea tabIndexOffset={20} renderDisabledPanels={true} area="mesure-editor-main">
+            <TabsWithArea tabIndexOffset={-20} renderDisabledPanels={true} area="mesure-editor-main">
                 <TabList>
                     <Tab>{t('BIA')}</Tab>
                     <Tab>{t('Force de serrement')}</Tab>

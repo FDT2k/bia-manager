@@ -112,7 +112,7 @@
    "Annuler": "Annuler",
    "La base requiert un mot de passe:": "La base requiert un mot de passe:",
    "EXPORT_CSV": "Exporter",
-   "Groupe ethnologique": "Groupe ethnologique",
+   "Groupe ethnologique": "Groupe éthnique",
    "aucune mesure": "aucune mesure",
    "BIA": "BIA",
    "Force de serrement": "Force de serrement",
@@ -143,7 +143,7 @@
    "Erreur": "Erreur",
   
    "groups.patho": "Groupe Pathologique",
-   "groups.ethno": "Groupe Ethnologique",
+   "groups.ethno": "Groupe Ethnique",
    "gender": "Sexe",
    "Nouveau Patient": "Nouveau Patient",
    "Prenom": "Prenom",
