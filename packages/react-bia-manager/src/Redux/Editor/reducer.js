@@ -67,7 +67,6 @@ export default (getModule) => {
                         bia:[...action.payload.bia]
                     }
                 }
-
             case types.CREATE_MESURE:
                 return {
                     mesure:{

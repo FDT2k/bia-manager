@@ -99,6 +99,11 @@ export default (getModule) => {
         if (patient.mesures.length >= mesure_id) {
             dispatch(actions.set_current_mesure(mesure_id))
         }
+
+        dispatch(actions.recompute_current_mesure());
+
+        dispatch(actions.refresh_current_recap());
+        dispatch(actions.reinit_fds());
         return true;
     }
 
@@ -113,12 +118,17 @@ export default (getModule) => {
         }
     });
 
-    actions.delete_mesure = create(types.DELETE_MESURE, (id, arg) => {
+    actions._delete_mesure = create(types.DELETE_MESURE, (id, arg) => {
         return {
             patient_id: id,
             mesure_id: arg
         }
     })
+
+    actions.delete_mesure = (patient_id,mesure_id)=> (dispatch,getState)=>{
+        dispatch(actions._delete_mesure(patient_id,mesure_id));
+        dispatch(actions.create_mesure());
+    }
 
 
 
@@ -156,6 +166,7 @@ export default (getModule) => {
             //   dispatch(actions.refresh_normes());
             dispatch(actions.set_current_mesure(new_mesure_id))
             dispatch(actions.clear_bia());
+            dispatch(actions.reinit_fds())
             return r;
         }
 
@@ -280,6 +291,7 @@ export default (getModule) => {
                     dispatch(actions.recompute_current_mesure());
 
                     dispatch(actions.refresh_current_recap());
+                    dispatch(submodules.recap_fds.actions.refresh());
 
 
                 }
@@ -439,7 +451,6 @@ export default (getModule) => {
     }
 
     actions.update_fds = values => (dispatch, getState) => {
-
         const mesure = select_edited_mesure(getState());
         const patient = select_edited_patient(getState());
         const normes = select_normes(getState(), { age: mesure.current_age, sex: patient.gender })
@@ -448,7 +459,7 @@ export default (getModule) => {
 
 
         dispatch(submodules.recap_fds.actions.update_mesure(select_edited_mesure(getState())))
-
+        dispatch(submodules.recap_fds.refresh())
     }
 
 
