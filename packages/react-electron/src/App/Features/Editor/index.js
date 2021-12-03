@@ -15,7 +15,7 @@ const EditorWithBackend = (props) => {
     const { isConfirmed } = useConfirm();
     const {t} = useTranslation();
  
-    const { handlers: _handlers, ...rest } = props;
+    const { handlers: {handleGoBack: _handleGoBack, ..._handlers}, ...rest } = props;
 
     const handleFetch = async patient_id => {
         return get_subject(patient_id)
@@ -55,6 +55,20 @@ const EditorWithBackend = (props) => {
         return save_subject({...subject,mesures:[]});
     }
   
+
+    const handleGoBack = async (editor_status)=>{
+        if (editor_status === false) {
+            let result =  await isConfirmed(t("The changes you made will not be saved, continue ?"))
+            if(result !==false){
+                _handleGoBack();
+
+            }
+        }else {
+        _handleGoBack();
+
+        }
+    }
+
     const handlers = {
         ..._handlers,
         handleFetch,
@@ -63,6 +77,7 @@ const EditorWithBackend = (props) => {
         handleMesureCreate,
         handleSaveSubject,
         handleMesureOpen,
+        handleGoBack
     }
 
     return (

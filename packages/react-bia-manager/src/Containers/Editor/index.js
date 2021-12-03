@@ -13,6 +13,7 @@ export const Container = ({ selectors, actions }) => (Component, MesureEditor) =
     const { handleFetch = _ => console.warn('not implemented'),
         handleSave,
         handleSaveSubject,
+        handleGoBack:_handleGoBack,
         handleMesureDelete: _handleMesureDelete,
         handleMesureCreate: _handleMesureCreate,
         handleMesureOpen: _handleMesureOpen } = _handlers
@@ -149,6 +150,11 @@ export const Container = ({ selectors, actions }) => (Component, MesureEditor) =
         setShouldSaveSubject(true)
     }
 
+
+    const handleGoBack = ()=>{
+        _handleGoBack && _handleGoBack(is_clean);
+    }
+
     const handlers = {
         ..._handlers,
 
@@ -157,7 +163,8 @@ export const Container = ({ selectors, actions }) => (Component, MesureEditor) =
         handleMesureOpen,
         handleMesureDelete,
         handleChange,
-        handleSubjectChange
+        handleSubjectChange,
+        handleGoBack
     }
     return (
 

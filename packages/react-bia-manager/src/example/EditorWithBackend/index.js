@@ -148,9 +148,14 @@ export default props => {
 
     }
 
+    const handleGoBack = ()=> {
+        alert('not implemented sorry')
+    }
+
     const handlers = {
         handleMesureOpen,
-        handleMesureCreate
+        handleMesureCreate,
+        handleGoBack,
     }
     return (
         <Fullscreen>
