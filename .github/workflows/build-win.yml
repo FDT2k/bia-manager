@@ -1,9 +1,9 @@
-name: BuildWindows
+name: Build
 
 on:
   push:
     branches:
-      - windows-master
+      - master
     tags:
       - v*
 
@@ -29,7 +29,7 @@ jobs:
       - name: Install Node.js, NPM and Yarn
         uses: actions/setup-node@v1
         with:
-          node-version: 16
+          node-version: 14
 
           
       - name: Get yarn cache directory path
@@ -44,26 +44,9 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-yarn-90
 
-
-      - name: Windows fix
-        working-directory: 'packages/better-sqlite3'
-        run: sh -c "touch yarn.lock"
-
-      - name: Windows fix 44
-        run: sh -c "rm package.json; mv package_win.json package.json"
-
-      - name: Windows fix3
-        run: yarn
-
-      - name: Windows fix2 
-        working-directory: 'packages/better-sqlite3'
-        run: yarn install
-        env: 
-          YARN_ENABLE_IMMUTABLE_INSTALLS: false
-
       - name: Install Deps
         run: |
-          yarn install;
+          yarn;
         env: 
           CI: true
       - name: build submodules
