@@ -16,8 +16,10 @@ const ListItem = compose(
 
 const HeaderListItem = withBEMElement('title')(ListItem)
 
-const ItemListItem = ListItem;
-//Fabien qui a changé ça
+const ItemListItem = compose(
+    withBEMModifiers(['selected']),
+    withBEMElement('item'),
+)(ListItem)
 
 
 
@@ -30,14 +32,13 @@ export const Component = props => {
         <LayoutFlexColumn className={className}>
             <HeaderListItem BEM={BEM}><b>{title}</b></HeaderListItem>
             {/**Peut être remplacé , simplement utiliser le onclick */}
-            <ItemListItem className="button btn--secondary" selected={selectedIndex >= mesures.length} onClick={handleCreateClick}>{t('Créer')}</ItemListItem>
+            <ListItem className="button btn--secondary" selected={selectedIndex >= mesures.length} onClick={handleCreateClick}>{t('Créer')}</ListItem>
             {mesures.map((item, idx) => {
 
                 return <ItemListItem
                     BEM={BEM}
                     key={idx}
                     selected={selectedIndex == idx}
-                    className="list-mesure__item"
                     >
                     <div onClick={_ => handleItemListClick(item, idx)}>{dateSysToHuman(item[itemLabelKey])}</div> {renderActions && renderActions(data, item, idx)}
                 </ItemListItem>
