@@ -1,0 +1,32 @@
+:root {
+    --mesure-editor-content: calc( var(--col-width) * 11  + var(--gut-width) * 10);
+    --mesure-editor-aside-content: calc( var(--gut-width) * 2  + var(--col-width) * 3 );
+}
+
+$asides-value: 44px;
+$editor-value: (552px - (16 * 10)) / 11;
+$max-editor-value: (727px - (16 * 10)) / 11;
+
+.mesure-editor-grid-layout{
+
+    // grid-template-columns: var(--mesure-editor-content) var(--mesure-editor-aside-content);
+    // grid-template-rows:   100%;
+    // column-gap: var(--mesure-editor-right-margin);
+
+    // grid-template-areas:
+    //     "mesure-editor-main mesure-editor-aside";
+
+    gap: 32px 16px;
+    grid-template:
+    [content]"mesure-editor-main mesure-editor-main mesure-editor-main mesure-editor-main mesure-editor-main mesure-editor-main mesure-editor-main mesure-editor-main mesure-editor-main mesure-editor-main mesure-editor-main . mesure-editor-aside mesure-editor-aside mesure-editor-aside" auto
+    [comments]"comments comments comments comments comments comments comments comments comments comments comments . mesure-editor-aside mesure-editor-aside mesure-editor-aside" min-content /
+    minmax($editor-value, 1fr) minmax($editor-value, 1fr) minmax($editor-value, 1fr) minmax($editor-value, 1fr) minmax($editor-value, 1fr) minmax($editor-value, 1fr) minmax($editor-value, 1fr) minmax($editor-value, 1fr) minmax($editor-value, 1fr) minmax($editor-value, 1fr) minmax($editor-value, 1fr)
+    1fr
+    minmax($asides-value, 1fr) minmax($asides-value, 1fr) minmax($asides-value, 1fr);
+
+
+
+
+
+
+}

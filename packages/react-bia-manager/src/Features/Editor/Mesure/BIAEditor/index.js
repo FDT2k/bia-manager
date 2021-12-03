@@ -20,14 +20,14 @@ export const Component = props => {
     const {values,handleChangeValue,inputProps,replaceValues,handleChange} = useFieldValues(data,{usePath:true,onValuesChange})
 
     useEffect(()=>{
-        
+
         replaceValues(data)
     },[data])
 
 
     const electricalHandleChange = e => {
 
-      
+
         handleChangeValue(`data.${e.target.name}`,e.target.value)
     }
 
@@ -54,7 +54,7 @@ export const Component = props => {
 
     let norme = (normes && normes['alpha']) ? normes['alpha'].join('-') : undefined
     return (<LayoutFlexColumn>
-        <LayoutFlex wrap >
+        <LayoutFlex wrap style={{gap:'16px'}}>
             <Field className="date-examen" label={t("Date d'Examen")}>
                 <SafeDatePicker
                     selected={values.date}
@@ -85,7 +85,7 @@ export const Component = props => {
         <Container fit grow>
             <ElectricalDataForm tabIndexOffset={7} norme={norme} handleGroupChange={handleGroupChange} handleComputedChange={electricalHandleValues} handleChange={electricalHandleChange} editedGroup={editedGroup} values={values.data} />
         </Container>
-        
+
     </LayoutFlexColumn>)
 }
 

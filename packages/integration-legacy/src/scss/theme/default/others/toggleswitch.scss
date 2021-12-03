@@ -1,7 +1,7 @@
 :root{
     --color-switch: white;
-    --color-yes: black;
-    --color-no: black;
+    --color-yes: #1c313a;
+    --color-no: #1c313a;
     --color-text: white;
     --color-focus: red;
 }
@@ -10,7 +10,7 @@
     min-width:60px;
     &--focus{
         box-shadow: 0 0 1px 3px rgba(59, 153, 252, .7);
-        box-shadow: 0 0 0 3px activeborder; /* Blink, Chrome */ 
+        box-shadow: 0 0 0 3px activeborder; /* Blink, Chrome */
         box-shadow: 0 0 0 3px -moz-mac-focusring; /* Firefox */
         outline: 2px solid -webkit-focus-ring-color; /* Webkit, Safari */
 

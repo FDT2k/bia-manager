@@ -110,6 +110,7 @@ export default  {
           "pct_ideal_weight": "",
           "most_accurate_formula": "",
           "current_age": "",
+          "comments":"Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
           "data": {
               "z50": "533",
               "a50": "7.6",
