@@ -1,11 +1,15 @@
 .list-mesure{
+    gap: 8px;
 
     &__title{
 
     }
 
-    &__item{
-
+    &__item {
+        cursor: pointer;
+        &:hover {
+            @extend %large-body;
+        }
     }
 
     &--selected{
@@ -14,5 +18,9 @@
 
     .action-icon{
         cursor:pointer;
+    }
+
+    .button {
+        justify-content: center;
     }
 }

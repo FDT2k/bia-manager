@@ -1,0 +1,89 @@
+
+@use "sass:math";
+
+$asides-value: 44px;
+$editor-value: (552px - (16 * 10)) / 11;
+$max-editor-value: (727px - (16 * 10)) / 11;
+
+$marge_width: 131;
+$col_width: 49;
+$gut_width: 8;
+$screen_width : 1280;
+
+$ref_width : 1280 - ($marge_width * 2);
+
+
+$col : math.div($col_width * 100 ,$screen_width)+0vw;
+$gut : math.div($gut_width * 100 , $screen_width)+0vw;
+$marge : math.div($marge_width * 100 , $screen_width)+0vw;
+$ref : math.div($ref_width * 100 , $screen_width)+0vw;
+
+// $col : $col_width * 100 / $ref_width+0vw;
+// $gut : $gut_width * 100 / $ref_width+0vw;
+
+
+@function strip-unit($number) {
+    @if type-of($number) == "number" and not unitless($number) {
+        @return $number / ($number * 0 + 1);
+    }
+
+    @return $number;
+}
+
+
+@function px-to-vw-ref($number,$ref) {
+    @return (strip-unit($number) * 100 / $ref)+0vw;
+}
+@function px-to-vw($number) {
+    @return px-to-vw-ref($number,$ref_width);
+}
+
+// $property: px-to-vw(32);
+
+
+:root{
+    // --reference-width: #{$ref_width+0px};
+    --reference-width: #{$ref};
+    --gut-width: #{$gut};
+    --col-width: #{$col};
+    --marge-width: #{$marge};
+    --mesure-editor-right-margin: calc( var(--gut-width) * 2  + var(--col-width) );
+    --width--2-col: calc((var(--col-width) * 2) + (var(--gut-width) * 1));
+    --width--3-col: calc((var(--col-width) * 3) + (var(--gut-width) * 2));
+    --width--4-col: calc((var(--col-width) * 4) + (var(--gut-width) * 3));
+    --width--5-col: calc((var(--col-width) * 5) + (var(--gut-width) * 4));
+}
+
+:root {
+    --mesures-list-width: calc( var(--gut-width) + (var(--col-width) * 2) );
+}
+
+.editor-grid-layout{
+
+    // grid-template-columns: var(--mesures-list-width) auto   ;
+    // grid-template-rows:   fit-content(200px) auto;
+    // column-gap: var(--mesure-editor-right-margin);
+    max-width: 1200px;
+    column-gap: 16px;
+    row-gap: 32px;
+
+    grid-template:
+    [patient] "patient patient patient patient patient patient patient patient patient patient patient patient patient patient patient patient patient patient" min-content
+    [content] "mesures mesures . content content content content content content content content content content content content content content content" auto /
+    minmax($asides-value, 1fr) minmax($asides-value, 1fr)
+    1fr
+    minmax($editor-value, 1fr) minmax($editor-value, 1fr) minmax($editor-value, 1fr) minmax($editor-value, 1fr) minmax($editor-value, 1fr) minmax($editor-value, 1fr) minmax($editor-value, 1fr) minmax($editor-value, 1fr) minmax($editor-value, 1fr) minmax($editor-value, 1fr) minmax($editor-value, 1fr)
+    1fr
+    minmax($asides-value, 1fr) minmax($asides-value, 1fr) minmax($asides-value, 1fr)
+
+    ;
+
+
+    // grid-template-areas:
+    //     " patient patient "
+    //     " mesures content "
+    //     ;
+
+    // justify-items: stretch;
+
+}

@@ -5,10 +5,14 @@
     }
 }
 
+select {
+    background-color: var(--secondary);
+}
+
 .field{
 
-    margin-right: var(--gut-width);
-    margin-bottom: 16px;
+    // margin-right: var(--gut-width);
+    // margin-bottom: 16px;
 
     // &:last-child {
     //     margin-right: inherit;
@@ -66,20 +70,26 @@
     &--calculated {
 
     }
-    &.date-examen,
-    &.birthdate,
-    &.activite-physique,
-    &.type-activite-physique,
-    &.poids-actuel {
-        @extend %col-3;
+
+}
+
+.bia-editor__form {
+    .date-examen,
+    .birthdate,
+    .activite-physique,
+    .type-activite-physique,
+    .poids-actuel {
+        // @extend %col-3;
+        flex-grow: 3;
     }
-    &.fumeur,
-    &.cote-mesure,
-    &.taille {
-        @extend %col-2;
+    .fumeur,
+    .cote-mesure,
+    .taille {
+        // @extend %col-2;
+        flex-grow: 2;
     }
 
-    &.fumeur {
+    .fumeur {
         margin-right: inherit;
     }
 }

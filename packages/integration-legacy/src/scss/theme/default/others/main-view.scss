@@ -1,62 +1,64 @@
 
 /*ca va bouger, j'ai fait une betise (fabien) */
 .bia-main-layout {
-  grid-template-columns: 100%;
-  grid-template-rows: 52px auto 52px;
-  grid-template-areas:
+    grid-template-columns: 100%;
+    grid-template-rows: 52px auto 52px;
+    grid-template-areas:
     " header "
     " maincontent "
     " footer ";
+    column-gap: 16px;
+    row-gap: 32px;
 }
 
 .bia-main {
-  @extend %base_font;
+    @extend %base_font;
 
-  &__content {
-    max-width: 100%;
-    padding: 0px var(--marge-width);
-  }
+    &__content {
+        max-width: 100%;
+        padding: 0px 32px;
+    }
 
-  .navbar {
-    @extend %colors-negative;
-    padding: 0px var(--marge-width);
-  }
+    .navbar {
+        @extend %colors-negative;
+        padding: 0px 32px;
+    }
 
-  .nav-main {
-  }
-  &__content {
-    overflow-y: auto;
-  }
+    .nav-main {
+    }
+    &__content {
+        overflow-y: auto;
+    }
 }
 
 button {
-  //  width: calc((var(--col-width) * 3) + (var(--gut-width) * 2));
-  /*  &:hover, &:active, &:focus{
-        @extend %colors-positive;
-    }*/
+    //  width: calc((var(--col-width) * 3) + (var(--gut-width) * 2));
+    /*  &:hover, &:active, &:focus{
+    @extend %colors-positive;
+}*/
 }
 
 input,
 select,
 textarea,
 .editable-field
- {
-  box-sizing: border-box;
-  @extend %radius;
-  padding: 0px 16px;
+{
+    box-sizing: border-box;
+    @extend %radius;
+    padding: 0px 16px;
 }
 
 input,
 select,
 textarea {
-  border: 1px solid var(--primary);
+    border: 1px solid var(--primary);
 }
 
 tr.selected,
 tr:hover {
-  @extend %large-body;
+    @extend %large-body;
 }
 
 tr {
-  cursor: pointer;
+    cursor: pointer;
 }
