@@ -3366,10 +3366,17 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@karsegard/composite-js@npm:^2.11.1, @karsegard/composite-js@npm:^2.12.0":
+"@karsegard/composite-js@npm:^2.12.0":
   version: 2.12.0
   resolution: "@karsegard/composite-js@npm:2.12.0"
   checksum: e3a81839993d0c241245a91f1fbb4fc58847846d792ae8f578382286724b824fc0c40334c8992c053ad23f4c6ed48a4b68bac58e85318a1e2c271250548c67fb
+  languageName: node
+  linkType: hard
+
+"@karsegard/composite-js@npm:^2.12.1":
+  version: 2.12.1
+  resolution: "@karsegard/composite-js@npm:2.12.1"
+  checksum: 6360ef209d8cfc6e06a81bdbed57f4ee074a5bfe5f663126dffd59e5966fed4ea00b111fa7071cffc9c12dac6fbbfcd6c54fa6556625652b9f189761bf84ec4d
   languageName: node
   linkType: hard
 
@@ -3392,7 +3399,7 @@ __metadata:
   dependencies:
     "@karsegard/bia-manager-theme": "workspace:packages/integration"
     "@karsegard/bia-manager-theme-legacy": "workspace:packages/integration-legacy"
-    "@karsegard/composite-js": ^2.12.0
+    "@karsegard/composite-js": ^2.12.1
     "@karsegard/react-core-layout": "workspace:packages/kda-react-core-layout"
     "@karsegard/react-hooks": ^2.8.0
     "@karsegard/react-redux": "workspace:packages/kda-react-redux"
@@ -3480,7 +3487,7 @@ __metadata:
     "@babel/plugin-syntax-import-meta": ^7.0.0
     "@babel/preset-env": ^7.0.0
     "@babel/preset-react": ^7.0.0
-    "@karsegard/composite-js": ^2.11.1
+    "@karsegard/composite-js": ^2.12.1
     "@karsegard/react-core-layout": ^1.5.1
     "@rollup/plugin-babel": ^5.3.0
     "@rollup/plugin-commonjs": ^19.0.1
@@ -7231,7 +7238,7 @@ __metadata:
   resolution: "bia-manager-react-electron@workspace:packages/react-electron"
   dependencies:
     "@karsegard/cex": ^1.4.4
-    "@karsegard/composite-js": ^2.12.0
+    "@karsegard/composite-js": ^2.12.1
     "@karsegard/indexeddb-export-import": ^2.1.4
     "@karsegard/react-bia-manager": "workspace:packages/react-bia-manager"
     "@karsegard/react-compose": ^1.3.2
