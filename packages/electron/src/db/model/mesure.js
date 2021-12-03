@@ -11,6 +11,7 @@ const mesure = (db, api) => {
         height: '',
         weight: '',
         bmi: '',
+        comments:'',
         left_side: 'boolean',
         machine: '',
         smoker: 'boolean',
