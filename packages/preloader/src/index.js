@@ -50,6 +50,7 @@ let electronAPI = {
     sqlite_custom_search: invokeOnMainProcess('sqlite-custom-search'),
     sqlite_create: invokeOnMainProcess('sqlite-create'),
     sqlite_model_transaction: invokeOnMainProcess('sqlite-model-transaction'),
+    sqlite_export: invokeOnMainProcess('sqlite-export'),
     
   }
 };

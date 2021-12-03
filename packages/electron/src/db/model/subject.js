@@ -1,6 +1,6 @@
 import mesure from './mesure'
 import { is_nil, enlist, is_empty, is_undefined } from '@karsegard/composite-js';
-import { key, keyval, spec } from '@karsegard/composite-js/ObjectUtils';
+import { key, keyval, spec,pathes } from '@karsegard/composite-js/ObjectUtils';
 import { spreadObjectPresentIn } from '@karsegard/composite-js/ReactUtils'
 import { _transform, _retrieve, _retrieve_from_raw, _retrieve_entity, _raw_to_object, _retrieve_row } from '../sqlcipher'
 const subject = (db, api) => {
@@ -171,7 +171,7 @@ const subject = (db, api) => {
         return carry;
     };
 
-    
+
     module.custom_search = (custom_filters) => {
 
 
@@ -197,6 +197,112 @@ const subject = (db, api) => {
         for (let result of stmt.iterate()) {
             // console.log(result)
             res.push(_raw_to_object(schema, stmt.columns(), result));
+        }
+        return res;
+    }
+
+
+    const extract_object = (row, defaultValue) => {
+        let val = pathes(defaultValue)
+        try {
+            let value = JSON.parse(row);
+            value = pathes(value);
+            val = {
+                ...val,
+                ...value
+            }
+        } catch (e) { }
+        return enlist(val);
+    }
+
+    const sideState = {
+        main: false,
+        data: {
+            0: '',
+            1: '',
+            2: '',
+        },
+        avg: '',
+        norme: ''
+    }
+    const csv_json_map = {
+        groups:{ patho: "", "ethno": "" },
+        data: {"z50":"","a50":"","res50":"","rea50":"","z5":"","a5":"","res5":"","rea5":"","z100":"","a100":"","res100":"","rea100":""},
+        sport: {"type":"","rate":""},
+        fds: {
+            left:{...sideState},
+            right:{...sideState}
+        }
+    }
+
+    const retrieve_csv_row = (row, columns) => {
+        return columns.reduce(
+            (carry, col, idx) => {
+                if (!is_nil(csv_json_map[col.name])) {
+                   
+                    extract_object(row[idx],csv_json_map[col.name]).map(subitem=> {
+                        let[_key,_val] = keyval(subitem);
+                        carry.push(`"${_val}"`)
+                    })
+                } else {
+                    carry.push(`"${row[idx]}"`);
+
+                }
+
+                return carry;
+            }
+            , []);
+    }
+
+    const retrieve_csv_cols = (row, columns) => {
+        return columns.reduce(
+            (carry, col, idx) => {
+                if (!is_nil(csv_json_map[col.name])) {
+                   
+                    extract_object(row[idx],csv_json_map[col.name]).map(subitem=> {
+                        let[_key,_val] = keyval(subitem);
+                        carry.push(`"${col.name}.${_key}"`)
+                    })
+                } else {
+                    carry.push(`"${row[idx]}"`);
+                }
+
+                return carry;
+            }
+            , []);
+
+    }
+
+
+    module.export_csv = (custom_filters, separator) => {
+
+
+        let method = "where";
+
+        let whereClauses = enlist(custom_filters).reduce(mainReducer('subject'), { query: [], sep: 'where' }).query.join(' ');
+        let havingClauses = enlist(custom_filters).reduce(mainReducer('mesure'), { query: [], sep: 'having' }).query.join(' ');
+
+        let query_start = `Select s.*,count(m.id)as count_mesures, m.* from subjects as s left join mesures as m on s.id=m.subject_id `
+
+
+        let sql = `
+            ${query_start}
+            ${whereClauses}
+            group by m.id
+            ${havingClauses}
+
+            order by s.id
+        `
+
+        console.log(sql)
+
+        let stmt = db.prepare(sql).raw(true);
+        const res = [];
+        let cols = stmt.columns();
+        res.push(retrieve_csv_cols(cols.map(item=>item.name),cols).join(separator));
+        for (let result of stmt.iterate()) {
+            // console.log(result)
+            res.push(retrieve_csv_row(result, cols).join(separator));
         }
         return res;
     }
