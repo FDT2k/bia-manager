@@ -3,6 +3,7 @@ import React, { useEffect,useState } from 'react';
 import { CreateSubjectFeature, useCustomList, useBackend } from '@karsegard/react-bia-manager'
 import { useHostProvider } from '@/Context/Host'
 import { as_safe_path, enlist } from '@karsegard/composite-js'
+import moment from 'moment'
 export default props => {
     const { lists, forms } = useCustomList();
 
@@ -17,7 +18,7 @@ export default props => {
             patho:'',
             ethno:''
         },
-        birthdate: new Date()
+        birthdate: ''
     });
     useEffect(() => {
         if (forms.create_subject) {
@@ -39,7 +40,13 @@ export default props => {
     }, [forms])
 
     const handleSave = values => {
-        Promise.resolve(create_subject(values))
+            
+        let _vals = {
+            ...values,
+            birthdate:  moment(values['birthdate'],'DD.MM.YYYY').format("YYYY-MM-DD")
+        };
+        Promise.resolve(create_subject(_vals))
+        
             .then(result=>{
                 window.location.href='#/editor/'+result
             })
