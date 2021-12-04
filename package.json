@@ -26,7 +26,7 @@
     "precompile": "cross-env MODE=production npm run build",
     "compile": "electron-builder build --config electron-builder.config.js --dir --config.asar=false",
     "release": "electron-builder --config electron-builder.config.js  --mac --windows --linux --publish always",
-    "release:nopub": "electron-builder --config electron-builder.config.js  --linux --windows",
+    "release:nopub": "electron-builder --config electron-builder.config.js  --linux",
     "release:test": "yarn run compile && yarn run release:nopub",
     "pretest": "cross-env MODE=test npm run build",
     "test": "node tests/app.spec.js",

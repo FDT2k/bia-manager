@@ -42,7 +42,7 @@ export const raw = [
     { type: 'ffmi', sex: 'M', age_range: [35, 54], values: [17.2, 21.7] },
     { type: 'ffmi', sex: 'M', age_range: [55, 74], values: [16.6, 21.2] },
     { type: 'ffmi', sex: 'M', age_min: 75, values: [16.6, 21.2] },
-    { type: 'ffmi', sex: 'F', age_range: [18 - 34], values: [13.8, 17.6] },
+    { type: 'ffmi', sex: 'F', age_range: [18, 34], values: [13.8, 17.6] },
     { type: 'ffmi', sex: 'F', age_range: [35, 54], values: [14.4, 18.0] },
     { type: 'ffmi', sex: 'F', age_range: [55, 74], values: [14.1, 19.0] },
     { type: 'ffmi', sex: 'F', age_min: 75, values: [12.9, 18.7], },
