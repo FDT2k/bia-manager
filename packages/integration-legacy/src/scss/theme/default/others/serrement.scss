@@ -2,10 +2,16 @@
   input[type="text"] {
     width: var(--width--2-col);
     height:30px;
+    max-width: 55px;
   }
 
   align-items: center;
   justify-items: center;
+
+  
+
+  max-width:100%;
+  width:100%;
 }
 
 
