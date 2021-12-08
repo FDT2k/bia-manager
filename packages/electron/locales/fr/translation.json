@@ -142,8 +142,8 @@
   
    "Erreur": "Erreur",
   
-   "groups.patho": "Groupe Pathologique",
-   "groups.ethno": "Groupe Ethnique",
+   "groups.patho": "Groupe pathologique",
+   "groups.ethno": "Groupe éthnique",
    "gender": "Sexe",
    "Nouveau Patient": "Nouveau Patient",
    "Prenom": "Prenom",
@@ -155,5 +155,25 @@
    "The changes you made will not be saved, continue ?": "Les changements ne seront pas sauvegardés, continuer?",
    "filter_F":"Femmes",
    "filter_M": "Hommes",
-   "Waiting on user confirmation": "Attente de la confirmation de l'utilisateur"
+   "Waiting on user confirmation": "Attente de la confirmation de l'utilisateur",
+
+
+
+
+
+   "Le recapitulatif n'est pas disponible.": "Le récapitulatif n'est pas disponible.",
+   "Remplissez le formulaire ou choisissez une mesure valide": "Remplissez le formulaire ou choisissez une mesure valide",
+   "aucun élément": "aucun élément",
+   "éditer": "éditer",
+   
+   "Taille": "Taille",
+   "Poids habituel": "Poids habituel",
+   "Groupe Ethnologique": "Groupe éthnique",
+   "Créé avec BIM": "Créé avec BIM",
+   "Ce format de fichier n'est pas supporté": "Ce format de fichier n'est pas supporté",
+   "Groupe Ethnique": "Groupe éthnique",
+   "depuis le": "depuis le",
+   "jusqu'au": "jusqu'au",
+   "Synchroniser d'autres bases": "Synchroniser d'autres bases",
+   "Vous devez ouvrir une base avant de synchroniser": "Vous devez ouvrir une base avant de synchroniser",
 }
