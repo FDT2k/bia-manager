@@ -3,6 +3,7 @@ import React, { createContext, useContext } from 'react';
 
 import CreateSubject from '@/Features/CreateSubject';
 import Database from '@/Features/Database';
+import Sync from '@/Features/DatabaseSync';
 import DatabaseListManager from '@/Features/ListManager';
 import Editor from '@/Features/Editor';
 import Search from '@/Features/Search';
@@ -22,6 +23,7 @@ export const makeProvider = (Context) => (props) => {
         Welcome,
         CreateSubject,
         Database,
+        Sync,
         DatabaseListManager,
         Editor,
         Search,

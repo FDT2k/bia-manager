@@ -10,6 +10,7 @@ import EditorWithBackend from '@/example/EditorWithBackend'
 import TestMesureEditorRedux from '@/example/TestMesureEditorRedux'
 import IntegrationEditor from '@/Integration/Editor'
 import DatabaseImport from '@/example/Database/Import'
+import DatabaseSync from '@/example/Database/Sync'
 
 import { Route, Link, Switch } from 'wouter';
 import { Fullscreen, LayoutFlexColumn } from '@karsegard/react-core-layout';
@@ -60,6 +61,12 @@ const routes = [
         component: DatabaseImport,
         menu: 'Database import'
     },
+    {
+        path: '/database/sync',
+        component: DatabaseSync,
+        menu: 'Database sync'
+    },
+    
     {
         path: '/backend/editor',
         component: EditorWithBackend,

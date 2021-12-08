@@ -36,6 +36,7 @@ import DatabaseImportFeature from '@/Features/Database'
 
 import EditorFeature from '@/Features/Editor';
 import AboutFeature from '@/Features/About';
+import DatabaseSync from '@/Features/DatabaseSync';
 import PatientHeaderFeature from '@/Features/Editor/PatientHeader';
 import MesureEditorFeature from '@/Features/Editor/Mesure';
 import ListMesureFeature from '@/Features/Editor/ListMesure';
@@ -52,7 +53,7 @@ import {Page as ListManagerPage,Component as ListManagerFeature} from '@/Feature
 export {
     BIARouter,
     useLocation,
-
+    DatabaseSync,
     ViewProvider,
     TranslationProvider,
     CustomListProvider,

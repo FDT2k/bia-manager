@@ -63,6 +63,12 @@ export default (app, window,labelEnhancer=identity ) => {
           }
         },
         {
+          label: labelEnhancer('Synchroniser d\'autres bases'),
+          click() {
+            window.webContents.send('location-change', '#/sync');
+          }
+        },
+        {
           label: labelEnhancer('Gestion des listes'),
           click() {
             window.webContents.send('location-change', '#/database/listes');

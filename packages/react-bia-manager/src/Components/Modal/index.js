@@ -24,7 +24,7 @@ export default props=>{
   return(
 
     <ModalComponent contentClassName={`modal-content modal-content--${type}`}  overlayClassName={`modal-overlay modal-overlay--${type}`} {...modal_props}>
-        <Container className="modal-form"  fit grow>
+        <Container className="modal-form" scrollable fit grow>
             {children}
         </Container>
     </ModalComponent>
