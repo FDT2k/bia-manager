@@ -12,7 +12,7 @@ import { useTranslation } from '@karsegard/react-bia-manager';
 import { add } from 'date-fns';
 
 export default ({ children }) => {
-    const { actions: { sqlite_model_transaction, sqlite_api, sqlite_export,sqlite_search, sqlite_custom_search, sqlite_create, sqlite_query, sqlite_model } } = useElectron();
+    const { actions: { sqlite_model_transaction, sqlite_api, sqlite_export,sqlite_search, sqlite_custom_search, sqlite_create, sqlite_query, sqlite_model,sqlite_attach } } = useElectron();
     const { selectors: { locked, file }, actions: { reload_file_state } } = useFileProvider();
     const [subject, setState] = useState({})
     const [should_reload_lists, setShouldReloadLists ] = useState(false) 
@@ -250,10 +250,10 @@ export default ({ children }) => {
         let result = await sqlite_export({query:{},filename:'bia-export.csv'}).catch(add_error);
         stop_loading();
     }
-
+    
     const db_name = file
     return (
-        <BackendProvider type="sqlite" actions={{ get_subject, ready, search, search_custom_filters, create_database, fetch_stats, stats, db_name, search_count, get_lists, get_forms, create_subject, save_subject, save_subject_mesures, delete_mesure, fetch_lists, fetch_list, save_list, add_list_item, delete_list_item, save_list_item,should_reload_lists,exportToCSV }}>
+        <BackendProvider type="sqlite" actions={{ get_subject, ready, search, search_custom_filters, create_database, fetch_stats, stats, db_name, search_count, get_lists, get_forms, create_subject, save_subject, save_subject_mesures, delete_mesure, fetch_lists, fetch_list, save_list, add_list_item, delete_list_item, save_list_item,attach:sqlite_attach,should_reload_lists,exportToCSV }}>
 
             {children}
             <SQLiteUnlock />

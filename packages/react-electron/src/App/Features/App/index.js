@@ -9,6 +9,7 @@ import CreateSubject from '@/App/Features/CreateSubject';
 import Editor from '@/App/Features/Editor'
 import Welcome from '@/App/Features/Welcome';
 import DatabaseImport from '@/App/Features/DatabaseImport'
+import DatabaseSync from '@/App/Features/DatabaseSync'
 import { BIARouter, ViewProvider } from '@karsegard/react-bia-manager';
 import React from 'react';
 
@@ -22,7 +23,8 @@ const views = {
     Editor,
     Database:DatabaseImport,
     CreateSubject,
-    DatabaseListManager
+    DatabaseListManager,
+    Sync:DatabaseSync
 }
 export default props => {
 

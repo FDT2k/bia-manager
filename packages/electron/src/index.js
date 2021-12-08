@@ -318,7 +318,15 @@ ipcMain.handle('sqlite-unlock', async (event, key) => {
 
 })
 
+ipcMain.handle('sqlite-attach',async (event,{file,alias})=> {
+  try {
+    console.log('attaching sqlite db', file,alias);
+    return currentSQLite.attach(file,alias);
+  } catch (e) {
+    return Promise.reject(e);
+  }
 
+})
 
 ipcMain.handle('sqlite-query', async (event, { type, table, query, values, filter, fn = 'all' }) => {
   try {

@@ -259,6 +259,10 @@ export const API = db => {
     }
 
 
+    module.attach = (file,alias)=>{
+        db.exec(`attach '${file}' as '${alias}'`)
+    }
+
 
     return module;
 

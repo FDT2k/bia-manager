@@ -51,6 +51,7 @@ let electronAPI = {
     sqlite_create: invokeOnMainProcess('sqlite-create'),
     sqlite_model_transaction: invokeOnMainProcess('sqlite-model-transaction'),
     sqlite_export: invokeOnMainProcess('sqlite-export'),
+    sqlite_attach: invokeOnMainProcess('sqlite-attach'),
     
   }
 };
