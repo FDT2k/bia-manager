@@ -16,7 +16,7 @@ store.manager.addModule(Module);
 
 
 export default props => {
-    const { ready, db_name, attach,attached_stats_query } = useBackend();
+    const { ready, db_name, attach,detach,detach_all,attached_stats_query } = useBackend();
     const { add_error } = useHostProvider();
     const { t } = useTranslation();
     const dispatch = useDispatch();
@@ -38,7 +38,13 @@ export default props => {
             add_error(t('Vous devez ouvrir une base avant de synchroniser'))
         }
     }, [ready])
+   
+    useEffect(()=>{
 
+        return ()=> {
+           detach_all();
+        }
+    },[])
 
     useEffect(() => {
         if (shouldUpdateStatus) {

@@ -12,10 +12,10 @@ import { useTranslation } from '@karsegard/react-bia-manager';
 import { add } from 'date-fns';
 
 export default ({ children }) => {
-    const { actions: { sqlite_model_transaction, sqlite_api, sqlite_export,sqlite_search, sqlite_custom_search, sqlite_create, sqlite_query, sqlite_model,sqlite_attach } } = useElectron();
+    const { actions: { sqlite_model_transaction, sqlite_api, sqlite_export, sqlite_search, sqlite_custom_search, sqlite_create, sqlite_query, sqlite_model, sqlite_attach } } = useElectron();
     const { selectors: { locked, file }, actions: { reload_file_state } } = useFileProvider();
     const [subject, setState] = useState({})
-    const [should_reload_lists, setShouldReloadLists ] = useState(false) 
+    const [should_reload_lists, setShouldReloadLists] = useState(false)
     const { add_error, start_loading, stop_loading } = useHostProvider();
 
     const { t, dateHumanToSys } = useTranslation();
@@ -218,11 +218,11 @@ export default ({ children }) => {
         }).catch(add_error)
         setShouldReloadLists(true)
     }
-    const delete_list_item = async (args,values) => {
+    const delete_list_item = async (args, values) => {
         let result = await sqlite_model({
             model: 'list',
             fn: 'delete',
-            args : [
+            args: [
                 values.id
             ]
         });
@@ -247,44 +247,55 @@ export default ({ children }) => {
     const exportToCSV = async () => {
 
         start_loading('exporting data');
-        let result = await sqlite_export({query:{},filename:'bia-export.csv'}).catch(add_error);
+        let result = await sqlite_export({ query: {}, filename: 'bia-export.csv' }).catch(add_error);
         stop_loading();
     }
-    
 
-    const attach = async (file,hash,prefix='sync_') => {
 
-        return sqlite_attach({ file, alias: prefix+hash });
+    const attach = async (file, hash, prefix = 'sync_') => {
+
+        return sqlite_attach({ file, alias: prefix + hash });
     }
-    const attached_stats_query = async(hash) => {
+
+    const detach = async (hash,prefix='sync_')=>{
+        return await sqlite_query({query:`DETACH DATABASE ${prefix}${hash}`,values:{},fn:'run'})
+    }
+    const attached_stats_query = async (hash) => {
 
         let result = {
-            subjects:{
-                new:0,
-                altered:0
+            subjects: {
+                new: 0,
+                altered: 0
             },
-            mesures:{
-                new:0,
-                altered:0
+            mesures: {
+                new: 0,
+                altered: 0
             }
         }
-        let {max_subject_id} = await sqlite_query({ query: `select max(id) as max_subject_id from subjects`, values: {},fn:'get' })
-        let {max_mesure_id} = await sqlite_query({ query: `select max(id) as max_mesure_id from mesures`, values: {},fn:'get' })
+        let { max_subject_id } = await sqlite_query({ query: `select max(id) as max_subject_id from subjects`, values: {}, fn: 'get' })
+        let { max_mesure_id } = await sqlite_query({ query: `select max(id) as max_mesure_id from mesures`, values: {}, fn: 'get' })
 
-        let {new_subjects} =  await sqlite_query({ query: `select count(*) as new_subjects from sync_${hash}.subjects where id > @id`, values: {id:max_subject_id},fn:'get' })
-        let {new_mesures} =  await sqlite_query({ query: `select count(*) as new_mesures from sync_${hash}.mesures where id > @id`, values: {id:max_mesure_id},fn:'get' })
+        let { new_subjects } = await sqlite_query({ query: `select count(*) as new_subjects from sync_${hash}.subjects where id > @id`, values: { id: max_subject_id }, fn: 'get' })
+        let { new_mesures } = await sqlite_query({ query: `select count(*) as new_mesures from sync_${hash}.mesures where id > @id`, values: { id: max_mesure_id }, fn: 'get' })
         debugger;
 
         result.subjects.new = new_subjects
         result.mesures.new = new_mesures
         return result;
-     //op    await sqlite_query({ query: `select * from ${hash}.subjects`, values: {} })
+        //op    await sqlite_query({ query: `select * from ${hash}.subjects`, values: {} })
     }
 
+    const detach_all = async () => {
+        let attached = await sqlite_query({query:`select * from pragma_database_list where name != 'main'`,values:{},fn:'all'})
+        attached.map(item=> {
+            detach (item['name'],'')
+        })
+        debugger;
+    }
 
     const db_name = file
     return (
-        <BackendProvider type="sqlite" actions={{ get_subject, ready, search, search_custom_filters, create_database, fetch_stats, stats, db_name, search_count, get_lists, get_forms, create_subject, save_subject, save_subject_mesures, delete_mesure, fetch_lists, fetch_list, save_list, add_list_item, delete_list_item, save_list_item,attach,should_reload_lists,exportToCSV,attached_stats_query }}>
+        <BackendProvider type="sqlite" actions={{ get_subject, ready, search, search_custom_filters, create_database, fetch_stats, stats, db_name, search_count, get_lists, get_forms, create_subject, save_subject, save_subject_mesures, delete_mesure, fetch_lists, fetch_list, save_list, add_list_item, delete_list_item, save_list_item, attach,detach, detach_all,should_reload_lists, exportToCSV, attached_stats_query }}>
 
             {children}
             <SQLiteUnlock />
