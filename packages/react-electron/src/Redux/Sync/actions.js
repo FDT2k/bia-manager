@@ -34,6 +34,12 @@ export default (getModule) => {
         })
     }
 
+    actions.scanned = createAction(types.SCANNED,(hash,stats)=>{
+        return {
+            hash,
+            stats
+        }
+    })
 
     actions.refresh = () => (dispatch, getState) => {
      

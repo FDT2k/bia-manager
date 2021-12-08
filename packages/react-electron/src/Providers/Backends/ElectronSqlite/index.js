@@ -251,9 +251,40 @@ export default ({ children }) => {
         stop_loading();
     }
     
+
+    const attach = async (file,hash,prefix='sync_') => {
+
+        return sqlite_attach({ file, alias: prefix+hash });
+    }
+    const attached_stats_query = async(hash) => {
+
+        let result = {
+            subjects:{
+                new:0,
+                altered:0
+            },
+            mesures:{
+                new:0,
+                altered:0
+            }
+        }
+        let {max_subject_id} = await sqlite_query({ query: `select max(id) as max_subject_id from subjects`, values: {},fn:'get' })
+        let {max_mesure_id} = await sqlite_query({ query: `select max(id) as max_mesure_id from mesures`, values: {},fn:'get' })
+
+        let {new_subjects} =  await sqlite_query({ query: `select count(*) as new_subjects from sync_${hash}.subjects where id > @id`, values: {id:max_subject_id},fn:'get' })
+        let {new_mesures} =  await sqlite_query({ query: `select count(*) as new_mesures from sync_${hash}.mesures where id > @id`, values: {id:max_mesure_id},fn:'get' })
+        debugger;
+
+        result.subjects.new = new_subjects
+        result.mesures.new = new_mesures
+        return result;
+     //op    await sqlite_query({ query: `select * from ${hash}.subjects`, values: {} })
+    }
+
+
     const db_name = file
     return (
-        <BackendProvider type="sqlite" actions={{ get_subject, ready, search, search_custom_filters, create_database, fetch_stats, stats, db_name, search_count, get_lists, get_forms, create_subject, save_subject, save_subject_mesures, delete_mesure, fetch_lists, fetch_list, save_list, add_list_item, delete_list_item, save_list_item,attach:sqlite_attach,should_reload_lists,exportToCSV }}>
+        <BackendProvider type="sqlite" actions={{ get_subject, ready, search, search_custom_filters, create_database, fetch_stats, stats, db_name, search_count, get_lists, get_forms, create_subject, save_subject, save_subject_mesures, delete_mesure, fetch_lists, fetch_list, save_list, add_list_item, delete_list_item, save_list_item,attach,should_reload_lists,exportToCSV,attached_stats_query }}>
 
             {children}
             <SQLiteUnlock />

@@ -16,7 +16,7 @@ store.manager.addModule(Module);
 
 
 export default props => {
-    const { ready, db_name, attach } = useBackend();
+    const { ready, db_name, attach,attached_stats_query } = useBackend();
     const { add_error } = useHostProvider();
     const { t } = useTranslation();
     const dispatch = useDispatch();
@@ -48,20 +48,27 @@ export default props => {
 
                 switch (s) {
                     case 'added':
-                        attach({ file: files_by_hashes[hash].path, alias: hash }).then(res => {
+                     /*   attach(files_by_hashes[hash].path,hash ).then(res => {
                             dispatch(actions.attach(hash));
                         }).catch(err => {
                             dispatch(actions.error(hash))
                             add_error(err)
                         }
-                        )
+                        )*/
                         break;
                     case 'attached':
-                        
+                        attached_stats_query(hash).then(res=> {
+
+                            dispatch(actions.scanned(hash,res));
+                        }).catch(err => {
+                            dispatch(actions.error(hash))
+                            add_error(err)
+                        }
+                        );
                     break;
                 }
             })
-            setShouldUpdateStatus(false);
+           // setShouldUpdateStatus(false);
         }
     }, [shouldUpdateStatus,status])
 
@@ -69,7 +76,21 @@ export default props => {
     const handleDrop = files => {
 
         Promise.resolve(dispatch(actions.open(files, db_name))).then(res => {
-            setShouldUpdateStatus(true);
+            debugger;
+            Promise.all(res.map(item=> {
+                attach(item.payload.path,item.payload.hash ).then(res => {
+                    return Promise.resolve(dispatch(actions.attach(item.payload.hash)))
+                }).catch(err => {
+                    add_error(err)
+
+                    return Promise.reject(dispatch(actions.error(item.payload.hash)));
+                }
+                )
+
+            })).then(res=> {
+                setShouldUpdateStatus(true);
+
+            })
         })
     }
 

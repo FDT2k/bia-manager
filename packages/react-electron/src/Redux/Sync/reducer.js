@@ -25,6 +25,15 @@ export default (getModule) => {
     module.filesByHash = createReducer({}, {
         [types.ADD_FILE]: (state, { payload }) => {
             return {...state,[payload.hash]:payload}
+        },
+        [types.SCANNED]: (state,{payload}) => {
+            return {
+                ...state,
+                [payload.hash]:{
+                    ...state[payload.hash],
+                    ...payload.stats
+                }
+            }
         }
 
     })
@@ -45,6 +54,9 @@ export default (getModule) => {
         },
         [types.ERROR]: (state,{payload} ) => {
             return {...state,[payload]: 'error'}
+        },
+        [types.SCANNED]: (state,{payload}) => {
+            return {...state,[payload.hash]:'scanned'}
         }
     })
 

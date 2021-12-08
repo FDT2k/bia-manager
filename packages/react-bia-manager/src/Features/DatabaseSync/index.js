@@ -9,13 +9,14 @@ import { compose, withForwardedRef } from '@karsegard/react-compose'
 import './style.scss'
 import { as_safe_path, safe_path } from '@karsegard/composite-js';
 
+import {useTranslation} from '@'
 //import parse from './parser';
 export const Component = ({ handleDrop, children, files }) => {
     const ref = useRef();
 
 
     const { dragging } = useDropFile(ref, { handleDrop })
-
+    const {t} = useTranslation()
 
 
     const style = {
@@ -44,7 +45,7 @@ export const Component = ({ handleDrop, children, files }) => {
                 <LayoutFlex column>
                     <LayoutFlexColumn className="sync-parent">
 
-                        <Field label="Glissez une ou plusieures base de données">
+                        <Field label={t("Glissez une ou plusieurs base de données")}>
                         </Field>
                         <div className="sync" ref={ref} style={style}>
                             {(files.length == 0) && <div className="drop-overlay">Glisser les fichiers ici</div>}

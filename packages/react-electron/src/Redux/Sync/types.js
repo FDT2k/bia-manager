@@ -5,8 +5,8 @@ export const ACTIONS_TYPES = createActionTypes(
     'ADD_FILE',
     'ATTACH',
     'DETACH',
-    'ERROR'
-    
+    'ERROR',
+    'SCANNED'
     
 )
 
