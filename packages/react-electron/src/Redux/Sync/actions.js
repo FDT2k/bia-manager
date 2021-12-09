@@ -21,6 +21,7 @@ export default (getModule) => {
     actions.attach = createAction(types.ATTACH)
     actions.error = createAction(types.ERROR)
     actions.detach = createAction(types.DETACH)
+    actions.importing = createAction(types.IMPORTING)
 
     actions.open = (files, forbidden) => (dispatch, getState) => {
         const existing_hashes = selectors.hashes(getState())

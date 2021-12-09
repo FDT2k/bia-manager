@@ -57,6 +57,9 @@ export default (getModule) => {
         },
         [types.SCANNED]: (state,{payload}) => {
             return {...state,[payload.hash]:'scanned'}
+        },
+        [types.IMPORTING]: (state,{payload}) => {
+            return {...state,[payload]:'importing'}
         }
     })
 

@@ -2,14 +2,17 @@ import {_transform,_retrieve,_raw_to_object,_retrieve_entity} from '../sqlcipher
 import { is_nil, enlist, is_empty, is_undefined } from '@karsegard/composite-js';
 import { key, keyval, spec } from '@karsegard/composite-js/ObjectUtils';
 import { spreadObjectPresentIn } from '@karsegard/composite-js/ReactUtils'
+import ohash from 'object-hash'
 const mesure = (db, api) => {
 
     const schema = {
         date: 'date',
         examinator: '',
         subject_id: '',
+        subject_uuid:'',
         height: '',
         weight: '',
+        hash:'',
         bmi: '',
         comments:'',
         left_side: 'boolean',
@@ -25,7 +28,8 @@ const mesure = (db, api) => {
         sport: 'json',
         fds: 'json',
         uuid: '',
-        mesure_id:''
+        mesure_id:'',
+        last_updated:''
 
     }
 
@@ -57,10 +61,16 @@ const mesure = (db, api) => {
         return ret;
     })
 
-    module.import = subject_id => db.transaction((mesures) => {
+    module.import = ({id:_subject_id,uuid:_subject_uuid}) => db.transaction((mesures) => {
         console.log('importing mesures', 'count', mesures.length)
+
         for (let mesure of mesures) {
-            mesure.subject_id = subject_id;
+            mesure.subject_id = _subject_id;
+            mesure.subject_uuid=_subject_uuid;
+
+            let {hash,subject_id,mesure_id,id,last_updated, ...to_hash} =  mesure;
+            
+            mesure.hash = ohash(to_hash);
 
             module.upsert(['uuid'])(_transform(schema, mesure))
         }

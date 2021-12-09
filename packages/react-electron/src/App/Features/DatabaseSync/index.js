@@ -16,7 +16,7 @@ store.manager.addModule(Module);
 
 
 export default props => {
-    const { ready, db_name, attach,detach,detach_all,attached_stats_query } = useBackend();
+    const { ready, db_name, attach,detach_all,attached_stats_query,attached_sync } = useBackend();
     const { add_error } = useHostProvider();
     const { t } = useTranslation();
     const dispatch = useDispatch();
@@ -27,11 +27,7 @@ export default props => {
 
     const [shouldUpdateStatus, setShouldUpdateStatus] = useState(false)
 
-    useInterval(() => {
-
-        console.log('interval')
-    }, 1000)
-
+ 
 
     useEffect(() => {
         if (!ready) {
@@ -71,6 +67,15 @@ export default props => {
                             add_error(err)
                         }
                         );
+                    break;
+                    case 'scanned':
+                        dispatch(actions.importing(hash));
+                        attached_sync (hash) .then(res=> {
+
+
+                        }).catch (err=> {
+                            add_error(err)
+                        })
                     break;
                 }
             })

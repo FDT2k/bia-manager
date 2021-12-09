@@ -3,6 +3,8 @@ import { is_nil, enlist, is_empty, is_undefined } from '@karsegard/composite-js'
 import { key, keyval, spec,pathes } from '@karsegard/composite-js/ObjectUtils';
 import { spreadObjectPresentIn } from '@karsegard/composite-js/ReactUtils'
 import { _transform, _retrieve, _retrieve_from_raw, _retrieve_entity, _raw_to_object, _retrieve_row } from '../sqlcipher'
+import ohash from 'object-hash'
+
 const subject = (db, api) => {
 
     const schema = {
@@ -15,8 +17,9 @@ const subject = (db, api) => {
         usual_height: '',
         usual_weight: '',
         uuid: '',
-        mesures_dates: 'array',
-        diag: ''
+        diag: '',
+        hash:'',
+        last_updated:''
     }
 
 
@@ -50,11 +53,15 @@ const subject = (db, api) => {
     let _mesure = mesure(db, api);
 
     module.import = _ => db.transaction((subjects) => {
-        console.log('importing', subject.length)
+        console.log('importing', subjects.length)
         for (let subject of subjects) {
-            let subject_id = module.upsert(['uuid'])(_transform(schema, subject))
+            let [crap, to_hash] = spreadObjectPresentIn(['mesures','id','hash'],subject);
 
-            _mesure.import(subject_id)(subject.mesures);
+            subject.hash = ohash(to_hash);
+
+            let subject_id = module.upsert(['uuid'])(_transform(schema, subject))
+            subject.id =subject_id;
+            _mesure.import(subject)(subject.mesures);
         }
     })
 
@@ -63,31 +70,27 @@ const subject = (db, api) => {
 
 
 
-    module.fetchWithMesures = id => {
+    module.fetchWithMesures = (id,hash='main',removeIds=false) => {
 
-        let stmt = db.prepare("Select s.* from subjects s  where s.id =@id ").raw();
-        let stmt_mesures = db.prepare("Select m.* from mesures m  where m.subject_id =@id and status!='deleted'").raw();
+        let stmt = db.prepare(`Select s.* from ${hash}.subjects s  where s.id =@id`).raw();
+        let stmt_mesures = db.prepare(`Select m.* from ${hash}.mesures m  where m.subject_id =@id and status!='deleted'`).raw();
 
-        //  let result =  stmt.all({id});
 
         let res;
-        /*  for (let result of stmt.iterate({ id })) {
-              if (!res) {
-                  res = _retrieve_entity('subjects', schema, stmt.columns(), result);
-              }
-  
-              if (!res.mesures) {
-                  res.mesures = [];
-              }
-              res.mesures.push(_mesure.retrieveFromRaw(stmt, result))
-          }*/
 
 
         res = _retrieve_entity('subjects', schema, stmt.columns(), stmt.get({ id }));
+        if(removeIds){
+            delete res.id;
+        }
         res.mesures = [];
         for (let result of stmt_mesures.iterate({ id })) {
-
-            res.mesures.push(_mesure.retrieveFromRaw(stmt_mesures, result))
+            let mes = _mesure.retrieveFromRaw(stmt_mesures, result)
+            if(removeIds){
+                delete mes.id;
+                delete mes.subject_id;
+            }
+            res.mesures.push(mes)
         }
         return res;
     };

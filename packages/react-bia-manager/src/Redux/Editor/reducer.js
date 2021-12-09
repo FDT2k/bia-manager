@@ -2,8 +2,7 @@ import EMPTY_MESURE from '@/references/mesure-schema';
 import { safe_path } from '@karsegard/composite-js';
 import { spreadObjectPresentIn } from '@karsegard/composite-js/ReactUtils';
 import { combineReducers, createReducer, handlers } from '@karsegard/react-redux';
-
-
+import moment from 'moment'
 
 
 const { updateList, updateProp,delete_from_list_by_index }  = handlers;
@@ -55,6 +54,7 @@ export default (getModule) => {
                     mesure: {
                         ...state.mesure,
                         ...action.payload.mesure,
+                        last_updated: moment().format('YYYY-MM-DD HH:mm:ss')
                         
                         
                     }
@@ -145,6 +145,7 @@ export default (getModule) => {
         [types.EDIT_PATIENT]: (state, { payload }) => ({...payload}),
         [types.CHANGE_SUBJECT]: (state, { payload }) => {
             const [rest, patient] = spreadObjectPresentIn(['mesures', 'mesures_dates'], payload.patient);
+            patient.last_updated= moment().format('YYYY-MM-DD HH:mm:ss')
             return {...state,...patient}
         },
         [types.SAVE]: (state, action) => {

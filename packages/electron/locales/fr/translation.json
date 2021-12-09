@@ -175,5 +175,9 @@
    "depuis le": "depuis le",
    "jusqu'au": "jusqu'au",
    "Synchroniser d'autres bases": "Synchroniser d'autres bases",
-   "Vous devez ouvrir une base avant de synchroniser": "Vous devez ouvrir une base avant de synchroniser"
+   "Vous devez ouvrir une base avant de synchroniser": "Vous devez ouvrir une base avant de synchroniser",
+
+   "checking database": "Vérification de la base",
+   "updating hashes": "Mise à jour des hashes",
+   "updating relationships": "Mise à jour des relations"
 }

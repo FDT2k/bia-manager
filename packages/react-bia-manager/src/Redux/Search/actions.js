@@ -29,7 +29,7 @@ export default (getModule) => {
     }
 
     actions.search = (tags = []) => (dispatch, getState) => {
-
+        console.log('[TAGS]',tags)
         const { filter_results, update_search_tags, fetched_patient, clear } = actions;
         const { select_tags, has_custom_filters, select_custom_filters } = selectors;
      
@@ -45,8 +45,8 @@ export default (getModule) => {
         }
 
         if (!has_filters && compare(current_tags, tags)) { // can happen
-           
-            return;
+         //   debugger;
+         //   return;
         }
 
 
@@ -71,9 +71,10 @@ export default (getModule) => {
 
 
         const has_filters = has_custom_filters(getState());
-
+        console.log('helloworld')
         if (!has_filters) {
             if (state.tags.length >= 1 && state.tags.length < state.patients.filtered.length) {
+                debugger;
                 dispatch(actions.remove_filter(null));
 
             }
