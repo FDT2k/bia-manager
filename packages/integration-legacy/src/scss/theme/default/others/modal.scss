@@ -7,7 +7,7 @@
       z-index: 500;
     }
     &--confirm{
-      z-index: 500;
+      z-index: 550;
     }
     &--error{
       z-index: 600;
@@ -17,6 +17,9 @@
       z-index:400;
 
     }
+    &--info{
+      z-index:700;
+    }
   }
   &-content{
     &--dialog{
@@ -24,7 +27,7 @@
 
     }
     &--confirm{
-      z-index: 501;
+      z-index: 551;
 
     }
     &--error{
@@ -34,7 +37,13 @@
     &--loading{
       z-index:401;
     }
+
+    &--info{
+      z-index:701;
+    }
   }
+
+  
 }
 
 

@@ -1,5 +1,5 @@
 import {_transform,_retrieve,_raw_to_object,_retrieve_entity} from '../sqlcipher'
-import { is_nil, enlist, is_empty, is_undefined } from '@karsegard/composite-js';
+import { is_nil, enlist, keys,is_empty, is_undefined } from '@karsegard/composite-js';
 import { key, keyval, spec } from '@karsegard/composite-js/ObjectUtils';
 import { spreadObjectPresentIn } from '@karsegard/composite-js/ReactUtils'
 import ohash from 'object-hash'
@@ -75,6 +75,61 @@ const mesure = (db, api) => {
             module.upsert(['uuid'])(_transform(schema, mesure))
         }
     })
+
+
+
+    module.fetch = (filter,hash='main',removeIds=false) => {
+
+        let stmt = db.prepare(`Select s.* from ${hash}.mesures s  where ${api.genConditionSQL(filter)}`).raw();
+       
+
+
+        let res;
+
+
+        res = _retrieve_entity('mesures', schema, stmt.columns(), stmt.get(filter));
+        if(removeIds){
+            delete res.id;
+            delete res.subject_id;
+        }
+       
+        return res;
+    };
+
+    module.bulk_update = (data,filter)=> db.transaction((subjects) => {
+        console.log('updating', subjects.length)
+        for (let subject of subjects) {
+            
+            const [_values] = spreadObjectPresentIn(keys(data),subject);
+            const [_filters] = spreadObjectPresentIn(keys(filter),subject);
+            debugger;
+            module.update(data, filter).run({ ..._values, ..._filters });
+        }
+    })
+
+
+    module.all = (filter,hash='main',removeIds=false) => {
+
+        let stmt = db.prepare(`Select * from ${hash}.mesures  where ${api.genConditionSQL(filter)}`).raw();
+
+
+        let res=[];
+        let cols =  stmt.columns()
+
+
+        for (let result of stmt.iterate(filter)) { 
+            let subject =  _retrieve_entity('mesures', schema,cols, result);
+            if(removeIds){
+                delete subject.id;
+            }
+            res.push(subject);
+        }
+      
+       
+        return res;
+    };
+
+
 
     module.softDelete = (uuid) => module.update({status:'deleted'},{uuid}).run({uuid,status:'deleted'});
 

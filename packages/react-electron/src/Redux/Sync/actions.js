@@ -22,10 +22,10 @@ export default (getModule) => {
     actions.error = createAction(types.ERROR)
     actions.detach = createAction(types.DETACH)
     actions.importing = createAction(types.IMPORTING)
+    actions.synced = createAction(types.SYNCED)
 
     actions.open = (files, forbidden) => (dispatch, getState) => {
         const existing_hashes = selectors.hashes(getState())
-        debugger;
         return files.map(file => {
             if (file.path !== forbidden && !existing_hashes.includes(md5(file.path)))  {
                 return dispatch(actions.add(file));

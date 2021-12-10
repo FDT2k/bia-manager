@@ -60,12 +60,19 @@ export default (getModule) => {
         },
         [types.IMPORTING]: (state,{payload}) => {
             return {...state,[payload]:'importing'}
+        },
+        [types.SYNCED]: (state,{payload}) => {
+            return {...state,[payload]:'done'}
         }
     })
 
+    module.current = createReducer(null,{
+
+    });
 
     module.sync = combineReducers(
         {
+            current:module.current,
             status: module.status,
             files: module.files,
             byHash: module.filesByHash

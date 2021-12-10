@@ -1,5 +1,5 @@
 import mesure from './mesure'
-import { is_nil, enlist, is_empty, is_undefined } from '@karsegard/composite-js';
+import { is_nil, enlist, is_empty, is_undefined, keys } from '@karsegard/composite-js';
 import { key, keyval, spec,pathes } from '@karsegard/composite-js/ObjectUtils';
 import { spreadObjectPresentIn } from '@karsegard/composite-js/ReactUtils'
 import { _transform, _retrieve, _retrieve_from_raw, _retrieve_entity, _raw_to_object, _retrieve_row } from '../sqlcipher'
@@ -55,7 +55,8 @@ const subject = (db, api) => {
     module.import = _ => db.transaction((subjects) => {
         console.log('importing', subjects.length)
         for (let subject of subjects) {
-            let [crap, to_hash] = spreadObjectPresentIn(['mesures','id','hash'],subject);
+            debugger;
+            let [crap, to_hash] = spreadObjectPresentIn(['mesures_dates','mesures','id','hash'],subject);
 
             subject.hash = ohash(to_hash);
 
@@ -66,8 +67,65 @@ const subject = (db, api) => {
     })
 
 
+    module.bulk_update = (data,filter)=> db.transaction((subjects) => {
+        console.log('updating', subjects.length)
+        for (let subject of subjects) {
+            
+            const [_values] = spreadObjectPresentIn(keys(data),subject);
+            const [_filters] = spreadObjectPresentIn(keys(filter),subject);
+            debugger;
+            module.update(data, filter).run({ ..._values, ..._filters });
+        }
+    })
 
 
+    module.all = (filter,hash='main',removeIds=false) => {
+
+        let stmt = db.prepare(`Select s.* from ${hash}.subjects s  where ${api.genConditionSQL(filter)}`).raw();
+
+
+        let res=[];
+        let cols =  stmt.columns()
+
+
+        for (let result of stmt.iterate(filter)) { 
+            let subject =  _retrieve_entity('subjects', schema,cols, result);
+            if(removeIds){
+                delete subject.id;
+            }
+            res.push(subject);
+        }
+      
+       
+        return res;
+    };
+
+
+
+    module.fetchFull = (filter,filter_mesures,hash='main',removeIds=false) => {
+
+        let stmt = db.prepare(`Select s.* from ${hash}.subjects s  where ${api.genConditionSQL(filter)}`).raw();
+        let stmt_mesures = db.prepare(`Select * from ${hash}.mesures where  ${api.genConditionSQL(filter_mesures)}`).raw();
+
+
+        let res;
+
+
+        res = _retrieve_entity('subjects', schema, stmt.columns(), stmt.get(filter));
+        if(removeIds){
+            delete res.id;
+        }
+        res.mesures = [];
+        for (let result of stmt_mesures.iterate(filter_mesures)) {
+            let mes = _mesure.retrieveFromRaw(stmt_mesures, result)
+            if(removeIds){
+                delete mes.id;
+                delete mes.subject_id;
+            }
+            res.mesures.push(mes)
+        }
+        return res;
+    };
 
 
     module.fetchWithMesures = (id,hash='main',removeIds=false) => {

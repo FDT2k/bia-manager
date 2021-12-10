@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useElectron } from '@/Context/Electron';
 import SQLiteUnlock from '@/Components/SQLiteUnlock';
 import { BackendProvider } from '@karsegard/react-bia-manager'
-
+import webWorker from './heavysql.worker.js?worker&inline'
 import { useFileProvider } from '@/Context/File'
 import { v4 as uuidv4 } from 'uuid';
 import { useHostProvider } from '@/Context/Host'
@@ -12,9 +12,24 @@ import { useTranslation } from '@karsegard/react-bia-manager';
 import { add } from 'date-fns';
 import ohash from 'object-hash'
 
+const doHeavyWork = (message) => {
+
+    let worker = new webWorker();
+    let promise = new Promise((resolve, reject) => {
+
+        worker.onmessage = message => resolve(message.data);
+        worker.onerror = error => reject(error);
+    })
+
+    let terminate = () => worker.terminate();
+
+    worker.postMessage(message)
+    return [promise, terminate];
+}
+
 
 export default ({ children }) => {
-    const { actions: { sqlite_model_transaction, sqlite_api, sqlite_export, sqlite_search, sqlite_custom_search, sqlite_create, sqlite_query, sqlite_model, sqlite_attach,sqlite_import } } = useElectron();
+    const { actions: { sqlite_model_transaction, sqlite_api, sqlite_export, sqlite_search, sqlite_custom_search, sqlite_create, sqlite_query, sqlite_model, sqlite_attach, sqlite_import } } = useElectron();
     const { selectors: { locked, file }, actions: { reload_file_state } } = useFileProvider();
     const [subject, setState] = useState({})
     const [should_reload_lists, setShouldReloadLists] = useState(false)
@@ -186,11 +201,12 @@ export default ({ children }) => {
                     add_error(t('Your database schema is diverging from current version.'))
                     return
                 }
-                start_loading(t('updating hashes'))
-                return update_hashes();
-            }).then(res => {
-                start_loading(t('updating relationships'))
+                start_loading(t('updating database 1 / 2'))
                 return update_uuids();
+
+            }).then(res => {
+                start_loading(t('updating database 2 / 2'))
+                return update_hashes();
             }).then(res => {
                 setReady(true)
                 stop_loading()
@@ -205,38 +221,59 @@ export default ({ children }) => {
 
     const update_hashes = async () => {
 
-        const subjects = await sqlite_query({ query: "select * from subjects where hash is null", values: {} })
-        for (let subject of subjects) {
-            let { hash, id,mesures, ...rest } = subject;
-            hash = ohash(rest)
-            await sqlite_query({ query: "update subjects set hash = @hash where id=@id", values: { hash, id }, fn: 'run' })
+        const subjects = await sqlite_model({ model: "subject", fn: "all", args: [{ hash: null }] })
+        if (subjects.length > 0) {
+
+            let [p, terminate] = doHeavyWork({ message: 'subject_hashes', data: subjects });
+            let _subjects = await p;
+
+            await sqlite_model_transaction({ model: "subject", fn: 'bulk_update', args: [{ hash: '' }, { id: '' }], arg_stmt: _subjects })
+            terminate();
+        }
+
+        const mesures = await sqlite_model({ model: "mesure", fn: "all", args: [{ hash: null }] })
+        if (mesures.length > 0) {
+
+            let [p, terminate] = doHeavyWork({ message: 'mesures_hashes', data: mesures });
+
+            let _mesures = await p;
+            await sqlite_model_transaction({ model: "mesure", fn: 'bulk_update', args: [{ hash: '' }, { id: '' }], arg_stmt: _mesures })
+            terminate();
 
         }
 
-        const mesures = await sqlite_query({ query: "select * from mesures where hash is null", values: {} })
-        for (let mesure of mesures) {
-            let { hash, id, subject_id, mesure_id, ...rest } = mesure;
-            hash = ohash(rest)
-            await sqlite_query({ query: "update mesures set hash = @hash where id=@id", values: { hash, id }, fn: 'run' })
-
-        }
         return true
     }
 
     const update_uuids = async () => {
-        const mesures = await sqlite_query({ query: "select * from mesures where subject_uuid is null", values: {} })
-        for (let mesure of mesures) {
-            let { hash, id, subject_id, mesure_id, ...rest } = mesure;
-            let { uuid } = await sqlite_query({ query: "select uuid from subjects where id=@subject_id", values: { subject_id }, fn: 'get' });
-            if (uuid) {
-                rest.subject_uuid = uuid;
-                hash = ohash(rest)
-
-                await sqlite_query({ query: "update mesures set subject_uuid = @uuid, hash=@hash where id=@id", values: { uuid, hash, id }, fn: 'run' })
+        /* const mesures = await sqlite_query({ query: "select * from mesures where subject_uuid is null", values: {} })
+         for (let mesure of mesures) {
+             let { hash,subject_id,mesure_id,id,last_updated, ...rest } = mesure;
+             let { uuid } = await sqlite_query({ query: "select uuid from subjects where id=@subject_id", values: { subject_id }, fn: 'get' });
+             if (uuid) {
+                 rest.subject_uuid = uuid;
+                 hash = ohash(rest)
+ 
+                 await sqlite_query({ query: "update mesures set subject_uuid = @uuid, hash=@hash where id=@id", values: { uuid, hash, id }, fn: 'run' })
+             }
+ 
+         }
+         return true*/
+        const mesures = await sqlite_model({ model: "mesure", fn: "all", args: [{ subject_uuid: null }] })
+        let results = [];
+        if (mesures.length > 0) {
+            for (let mesure of mesures) {
+                let { subject_id } = mesure;
+                let { uuid } = await sqlite_query({ query: "select uuid from subjects where id=@subject_id", values: { subject_id }, fn: 'get' });
+                if (uuid) {
+                    results.push({
+                        id: mesure.id,
+                        subject_uuid: uuid
+                    });
+                }
             }
-
         }
-        return true
+        await sqlite_model_transaction({ model: "mesure", fn: 'bulk_update', args: [{ subject_uuid: '' }, { id: '' }], arg_stmt: results })
     }
 
 
@@ -322,41 +359,60 @@ export default ({ children }) => {
                 altered: 0
             }
         }
-        //     let { max_subject_id } = await sqlite_query({ query: `select max(id) as max_subject_id from subjects`, values: {}, fn: 'get' })
 
-        //let { max_mesure_id } = await sqlite_query({ query: `select max(id) as max_mesure_id from mesures`, values: {}, fn: 'get' })
+        let new_subjects = await sqlite_query({ query: `select src.uuid from sync_${hash}.subjects as src EXCEPT select dst.uuid from subjects as dst `, values: {}, fn: 'all' })
 
-        let new_subjects = await sqlite_query({ query: `select src.id,src.uuid from sync_${hash}.subjects as src EXCEPT select dst.id,dst.uuid from subjects as dst `, values: {}, fn: 'all' })
+        let altered_subjects = await sqlite_query({ query: `select src.uuid,src.hash from sync_${hash}.subjects as src EXCEPT select dst.uuid,dst.hash from subjects as dst `, values: {}, fn: 'all' })
 
-        let new_mesures = await sqlite_query({ query: `select src.id,src.uuid from sync_${hash}.mesures as src EXCEPT select dst.id,dst.uuid from mesures as dst `, values: {}, fn: 'all' })
-        let altered_mesures = await sqlite_query({ query: `select m.* from  sync_${hash}.mesures m inner join mesures ms on m.id = ms.id where m.hash !=ms.hash`, values: {}, fn: 'all' })
-        let altered_subjects = await sqlite_query({ query: `select m.* from  sync_${hash}.subjects m inner join subjects ms on m.id = ms.id where m.hash !=ms.hash`, values: {}, fn: 'all' })
+        let new_mesures = await sqlite_query({ query: `select src.uuid from sync_${hash}.mesures as src EXCEPT select dst.uuid from mesures as dst `, values: {}, fn: 'all' })
+
+        let altered_mesures = await sqlite_query({ query: `select src.uuid,src.hash from sync_${hash}.mesures as src EXCEPT select dst.uuid,dst.hash from mesures as dst `, values: {}, fn: 'all' })
 
 
+
+        debugger;
         result.subjects.new = new_subjects.length
+
+        result.subjects.altered = altered_subjects.length - new_subjects.length
+
         result.mesures.new = new_mesures.length
-        result.mesures.altered = altered_mesures.length
-        result.subjects.altered = altered_subjects.length
+        result.mesures.altered = altered_mesures.length - new_mesures.length
         return result;
     }
 
     const attached_sync = async hash => {
 
         let results = [];
-        let altered_subjects = await sqlite_query({ query: `select src.uuid,src.hash from sync_${hash}.subjects as src EXCEPT select dst.uuid,dst.hash from subjects as dst `, values: {}, 
-        fn: 'all' })
+        let altered_subjects = await sqlite_query({
+            query: `select src.uuid,src.hash from sync_${hash}.subjects as src EXCEPT select dst.uuid,dst.hash from subjects as dst `, values: {},
+            fn: 'all'
+        })
 
 
         debugger;
 
-        for (let _subject of  altered_subjects) {
-            let _result = await  sqlite_model({ model: "subject", fn: "fetchWithMesures", args: [_subject.id, 'sync_' + hash,true] })
-            results.push (_result)
+        for (let _subject of altered_subjects) {
+            let _result = await sqlite_model({ model: "subject", fn: "fetchFull", args: [{ uuid: _subject.uuid }, { subject_uuid: _subject.uuid }, 'sync_' + hash, true] })
+            results.push(_result)
         }
-        
+
         debugger;
-      // sqlite_import({ model: 'subject', data:results })
-        
+        sqlite_import({ model: 'subject', data: results })
+
+        let altered_mesures = await sqlite_query({ query: `select src.uuid,src.hash from sync_${hash}.mesures as src EXCEPT select dst.uuid,dst.hash from mesures as dst `, values: {}, fn: 'all' })
+
+        debugger;
+
+        for (let _mesure of altered_mesures) {
+            let _result = await sqlite_model({ model: "mesure", fn: "fetch", args: [{ uuid: _mesure.uuid }, 'sync_' + hash, true] })
+            debugger;
+
+            let { id, uuid } = await sqlite_model({ model: "subject", fn: "fetchFull", args: [{ uuid: _result.subject_uuid }, { subject_uuid: _result.subject_uuid }] })
+
+            sqlite_model_transaction({ model: 'mesure', fn: 'import', args: [{ id, uuid }], arg_stmt: [_result] }).catch(add_error)
+        }
+
+
     }
 
     const detach_all = async () => {

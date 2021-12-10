@@ -81,5 +81,17 @@
    "Age (années)": "Age (années)",
    "FAT_FREE_MASS_Y_LABEL": "FAT_FREE_MASS_Y_LABEL",
    "FAT_MASS_Y_LABEL": "FAT_MASS_Y_LABEL",
-   "Glissez une ou plusieurs base de données": "Glissez une ou plusieurs base de données"
+   "Glissez une ou plusieurs base de données": "Glissez une ou plusieurs base de données",
+   "updating database 1 / 2": "updating database 1 / 2",
+   "updating database 2 / 2": "updating database 2 / 2",
+   "Attention": "Attention",
+   "Cette opération ne doit être faite qu'une seule fois par fichier \"enfant\"": "Cette opération ne doit être faite qu'une seule fois par fichier \"enfant\"",
+   "Répéter cette opération avec les mêmes fichiers donnera des résultats différents à chaque essai et peut provoquer une perte de données": "Répéter cette opération avec les mêmes fichiers donnera des résultats différents à chaque essai et peut provoquer une perte de données",
+   "J'ai compris": "J'ai compris",
+   "Conservez une sauvegarde avant de synchroniser": "Conservez une sauvegarde avant de synchroniser",
+   "Passé cette étape, les bases ne doivent plus être synchronisées": "Passé cette étape, les bases ne doivent plus être synchronisées",
+   "Passé cette étape, les bases ne doivent plus être synchronisées. Je confirme que j'ai fait une sauvegarde de mes fichiers": "Passé cette étape, les bases ne doivent plus être synchronisées. Je confirme que j'ai fait une sauvegarde de mes fichiers",
+   "Analyser": "Analyser",
+   "Terminé": "Terminé",
+   "aucun élément": "aucun élément"
 }

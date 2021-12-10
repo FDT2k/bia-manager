@@ -58,7 +58,7 @@ export const _from_json = (values) => {
     try {
         return JSON.parse(values);
     } catch (e) {
-        return  null
+        return null
     }
 }
 
@@ -169,6 +169,18 @@ export const API = db => {
         return tmpl;
     }
 
+    module.genConditionSQL = (filter, sep = ' and ') => {
+        const fields = enlist(filter).map(item => keyval(item));
+        const tmpl = `${fields.map(([_field,_value]) => { 
+            if(_value === null){
+                return `${_field} is null` 
+            }
+            return `${_field}=@${_field}` 
+        }).join(` ${sep} `)}`;
+        console.log(tmpl)
+        return tmpl;
+    }
+
 
     module.genUpdateSQL = (table, schema, filter) => {
 
@@ -192,44 +204,44 @@ export const API = db => {
     }
 
 
-    module.schema_check = ()=> {
+    module.schema_check = () => {
         const migration_files = fs.readdirSync(migrationPath)
-        const applied  = module.getStatements().get_migrations.all()
-        return migration_files.reduce((carry,migration,idx) => {
-            if(!carry){
+        const applied = module.getStatements().get_migrations.all()
+        return migration_files.reduce((carry, migration, idx) => {
+            if (!carry) {
                 return carry;
             }
 
             const migrationFile = join(migrationPath, migration)
             let migrationContent = fs.readFileSync(migrationFile, 'utf8');
-            let  hash = crypto.createHash('md5').update(migrationContent).digest('hex')
+            let hash = crypto.createHash('md5').update(migrationContent).digest('hex')
 
-            if(hash !== applied[idx]['hash']){
+            if (hash !== applied[idx]['hash']) {
                 carry = false;
             }
-            
+
             return carry;
 
-        },true);
+        }, true);
     }
 
     module.migrate = () => {
         try {
-            
+
 
             let latest = module.getLatestMigration();
 
             const migration_files = fs.readdirSync(migrationPath).slice(latest);
 
-            console.log('migrations ',migration_files);
+            console.log('migrations ', migration_files);
             migration_files.map(migration => {
-                    const migrationFile = join(migrationPath, migration)
-                    console.log('[SQLITE]: running migration ',  migrationFile)
-                    let migrationContent = fs.readFileSync(migrationFile, 'utf8');
-                    let  hash = crypto.createHash('md5').update(migrationContent).digest('hex')
-                    db.exec(migrationContent)
-                    module.getStatements().insert_migration.run({ migration,hash })
-                 
+                const migrationFile = join(migrationPath, migration)
+                console.log('[SQLITE]: running migration ', migrationFile)
+                let migrationContent = fs.readFileSync(migrationFile, 'utf8');
+                let hash = crypto.createHash('md5').update(migrationContent).digest('hex')
+                db.exec(migrationContent)
+                module.getStatements().insert_migration.run({ migration, hash })
+
             })
         } catch (e) {
             console.error(e);
@@ -259,7 +271,7 @@ export const API = db => {
     }
 
 
-    module.attach = (file,alias)=>{
+    module.attach = (file, alias) => {
         db.exec(`attach '${file}' as '${alias}'`)
     }
 

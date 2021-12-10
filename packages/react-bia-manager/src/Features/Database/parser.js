@@ -14,8 +14,8 @@ let total = 0;
 let progress = 0;
 let collectors = {};
 let extract_lists = []
-let countPatient= 0
-let countMesure= 0
+let countPatient = 0
+let countMesure = 0
 
 
 //const progress = (total, current) => ({ progress: Math.round(current * 100 / total) })
@@ -53,19 +53,22 @@ export const init = (payload, callback) => {
     data = text.split(line_separator);
     fields = data[0].split(separator);
     data.shift(); //remove the first line
-    data = data.map((line) => {
-        let values = line.split(separator);
+    data = data.reduce((results, line) => {
+        if (line.trim() !== "") {
 
-        return values.reduce((carry, item, key) => {
-            carry[fields[key]] = item;
-            return carry;
-        }, {});
+            let values = line.split(separator);
 
-    })
+            results.push(values.reduce((carry, item, key) => {
+                carry[fields[key]] = item;
+                return carry;
+            }, {}))
+        }
+        return results;
+    }, [])
     total = data.length;
     extract_lists = enlist(mapping.lists);
-console.log('hey')
-    callback({total});
+    console.log('hey')
+    callback({ total });
 
 }
 
@@ -142,8 +145,8 @@ export const parse = ({
 
     console.log('hellod')
     if (result.list.length > 0) {
-        progress= parseInt(countMesure);
-        callback({ result,progress,countPatient,total,countMesure })
+        progress = parseInt(countMesure);
+        callback({ result, progress, countPatient, total, countMesure })
     } else {
         data = [];
         callback({ done: true })
@@ -152,8 +155,8 @@ export const parse = ({
 }
 
 
-export default ({data:{message,data}}, callback) => {
-    console.log('hello',message,data)
+export default ({ data: { message, data } }, callback) => {
+    console.log('hello', message, data)
     switch (message) {
         case 'init':
             init(data, callback);

@@ -7,7 +7,8 @@ export const ACTIONS_TYPES = createActionTypes(
     'DETACH',
     'ERROR',
     'IMPORTING',
-    'SCANNED'
+    'SCANNED',
+    'SYNCED'
     
 )
 
