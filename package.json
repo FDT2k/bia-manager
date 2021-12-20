@@ -5,6 +5,7 @@
   "author": "Karsegard Digital Agency",
   "repository": "https://github.com/FDT2k/bia-manager",
   "scripts": {
+    "compile:rebuild": "electron-rebuild -f -w better-sqlite3",
     "integrate": "cd packages/integration; yarn dev",
     "integrate-legacy": "cd packages/integration-legacy; yarn dev",
     "start:browser": "cd packages/react-bia-manager; yarn dev",
