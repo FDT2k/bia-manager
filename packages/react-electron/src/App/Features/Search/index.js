@@ -17,6 +17,8 @@ export default props => {
 
     useEffect(()=>{
         fetch_stats();
+
+      
     },[])
     const search_count = useSelector(searchReduxModule.selectors.count);
     return (<SearchPage stats={stats} db_name={db_name} search_count={search_count}>

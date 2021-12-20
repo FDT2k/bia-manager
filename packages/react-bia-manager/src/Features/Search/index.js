@@ -225,8 +225,8 @@ export const Component = props => {
             }
 
         }
+        
     }, [arrowDownPressed, arrowUpPressed, searchBarFocused, enterPressed]);
-
 
 
     const data = useMemo(
@@ -302,7 +302,7 @@ export const Component = props => {
                     currentValues={custom_filters.sex}
                     handleSubmit={values => setFilter('sex', 'gender', values, 'bools')}
                     handleClear={_ => clearFilter('sex')} />
-                <RangeFilter label="Mesures" currentValues={custom_filters.mesure_range} handleSubmit={values => setFilter('mesure_range', 'mesures_dates', values)} handleClear={_ => clearFilter('mesure_range')} />
+                <RangeFilter label="Mesures" currentValues={custom_filters.mesure_range} handleSubmit={values => setFilter('mesure_range', 'm.date', values)} handleClear={_ => clearFilter('mesure_range')} />
                 <RangeFilter label="Dates de naissances" currentValues={custom_filters.birthday_range} handleSubmit={values => setFilter('birthday_range', 'birthdate', values)} handleClear={_ => clearFilter('birthday_range')} />
 
                 {<Button onClick={handleCSVExport} tabIndex={-1}>{t('EXPORT_CSV')}</Button>}

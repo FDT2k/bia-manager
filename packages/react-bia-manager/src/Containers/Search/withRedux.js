@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 
 
 
@@ -42,7 +42,11 @@ export const Container = ({selectors,actions}) => Component => props => {
         dispatch(actions.clear_custom_filter(filter))
     }
 
-
+    useEffect(()=>{
+        return ()=>{
+            dispatch(actions.clear());   
+        }
+    },[])
     const handlers = {
         ..._handlers,
         handleSearch,

@@ -19,7 +19,11 @@ export default (getModule) => {
 
 
     actions.add_custom_filter = createAction(types.ADD_CUSTOM_FILTER, (field, values, type, key) => ({ field, filter: { ...values, type, key } }));
-    actions.clear_custom_filter = createAction(types.CLEAR_CUSTOM_FILTER);
+    actions._clear_custom_filter = createAction(types.CLEAR_CUSTOM_FILTER);
+    actions.clear_custom_filter = filter => (dispatch,getState)=>{
+        dispatch(actions._clear_custom_filter(filter));
+        dispatch(actions.filter_results());
+    }
 
     const ensure_array = x => {
         if (typeof x === 'undefined' || x === null) {
@@ -71,8 +75,12 @@ export default (getModule) => {
 
 
         const has_filters = has_custom_filters(getState());
-        console.log('helloworld')
         if (!has_filters) {
+
+            if(state.tags.length ===0){
+                return dispatch(actions.clear());
+            }
+
             if (state.tags.length >= 1 && state.tags.length < state.patients.filtered.length) {
                 debugger;
                 dispatch(actions.remove_filter(null));
@@ -82,6 +90,8 @@ export default (getModule) => {
             other_tags.map(
                 tag => dispatch(actions.filter_patients(tag))
             )
+
+            
         }else{
             state.tags.map(
                 tag => dispatch(actions.filter_patients(tag))

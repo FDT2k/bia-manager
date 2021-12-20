@@ -70,7 +70,6 @@ export const Component = props => {
                 'nomExaminateur': { name: 'examinators', reduce: '' },
             },
             patient: {
-
                 'prenom': 'firstname',
                 'nom': 'lastname',
                 'dateNaissance': 'birthdate',
@@ -80,7 +79,12 @@ export const Component = props => {
                 'sexe': { name: 'gender', transform: "(state,value) => value.sexe =='H'? 'M': 'F'" },
                 'poidsHab': 'usual_weight',
                 'tailleHab': 'usual_height',
-                'PatientUuid': 'uuid'
+                'PatientUuid': 'uuid',
+                'medRefer': 'med_name',
+                'unite': 'med_service',
+                'diagP': { name: 'diag', transform: "(state=[],value) => (value.diagP !== \"\" ? [...state,value.diagP]) : state" },
+                'diagS1': { name: 'diag', transform: "(state=[],value) => (value.diagS1 !== \"\" ? [...state,value.diagS1] : state) " },
+                'diagS2': { name: 'diag', transform: "(state=[],value) => (value.diagS2 !== \"\" ? [...state,value.diagS2] : state)" },
             },
             mesure: {
                 'dateExam': 'date',
