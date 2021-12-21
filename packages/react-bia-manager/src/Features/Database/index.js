@@ -40,7 +40,7 @@ export const Component = props => {
        
         Promise.resolve(callback(data)). then (_=> {
             if (!data.done) {
-                parse({message:'parse', data:{ count: 2000}})
+                parse({message:'parse', data:{ count: 300}})
             }else{
                 setDone(true)
             }
@@ -82,7 +82,7 @@ export const Component = props => {
                 'PatientUuid': 'uuid',
                 'medRefer': 'med_name',
                 'unite': 'med_service',
-                'diagP': { name: 'diag', transform: "(state=[],value) => (value.diagP !== \"\" ? [...state,value.diagP]) : state" },
+                'diagP': { name: 'diag', transform: "(state=[],value) => (value.diagP !== \"\" ? [...state,value.diagP] : state)" },
                 'diagS1': { name: 'diag', transform: "(state=[],value) => (value.diagS1 !== \"\" ? [...state,value.diagS1] : state) " },
                 'diagS2': { name: 'diag', transform: "(state=[],value) => (value.diagS2 !== \"\" ? [...state,value.diagS2] : state)" },
             },

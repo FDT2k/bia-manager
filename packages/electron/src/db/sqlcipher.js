@@ -27,7 +27,7 @@ export const _to_json = (values) => {
 export const _transform = (schema, data) => {
     let result = enlist(schema).reduce((carry, item) => {
         const [field, type] = keyval(item);
-        console.log(type)
+       // console.log(type)
         if (!is_empty(type) && !is_undefined(data[field])) {
             if (type === 'boolean') {
                 carry[field] = _to_boolean(data[field])
@@ -102,7 +102,7 @@ export const _retrieve_entity = (entity_name, schema, columns, row) => {
 export const _retrieve = (schema, data) => {
     let result = enlist(schema).reduce((carry, item) => {
         const [field, type] = keyval(item);
-        console.log(type)
+       // console.log(type)
         _retrieve_row(field, type, data[field])
 
         return carry;
@@ -165,7 +165,7 @@ export const API = db => {
     module.genSelectSQL = (table, filter) => {
         const fields = enlist(filter).map(item => key(item));
         const tmpl = `select * from ${table} where  ${fields.map(item => `${item}=@${item}`).join(' and ')}`;
-        console.log(tmpl)
+       // console.log(tmpl)
         return tmpl;
     }
 
@@ -177,7 +177,7 @@ export const API = db => {
             }
             return `${_field}=@${_field}` 
         }).join(` ${sep} `)}`;
-        console.log(tmpl)
+    //    console.log(tmpl)
         return tmpl;
     }
 
@@ -199,7 +199,7 @@ export const API = db => {
         });
 
         const tmpl = `update ${table} set ${set.join(',')} where ${where.join(' and ')}`;
-        console.log(tmpl)
+    //    console.log(tmpl)
         return tmpl;
     }
 

@@ -20,7 +20,7 @@ export default props => {
 
     const { fetch_stats } = useBackend()
     const callback = async data => {
-        console.log(data.type);
+       // console.log(data.type);
 
         if (data.result) {
             return sqlite_import({ model: 'subject', data: data.result.list }).then(res => {

@@ -189,7 +189,7 @@ const subject = (db, api) => {
 
         return enlist(options).reduce((carry, item) => {
             let [str_value, isset] = keyval(item);
-            console.log(str_value, isset)
+         //   console.log(str_value, isset)
             if (isset === true) {
                 carry.query.push(`${carry.sep} ${key} = '${str_value}'`)
                 carry.sep = 'or'
