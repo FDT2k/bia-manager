@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useElectron } from '@/Context/Electron';
 import SQLiteUnlock from '@/Components/SQLiteUnlock';
-import { BackendProvider } from '@karsegard/react-bia-manager'
+import { BackendProvider,useConfirm } from '@karsegard/react-bia-manager'
 import webWorker from './heavysql.worker.js?worker&inline'
 import { useFileProvider } from '@/Context/File'
 import { v4 as uuidv4 } from 'uuid';
@@ -34,7 +34,7 @@ export default ({ children }) => {
     const [subject, setState] = useState({})
     const [should_reload_lists, setShouldReloadLists] = useState(false)
     const { add_error, start_loading, stop_loading } = useHostProvider();
-
+    const { isConfirmed } = useConfirm();
     const { t, dateHumanToSys } = useTranslation();
 
     const [search_count, setSearchCount] = useState(0);
@@ -114,7 +114,7 @@ export default ({ children }) => {
     const get_subject = async (id) => {
         return sqlite_model({ model: "subject", fn: "fetchWithMesures", args: [id] }).then(res => {
             if (!res) {
-                add_error('subject not found in database')
+                add_error(t('subject not found in database'))
             }
             return res;
         })
@@ -177,13 +177,33 @@ export default ({ children }) => {
 
             return true
         } else {
-            add_error('impossible de supprimer la mesure')
+            add_error(t('impossible de supprimer la mesure'))
             stop_loading();
             return false;
         }
 
 
     }
+
+
+    const check_data_protection = async() => {
+
+        let result =  await sqlite_query({query:"select value from settings where key = 'sensitive_data_checked'",values: {},fn:'get'});
+        debugger;
+        return result.value === '0';
+    }
+    const disable_data_protection = async() => {
+
+        let result =  await sqlite_query({query:"update settings set value = '1' where key = 'sensitive_data_checked'",values: {},fn:'run'});
+        return ;
+    }
+
+    const enable_data_protection = async() => {
+
+       
+        return ;
+    }
+
 
     useEffect(() => {
         if (ready && !locked && !is_empty(file)) {
@@ -207,7 +227,28 @@ export default ({ children }) => {
             }).then(res => {
                 start_loading(t('updating database 2 / 2'))
                 return update_hashes();
+            }).then(res=>{
+                return check_data_protection() 
+               
+            }).then(res=> {
+                debugger;
+                if(res=== true){
+                    return isConfirmed('Désirez vous protéger les données sensibles par un mot de passe supplémentaire ?',{
+                        ok:'Oui',cancel:'Non'}) 
+                }else{
+                    return null;
+                }
+
+            }).then(res=> {
+                if(res === null){
+                    return true;
+                }else if(res === false){
+                    return disable_data_protection();
+                }else if(res === true){
+                    return enable_data_protection();
+                }
             }).then(res => {
+                
                 setReady(true)
                 stop_loading()
             }).catch(err => {
@@ -246,19 +287,7 @@ export default ({ children }) => {
     }
 
     const update_uuids = async () => {
-        /* const mesures = await sqlite_query({ query: "select * from mesures where subject_uuid is null", values: {} })
-         for (let mesure of mesures) {
-             let { hash,subject_id,mesure_id,id,last_updated, ...rest } = mesure;
-             let { uuid } = await sqlite_query({ query: "select uuid from subjects where id=@subject_id", values: { subject_id }, fn: 'get' });
-             if (uuid) {
-                 rest.subject_uuid = uuid;
-                 hash = ohash(rest)
- 
-                 await sqlite_query({ query: "update mesures set subject_uuid = @uuid, hash=@hash where id=@id", values: { uuid, hash, id }, fn: 'run' })
-             }
- 
-         }
-         return true*/
+       
         const mesures = await sqlite_model({ model: "mesure", fn: "all", args: [{ subject_uuid: null }] })
         let results = [];
         if (mesures.length > 0) {

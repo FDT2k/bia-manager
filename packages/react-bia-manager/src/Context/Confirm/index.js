@@ -15,7 +15,9 @@ export const makeProvider = (Context) => (props) => {
         prompt: "",
         isOpen: false,
         proceed: null,
-        cancel: null
+        cancel: null,
+        okLabel:'proceed',
+        cancelLabel:'cancel'
     });
 
 
@@ -36,11 +38,12 @@ export const makeUse = Context => _ => {
     const [confirm, setConfirm]  = context;
     
 
-    const isConfirmed = (prompt) => {
+    const isConfirmed = (prompt,{ok:okLabel,cancel:cancelLabel}) => {
         setNeedsCleanup(true);
         const promise = new Promise((resolve, reject) => {
             setConfirm({
                 prompt,
+                okLabel,cancelLabel,
                 isOpen: true,
                 proceed: resolve,
                 cancel: reject

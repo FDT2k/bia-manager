@@ -245,16 +245,27 @@ const subject = (db, api) => {
         let whereClauses = enlist(custom_filters).reduce(mainReducer('subject'), { query: [], sep: 'where' }).query.join(' ');
         let havingClauses = enlist(custom_filters).reduce(mainReducer('mesure'), { query: [], sep: 'having' }).query.join(' ');
 
-        let query_start = `Select s.*,count(mcount.uuid) as count_mesures, (s.firstname || s.lastname || s.birthdate ) as search_terms 
+        let query_start = `Select s.*,count(m.uuid) as count_mesures, (s.firstname || s.lastname || s.birthdate ) as search_terms 
         from subjects as s 
-        left join mesures as mcount on s.uuid = mcount.subject_uuid
+        
         left join mesures as m on s.uuid=m.subject_uuid `
 
 
         let sql = `
             ${query_start}
-            ${whereClauses}
-            group by s.uuid,m.uuid
+
+            where s.uuid in (
+                Select distinct s.uuid
+                from subjects as s 
+                
+                left join mesures as m on s.uuid=m.subject_uuid 
+                  
+        
+                ${whereClauses}
+                group by s.uuid
+                ${havingClauses}
+            )
+            group by s.uuid
             ${havingClauses}
             COLLATE NOCASE;
         `
