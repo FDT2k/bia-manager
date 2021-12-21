@@ -359,10 +359,10 @@ export default ({ children }) => {
         setShouldReloadLists(true)
     }
 
-    const exportToCSV = async () => {
+    const exportToCSV = async (arg) => {
 
         start_loading('exporting data');
-        let result = await sqlite_export({ query: {}, filename: 'bia-export.csv' }).catch(add_error);
+        let result = await sqlite_export({ query: arg, filename: 'bia-export.csv' }).catch(add_error);
         stop_loading();
     }
 

@@ -15,6 +15,8 @@ export default props => {
 
     const {stats,db_name,exportToCSV,fetch_stats} = useBackend();
 
+    const custom_filters = useSelector(searchReduxModule.selectors.select_custom_filters);
+
     useEffect(()=>{
         fetch_stats();
 
@@ -27,7 +29,7 @@ export default props => {
             handleSelectRow: (idx,patient)=> {
                 window.location.hash=`#/editor/${patient.id}`
             },
-            handleCSVExport: _=> exportToCSV(),
+            handleCSVExport: _=> exportToCSV(custom_filters),
 
             }}/>
     </SearchPage>)

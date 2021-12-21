@@ -240,8 +240,6 @@ const subject = (db, api) => {
     module.custom_search = (custom_filters) => {
 
 
-        let method = "where";
-
         let whereClauses = enlist(custom_filters).reduce(mainReducer('subject'), { query: [], sep: 'where' }).query.join(' ');
         let havingClauses = enlist(custom_filters).reduce(mainReducer('mesure'), { query: [], sep: 'having' }).query.join(' ');
 
@@ -283,6 +281,46 @@ const subject = (db, api) => {
 
     }
 
+    module.export_csv = (custom_filters, separator) => {
+
+
+        let method = "where";
+
+        let whereClauses = enlist(custom_filters).reduce(mainReducer('subject'), { query: [], sep: 'where' }).query.join(' ');
+        let havingClauses = enlist(custom_filters).reduce(mainReducer('mesure'), { query: [], sep: 'having' }).query.join(' ');
+
+        let query_start = `Select s.*, m.* from subjects as s left join mesures as m on s.id=m.subject_id `
+
+
+        let sql = `
+            ${query_start}
+
+            where s.uuid in (
+                Select distinct s.uuid
+                from subjects as s 
+                
+                left join mesures as m on s.uuid=m.subject_uuid 
+                ${whereClauses}
+                group by s.uuid
+                ${havingClauses}
+            )
+            group by m.id
+
+            order by s.id
+        `
+
+        console.log('export',sql)
+
+        let stmt = db.prepare(sql).raw(true);
+        const res = [];
+        let cols = stmt.columns();
+        res.push(retrieve_csv_cols(cols.map(item => item.name), cols).join(separator));
+        for (let result of stmt.iterate()) {
+            // console.log(result)
+            res.push(retrieve_csv_row(result, cols).join(separator));
+        }
+        return res;
+    }
 
     const extract_object = (row, defaultValue) => {
         let val = pathes(defaultValue)
@@ -356,38 +394,7 @@ const subject = (db, api) => {
     }
 
 
-    module.export_csv = (custom_filters, separator) => {
-
-
-        let method = "where";
-
-        let whereClauses = enlist(custom_filters).reduce(mainReducer('subject'), { query: [], sep: 'where' }).query.join(' ');
-        let havingClauses = enlist(custom_filters).reduce(mainReducer('mesure'), { query: [], sep: 'having' }).query.join(' ');
-
-        let query_start = `Select s.*,count(m.id)as count_mesures, m.* from subjects as s left join mesures as m on s.id=m.subject_id `
-
-
-        let sql = `
-            ${query_start}
-            ${whereClauses}
-            group by m.id
-            ${havingClauses}
-
-            order by s.id
-        `
-
-        console.log(sql)
-
-        let stmt = db.prepare(sql).raw(true);
-        const res = [];
-        let cols = stmt.columns();
-        res.push(retrieve_csv_cols(cols.map(item => item.name), cols).join(separator));
-        for (let result of stmt.iterate()) {
-            // console.log(result)
-            res.push(retrieve_csv_row(result, cols).join(separator));
-        }
-        return res;
-    }
+   
 
     module.search = (tag) => {
         let hasField = tag.indexOf(':') !== -1;
