@@ -28,7 +28,7 @@ export const Page = props => {
                         <li>Code source: <a href="#" onClick={e=>openURL(e," https://gitlab.com/karsegard/bia-manager")}>Gitlab</a></li>
                     </ul>
 
-                    <h3>Pesonnalisation</h3>
+                    <h3>Personnalisation</h3>
                     <p>Le logiciel est adaptable à toute structure en fonction des besoins et des contraintes techniques</p>
                     <p>Pour un devis ou des informations, nous contacter sur <a href="#" onClick={e=>openURL(e,"mailto:contact@karsegard.ch")}>contact@karsegard.ch</a> </p>
                 </LayoutFlex>
