@@ -7267,6 +7267,7 @@ __metadata:
     namor: ^2.0.3
     node-sass: ^6.0.1
     object-hash: ^2.2.0
+    pbkdf2: ^3.1.2
     react: ^17.0.2
     react-circular-progressbar: ^2.0.4
     react-datepicker: ^4.1.1
@@ -21177,7 +21178,7 @@ fsevents@^1.2.7:
   languageName: node
   linkType: hard
 
-"pbkdf2@npm:^3.0.3":
+"pbkdf2@npm:^3.0.3, pbkdf2@npm:^3.1.2":
   version: 3.1.2
   resolution: "pbkdf2@npm:3.1.2"
   dependencies:

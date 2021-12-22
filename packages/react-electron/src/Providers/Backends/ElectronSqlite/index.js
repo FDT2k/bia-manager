@@ -11,7 +11,8 @@ import { is_empty } from '@karsegard/composite-js';
 import { useTranslation } from '@karsegard/react-bia-manager';
 import { add } from 'date-fns';
 import ohash from 'object-hash'
-
+import crypto from 'pbkdf2'
+import {nanoid} from 'nanoid';
 const doHeavyWork = (message) => {
 
     let worker = new webWorker();
@@ -27,6 +28,10 @@ const doHeavyWork = (message) => {
     return [promise, terminate];
 }
 
+
+export const encode_password = (password, salt) => {
+    return crypto.pbkdf2Sync(password, salt, 100, 64, 'sha512').toString('hex');
+}
 
 export default ({ children }) => {
     const { actions: { sqlite_model_transaction, sqlite_api, sqlite_export, sqlite_search, sqlite_custom_search, sqlite_create, sqlite_query, sqlite_model, sqlite_attach, sqlite_import } } = useElectron();
@@ -201,7 +206,7 @@ export default ({ children }) => {
     const enable_data_protection = async() => {
 
        
-        let res =  await isConfirmed('Choisissez un mot de passe', {
+        let password =  await isConfirmed('Choisissez un mot de passe', {
             fields: [
                 { type: 'password', 'name': 'password', 'label': t('Password'), autoFocus: true },
                 { type: 'password', 'name': 'confirm_password', 'label': t('Confirm Password'), },
@@ -220,6 +225,16 @@ export default ({ children }) => {
                 return true;
             }
         });
+
+
+        let salt = nanoid(5);
+        
+        let res = await sqlite_query({query:"update settings set value = @salt where key = 'sensitive_data_salt'",values: {salt},fn:'run'});
+        let res2 = await sqlite_query({query:"update settings set value = @password where key = 'sensitive_data_password'",values: {password:encode_password(password.password,salt)},fn:'run'});
+
+        await sqlite_query({query:"update settings set value = '1' where key = 'sensitive_data_checked'",values: {},fn:'run'});
+        debugger;
+        return res;
     }
 
 
