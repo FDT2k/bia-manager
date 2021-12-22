@@ -234,7 +234,7 @@ export default ({ children }) => {
                 debugger;
                 if(res=== true){
                     return isConfirmed('Désirez vous protéger les données sensibles par un mot de passe supplémentaire ?',{
-                        ok:'Oui',cancel:'Non'}) 
+                        okLabel:'Oui',cancelLabel:'Non'}) 
                 }else{
                     return null;
                 }

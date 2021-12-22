@@ -14,23 +14,23 @@ export const Page = props => {
             <Container className="login-container">
                 <LayoutFlex column justCenter  style={{gap:'20px'}}>
                     <h2>{t(`A propos de BIM`)}</h2>
-                    <p>BIM est une application open source développée par <a href="#" onClick={e=>openURL(e,"https://www.karsegard.ch")} target="_blank">Karsegard Digital Agency SàRL</a></p>
+                    <p>{t('BIM est une application open source développée par ')}<a href="#" onClick={e=>openURL(e,"https://www.karsegard.ch")} target="_blank">{t('Karsegard Digital Agency SàRL')}</a></p>
                    
-                    <h3>Sponsors et partenaires</h3>
+                    <h3>{t('Sponsors et partenaires')}</h3>
                     <ul>
-                        <li>Fondation Nutrition 2000 Plus</li>
-                        <li><a target="_blank" href="#" onClick={e=>openURL(e,"https://www.hug.ch/endocrinologie-diabetologie-hypertension-et/unite-de-nutrition")}>Hopitaux Universitaires de Genève - Unité de nutrition</a></li>
+                        <li>{t('Fondation Nutrition 2000 Plus')}</li>
+                        <li><a target="_blank" href="#" onClick={e=>openURL(e,"https://www.hug.ch/endocrinologie-diabetologie-hypertension-et/unite-de-nutrition")}>{t('Hopitaux Universitaires de Genève')} - {t('Unité de nutrition')}</a></li>
                     </ul>
-                    <h3>Contacts et liens</h3>
+                    <h3>{t('Contacts et liens')}</h3>
                     <ul>
-                        <li>Support technique et informations: <a href="#" onClick={e=>openURL(e,"mailto:contact@karsegard.ch")}>contact@karsegard.ch</a></li>
-                        <li>Télécharger le logiciel: <a href="#" onClick={e=>openURL(e,"https://bim.karsegard.ch")}>https://bim.karsegard.ch</a></li>
-                        <li>Code source: <a href="#" onClick={e=>openURL(e," https://gitlab.com/karsegard/bia-manager")}>Gitlab</a></li>
+                        <li>{t('Support technique et informations')}: <a href="#" onClick={e=>openURL(e,"mailto:contact@karsegard.ch")}>contact@karsegard.ch</a></li>
+                        <li>{t('Télécharger le logiciel')}: <a href="#" onClick={e=>openURL(e,"https://bim.karsegard.ch")}>https://bim.karsegard.ch</a></li>
+                        <li>{t('Code source')}: <a href="#" onClick={e=>openURL(e," https://gitlab.com/karsegard/bia-manager")}>Gitlab</a></li>
                     </ul>
 
-                    <h3>Personnalisation</h3>
-                    <p>Le logiciel est adaptable à toute structure en fonction des besoins et des contraintes techniques</p>
-                    <p>Pour un devis ou des informations, nous contacter sur <a href="#" onClick={e=>openURL(e,"mailto:contact@karsegard.ch")}>contact@karsegard.ch</a> </p>
+                    <h3>{t('Personnalisation')}</h3>
+                    <p>{t('Le logiciel est adaptable à toute structure en fonction des besoins et des contraintes techniques')}</p>
+                    <p>{t('Pour un devis ou des informations, nous contacter sur')} <a href="#" onClick={e=>openURL(e,"mailto:contact@karsegard.ch")}>contact@karsegard.ch</a> </p>
                 </LayoutFlex>
             </Container>
         </Modal>

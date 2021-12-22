@@ -1,33 +1,80 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import Modal from '@/Components/Modal';
-import { identity, is_nil } from '@karsegard/composite-js';
-import {LayoutFlexColumn,LayoutFlex} from '@karsegard/react-core-layout';
+import { identity,enlist, is_nil, keys, is_type_function } from '@karsegard/composite-js';
+import { keyval } from '@karsegard/composite-js/ObjectUtils';
+import { LayoutFlexColumn, LayoutFlex } from '@karsegard/react-core-layout';
 import Button from '@/Components/Form/Button';
-import { useTranslation,useConfirm } from '@';
+import { useTranslation, useConfirm } from '@';
+import { useFieldValues,useValidate } from '@karsegard/react-hooks';
 
 
 export const Component = props => {
 
-    const { 
+    const {
         prompt = "",
         title = 'Confirm',
         okLabel = 'proceed',
         cancelLabel = 'cancel',
         isOpen = false,
         proceed,
-        cancel 
-      } = useConfirm();
-    
+        fields,
+        form,
+        validate,
+        cancel
+    } = useConfirm();
 
-    const {t} =useTranslation()
+
+    const { t } = useTranslation()
+
+  
+
+    const { values, inputProps,replaceValues } = useFieldValues(form || {},{usePath:true});
+
+
+
+    useEffect(()=>{
+        replaceValues(form);
+    },[form,fields])
+
+   
+
+    const handleProceed = _=> {
+
+
+       
+
+        let result = keys(values).length===0 ? true: values;
+        
+
+        if(is_type_function(validate)){
+            if(validate(values) === true){
+                proceed(result);
+            }
+        }else {
+            proceed(result);
+        }
+            
+        
+    }
 
     return (<>
         <Modal type="confirm" visible={isOpen}>
-            <LayoutFlexColumn style={{gap:'10px'}} justCenter alignCenter>
+            <LayoutFlexColumn style={{ gap: '10px' }} justCenter alignCenter>
                 <h2>{t(title)}</h2>
                 {t(prompt)}
-                <LayoutFlex style={{gap:'10px'}}><Button onClick={proceed}>{t(okLabel)}</Button>
-                <Button onClick={cancel}>{t(cancelLabel)}</Button></LayoutFlex>
+                <LayoutFlexColumn style={{ gap: '10px' }}>
+                    {fields && fields.length > 0 && fields.map((field, idx) => {
+                        return (<div className="field" key={idx}>
+                            <label className="field__label">{field.label}</label>
+                            <div className="field__field">
+                                <input className="field" type={field.type} {...inputProps(field.name)} autoFocus={field.autoFocus|| false} />
+                            </div>
+                        </div>
+                        )
+                    })}
+                </LayoutFlexColumn>
+                <LayoutFlex style={{ gap: '10px' }}><Button onClick={handleProceed}>{t(okLabel)}</Button>
+                    <Button onClick={cancel}>{t(cancelLabel)}</Button></LayoutFlex>
             </LayoutFlexColumn>
         </Modal>
     </>)

@@ -11,6 +11,7 @@ import TestMesureEditorRedux from '@/example/TestMesureEditorRedux'
 import IntegrationEditor from '@/Integration/Editor'
 import DatabaseImport from '@/example/Database/Import'
 import DatabaseSync from '@/example/Database/Sync'
+import ConfirmBox from '@/example/ConfirmBox'
 
 import { Route, Link, Switch } from 'wouter';
 import { Fullscreen, LayoutFlexColumn } from '@karsegard/react-core-layout';
@@ -76,6 +77,11 @@ const routes = [
         path: '/database/listmanager',
         component: ListManager,
         menu: 'ListManager'
+    },
+    {
+        path: '/confirm',
+        component: ConfirmBox,
+        menu: 'ConfirmBox'
     },
     
 ]

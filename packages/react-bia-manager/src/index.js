@@ -3,9 +3,11 @@ import { Provider as ViewProvider, useViewProvider } from "@/Context/BIAViews"
 import { Provider as TranslationProvider, useTranslation } from "@/Context/Translation"
 import { Provider as CustomListProvider, useCustomList } from "@/Context/CustomList"
 import { Provider as BackendProvider, useBackend } from "@/Context/Backend"
-import { Provider as ConfirmProvider, useConfirm } from "@/Context/Confirm"
 import { Provider as ListManagerProvider, useListManager } from "@/Context/ListManager"
 import ConfirmDialog from "@/Components/ConfirmDialog"
+
+
+import { ConfirmProvider, useConfirm } from "@karsegard/react-hooks";
 
 import {useLocation} from 'wouter';
 
