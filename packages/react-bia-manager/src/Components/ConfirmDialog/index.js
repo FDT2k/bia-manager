@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import Modal from '@/Components/Modal';
-import { identity,enlist, is_nil, keys, is_type_function } from '@karsegard/composite-js';
+import { identity,enlist, is_nil, keys, is_type_function, is_type_object } from '@karsegard/composite-js';
 import { keyval } from '@karsegard/composite-js/ObjectUtils';
 import { LayoutFlexColumn, LayoutFlex } from '@karsegard/react-core-layout';
 import Button from '@/Components/Form/Button';
@@ -43,7 +43,11 @@ export const Component = props => {
 
        
 
-        let result = keys(values).length===0 ? true: values;
+        let result = true ;
+
+        if(is_type_object(values)){
+            result = values;
+        }
         
 
         if(is_type_function(validate)){

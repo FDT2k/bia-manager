@@ -201,7 +201,25 @@ export default ({ children }) => {
     const enable_data_protection = async() => {
 
        
-        return ;
+        let res =  await isConfirmed('Choisissez un mot de passe', {
+            fields: [
+                { type: 'password', 'name': 'password', 'label': t('Password'), autoFocus: true },
+                { type: 'password', 'name': 'confirm_password', 'label': t('Confirm Password'), },
+            ],
+            form:{password:'',confirm_password:''},
+            validate: (values)=> {
+                if(values.password !==values.confirm_password){
+                    add_error(t("Les mots de passe de correspondent pas"))
+                    return false;
+                }
+                if(values.password.length < 6){
+                    add_error(t("La longueur minimum est de 6 charactères"))
+                    return false;
+                }
+
+                return true;
+            }
+        });
     }
 
 

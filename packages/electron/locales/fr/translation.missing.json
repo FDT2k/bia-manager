@@ -99,5 +99,10 @@
    "Oui": "Oui",
    "Non": "Non",
    "": "",
-   "Désirez vous protéger les données sensibles par un mot de passe supplémentaire ?": "Désirez vous protéger les données sensibles par un mot de passe supplémentaire ?"
+   "Désirez vous protéger les données sensibles par un mot de passe supplémentaire ?": "Désirez vous protéger les données sensibles par un mot de passe supplémentaire ?",
+   "Choisissez un mot de passe": "Choisissez un mot de passe",
+   "Password": "Password",
+   "Confirm Password": "Confirm Password",
+   "Les mots de passe de correspondent pas": "Les mots de passe de correspondent pas",
+   "La longueur minimum est de 6 charactères": "La longueur minimum est de 6 charactères"
 }
