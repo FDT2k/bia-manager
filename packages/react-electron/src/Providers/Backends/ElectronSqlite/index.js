@@ -261,12 +261,15 @@ export default ({ children }) => {
 
     //returns true if data are 
     const protected_data_unlocked = async ()=> {
-        
     }
 
     const protected_data_unlock = async ()=> {
         
-
+        let result = await isConfirmed("",{okLabel:"unlock",title:"Unlock sensitive data",fields: [
+            { type: 'password', 'name': 'password', 'label': t('Password'), autoFocus: true },
+           
+        ],
+        form:{password:''},})
     }
 
     const protected_data_lock= async ()=> {
@@ -337,6 +340,7 @@ export default ({ children }) => {
 
     useEffect(()=>{
         handleUnlockSensitiveData(()=> {
+            protected_data_unlock()
             debugger;
         })
     },[])

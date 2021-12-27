@@ -118,5 +118,8 @@
    "Taille": "Taille",
    "Poids habituel": "Poids habituel",
    "Diagnostic": "Diagnostic",
-   "Déverouiller les données sensibles": "Déverouiller les données sensibles"
+   "Déverouiller les données sensibles": "Déverouiller les données sensibles",
+   "Unlock": "Unlock",
+   "unlock": "unlock",
+   "Unlock sensitive data": "Unlock sensitive data"
 }
