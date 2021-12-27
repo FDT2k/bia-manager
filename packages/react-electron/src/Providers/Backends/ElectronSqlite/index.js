@@ -37,6 +37,7 @@ export default ({ children }) => {
     const { actions: { sqlite_model_transaction, sqlite_api, sqlite_export, sqlite_search, sqlite_custom_search, sqlite_create, sqlite_query, sqlite_model, sqlite_attach, sqlite_import,close } } = useElectron();
     const { selectors: { locked, file }, actions: { reload_file_state,close_file } } = useFileProvider();
     const [subject, setState] = useState({})
+    const [sensitive_lock, setSensitiveLock] = useState(true)
     const [should_reload_lists, setShouldReloadLists] = useState(false)
     const { add_error, start_loading, stop_loading } = useHostProvider();
     const { isConfirmed } = useConfirm();
@@ -253,9 +254,23 @@ export default ({ children }) => {
         let res2 = await sqlite_query({query:"update settings set value = @password where key = 'sensitive_data_password'",values: {password:encode_password(password.password,salt)},fn:'run'});
 
         await sqlite_query({query:"update settings set value = '1' where key = 'sensitive_data_checked'",values: {},fn:'run'});
-        debugger;
         return res;
     }
+
+    //returns true if data are 
+    const protected_data_unlocked = async ()=> {
+        
+    }
+
+    const protected_data_unlock = async ()=> {
+        
+
+    }
+
+    const protected_data_lock= async ()=> {
+        
+    }
+
 
 
     useEffect(() => {
@@ -511,7 +526,8 @@ export default ({ children }) => {
 
     const db_name = file
     return (
-        <BackendProvider type="sqlite" actions={{get_subject_by_uuid, get_subject, ready, search, search_custom_filters, create_database, fetch_stats, stats, db_name, search_count, get_lists, get_forms, create_subject, save_subject, save_subject_mesures, delete_mesure, fetch_lists, fetch_list, save_list, add_list_item, delete_list_item, save_list_item, attach, detach, detach_all, should_reload_lists, exportToCSV, attached_stats_query, attached_sync }}>
+        <BackendProvider type="sqlite" actions={{get_subject_by_uuid, get_subject, ready, search, search_custom_filters, create_database, fetch_stats, stats, db_name, search_count, get_lists, get_forms, create_subject, save_subject, save_subject_mesures, delete_mesure, fetch_lists, fetch_list, save_list, add_list_item, delete_list_item, save_list_item, attach, detach, detach_all, should_reload_lists, exportToCSV, attached_stats_query, attached_sync,
+            sensitive_lock,protected_data_unlock,protected_data_lock }}>
 
             {children}
             <SQLiteUnlock />

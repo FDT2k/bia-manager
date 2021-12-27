@@ -8,7 +8,7 @@ export default props => {
     const { lists, forms } = useCustomList();
     const {id:uuid} = props;
 
-    const { get_subject_by_uuid } = useBackend();
+    const { get_subject_by_uuid ,sensitive_lock} = useBackend();
     const { add_error,start_loading,stop_loading } = useHostProvider();
     const [patient,setPatient] = useState({
         firstname:'',
@@ -48,10 +48,16 @@ export default props => {
                 return carry;
             }, patient)
             setPatient(custom_forms)
+            debugger;
+
+            if(sensitive_lock === false){
+
+               debugger;
+            }
 
         }
 
-    }, [forms])
+    }, [forms,sensitive_lock])
 
     const handleSave = values => {
             
@@ -73,5 +79,8 @@ export default props => {
         window.history.back();
     }
 
-    return <CreateSubjectFeature handleCancel={handleCancel} lists={lists} forms={forms.create_subject} handleSave={handleSave}  patient={patient}/>
+    return <>
+    <CreateSubjectFeature handleCancel={handleCancel} lists={lists} forms={forms.create_subject} handleSave={handleSave}  patient={patient}/>
+   
+        </>
 }
