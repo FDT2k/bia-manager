@@ -1,5 +1,5 @@
 
-import {Menu } from 'electron';
+import { Menu } from 'electron';
 import config from '../app.config';
 
 import darwinTemplate from './menu.darwin';
@@ -13,19 +13,19 @@ function MenuFactoryService(menu) {
 }
 
 
-function buildMenu(app, mainWindow,labelEnhancer,moreMenu) {
+function buildMenu(app, mainWindow, labelEnhancer, moreMenu) {
   if (config.platform === 'darwin') {
-    this.menu = darwinTemplate(app, mainWindow,labelEnhancer);
+    this.menu = darwinTemplate(app, mainWindow, labelEnhancer);
   } else {
-    this.menu = otherTemplate(app, mainWindow,labelEnhancer);
+    this.menu = otherTemplate(app, mainWindow, labelEnhancer);
   }
-  if(moreMenu){
+  if (moreMenu) {
     this.menu.push(moreMenu)
   }
-  if (config.platform === 'darwin') {
-    Menu.setApplicationMenu( Menu.buildFromTemplate(this.menu));
-  } else {
-    mainWindow.setMenu( Menu.buildFromTemplate(this.menu))
-  }
+  //if (config.platform === 'darwin') {
+    Menu.setApplicationMenu(Menu.buildFromTemplate(this.menu));
+  /*} else {
+    mainWindow.setMenu(Menu.buildFromTemplate(this.menu))
+  }*/
 }
-export default  new MenuFactoryService(menu);
+export default new MenuFactoryService(menu);

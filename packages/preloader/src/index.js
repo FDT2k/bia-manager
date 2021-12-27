@@ -19,6 +19,7 @@ let electronAPI = {
     ...clientEvent('downloadProgress', 'download-progress'),
     //translations
     ...clientEvent('languageChange', 'language-change'),
+    ...clientEvent('unlockSensitiveData','trigger-unlock-sensitive-data')
   },
   actions: {
     save: invokeOnMainProcess('file-save'),
@@ -44,6 +45,7 @@ let electronAPI = {
     sqlite_api: invokeOnMainProcess('sqlite-api'),
     sqlite_model: invokeOnMainProcess('sqlite-model'),
     sqlite_unlock: invokeOnMainProcess('sqlite-unlock'),
+    sqlite_unlock_sensitive_data: invokeOnMainProcess('sqlite-unlock-sensitive-data'),
     sqlite_query: invokeOnMainProcess('sqlite-query'),
     sqlite_import: invokeOnMainProcess('sqlite-import'),
     sqlite_search: invokeOnMainProcess('sqlite-search'),

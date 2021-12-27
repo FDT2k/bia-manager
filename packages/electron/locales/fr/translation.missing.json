@@ -117,5 +117,6 @@
    "Prenom": "Prenom",
    "Taille": "Taille",
    "Poids habituel": "Poids habituel",
-   "Diagnostic": "Diagnostic"
+   "Diagnostic": "Diagnostic",
+   "Déverouiller les données sensibles": "Déverouiller les données sensibles"
 }

@@ -17,7 +17,8 @@ import Store from 'electron-store'
 let store = new Store();
 
 import init18next from './plugins/i18next'
-import { exit } from 'process';
+
+
 
 let openedFilePath;
 let currentSQLite;
@@ -169,6 +170,7 @@ const loadContent = async mainWindow => {
 
 
   mainWindow.loadURL(pageUrl);
+  updateMenuState();
   return mainWindow
 }
 
@@ -212,6 +214,9 @@ const openFile = async (filename) => {
   } else if (type === 'sqlite') {
     currentSQLite = openDB(openedFilePath)
     additionalprops.unlocked = currentSQLite.isUnlocked();
+
+    updateMenuState();
+
   }
   return {
     canceled: false,
@@ -245,9 +250,16 @@ ipcMain.handle('read-settings', async (event,) => {
 ipcMain.handle('get-file-state', async (event,) => {
   console.log('requested file state')
   let additionalprops = {};
+  debugger;
+
   if (currentBackend == 'sqlite') {
     additionalprops.unlocked = currentSQLite.isUnlocked();
+   
+    updateMenuState();
+
+  
   }
+
   return { file: openedFilePath, type: currentBackend, canceled: false, ...additionalprops };
 });
 /*
@@ -290,12 +302,60 @@ ipcMain.handle('close', async (event) => {
       openedFilePath = null;
     }
     currentBackend = null
+    updateMenuState()
+
     return true;
   } catch (e) {
     return Promise.reject(e);
   }
 
 })
+
+
+const menuOpenFile = ()=> {
+  console.log('menu is in opened state')
+
+  Menu.getApplicationMenu().getMenuItemById('close').enabled = true;
+  Menu.getApplicationMenu().getMenuItemById('sync').enabled = false;
+  Menu.getApplicationMenu().getMenuItemById('import').enabled = false;
+  Menu.getApplicationMenu().getMenuItemById('list').enabled = false;
+  Menu.getApplicationMenu().getMenuItemById('search').enabled = false;
+}
+
+const menuUnlockFile = ()=> {
+  console.log('menu is in unlocked state',Menu.getApplicationMenu().getMenuItemById('sync').enabled)
+  Menu.getApplicationMenu().getMenuItemById('close').enabled = true;
+  Menu.getApplicationMenu().getMenuItemById('sync').enabled = true;
+  Menu.getApplicationMenu().getMenuItemById('import').enabled = true;
+  Menu.getApplicationMenu().getMenuItemById('list').enabled = true;
+  Menu.getApplicationMenu().getMenuItemById('search').enabled = true;
+  Menu.getApplicationMenu().getMenuItemById('unlock-sensitive-data').enabled = true;
+  
+}
+
+const menuCloseFile = ()=> {
+  console.log('menu is in closed state')
+
+  Menu.getApplicationMenu().getMenuItemById('close').enabled = false;
+  Menu.getApplicationMenu().getMenuItemById('sync').enabled = false;
+  Menu.getApplicationMenu().getMenuItemById('import').enabled = false;
+  Menu.getApplicationMenu().getMenuItemById('list').enabled = false;
+  Menu.getApplicationMenu().getMenuItemById('search').enabled = false;
+  Menu.getApplicationMenu().getMenuItemById('unlock-sensitive-data').enabled = false;
+}
+
+
+const updateMenuState = ()=> {
+  //console.log('menustate',is_nil(currentSQLite), currentSQLite.isUnlocked())
+  if (is_nil(currentSQLite)){
+    menuCloseFile();
+  }else if (currentSQLite.isUnlocked() === true){
+    menuUnlockFile();
+  }else {
+    menuOpenFile();
+  }
+
+}
 
 //should not be used anymore
 ipcMain.handle('sqlite-open', async (event, { filename, key }) => {
@@ -310,13 +370,22 @@ ipcMain.handle('sqlite-open', async (event, { filename, key }) => {
 })
 ipcMain.handle('sqlite-unlock', async (event, key) => {
   try {
+    debugger;
     console.log('unlocking sqlite db', key);
-    return currentSQLite.unlock(key);
+    let unlocked =  currentSQLite.unlock(key);
+    updateMenuState();
+
+    return unlocked;
    //return currentSQLite.migrate();
   } catch (e) {
     return Promise.reject(e);
   }
 
+})
+
+ipcMain.handle('sqlite_unlock_sensitive_data',async(event,key)=>{
+
+  return false;
 })
 
 ipcMain.handle('sqlite-attach',async (event,{file,alias})=> {
@@ -469,15 +538,19 @@ app.on('before-quit', e => {
     e.preventDefault()
   }
 })
+
 const handleLanguageChange = (i18n, menu) => {
   menuFactoryService.buildMenu(app, mainWindow, i18n.t.bind(i18n), menu)
   store.set('language', i18n.language)
+  updateMenuState();
 }
+
 app.whenReady()
   .then(createWindow)
   .then(initMenu)
   .then(init18next(handleLanguageChange, store.get('language')))
   .then(loadContent)
+  .then(updateMenuState)
   .catch((e) => console.error('Failed create window:', e));
 
 app.on('uncaughtException', function (error) {

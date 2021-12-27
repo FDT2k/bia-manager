@@ -9,6 +9,7 @@ export default (app, window,labelEnhancer=identity ) => {
       submenu: [
         {
           label: labelEnhancer('Ouvrir'),
+          id:'open',
           click() {
             window.webContents.send('trigger-open');
           }
@@ -16,6 +17,8 @@ export default (app, window,labelEnhancer=identity ) => {
        
         {
           label: labelEnhancer('Fermer'),
+          id:'close',
+          enabled:false,
           click() {
             window.webContents.send('trigger-close');
           },
@@ -58,26 +61,46 @@ export default (app, window,labelEnhancer=identity ) => {
       submenu: [
         {
           label: labelEnhancer('Importer'),
+          id:'import',
+          enabled:false,
           click() {
             window.webContents.send('location-change', '#/database');
           }
         },
         {
           label: labelEnhancer('Synchroniser d\'autres bases'),
+          id:'sync',
+          enabled:false,
+
           click() {
             window.webContents.send('location-change', '#/sync');
           }
         },
         {
           label: labelEnhancer('Gestion des listes'),
+          id:'list',
+          enabled:false,
+
           click() {
             window.webContents.send('location-change', '#/database/listes');
           }
         },
         {
           label: labelEnhancer('Recherche'),
+          id:'search',
+          enabled:false,
+
           click() {
             window.webContents.send('location-change', '#/search');
+          }
+
+        },
+        {
+          label: labelEnhancer('Déverouiller les données sensibles'),
+          id:'unlock-sensitive-data',
+          enabled:false,
+          click() {
+            window.webContents.send('trigger-unlock-sensitive-data');
           }
 
         },
