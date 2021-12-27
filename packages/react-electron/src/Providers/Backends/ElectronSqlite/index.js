@@ -34,7 +34,7 @@ export const encode_password = (password, salt) => {
 }
 
 export default ({ children }) => {
-    const { actions: { sqlite_model_transaction, sqlite_api, sqlite_export, sqlite_search, sqlite_custom_search, sqlite_create, sqlite_query, sqlite_model, sqlite_attach, sqlite_import,close } } = useElectron();
+    const { actions: { sqlite_model_transaction, sqlite_api, sqlite_export, sqlite_search, sqlite_custom_search, sqlite_create, sqlite_query, sqlite_model, sqlite_attach, sqlite_import,close },subscribers:{handleUnlockSensitiveData} } = useElectron();
     const { selectors: { locked, file }, actions: { reload_file_state,close_file } } = useFileProvider();
     const [subject, setState] = useState({})
     const [sensitive_lock, setSensitiveLock] = useState(true)
@@ -62,6 +62,8 @@ export default ({ children }) => {
         return result;
 
     }
+
+    
 
 
     const create_database = async (arg) => {
@@ -332,6 +334,12 @@ export default ({ children }) => {
             setReady(false)
         }
     }, [locked, file])
+
+    useEffect(()=>{
+        handleUnlockSensitiveData(()=> {
+            debugger;
+        })
+    },[])
 
     const update_hashes = async () => {
 
