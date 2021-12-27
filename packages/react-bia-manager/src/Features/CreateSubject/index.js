@@ -23,7 +23,7 @@ const mapItemListAsoption = (item) => {
 
 export const Page = props => {
 
-    const { patient, handleChange, handleSave, lists, forms, ...rest } = props;
+    const { patient, handleChange, handleCancel, handleSave, lists, forms, ...rest } = props;
     const [location, setLocation] = useLocation();
 
     const { t, dateSysToHuman, dateHumanToSys } = useTranslation()
@@ -114,7 +114,6 @@ export const Page = props => {
     }, [relevantFields])
 
     let mask = [/\d/, /\d/, ".", /\d/, /\d/, ".", /\d/, /\d/, /\d/, /\d/]
-
     return (
         <MainView className="page-create-subject">
             <Grid>
@@ -176,7 +175,7 @@ export const Page = props => {
                         })}
 
                         <ComponentWithArea tabIndex={30} area="btsave"><Button type="submit">Enregistrer</Button></ComponentWithArea>
-                        <ComponentWithArea tabIndex={99} area="btcancel"><Button className="btn--secondary" onClick={_ => setLocation('/search')}>Annuler</Button></ComponentWithArea>
+                        <ComponentWithArea tabIndex={99} area="btcancel"><Button className="btn--secondary" onClick={_ => handleCancel()}>Annuler</Button></ComponentWithArea>
 
                     </Grid>
                 </form>
@@ -191,6 +190,7 @@ export const Page = props => {
 Page.defaultProps = {
 
     t: identity,
+    handleCancel : _=> setLocation('/search'),
     handleSave: _ => console.warn('save handler not setup'),
     forms: [
         { list_key: 'pathological_groups', path: 'groups.patho' },

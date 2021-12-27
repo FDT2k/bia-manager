@@ -6,6 +6,7 @@ import About from '@/App/Features/About';
 import DatabaseListManager from '@/App/Features/DatabaseListManager';
 
 import CreateSubject from '@/App/Features/CreateSubject';
+import EditSubject from '@/App/Features/EditSubject';
 import Editor from '@/App/Features/Editor'
 import Welcome from '@/App/Features/Welcome';
 import DatabaseImport from '@/App/Features/DatabaseImport'
@@ -23,6 +24,7 @@ const views = {
     Editor,
     Database:DatabaseImport,
     CreateSubject,
+    EditSubject,
     DatabaseListManager,
     Sync:DatabaseSync
 }

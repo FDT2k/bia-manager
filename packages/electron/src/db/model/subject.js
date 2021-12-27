@@ -102,7 +102,13 @@ const subject = (db, api) => {
         return res;
     };
 
+    module.fetch  = (filter, hash = 'main', removeIds = false) => {
 
+        let stmt = db.prepare(`Select s.* from ${hash}.subjects s  where ${api.genConditionSQL(filter)}`).raw();
+      
+
+        return _retrieve_entity('subjects', schema, stmt.columns(), stmt.get(filter));
+    }
 
     module.fetchFull = (filter, filter_mesures, hash = 'main', removeIds = false) => {
 
