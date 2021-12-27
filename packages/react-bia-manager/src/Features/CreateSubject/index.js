@@ -34,7 +34,7 @@ export const Page = props => {
 
         'usual_height': { type: 'text', label: 'Taille', tabIndex: 6 + 1 },
         'usual_weight': { type: 'text', label: 'Poids habituel', tabIndex: 6 + 2 },
-        'diag': { type: 'textarea', label: 'Diagnostic', tabIndex: 6 + 3 },
+       // 'diag': { type: 'textarea', label: 'Diagnostic', tabIndex: 6 + 3 },
     }
 
     // inject custom fields
@@ -190,7 +190,7 @@ export const Page = props => {
 Page.defaultProps = {
 
     t: identity,
-    handleCancel : _=> setLocation('/search'),
+    handleCancel : _=> window.location.href='#/search',
     handleSave: _ => console.warn('save handler not setup'),
     forms: [
         { list_key: 'pathological_groups', path: 'groups.patho' },
