@@ -21,7 +21,7 @@ const subject = (db, api) => {
         med_name:'',
         med_service:'',
         hash: '',
-        last_updated: ''
+        last_updated: '',
     }
 
 
@@ -352,6 +352,11 @@ const subject = (db, api) => {
         fds: {
             left: { ...sideState },
             right: { ...sideState }
+        },
+        bia_data:{
+            kushner:{"fm":"","pct_fm":"","ffm":"","pct_ffm":"","dffm":"","pct_dffm":"","ffmi":"","fmi":"","water":"","pct_water":""},
+            segal:{"fm":"","pct_fm":"","ffm":"","pct_ffm":"","dffm":"","pct_dffm":"","ffmi":"","fmi":"","water":"","pct_water":""},
+            gva:{"fm":"","pct_fm":"","ffm":"","pct_ffm":"","ffmi":"","fmi":""}
         }
     }
 

@@ -34,8 +34,8 @@ export const encode_password = (password, salt) => {
 }
 
 export default ({ children }) => {
-    const { actions: { sqlite_model_transaction, sqlite_api, sqlite_export, sqlite_search, sqlite_custom_search, sqlite_create, sqlite_query, sqlite_model, sqlite_attach, sqlite_import } } = useElectron();
-    const { selectors: { locked, file }, actions: { reload_file_state } } = useFileProvider();
+    const { actions: { sqlite_model_transaction, sqlite_api, sqlite_export, sqlite_search, sqlite_custom_search, sqlite_create, sqlite_query, sqlite_model, sqlite_attach, sqlite_import,close } } = useElectron();
+    const { selectors: { locked, file }, actions: { reload_file_state,close_file } } = useFileProvider();
     const [subject, setState] = useState({})
     const [should_reload_lists, setShouldReloadLists] = useState(false)
     const { add_error, start_loading, stop_loading } = useHostProvider();
@@ -144,6 +144,18 @@ export default ({ children }) => {
 
     }
 
+    const migrate_database = async () => {
+        let result =  await sqlite_api({ api: 'migrate', args: [] }).catch(
+            err=> {
+                return isConfirmed('An error occured while migrating the database. This can happens if a previous migration has failed. Do you want to continue using this database ?') ;
+            }
+        )
+
+        return true;
+
+    }
+
+
     const save_subject = async ({ age,
         birthdate,
         gender,
@@ -194,7 +206,6 @@ export default ({ children }) => {
     const check_data_protection = async() => {
 
         let result =  await sqlite_query({query:"select value from settings where key = 'sensitive_data_checked'",values: {},fn:'get'});
-        debugger;
         return result.value === '0';
     }
     const disable_data_protection = async() => {
@@ -249,7 +260,13 @@ export default ({ children }) => {
 
         if (!locked && !is_empty(file)) {
             start_loading(t('checking database'))
-            check_database().then(res => {
+            migrate_database().then(res => {
+                if(res === false){
+                    close_file();
+                   throw new Error('Database has been closed');
+                }
+                return check_database();
+            }).then(res => {
                 if (!res) {
                     add_error(t('Your database schema is diverging from current version.'))
                     return
@@ -264,7 +281,6 @@ export default ({ children }) => {
                 return check_data_protection() 
                
             }).then(res=> {
-                debugger;
                 if(res=== true){
                     return isConfirmed('Désirez vous protéger les données sensibles par un mot de passe supplémentaire ?',{
                         okLabel:'Oui',cancelLabel:'Non'}) 

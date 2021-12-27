@@ -29,6 +29,7 @@ const mesure = (db, api) => {
         fds: 'json',
         uuid: '',
         mesure_id:'',
+        bia_data:'json',
         last_updated:''
 
     }
