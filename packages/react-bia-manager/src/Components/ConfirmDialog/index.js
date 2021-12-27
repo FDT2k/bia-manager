@@ -41,7 +41,6 @@ export const Component = props => {
     const handleProceed = _=> {
 
 
-       
 
         let result = true ;
 
@@ -61,6 +60,11 @@ export const Component = props => {
         
     }
 
+    const handleCancel = _=> {
+
+        return cancel(false);
+    }
+
     return (<>
         <Modal type="confirm" visible={isOpen}>
             <LayoutFlexColumn style={{ gap: '10px' }} justCenter alignCenter>
@@ -78,7 +82,7 @@ export const Component = props => {
                     })}
                 </LayoutFlexColumn>
                 <LayoutFlex style={{ gap: '10px' }}><Button onClick={handleProceed}>{t(okLabel)}</Button>
-                    <Button onClick={cancel}>{t(cancelLabel)}</Button></LayoutFlex>
+                    <Button onClick={handleCancel}>{t(cancelLabel)}</Button></LayoutFlex>
             </LayoutFlexColumn>
         </Modal>
     </>)

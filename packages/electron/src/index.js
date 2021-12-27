@@ -312,6 +312,7 @@ ipcMain.handle('sqlite-unlock', async (event, key) => {
   try {
     console.log('unlocking sqlite db', key);
     return currentSQLite.unlock(key);
+   //return currentSQLite.migrate();
   } catch (e) {
     return Promise.reject(e);
   }

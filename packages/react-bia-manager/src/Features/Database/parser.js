@@ -5,7 +5,9 @@ import { as_safe_path } from '@karsegard/composite-js'
 import faker from 'faker'
 import { format, parseISO } from 'date-fns'
 
-
+//import {bia_reducer} from './bia-reducer';
+import { get_bmi, get_ideal_weight, get_most_accurate_formula } from '@/references';
+import {calc_age} from '@/references/age'
 
 let data = [];
 let fields = [];
@@ -27,16 +29,19 @@ export const remap = (obj, mapping, ref = {}) => (carry, item) => {
     if (_mapped && is_type_string(_mapped)) {
         carry[_mapped] = value(item);
     } else if (is_type_object(_mapped)) {
-        let { name, transform } = _mapped;
-        if (!is_type_function(transform)) {
+        let { name, transform,bia_transform } = _mapped;
+        if (!is_nil(transform) && !is_type_function(transform)) {
             transform = eval(transform);
+        }else if(!is_nil(bia_transform)){
+            transform = bia_reducer(...bia_transform);
         }
-
+       // debugger;
         carry[name] = transform(carry[name], obj, { ...ref, ...carry });
 
     }
     return carry;
 }
+
 
 
 
@@ -71,6 +76,47 @@ export const init = (payload, callback) => {
     callback({ total });
 
 }
+
+
+
+export const bia_reducer = (field,oldField,gva=false)=> (carry={},value,values)=> {
+
+    let formula = get_most_accurate_formula(values.gender,values.bmi_ref)
+    if(gva === true) {
+        formula = 'gva';
+    }
+    
+    //let idx = carry.findIndex(item=> item.label === field);
+   // if(idx === -1 ){
+   //     carry.push({label:field,values:{[formula]:value[oldField]},limits:{},display:true})
+    //}else{
+      /*  carry = carry.map((item,_idx)=>{
+            if(_idx === idx){
+                return {
+                        ...item,
+                        values:{
+                            ...item.values,
+                            [formula]:value[oldField]
+                        }
+                }
+            }else {
+                return item;
+            }
+        })*/
+    //}
+
+
+    carry = {
+        ...carry,
+        [formula]:{
+            ...carry[formula],
+            [field]:value[oldField]
+        }
+    }
+    
+    return carry;
+}
+
 
 
 export const parse = ({
@@ -118,6 +164,8 @@ export const parse = ({
                     p.birthdate = format(faker.date.between(`1901-01-01`, `2021-12-31`), "yyyy-MM-dd");
                 }
             }
+
+            p.age = calc_age(p.birthdate);
             p.uuid = index_key
             carry.data[index_key] = p;
             carry.list.push(p);
@@ -132,7 +180,7 @@ export const parse = ({
 
 
         let remapped_mesure = enlist(mesure).reduce(remap(mesure, mapping.mesure, carry.data[index_key]), {});
-
+        remapped_mesure.current_age = calc_age(carry.data[index_key].birthdate,remapped_mesure.date);
         //  import_mesure(remapped_mesure,index_key);
         carry.data[index_key].mesures.push(remapped_mesure);
         carry.data[index_key].mesures_dates.push(remapped_mesure.date);

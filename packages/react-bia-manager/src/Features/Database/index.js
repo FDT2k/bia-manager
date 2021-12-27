@@ -31,6 +31,7 @@ export const Component = props => {
 
 
     const workerCallback = data => {
+        debugger;
         if (data.progress) {
             let pct = (parseInt(data.progress)* 100 /parseInt(data.total))
             debugger;
@@ -75,7 +76,6 @@ export const Component = props => {
                 'dateNaissance': 'birthdate',
                 'groupePath': { name: 'groups', transform: "(state={},value) => ({...state,'patho':value.groupePath})" },
                 'groupeEthno': { name: 'groups', transform: "(state={},value) => ({...state,'ethno':value.groupeEthno})" },
-                'age': 'age',
                 'sexe': { name: 'gender', transform: "(state,value) => value.sexe =='H'? 'M': 'F'" },
                 'poidsHab': 'usual_weight',
                 'tailleHab': 'usual_height',
@@ -112,20 +112,26 @@ export const Component = props => {
                 'taille': 'height',
                 'appareil': 'machine',
                 'noMesure':'mesure_id',
-                'mesureUuid': 'uuid'
+                'mesureUuid': 'uuid',
+                //  't2R': {name:'bia', transform: "(state={},value)=>({...state,ht2r: value.t2R})"},
+//                  'dens': {name:'bia', transform: "(state={},value)=>({...state,density: value.dens})"},
+                  'eau': {name:'bia_data', bia_transform: ['water','eau']},
+                  'pcEau': {name:'bia_data', bia_transform: ['pct_water','pcEau']},
+                  'mng': {name:'bia_data', bia_transform: ['ffm','mng']},
+                  'pcMng': {name:'bia_data', bia_transform: ['pct_ffm','pcMng']},
+                  'ffmi': {name:'bia_data', bia_transform: ['ffmi','ffmi']},
+                  'mngs': {name:'bia_data', bia_transform: ['dffm','mngs']},
+                  'pcMngs': {name:'bia_data', bia_transform: ['pct_dffm','pcMngs']},
+                  'mg': {name:'bia_data', bia_transform: ['fm','mg']},
+                  'pcMg': {name:'bia_data', bia_transform: ['pct_fm','pcMg']},
+                  'fmi': {name:'bia_data', bia_transform: ['fmi','fmi']},
 
-                /*  't2R': {name:'bia', transform: "(state={},value)=>({...state,ht2r: value.t2R})"},
-                  'dens': {name:'bia', transform: "(state={},value)=>({...state,density: value.dens})"},
-                  'eau': {name:'bia', transform: "(state={},value)=>({...state,water: value.eau})"},
-                  'pcEau': {name:'bia', transform: "(state={},value)=>({...state,pct_water: value.pcEau})"},
-                  'mng': {name:'bia', transform: "(state={},value)=>({...state,ffm: value.mng})"},
-                  'pcMng': {name:'bia', transform: "(state={},value)=>({...state,pct_ffm: value.pcMng})"},
-                  'ffmi': {name:'bia', transform: "(state={},value)=>({...state,ffmi: value.ffmi})"},
-                  'mngs': {name:'bia', transform: "(state={},value)=>({...state,dffm: value.mngs})"},
-                  'pcMngs': {name:'bia', transform: "(state={},value)=>({...state,pct_dffm: value.pcMngs})"},
-                  'mg': {name:'bia', transform: "(state={},value)=>({...state,fm: value.mg})"},
-                  'pcMg': {name:'bia', transform: "(state={},value)=>({...state,pct_ffm: value.pcMg})"},
-                  'fmi': {name:'bia', transform: "(state={},value)=>({...state,fmi: value.fmi})"},*/
+                  'mgGva': {name:'bia_data', bia_transform: ['fm','mgGva',true]},
+                  'pcMgGva': {name:'bia_data', bia_transform: ['pct_fm','pcMgGva',true]},
+                  'mngGva': {name:'bia_data', bia_transform: ['ffm','mngGva',true]},
+                  'pcMngGva': {name:'bia_data', bia_transform: ['pct_ffm','pcMngGva',true]},
+                  'ffmig': {name:'bia_data', bia_transform: ['ffmi','ffmig',true]},
+                  'fmig': {name:'bia_data', bia_transform: ['fmi','fmig',true]},
                 /*  'signe': {name:'most_accurate_bia_formula', transform: `(state={},value,values)=>{
                       const accurate_formula = ${mostAccurateFormula.toString()};
   

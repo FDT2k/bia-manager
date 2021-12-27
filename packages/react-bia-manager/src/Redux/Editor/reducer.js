@@ -1,5 +1,6 @@
 import EMPTY_MESURE from '@/references/mesure-schema';
-import { safe_path } from '@karsegard/composite-js';
+import { safe_path,enlist } from '@karsegard/composite-js';
+import { keyval } from '@karsegard/composite-js/ObjectUtils';
 import { spreadObjectPresentIn } from '@karsegard/composite-js/ReactUtils';
 import { combineReducers, createReducer, handlers } from '@karsegard/react-redux';
 import moment from 'moment'
@@ -32,6 +33,44 @@ export default (getModule) => {
         [types.SELECT_MESURE]: (state, { payload }) => payload.mesure_id
     });
 
+
+    /*{
+    "label": "water",
+    "values": {
+        "segal": 38.1264341162,
+        "kushner": 39.70787034090909
+    },
+    "limits": {},
+    "logs": {
+        "segal": "0.73 * 52.22799194",
+        "kushner": "8.3148 + ( (0.3821 * pow( 177,2) ) / 528) + 0.1052 * 82.9"
+    },
+    "display": true
+} */
+    module.bia_data = (state={},action)=> {
+        return action.payload.bia.reduce((carry,line)=>{
+            
+           return  enlist(line.values).reduce((_carry,item)=> {
+
+            let [formula,value] = keyval(item);
+            if(formula !== "norme"){
+                return {
+                    ..._carry,
+                    [formula]:{
+                        ..._carry[formula],
+                        [line.label]:value
+                    }
+                }
+            }else {
+                return _carry;
+            }
+
+            },carry)
+           
+
+        },{})
+
+    }
    
     module.mesure = (state={mesure:{}},action)=> {
 
@@ -64,7 +103,8 @@ export default (getModule) => {
                 return {
                     mesure:{
                         ...state.mesure,
-                        bia:[...action.payload.bia]
+                        bia:[...action.payload.bia],
+                        bia_data:module.bia_data(state.mesure.bia_data,action)
                     }
                 }
             case types.CREATE_MESURE:

@@ -205,9 +205,12 @@ export const API = db => {
 
 
     module.schema_check = () => {
+        debugger;
         const migration_files = fs.readdirSync(migrationPath)
         const applied = module.getStatements().get_migrations.all()
         return migration_files.reduce((carry, migration, idx) => {
+        debugger;
+
             if (!carry) {
                 return carry;
             }
@@ -216,7 +219,7 @@ export const API = db => {
             let migrationContent = fs.readFileSync(migrationFile, 'utf8');
             let hash = crypto.createHash('md5').update(migrationContent).digest('hex')
 
-            if (hash !== applied[idx]['hash']) {
+            if (!applied[idx] || hash !== applied[idx]['hash']) {
                 carry = false;
             }
 
@@ -261,7 +264,7 @@ export const API = db => {
             db.pragma('journal_mode = WAL');
             //        db.pragma('synchronous = FULL');
             unlocked = true
-            module.migrate();
+            //module.migrate();
 
             return true;
         } catch (e) {
