@@ -22,6 +22,7 @@ export const makeProvider = (Context) => (props) => {
     const defaultViews = {
         Welcome,
         CreateSubject,
+        EditSubject:CreateSubject,
         Database,
         Sync,
         DatabaseListManager,

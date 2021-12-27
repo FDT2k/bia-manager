@@ -125,6 +125,15 @@ export default ({ children }) => {
         })
 
     }
+    const get_subject_by_uuid = async (uuid) => {
+        return sqlite_model({ model: "subject", fn: "fetch", args: [{uuid}] }).then(res => {
+            if (!res) {
+                add_error(t('subject not found in database'))
+            }
+            return res;
+        })
+
+    }
 
     const save_subject_mesures = async (subject) => {
         debugger;
@@ -502,7 +511,7 @@ export default ({ children }) => {
 
     const db_name = file
     return (
-        <BackendProvider type="sqlite" actions={{ get_subject, ready, search, search_custom_filters, create_database, fetch_stats, stats, db_name, search_count, get_lists, get_forms, create_subject, save_subject, save_subject_mesures, delete_mesure, fetch_lists, fetch_list, save_list, add_list_item, delete_list_item, save_list_item, attach, detach, detach_all, should_reload_lists, exportToCSV, attached_stats_query, attached_sync }}>
+        <BackendProvider type="sqlite" actions={{get_subject_by_uuid, get_subject, ready, search, search_custom_filters, create_database, fetch_stats, stats, db_name, search_count, get_lists, get_forms, create_subject, save_subject, save_subject_mesures, delete_mesure, fetch_lists, fetch_list, save_list, add_list_item, delete_list_item, save_list_item, attach, detach, detach_all, should_reload_lists, exportToCSV, attached_stats_query, attached_sync }}>
 
             {children}
             <SQLiteUnlock />

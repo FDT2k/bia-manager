@@ -111,5 +111,11 @@
    "An error occured while migrating the database. This can happens if a previous migration has failed. Do you want to continue using this database ?": "An error occured while migrating the database. This can happens if a previous migration has failed. Do you want to continue using this database ?",
    "Les changements ne seront pas sauvegardés, continuer?": "Les changements ne seront pas sauvegardés, continuer?",
    "Êtes vous sur de vouloir effacer cette mesure ?": "Êtes vous sur de vouloir effacer cette mesure ?",
-   "Importer": "Importer"
+   "Importer": "Importer",
+   "edit": "edit",
+   "Nouveau Patient": "Nouveau Patient",
+   "Prenom": "Prenom",
+   "Taille": "Taille",
+   "Poids habituel": "Poids habituel",
+   "Diagnostic": "Diagnostic"
 }

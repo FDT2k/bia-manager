@@ -1,5 +1,5 @@
 import React from 'react';
-import { EditorFeature} from '@karsegard/react-bia-manager';
+import { EditorFeature,PatientHeaderFeature} from '@karsegard/react-bia-manager';
 import { ReduxEditor } from '@karsegard/react-bia-manager';
 //import { EditorWithBackend } from '@karsegard/react-bia-manager';
 import {useBackend,useConfirm,useTranslation} from '@karsegard/react-bia-manager'
@@ -9,6 +9,15 @@ import {editorModule} from '@/Store'
 
 const Editor = ReduxEditor(editorModule,EditorFeature)
 
+
+const PatientHeader = props => {
+    const {data,...rest} = props
+    const handleAction= action=> {
+
+        window.location.href="#/subject/"+data.uuid
+    }
+    return <PatientHeaderFeature data={data} {...rest} actions={['edit']} handleAction={handleAction}/>
+}
 
 const EditorWithBackend = (props) => {
     const { get_subject,save_subject_mesures,save_subject, get_mesure,delete_mesure } = useBackend();
@@ -85,6 +94,7 @@ const EditorWithBackend = (props) => {
         <Editor
             {...rest}
             handlers={handlers}
+            PatientHeader={PatientHeader}
         />
     )
 }

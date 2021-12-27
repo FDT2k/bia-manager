@@ -54,6 +54,13 @@ export default props => {
                 }</Route>
                 <Route path="/search" component={views.Search} />
                 <Route path="/create_subject" component={views.CreateSubject} />
+                <Route path="/subject/:id">
+                    { ({id}) => {
+                        return <views.EditSubject id={id}/>
+                    }
+
+                    }
+                </Route>
                 <Route path="/about" component={views.About} />
 
                 <Route path="/"><views.Welcome /></Route>

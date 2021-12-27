@@ -9,7 +9,7 @@ import Field from '@/Components/Form/Fields';
 import PageHeader from '@/Components/PageHeader';
 import {LayoutFlex} from '@karsegard/react-core-layout'
 
-import React, { useEffect } from 'react';
+import React, { useEffect,useState ,useMemo} from 'react';
 import {useCustomList,useTranslation} from '@'
 
 
@@ -23,11 +23,28 @@ const FieldSet = compose(
 )(LayoutFlex)
 
 
+const NameForm = props => {
+    const {data} = props;
+
+    const { values, handleChangeValue, inputProps, handleChange, assignValues, replaceValues } = useFieldValues(data, { usePath:true });
+
+    return (
+        <LayoutFlex>
+            <Field label="Prénom">
+                <input type="text" {...inputProps('firstname')}/>
+            </Field>
+            <Field label="Nom">
+                <input type="text" {...inputProps('lastname')}/>
+            </Field>
+        </LayoutFlex>
+    )
+}
+
 
 const PatientHeader = props => {
     // console.log('patientHeader',props);
 
-    const { data, refresh_editor_lists, handleChange:handleParentChange,custom_lists ,...rest } = props
+    const { data, refresh_editor_lists, handleChange:handleParentChange,custom_lists,handleAction,actions ,...rest } = props
 
     const {className} = rest;
 
@@ -58,10 +75,18 @@ const PatientHeader = props => {
 
     const { values, handleChangeValue, inputProps, handleChange, assignValues, replaceValues } = useFieldValues(data, { onValuesChange,usePath:true });
 
+    const label = useMemo(()=>{ 
+         return `${data.firstname} ${data.lastname}`
+       
+        },[data])
 
+   
+
+    
     return (
-        <PageHeader label={`${data.firstname} ${data.lastname}`} className={className}>
+        <PageHeader label={label} handleAction={handleAction} actions={actions} className={className}>
             <FieldSet>
+               
                 {
                     enlist(fields).map(_item => {
                         const item = value(_item)
