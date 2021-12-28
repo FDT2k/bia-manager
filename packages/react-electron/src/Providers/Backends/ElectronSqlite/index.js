@@ -118,6 +118,15 @@ export default ({ children }) => {
 
     }
 
+    const update_subject = async (values) => {
+        
+        if (values.birthdate) {
+            values.birthdate = dateHumanToSys(values.birthdate)
+        }
+        return await sqlite_model({ model: "subject", fn: "save", args: [values] })
+
+    }
+
 
     const get_subject = async (id) => {
         return sqlite_model({ model: "subject", fn: "fetchWithMesures", args: [id] }).then(res => {
@@ -569,7 +578,7 @@ export default ({ children }) => {
     const db_name = file
     return (
         <BackendProvider type="sqlite" actions={{
-            get_subject_by_uuid, get_subject, ready, search, search_custom_filters, create_database, fetch_stats, stats, db_name, search_count, get_lists, get_forms, create_subject, save_subject, save_subject_mesures, delete_mesure, fetch_lists, fetch_list, save_list, add_list_item, delete_list_item, save_list_item, attach, detach, detach_all, should_reload_lists, exportToCSV, attached_stats_query, attached_sync,
+            get_subject_by_uuid, get_subject, ready, search, search_custom_filters, create_database, fetch_stats, stats, db_name, search_count, get_lists, get_forms, create_subject, save_subject, save_subject_mesures, delete_mesure, fetch_lists, fetch_list, save_list, add_list_item, delete_list_item, save_list_item, attach, detach, detach_all, should_reload_lists, exportToCSV, attached_stats_query, attached_sync,update_subject,
             sensitive_lock, protected_data_unlock, protected_data_lock
         }}>
 
