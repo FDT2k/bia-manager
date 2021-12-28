@@ -14,17 +14,19 @@ import fileContext, { determine_file_type } from './fileContext';
 
 import Store from 'electron-store'
 
-let store = new Store();
 
 import init18next from './plugins/i18next'
 
+import crypto from 'crypto';
 
+
+let store = new Store();
 
 let openedFilePath;
 let currentSQLite;
 let currentBackend;
 let mainWindow = null;
-
+let SD_softLock = true;
 let cleanState = false;
 
 const isSingleInstance = app.requestSingleInstanceLock();
@@ -39,6 +41,10 @@ const createFileIfNeeded = (file, content) => fs.stat(file).catch(_ => {
   fs.writeFile(file, content, { encoding: 'utf8' })
 });
 
+
+const encode_password = (password, salt) => {
+  return crypto.pbkdf2Sync(password, salt, 100, 64, 'sha512').toString('hex');
+}
 
 const langCollectionFile = resolve(__dirname, '../.langs');
 
@@ -254,10 +260,10 @@ ipcMain.handle('get-file-state', async (event,) => {
 
   if (currentBackend == 'sqlite') {
     additionalprops.unlocked = currentSQLite.isUnlocked();
-   
+
     updateMenuState();
 
-  
+
   }
 
   return { file: openedFilePath, type: currentBackend, canceled: false, ...additionalprops };
@@ -298,6 +304,7 @@ ipcMain.handle('close', async (event) => {
       openedFilePath = null;
       currentSQLite.db.close()
       currentSQLite = null;
+      SD_softLock=true;
     } else if (openedFilePath) {
       openedFilePath = null;
     }
@@ -312,7 +319,7 @@ ipcMain.handle('close', async (event) => {
 })
 
 
-const menuOpenFile = ()=> {
+const menuOpenFile = () => {
   console.log('menu is in opened state')
 
   Menu.getApplicationMenu().getMenuItemById('close').enabled = true;
@@ -322,18 +329,25 @@ const menuOpenFile = ()=> {
   Menu.getApplicationMenu().getMenuItemById('search').enabled = false;
 }
 
-const menuUnlockFile = ()=> {
-  console.log('menu is in unlocked state',Menu.getApplicationMenu().getMenuItemById('sync').enabled)
+const menuUnlockFile = () => {
+  console.log('menu is in unlocked state', Menu.getApplicationMenu().getMenuItemById('sync').enabled)
   Menu.getApplicationMenu().getMenuItemById('close').enabled = true;
   Menu.getApplicationMenu().getMenuItemById('sync').enabled = true;
   Menu.getApplicationMenu().getMenuItemById('import').enabled = true;
   Menu.getApplicationMenu().getMenuItemById('list').enabled = true;
   Menu.getApplicationMenu().getMenuItemById('search').enabled = true;
-  Menu.getApplicationMenu().getMenuItemById('unlock-sensitive-data').enabled = true;
-  
+  Menu.getApplicationMenu().getMenuItemById('unlock-sensitive-data').enabled = SD_softLock === true;
+  Menu.getApplicationMenu().getMenuItemById('lock-sensitive-data').enabled = SD_softLock === false;
+  /* if(SD_softLock===false){
+     Menu.getApplicationMenu().getMenuItemById('unlock-sensitive-data').label='Verrouiller les données sensibles'
+   }else{
+     Menu.getApplicationMenu().getMenuItemById('unlock-sensitive-data').label='Déverrouiller les données sensibles'
+ 
+   }*/
+
 }
 
-const menuCloseFile = ()=> {
+const menuCloseFile = () => {
   console.log('menu is in closed state')
 
   Menu.getApplicationMenu().getMenuItemById('close').enabled = false;
@@ -345,13 +359,13 @@ const menuCloseFile = ()=> {
 }
 
 
-const updateMenuState = ()=> {
+const updateMenuState = () => {
   //console.log('menustate',is_nil(currentSQLite), currentSQLite.isUnlocked())
-  if (is_nil(currentSQLite)){
+  if (is_nil(currentSQLite)) {
     menuCloseFile();
-  }else if (currentSQLite.isUnlocked() === true){
+  } else if (currentSQLite.isUnlocked() === true) {
     menuUnlockFile();
-  }else {
+  } else {
     menuOpenFile();
   }
 
@@ -372,26 +386,96 @@ ipcMain.handle('sqlite-unlock', async (event, key) => {
   try {
     debugger;
     console.log('unlocking sqlite db', key);
-    let unlocked =  currentSQLite.unlock(key);
+    let unlocked = currentSQLite.unlock(key);
+
+
     updateMenuState();
 
     return unlocked;
-   //return currentSQLite.migrate();
+    //return currentSQLite.migrate();
   } catch (e) {
     return Promise.reject(e);
   }
 
 })
 
-ipcMain.handle('sqlite_unlock_sensitive_data',async(event,key)=>{
+const sd_password_required = () => {
+  let is_protected = currentSQLite.db.prepare("select value from settings where key = 'sensitive_data_checked'").get({});
+  console.log(is_protected)
 
-  return false;
+  is_protected = is_protected.value === '1';
+  console.log(is_protected)
+
+  let existing_p = currentSQLite.db.prepare("select value from settings where key = 'sensitive_data_password'").get({});
+
+  is_protected = is_protected && existing_p.value !== '';
+
+  if (is_protected === false) {
+    SD_softLock = false;
+    updateMenuState()
+
+  }
+  return is_protected;
+
+}
+
+ipcMain.handle('sqlite-sd-req-pwd', async () => {
+  return sd_password_required();
 })
 
-ipcMain.handle('sqlite-attach',async (event,{file,alias})=> {
+
+ipcMain.handle('sqlite-lock-sd', async (event, key) => {
+
+
+  SD_softLock = true;
+  updateMenuState()
+
+  return true;
+
+})
+
+ipcMain.handle('sqlite-unlock-sd', async (event, key) => {
+
+
+  if (sd_password_required() !== false) {
+
+    let salt = currentSQLite.db.prepare("select value from settings where key = 'sensitive_data_salt'").get({});
+    let existing_p = currentSQLite.db.prepare("select value from settings where key = 'sensitive_data_password'").get({});
+
+
+    let encoded = encode_password(key, salt.value);
+
+    if (encoded === existing_p.value) {
+      SD_softLock = false;
+      updateMenuState()
+
+      return true;
+    }
+    SD_softLock = true;
+    updateMenuState()
+
+    return false;
+  }
+  SD_softLock = false;
+  updateMenuState()
+
+  return true;
+
+})
+
+
+ipcMain.handle('sqlite-sd-unlocked', async (event, key) => {
+  debugger;
+  updateMenuState()
+  return SD_softLock === false;
+
+
+})
+
+ipcMain.handle('sqlite-attach', async (event, { file, alias }) => {
   try {
-    console.log('attaching sqlite db', file,alias);
-    return currentSQLite.attach(file,alias);
+    console.log('attaching sqlite db', file, alias);
+    return currentSQLite.attach(file, alias);
   } catch (e) {
     return Promise.reject(e);
   }

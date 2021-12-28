@@ -23,7 +23,7 @@ const mapItemListAsoption = (item) => {
 
 export const Page = props => {
 
-    const { patient, handleChange, handleCancel, handleSave, lists, forms, ...rest } = props;
+    const { patient, handleChange, handleCancel, handleSave, lists, forms,locked, ...rest } = props;
     const [location, setLocation] = useLocation();
 
     const { t, dateSysToHuman, dateHumanToSys } = useTranslation()
@@ -35,6 +35,15 @@ export const Page = props => {
         'usual_height': { type: 'text', label: 'Taille', tabIndex: 6 + 1 },
         'usual_weight': { type: 'text', label: 'Poids habituel', tabIndex: 6 + 2 },
        // 'diag': { type: 'textarea', label: 'Diagnostic', tabIndex: 6 + 3 },
+    }
+
+    if(locked === false){
+        fields = {
+            ...fields,
+            'med_name': { type: 'text', label: 'Médecin', tabIndex: 6+4 },
+            'med_service': { type: 'text', label: 'Service', tabIndex: 6+5 },
+            'diag': { type: 'textarea', label: 'Diagnostic', tabIndex: 6 + 3 },
+        }
     }
 
     // inject custom fields
@@ -128,7 +137,7 @@ export const Page = props => {
                         templateAreas={[
                             `${repeat(5, "lastname ")} . ${repeat(3, "birthdate ")} . ${repeat(4, "groups_patho ")} . ${repeat(3, "usual_height ")}`,
                             `${repeat(5, "firstname ")} . ${repeat(3, "gender ")} . ${repeat(4, "groups_ethno ")} . ${repeat(3, "usual_weight ")}`,
-                            `${repeat(9, "diag ")}  ${repeat(9, ". ")}`,
+                            `${repeat(9, "diag ")}  ${repeat(3, "med_name ")}  ${repeat(6, "med_service ")}`,
                             `${repeat(3, "btcancel ")}  ${repeat(3, "btsave ")} ${repeat(12, ". ")}`,
                         ]}
 

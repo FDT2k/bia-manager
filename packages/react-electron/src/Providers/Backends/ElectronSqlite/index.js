@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useElectron } from '@/Context/Electron';
 import SQLiteUnlock from '@/Components/SQLiteUnlock';
-import { BackendProvider,useConfirm } from '@karsegard/react-bia-manager'
+import { BackendProvider, useConfirm } from '@karsegard/react-bia-manager'
 import webWorker from './heavysql.worker.js?worker&inline'
 import { useFileProvider } from '@/Context/File'
 import { v4 as uuidv4 } from 'uuid';
@@ -12,7 +12,7 @@ import { useTranslation } from '@karsegard/react-bia-manager';
 import { add } from 'date-fns';
 import ohash from 'object-hash'
 import crypto from 'pbkdf2'
-import {nanoid} from 'nanoid';
+import { nanoid } from 'nanoid';
 const doHeavyWork = (message) => {
 
     let worker = new webWorker();
@@ -34,8 +34,8 @@ export const encode_password = (password, salt) => {
 }
 
 export default ({ children }) => {
-    const { actions: { sqlite_model_transaction, sqlite_api, sqlite_export, sqlite_search, sqlite_custom_search, sqlite_create, sqlite_query, sqlite_model, sqlite_attach, sqlite_import,close },subscribers:{handleUnlockSensitiveData} } = useElectron();
-    const { selectors: { locked, file }, actions: { reload_file_state,close_file } } = useFileProvider();
+    const { actions: { sqlite_model_transaction, sqlite_api, sqlite_export, sqlite_search, sqlite_custom_search, sqlite_create, sqlite_query, sqlite_model, sqlite_attach, sqlite_import, sqlite_unlock_sd,sqlite_lock_sd,sqlite_sd_is_unlocked, sqlite_sd_req_password }, subscribers: { handleUnlockSensitiveData,handleLockSensitiveData } } = useElectron();
+    const { selectors: { locked, file }, actions: { reload_file_state, close_file } } = useFileProvider();
     const [subject, setState] = useState({})
     const [sensitive_lock, setSensitiveLock] = useState(true)
     const [should_reload_lists, setShouldReloadLists] = useState(false)
@@ -63,7 +63,7 @@ export default ({ children }) => {
 
     }
 
-    
+
 
 
     const create_database = async (arg) => {
@@ -129,7 +129,7 @@ export default ({ children }) => {
 
     }
     const get_subject_by_uuid = async (uuid) => {
-        return sqlite_model({ model: "subject", fn: "fetch", args: [{uuid}] }).then(res => {
+        return sqlite_model({ model: "subject", fn: "fetch", args: [{ uuid }] }).then(res => {
             if (!res) {
                 add_error(t('subject not found in database'))
             }
@@ -157,9 +157,9 @@ export default ({ children }) => {
     }
 
     const migrate_database = async () => {
-        let result =  await sqlite_api({ api: 'migrate', args: [] }).catch(
-            err=> {
-                return isConfirmed('An error occured while migrating the database. This can happens if a previous migration has failed. Do you want to continue using this database ?') ;
+        let result = await sqlite_api({ api: 'migrate', args: [] }).catch(
+            err => {
+                return isConfirmed('An error occured while migrating the database. This can happens if a previous migration has failed. Do you want to continue using this database ?');
             }
         )
 
@@ -215,32 +215,32 @@ export default ({ children }) => {
     }
 
 
-    const check_data_protection = async() => {
+    const check_data_protection = async () => {
 
-        let result =  await sqlite_query({query:"select value from settings where key = 'sensitive_data_checked'",values: {},fn:'get'});
+        let result = await sqlite_query({ query: "select value from settings where key = 'sensitive_data_checked'", values: {}, fn: 'get' });
         return result.value === '0';
     }
-    const disable_data_protection = async() => {
+    const disable_data_protection = async () => {
 
-        let result =  await sqlite_query({query:"update settings set value = '1' where key = 'sensitive_data_checked'",values: {},fn:'run'});
-        return ;
+        let result = await sqlite_query({ query: "update settings set value = '1' where key = 'sensitive_data_checked'", values: {}, fn: 'run' });
+        return;
     }
 
-    const enable_data_protection = async() => {
+    const enable_data_protection = async () => {
 
-       
-        let password =  await isConfirmed('Choisissez un mot de passe', {
+
+        let password = await isConfirmed('Choisissez un mot de passe', {
             fields: [
                 { type: 'password', 'name': 'password', 'label': t('Password'), autoFocus: true },
                 { type: 'password', 'name': 'confirm_password', 'label': t('Confirm Password'), },
             ],
-            form:{password:'',confirm_password:''},
-            validate: (values)=> {
-                if(values.password !==values.confirm_password){
+            form: { password: '', confirm_password: '' },
+            validate: (values) => {
+                if (values.password !== values.confirm_password) {
                     add_error(t("Les mots de passe de correspondent pas"))
                     return false;
                 }
-                if(values.password.length < 6){
+                if (values.password.length < 6) {
                     add_error(t("La longueur minimum est de 6 charactères"))
                     return false;
                 }
@@ -251,36 +251,60 @@ export default ({ children }) => {
 
 
         let salt = nanoid(5);
-        
-        let res = await sqlite_query({query:"update settings set value = @salt where key = 'sensitive_data_salt'",values: {salt},fn:'run'});
-        let res2 = await sqlite_query({query:"update settings set value = @password where key = 'sensitive_data_password'",values: {password:encode_password(password.password,salt)},fn:'run'});
 
-        await sqlite_query({query:"update settings set value = '1' where key = 'sensitive_data_checked'",values: {},fn:'run'});
+        let res = await sqlite_query({ query: "update settings set value = @salt where key = 'sensitive_data_salt'", values: { salt }, fn: 'run' });
+        let res2 = await sqlite_query({ query: "update settings set value = @password where key = 'sensitive_data_password'", values: { password: encode_password(password.password, salt) }, fn: 'run' });
+
+        await sqlite_query({ query: "update settings set value = '1' where key = 'sensitive_data_checked'", values: {}, fn: 'run' });
         return res;
     }
 
-    //returns true if data are 
-    const protected_data_unlocked = async ()=> {
+    //returns true if data are readable
+    const is_protected_data_unlocked = async () => {
+        let res =  await sqlite_sd_is_unlocked();
+        debugger;
+        return res;
     }
 
-    const protected_data_unlock = async ()=> {
-        
-        let result = await isConfirmed("",{okLabel:"unlock",title:"Unlock sensitive data",fields: [
-            { type: 'password', 'name': 'password', 'label': t('Password'), autoFocus: true },
-           
-        ],
-        form:{password:''},})
+    const protected_data_unlock = async () => {
+        let password_required = await sqlite_sd_req_password();
+        if (password_required === true) {
+            let result = await isConfirmed("", {
+                okLabel: "unlock",
+                title: "Unlock sensitive data",
+                fields: [
+                    { type: 'password', 'name': 'password', 'label': t('Password'), autoFocus: true },
+                ],
+                form: { password: '' }
+            });
+            if (result !== false) {
+                let res = await sqlite_unlock_sd(result.password)
+                if (!res) {
+                    add_error('Le mot de passe est invalide');
+                    protected_data_unlock()
+                }else {
+                    setSensitiveLock(false);
+                }
+                
+            }
+        }else{
+            setSensitiveLock(false);
+
+        }
     }
 
-    const protected_data_lock= async ()=> {
-        
+    const protected_data_lock = async () => {
+        await sqlite_lock_sd()
+        setSensitiveLock(true);
     }
 
 
 
     useEffect(() => {
         if (ready && !locked && !is_empty(file)) {
-
+            is_protected_data_unlocked().then(res=>{
+                setSensitiveLock(!res);
+            })
             fetch_stats();
         }
     }, [ready])
@@ -290,9 +314,9 @@ export default ({ children }) => {
         if (!locked && !is_empty(file)) {
             start_loading(t('checking database'))
             migrate_database().then(res => {
-                if(res === false){
+                if (res === false) {
                     close_file();
-                   throw new Error('Database has been closed');
+                    throw new Error('Database has been closed');
                 }
                 return check_database();
             }).then(res => {
@@ -306,27 +330,28 @@ export default ({ children }) => {
             }).then(res => {
                 start_loading(t('updating database 2 / 2'))
                 return update_hashes();
-            }).then(res=>{
-                return check_data_protection() 
-               
-            }).then(res=> {
-                if(res=== true){
-                    return isConfirmed('Désirez vous protéger les données sensibles par un mot de passe supplémentaire ?',{
-                        okLabel:'Oui',cancelLabel:'Non'}) 
-                }else{
+            }).then(res => {
+                return check_data_protection()
+
+            }).then(res => {
+                if (res === true) {
+                    return isConfirmed('Désirez vous protéger les données sensibles par un mot de passe supplémentaire ?', {
+                        okLabel: 'Oui', cancelLabel: 'Non'
+                    })
+                } else {
                     return null;
                 }
 
-            }).then(res=> {
-                if(res === null){
+            }).then(res => {
+                if (res === null) {
                     return true;
-                }else if(res === false){
+                } else if (res === false) {
                     return disable_data_protection();
-                }else if(res === true){
+                } else if (res === true) {
                     return enable_data_protection();
                 }
             }).then(res => {
-                
+
                 setReady(true)
                 stop_loading()
             }).catch(err => {
@@ -338,12 +363,17 @@ export default ({ children }) => {
         }
     }, [locked, file])
 
-    useEffect(()=>{
-        handleUnlockSensitiveData(()=> {
+    useEffect(() => {
+        handleUnlockSensitiveData(() => {
             protected_data_unlock()
             debugger;
         })
-    },[])
+        handleLockSensitiveData(()=>{
+            protected_data_lock()
+            debugger;
+
+        })
+    }, [])
 
     const update_hashes = async () => {
 
@@ -372,7 +402,7 @@ export default ({ children }) => {
     }
 
     const update_uuids = async () => {
-       
+
         const mesures = await sqlite_model({ model: "mesure", fn: "all", args: [{ subject_uuid: null }] })
         let results = [];
         if (mesures.length > 0) {
@@ -538,8 +568,10 @@ export default ({ children }) => {
 
     const db_name = file
     return (
-        <BackendProvider type="sqlite" actions={{get_subject_by_uuid, get_subject, ready, search, search_custom_filters, create_database, fetch_stats, stats, db_name, search_count, get_lists, get_forms, create_subject, save_subject, save_subject_mesures, delete_mesure, fetch_lists, fetch_list, save_list, add_list_item, delete_list_item, save_list_item, attach, detach, detach_all, should_reload_lists, exportToCSV, attached_stats_query, attached_sync,
-            sensitive_lock,protected_data_unlock,protected_data_lock }}>
+        <BackendProvider type="sqlite" actions={{
+            get_subject_by_uuid, get_subject, ready, search, search_custom_filters, create_database, fetch_stats, stats, db_name, search_count, get_lists, get_forms, create_subject, save_subject, save_subject_mesures, delete_mesure, fetch_lists, fetch_list, save_list, add_list_item, delete_list_item, save_list_item, attach, detach, detach_all, should_reload_lists, exportToCSV, attached_stats_query, attached_sync,
+            sensitive_lock, protected_data_unlock, protected_data_lock
+        }}>
 
             {children}
             <SQLiteUnlock />
