@@ -42,10 +42,12 @@ export default props => {
     }, [forms])
 
     const handleSave = values => {
-            
+            debugger;
         let _vals = {
             ...values,
-            birthdate:  moment(values['birthdate'],'DD.MM.YYYY').format("YYYY-MM-DD")
+            birthdate:  moment(values['birthdate'],'DD.MM.YYYY').format("YYYY-MM-DD"),
+            diag: values.diag.split("\n")
+
         };
         Promise.resolve(create_subject(_vals))
         
