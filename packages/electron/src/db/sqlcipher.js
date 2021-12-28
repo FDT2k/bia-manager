@@ -209,7 +209,6 @@ export const API = db => {
         const migration_files = fs.readdirSync(migrationPath)
         const applied = module.getStatements().get_migrations.all()
         return migration_files.reduce((carry, migration, idx) => {
-        debugger;
 
             if (!carry) {
                 return carry;

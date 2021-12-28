@@ -5,7 +5,7 @@ import { keyval } from '@karsegard/composite-js/ObjectUtils';
 import { LayoutFlexColumn, LayoutFlex } from '@karsegard/react-core-layout';
 import Button from '@/Components/Form/Button';
 import { useTranslation, useConfirm } from '@';
-import { useFieldValues,useValidate } from '@karsegard/react-hooks';
+import { useFieldValues,useKeypress } from '@karsegard/react-hooks';
 
 
 export const Component = props => {
@@ -16,12 +16,17 @@ export const Component = props => {
         okLabel = 'proceed',
         cancelLabel = 'cancel',
         isOpen = false,
+        validateKey= 'Enter',
+        cancelKey='Escape',
         proceed,
         fields,
         form,
         validate,
         cancel
     } = useConfirm();
+
+    const validateKeyPressed = useKeypress(validateKey);
+    const cancelKeyPressed = useKeypress(cancelKey);
 
 
     const { t } = useTranslation()
@@ -30,7 +35,13 @@ export const Component = props => {
 
     const { values, inputProps,replaceValues } = useFieldValues(form || {},{usePath:true});
 
-
+    useEffect(()=>{
+        if(isOpen === true && validateKeyPressed === true){
+            handleProceed();
+        }else if(isOpen === true && cancelKeyPressed === true){
+            handleCancel();
+        }
+    },[validateKeyPressed,cancelKeyPressed]);
 
     useEffect(()=>{
         replaceValues(form);

@@ -57,6 +57,38 @@ export default (app, window,labelEnhancer=identity ) => {
       ]
     },
     {
+      label: labelEnhancer('Sécurité'),
+      submenu: [
+        {
+          label: labelEnhancer('Configurer'),
+          id:'configure-sensitive-data',
+          enabled:false,
+          click() {
+            window.webContents.send('trigger-configure-sensitive-data');
+          }
+
+        },
+        {
+          label: labelEnhancer('Déverouiller les données sensibles'),
+          id:'unlock-sensitive-data',
+          enabled:false,
+          click() {
+            window.webContents.send('trigger-unlock-sensitive-data');
+          }
+
+        },
+        {
+          label: labelEnhancer('Verrouiller les données sensibles'),
+          id:'lock-sensitive-data',
+          enabled:false,
+          click() {
+            window.webContents.send('trigger-lock-sensitive-data');
+          }
+
+        },
+      ]
+    },
+    {
       label: labelEnhancer('Outils'),
       submenu: [
         {
@@ -95,15 +127,7 @@ export default (app, window,labelEnhancer=identity ) => {
           }
 
         },
-        {
-          label: labelEnhancer('Déverouiller les données sensibles'),
-          id:'unlock-sensitive-data',
-          enabled:false,
-          click() {
-            window.webContents.send('trigger-unlock-sensitive-data');
-          }
-
-        },
+        
       ]
     },
    

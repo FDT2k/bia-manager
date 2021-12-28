@@ -7,7 +7,7 @@ import moment from 'moment'
 export default props => {
     const { lists, forms } = useCustomList();
 
-    const { create_subject } = useBackend();
+    const { create_subject,sensitive_lock } = useBackend();
     const { add_error } = useHostProvider();
     const [patient,setPatient] = useState({
         firstname:'',
@@ -20,6 +20,8 @@ export default props => {
         },
         birthdate: ''
     });
+   
+
     useEffect(() => {
         if (forms.create_subject) {
             let custom_forms =forms.create_subject.reduce((carry, item) => {
@@ -35,8 +37,8 @@ export default props => {
             }, patient)
             setPatient(custom_forms)
 
-        }
-
+        }   
+        
     }, [forms])
 
     const handleSave = values => {
@@ -54,5 +56,5 @@ export default props => {
     };
 
 
-    return <CreateSubjectFeature lists={lists} forms={forms.create_subject} handleSave={handleSave}  patient={patient}/>
+    return <CreateSubjectFeature lists={lists} forms={forms.create_subject} locked={sensitive_lock} handleSave={handleSave}  patient={patient}/>
 }

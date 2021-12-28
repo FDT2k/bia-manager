@@ -121,5 +121,10 @@
    "Déverouiller les données sensibles": "Déverouiller les données sensibles",
    "Unlock": "Unlock",
    "unlock": "unlock",
-   "Unlock sensitive data": "Unlock sensitive data"
+   "Unlock sensitive data": "Unlock sensitive data",
+   "Médecin": "Médecin",
+   "Service": "Service",
+   "Verrouiller les données sensibles": "Verrouiller les données sensibles",
+   "Sécurité": "Sécurité",
+   "Configurer": "Configurer"
 }
