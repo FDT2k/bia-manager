@@ -126,5 +126,11 @@
    "Service": "Service",
    "Verrouiller les données sensibles": "Verrouiller les données sensibles",
    "Sécurité": "Sécurité",
-   "Configurer": "Configurer"
+   "Configurer": "Configurer",
+   "BIAManager": "BIAManager",
+   "About BIAManager": "About BIAManager",
+   "Hide App": "Hide App",
+   "Hide Others": "Hide Others",
+   "Show All": "Show All",
+   "Quit": "Quit"
 }
