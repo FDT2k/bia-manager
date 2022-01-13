@@ -127,7 +127,14 @@ export default (app, window,labelEnhancer=identity ) => {
           }
 
         },
-        
+        {
+          label: labelEnhancer('Déverouiller les données sensibles'),
+          id:'unlock-sensitive-data',
+          click() {
+            window.webContents.send('trigger-unlock-sensitive-data');
+          }
+
+        },
       ]
     },
    
