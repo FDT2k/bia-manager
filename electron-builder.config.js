@@ -12,7 +12,7 @@ const config = {
   "publish": [{
     "provider": "github",
     "owner": "fdt2k",
-    "repo": "bia-manager-releases"
+    "repo": "bia-manager"
   }],
   productName:"bia-manager",
   directories: {
