@@ -110,6 +110,7 @@ export default  (app, window, labelEnhancer=identity) => {
         {
           label: labelEnhancer('Importer'),
           id:'import',
+          enabled:false,
           click() {
             window.webContents.send('location-change', '#/database');
           }
@@ -117,6 +118,7 @@ export default  (app, window, labelEnhancer=identity) => {
         {
           label: labelEnhancer('Synchroniser d\'autres bases'),
           id:'sync',
+          enabled:false,
           click() {
             window.webContents.send('location-change', '#/sync');
           }
@@ -124,6 +126,7 @@ export default  (app, window, labelEnhancer=identity) => {
         {
           label: labelEnhancer('Gestion des listes'),
           id:'list',
+          enabled:false,
           click() {
             window.webContents.send('location-change', '#/database/listes');
           }
@@ -131,6 +134,7 @@ export default  (app, window, labelEnhancer=identity) => {
         {
           label: labelEnhancer('Recherche'),
           id:'search',
+          enabled:false,
           click() {
             window.webContents.send('location-change', '#/search');
           }
@@ -141,6 +145,16 @@ export default  (app, window, labelEnhancer=identity) => {
           id:'unlock-sensitive-data',
           click() {
             window.webContents.send('trigger-unlock-sensitive-data');
+          }
+
+        }
+        ,
+        {
+          label: labelEnhancer('Verrouiller les données sensibles'),
+          id:'lock-sensitive-data',
+          enabled:false,
+          click() {
+            window.webContents.send('trigger-lock-sensitive-data');
           }
 
         },
