@@ -45,7 +45,7 @@ const reducer = (state, { type, payload }) => {
 export default props => {
   const [loaded, setLoaded] = useState(false)
   useEffect(() => {
-    axios.get('https://api.github.com/repos/fdt2k/bia-manager/releases').then(res => {
+    axios.get('https://api.github.com/repos/fdt2k/bia-manager-releases/releases').then(res => {
       dispatch({ type: 'fetch', payload: res.data })
       setLoaded(true)
     })
