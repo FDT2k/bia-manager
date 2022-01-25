@@ -1,4 +1,4 @@
-import { compose, is_empty, is_nil } from '@karsegard/composite-js';
+import { compose, is_empty, is_nil,safe_path } from '@karsegard/composite-js';
 import { get_bmi, get_ideal_weight, get_most_accurate_formula } from '@/references';
 import { calc_age } from '@/references/age';
 import { calculate } from '@/references/formulas';
@@ -208,6 +208,7 @@ export const formula_result_to_bia_summary = (results, columns, normes) => {
     }
 
 
+
     return consumable_columns.map(column => {
 
         let r = {};
@@ -278,7 +279,6 @@ export const bia_to_recap = (mesures, _columns, normes = {}, mesure_columns = []
 
     const columns = [...mesure_columns, ..._columns];
 
-
     return columns.map(column => {
 
         let r = {};
@@ -300,6 +300,7 @@ export const bia_to_recap = (mesures, _columns, normes = {}, mesure_columns = []
                 }, {})
 
                 if (biaByKey && biaByKey[column]) {
+                    debugger;
 
                     carry.values[mesure.date] = biaByKey[column].values[mesure.most_accurate_formula];
                     if (normes && normes[column]) {
@@ -314,13 +315,20 @@ export const bia_to_recap = (mesures, _columns, normes = {}, mesure_columns = []
 
                     }
                 } else if (mesure[column]) {
+                    debugger;
+
                     carry.values[mesure.date] = mesure[column];
+                } else {
+                    let value = safe_path('-',column,mesure);
+                    debugger;
+                    carry.values[mesure.date] = value;
                 }
             }
 
             return carry;
 
         }, r);
+        debugger;
         return r;
     });
 }

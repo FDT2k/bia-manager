@@ -410,7 +410,9 @@ export default (getModule) => {
                 })
 
 
-                const recap = bia_to_recap(results, bia_report_columns, normes, ['weight', 'ideal_weight', 'pct_ideal_weight', 'height']);
+                const recap = bia_to_recap(results, bia_report_columns, normes, ['weight', 'ideal_weight', 'pct_ideal_weight', 'height','data.res50','data.rea50']);
+                
+                debugger;
                 const dates = generate_recap_header(mesure_id, mesures);
                 const chart = recap_to_bar_chart(bia_to_recap(results, bia_report_chart_columns), dates)
 

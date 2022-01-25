@@ -43,6 +43,10 @@ export default props => {
 
     const handleSave = values => {
             debugger;
+
+        if(!values.diag){
+            values.diag ="";
+        }
         let _vals = {
             ...values,
             birthdate:  moment(values['birthdate'],'DD.MM.YYYY').format("YYYY-MM-DD"),
