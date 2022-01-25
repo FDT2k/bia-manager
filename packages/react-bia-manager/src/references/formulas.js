@@ -21,12 +21,12 @@ export const formulas = {
         {
             name: "res",
             fn: mesure => mesure.data.res50,
-            display: false,
+            display: true,
         },
         {
             name: "rea",
             fn: mesure => mesure.data.rea50,
-            display: false,
+            display: true,
         },
         {
             name: 'gender_idx',
@@ -82,7 +82,12 @@ export const formulas = {
         {
             name: "res",
             fn: mesure => mesure.data.res50,
-            display: false,
+            display: true,
+        },
+        {
+            name: "rea",
+            fn: mesure => mesure.data.rea50,
+            display: true,
         },
         {
             name: 'ht2r',
@@ -160,7 +165,12 @@ export const formulas = {
         {
             name: "res",
             fn: mesure => mesure.data.res50,
-            display: false,
+            display: true,
+        },
+        {
+            name: "rea",
+            fn: mesure => mesure.data.rea50,
+            display: true,
         },
         {
             name: 'ht2r',

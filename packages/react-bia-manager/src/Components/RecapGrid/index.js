@@ -229,7 +229,9 @@ Component.defaultProps = {
         'pct_fm',
         'bmi',
         'fmi',
-        'ffmi'
+        'ffmi',
+        'data.res50',
+        'data.rea50',
     ],
     boldlines:[
         'pct_ffm',

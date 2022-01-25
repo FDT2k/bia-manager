@@ -29,5 +29,7 @@
   "Taille": "Height",
   "Poids habituel": "Usual weight",
   "Groupe pathologique": "Pathological Group",
-  "Nombre de mesures": "Sample count"
+  "Nombre de mesures": "Sample count",
+  "data.res50_recap": "Resistance (50Hz)",
+  "data.rea50_recap": "Reactance (50Hz"
 }

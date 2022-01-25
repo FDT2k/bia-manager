@@ -15,7 +15,7 @@ import HostProviderRedux from '@/Providers/HostProviderRedux'
 
 import FileTypeBackendProvider from '../Providers/FileTypeBackendProvider';
 
-
+import ErrorBoundary from '../Components/ErrorBoundary'
 import App from '@/App/Features/App'
 import { ConfirmDialog, ConfirmProvider } from '@karsegard/react-bia-manager';
 export default props => {
@@ -23,21 +23,23 @@ export default props => {
     return (
         <Store>
             <Suspense fallback="loading">
-                <ElectronProvider api={window.electron}>
-                    <Translation>
-                        <ConfirmProvider>
-                            <ConfirmDialog/>
-                            <UpdateManager />
-                            <HostProviderRedux>
-                                <FileProvider>
-                                    <FileTypeBackendProvider>
-                                        <App />
-                                    </FileTypeBackendProvider>
-                                </FileProvider>
-                            </HostProviderRedux>
-                        </ConfirmProvider>
-                    </Translation>
-                </ElectronProvider>
+                <ErrorBoundary>
+                    <ElectronProvider api={window.electron}>
+                        <Translation>
+                            <ConfirmProvider>
+                                <ConfirmDialog />
+                                <UpdateManager />
+                                <HostProviderRedux>
+                                    <FileProvider>
+                                        <FileTypeBackendProvider>
+                                            <App />
+                                        </FileTypeBackendProvider>
+                                    </FileProvider>
+                                </HostProviderRedux>
+                            </ConfirmProvider>
+                        </Translation>
+                    </ElectronProvider>
+                </ErrorBoundary>
             </Suspense>
         </Store>
     );
