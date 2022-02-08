@@ -200,6 +200,7 @@ Component.defaultProps = {
     ,
     available_columns: [
         { name: 'kushner', label: 'Kushner', selectable: true },
+      //  { name: 'brazil', label: 'Brazil', selectable: true },
         { name: 'segal', label: 'Segal', selectable: true },
         { name: 'norme', label: 'Norme', type: 'norme', selectable: false },
         { name: 'gva', label: 'Gva', selectable: true },
