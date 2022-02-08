@@ -329,6 +329,7 @@ export default ({ children }) => {
                 }
                 return check_database();
             }).then(res => {
+                debugger;
                 if (!res) {
                     add_error(t('Your database schema is diverging from current version.'))
                     return

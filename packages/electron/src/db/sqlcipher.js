@@ -206,6 +206,7 @@ export const API = db => {
 
     module.schema_check = () => {
         debugger;
+        console.log('checking schema');
         const migration_files = fs.readdirSync(migrationPath)
         const applied = module.getStatements().get_migrations.all()
         return migration_files.reduce((carry, migration, idx) => {
@@ -217,7 +218,7 @@ export const API = db => {
             const migrationFile = join(migrationPath, migration)
             let migrationContent = fs.readFileSync(migrationFile, 'utf8');
             let hash = crypto.createHash('md5').update(migrationContent).digest('hex')
-
+            console.log(!applied[idx],hash !== applied[idx]['hash'],hash,applied[idx]['hash']);
             if (!applied[idx] || hash !== applied[idx]['hash']) {
                 carry = false;
             }
