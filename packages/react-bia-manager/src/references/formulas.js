@@ -11,7 +11,53 @@ import { evaluateEquation } from '@/references/expression';
 
 
 export const formulas = {
-
+    /*brazil:[
+        {
+            name: "res",
+            fn: mesure => mesure.data.res50,
+            display: true,
+        },
+        {
+            name: "rea",
+            fn: mesure => mesure.data.rea50,
+            display: true,
+        },
+        {
+            name: 'ffm',
+            eval: "-118.1866 - (0.0556 * {res}) + (0.1378* {rea}) + (847.0996 / SQRT({weight}))+ (0.6153 * {height})",
+            cond: mesure => mesure.gender === 'F'
+        },
+        {
+            name: 'ffm',
+            eval: "- 145.7735 - (0.0947 * {res}) + (0.2014 * {rea}) + (0.6995*{height}) + (1159.3860 / SQRT({weight}))",
+            cond: mesure => mesure.gender === 'M'
+        },
+        {
+            name: 'fm',
+            eval: "{weight} - {ffm}"
+        },
+        {
+            name: 'pct_ffm',
+            eval: "{ffm} *100 / {weight}"
+        },
+        {
+            name: 'pct_fm',
+            eval: "{fm} * 100 / {weight}"
+        },
+        {
+            //=W6/I6*100
+            name: 'lf_ratio',
+            eval: '{ffm} / {fm}'
+        },
+        {
+            name:'ffmi',
+            eval: '{ffm} / (({height}/100)^2 )' // c'est la bonne
+        },
+        {
+            name:'fmi',
+            eval: '{fm} / (({height}/100)^2 )'
+        }
+    ],*/
     gva: [
         {
             name: "bmi",
@@ -304,6 +350,7 @@ export const calculate = (values) => {
                         res[varname]['log'] = log;
                         
                     } catch (e) {
+                        console.log(varname);
                         console.log(e);
                     }
                 }
@@ -311,6 +358,7 @@ export const calculate = (values) => {
 
             return res;
         }, {});
+        debugger;
         return carry;
     }, {});
 
