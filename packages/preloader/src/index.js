@@ -20,7 +20,8 @@ let electronAPI = {
     //translations
     ...clientEvent('languageChange', 'language-change'),
     ...clientEvent('unlockSensitiveData','trigger-unlock-sensitive-data'),
-    ...clientEvent('lockSensitiveData','trigger-lock-sensitive-data')
+    ...clientEvent('lockSensitiveData','trigger-lock-sensitive-data'),
+    ...clientEvent('customHeader','trigger-custom-header')
   },
   actions: {
     save: invokeOnMainProcess('file-save'),
@@ -30,6 +31,7 @@ let electronAPI = {
     close: invokeOnMainProcess('close'),
     open_url: invokeOnMainProcess('open-url'),
     quit: invokeOnMainProcess('quit'),
+    set_custom_header: invokeOnMainProcess('set_custom_header'),
     
 
     //updates

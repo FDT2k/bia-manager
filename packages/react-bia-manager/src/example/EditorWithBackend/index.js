@@ -130,6 +130,7 @@ export const FakeBackendContainer = Component => (props) => {
 
         <Component
             {...rest}
+            customPrintHeader="/test/1_2.jpeg"
             handlers={handlers}
         />
     )
