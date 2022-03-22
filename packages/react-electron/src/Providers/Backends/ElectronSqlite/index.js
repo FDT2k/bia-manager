@@ -34,7 +34,7 @@ export const encode_password = (password, salt) => {
 }
 
 export default ({ children }) => {
-    const { actions: { sqlite_model_transaction, sqlite_api, sqlite_export, sqlite_search, sqlite_custom_search, sqlite_create, sqlite_query, sqlite_model, sqlite_attach, sqlite_import, sqlite_unlock_sd,sqlite_lock_sd,sqlite_sd_is_unlocked, sqlite_sd_req_password }, subscribers: { handleUnlockSensitiveData,handleLockSensitiveData } } = useElectron();
+    const { actions: { sqlite_model_transaction, sqlite_api, sqlite_export, sqlite_search, sqlite_custom_search, sqlite_create, sqlite_query, sqlite_model, sqlite_attach, set_custom_header, sqlite_import, sqlite_unlock_sd, sqlite_lock_sd, sqlite_sd_is_unlocked, sqlite_sd_req_password }, subscribers: { handleUnlockSensitiveData, handleLockSensitiveData, handleCustomHeader } } = useElectron();
     const { selectors: { locked, file }, actions: { reload_file_state, close_file } } = useFileProvider();
     const [subject, setState] = useState({})
     const [sensitive_lock, setSensitiveLock] = useState(true)
@@ -119,7 +119,7 @@ export default ({ children }) => {
     }
 
     const update_subject = async (values) => {
-        
+
         if (values.birthdate) {
             values.birthdate = dateHumanToSys(values.birthdate)
         }
@@ -270,7 +270,7 @@ export default ({ children }) => {
 
     //returns true if data are readable
     const is_protected_data_unlocked = async () => {
-        let res =  await sqlite_sd_is_unlocked();
+        let res = await sqlite_sd_is_unlocked();
         debugger;
         return res;
     }
@@ -291,12 +291,12 @@ export default ({ children }) => {
                 if (!res) {
                     add_error('Le mot de passe est invalide');
                     protected_data_unlock()
-                }else {
+                } else {
                     setSensitiveLock(false);
                 }
-                
+
             }
-        }else{
+        } else {
             setSensitiveLock(false);
 
         }
@@ -307,11 +307,27 @@ export default ({ children }) => {
         setSensitiveLock(true);
     }
 
+    const setCustomHeader = async () => {
+        let confirmed = await isConfirmed('L\'Entête doit être au format jpg et avoir un ratio de 10 de large pour 1 de haut (1000px * 100px). Vous pouvez ignorer ce ratio, mais l\'impression se fera alors sur plusieurs page.', {
+            okLabel: 'Ok', cancelLabel: 'Annuler'
+        });
+
+
+          
+            if (confirmed === true) {
+            let res = await set_custom_header().catch(err=>{
+                add_error(err.message);
+            });
+            console.log(res);
+           
+        }
+
+    }
 
 
     useEffect(() => {
         if (ready && !locked && !is_empty(file)) {
-            is_protected_data_unlocked().then(res=>{
+            is_protected_data_unlocked().then(res => {
                 setSensitiveLock(!res);
             })
             fetch_stats();
@@ -378,11 +394,14 @@ export default ({ children }) => {
             protected_data_unlock()
             debugger;
         })
-        handleLockSensitiveData(()=>{
+        handleLockSensitiveData(() => {
             protected_data_lock()
             debugger;
 
         })
+        handleCustomHeader(() => {
+            setCustomHeader();
+        });
     }, [])
 
     const update_hashes = async () => {
@@ -579,7 +598,7 @@ export default ({ children }) => {
     const db_name = file
     return (
         <BackendProvider type="sqlite" actions={{
-            get_subject_by_uuid, get_subject, ready, search, search_custom_filters, create_database, fetch_stats, stats, db_name, search_count, get_lists, get_forms, create_subject, save_subject, save_subject_mesures, delete_mesure, fetch_lists, fetch_list, save_list, add_list_item, delete_list_item, save_list_item, attach, detach, detach_all, should_reload_lists, exportToCSV, attached_stats_query, attached_sync,update_subject,
+            get_subject_by_uuid, get_subject, ready, search, search_custom_filters, create_database, fetch_stats, stats, db_name, search_count, get_lists, get_forms, create_subject, save_subject, save_subject_mesures, delete_mesure, fetch_lists, fetch_list, save_list, add_list_item, delete_list_item, save_list_item, attach, detach, detach_all, should_reload_lists, exportToCSV, attached_stats_query, attached_sync, update_subject,
             sensitive_lock, protected_data_unlock, protected_data_lock
         }}>
 

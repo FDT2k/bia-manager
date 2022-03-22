@@ -24,7 +24,7 @@ const [__base_class, element, modifier] = bem('bia-mesure-editor')
 
 const Editor = props => {
 
-    const { BIAEditor,canPrint,ComparisonTable, Serrement,Recap,AsideEditor,PrintableReport,CommentEditor } = props;
+    const { BIAEditor,canPrint,ComparisonTable, Serrement,Recap,AsideEditor,PrintableReport,CommentEditor ,customPrintHeader} = props;
 
 
     const { t, oneDecimal, oneDecimalPct } = useTranslation();
@@ -60,7 +60,6 @@ const Editor = props => {
 
 
 
-
     const result_columns = useMemo(() => ['norme', mesure.most_accurate_formula || 'kushner', 'gva'], [mesure.most_accurate_formula]);
     return (
         <MesureEditorLayout className={className}>
@@ -88,8 +87,8 @@ const Editor = props => {
             <LayoutFlexColumnWithArea style={{ gap: '10px' }} area="mesure-editor-aside">
                 <AsideEditor onValuesChange={_handleChange} handleClickSave={handleClickSave} handlePrint={_handlePrint} data={mesure} />
             </LayoutFlexColumnWithArea>
-            <Printable ref={componentRef}>
-                {<PrintableReport />}
+            <Printable ref={componentRef} hasHeader={customPrintHeader !=null}>
+                <PrintableReport customPrintHeader={customPrintHeader} />
             </Printable>
         </MesureEditorLayout>
     )
@@ -121,6 +120,7 @@ Editor.defaultProps = {
     Serrement: DefaultSerrement,
     Recap: DefaultRecap,
     PrintableReport: DefaultPrintableReport,
+    customPrintHeader: null
 
 }
 

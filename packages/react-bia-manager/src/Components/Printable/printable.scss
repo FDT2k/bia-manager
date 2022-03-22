@@ -33,6 +33,12 @@
 @page {
   size: A4 portrait;
   margin: 10mm;
+  .with-headers{
+    margin-top: 0mm;
+    margin-left:10mm;
+    margin-right:10mm;
+    margin-bottom:0mm;
+  }
 }
 
 @media screen {

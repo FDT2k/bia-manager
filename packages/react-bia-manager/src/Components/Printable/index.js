@@ -5,7 +5,8 @@ import './printable.scss'
 
 export default forwardRef((props,ref)=>{
 
+    let className = props.hasHeader ?  'printable with-headers': 'printable'; 
     return (
-        <div className="printable" ref={ref}>{props.children}</div>
+        <div className={className} ref={ref}>{props.children}</div>
     )
 });

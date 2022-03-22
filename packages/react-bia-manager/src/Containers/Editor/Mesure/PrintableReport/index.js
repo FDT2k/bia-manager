@@ -40,5 +40,5 @@ export default module => props => {
         HeaderComponent: ConnectedHeader,
 
     }
-    return (<PrintableReport {...components} />);
+    return (<PrintableReport {...props} {...components} />);
 }

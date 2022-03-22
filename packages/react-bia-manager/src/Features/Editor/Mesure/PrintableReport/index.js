@@ -14,16 +14,17 @@ import MassChart from '@/Components/Charts/Mass';
 import RecapGrid from '@/Components/RecapGrid';
 
 
-
 export const Component =  props => {
     const {IndiceChartComponent,
         RecapFDSComponent,
+        customPrintHeader,
         RecapGridComponent,
         HeaderComponent,
         MassChartComponent} = props;
 
-        
     const {t,dateSysToHuman} = useTranslation();
+
+    
     return (
         <Grid
             className="report"
@@ -43,7 +44,10 @@ export const Component =  props => {
                 'footer footer'
             ]}
         >
+           
             <ComponentWithArea area="header" >
+                {!customPrintHeader && <h4>{t('Mesure de la composition corporelle par bio-impédance électrique')}</h4>}
+                {customPrintHeader && <img src={customPrintHeader} className="custom-header" style={{minWidth:'100%',maxWidth:'100%',maxHeight:'50px;'}}/>}
                <HeaderComponent/>
             </ComponentWithArea>
             <ComponentWithArea area="r" >
@@ -52,7 +56,7 @@ export const Component =  props => {
             <ComponentWithArea area="z" >
                 <h4>{t('Evolution de la composition corporelle')}</h4></ComponentWithArea>
             <ComponentWithArea area="a" >
-                <MassChartComponent width={550}  height={200} />
+                <MassChartComponent width={550}  height={190} />
             </ComponentWithArea>
             <ComponentWithArea area="y" >
                 <h4>{t('Votre position par rapport aux normes')}</h4></ComponentWithArea>
@@ -60,14 +64,14 @@ export const Component =  props => {
                 <LayoutFlexColumn justCenter alignCenter>
                     <h4>{t('Indice de masse maigre')}</h4>
                     <span>{t('masse maigre / taille')}<sup>2</sup></span>
-                    <IndiceChartComponent width={350}  height={200}  data_key="ffmi" />
+                    <IndiceChartComponent width={350}  height={180}  data_key="ffmi" />
                 </LayoutFlexColumn>
             </ComponentWithArea>
             <ComponentWithArea area="c" >
                 <LayoutFlexColumn justCenter alignCenter>
                     <h4>{t('Indice de masse grasse')}</h4>
                     <span>{t('masse grasse / taille')}<sup>2</sup></span>
-                    <IndiceChartComponent width={350}  height={200}  data_key="fmi"/>
+                    <IndiceChartComponent width={350}  height={180}  data_key="fmi"/>
                 </LayoutFlexColumn>
             </ComponentWithArea>
             <ComponentWithArea area="fds" >
@@ -84,6 +88,7 @@ export const Component =  props => {
 
 
 Component.defaultProps = {
+    customPrintHeader:null,
     HeaderComponent: ReportHeader,
     IndiceChartComponent: IndiceChart,
     RecapFDSComponent: RecapFDS,

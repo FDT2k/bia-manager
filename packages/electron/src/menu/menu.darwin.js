@@ -176,7 +176,20 @@ export default  (app, window, labelEnhancer=identity) => {
         
       ]
     },
-    
+    {
+      label: labelEnhancer('Paramètres'),
+      submenu: [
+        {
+          label: labelEnhancer('Inserer l\'entête personnalisée'),
+          id:'customize-header',
+          enabled:true,
+          click() {
+            window.webContents.send('trigger-custom-header');
+          }
+
+        }
+      ]
+    },
   ];
  
 

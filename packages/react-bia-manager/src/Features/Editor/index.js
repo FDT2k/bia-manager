@@ -29,8 +29,7 @@ const NavComponent = compose(
 )(LayoutFlex);
 
 const Editor = props => {
-    const { MesureEditor,PatientHeader, ListMesure,className, handlers, defaultHandlers, ...renderers } = getClasseNames(__base_class, props);
-
+    const { customPrintHeader,MesureEditor,PatientHeader, ListMesure,className, handlers, defaultHandlers, ...renderers } = getClasseNames(__base_class, props);
     const { handleGoBack, handlePrint, handleMesureCreate, handleMesureOpen, handleMesureDelete, handleSubjectChange, handleChange, handleClickSave } = Object.assign({}, defaultHandlers, handlers);
 
     const { RightFooter, ...remaining } = renderers;
@@ -76,7 +75,7 @@ const Editor = props => {
                         handlePrint={handlePrint}
                         handleChange={handleChange}
                         mesure={mesure} 
-                        
+                        customPrintHeader={customPrintHeader}
                         />}
                     {!mesure && "Aucune mesure "}
                 </ContainerWithArea>
@@ -88,6 +87,7 @@ const Editor = props => {
 }
 
 Editor.defaultProps = {
+    customPrintHeader:null,
     data: {
         mesures: [],
         lastname: 'N/A',

@@ -234,11 +234,26 @@ const openFile = async (filename) => {
   }
 }
 
-
+ipcMain.handle('set_custom_header',async (event,filename)=>{
+  let { canceled, filePaths } = await dialog.showOpenDialog({
+    defaultPath: filename, filters: [
+      { name: 'image', extensions: ['jpg','jpeg'] }
+    ]
+  });
+  if(!canceled){
+    let path = app.getPath('userData');
+    console.log(path);
+    return await fs.copyFile(filePaths[0], join (path,'print-header.jpg'));
+  }
+});
 ipcMain.handle('file-open', async (event, filename) => {
 
   console.log('want to open file', filename);
-  let { canceled, filePaths } = await dialog.showOpenDialog({ defaultPath: filename });
+  let { canceled, filePaths } = await dialog.showOpenDialog({
+    defaultPath: filename, filters: [
+      { name: 'Sqlite', extensions: ['sqlite'] }
+    ]
+  });
 
   if (!canceled) {
     cleanState = false;
@@ -304,7 +319,7 @@ ipcMain.handle('close', async (event) => {
       openedFilePath = null;
       currentSQLite.db.close()
       currentSQLite = null;
-      SD_softLock=true;
+      SD_softLock = true;
     } else if (openedFilePath) {
       openedFilePath = null;
     }
@@ -532,7 +547,11 @@ ipcMain.handle('sqlite-export', async (event, { query, filename }) => {
   try {
     console.log('want to write file', filename);
 
-    let { canceled, filePath } = await dialog.showSaveDialog({ defaultPath: filename });
+    let { canceled, filePath } = await dialog.showSaveDialog({
+      defaultPath: filename, filters: [
+        { name: 'CSV', extensions: ['csv'] },
+      ]
+    });
     if (!canceled) {
       let result = currentSQLite.subject.export_csv(query).join('\n');
 
@@ -555,6 +574,8 @@ ipcMain.handle('sqlite-search', async (event, tag) => {
   }
 
 })
+
+
 
 
 ipcMain.handle('sqlite-custom-search', async (event, arg) => {
@@ -584,7 +605,11 @@ ipcMain.handle('sqlite-import', async (event, { model, data }) => {
 ipcMain.handle('sqlite-create', async (event, { filename, key }) => {
   console.log('want to create sqlite file');
 
-  let { canceled, filePath } = await dialog.showSaveDialog({ defaultPath: filename });
+  let { canceled, filePath } = await dialog.showSaveDialog({
+    defaultPath: filename, filters: [
+      { name: 'SQLite', extensions: ['sqlite'] },
+    ]
+  });
   if (!canceled) {
     console.log('saving', filePath, key);
     createdb(filePath, key);

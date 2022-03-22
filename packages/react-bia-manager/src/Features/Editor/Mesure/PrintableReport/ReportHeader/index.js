@@ -13,12 +13,9 @@ export const Component =  props => {
     const {patient} = props ;
     return (<>
        
-                <h4>{t('Mesure de la composition corporelle par bio-impédance électrique')}</h4>
+                
                 <LayoutFlex justBetween>
-                    <div>
-                        <div>{t('Nom')}: {safe_string('lastname',patient)}</div>
-                        <div>{t('Prénom')}:  {safe_string('firstname',patient)} </div>
-                    </div>
+                        <div>{t('Nom')}: {safe_string('lastname',patient)} - {t('Prénom')}:  {safe_string('firstname',patient)} </div>
                     <div>{t('Date de naissance')}:  {dateSysToHuman(safe_path('1970-01-01','birthdate',patient))} - ({patient.age} ans)</div>
                 </LayoutFlex>
         </>
