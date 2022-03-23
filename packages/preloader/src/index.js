@@ -32,6 +32,8 @@ let electronAPI = {
     open_url: invokeOnMainProcess('open-url'),
     quit: invokeOnMainProcess('quit'),
     set_custom_header: invokeOnMainProcess('set_custom_header'),
+    get_custom_header: invokeOnMainProcess('get_custom_header'),
+    remove_custom_header: invokeOnMainProcess('remove_custom_header'),
     
 
     //updates

@@ -3,6 +3,7 @@ import { app, ipcMain, BrowserWindow, Menu, dialog } from 'electron';
 import { join, resolve } from 'path';
 import { URL } from 'url';
 import fs from 'fs/promises';
+import __fs from 'fs';
 import { is_empty, is_nil } from '@karsegard/composite-js';
 
 import menuFactoryService from './menu';
@@ -234,18 +235,39 @@ const openFile = async (filename) => {
   }
 }
 
-ipcMain.handle('set_custom_header',async (event,filename)=>{
+ipcMain.handle('set_custom_header', async (event, filename) => {
   let { canceled, filePaths } = await dialog.showOpenDialog({
     defaultPath: filename, filters: [
-      { name: 'image', extensions: ['jpg','jpeg'] }
+      { name: 'image', extensions: ['jpg', 'jpeg'] }
     ]
   });
-  if(!canceled){
+  if (!canceled) {
     let path = app.getPath('userData');
     console.log(path);
-    return await fs.copyFile(filePaths[0], join (path,'print-header.jpg'));
+    return await fs.copyFile(filePaths[0], join(path, 'print-header.jpg'));
   }
 });
+async function remove_custom_header() {
+  let path = app.getPath('userData');
+  path = join(path, 'print-header.jpg');
+  console.log('removing');
+  return await fs.unlink(path);
+}
+function base64_encode(file) {
+  // read binary data
+  var bitmap = __fs.readFileSync(file);
+  // convert binary data to base64 encoded string
+  return new Buffer(bitmap).toString('base64');
+}
+ipcMain.handle('get_custom_header', async (event) => {
+
+  let path = app.getPath('userData');
+  path = join(path, 'print-header.jpg');
+  let exists = __fs.existsSync(path);
+
+  return exists ? base64_encode(path) : '';
+});
+
 ipcMain.handle('file-open', async (event, filename) => {
 
   console.log('want to open file', filename);
@@ -649,7 +671,7 @@ app.on('before-quit', e => {
 })
 
 const handleLanguageChange = (i18n, menu) => {
-  menuFactoryService.buildMenu(app, mainWindow, i18n.t.bind(i18n), menu)
+  menuFactoryService.buildMenu(app, mainWindow, i18n.t.bind(i18n), menu, { remove_custom_header })
   store.set('language', i18n.language)
   updateMenuState();
 }
