@@ -227,5 +227,16 @@
   "Show All": "Show All",
   "Quit": "Quit",
   "Développé par Karsegard Digital Agency Sàrl, en collaboration avec l'Unité de Nutrition des HUG et la Fondation Nutrition 2000 Plus": "Développé par Karsegard Digital Agency Sàrl, en collaboration avec l'Unité de Nutrition des HUG et la Fondation Nutrition 2000 Plus",
-  "imprimé": "imprimé"
+  "imprimé": "imprimé", 
+ 
+  "Moyenne": "Moyenne",
+  
+  "Paramètres": "Paramètres",
+  "Inserer l'entête personnalisée": "Inserer l'entête personnalisée",
+  "Ok": "Ok",
+  "L'Entête doit être au format jpg et avoir un ratio de 1:3": "L'Entête doit être au format jpg et avoir un ratio de 1:3",
+  "L'Entête doit être au format jpg et avoir un ratio de 10 de large pour 1 de haut (1000px * 100px). Vous pouvez ignorer ce ratio, mais l'impression se fera alors sur plusieurs page.": "L'Entête doit être au format jpg et avoir un ratio de 10 de large pour 1 de haut (1000px * 100px). Vous pouvez ignorer ce ratio, mais l'impression se fera alors sur plusieurs page.",
+  "Retirer l'entête personnalisée": "Retirer l'entête personnalisée",
+  "Entête supprimé": "Entête supprimé",
+  "Entête ajouté": "Entête ajouté"
 }
