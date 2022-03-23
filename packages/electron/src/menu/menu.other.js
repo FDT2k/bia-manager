@@ -1,8 +1,8 @@
 import { identity } from '@karsegard/composite-js';
 import config from '../app.config';
 import updater from "../updater"
-
-export default (app, window,labelEnhancer=identity ) => {
+import {  BrowserWindow,dialog } from 'electron';
+export default (app, window,labelEnhancer=identity,actions ) => {
   let menu = [
     {
       label: labelEnhancer('&File'),
@@ -140,6 +140,25 @@ export default (app, window,labelEnhancer=identity ) => {
           enabled:true,
           click() {
             window.webContents.send('trigger-custom-header');
+          
+          }
+
+        },
+        {
+          label: labelEnhancer('Retirer l\'entête personnalisée'),
+          id:'customize-header',
+          enabled:true,
+          click() {
+            actions.remove_custom_header().then(res=>{
+              dialog.showMessageBox(window,{
+                message:labelEnhancer('Entête supprimé')
+              })
+            }).catch(err=>{
+              dialog.showMessageBox(window,{
+                message:err.message
+              })
+            });
+            
           }
 
         }

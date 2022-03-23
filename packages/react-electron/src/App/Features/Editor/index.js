@@ -1,4 +1,4 @@
-import React from 'react';
+import React,{useState,useEffect} from 'react';
 import { EditorFeature,PatientHeaderFeature} from '@karsegard/react-bia-manager';
 import { ReduxEditor } from '@karsegard/react-bia-manager';
 //import { EditorWithBackend } from '@karsegard/react-bia-manager';
@@ -20,8 +20,10 @@ const PatientHeader = props => {
 }
 
 const EditorWithBackend = (props) => {
-    const { get_subject,save_subject_mesures,save_subject, get_mesure,delete_mesure } = useBackend();
+    const { get_subject,save_subject_mesures,save_subject, get_mesure,delete_mesure,get_custom_header } = useBackend();
     const { isConfirmed } = useConfirm();
+    const [header,setHeader] = useState();
+
     const {t} = useTranslation();
  
     const { handlers: {handleGoBack: _handleGoBack, ..._handlers}, ...rest } = props;
@@ -30,7 +32,12 @@ const EditorWithBackend = (props) => {
         return get_subject(patient_id)
     }
 
-
+    useEffect(() => {
+        get_custom_header().then(res=>{
+            console.log('header',res);
+            setHeader('data:image/jpeg;base64,'+res);
+        });
+    });
     const handleSave = async(subject,current_mesure_id) => {
 
         let result =  save_subject_mesures(subject);
@@ -94,6 +101,7 @@ const EditorWithBackend = (props) => {
         <Editor
             {...rest}
             handlers={handlers}
+            customPrintHeader={header}
             PatientHeader={PatientHeader}
         />
     )
