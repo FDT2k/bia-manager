@@ -1,8 +1,9 @@
 import { identity } from "@karsegard/composite-js";
 import updater from "../updater"
+import {  BrowserWindow,dialog } from 'electron';
 
 
-export default  (app, window, labelEnhancer=identity) => {
+export default  (app, window, labelEnhancer=identity,actions) => {
   let menu = [
     {
       label: labelEnhancer('BIAManager'),
@@ -173,7 +174,24 @@ export default  (app, window, labelEnhancer=identity) => {
           }
 
         },
-        
+        {
+          label: labelEnhancer('Retirer l\'entête personnalisée'),
+          id:'customize-header',
+          enabled:true,
+          click() {
+            actions.remove_custom_header().then(res=>{
+              dialog.showMessageBox(window,{
+                message:labelEnhancer('Entête supprimé')
+              })
+            }).catch(err=>{
+              dialog.showMessageBox(window,{
+                message:err.message
+              })
+            });
+            
+          }
+
+        }
       ]
     },
     {
