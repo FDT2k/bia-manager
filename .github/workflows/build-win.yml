@@ -3,7 +3,7 @@ name: BuildWindows
 on:
   push:
     branches:
-      - windows-master
+      - windows-2019
     tags:
       - v*
 
