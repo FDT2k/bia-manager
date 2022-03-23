@@ -13,6 +13,7 @@ function MenuFactoryService(menu) {
 }
 
 
+
 function buildMenu(app, mainWindow, labelEnhancer, moreMenu,actions) {
   if (config.platform === 'darwin') {
     this.menu = darwinTemplate(app, mainWindow, labelEnhancer,actions);
