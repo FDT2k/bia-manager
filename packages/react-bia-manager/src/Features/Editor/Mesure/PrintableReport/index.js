@@ -24,7 +24,7 @@ export const Component =  props => {
 
     const {t,dateSysToHuman} = useTranslation();
 
-    
+    console.log(customPrintHeader);
     return (
         <Grid
             className="report"

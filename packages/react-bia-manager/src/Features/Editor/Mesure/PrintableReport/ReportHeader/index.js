@@ -16,7 +16,7 @@ export const Component =  props => {
                 
                 <LayoutFlex justBetween>
                         <div>{t('Nom')}: {safe_string('lastname',patient)} - {t('Prénom')}:  {safe_string('firstname',patient)} </div>
-                    <div>{t('Date de naissance')}:  {dateSysToHuman(safe_path('1970-01-01','birthdate',patient))} - ({patient.age} ans)</div>
+                    <div>{t('Date de naissance')}:  {dateSysToHuman(safe_path('1970-01-01','birthdate',patient))} - ({patient.age || ''} ans)</div>
                 </LayoutFlex>
         </>
 
