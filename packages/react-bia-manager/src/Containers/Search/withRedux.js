@@ -25,7 +25,7 @@ export const Container = ({selectors,actions}) => Component => props => {
     const tags = useSelector(selectors.select_tags);
     const custom_filters=  useSelector(selectors.select_custom_filters);
     const has_filters = useSelector(selectors.has_custom_filters)
-
+    const pageIndex = useSelector(selectors.current_page_index);
     const handleSearch = (tags,results) => {
         dispatch( actions.search(tags))
     }
@@ -44,15 +44,21 @@ export const Container = ({selectors,actions}) => Component => props => {
 
     useEffect(()=>{
         return ()=>{
-            dispatch(actions.clear());   
+      //      dispatch(actions.clear());   
         }
-    },[])
+    },[]);
+
+    const handlePageChange= pageIndex=>{
+
+        dispatch(actions.pageChange(pageIndex));
+    }
     const handlers = {
         ..._handlers,
         handleSearch,
         setFilter,
         clearFilter,
-        handleFetch
+        handleFetch,
+        handlePageChange
     }
     return (
 
@@ -61,7 +67,8 @@ export const Container = ({selectors,actions}) => Component => props => {
             results={results}
             tags={tags}
             custom_filters={custom_filters}
-            handlers={handlers} />
+            handlers={handlers} 
+            pageIndex={pageIndex} />
     )
 }
 

@@ -207,9 +207,9 @@ export const Component = props => {
 
     const { t, dateSysToHuman } = useTranslation();
 
-    const { handleSearch, handleCSVExport, handleCreate, handleSelectRow: _handleSelectRow, } = props.handlers;
+    const { handleSearch, handleCSVExport, handleCreate, handleSelectRow: _handleSelectRow,handlePageChange:_handlePageChange } = props.handlers;
     const { clearFilter, setFilter } = props.handlers
-    const { results, tags, custom_filters } = props;
+    const { results, tags, custom_filters ,pageIndex} = props;
 
 
     useEffect(() => {
@@ -283,6 +283,10 @@ export const Component = props => {
         _handleSelectRow && _handleSelectRow(index, row.original)
     }
 
+    const handlePageChange = (pageIndex)=>{
+        console.log('page changed',pageIndex);
+        _handlePageChange && _handlePageChange(pageIndex);
+    }
 
     return (
         <SearchLayout cover contained className="page-search">
@@ -317,6 +321,9 @@ export const Component = props => {
                 area="list"
                 data={data}
                 columns={columns}
+                
+                handlePageChange={handlePageChange}
+                initialPageIndex={pageIndex}
             />
         </SearchLayout>
     )
@@ -328,6 +335,8 @@ Component.defaultProps = {
     custom_filters: {
 
     },
+    pageIndex: 0,
+
     handlers: {
         handleSearch: _ => console.warn('search handler not implemented'),
         handleCreate: _ => console.warn('create handler not implemented'),
@@ -372,7 +381,8 @@ export const Page = props => {
 Page.defaultProps = {
     stats: { count: 0, count_mesures: 0 },
     patients: [],
-    db_name: 'default'
+    db_name: 'default',
+    
 }
 
 

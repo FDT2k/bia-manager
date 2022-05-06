@@ -173,6 +173,20 @@ export default  (app, window, labelEnhancer=identity,actions) => {
             window.webContents.send('location-change', '#/search');
           }
 
+        }
+      ]
+    },
+    {
+      label: labelEnhancer('Paramètres'),
+      submenu: [
+        {
+          label: labelEnhancer('Inserer l\'entête personnalisée'),
+          id:'customize-header',
+          enabled:true,
+          click() {
+            window.webContents.send('trigger-custom-header');
+          }
+
         },
         {
           label: labelEnhancer('Retirer l\'entête personnalisée'),
@@ -189,20 +203,6 @@ export default  (app, window, labelEnhancer=identity,actions) => {
               })
             });
             
-          }
-
-        }
-      ]
-    },
-    {
-      label: labelEnhancer('Paramètres'),
-      submenu: [
-        {
-          label: labelEnhancer('Inserer l\'entête personnalisée'),
-          id:'customize-header',
-          enabled:true,
-          click() {
-            window.webContents.send('trigger-custom-header');
           }
 
         }

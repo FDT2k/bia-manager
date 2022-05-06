@@ -11,7 +11,10 @@ export default (getModule) => {
 
     actions.clear = createAction(types.CLEAR);
     actions.update_search_tags = createAction(types.UPDATE_SEARCH_TAGS);
-    actions.fetched = createAction(types.FETCHED);
+    actions.fetched = createAction(types.FETCHED,payload=>{
+        debugger;
+        return payload;
+    });
 
 
     actions.filter_patients = createAction(types.FILTER_PATIENTS);
@@ -30,6 +33,13 @@ export default (getModule) => {
             return []
         }
         return x;
+    }
+    actions._pageChange = createAction(types.PAGE_CHANGE);
+    actions.pageChange = (pageIndex)=>(dispatch, getState) => {
+        const { current_page_index } = selectors;
+
+        let current_page = current_page_index(getState())
+            dispatch(actions._pageChange(pageIndex));
     }
 
     actions.search = (tags = []) => (dispatch, getState) => {
@@ -62,8 +72,11 @@ export default (getModule) => {
 
 
 
-    actions.fetch = results => (dispatch)=> {
+    actions.fetch = results => (dispatch,getState)=> {
+        const { current_page_index } = selectors;
         dispatch(actions.fetched(results))
+      /*  let current_page = current_page_index(getState())
+        dispatch(actions.pageChange(current_page));*/
         dispatch(actions.filter_results())
     }
 
