@@ -8,7 +8,8 @@ export const ACTIONS_TYPES = createActionTypes(
     'REMOVE_FILTER',
 
     'ADD_CUSTOM_FILTER',
-    'CLEAR_CUSTOM_FILTER'
+    'CLEAR_CUSTOM_FILTER',
+    'PAGE_CHANGE'
 )
 
 

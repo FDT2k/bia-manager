@@ -3,17 +3,17 @@ import Pagination from './Pagination';
 
 import { LayoutFlexColumn } from '@karsegard/react-core-layout'
 import { matchSorter } from 'match-sorter';
-import React from 'react';
+import React,{useEffect} from 'react';
 import { useFilters, useGlobalFilter, usePagination, useSortBy, useTable } from 'react-table';
 import DefaultFilter from './Filters/DefaultFilter';
 
 
 const [__base_class, element, modifier] = bem('listing')
 
-export default props => {
+export const Table =  props => {
 
 
-    const { data,className, style,columns,tabIndex, forwardedRef,selectedIndex, handleSelect, Tools, SortUp, SortDown, ...rest } = props;
+    const { data,className, style,columns,tabIndex, forwardedRef,selectedIndex, handleSelect,handlePageChange, Tools, SortUp, SortDown,initialPageIndex, ...rest } = props;
 
     function fuzzyTextFilterFn(rows, id, filterValue) {
         return matchSorter(rows, filterValue, { keys: [row => row.values[id]] })
@@ -42,6 +42,23 @@ export default props => {
         []
     )
 
+    const sortTypes= React.useMemo(()=>({
+   
+            alphanumeric: (row1, row2, columnName) => {
+
+                const rowOneColumn = row1.values[columnName];
+                const rowTwoColumn = row2.values[columnName];
+                if (isNaN(rowOneColumn)) {
+                    return rowOneColumn.toUpperCase() >
+                        rowTwoColumn.toUpperCase()
+                        ? 1
+                        : -1;
+                }
+                return Number(rowOneColumn) > Number(rowTwoColumn) ? 1 : -1;
+            }
+        
+    }));
+
     const defaultColumn = React.useMemo(
         () => ({
             // Let's set up our default Filter UI
@@ -49,8 +66,18 @@ export default props => {
         }),
         []
     )
-    const tableInstance = useTable({ columns, data, defaultColumn, filterTypes }, useFilters, useGlobalFilter, useSortBy, usePagination)
+    const tableInstance = useTable({ columns, data, defaultColumn, filterTypes,sortTypes, initialState: {
+        sortBy: [
+            {
+                id: 'lastname',
+                desc: false
+            }
+        ],
+        pageIndex:initialPageIndex
+    } }, useFilters, useGlobalFilter, useSortBy, usePagination)
 
+
+  
 
     const {
         getTableProps,
@@ -64,6 +91,12 @@ export default props => {
         preGlobalFilteredRows,
         setGlobalFilter,
     } = tableInstance
+
+    useEffect(()=>{
+       console.log(state.pageIndex);
+    },[state.pageIndex]);
+
+  
     const pageProps = {};
 
     ({
@@ -79,6 +112,13 @@ export default props => {
         state: { pageIndex: pageProps.pageIndex, pageSize: pageProps.pageSize }
 
     } = tableInstance);
+
+    useEffect(()=>{
+        console.log('going to page',initialPageIndex);
+        pageProps.gotoPage(initialPageIndex);
+    },[initialPageIndex]);
+   
+    
     return (<LayoutFlexColumn justBetween cover tabIndex={tabIndex} className={className} style={style}>
         <table ref={forwardedRef} className={cEx([__base_class])} {...getTableProps()} {...rest}>
             <thead  >
@@ -129,7 +169,13 @@ export default props => {
             </tbody>
 
         </table>
-        {pageProps.pageCount > 1 && <Pagination {...pageProps} />}
+        {pageProps.pageCount > 1 && <Pagination handlePageChange={handlePageChange} {...pageProps}  />}
     </LayoutFlexColumn>
     )
 }
+
+Table.defaultProps= {
+    initialPageIndex:0
+}
+
+export default Table;

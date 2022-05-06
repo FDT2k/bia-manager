@@ -98,12 +98,35 @@ export default (getModule) => {
 
         }
     )
+    const clearpage = (state, {payload}) => {
+        return {
+            ...state,
+            pageIndex:0
+        }
+    };
+    module.list = createReducer({},
+        {
+            [types.PAGE_CHANGE]: (state, {payload}) => {
+                return {
+                    ...state,
+                    pageIndex:payload
+                }
+            },
+            [types.ADD_CUSTOM_FILTER]: clearpage,
+            [types.CLEAR_CUSTOM_FILTER]: clearpage,
+            [types.CLEAR]: clearpage,
+            [types.ADD_SEARCH_TAG]: clearpage,
+            [types.UPDATE_SEARCH_TAGS]: clearpage,
+            [types.DEL_SEARCH_TAG]: clearpage,
+        }
+    )
 
 
     module.reducer = combineReducers({
         tags: module.tags,
         patients: module.patients,
-        custom_filters: module.custom_filters
+        custom_filters: module.custom_filters,
+        list: module.list
     });
 
 

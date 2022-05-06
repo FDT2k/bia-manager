@@ -51,6 +51,9 @@ export default getModule => {
         })
         return result;
     })
+    module.list = createSelector(baseSelector,state=> state.list);
+    module.current_page_index = createSelector(module.list,state=>state.pageIndex)
+
     return module;
 
 }

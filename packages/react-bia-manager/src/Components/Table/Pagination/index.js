@@ -8,14 +8,14 @@ import React from 'react';
 const Component = props => {
 
 
-    const { gotoPage, previousPage, nextPage, setPageSize, canPreviousPage, canNextPage, pageCount, pageIndex, pageOptions, pageSize } = props;
+    const { gotoPage, previousPage, nextPage, setPageSize, canPreviousPage, canNextPage, pageCount, pageIndex, pageOptions, pageSize,handlePageChange } = props;
 
     return (<LayoutFlexRow className="pagination" justBetween>
         <div>
-            <Button onClick={() => gotoPage(0)} disabled={!canPreviousPage}>
+            <Button onClick={() => {gotoPage(0); handlePageChange(0)}} disabled={!canPreviousPage}>
                 {'<<'}
             </Button>{' '}
-            <Button onClick={() => previousPage()} disabled={!canPreviousPage}>
+            <Button onClick={() => { previousPage(); handlePageChange(pageIndex-1)}} disabled={!canPreviousPage}>
                 {'<'}
             </Button>{' '}
         </div>
@@ -27,10 +27,10 @@ const Component = props => {
             </strong>{' '}
         </span>
         <div>
-            <Button onClick={() => nextPage()} disabled={!canNextPage}>
+            <Button onClick={() =>{ nextPage(); handlePageChange(pageIndex+1)}} disabled={!canNextPage}>
                 {'>'}
             </Button>{' '}
-            <Button onClick={() => gotoPage(pageCount - 1)} disabled={!canNextPage}>
+            <Button onClick={() =>{ gotoPage(pageCount - 1);; handlePageChange(pageCount-1)}} disabled={!canNextPage}>
                 {'>>'}
             </Button>{' '}
         </div>
