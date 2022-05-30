@@ -44,14 +44,14 @@ export const Component = props => {
                 rowGap={10}
             >
                 <div className="header header--left"></div>
-                <div className="header header--left">{t('Main dominante')}</div>
-                <div className="header header--left">{t('Mesure 1')}</div>
-                <div className="header header--left">{t('Mesure 2')}</div>
-                <div className="header header--left">{t('Mesure 3')}</div>
-                <div className="header header--left">{t('Moyenne')}</div>
-                <div className="header header--left">{t('Normes')}</div>
+                <div className="header header--left">{t('Dominant Hand')}</div>
+                <div className="header header--left">{t('Measure 1')}</div>
+                <div className="header header--left">{t('Mesaure 2')}</div>
+                <div className="header header--left">{t('Measure 3')}</div>
+                <div className="header header--left">{t('Average')}</div>
+                <div className="header header--left">{t('Norm')}</div>
 
-                <div className="header">{t('Droite')}</div>
+                <div className="header">{t('Right')}</div>
                 <div><input type="checkbox" {...checkboxProps('right.main')} /></div>
                 <div><input type="text" {...inputProps('right.data.0')} /></div>
                 <div><input type="text" {...inputProps('right.data.1')} /></div>
@@ -60,7 +60,7 @@ export const Component = props => {
                 <div>{right_norme} </div>
 
 
-                <div className="header">{t('Gauche')}</div>
+                <div className="header">{t('Left')}</div>
                 <div><input type="checkbox" {...checkboxProps('left.main')} /></div>
 
                 <div><input type="text" {...inputProps('left.data.0')} /></div>

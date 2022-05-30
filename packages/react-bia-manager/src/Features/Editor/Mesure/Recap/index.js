@@ -9,8 +9,8 @@ import { LayoutFlexColumn, LayoutFlex } from '@karsegard/react-core-layout';
 const InvalidRecap = props => {
     const {t} = useTranslation();
     return (<>
-        <div>{t('Le recapitulatif n\'est pas disponible.')}</div>
-        <div>{t('Remplissez le formulaire ou choisissez une mesure valide')}</div>
+        <div>{t('The summary is not available')}</div>
+        <div>{t('Fill in the form or choose a valid measure')}</div>
     </>)
 }
 

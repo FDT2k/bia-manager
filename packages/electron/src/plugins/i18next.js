@@ -27,7 +27,7 @@ const buildMenu = ()=>{
 
 
 export default  (handleLanguageChange,language='fr') => mainWindow=> {
-
+    debugger
     let client_ready = false;
     i18n.on('loaded', (loaded) => {
         i18n.changeLanguage('fr');

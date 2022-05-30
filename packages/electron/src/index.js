@@ -293,7 +293,6 @@ ipcMain.handle('read-settings', async (event,) => {
 ipcMain.handle('get-file-state', async (event,) => {
   console.log('requested file state')
   let additionalprops = {};
-  debugger;
 
   if (currentBackend == 'sqlite') {
     additionalprops.unlocked = currentSQLite.isUnlocked();

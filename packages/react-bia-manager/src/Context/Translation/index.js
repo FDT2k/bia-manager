@@ -12,7 +12,7 @@ export const makeProvider = (Context) => (props) => {
 
     
     const defaultValue = {
-      t:identity,
+      t:(key,context)=> key, // we just send back the key
       momentHumanDateFormat:'DD/MM/YYYY',
       oneDecimal,
       oneDecimalPct,

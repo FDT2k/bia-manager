@@ -60,7 +60,7 @@ const EditorWithBackend = (props) => {
     }
 
     const handleMesureDelete = async (patient_id, idx) => {
-        const confirmed = await isConfirmed(t("Are you sure that you want to delete this ?"));
+        const confirmed = await isConfirmed(t("Are you sure that you want to delete this measurement ?"));
         if (confirmed) {
             return delete_mesure(patient_id, idx);
         }

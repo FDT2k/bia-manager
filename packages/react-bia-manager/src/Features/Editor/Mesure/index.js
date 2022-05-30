@@ -52,7 +52,7 @@ const Editor = props => {
         if(canPrint){
             print()
         }else{
-            alert('Pour imprimer, remplissez le formulaire ou choisissez une mesure valide')
+            alert(t('To print, fill in the form or choose one'));
         }
     }
 
@@ -66,8 +66,8 @@ const Editor = props => {
             <TabsWithArea tabIndexOffset={-20} renderDisabledPanels={true} area="mesure-editor-main">
                 <TabList>
                     <Tab>{t('BIA')}</Tab>
-                    <Tab>{t('Force de serrement')}</Tab>
-                    <Tab>{t('Récapitulatif')}</Tab>
+                    <Tab>{t('Clamping Force')}</Tab>
+                    <Tab>{t('Summary')}</Tab>
                 </TabList>
                 <TabPanel>
                     <BIAEditor normes={props.normes} data={mesure} onValuesChange={_handleChange} />
