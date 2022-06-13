@@ -33,3 +33,4 @@ release/*
 !.yarn/sdks
 !.yarn/versions
 .pnp.*
+*.pdf
