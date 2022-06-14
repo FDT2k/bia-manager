@@ -1,5 +1,5 @@
 import mesure from './mesure'
-import { is_nil, enlist, is_empty, is_undefined, keys } from '@karsegard/composite-js';
+import { is_nil, enlist, is_empty, is_undefined, keys, is_type_array, is_type_function, safe_path } from '@karsegard/composite-js';
 import { key, keyval, spec, pathes } from '@karsegard/composite-js/ObjectUtils';
 import { spreadObjectPresentIn } from '@karsegard/composite-js/ReactUtils'
 import { _transform, _retrieve, _retrieve_from_raw, _retrieve_entity, _raw_to_object, _retrieve_row } from '../sqlcipher'
@@ -18,8 +18,8 @@ const subject = (db, api) => {
         usual_weight: '',
         uuid: '',
         diag: 'json',
-        med_name:'',
-        med_service:'',
+        med_name: '',
+        med_service: '',
         hash: '',
         last_updated: '',
     }
@@ -102,10 +102,10 @@ const subject = (db, api) => {
         return res;
     };
 
-    module.fetch  = (filter, hash = 'main', removeIds = false) => {
+    module.fetch = (filter, hash = 'main', removeIds = false) => {
 
         let stmt = db.prepare(`Select s.* from ${hash}.subjects s  where ${api.genConditionSQL(filter)}`).raw();
-      
+
 
         return _retrieve_entity('subjects', schema, stmt.columns(), stmt.get(filter));
     }
@@ -195,7 +195,7 @@ const subject = (db, api) => {
 
         return enlist(options).reduce((carry, item) => {
             let [str_value, isset] = keyval(item);
-         //   console.log(str_value, isset)
+            //   console.log(str_value, isset)
             if (isset === true) {
                 carry.query.push(`${carry.sep} ${key} = '${str_value}'`)
                 carry.sep = 'or'
@@ -297,49 +297,71 @@ const subject = (db, api) => {
 
         let query_start = `Select s.*, m.* from subjects as s left join mesures as m on s.id=m.subject_id `
 
+        let query = ``;
 
+        /*  query = ` where s.uuid in (
+              Select distinct s.uuid
+              from subjects as s 
+              
+              left join mesures as m on s.uuid=m.subject_uuid 
+              ${whereClauses}
+              group by s.uuid
+              ${havingClauses}
+          )`
+  */
         let sql = `
             ${query_start}
 
-            where s.uuid in (
-                Select distinct s.uuid
-                from subjects as s 
-                
-                left join mesures as m on s.uuid=m.subject_uuid 
-                ${whereClauses}
-                group by s.uuid
-                ${havingClauses}
-            )
+           
+            ${query}
             group by m.id
-
-            order by s.id
+            
+            order by s.id desc
+            limit 1
         `
 
-        console.log('export',sql)
+        console.log('export', sql)
 
         let stmt = db.prepare(sql).raw(true);
         const res = [];
         let cols = stmt.columns();
-        res.push(retrieve_csv_cols(cols.map(item => item.name), cols).join(separator));
+        // extract_cols(cols);
+        //   res.push(retrieve_csv_cols(cols.map(item => item.name), cols).join(separator));
+        let columns = retrieve_csv_cols(cols.map(item => item.name), cols);
+        console.log(columns);
+        debugger;
+        //  let columns = extract_columns(cols);  
         for (let result of stmt.iterate()) {
             // console.log(result)
-            res.push(retrieve_csv_row(result, cols).join(separator));
+            let row = retrieve_csv_row(result, cols);
+            console.log(row);
+            //     res.push(retrieve_csv_row(result, cols).join(separator));
+            //    console.log(extract_values(result,columns));
         }
         return res;
     }
 
-    const extract_object = (row, defaultValue) => {
-        let val = pathes(defaultValue)
-        try {
-            let value = JSON.parse(row);
-            value = pathes(value);
-            val = {
-                ...val,
-                ...value
-            }
-        } catch (e) { }
-        return enlist(val);
+    const extract_cols = (cols) => {
+        console.log(cols);
+        return cols.reduce((carry, item, idx) => {
+            let ext_cols = extract_col(item, idx);
+
+            carry.push(ext_cols)
+
+            return carry;
+        }, []);
     }
+
+    const extract_col = (col, idx) => {
+
+    }
+
+    const extract_row = (row, idx, col) => {
+
+    }
+
+
+   
 
     const sideState = {
         main: false,
@@ -349,7 +371,19 @@ const subject = (db, api) => {
             2: '',
         },
         avg: '',
-        norme: ''
+        norme: (path, row, coldef = false) => {
+            if (coldef) {
+                return {
+                    [`${path}.min`]: '',
+                    [`${path}.max`]: ''
+                }
+            } else {
+                return {
+                    [`${path}.min`]: row[0],
+                    [`${path}.max`]: row[1]
+                }
+            }
+        }
     }
     const csv_json_map = {
         groups: { patho: "", "ethno": "" },
@@ -359,19 +393,89 @@ const subject = (db, api) => {
             left: { ...sideState },
             right: { ...sideState }
         },
-        bia_data:{
-            kushner:{"fm":"","pct_fm":"","ffm":"","pct_ffm":"","dffm":"","pct_dffm":"","ffmi":"","fmi":"","water":"","pct_water":""},
-            segal:{"fm":"","pct_fm":"","ffm":"","pct_ffm":"","dffm":"","pct_dffm":"","ffmi":"","fmi":"","water":"","pct_water":""},
-            gva:{"fm":"","pct_fm":"","ffm":"","pct_ffm":"","ffmi":"","fmi":""}
+        bia_data: {
+            kushner: { "fm": "", "pct_fm": "", "ffm": "", "pct_ffm": "", "dffm": "", "pct_dffm": "", "ffmi": "", "fmi": "", "water": "", "pct_water": "" },
+            segal: { "fm": "", "pct_fm": "", "ffm": "", "pct_ffm": "", "dffm": "", "pct_dffm": "", "ffmi": "", "fmi": "", "water": "", "pct_water": "" },
+            gva: { "fm": "", "pct_fm": "", "ffm": "", "pct_ffm": "", "ffmi": "", "fmi": "" }
         }
     }
 
+    const extract_object = (row, defaultValue,coldef=false) => {
+        let val = pathes(defaultValue)
+        debugger;
+        try {
+            let value = JSON.parse(row);
+
+            value = pathes(value);
+            console.log(value);
+            debugger;
+
+            value = enlist(value).reduce((carry, path) => {
+
+                let [_key, _val] = keyval(path);
+                console.log(_key, _val)
+                let __def = safe_path('', _key, defaultValue);
+                console.log(__def);
+                if (is_type_function(__def)) {
+                    carry = {
+                        ...carry,
+                        ...__def(_key, _val,coldef)
+                    }
+                } else {
+                    carry[_key] = _val;
+                }
+                return carry;
+            }, {});
+
+
+            debugger;
+            val = {
+                ...val,
+                ...value
+            }
+        } catch (e) { console.error(e, row) }
+        return enlist(val);
+    }
+
+
+    const extract_columns = (defaultValue) => {
+        let val = pathes(defaultValue)
+        debugger;
+        val = enlist(val).reduce((carry, path) => {
+
+            let [_key, _val] = keyval(path);
+            console.log(_key, _val)
+       //     debugger
+            let __def = safe_path('', _key, defaultValue);
+       //     debugger;
+            console.log(__def);
+            if (is_type_function(__def)) {
+                carry = {
+                    ...carry,
+                    ...__def(_key, _val,true)
+                }
+            } else {
+                carry[_key] = _val;
+            }
+            return carry;
+        }, {});
+
+
+        debugger;
+        val = {
+            ...val,
+        }
+        
+        return enlist(val);
+    }
     const retrieve_csv_row = (row, columns) => {
         return columns.reduce(
             (carry, col, idx) => {
                 if (!is_nil(csv_json_map[col.name])) {
 
-                    extract_object(row[idx], csv_json_map[col.name]).map(subitem => {
+                    let __columns = extract_object(row[idx], csv_json_map[col.name],false);
+
+                    __columns.map(subitem => {
                         let [_key, _val] = keyval(subitem);
                         carry.push(`"${_val}"`)
                     })
@@ -390,7 +494,9 @@ const subject = (db, api) => {
             (carry, col, idx) => {
                 if (!is_nil(csv_json_map[col.name])) {
 
-                    extract_object(row[idx], csv_json_map[col.name]).map(subitem => {
+                    let __columns = extract_columns(csv_json_map[col.name]);
+
+                    __columns.map(subitem => {
                         let [_key, _val] = keyval(subitem);
                         carry.push(`"${col.name}.${_key}"`)
                     })
@@ -405,7 +511,7 @@ const subject = (db, api) => {
     }
 
 
-   
+
 
     module.search = (tag) => {
         let hasField = tag.indexOf(':') !== -1;

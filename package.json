@@ -46,7 +46,7 @@
     "vite-react-jsx": "^1.1.2"
   },
   "dependencies": {
-    "@karsegard/composite-js": "^2.12.0",
+    "@karsegard/composite-js": "^2.12.1",
     "@karsegard/electron-preloader": "workspace:packages/electron-preloader",
     "async-mutex": "^0.3.2",
     "better-sqlite3": "workspace:packages/better-sqlite3",
