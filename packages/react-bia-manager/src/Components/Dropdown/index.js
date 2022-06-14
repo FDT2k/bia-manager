@@ -10,6 +10,7 @@ export const DropDown =  props => {
     const [visible, toggleVisible,setVisible,setHidden] = useBoolean(false);
     const [childStyle, setStyle] = useState({});
     const ref = useRef();
+    const refContent = useRef();
     const refToggle= useRef();
 
     const classe = cEx([
@@ -28,10 +29,12 @@ export const DropDown =  props => {
     };
 
     useEffect(()=>{
-        if(ref.current){
+        if(ref.current && refContent.current){
+           
             setStyle({
                 top: ref.current.offsetHeight+props.offset,
                 minWidth: ref.current.offsetWidth,
+              
             })
         }
         document.addEventListener('click', handleClick, true);
@@ -41,6 +44,17 @@ export const DropDown =  props => {
     },[overrideClick])
 
 
+    useEffect(()=>{
+        if(visible){
+            console.log(refContent.current.getBoundingClientRect());
+            setStyle(style=>{
+                return {
+                    ...style,
+                    height:refContent.current.getBoundingClientRect().height
+                }
+            })
+        }
+    },[visible])
 
     return (<>
 
@@ -55,7 +69,9 @@ export const DropDown =  props => {
                 'dropdown__content',
                 _ => visible ? 'dropdown__content--visible' : 'dropdown__content--hidden'
             ])}>
-                {props.children}
+                <div ref={refContent}>
+                    {props.children}
+                </div>
             </div>
         </div>
         </>

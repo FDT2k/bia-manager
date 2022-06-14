@@ -1,5 +1,7 @@
 
-
+.container{
+  overflow:visible;
+}
 // this is supposed to always show errors above dialogs
 .modal{
   &-overlay{
@@ -22,6 +24,7 @@
     }
   }
   &-content{
+    overflow:visible;
     &--dialog{
       z-index: 501;
 

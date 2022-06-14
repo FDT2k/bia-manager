@@ -39,6 +39,7 @@ import DatabaseImportFeature from '@/Features/Database'
 import EditorFeature from '@/Features/Editor';
 import AboutFeature from '@/Features/About';
 import DatabaseSyncFeature from '@/Features/DatabaseSync';
+import DatabaseExportFeature from '@/Features/DatabaseExport';
 import PatientHeaderFeature from '@/Features/Editor/PatientHeader';
 import MesureEditorFeature from '@/Features/Editor/Mesure';
 import ListMesureFeature from '@/Features/Editor/ListMesure';
@@ -49,6 +50,10 @@ import EditorWithBackend from '@/Containers/EditorWithBackend';
 import ReduxEditorModule from '@/Redux/Editor';
 
 
+import RangeFilterFeature from '@/Features/Filters/RangeFilter'
+import SexFilterFeature from '@/Features/Filters/SexFilter'
+import FieldFilterFeature from '@/Features/Filters/FieldFilter'
+
 import {Page as ListManagerPage,Component as ListManagerFeature} from '@/Features/ListManager';
 
 
@@ -56,11 +61,14 @@ export {
     BIARouter,
     useLocation,
     DatabaseSyncFeature,
+    DatabaseExportFeature,
     ViewProvider,
     TranslationProvider,
     CustomListProvider,
     BackendProvider,
-
+    RangeFilterFeature,
+    SexFilterFeature,
+    FieldFilterFeature,
     useTranslation,
     useCustomList,
     useViewProvider,

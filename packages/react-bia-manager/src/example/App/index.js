@@ -10,6 +10,7 @@ import EditorWithBackend from '@/example/EditorWithBackend'
 import TestMesureEditorRedux from '@/example/TestMesureEditorRedux'
 import IntegrationEditor from '@/Integration/Editor'
 import DatabaseImport from '@/example/Database/Import'
+import DatabaseExport from '@/example/Database/Export'
 import DatabaseSync from '@/example/Database/Sync'
 import ConfirmBox from '@/example/ConfirmBox'
 
@@ -61,6 +62,11 @@ const routes = [
         path: '/database/import',
         component: DatabaseImport,
         menu: 'Database import'
+    },
+    {
+        path: '/database/export',
+        component: DatabaseExport,
+        menu: 'Database Export'
     },
     {
         path: '/database/sync',

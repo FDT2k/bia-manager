@@ -19,6 +19,7 @@
   &-content{
     &--dialog{
       z-index: 501;
+      overflow:visible;
 
     }
     &--error{

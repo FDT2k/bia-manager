@@ -20,6 +20,8 @@ import { filter_active_mesure } from '@/references/Mesure'
 import { useTranslation } from '@'
 import { is_empty, enlist } from '@karsegard/composite-js';
 import { key, keyval, spec } from '@karsegard/composite-js/ObjectUtils';
+import { RangeFilterFeature as RangeFilter } from '@';
+import { SexFilterFeature as GenderFilter } from '@';
 const withForwardRef = Component => (props, ref) => {
 
     return <Component {...props} forwardedRef={ref} />
@@ -51,7 +53,7 @@ export const AdvancedSearch = compose(
     applyModifiers({ alignCenter: false }),
 
 )(LayoutFlex)
-
+/*
 
 export const RangeFilter = ({ label, handleSubmit, handleClear, currentValues }) => {
 
@@ -94,9 +96,9 @@ export const RangeFilter = ({ label, handleSubmit, handleClear, currentValues })
 RangeFilter.defaultProps = {
     handleClear: _ => console.warn('oups no handleclear defined')
 }
+*/
 
-
-
+/*
 
 export const GenderFilter = ({ label, handleSubmit, handleClear, currentValues }) => {
 
@@ -143,7 +145,9 @@ GenderFilter.defaultProps = {
 }
 
 
+*/
 
+/*
 export const FieldFilter = ({ label, handleSubmit, handleClear, currentValues }) => {
 
     const { t } = useTranslation();
@@ -194,7 +198,7 @@ export const FieldFilter = ({ label, handleSubmit, handleClear, currentValues })
 FieldFilter.defaultProps = {
     handleClear: _ => console.warn('oups no handleclear defined')
 }
-
+*/
 
 export const Component = props => {
 
