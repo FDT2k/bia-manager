@@ -169,7 +169,9 @@ export const Component = props => {
 
     return (
         <Modal type="dialog">
+
         <LayoutFlex column>
+            <b>Import depuis BIA JAVA</b>
             {!dataRef.current && !parsing && <LayoutFlexColumn>
                 <Field label="anoymiser les données">
                     <Container style={{width:'100px'}}>

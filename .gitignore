@@ -34,3 +34,4 @@ release/*
 !.yarn/versions
 .pnp.*
 *.pdf
+packages/electron/src/debug.js

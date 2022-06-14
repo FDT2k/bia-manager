@@ -287,7 +287,7 @@ const subject = (db, api) => {
 
     }
 
-    module.export_csv = (custom_filters, separator) => {
+    module.export_csv = (custom_filters, separator, stream) => {
 
 
         let method = "where";
@@ -299,16 +299,19 @@ const subject = (db, api) => {
 
         let query = ``;
 
-        /*  query = ` where s.uuid in (
-              Select distinct s.uuid
-              from subjects as s 
-              
-              left join mesures as m on s.uuid=m.subject_uuid 
-              ${whereClauses}
-              group by s.uuid
-              ${havingClauses}
-          )`
-  */
+        if (enlist(custom_filters).length > 0) {
+
+            query = `where s.uuid in (
+                Select distinct s.uuid
+                from subjects as s 
+                
+                left join mesures as m on s.uuid=m.subject_uuid 
+                ${whereClauses}
+                group by s.uuid
+                ${havingClauses}
+            )`;
+        }
+
         let sql = `
             ${query_start}
 
@@ -316,8 +319,7 @@ const subject = (db, api) => {
             ${query}
             group by m.id
             
-            order by s.id desc
-            limit 1
+            order by s.id
         `
 
         console.log('export', sql)
@@ -328,40 +330,22 @@ const subject = (db, api) => {
         // extract_cols(cols);
         //   res.push(retrieve_csv_cols(cols.map(item => item.name), cols).join(separator));
         let columns = retrieve_csv_cols(cols.map(item => item.name), cols);
-        console.log(columns);
-        debugger;
+        stream.write(columns.join(separator)+'\n');
         //  let columns = extract_columns(cols);  
         for (let result of stmt.iterate()) {
             // console.log(result)
             let row = retrieve_csv_row(result, cols);
-            console.log(row);
+            stream.write(row.join(separator)+'\n');
+            //console.log(row);
             //     res.push(retrieve_csv_row(result, cols).join(separator));
             //    console.log(extract_values(result,columns));
         }
-        return res;
+        //return res;
     }
 
-    const extract_cols = (cols) => {
-        console.log(cols);
-        return cols.reduce((carry, item, idx) => {
-            let ext_cols = extract_col(item, idx);
-
-            carry.push(ext_cols)
-
-            return carry;
-        }, []);
-    }
-
-    const extract_col = (col, idx) => {
-
-    }
-
-    const extract_row = (row, idx, col) => {
-
-    }
+  
 
 
-   
 
     const sideState = {
         main: false,
@@ -400,26 +384,21 @@ const subject = (db, api) => {
         }
     }
 
-    const extract_object = (row, defaultValue,coldef=false) => {
-        let val = pathes(defaultValue)
-        debugger;
+    const extract_object = (row, defaultValue, coldef = false) => {
+        let val = pathes(extract_columns(defaultValue))
         try {
             let value = JSON.parse(row);
 
             value = pathes(value);
-            console.log(value);
-            debugger;
 
             value = enlist(value).reduce((carry, path) => {
 
                 let [_key, _val] = keyval(path);
-                console.log(_key, _val)
                 let __def = safe_path('', _key, defaultValue);
-                console.log(__def);
                 if (is_type_function(__def)) {
                     carry = {
                         ...carry,
-                        ...__def(_key, _val,coldef)
+                        ...__def(_key, _val, coldef)
                     }
                 } else {
                     carry[_key] = _val;
@@ -428,31 +407,27 @@ const subject = (db, api) => {
             }, {});
 
 
-            debugger;
             val = {
                 ...val,
                 ...value
             }
-        } catch (e) { console.error(e, row) }
-        return enlist(val);
+        } catch (e) {}
+        return val;
     }
 
 
     const extract_columns = (defaultValue) => {
         let val = pathes(defaultValue)
-        debugger;
         val = enlist(val).reduce((carry, path) => {
 
             let [_key, _val] = keyval(path);
-            console.log(_key, _val)
-       //     debugger
+            //     debugger
             let __def = safe_path('', _key, defaultValue);
-       //     debugger;
-            console.log(__def);
+            //     debugger;
             if (is_type_function(__def)) {
                 carry = {
                     ...carry,
-                    ...__def(_key, _val,true)
+                    ...__def(_key, _val, true)
                 }
             } else {
                 carry[_key] = _val;
@@ -461,19 +436,18 @@ const subject = (db, api) => {
         }, {});
 
 
-        debugger;
         val = {
             ...val,
         }
-        
-        return enlist(val);
+
+        return val;
     }
     const retrieve_csv_row = (row, columns) => {
         return columns.reduce(
             (carry, col, idx) => {
                 if (!is_nil(csv_json_map[col.name])) {
 
-                    let __columns = extract_object(row[idx], csv_json_map[col.name],false);
+                    let __columns = enlist(extract_object(row[idx], csv_json_map[col.name], false));
 
                     __columns.map(subitem => {
                         let [_key, _val] = keyval(subitem);
@@ -494,7 +468,7 @@ const subject = (db, api) => {
             (carry, col, idx) => {
                 if (!is_nil(csv_json_map[col.name])) {
 
-                    let __columns = extract_columns(csv_json_map[col.name]);
+                    let __columns = enlist(extract_columns(csv_json_map[col.name]));
 
                     __columns.map(subitem => {
                         let [_key, _val] = keyval(subitem);

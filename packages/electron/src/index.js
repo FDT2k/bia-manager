@@ -577,10 +577,19 @@ ipcMain.handle('sqlite-export', async (event, { query, filename }) => {
       ]
     });
     if (!canceled) {
-      let result = currentSQLite.subject.export_csv(query).join('\n');
+    /*  let result = currentSQLite.subject.export_csv(query).join('\n');
 
       return fs.writeFile(filePath, result).then(res => {
         return true;
+      });*/
+      return new Promise((resolve, reject) => {
+        const stream = __fs.createWriteStream(filePath);
+        
+        currentSQLite.subject.export_csv(query,';',stream);
+
+        stream.on('error', reject);
+        stream.end(resolve);
+        
       });
     }
   } catch (e) {
@@ -684,21 +693,7 @@ app.whenReady()
   .then(init18next(handleLanguageChange, store.get('language')))
   .then(loadContent)
   .then(updateMenuState)
-  .then(_ => {
-
-    currentSQLite = openFile('/home/fabien/Desktop/BIM105/DBS/tests/main.sqlite').then(_ => {
-      currentSQLite.unlock('***REMOVED***');
-      let result = currentSQLite.subject.export_csv({
-        "mesure_range": {
-          "from": "2021-12-04",
-          "type": "date_range",
-          "key": "m.date"
-        }
-      }).join('\n');
-
-      console.log(result);
-    });
-  })
+  
   .catch((e) => console.error('Failed create window:', e));
 
 app.on('uncaughtException', function (error) {
