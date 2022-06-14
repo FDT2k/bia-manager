@@ -1,6 +1,6 @@
 import { useTranslation } from '@';
 import Modal from '@/Components/Modal';
-import { Fullscreen, LayoutFlex, LayoutFlexColumn, Container } from '@karsegard/react-core-layout';
+import { Fullscreen, LayoutFlex, LayoutFlexColumn, Container, Grid } from '@karsegard/react-core-layout';
 import React, { useRef, useState } from 'react';
 import ToggleSwitch from '@/Components/Form/ToggleSwitch';
 
@@ -43,9 +43,9 @@ export const Component = (props) => {
         <Fullscreen>
 
             <Modal type="dialog" >
-                <Container style={{ minWidth: "500px", width: "500px", minHeight: "300px" }}>
+                <Container style={{ minWidth: "500px", width: "500px" }}>
                     <h1>Exporter</h1>
-                    <LayoutFlexColumn justBetween cover style={{ minHeight: '100%', minWidth: '100%' }}>
+                    <Grid templateColumns="auto" templateRows="auto auto 40px" rowGap={10} contained cover>
                         <LayoutFlex>
                             <GenderFilter
                                 label="Sexe"
@@ -55,10 +55,12 @@ export const Component = (props) => {
                             <RangeFilter label="Mesures" currentValues={custom_filters.mesure_range} handleSubmit={values => setFilter('mesure_range', 'm.date', values)} handleClear={_ => clearFilter('mesure_range')} />
                             <RangeFilter label="Dates de naissances" currentValues={custom_filters.birthday_range} handleSubmit={values => setFilter('birthday_range', 'birthdate', values)} handleClear={_ => clearFilter('birthday_range')} />
                         </LayoutFlex>
-                        <label>export brut</label>
-                        <ToggleSwitch tabIndex={6} labelYes="Oui" labelNo="Non" name="left_side" />
+                        <div>
+                            <label>export brut</label>
+                            <ToggleSwitch tabIndex={6} labelYes="Oui" labelNo="Non" name="left_side" />
+                        </div>
                         <Button>Exporter</Button>
-                    </LayoutFlexColumn>
+                    </Grid>
                 </Container>
             </Modal>
         </Fullscreen>
