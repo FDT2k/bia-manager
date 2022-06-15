@@ -8,7 +8,7 @@ import { useFieldValues } from '@karsegard/react-hooks';
 import React, { useEffect } from 'react';
 
 
-export const FieldFilter = ({ label, handleSubmit, handleClear, currentValues }) => {
+export const FieldFilter = ({ label, handleSubmit, handleClear, currentValues,buttonLabel }) => {
 
     const { t } = useTranslation();
     const { values, replaceValues, checkboxProps, getValue, inputProps, handleChangeValue } = useFieldValues(currentValues, { usePath: true });
@@ -48,7 +48,7 @@ export const FieldFilter = ({ label, handleSubmit, handleClear, currentValues })
                     <input type="text"  {...inputProps('values.ethno')} />
                 </DropdownItem>
                 <DropdownItem>
-                    <button onClick={_ => handleSubmit(values)}>filtrer</button>
+                    <button onClick={_ => handleSubmit(values)}>{t(buttonLabel)}</button>
                 </DropdownItem>
             </>
         </Dropdown>
@@ -56,7 +56,8 @@ export const FieldFilter = ({ label, handleSubmit, handleClear, currentValues })
 }
 
 FieldFilter.defaultProps = {
-    handleClear: _ => console.warn('oups no handleclear defined')
+    handleClear: _ => console.warn('oups no handleclear defined'),
+    buttonLabel:'filter'
 }
 
 export default FieldFilter;

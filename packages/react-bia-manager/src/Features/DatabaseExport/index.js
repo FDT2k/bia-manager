@@ -14,6 +14,7 @@ export const Component = (props) => {
 
     // const {custom_filters} = props;
     const [custom_filters, setCustomFilters] = useState({});
+    const [rawExport, setRawExport] = useState(false);
 
     const setFilter = (name, field, value) => {
         setCustomFilters(filters => {
@@ -38,6 +39,12 @@ export const Component = (props) => {
 
     const { t } = useTranslation()
 
+    const {handleExport:_handleExport} = props;
+    const handleExport = (e)=>{
+        _handleExport({
+            custom_filters,rawExport
+        })
+    }
 
     return (
         <Fullscreen>
@@ -49,17 +56,26 @@ export const Component = (props) => {
                         <LayoutFlex>
                             <GenderFilter
                                 label="Sexe"
+                                buttonLabel="apply"
                                 currentValues={custom_filters.sex}
                                 handleSubmit={values => setFilter('sex', 'gender', values, 'bools')}
                                 handleClear={_ => clearFilter('sex')} />
-                            <RangeFilter label="Mesures" currentValues={custom_filters.mesure_range} handleSubmit={values => setFilter('mesure_range', 'm.date', values)} handleClear={_ => clearFilter('mesure_range')} />
-                            <RangeFilter label="Dates de naissances" currentValues={custom_filters.birthday_range} handleSubmit={values => setFilter('birthday_range', 'birthdate', values)} handleClear={_ => clearFilter('birthday_range')} />
+                            <RangeFilter buttonLabel="apply"
+                                label="Mesures"
+                                currentValues={custom_filters.mesure_range}
+                                handleSubmit={values => setFilter('mesure_range', 'm.date', values)}
+                                handleClear={_ => clearFilter('mesure_range')} />
+                            <RangeFilter buttonLabel="apply"
+                                label="Dates de naissances"
+                                currentValues={custom_filters.birthday_range}
+                                handleSubmit={values => setFilter('birthday_range', 'birthdate', values)}
+                                handleClear={_ => clearFilter('birthday_range')} />
                         </LayoutFlex>
                         <div>
                             <label>export brut</label>
-                            <ToggleSwitch tabIndex={6} labelYes="Oui" labelNo="Non" name="left_side" />
+                            <ToggleSwitch tabIndex={6} checked={rawExport} onChange={e=>setRawExport(e.target.checked)} labelYes="Oui" labelNo="Non" name="left_side" />
                         </div>
-                        <Button>Exporter</Button>
+                        <Button onClick={handleExport}>Exporter</Button>
                     </Grid>
                 </Container>
             </Modal>
@@ -69,7 +85,7 @@ export const Component = (props) => {
 
 
 Component.defaultProps = {
-
+    handleExport:x=>x
 }
 
 export default Component;

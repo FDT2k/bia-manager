@@ -9,7 +9,7 @@ import { useFieldValues } from '@karsegard/react-hooks';
 import React, { useEffect } from 'react';
 
 
-export const RangeFilter = ({ label, handleSubmit, handleClear, currentValues }) => {
+export const RangeFilter = ({ label, handleSubmit, handleClear, currentValues,buttonLabel }) => {
 
 
     const { t } = useTranslation();
@@ -40,11 +40,15 @@ export const RangeFilter = ({ label, handleSubmit, handleClear, currentValues })
                     <DatePicker allow_null={true} masked_input={true} selected={getValue('to')} handleChange={handleChangeValue('to')} />
                 </DropdownItem>
                 <DropdownItem>
-                    <button onClick={_ => handleSubmit(values)}>filtrer</button>
+                <button onClick={_ => handleSubmit(values)}>{t(buttonLabel)}</button>
                 </DropdownItem>
             </>
         </Dropdown>
     )
+}
+
+RangeFilter.defaultProps={
+    buttonLabel:'filter'
 }
 
 

@@ -94,7 +94,7 @@ export const makeProvider = (Context) => withReduxModule((props) => {
     }
 
     const defaultHandlers = {
-        saveList: _ => console.warn('save_list'),
+      //  saveList: _ => console.warn('save_list'),
         editList,
         cancelEdit,
         sortList,

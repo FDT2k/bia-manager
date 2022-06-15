@@ -14,7 +14,7 @@ export default props => {
 
     return (
         <TranslationProvider value={{ t: translate }}>
-            <Database />
+            <Database handleExport={values=> alert(JSON.stringify(values))}/>
         </TranslationProvider>
     )
 

@@ -8,7 +8,7 @@ import { useFieldValues } from '@karsegard/react-hooks';
 import React, { useEffect } from 'react';
 
 
-export const GenderFilter = ({ label, handleSubmit, handleClear, currentValues }) => {
+export const GenderFilter = ({ label, handleSubmit, handleClear, currentValues,buttonLabel }) => {
 
     const { t } = useTranslation();
     const { values, replaceValues, checkboxProps, getValue, inputProps, handleChangeValue } = useFieldValues(currentValues, { usePath: true });
@@ -41,7 +41,7 @@ export const GenderFilter = ({ label, handleSubmit, handleClear, currentValues }
                     <input {...checkboxProps('options.M')} type="checkbox" />
                 </DropdownItem>
                 <DropdownItem>
-                    <button onClick={_ => handleSubmit(values)}>filtrer</button>
+                <button onClick={_ => handleSubmit(values)}>{t(buttonLabel)}</button>
                 </DropdownItem>
             </>
         </Dropdown>
@@ -49,6 +49,7 @@ export const GenderFilter = ({ label, handleSubmit, handleClear, currentValues }
 }
 
 GenderFilter.defaultProps = {
-    handleClear: _ => console.warn('oups no handleclear defined')
+    handleClear: _ => console.warn('oups no handleclear defined'),
+    buttonLabel:'filter'
 }
 export default GenderFilter
