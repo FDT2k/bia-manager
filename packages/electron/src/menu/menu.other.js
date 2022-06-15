@@ -101,6 +101,14 @@ export default (app, window,labelEnhancer=identity,actions ) => {
           }
         },
         {
+          label: labelEnhancer('Exporter'),
+          id:'export',
+          enabled:false,
+          click() {
+            window.webContents.send('location-change', '#/export');
+          }
+        },
+        {
           label: labelEnhancer('Synchroniser d\'autres bases'),
           id:'sync',
           enabled:false,

@@ -41,6 +41,7 @@ export default props => {
 
             <Switch>
                 <Route path="/database"><views.Database /></Route>
+                <Route path="/export"><views.Export /></Route>
                 <Route path="/sync"><views.Sync /></Route>
                 <Route path="/database/listes"><views.DatabaseListManager /></Route>
                 <Route path="/database/listes/:list_id"><views.DatabaseListManager /></Route>

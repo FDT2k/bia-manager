@@ -16,13 +16,14 @@ export const Component = (props) => {
     const [custom_filters, setCustomFilters] = useState({});
     const [rawExport, setRawExport] = useState(false);
 
-    const setFilter = (name, field, value) => {
+    const setFilter = (name, field, value,type="date_range") => {
         setCustomFilters(filters => {
             return {
                 ...filters,
                 [name]: {
                     ...value,
-                    key: field
+                    key: field,
+                    type
                 }
             }
         });

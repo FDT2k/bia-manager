@@ -4,6 +4,7 @@ import React, { createContext, useContext } from 'react';
 import CreateSubject from '@/Features/CreateSubject';
 import Database from '@/Features/Database';
 import Sync from '@/Features/DatabaseSync';
+import Export from '@/Features/DatabaseExport';
 import DatabaseListManager from '@/Features/ListManager';
 import Editor from '@/Features/Editor';
 import Search from '@/Features/Search';
@@ -29,6 +30,7 @@ export const makeProvider = (Context) => (props) => {
         Editor,
         Search,
         About,
+        Export,
 
     };
 

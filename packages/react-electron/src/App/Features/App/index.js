@@ -10,6 +10,7 @@ import EditSubject from '@/App/Features/EditSubject';
 import Editor from '@/App/Features/Editor'
 import Welcome from '@/App/Features/Welcome';
 import DatabaseImport from '@/App/Features/DatabaseImport'
+import DatabaseExport from '@/App/Features/DatabaseExport'
 import DatabaseSync from '@/App/Features/DatabaseSync'
 import { BIARouter, ViewProvider } from '@karsegard/react-bia-manager';
 import React from 'react';
@@ -23,6 +24,7 @@ const views = {
     Router,
     Editor,
     Database:DatabaseImport,
+    Export:DatabaseExport,
     CreateSubject,
     EditSubject,
     DatabaseListManager,

@@ -373,6 +373,7 @@ const menuUnlockFile = () => {
   Menu.getApplicationMenu().getMenuItemById('close').enabled = true;
   Menu.getApplicationMenu().getMenuItemById('sync').enabled = true;
   Menu.getApplicationMenu().getMenuItemById('import').enabled = true;
+  Menu.getApplicationMenu().getMenuItemById('export').enabled = true;
   Menu.getApplicationMenu().getMenuItemById('list').enabled = true;
   Menu.getApplicationMenu().getMenuItemById('search').enabled = true;
   Menu.getApplicationMenu().getMenuItemById('unlock-sensitive-data').enabled = SD_softLock === true;
@@ -392,6 +393,7 @@ const menuCloseFile = () => {
   Menu.getApplicationMenu().getMenuItemById('close').enabled = false;
   Menu.getApplicationMenu().getMenuItemById('sync').enabled = false;
   Menu.getApplicationMenu().getMenuItemById('import').enabled = false;
+  Menu.getApplicationMenu().getMenuItemById('export').enabled = false;
   Menu.getApplicationMenu().getMenuItemById('list').enabled = false;
   Menu.getApplicationMenu().getMenuItemById('search').enabled = false;
   Menu.getApplicationMenu().getMenuItemById('unlock-sensitive-data').enabled = false;
@@ -570,7 +572,8 @@ ipcMain.handle('sqlite-model-transaction', async (event, { model, fn, args, arg_
 ipcMain.handle('sqlite-export', async (event, { query, filename }) => {
   try {
     console.log('want to write file', filename);
-
+    console.log(query,filename);
+;
     let { canceled, filePath } = await dialog.showSaveDialog({
       defaultPath: filename, filters: [
         { name: 'CSV', extensions: ['csv'] },
@@ -687,7 +690,7 @@ const handleLanguageChange = (i18n, menu) => {
   updateMenuState();
 }
 
-app.whenReady()
+let seq = app.whenReady()
   .then(createWindow)
   .then(initMenu)
   .then(init18next(handleLanguageChange, store.get('language')))
@@ -695,6 +698,13 @@ app.whenReady()
   .then(updateMenuState)
   
   .catch((e) => console.error('Failed create window:', e));
+
+seq.then(_ => {
+  const stream = __fs.createWriteStream('/home/fabien/Desktop/debug.csv');
+  currentSQLite = openFile('/home/fabien/Desktop/BIM105/DBS/tests/main.sqlite').then(_ => {
+    currentSQLite.unlock('***REMOVED***');
+  });
+});
 
 app.on('uncaughtException', function (error) {
   // Handle the error

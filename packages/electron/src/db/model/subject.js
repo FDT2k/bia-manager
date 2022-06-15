@@ -1,5 +1,5 @@
 import mesure from './mesure'
-import { is_nil, enlist, is_empty, is_undefined, keys, is_type_array, is_type_function, safe_path } from '@karsegard/composite-js';
+import { is_nil, enlist, is_empty,is_type_string, is_undefined, keys, is_type_array, is_type_function, safe_path } from '@karsegard/composite-js';
 import { key, keyval, spec, pathes } from '@karsegard/composite-js/ObjectUtils';
 import { spreadObjectPresentIn } from '@karsegard/composite-js/ReactUtils'
 import { _transform, _retrieve, _retrieve_from_raw, _retrieve_entity, _raw_to_object, _retrieve_row } from '../sqlcipher'
@@ -287,7 +287,7 @@ const subject = (db, api) => {
 
     }
 
-    module.export_csv = (custom_filters, separator, stream) => {
+    module.export_csv = ({ custom_filters, rawExport }, separator, stream) => {
 
 
         let method = "where";
@@ -329,21 +329,30 @@ const subject = (db, api) => {
         let cols = stmt.columns();
         // extract_cols(cols);
         //   res.push(retrieve_csv_cols(cols.map(item => item.name), cols).join(separator));
-        let columns = retrieve_csv_cols(cols.map(item => item.name), cols);
-        stream.write(columns.join(separator)+'\n');
-        //  let columns = extract_columns(cols);  
-        for (let result of stmt.iterate()) {
-            // console.log(result)
-            let row = retrieve_csv_row(result, cols);
-            stream.write(row.join(separator)+'\n');
-            //console.log(row);
-            //     res.push(retrieve_csv_row(result, cols).join(separator));
-            //    console.log(extract_values(result,columns));
+        if (rawExport == false) {
+            let columns = retrieve_csv_cols(cols.map(item => item.name), cols);
+            stream.write(columns.join(separator) + '\n');
+            //  let columns = extract_columns(cols);  
+            for (let result of stmt.iterate()) {
+                // console.log(result)
+                let row = retrieve_csv_row(result, cols);
+                stream.write(row.join(separator) + '\n');
+                //console.log(row);
+                //     res.push(retrieve_csv_row(result, cols).join(separator));
+                //    console.log(extract_values(result,columns));
+            }
+        }else{
+            stream.write(cols.map(item => `"${item.table}.${item.name}"`).join(separator)+'\n');
+            for (let result of stmt.iterate()) {
+                stream.write(result.map(item=>{
+                    return  is_type_string(item) ? `"${item.replace(/\"/g,'""')}"`:`${item}`
+                }).join(separator) + '\n');
+            }
         }
         //return res;
     }
 
-  
+
 
 
 
@@ -411,7 +420,7 @@ const subject = (db, api) => {
                 ...val,
                 ...value
             }
-        } catch (e) {}
+        } catch (e) { }
         return val;
     }
 
