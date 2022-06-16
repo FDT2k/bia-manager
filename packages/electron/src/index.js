@@ -699,12 +699,6 @@ let seq = app.whenReady()
   
   .catch((e) => console.error('Failed create window:', e));
 
-seq.then(_ => {
-  const stream = __fs.createWriteStream('/home/fabien/Desktop/debug.csv');
-  currentSQLite = openFile('/home/fabien/Desktop/BIM105/DBS/tests/main.sqlite').then(_ => {
-    currentSQLite.unlock('***REMOVED***');
-  });
-});
 
 app.on('uncaughtException', function (error) {
   // Handle the error
