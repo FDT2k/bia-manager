@@ -65,7 +65,7 @@ export default props => {
         let _vals = {
             ...values,
             birthdate:  moment(values['birthdate'],'DD.MM.YYYY').format("YYYY-MM-DD"),
-            diag: values.diag.split("\n")
+            diag: values.diag ? values.diag.split("\n"): null
         };
         debugger;
 

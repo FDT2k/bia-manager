@@ -29,7 +29,8 @@ export default props => {
             handleSelectRow: (idx,patient)=> {
                 window.location.hash=`#/editor/${patient.id}`
             },
-            handleCSVExport: _=> exportToCSV(custom_filters),
+            handleCSVExport: _=> window.location.href='#/export',
+          //  handleCSVExport: _=> exportToCSV(custom_filters),
 
             }}/>
     </SearchPage>)
