@@ -1,6 +1,7 @@
 import {node} from '../../electron-vendors.config.json';
 import {join} from 'path';
 import {builtinModules} from 'module';
+import pkg from '../../package.json';
 
 const PACKAGE_ROOT = __dirname;
 
@@ -9,10 +10,14 @@ const PACKAGE_ROOT = __dirname;
  * @type {import('vite').UserConfig}
  * @see https://vitejs.dev/config/
  */
+console.log('CWD',process.cwd());
 const config = {
+  define: {
+    '__APP_VERSION__': JSON.stringify(process.env.npm_package_version),
+  },
   mode: process.env.MODE,
   root: PACKAGE_ROOT,
-  envDir: process.cwd(),
+  envDir: PACKAGE_ROOT,
   resolve: {
     alias: {
       '/@/': join(PACKAGE_ROOT, 'src') + '/',

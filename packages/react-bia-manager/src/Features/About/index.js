@@ -5,10 +5,12 @@ import { identity } from '@karsegard/composite-js';
 import { Container, LayoutFlex } from '@karsegard/react-core-layout';
 import React from 'react';
 import Modal from '@/Components/Modal'
+import { useTranslation } from '@';
 
 export const Page = props => {
 
-    const { t,handleOpenDatabase,handleCreateDatabase,handleConnect,openURL, ...rest } = props;
+    const { handleOpenDatabase,handleCreateDatabase,handleConnect,openURL, ...rest } = props;
+    const {t} = useTranslation();
     return (
         <Modal  type="dialog"visible={true}>
             <Container className="login-container">

@@ -2,6 +2,7 @@ import i18n from 'i18next'
 import i18nextBackend   from 'i18next-node-fs-backend';
 
 import {join,resolve} from 'path';
+import {postMissingTranslations} from './missing';
 
 const localePath = resolve(__dirname, '../locales');
 
@@ -18,7 +19,7 @@ export const i18nextOptions = {
     loadPath: join(localePath,'/{{lng}}/{{ns}}.json'),
 
     // path to post missing resources
-    addPath: join(localePath,'/{{lng}}/{{ns}}.missing.json'),
+    //addPath: join(localePath,'/{{lng}}/{{ns}}.missing.json'),
 
     // jsonIndent to use when storing json files
     jsonIndent: 2,
@@ -26,7 +27,12 @@ export const i18nextOptions = {
   interpolation: {
     escapeValue: false
   },
-  saveMissing: true,
+  saveMissing: import.meta.env.MODE === "development",
+  missingKeyHandler: (lngs,ns,key,fallback) => {
+    debugger;
+    //handler && handler(...args)
+    postMissingTranslations({lngs,ns,key});
+  },
   fallbackLng: defaultOptions.fallbackLng,
   whitelist: defaultOptions.languages,
   
