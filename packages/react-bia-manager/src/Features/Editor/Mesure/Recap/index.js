@@ -9,8 +9,8 @@ import { LayoutFlexColumn, LayoutFlex } from '@karsegard/react-core-layout';
 const InvalidRecap = props => {
     const {t} = useTranslation();
     return (<>
-        <div>{t('Le recapitulatif n\'est pas disponible.')}</div>
-        <div>{t('Remplissez le formulaire ou choisissez une mesure valide')}</div>
+        <div>{t('The summary is not available')}</div>
+        <div>{t('Fill out the form or choose a valid measurement')}</div>
     </>)
 }
 
@@ -26,20 +26,20 @@ export const Component = props => {
 
     return (<LayoutFlexColumn style={{ gap: '10px' }}>
         {valid && <>
-        <h4>{t('BIA_RECAP_TITLE')}</h4>
+        <h4>{t('BIA Summary Title')}</h4>
         <RecapGridComponent />
-        <h4>{t('FDS_RECAP_TITLE')}</h4>
+        <h4>{t('Clamping Force Summary Title')}</h4>
         <RecapFDSComponent />
 
-        <h4>{t('BODY_MASS_CHART_RECAP_TITLE')}</h4>
+        <h4>{t('Body Mass Chart Summary Title')}</h4>
         <MassChartComponent/>
         <LayoutFlex>
             <LayoutFlexColumn alignCenter>
-                <h4>{t('FFMI_RECAP_TITLE')}</h4>
+                <h4>{t('FFMI Chart Summary Title')}</h4>
                 <IndiceChartComponent data_key="ffmi" />
             </LayoutFlexColumn>
             <LayoutFlexColumn alignCenter>
-                <h4>{t('FMI_RECAP_TITLE')}</h4>
+                <h4>{t('FMI Chart Summary Title')}</h4>
                 <IndiceChartComponent data_key="fmi" />
             </LayoutFlexColumn>
         </LayoutFlex> </>}

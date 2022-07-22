@@ -23,7 +23,7 @@ export const RangeFilter = ({ label, handleSubmit, handleClear, currentValues,bu
     const filled = (!is_nil(currentValues) && (!is_nil(currentValues.from) || !is_nil(currentValues.to)))
     const Icon = filled === true ? (CloseSharp) : ChevronDownSharp
 
-    const _label = filled === true ? `${label} ${t('depuis le')} ${(values.from ? dateSysToHuman(values.from) : '')}  ${(values.to ? `${t('jusqu\'au')} ${dateSysToHuman(values.to)}` : '')}` : label;
+    const _label = filled === true ? `${label} ${t('since')} ${(values.from ? dateSysToHuman(values.from) : '')}  ${(values.to ? `${t('until')} ${dateSysToHuman(values.to)}` : '')}` : label;
 
 
     const overrideClick = filled === true ? _ => handleClear() : undefined;

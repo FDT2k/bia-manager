@@ -54,14 +54,14 @@ const PatientHeader = props => {
     const {t} = useTranslation();
 
     const fields = {
-        'birthdate': { type: 'date', editable: true, label: t('Date de naissance'), className:'birthdate' },
-        'age': { type: 'text', editable: false, label:  t('Âge') },
-        'gender': { type: 'select', editable: true, label:  t('Sexe'),options:safe_path([],'genders',lists) },
-        'usual_height': { type: 'text', editable: true, label:  t('Taille (cm)') },
-        'usual_weight': { type: 'text', editable: true, label:  t('Poids habituel (kg)') },
-        'groups.patho': { type: 'select', editable: true, label:  t('Groupe pathologique'), options:safe_path([],'pathological_groups',lists)},
-        'groups.ethno': { type: 'select', editable: true, label:  t('Groupe ethnologique'), options:safe_path([],'ethnological_groups',lists)},
-        'mesure_count': { type: 'text', editable: false, label:  t('Nombre de mesures') }
+        'birthdate': { type: 'date', editable: true, label: t('Date of birth'), className:'birthdate' },
+        'age': { type: 'text', editable: false, label:  t('Age') },
+        'gender': { type: 'select', editable: true, label:  t('Sex'),options:safe_path([],'genders',lists) },
+        'usual_height': { type: 'text', editable: true, label:  t('Height (cm)') },
+        'usual_weight': { type: 'text', editable: true, label:  t('Usual weight (kg)') },
+        'groups.patho': { type: 'select', editable: true, label:  t('Pathological group'), options:safe_path([],'pathological_groups',lists)},
+        'groups.ethno': { type: 'select', editable: true, label:  t('Ethnic group'), options:safe_path([],'ethnological_groups',lists)},
+        'mesure_count': { type: 'text', editable: false, label:  t('Number of measurements') }
     }
     useEffect(() => {
         replaceValues(data);

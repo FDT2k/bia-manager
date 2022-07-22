@@ -17,7 +17,7 @@ export const Component = props => {
     >
 
         <div className="row header--column"><span>{t('Dates')}</span></div>
-        <div className="row header--column"><span>{t('Norme')}</span></div>
+        <div className="row header--column"><span>{t('Norm')}</span></div>
         {
             headers && headers.map((item, idx) => {
                 return <div className="row header--column" key={idx}><span>{item.trim() != '' ? dateSysToHuman(new Date(item)) : item}</span></div>

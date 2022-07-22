@@ -246,41 +246,41 @@ export const Component = props => {
 
     const columns = [
         {
-            Header: t('SEARCH_table_column_lastname'),
+            Header: t('Lastname Column Label'),
             accessor: 'lastname',
             filter: 'text'
         },
         {
-            Header: t('SEARCH_table_column_firstname'),
+            Header: t('Firstname Column Label'),
             accessor: 'firstname',
             filter: 'fuzzyText'
         },
         {
-            Header: t('SEARCH_table_column_birthdate'),
+            Header: t('Birthdate Column Label'),
             accessor: values => { return (dateSysToHuman(values.birthdate)) }
 
         },
         {
-            Header: t('SEARCH_table_column_pathological_group'),
+            Header: t('Pathological Group Column Label'),
             accessor: 'groups.patho',
 
         },
         {
-            Header: t('SEARCH_table_column_sex'),
+            Header: t('Sex Column Label'),
             accessor: 'gender',
         },
         {
-            Header: t('SEARCH_table_column_sample_count'),
+            Header: t('Measurement Count Column Label'),
             accessor: 'count_mesures'
         },
     ]
 
     const searchableFields = [
-        { key: 'lastname', label: t('Nom') },
-        { key: 'firstname', label: t('Prénom') },
-        { key: 'birthdate', label: t('Date de Naissance') },
-        { key: 'groups.patho', label: t('Groupe Pathologique') },
-        { key: 'gender', label: t('Sexe') },
+        { key: 'lastname', label: t('Last name') },
+        { key: 'firstname', label: t('First name') },
+        { key: 'birthdate', label: t('Date of birht') },
+        { key: 'groups.patho', label: t('Pathological Group') },
+        { key: 'gender', label: t('Sex') },
     ]
 
     const handleSelectRow = (index, row) => {
@@ -295,8 +295,8 @@ export const Component = props => {
     return (
         <SearchLayout cover contained className="page-search">
             <SearchArea area="search">
-                <TagInput tabIndex={1} placeholder={t(`Recherche`)} tags={tags} handleFocus={v => setSearchBarFocused(v)} handleChange={_handleSearch} fields={searchableFields} />
-                <Button tabIndex={5} className="button--big" onClick={handleCreate}>{t('SEARCH_CREATE_NEW_SUBJECT')}</Button>
+                <TagInput tabIndex={1} placeholder={t(`Search`)} tags={tags} handleFocus={v => setSearchBarFocused(v)} handleChange={_handleSearch} fields={searchableFields} />
+                <Button tabIndex={5} className="button--big" onClick={handleCreate}>{t('Create new subject button label')}</Button>
             </SearchArea>
             <AdvancedSearch style={{ gridGap: '8px' }} area="filter">
                 {/*<FieldFilter
@@ -310,10 +310,10 @@ export const Component = props => {
                     currentValues={custom_filters.sex}
                     handleSubmit={values => setFilter('sex', 'gender', values, 'bools')}
                     handleClear={_ => clearFilter('sex')} />
-                <RangeFilter label="Mesures" currentValues={custom_filters.mesure_range} handleSubmit={values => setFilter('mesure_range', 'm.date', values)} handleClear={_ => clearFilter('mesure_range')} />
-                <RangeFilter label="Dates de naissances" currentValues={custom_filters.birthday_range} handleSubmit={values => setFilter('birthday_range', 'birthdate', values)} handleClear={_ => clearFilter('birthday_range')} />
+                <RangeFilter label={t('Measurements')} currentValues={custom_filters.mesure_range} handleSubmit={values => setFilter('mesure_range', 'm.date', values)} handleClear={_ => clearFilter('mesure_range')} />
+                <RangeFilter label={t('Dates of birth')} currentValues={custom_filters.birthday_range} handleSubmit={values => setFilter('birthday_range', 'birthdate', values)} handleClear={_ => clearFilter('birthday_range')} />
 
-                {<Button onClick={handleCSVExport} tabIndex={-1}>{t('EXPORT_CSV')}</Button>}
+                {<Button onClick={handleCSVExport} tabIndex={-1}>{t('Export CSV Button label')}</Button>}
             </AdvancedSearch>
             <ListWithAreaWithRef
 
@@ -363,13 +363,13 @@ export const Page = props => {
         return (
             <>
                 <LayoutFlex>
-                    <div>Base de donnée: {db_name} </div>
+                    <div>{t('Database')}: {db_name} </div>
                     <div> — </div>
-                    <div> Patients: {count} </div>
+                    <div> {t('Subjects')}: {count} </div>
                     <div> — </div>
-                    <div> Mesures: {count_mesures}</div>
+                    <div> {t('Measurements')}: {count_mesures}</div>
                 </LayoutFlex>
-                <div>Résultats de la recherche: {search_count} patients</div>
+                <div>{t('Search results')}: {search_count} {t('subjects')}</div>
             </>
         )
     }

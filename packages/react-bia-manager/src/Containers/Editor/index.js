@@ -101,7 +101,7 @@ export const Container = ({ selectors, actions }) => (Component, MesureEditor) =
             } else {
                /* debugger;
                 dispatch(actions.create_mesure(patient_id))*/
-                alert('this should not happen.')
+                alert(t('This should not happen.'))
             }
 
             setShouldOpen(false);

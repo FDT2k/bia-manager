@@ -126,7 +126,7 @@ export const Page = props => {
     return (
         <MainView className="page-create-subject">
             <Grid>
-                <PageHeader label={t('Nouveau Patient')}></PageHeader>
+                <PageHeader label={t('New Subject')}></PageHeader>
                 <form {...formProps}>
                     <Grid
 

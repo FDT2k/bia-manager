@@ -16,9 +16,9 @@ export const Component = props => {
     return (<>
         <Modal type="error" visible={ !is_nil(error) && error !==""}>
             <LayoutFlexColumn justCenter alignCenter>
-                <h2>{t('Erreur')}</h2>
+                <h2>{t('Error')}</h2>
                 {error}
-                <Button onClick={dismiss}>{t('Fermer')}</Button>
+                <Button onClick={dismiss}>{t('Close')}</Button>
             </LayoutFlexColumn>
         </Modal>
     </>)

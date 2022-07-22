@@ -46,7 +46,8 @@ export const Component =  props => {
         >
            
             <ComponentWithArea area="header" >
-                {!customPrintHeader && <h4>{t('Mesure de la composition corporelle par bio-impédance électrique')}</h4>}
+                {/* Mesure de la composition corporelle par bio-impédance électrique*/}
+                {!customPrintHeader && <h4>{t('Measurement of body composition by electrical bio-impedance')}</h4>}
                 {customPrintHeader && <img src={customPrintHeader} className="custom-header" style={{minWidth:'100%',maxWidth:'100%',maxHeight:'50px;'}}/>}
                <HeaderComponent/>
             </ComponentWithArea>
@@ -54,32 +55,35 @@ export const Component =  props => {
                 <RecapGridComponent/>
             </ComponentWithArea>
             <ComponentWithArea area="z" >
-                <h4>{t('Evolution de la composition corporelle')}</h4></ComponentWithArea>
+                {/*Evolution de la composition corporelle */}
+                <h4>{t('Evolution of body composition')}</h4></ComponentWithArea>
             <ComponentWithArea area="a" >
                 <MassChartComponent width={550}  height={190} />
             </ComponentWithArea>
             <ComponentWithArea area="y" >
-                <h4>{t('Votre position par rapport aux normes')}</h4></ComponentWithArea>
+                {/**Votre position par rapport aux normes */}
+                <h4>{t('Your position in relation to the standards')}</h4></ComponentWithArea>
             <ComponentWithArea area="b" >
                 <LayoutFlexColumn justCenter alignCenter>
-                    <h4>{t('Indice de masse maigre')}</h4>
-                    <span>{t('masse maigre / taille')}<sup>2</sup></span>
+                    <h4>{t('Fat Free Mass Index')}</h4>
+                    <span>{t('Fat free mass / height')}<sup>2</sup></span>
                     <IndiceChartComponent width={350}  height={180}  data_key="ffmi" />
                 </LayoutFlexColumn>
             </ComponentWithArea>
             <ComponentWithArea area="c" >
                 <LayoutFlexColumn justCenter alignCenter>
-                    <h4>{t('Indice de masse grasse')}</h4>
-                    <span>{t('masse grasse / taille')}<sup>2</sup></span>
+                    <h4>{t('Fat Mass Index')}</h4>
+                    <span>{t('fat mass / height')}<sup>2</sup></span>
                     <IndiceChartComponent width={350}  height={180}  data_key="fmi"/>
                 </LayoutFlexColumn>
             </ComponentWithArea>
             <ComponentWithArea area="fds" >
-            <h4>{t('Force de serrement')}</h4>
+            <h4>{t('Clamping Force')}</h4>
             <RecapFDSComponent />
             </ComponentWithArea>
             <ComponentWithArea area="footer" >
-                <span>{t('Créé avec BIM')} - {t('Développé par Karsegard Digital Agency Sàrl, en collaboration avec l\'Unité de Nutrition des HUG et la Fondation Nutrition 2000 Plus')} -  v{process.env.RENDERER_VERSION} - {t('imprimé')}: {dateSysToHuman(new Date())}</span>
+                {/*Développé par Karsegard Digital Agency Sàrl, en collaboration avec l\'Unité de Nutrition des HUG et la Fondation Nutrition 2000 Plus */}
+                <span>{t('Created with BIM')} - {t('Developed by Karsegard Digital Agency Sàrl, in collaboration with Nutrition Unit of HUG and Fondation Nutrition 2000 Plus')} -  v{process.env.RENDERER_VERSION} - {t('imprimé')}: {dateSysToHuman(new Date())}</span>
             </ComponentWithArea>
         </Grid>
     )

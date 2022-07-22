@@ -27,7 +27,7 @@ const TestEditor = props => {
                 {'average':'Elevé'},
             ],
             machines:[
-                { id: '', name: t('- Choisissez une valeur -') },
+                { id: '', name: t('- Choose a value -') },
                 {'unkown':'Inconnu'},
                 {'moderate':'Modéré'},
                 {'high':'Normal'},

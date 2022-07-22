@@ -37,7 +37,8 @@ export default props => {
     const [locked, setLocked] = useState(false)
     useEffect(() => {
         if (!ready) {
-            add_error(t('Vous devez ouvrir une base avant de synchroniser'))
+            //Vous devez ouvrir une base avant de synchroniser
+            add_error(t('You must open a database before syncing'))
         }
     }, [ready])
 
@@ -126,7 +127,8 @@ export default props => {
 
     const sync = async _ => {
         setLocked(true);
-        isConfirmed(t("Passé cette étape, les bases ne doivent plus être synchronisées. Je confirme que j'ai fait une sauvegarde de mes fichiers")).then(res => {
+        //Passé cette étape, les bases ne doivent plus être synchronisées. Je confirme que j'ai fait une sauvegarde de mes fichiers
+        isConfirmed(t("After this step, the bases MUST NOT be synchronized again. I acknowledge that I made backup of my database")).then(res => {
             if (res === true) {
                 hashes.map(hash => {
                     dispatch(actions.importing(hash));
@@ -146,19 +148,20 @@ export default props => {
     return (<>
 
         <DatabaseSyncFeature files={files} handleDrop={handleDrop}>
-            {ready_to_scan && !locked && <Button onClick={analyse}>{t('Analyser')}</Button>}
-            {is_ready && <Button onClick={sync}>{t('Importer')}</Button>}
-            {done && <Button onClick={_=>window.location.href='#/search'}>{t('Terminé')}</Button>}
+            {ready_to_scan && !locked && <Button onClick={analyse}>{t('Analyze')}</Button>}
+            {is_ready && <Button onClick={sync}>{t('Import')}</Button>}
+            {done && <Button onClick={_=>window.location.href='#/search'}>{t('Finished')}</Button>}
         </DatabaseSyncFeature>
         <Modal visible={!ack} type="info">
             <LayoutFlexColumn>
-                <h1>{t(`Attention`)}</h1>
-                <p>{t(`Cette opération ne doit être faite qu'une seule fois par fichier "enfant"`)}</p>
-                <p>{t(`Répéter cette opération avec les mêmes fichiers donnera des résultats différents à chaque essai et peut provoquer une perte de données`)}</p>
-                <p>{t(`Conservez une sauvegarde avant de synchroniser`)}</p>
-
-
-                <Button onClick={_ => setAck(true)}>{t(`J'ai compris`)}</Button>
+                <h1>{t(`Warning`)}</h1>
+                {/*Cette opération ne doit être faite qu'une seule fois par fichier "enfant"*/}
+                <p>{t(`This operation must not be done more than once by child database`)}</p>
+                {/*Répéter cette opération avec les mêmes fichiers donnera des résultats différents à chaque essai et peut provoquer une perte de données*/}
+                <p>{t(`Repeating this operation with the same databases will ends up with different results each time and can lead to data loss`)}</p>
+                {/*Conservez une sauvegarde avant de synchroniser*/}
+                <p>{t(`Keep a copy of the databases before syncing`)}</p>
+                <Button onClick={_ => setAck(true)}>{t(`I understand`)}</Button>
             </LayoutFlexColumn>
         </Modal>
     </>)

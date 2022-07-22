@@ -40,7 +40,7 @@ const Editor = props => {
         <MainView RightFooter={RightFooter} className="bia-main--editor" renderLeftNav={
             _ => {
                 return (<NavComponent className={element('nav')} area="nav" onClick={handleGoBack}>
-                    <ArrowBack /> <h4>{t('Retour à la liste')}</h4>
+                    <ArrowBack /> <h4>{t('Back to list')}</h4>
                 </NavComponent>)
             }
         }>
@@ -55,7 +55,7 @@ const Editor = props => {
                 <Area className={element('mesures')} area="mesures">
                     <ListMesure
                         selectedIndex={selectedMesureIndex}
-                        title={t('Mesures')}
+                        title={t('Measurement')}
                         itemLabelKey="date"
                         handleItemListClick={handleMesureOpen}
                         handleCreateClick={
@@ -77,7 +77,7 @@ const Editor = props => {
                         mesure={mesure} 
                         customPrintHeader={customPrintHeader}
                         />}
-                    {!mesure && "Aucune mesure "}
+                    {!mesure && " No measurement "}
                 </ContainerWithArea>
 
             </EditorLayout>
