@@ -21,6 +21,7 @@ i18n
         debug: false,
         saveMissing: import.meta.env.MODE === "development",
         missingKeyHandler: (...args) => {
+           // console.log(args,handler);
             handler && handler(...args)
         },
         interpolation: {

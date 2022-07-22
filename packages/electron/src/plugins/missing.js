@@ -1,10 +1,24 @@
 //{lngs,ns,key,version:__APP_VERSION__,app:import.meta.env.VITE_I18N_COLLECTOR_APP_NAME}
+
+let sent_keys = [];
+
 export const postMissingTranslations = (data)=>{
+
+  if(import.meta.env.MODE != "development"){
+    console.log('tried to send translation from not dev env'); 
+
+    return ;
+  }
+    if(sent_keys.includes(data.ns+'.'+data.key)){
+      console.log('skipping already sent translation'); 
+      return ;
+    }
     console.log('posting translation'); 
     let collection_url = import.meta.env.VITE_I18N_COLLECTOR;
     let url = new URL(collection_url);
     const { net } = require('electron');
     var postData = JSON.stringify( {...data,version:__APP_VERSION__,app:import.meta.env.VITE_I18N_COLLECTOR_APP_NAME} );
+    sent_keys.push(data.ns+'.'+data.key);
     let response_body=''
     console.log(data);
    // debugger;

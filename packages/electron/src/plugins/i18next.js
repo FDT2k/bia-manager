@@ -54,14 +54,17 @@ export default  (handleLanguageChange,language='fr') => mainWindow=> {
 
     if (import.meta.env.MODE === 'development') {
         ipcMain.handle('missing-translations', (event, lngs, ns, key, fallbackValue, updateMissing, options) => {
-          //  console.log( lngs, ns, key, fallbackValue, updateMissing, options);
+         //   console.log( lngs, ns, key, fallbackValue, updateMissing, options);
+          console.log('receving missing translation from react');
             if(key ==""){
                 return ;
             }
+           
+            postMissingTranslations({lngs,ns,key});
             mutex
                 .acquire()
                 .then(function (release) {
-                   postMissingTranslations({lngs,ns,key});
+                  
                     if(!client_ready){
                         console.warn('client is sending missing translation but is not ready yet')
                         release()
