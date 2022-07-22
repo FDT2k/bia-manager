@@ -19,7 +19,7 @@ i18n
     .init({
         fallbackLng: 'fr',
         debug: false,
-        saveMissing: import.meta.env.MODE === "development",
+        saveMissing: true,
         missingKeyHandler: (...args) => {
             handler && handler(...args)
         },

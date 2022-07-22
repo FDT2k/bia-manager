@@ -3,6 +3,8 @@ import { Mutex } from 'async-mutex';
 import i18n, { i18nextOptions,defaultOptions } from './config';
 import fs from 'fs/promises'
 import {deep_merge} from '@karsegard/composite-js'
+import {postMissingTranslations} from './missing';
+
 const mutex = new Mutex();
 
 
@@ -52,14 +54,13 @@ export default  (handleLanguageChange,language='fr') => mainWindow=> {
 
     if (import.meta.env.MODE === 'development') {
         ipcMain.handle('missing-translations', (event, lngs, ns, key, fallbackValue, updateMissing, options) => {
-            console.log( lngs, ns, key, fallbackValue, updateMissing, options);
+          //  console.log( lngs, ns, key, fallbackValue, updateMissing, options);
             if(key ==""){
                 return ;
             }
             mutex
                 .acquire()
                 .then(function (release) {
-                    
                    postMissingTranslations({lngs,ns,key});
                     if(!client_ready){
                         console.warn('client is sending missing translation but is not ready yet')

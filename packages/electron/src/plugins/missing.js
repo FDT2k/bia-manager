@@ -1,12 +1,13 @@
 //{lngs,ns,key,version:__APP_VERSION__,app:import.meta.env.VITE_I18N_COLLECTOR_APP_NAME}
 export const postMissingTranslations = (data)=>{
+    console.log('posting translation'); 
     let collection_url = import.meta.env.VITE_I18N_COLLECTOR;
     let url = new URL(collection_url);
     const { net } = require('electron');
     var postData = JSON.stringify( {...data,version:__APP_VERSION__,app:import.meta.env.VITE_I18N_COLLECTOR_APP_NAME} );
     let response_body=''
     console.log(data);
-    debugger;
+   // debugger;
         try {
         const request = net.request({
             method: "POST",

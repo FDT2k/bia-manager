@@ -29,7 +29,7 @@ export const i18nextOptions = {
   },
   saveMissing: import.meta.env.MODE === "development",
   missingKeyHandler: (lngs,ns,key,fallback) => {
-    debugger;
+  //  debugger;
     //handler && handler(...args)
     postMissingTranslations({lngs,ns,key});
   },
