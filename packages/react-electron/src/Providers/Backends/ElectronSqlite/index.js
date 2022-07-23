@@ -308,8 +308,11 @@ export default ({ children }) => {
     }
 
     const setCustomHeader = async () => {
-        let confirmed = await isConfirmed('L\'Entête doit être au format jpg et avoir un ratio de 10 de large pour 1 de haut (1000px * 100px). Vous pouvez ignorer ce ratio, mais l\'impression se fera alors sur plusieurs page.', {
-            okLabel: 'Ok', cancelLabel: 'Annuler'
+       // let message = `${t('L\'Entête doit être au format jpg et avoir un ratio de 10 de large pour 1 de haut (1000px * 100px)')}.${t('Vous pouvez ignorer ce ratio, mais l\'impression se fera alors sur plusieurs page')}`
+        let message = `${t('The header must be in jpeg format and have a ratio of 10:1 (1000px * 100px)')}.${t('You can ignore this ratio but the print may be done on several pages')}`
+
+        let confirmed = await isConfirmed(message, {
+            okLabel: t('Ok'), cancelLabel: t('Cancel')
         });
 
 

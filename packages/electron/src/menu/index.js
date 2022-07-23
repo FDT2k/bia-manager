@@ -13,30 +13,22 @@ function MenuFactoryService(menu) {
   this.buildMenu = buildMenu;
 }
 
-
+const makeLabelEnhancer = (comment,fn) => key => {
+  let _key = key+comment;
+  let r = fn(_key);
+  if(r==_key){
+    let a = key.split('//');
+    return a[0];
+  }
+  return r;
+}
 
 function buildMenu(app, mainWindow, _labelEnhancer=identity, moreMenu,actions) {
   if (config.platform === 'darwin') {
-    let labelEnhancer = key => {
-      let _key = key+'//macos menu item';
-      let r = _labelEnhancer(_key);
-      if(r==_key){
-        let a = key.split('//');
-        return a[0];
-      }
-      return r;
-    }
+    let labelEnhancer = makeLabelEnhancer('//macos menu item',_labelEnhancer);
     this.menu = darwinTemplate(app, mainWindow, labelEnhancer,actions);
   } else {
-    let labelEnhancer = key => {
-      let _key = key+'//win or linux menu item';
-      let r = _labelEnhancer(_key);
-      if(r==_key){
-        let a = key.split('//');
-        return a[0];
-      }
-      return r;
-    }
+    let labelEnhancer = makeLabelEnhancer('//win or linux menu item',_labelEnhancer);
     this.menu = otherTemplate(app, mainWindow, labelEnhancer,actions);
   }
   if (moreMenu) {
