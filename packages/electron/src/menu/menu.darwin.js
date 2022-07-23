@@ -47,7 +47,7 @@ export default  (app, window, labelEnhancer=identity,actions) => {
       label: labelEnhancer('&File'),
       submenu: [
         {
-          label: labelEnhancer('Ouvrir'),
+          label: labelEnhancer('Open'),
           id:'open',
 
           click() {
@@ -56,7 +56,7 @@ export default  (app, window, labelEnhancer=identity,actions) => {
         },
        
         {
-          label: labelEnhancer('Fermer'),
+          label: labelEnhancer('Close'),
           id:'close',
           enabled:false,
           click() {
@@ -110,7 +110,7 @@ export default  (app, window, labelEnhancer=identity,actions) => {
       label: labelEnhancer('Sécurité'),
       submenu: [
         {
-          label: labelEnhancer('Configurer'),
+          label: labelEnhancer('Configure'),
           id:'configure-sensitive-data',
           enabled:false,
           click() {
@@ -119,7 +119,7 @@ export default  (app, window, labelEnhancer=identity,actions) => {
 
         },
         {
-          label: labelEnhancer('Déverouiller les données sensibles'),
+          label: labelEnhancer('Unlock sensitive data'),
           id:'unlock-sensitive-data',
           enabled:false,
           click() {
@@ -128,7 +128,7 @@ export default  (app, window, labelEnhancer=identity,actions) => {
 
         },
         {
-          label: labelEnhancer('Verrouiller les données sensibles'),
+          label: labelEnhancer('Lock sensitive data'),
           id:'lock-sensitive-data',
           enabled:false,
           click() {
@@ -139,10 +139,10 @@ export default  (app, window, labelEnhancer=identity,actions) => {
       ]
     },
     {
-      label: labelEnhancer('Outils'),
+      label: labelEnhancer('Tools'),
       submenu: [
         {
-          label: labelEnhancer('Importer'),
+          label: labelEnhancer('Import'),
           id:'import',
           enabled:false,
           click() {
@@ -150,7 +150,15 @@ export default  (app, window, labelEnhancer=identity,actions) => {
           }
         },
         {
-          label: labelEnhancer('Synchroniser d\'autres bases'),
+          label: labelEnhancer('Export'),
+          id:'export',
+          enabled:false,
+          click() {
+            window.webContents.send('location-change', '#/export');
+          }
+        },
+        {
+          label: labelEnhancer('Sync children databases'),
           id:'sync',
           enabled:false,
           click() {
@@ -158,7 +166,7 @@ export default  (app, window, labelEnhancer=identity,actions) => {
           }
         },
         {
-          label: labelEnhancer('Gestion des listes'),
+          label: labelEnhancer('Lists manager'),
           id:'list',
           enabled:false,
           click() {
@@ -166,7 +174,7 @@ export default  (app, window, labelEnhancer=identity,actions) => {
           }
         },
         {
-          label: labelEnhancer('Recherche'),
+          label: labelEnhancer('Search'),
           id:'search',
           enabled:false,
           click() {
@@ -177,7 +185,7 @@ export default  (app, window, labelEnhancer=identity,actions) => {
       ]
     },
     {
-      label: labelEnhancer('Paramètres'),
+      label: labelEnhancer('Settings'),
       submenu: [
         {
           label: labelEnhancer('Inserer l\'entête personnalisée'),
@@ -189,13 +197,13 @@ export default  (app, window, labelEnhancer=identity,actions) => {
 
         },
         {
-          label: labelEnhancer('Retirer l\'entête personnalisée'),
+          label: labelEnhancer('Remove custom header'),
           id:'customize-header',
           enabled:true,
           click() {
             actions.remove_custom_header().then(res=>{
               dialog.showMessageBox(window,{
-                message:labelEnhancer('Entête supprimé')
+                message:labelEnhancer('Header deleted')
               })
             }).catch(err=>{
               dialog.showMessageBox(window,{

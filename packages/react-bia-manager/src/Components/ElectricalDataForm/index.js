@@ -4,7 +4,7 @@ import ImpedanceLayout, { ImpedanceHeader, ImpedanceLineHeader } from '@/Compone
 import { ComponentWithArea, withGridArea } from '@karsegard/react-core-layout';
 import mexp from 'math-expression-evaluator';
 import React, { useMemo } from 'react';
-
+import {useTranslation} from '@';
 const fieldName = (row, col) => {
     return `${row}${col}`
 }
@@ -111,7 +111,7 @@ const ElectricalDataForm = props => {
     const {handleComputedChange,handleGroupChange, handleValidation, norme, handleChange,handleFormBlur, values, editedGroup,...rest } = props;
    
 
-    
+    const {t} =useTranslation();
 
    
     const [unchanged, recomputed] = useMemo(() => {
@@ -143,11 +143,11 @@ const ElectricalDataForm = props => {
                 <Header area="h_5">5khz</Header>
                 <Header area="h_50">50khz</Header>
                 <Header area="h_100">100khz</Header>
-                <Header area="h_nor">Normes</Header>
-                <LineHeader area="h_res">Resistance (Ω)</LineHeader>
-                <LineHeader area="h_a">Angle de phase (°)</LineHeader>
-                <LineHeader area="h_rea">Reactance (Ω)</LineHeader>
-                <LineHeader area="h_z">Impédance (Ω)</LineHeader>
+                <Header area="h_nor">{t('Standards//bia form')}</Header>
+                <LineHeader area="h_res">{t('Resistance//bia form')} (Ω)</LineHeader>
+                <LineHeader area="h_a">{t('Phase angle//bia form')} (°)</LineHeader>
+                <LineHeader area="h_rea">{t('Reactance//bia form')} (Ω)</LineHeader>
+                <LineHeader area="h_z">{t('Impedance//bia form')} (Ω)</LineHeader>
                 <ComponentWithArea area="f_res_nor"></ComponentWithArea>
                 <ComponentWithArea area="f_rea_nor"></ComponentWithArea>
                 <ComponentWithArea area="f_z_nor"></ComponentWithArea>

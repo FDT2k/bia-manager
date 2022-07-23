@@ -34,7 +34,7 @@ export const Component = props => {
             <FormulaResultHeader available_columns={available_columns} handleChange={handleChange} selectable={selectable} columns={state} />
 
             {data.filter(item => item.display == true).map((item, idx) =>
-                <FormulaResultRow key={idx} available_columns={available_columns} label={item.label} values={item.values} logs={item.logs} columns={state} limits={item.limits} />
+                <FormulaResultRow key={idx} available_columns={available_columns} label={t(item.label+'//comparison header')} values={item.values} logs={item.logs} columns={state} limits={item.limits} />
 
             )}
 
@@ -202,7 +202,7 @@ Component.defaultProps = {
         { name: 'kushner', label: 'Kushner', selectable: true },
       //  { name: 'brazil', label: 'Brazil', selectable: true },
         { name: 'segal', label: 'Segal', selectable: true },
-        { name: 'norme', label: 'Norme', type: 'norme', selectable: false },
+        { name: 'norme', label: 'Standard', type: 'norme', selectable: false },
         { name: 'gva', label: 'Gva', selectable: true },
     ],
     columns: ['norme', 'kushner', 'gva'],

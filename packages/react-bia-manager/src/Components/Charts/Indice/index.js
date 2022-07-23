@@ -122,8 +122,8 @@ LineChart.defaultProps = {
     noi: 'fmi',
 
     XTicks:[15, 20, 25, 30, 35, 40, 45, 50, 55, 60, 65, 70, 75, 80],
-    YLabel:"Masse Grasse (kg/m2)",
-    XLabel:"Age (années)",
+    YLabel:"Fat Mass (kg/m2)//chart label",
+    XLabel:"Age (years)//chart label",
     YTicks: [1,13,14,15,16, 17, 18, 19, 20, 21, 22]
     
 }

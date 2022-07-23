@@ -83,7 +83,7 @@ export const Component =  props => {
             </ComponentWithArea>
             <ComponentWithArea area="footer" >
                 {/*Développé par Karsegard Digital Agency Sàrl, en collaboration avec l\'Unité de Nutrition des HUG et la Fondation Nutrition 2000 Plus */}
-                <span>{t('Created with BIM')} - {t('Developed by Karsegard Digital Agency Sàrl, in collaboration with Nutrition Unit of HUG and Fondation Nutrition 2000 Plus')} -  v{process.env.RENDERER_VERSION} - {t('imprimé')}: {dateSysToHuman(new Date())}</span>
+                <span>{t('Created with BIM//print footer')} - {t('Developed by Karsegard Digital Agency Sàrl//print footer')}, {t('in collaboration with Nutrition Unit of HUG and Fondation Nutrition 2000 Plus//print footer')} -  v{process.env.RENDERER_VERSION} - {t('printed//print footer')}: {dateSysToHuman(new Date())}</span>
             </ComponentWithArea>
         </Grid>
     )
