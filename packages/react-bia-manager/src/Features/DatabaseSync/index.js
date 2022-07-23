@@ -45,10 +45,10 @@ export const Component = ({ handleDrop, children, files }) => {
                 <LayoutFlex column>
                     <LayoutFlexColumn className="sync-parent">
 
-                        <Field label={t("Glissez une ou plusieurs base de données")}>
+                        <Field label={t("Drag and drop one or several database")}>
                         </Field>
                         <div className="sync" ref={ref} style={style}>
-                            {(files.length == 0) && <div className="drop-overlay">Glisser les fichiers ici</div>}
+                            {(files.length == 0) && <div className="drop-overlay">{t('Drop the files here')}</div>}
 
                             <>
                                 <div className="header"></div>
@@ -58,11 +58,11 @@ export const Component = ({ handleDrop, children, files }) => {
                                 <div className="header"></div>
                             </>
                             <>
-                                <div className="header">base </div>
-                                <div className="header">nouveaux</div>
-                                <div className="header">modifiés</div>
-                                <div className="header">nouveaux</div>
-                                <div className="header">modifiés</div>
+                                <div className="header">{t('base')} </div>
+                                <div className="header">{t('new')}</div>
+                                <div className="header">{t('altered')}</div>
+                                <div className="header">{t('new')}</div>
+                                <div className="header">{t('altered')}</div>
                                 <div className="header"></div>
                                 <div className="header"></div>
                             </>
@@ -84,7 +84,7 @@ export const Component = ({ handleDrop, children, files }) => {
                                 )
                             })}
                             <>
-                                <div className="header"> Totaux </div>
+                                <div className="header">{t('Total')} </div>
                                 <div className="header">{safe_path('-', 'subjects.new', totals)}</div>
                                 <div className="header">{safe_path('-', 'subjects.altered', totals)} </div>
                                 <div className="header">{safe_path('-', 'mesures.new', totals)}</div>
