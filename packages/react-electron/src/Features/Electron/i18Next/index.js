@@ -42,7 +42,7 @@ export default ({ children }) => {
 
 
     const { actions: { get_translations, missing_translations, i18next_ready }, subscribers: { handleLanguageChange } } = useElectron();
-
+    const [loaded,setLoaded] = useState(false)
     useEffect(() => {
         setHandler(missing_translations)
 
@@ -55,6 +55,7 @@ export default ({ children }) => {
                 })
             })
             i18next_ready();
+            setLoaded(true);
         }).catch(res => {
         })
 
@@ -69,7 +70,8 @@ export default ({ children }) => {
     }, []);
     return (
         <I18nextProvider i18n={i18n}>
-            {children}
+            {loaded && children}
+            {!loaded && "loading translations"}
         </I18nextProvider>
     )
 }

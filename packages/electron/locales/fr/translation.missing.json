@@ -1,14 +1,3 @@
 {
-   "Confirm//dialog title": "Confirm//dialog title",
-   "proceed//confirm dialog button": "proceed//confirm dialog button",
-   "cancel//confirm dialog button": "cancel//confirm dialog button",
-   "Create a database//title": "Create a database//title",
-   "Type a password//create database": "Type a password//create database",
-   "Password confirmation//create database": "Password confirmation//create database",
-   "Create//create database": "Create//create database",
-   "Cancel//create database": "Cancel//create database",
-   "The database is locked": "The database is locked",
-   "type your password": "type your password",
-   "Unlock//database": "Unlock//database",
-   "Cancel//unlock database": "Cancel//unlock database"
+   "subjects": "subjects"
 }
