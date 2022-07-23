@@ -79,8 +79,8 @@ export const Component = props => {
     return (<>
         <Modal type="confirm" visible={isOpen}>
             <LayoutFlexColumn style={{ gap: '10px' }} justCenter alignCenter>
-                <h2>{t(title)}</h2>
-                {t(prompt)}
+                <h2>{t(title+'//dialog title')}</h2>
+                {prompt}
                 <LayoutFlexColumn style={{ gap: '10px' }}>
                     {fields && fields.length > 0 && fields.map((field, idx) => {
                         return (<div className="field" key={idx}>
@@ -92,8 +92,8 @@ export const Component = props => {
                         )
                     })}
                 </LayoutFlexColumn>
-                <LayoutFlex style={{ gap: '10px' }}><Button onClick={handleProceed}>{t(okLabel)}</Button>
-                    <Button onClick={handleCancel}>{t(cancelLabel)}</Button></LayoutFlex>
+                <LayoutFlex style={{ gap: '10px' }}><Button onClick={handleProceed}>{t(okLabel+'//confirm dialog button')}</Button>
+                    <Button onClick={handleCancel}>{t(cancelLabel+'//confirm dialog button')}</Button></LayoutFlex>
             </LayoutFlexColumn>
         </Modal>
     </>)
