@@ -28,21 +28,21 @@ export const Page = props => {
 
     const { t, dateSysToHuman, dateHumanToSys } = useTranslation()
     let fields = {
-        'lastname': { type: 'text', label: 'Nom', tabIndex: 1 },
-        'firstname': { type: 'text', label: 'Prenom', tabIndex: 2 },
-        'birthdate': { type: 'date', label: 'Date de naissance', tabIndex: 3 },
+        'lastname': { type: 'text', label: t('Last name//create subject'), tabIndex: 1 },
+        'firstname': { type: 'text', label: t('First name//create subject'), tabIndex: 2 },
+        'birthdate': { type: 'date', label: t('Date of birth//create subject'), tabIndex: 3 },
 
-        'usual_height': { type: 'text', label: 'Taille', tabIndex: 6 + 1 },
-        'usual_weight': { type: 'text', label: 'Poids habituel', tabIndex: 6 + 2 },
+        'usual_height': { type: 'text', label: t('Height//create subject'), tabIndex: 6 + 1 },
+        'usual_weight': { type: 'text', label: t('Usual weight//create subject'), tabIndex: 6 + 2 },
        // 'diag': { type: 'textarea', label: 'Diagnostic', tabIndex: 6 + 3 },
     }
 
     if(locked === false){
         fields = {
             ...fields,
-            'med_name': { type: 'text', label: 'Médecin', tabIndex: 6+4 },
-            'med_service': { type: 'text', label: 'Service', tabIndex: 6+5 },
-            'diag': { type: 'textarea', label: 'Diagnostic', tabIndex: 6 + 3 },
+            'med_name': { type: 'text', label: t('Doctor//create subject'), tabIndex: 6+4 },
+            'med_service': { type: 'text', label: t('Unit//Create subject'), tabIndex: 6+5 },
+            'diag': { type: 'textarea', label: t('Diagnosis//create subject'), tabIndex: 6 + 3 },
         }
     }
 
@@ -126,7 +126,7 @@ export const Page = props => {
     return (
         <MainView className="page-create-subject">
             <Grid>
-                <PageHeader label={t('New Subject')}></PageHeader>
+                <PageHeader label={t('New Subject//create subject title')}></PageHeader>
                 <form {...formProps}>
                     <Grid
 
@@ -183,8 +183,8 @@ export const Page = props => {
                             </Field></ComponentWithArea>)
                         })}
 
-                        <ComponentWithArea tabIndex={30} area="btsave"><Button type="submit">Enregistrer</Button></ComponentWithArea>
-                        <ComponentWithArea tabIndex={99} area="btcancel"><Button className="btn--secondary" onClick={_ => handleCancel()}>Annuler</Button></ComponentWithArea>
+                        <ComponentWithArea tabIndex={30} area="btsave"><Button type="submit">{t('Save//create subject button')}</Button></ComponentWithArea>
+                        <ComponentWithArea tabIndex={99} area="btcancel"><Button className="btn--secondary" onClick={_ => handleCancel()}>{t('Cancel//create subject button')}</Button></ComponentWithArea>
 
                     </Grid>
                 </form>
