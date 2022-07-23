@@ -10,7 +10,7 @@ export const postMissingTranslations = (data)=>{
     return ;
   }
     if(sent_keys.includes(data.ns+'.'+data.key)){
-      console.log('skipping already sent translation'); 
+      console.log('skipping already sent translation ',data.key); 
       return ;
     }
     console.log('posting translation'); 
