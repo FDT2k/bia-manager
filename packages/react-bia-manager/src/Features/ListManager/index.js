@@ -7,7 +7,7 @@ import ListCrud from './ListCrud';
 import React, { useState } from 'react';
 
 import {useListManager} from '@/Context/ListManager'
-
+import {useTranslation} from '@';
 
 export const Component = props => {
 
@@ -18,7 +18,7 @@ export const Component = props => {
 
     const {handleSave:_handleSave} = props;
 
- 
+    const {t} =useTranslation();
 
     return (<>
         {editedList == null && <ListsManagerComponent />}
@@ -40,7 +40,7 @@ export const Page =  (props) => {
     return (
         <MainView renderFooter={renderFooter} className="list-editor">
             <LayoutFlexColumn cover centered justBetween>
-                <h1>Gestion des listes</h1>
+                <h1>{t('List manager')}</h1>
                 <Container style={{minWidth:'600px',minHeight:'500px'}}>
                     {children}
                 </Container>

@@ -13,7 +13,7 @@ import Input from '@/Components/Form/Input';
 
 import ToggleSwitch from '@/Components/Form/ToggleSwitch'
 
-
+import {useTranslation} from '@';
 
 export const Component = props => {
 
@@ -51,7 +51,7 @@ export const ListCrudHOC = Component => props => {
     const [deleting, setDeleting] = useState(null)
 
     const { values, inputProps, replaceValues,handleChangeValue } = useFieldValues(empty_list_item)
-
+    const {t}  = useTranslation();
     const handleAdd = () => {
 
         setEdited({ name: '' });
@@ -108,8 +108,8 @@ export const ListCrudHOC = Component => props => {
                         onSort={sortList}
                         handleDragStop={handleDragStop}
                         actions={[
-                            { key: 'edit', label: 'Editer' },
-                            { key: 'delete', label: 'Suprimmer' }
+                            { key: 'edit', label: t('Editer') },
+                            { key: 'delete', label: t('Suprimmer') }
                         ]}
                         columns={[{
                             Header: 'name',
@@ -120,7 +120,7 @@ export const ListCrudHOC = Component => props => {
                             accessor: 'sort',
                         },
                         {
-                            Header: 'Par défaut',
+                            Header: t('Par défaut'),
                             accessor: (value) => {
                               return   value.default_value === true ? 'oui' : 'non'
                             },
@@ -145,9 +145,9 @@ export const ListCrudHOC = Component => props => {
 
                 <Button onClick={
                     handleAdd
-                }>Ajouter</Button>
+                }>{t('Ajouter')}</Button>
                 <LayoutFlex justAround>
-                    <Button onClick={cancelEdit}>Retour</Button>
+                    <Button onClick={cancelEdit}>{t('Retour')}</Button>
                 </LayoutFlex>
 
             </LayoutFlex>
@@ -168,7 +168,7 @@ export const ListCrudHOC = Component => props => {
 </LayoutFlex>
                 <LayoutFlex justEnd>
 
-                    <Button onClick={handleSave}>Enregistrer</Button>
+                    <Button onClick={handleSave}>{t('Enregistrer')}</Button>
 
                 </LayoutFlex>
             </LayoutFlexColumn>
@@ -178,10 +178,10 @@ export const ListCrudHOC = Component => props => {
         <Modal visible={deleting !== null}>
 
             <LayoutFlexColumn>
-                <h3>Etes vous sur de vouloir supprimer cet élément?</h3>
+                <h3>{t('Êtes vous sur de vouloir supprimer cet élément?')}</h3>
                 <LayoutFlex justBetween>
-                    <Button onClick={_ => handleDelete()}>oui</Button>
-                    <Button onClick={_ => setDeleting(null)}>non</Button>
+                    <Button onClick={_ => handleDelete()}>{t('Oui')}</Button>
+                    <Button onClick={_ => setDeleting(null)}>{t('Non')}</Button>
                 </LayoutFlex>
             </LayoutFlexColumn>
 

@@ -33,11 +33,11 @@ export const GenderFilter = ({ label, handleSubmit, handleClear, currentValues,b
         <Dropdown offset={8} label={_label} icon={<Icon />} overrideClick={overrideClick}>
             <>
                 <DropdownItem>
-                    <div>Femme</div>
+                    <div>{t('Femme')}</div>
                     <input  {...checkboxProps('options.F')} type="checkbox" />
                 </DropdownItem>
                 <DropdownItem>
-                    <div>Homme</div>
+                    <div>{t('Homme')}</div>
                     <input {...checkboxProps('options.M')} type="checkbox" />
                 </DropdownItem>
                 <DropdownItem>

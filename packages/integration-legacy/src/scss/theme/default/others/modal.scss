@@ -1,5 +1,9 @@
 
-.container{
+.container.modal-form{
+
+  & > .container{
+    overflow: visible;
+  }
   overflow:visible;
 }
 // this is supposed to always show errors above dialogs

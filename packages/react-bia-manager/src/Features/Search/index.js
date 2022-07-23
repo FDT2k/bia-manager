@@ -306,7 +306,7 @@ export const Component = props => {
                     handleClear={_ => clearFilter('by_field')}
                 />*/}
                 <GenderFilter
-                    label="Sexe"
+                    label={t("Sexe")}
                     currentValues={custom_filters.sex}
                     handleSubmit={values => setFilter('sex', 'gender', values, 'bools')}
                     handleClear={_ => clearFilter('sex')} />
