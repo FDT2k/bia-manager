@@ -77,7 +77,7 @@ export const makeProvider = (Context) => {
         }
 
         const save_file = _ => {
-            start_loading(t('saving'));
+            start_loading(t('Saving'));
             save().then(
                 result => {
                     stop_loading();

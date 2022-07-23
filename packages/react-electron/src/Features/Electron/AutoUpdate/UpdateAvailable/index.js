@@ -6,11 +6,11 @@ import {Button} from '@karsegard/react-bia-manager';
 
 
 export const Component = ({t,download,close,updateMessage}) => (<LayoutFlexColumn justCenter alignCenter>
-    <h2>{t('Mise à jour disponible')}</h2>
+    <h2>{t('Update Available!')}</h2>
     <div dangerouslySetInnerHTML={{ __html: updateMessage.releaseNotes }}></div>
     <LayoutFlex style={{ width: '100%' }} justBetween>
-        <Button onClick={_ => download()}>{t('Installer')}</Button>
-        <Button onClick={_ => close(false)}>{t('Fermer')}</Button>
+        <Button onClick={_ => download()}>{t('Install')}</Button>
+        <Button onClick={_ => close(false)}>{t('Ignore')}</Button>
     </LayoutFlex>
 </LayoutFlexColumn>)
 

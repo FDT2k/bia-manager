@@ -5,7 +5,7 @@ import { LayoutFlexColumn } from '@karsegard/react-core-layout';
 
 
 export const Component = ({t,download,updateMessage}) => (<LayoutFlexColumn justCenter alignCenter>
-    <h2>{t('Téléchargement de la version')} {updateMessage.version}</h2>
+    <h2>{t('Downloading version')} {updateMessage.version}</h2>
     {download && Math.round(download.percent)}%
 </LayoutFlexColumn>)
 

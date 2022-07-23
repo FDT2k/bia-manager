@@ -131,7 +131,7 @@ export default ({ children }) => {
     const get_subject = async (id) => {
         return sqlite_model({ model: "subject", fn: "fetchWithMesures", args: [id] }).then(res => {
             if (!res) {
-                add_error(t('subject not found in database'))
+                add_error(t('Subject not found in database'))
             }
             return res;
         })
@@ -140,7 +140,7 @@ export default ({ children }) => {
     const get_subject_by_uuid = async (uuid) => {
         return sqlite_model({ model: "subject", fn: "fetch", args: [{ uuid }] }).then(res => {
             if (!res) {
-                add_error(t('subject not found in database'))
+                add_error(t('Subject not found in database'))
             }
             return res;
         })
@@ -215,7 +215,7 @@ export default ({ children }) => {
 
             return true
         } else {
-            add_error(t('impossible de supprimer la mesure'))
+            add_error(t('Cannot delete measurement'))
             stop_loading();
             return false;
         }

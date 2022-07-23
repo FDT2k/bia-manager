@@ -51,7 +51,7 @@ export default (props) => {
         <>
             <Modal type="dialog" visible={visible}>
                 <LayoutFlexColumn>
-                    <Field label={t('La base requiert un mot de passe:')}>
+                    <Field label={t('The database is locked, type your password:')}>
 
                         <InputWithRef  ref={ref}  autoFocus  {...inputProps('key')} type="password" />
                     </Field>

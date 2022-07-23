@@ -33,16 +33,16 @@ export default ({ handleSubmit: _handleSubmit, handleCancel, visible }) => {
                 <form {...formProps}>
                     <h3>Créer une base </h3>
                     <LayoutFlexColumn>
-                        <Field label={t('Définir un mot de passe:')}>
+                        <Field label={t('Type a password:')}>
                              <Input autoFocus  {...inputProps('key')} type="password" />
                         {defaultHandleError('key')}
                         </Field>
-                        <Field label={t('Confirmez le mot de passe:')}>
+                        <Field label={t('Password confirmation:')}>
                         <Input  {...inputProps('key_confirm')} type="password" />
                         {defaultHandleError('key_confirm')}
                         </Field>
                     </LayoutFlexColumn>
-                    <Button type="submit">{t('Créer')}</Button>
+                    <Button type="submit">{t('Create')}</Button>
                     <Button onClick={_ => handleCancel()}>{t('Annuler')}</Button>
                 </form>
             </Modal>
