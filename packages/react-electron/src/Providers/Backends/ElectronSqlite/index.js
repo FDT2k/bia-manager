@@ -168,7 +168,7 @@ export default ({ children }) => {
     const migrate_database = async () => {
         let result = await sqlite_api({ api: 'migrate', args: [] }).catch(
             err => {
-                return isConfirmed('An error occured while migrating the database. This can happens if a previous migration has failed. Do you want to continue using this database ?');
+                return isConfirmed(t('An error occured while migrating the database. This can happens if a previous migration has failed. Do you want to continue using this database ?'));
             }
         )
 
@@ -238,7 +238,7 @@ export default ({ children }) => {
     const enable_data_protection = async () => {
 
 
-        let password = await isConfirmed('Choisissez un mot de passe', {
+        let password = await isConfirmed(t('Choose a password//lock sensitive data dialog'), {
             fields: [
                 { type: 'password', 'name': 'password', 'label': t('Password'), autoFocus: true },
                 { type: 'password', 'name': 'confirm_password', 'label': t('Confirm Password'), },
@@ -246,11 +246,11 @@ export default ({ children }) => {
             form: { password: '', confirm_password: '' },
             validate: (values) => {
                 if (values.password !== values.confirm_password) {
-                    add_error(t("Les mots de passe de correspondent pas"))
+                    add_error(t("Passwords don't match"))
                     return false;
                 }
                 if (values.password.length < 6) {
-                    add_error(t("La longueur minimum est de 6 charactères"))
+                    add_error(t("The minimal length of the password is 6 characters"))
                     return false;
                 }
 
@@ -282,14 +282,14 @@ export default ({ children }) => {
                 okLabel: "unlock",
                 title: "Unlock sensitive data",
                 fields: [
-                    { type: 'password', 'name': 'password', 'label': t('Password'), autoFocus: true },
+                    { type: 'password', 'name': 'password', 'label': t('Password//sensitive data unlock'), autoFocus: true },
                 ],
                 form: { password: '' }
             });
             if (result !== false) {
                 let res = await sqlite_unlock_sd(result.password)
                 if (!res) {
-                    add_error('Le mot de passe est invalide');
+                    add_error(t('The password is invalid//sensitive data unlock error'));
                     protected_data_unlock()
                 } else {
                     setSensitiveLock(false);
@@ -364,8 +364,8 @@ export default ({ children }) => {
 
             }).then(res => {
                 if (res === true) {
-                    return isConfirmed('Désirez vous protéger les données sensibles par un mot de passe supplémentaire ?', {
-                        okLabel: 'Oui', cancelLabel: 'Non'
+                    return isConfirmed(t('Do you want to protect sensitive data with a password ?//coonfigure sensitive data dialog'), {
+                        okLabel: 'Yes', cancelLabel: 'No'
                     })
                 } else {
                     return null;
