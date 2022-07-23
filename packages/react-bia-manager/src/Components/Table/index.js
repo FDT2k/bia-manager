@@ -7,14 +7,14 @@ import React,{useEffect} from 'react';
 import { useFilters, useGlobalFilter, usePagination, useSortBy, useTable } from 'react-table';
 import DefaultFilter from './Filters/DefaultFilter';
 
-
+import {useTranslation} from '@';
 const [__base_class, element, modifier] = bem('listing')
 
 export const Table =  props => {
 
 
     const { data,className, style,columns,tabIndex, forwardedRef,selectedIndex, handleSelect,handlePageChange, Tools, SortUp, SortDown,initialPageIndex, ...rest } = props;
-
+    const {t}=useTranslation();
     function fuzzyTextFilterFn(rows, id, filterValue) {
         return matchSorter(rows, filterValue, { keys: [row => row.values[id]] })
     }
@@ -142,7 +142,7 @@ export const Table =  props => {
                 ))}
             </thead>
             <tbody {...getTableBodyProps()}>
-                {page.length == 0 && <tr><td colSpan={visibleColumns.length} align="center">Aucun résultat</td></tr>}
+                {page.length == 0 && <tr><td colSpan={visibleColumns.length} align="center">{t('No results')}</td></tr>}
                 {page.map((row, idx) => {
                     prepareRow(row)
                     return (
