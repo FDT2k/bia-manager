@@ -8,7 +8,7 @@ const CustomizedAxisTick = props => {
 
     return (
         <g transform={`translate(${x},${y})`}>
-            <text x={0} y={0} dy={16} textAnchor="end" fontSize={9} fill="#000"  textAnchor="middle" >{payload.value}</text>
+            <text x={0} y={0} dy={16} fontSize={9} fill="#000"  textAnchor="middle" >{payload.value}</text>
         </g>
     );
 };
@@ -38,12 +38,12 @@ export const BarHorizontalStacked = props => {
             >
                 <XAxis dataKey="name" interval={0} tick={<CustomizedAxisTick />} />
                 <YAxis tick={{fontSize:10}} >
-                    <Label value={t("poids (kg)")}  angle={-90} />
+                    <Label value={t("weight (kg)")}  angle={-90} />
                 </YAxis>
                 {/*<Tooltip />*/}
                 <Legend wrapperStyle={{ right: '-110px', top:'50%', fontSize:12 }} layout="vertical"  formatter={renderColorfulLegendText}/>
-                <Bar dataKey="ffm" name={t("masse maigre")} stackId="a" fill="#fa8c8c" background={false} />
-                <Bar dataKey="fm" name={t("masse grasse")} stackId="a" fill="#faef8c" background={false} />
+                <Bar dataKey="ffm" name={t("fat free mass//chart legend")} stackId="a" fill="#fa8c8c" background={false} />
+                <Bar dataKey="fm" name={t("fat mass//chart legend")} stackId="a" fill="#faef8c" background={false} />
             </BarChart>
       )
 }

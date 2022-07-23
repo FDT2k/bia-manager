@@ -58,31 +58,31 @@ export const Component = props => {
     let norme = (normes && normes['alpha']) ? normes['alpha'].join('-') : undefined
     return (<LayoutFlexColumn>
         <LayoutFlex wrap style={{gap:'16px'}}>
-            <Field className="date-examen" label={t("Date d'Examen")}>
+            <Field className="date-examen" label={t("Exam Date//editor field")}>
                 <SafeDatePicker
                     selected={values.date}
                     handleChange={handleChangeValue('date')}
                 />
             </Field>
-            <Field className="activite-physique" label={t("Activité physique")}>
+            <Field className="activite-physique" label={t('Physical Activity//editor field')}>
                 <Select tabIndex={2}  autoFocus {...inputProps('sport.rate')} options={safe_path([], 'physical_activity_rate', lists)} />
 
             </Field>
-            <Field className="type-activite-physique" label={t("Type d'Activité physique")}>
+            <Field className="type-activite-physique" label={t('Physical Activity Category//editor field')}>
                 <Select tabIndex={2}  {...inputProps('sport.type')} options={safe_path([], 'physical_activity_type', lists)} />
 
             </Field>
-            <Field className="fumeur" label={t("Fumeur")}>
-                <ToggleSwitch tabIndex={3} id="smoker" labelYes="Oui" labelNo="Non" name="smoker" onChange={handleChange} checked={values.smoker} />
+            <Field className="fumeur" label={t('Smoker//editor field')}>
+                <ToggleSwitch tabIndex={3} id="smoker" labelYes={t('Yes//smoker checkbox')} labelNo={t('No//smoker checkbox')} name="smoker" onChange={handleChange} checked={values.smoker} />
             </Field>
-            <Field className="taille" label={t("Taille (cm)")}  >
+            <Field className="taille" label={t("Height (cm)//editor field")}  >
                 <input type="text" tabIndex={4}  {...inputProps('height')} />
             </Field>
-            <Field className="poids-actuel" label={t("Poids Actuel (kg)")} >
+            <Field className="poids-actuel" label={t("Current weight (kg)//editor field")} >
                 <input type="text" tabIndex={5}  {...inputProps('weight')} />
             </Field>
-            <Field className="cote-mesure" label={t("Coté mesuré")}>
-                <ToggleSwitch tabIndex={6} labelYes="Gauche" labelNo="Droit" name="left_side" onChange={handleChange} id="left_side" checked={values.left_side} />
+            <Field className="cote-mesure" label={t("Measurement side//editor field")}>
+                <ToggleSwitch tabIndex={6} labelYes={t('Left//Measurement side checkbox')} labelNo={t('Right//Measurement side checkbox')} name="left_side" onChange={handleChange} id="left_side" checked={values.left_side} />
             </Field>
         </LayoutFlex>
         <Container fit grow>

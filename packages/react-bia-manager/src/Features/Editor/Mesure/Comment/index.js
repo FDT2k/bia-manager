@@ -12,7 +12,7 @@ export default ({ onValuesChange, data }) => {
     }, [data])
     return (
         <div className="comments">
-            <label>{t("Remarques / Interprétations")}</label>
+            <label>{t("Comments / Interpretations")}</label>
             <EditableTextArea value={values.comments} name="comments" onChange={handleChange} />
         </div>
     )

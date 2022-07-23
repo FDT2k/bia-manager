@@ -33,21 +33,21 @@ export default props => {
     return (
 
         <>
-         <Button style={{ minWidth: '100%', width: '100%', maxWidth: '100%' }} tabIndex={33} onClick={_handleClickSave}>{t('Save')}</Button>
-                <Button tabIndex={44} className="btn--secondary" onClick={handlePrint}>{t('Print')}</Button>
-                <Field label={t("Examiner")}>
+         <Button style={{ minWidth: '100%', width: '100%', maxWidth: '100%' }} tabIndex={33} onClick={_handleClickSave}>{t('Save//editor button')}</Button>
+                <Button tabIndex={44} className="btn--secondary" onClick={handlePrint}>{t('Print//editor button')}</Button>
+                <Field label={t("Examiner//editor aside")}>
                     <EditableTextInput value={values.examinator} name="examinator" onChange={handleChange} />
                 </Field>
-                <Field label={t("Bio-impedance meter")}>
+                <Field label={t("Bio-impedance meter//editor aside")}>
                     <EditableSelect {...inputProps('machine')} options={safe_path([], 'machines', lists)} />
                 </Field>
-                <Field label={t("Ideal weight (%)")}>
+                <Field label={t("Ideal weight (%)//editor aside")}>
                     <div>{oneDecimal(values.ideal_weight)} ({oneDecimalPct(values.pct_ideal_weight)})</div>
                 </Field>
-                <Field label={t("Current BMI")}>
+                <Field label={t("Current BMI//editor aside")}>
                     <div>{values.bmi}</div>
                 </Field>
-                <Field label={t("BMI Reference")}>
+                <Field label={t("BMI Reference//editor aside")}>
                     <EditableTextInput value={values.bmi_ref} name="bmi_ref" onChange={handleChange} />
                 </Field>
                 

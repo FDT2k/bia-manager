@@ -52,28 +52,28 @@ export const Component = (props) => {
 
             <Modal type="dialog" >
                 <Container style={{ minWidth: "500px", width: "500px" }}>
-                    <h1>{t('Exporter')}</h1>
+                    <h1>{t('Export//title')}</h1>
                     <Grid templateColumns="auto" templateRows="auto auto 40px" rowGap={10} contained cover>
                         <LayoutFlex>
                             <GenderFilter
-                                label={t('Sex')}
+                                label={t('Sex//filter')}
                                 buttonLabel="apply"
                                 currentValues={custom_filters.sex}
                                 handleSubmit={values => setFilter('sex', 'gender', values, 'bools')}
                                 handleClear={_ => clearFilter('sex')} />
                             <RangeFilter buttonLabel="apply"
-                                label={t('Measurements')}
+                                label={t('Measurements//filter date range')}
                                 currentValues={custom_filters.mesure_range}
                                 handleSubmit={values => setFilter('mesure_range', 'm.date', values)}
                                 handleClear={_ => clearFilter('mesure_range')} />
                             <RangeFilter buttonLabel="apply"
-                                label={t('Dates of birth')}
+                                label={t('Dates of birth//filter date range')}
                                 currentValues={custom_filters.birthday_range}
                                 handleSubmit={values => setFilter('birthday_range', 'birthdate', values)}
                                 handleClear={_ => clearFilter('birthday_range')} />
                         </LayoutFlex>
                         <div>
-                            <label>{t('Export brut')}</label>
+                            <label>{t('Raw export//toggle label')}</label>
                             <ToggleSwitch tabIndex={6} checked={rawExport} onChange={e=>setRawExport(e.target.checked)} labelYes={t('Yes')} labelNo={t('No')} name="left_side" />
                         </div>
                         <Button onClick={handleExport}>Exporter</Button>

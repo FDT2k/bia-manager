@@ -51,13 +51,13 @@ export default (props) => {
         <>
             <Modal type="dialog" visible={visible}>
                 <LayoutFlexColumn>
-                    <Field label={t('The database is locked, type your password:')}>
+                    <Field label={`${t('The database is locked')}, ${t('type your password')}:`}>
 
                         <InputWithRef  ref={ref}  autoFocus  {...inputProps('key')} type="password" />
                     </Field>
                 </LayoutFlexColumn>
-                <Button onClick={_ => doUnlock()}>Déverouiller</Button>
-                <Button onClick={_ => close_file()}>Annuler</Button>
+                <Button onClick={_ => doUnlock()}>{t('Unlock//database')}</Button>
+                <Button onClick={_ => close_file()}>{t('Cancel//unlock database')}</Button>
             </Modal>
         </>
     )

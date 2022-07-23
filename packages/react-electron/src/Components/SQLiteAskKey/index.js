@@ -31,19 +31,19 @@ export default ({ handleSubmit: _handleSubmit, handleCancel, visible }) => {
         <>
             <Modal type="dialog" visible={visible}>
                 <form {...formProps}>
-                    <h3>Créer une base </h3>
+                    <h3>{t('Create a database//title')} </h3>
                     <LayoutFlexColumn>
-                        <Field label={t('Type a password:')}>
+                        <Field label={`${t('Type a password//create database')}:`}>
                              <Input autoFocus  {...inputProps('key')} type="password" />
                         {defaultHandleError('key')}
                         </Field>
-                        <Field label={t('Password confirmation:')}>
+                        <Field label={`${t('Password confirmation//create database')}:`}>
                         <Input  {...inputProps('key_confirm')} type="password" />
                         {defaultHandleError('key_confirm')}
                         </Field>
                     </LayoutFlexColumn>
-                    <Button type="submit">{t('Create')}</Button>
-                    <Button onClick={_ => handleCancel()}>{t('Annuler')}</Button>
+                    <Button type="submit">{t('Create//create database')}</Button>
+                    <Button onClick={_ => handleCancel()}>{t('Cancel//create database')}</Button>
                 </form>
             </Modal>
         </>
