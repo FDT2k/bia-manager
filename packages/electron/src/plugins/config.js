@@ -19,7 +19,7 @@ export const i18nextOptions = {
     loadPath: join(localePath,'/{{lng}}/{{ns}}.json'),
 
     // path to post missing resources
-    //addPath: join(localePath,'/{{lng}}/{{ns}}.missing.json'),
+    addPath: join(localePath,'/{{lng}}/{{ns}}.missing.json'),
 
     // jsonIndent to use when storing json files
     jsonIndent: 2,
