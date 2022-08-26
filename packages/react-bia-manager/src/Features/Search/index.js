@@ -306,14 +306,14 @@ export const Component = props => {
                     handleClear={_ => clearFilter('by_field')}
                 />*/}
                 <GenderFilter
-                    label={t("Sex")}
+                    label={t("Sex//Search Filter Label")}
                     currentValues={custom_filters.sex}
                     handleSubmit={values => setFilter('sex', 'gender', values, 'bools')}
                     handleClear={_ => clearFilter('sex')} />
-                <RangeFilter label={t('Measurements')} currentValues={custom_filters.mesure_range} handleSubmit={values => setFilter('mesure_range', 'm.date', values)} handleClear={_ => clearFilter('mesure_range')} />
-                <RangeFilter label={t('Dates of birth')} currentValues={custom_filters.birthday_range} handleSubmit={values => setFilter('birthday_range', 'birthdate', values)} handleClear={_ => clearFilter('birthday_range')} />
+                <RangeFilter label={t('Measurements//Search Filter Label')} currentValues={custom_filters.mesure_range} handleSubmit={values => setFilter('mesure_range', 'm.date', values)} handleClear={_ => clearFilter('mesure_range')} />
+                <RangeFilter label={t('Dates of birth//Search Filter Label')} currentValues={custom_filters.birthday_range} handleSubmit={values => setFilter('birthday_range', 'birthdate', values)} handleClear={_ => clearFilter('birthday_range')} />
 
-                {<Button onClick={handleCSVExport} tabIndex={-1}>{t('Export CSV Button label')}</Button>}
+                {<Button onClick={handleCSVExport} tabIndex={-1}>{t('Export CSV//Search Button label')}</Button>}
             </AdvancedSearch>
             <ListWithAreaWithRef
 
@@ -363,13 +363,13 @@ export const Page = props => {
         return (
             <>
                 <LayoutFlex>
-                    <div>{t('Database')}: {db_name} </div>
+                    <div>{t('Database//Footer')}: {db_name} </div>
                     <div> — </div>
-                    <div> {t('Subjects')}: {count} </div>
+                    <div> {t('Subjects//Footer')}: {count} </div>
                     <div> — </div>
-                    <div> {t('Measurements')}: {count_mesures}</div>
+                    <div> {t('Measurements//Footer')}: {count_mesures}</div>
                 </LayoutFlex>
-                <div>{t('Search results')}: {search_count} {t('subjects')}</div>
+                <div>{t('Search results//Footer, number of results')}: {search_count} {t('subjects')}</div>
             </>
         )
     }

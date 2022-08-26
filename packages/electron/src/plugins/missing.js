@@ -3,7 +3,7 @@
 let sent_keys = [];
 
 export const postMissingTranslations = (data)=>{
-
+debugger;
   if(import.meta.env.MODE != "development"){
     console.log('tried to send translation from not dev env'); 
 
@@ -20,7 +20,7 @@ export const postMissingTranslations = (data)=>{
     var postData = JSON.stringify( {...data,version:__APP_VERSION__,app:import.meta.env.VITE_I18N_COLLECTOR_APP_NAME} );
     sent_keys.push(data.ns+'.'+data.key);
     let response_body=''
-    console.log(data);
+    console.log(data,postData);
    // debugger;
         try {
         const request = net.request({
