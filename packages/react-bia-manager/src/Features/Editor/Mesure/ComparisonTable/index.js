@@ -34,7 +34,7 @@ export const Component = props => {
             <FormulaResultHeader available_columns={available_columns} handleChange={handleChange} selectable={selectable} columns={state} />
 
             {data.filter(item => item.display == true).map((item, idx) =>
-                <FormulaResultRow key={idx} available_columns={available_columns} label={t(item.label+'//comparison header')} values={item.values} logs={item.logs} columns={state} limits={item.limits} />
+                <FormulaResultRow key={idx} available_columns={available_columns} label={item.label} values={item.values} logs={item.logs} columns={state} limits={item.limits} />
 
             )}
 

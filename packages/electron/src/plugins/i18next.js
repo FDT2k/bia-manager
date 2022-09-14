@@ -11,7 +11,7 @@ const mutex = new Mutex();
 const buildMenu = ()=>{
     const languageMenu = defaultOptions.languages.map((languageCode) => {
         return {
-          label: i18n.t(languageCode),
+          label: i18n.t(`${languageCode} Language Menu Item`),
           type: 'radio',
           checked: i18n.language === languageCode,
           click: () => {

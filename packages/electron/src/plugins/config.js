@@ -8,7 +8,7 @@ const localePath = resolve(__dirname, '../locales');
 
 
 export const defaultOptions = {
-  languages: ['fr', 'en'],
+  languages: ['fr', 'en','es','de','it'],
   fallbackLng: 'fr',
   namespace: 'translation'
 };

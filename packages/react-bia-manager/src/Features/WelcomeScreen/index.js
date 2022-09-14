@@ -4,10 +4,12 @@ import MainView from "@/Components/MainView";
 import { identity } from '@karsegard/composite-js';
 import { Container, LayoutFlex } from '@karsegard/react-core-layout';
 import React from 'react';
+import { useTranslation } from '@'
 
 export const Page = props => {
 
-    const { t,handleOpenDatabase,handleCreateDatabase,handleConnect, ...rest } = props;
+    const { handleOpenDatabase,handleCreateDatabase,handleConnect, ...rest } = props;
+    const { t, dateSysToHuman } = useTranslation();
     return (<MainView className="page-create-subject">
         <LayoutFlex cover centered>
             <Container className="login-container">

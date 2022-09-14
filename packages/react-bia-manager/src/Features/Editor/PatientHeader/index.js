@@ -59,7 +59,7 @@ const PatientHeader = props => {
         'gender': { type: 'select', editable: true, label:  t('Sex'),options:safe_path([],'genders',lists) },
         'usual_height': { type: 'text', editable: true, label:  t('Height (cm)') },
         'usual_weight': { type: 'text', editable: true, label:  t('Usual weight (kg)') },
-        'groups.patho': { type: 'select', editable: true, label:  t('Pathological group'), options:safe_path([],'pathological_groups',lists)},
+        'groups.patho': { type: 'select', editable: true, label:  t('Pathological Group'), options:safe_path([],'pathological_groups',lists)},
         'groups.ethno': { type: 'select', editable: true, label:  t('Ethnic group'), options:safe_path([],'ethnological_groups',lists)},
         'mesure_count': { type: 'text', editable: false, label:  t('Number of measurements') }
     }

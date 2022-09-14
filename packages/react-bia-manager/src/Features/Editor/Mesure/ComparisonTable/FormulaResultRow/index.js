@@ -18,7 +18,7 @@ const FormulaResultRow = (props) => {
         "result"
     ])
     return (<>
-        <div className="row lineheader"><span>{t(`${label}_comparison_line_header`)}</span></div>
+        <div className="row lineheader"><span>{t(`${label}//comparison header`)}</span></div>
         {columns.map((col) => {
             if (!colByName[col]) {
                 return (<div  key={`${col}`}>{t('Error')}</div>)

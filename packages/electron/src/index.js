@@ -19,7 +19,7 @@ import Store from 'electron-store'
 import init18next from './plugins/i18next'
 
 import crypto from 'crypto';
-
+import debug from './debug'
 
 let store = new Store();
 
@@ -571,27 +571,27 @@ ipcMain.handle('sqlite-model-transaction', async (event, { model, fn, args, arg_
 ipcMain.handle('sqlite-export', async (event, { query, filename }) => {
   try {
     console.log('want to write file', filename);
-    console.log(query,filename);
-;
+    console.log(query, filename);
+    ;
     let { canceled, filePath } = await dialog.showSaveDialog({
       defaultPath: filename, filters: [
         { name: 'CSV', extensions: ['csv'] },
       ]
     });
     if (!canceled) {
-    /*  let result = currentSQLite.subject.export_csv(query).join('\n');
-
-      return fs.writeFile(filePath, result).then(res => {
-        return true;
-      });*/
+      /*  let result = currentSQLite.subject.export_csv(query).join('\n');
+  
+        return fs.writeFile(filePath, result).then(res => {
+          return true;
+        });*/
       return new Promise((resolve, reject) => {
         const stream = __fs.createWriteStream(filePath);
-        
-        currentSQLite.subject.export_csv(query,';',stream);
+
+        currentSQLite.subject.export_csv(query, ';', stream);
 
         stream.on('error', reject);
         stream.end(resolve);
-        
+
       });
     }
   } catch (e) {
@@ -695,7 +695,16 @@ let seq = app.whenReady()
   .then(init18next(handleLanguageChange, store.get('language')))
   .then(loadContent)
   .then(updateMenuState)
-  
+  .then(_ => {
+    if (import.meta.env.MODE === 'development') {
+      if (import.meta.env.VITE_BIM_OPENDB) {
+        currentSQLite = openFile(import.meta.env.VITE_BIM_OPENDB).then(_ => {
+          currentSQLite.unlock(import.meta.env.VITE_BIM_PASSWORD);
+        });
+      }
+
+    }
+  })
   .catch((e) => console.error('Failed create window:', e));
 
 
