@@ -60,6 +60,7 @@ export const Component = props => {
                 <div>{right_norme} </div>
 
 
+
                 <div className="header">{t('Left//clamping force hand')}</div>
                 <div><input type="checkbox" {...checkboxProps('left.main')} /></div>
 
