@@ -146,15 +146,7 @@ export default ({ children }) => {
         })
 
     }
-    const get_subject_by_uuid = async (uuid) => {
-        return sqlite_model({ model: "subject", fn: "fetch", args: [{ uuid }] }).then(res => {
-            if (!res) {
-                add_error(t('subject not found in database'))
-            }
-            return res;
-        })
-
-    }
+  
 
     const save_subject_mesures = async (subject) => {
         debugger;
