@@ -19,7 +19,11 @@ import Store from 'electron-store'
 import init18next from './plugins/i18next'
 
 import crypto from 'crypto';
+<<<<<<< HEAD
 import debug from './debug'
+=======
+
+>>>>>>> 53928269942854a6eebd2ca827623e67f26262ec
 
 let store = new Store();
 
@@ -372,7 +376,10 @@ const menuUnlockFile = () => {
   Menu.getApplicationMenu().getMenuItemById('close').enabled = true;
   Menu.getApplicationMenu().getMenuItemById('sync').enabled = true;
   Menu.getApplicationMenu().getMenuItemById('import').enabled = true;
+<<<<<<< HEAD
   Menu.getApplicationMenu().getMenuItemById('export').enabled = true;
+=======
+>>>>>>> 53928269942854a6eebd2ca827623e67f26262ec
   Menu.getApplicationMenu().getMenuItemById('list').enabled = true;
   Menu.getApplicationMenu().getMenuItemById('search').enabled = true;
   Menu.getApplicationMenu().getMenuItemById('unlock-sensitive-data').enabled = SD_softLock === true;
@@ -392,7 +399,10 @@ const menuCloseFile = () => {
   Menu.getApplicationMenu().getMenuItemById('close').enabled = false;
   Menu.getApplicationMenu().getMenuItemById('sync').enabled = false;
   Menu.getApplicationMenu().getMenuItemById('import').enabled = false;
+<<<<<<< HEAD
   Menu.getApplicationMenu().getMenuItemById('export').enabled = false;
+=======
+>>>>>>> 53928269942854a6eebd2ca827623e67f26262ec
   Menu.getApplicationMenu().getMenuItemById('list').enabled = false;
   Menu.getApplicationMenu().getMenuItemById('search').enabled = false;
   Menu.getApplicationMenu().getMenuItemById('unlock-sensitive-data').enabled = false;
@@ -571,8 +581,12 @@ ipcMain.handle('sqlite-model-transaction', async (event, { model, fn, args, arg_
 ipcMain.handle('sqlite-export', async (event, { query, filename }) => {
   try {
     console.log('want to write file', filename);
+<<<<<<< HEAD
     console.log(query, filename);
     ;
+=======
+
+>>>>>>> 53928269942854a6eebd2ca827623e67f26262ec
     let { canceled, filePath } = await dialog.showSaveDialog({
       defaultPath: filename, filters: [
         { name: 'CSV', extensions: ['csv'] },
@@ -689,12 +703,17 @@ const handleLanguageChange = (i18n, menu) => {
   updateMenuState();
 }
 
+<<<<<<< HEAD
 let seq = app.whenReady()
+=======
+app.whenReady()
+>>>>>>> 53928269942854a6eebd2ca827623e67f26262ec
   .then(createWindow)
   .then(initMenu)
   .then(init18next(handleLanguageChange, store.get('language')))
   .then(loadContent)
   .then(updateMenuState)
+<<<<<<< HEAD
   .then(_ => {
     if (import.meta.env.MODE === 'development') {
       if (import.meta.env.VITE_BIM_OPENDB) {
@@ -705,6 +724,8 @@ let seq = app.whenReady()
 
     }
   })
+=======
+>>>>>>> 53928269942854a6eebd2ca827623e67f26262ec
   .catch((e) => console.error('Failed create window:', e));
 
 

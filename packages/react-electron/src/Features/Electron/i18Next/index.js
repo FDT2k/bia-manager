@@ -45,7 +45,7 @@ export default ({ children }) => {
     const [loaded,setLoaded] = useState(false)
     useEffect(() => {
         setHandler(missing_translations)
-
+        
         get_translations().then(res => {
             enlist(res).map(l => {
                 let [lang, nss] = keyval(l);

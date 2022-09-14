@@ -92,8 +92,13 @@ export const Component = props => {
                         )
                     })}
                 </LayoutFlexColumn>
+<<<<<<< HEAD
                 <LayoutFlex style={{ gap: '10px' }}><Button onClick={handleProceed}>{t(okLabel+'//confirm dialog button')}</Button>
                     <Button onClick={handleCancel}>{t(cancelLabel+'//confirm dialog button')}</Button></LayoutFlex>
+=======
+                <LayoutFlex style={{ gap: '10px' }}><Button onClick={handleProceed}>{t(okLabel)}</Button>
+                    <Button onClick={handleCancel}>{t(cancelLabel)}</Button></LayoutFlex>
+>>>>>>> 53928269942854a6eebd2ca827623e67f26262ec
             </LayoutFlexColumn>
         </Modal>
     </>)

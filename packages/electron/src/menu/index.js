@@ -23,12 +23,20 @@ const makeLabelEnhancer = (comment,fn) => key => {
   return r;
 }
 
+<<<<<<< HEAD
 function buildMenu(app, mainWindow, _labelEnhancer=identity, moreMenu,actions) {
   if (config.platform === 'darwin') {
     let labelEnhancer = makeLabelEnhancer('//macos menu item',_labelEnhancer);
     this.menu = darwinTemplate(app, mainWindow, labelEnhancer,actions);
   } else {
     let labelEnhancer = makeLabelEnhancer('//win or linux menu item',_labelEnhancer);
+=======
+
+function buildMenu(app, mainWindow, labelEnhancer, moreMenu,actions) {
+  if (config.platform === 'darwin') {
+    this.menu = darwinTemplate(app, mainWindow, labelEnhancer,actions);
+  } else {
+>>>>>>> 53928269942854a6eebd2ca827623e67f26262ec
     this.menu = otherTemplate(app, mainWindow, labelEnhancer,actions);
   }
   if (moreMenu) {

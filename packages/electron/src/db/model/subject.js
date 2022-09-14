@@ -102,10 +102,19 @@ const subject = (db, api) => {
         return res;
     };
 
+<<<<<<< HEAD
     module.fetch = (filter, hash = 'main', removeIds = false) => {
 
         let stmt = db.prepare(`Select s.* from ${hash}.subjects s  where ${api.genConditionSQL(filter)}`).raw();
+=======
+    module.fetch  = (filter, hash = 'main', removeIds = false) => {
+>>>>>>> 53928269942854a6eebd2ca827623e67f26262ec
 
+        let stmt = db.prepare(`Select s.* from ${hash}.subjects s  where ${api.genConditionSQL(filter)}`).raw();
+      
+
+        return _retrieve_entity('subjects', schema, stmt.columns(), stmt.get(filter));
+    }
 
         return _retrieve_entity('subjects', schema, stmt.columns(), stmt.get(filter));
     }
@@ -386,10 +395,17 @@ const subject = (db, api) => {
             left: { ...sideState },
             right: { ...sideState }
         },
+<<<<<<< HEAD
         bia_data: {
             kushner: { "fm": "", "pct_fm": "", "ffm": "", "pct_ffm": "", "dffm": "", "pct_dffm": "", "ffmi": "", "fmi": "", "water": "", "pct_water": "" },
             segal: { "fm": "", "pct_fm": "", "ffm": "", "pct_ffm": "", "dffm": "", "pct_dffm": "", "ffmi": "", "fmi": "", "water": "", "pct_water": "" },
             gva: { "fm": "", "pct_fm": "", "ffm": "", "pct_ffm": "", "ffmi": "", "fmi": "" }
+=======
+        bia_data:{
+            kushner:{"fm":"","pct_fm":"","ffm":"","pct_ffm":"","dffm":"","pct_dffm":"","ffmi":"","fmi":"","water":"","pct_water":""},
+            segal:{"fm":"","pct_fm":"","ffm":"","pct_ffm":"","dffm":"","pct_dffm":"","ffmi":"","fmi":"","water":"","pct_water":""},
+            gva:{"fm":"","pct_fm":"","ffm":"","pct_ffm":"","ffmi":"","fmi":""}
+>>>>>>> 53928269942854a6eebd2ca827623e67f26262ec
         }
     }
 

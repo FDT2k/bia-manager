@@ -6,7 +6,7 @@ import I18Next from '@/Features/Electron/i18Next';
 import { useTranslation } from 'react-i18next';
 
 const BIATranslation = ({ children }) => {
-    const {t} = useTranslation(['translation'])
+    const {t} = useTranslation('translation')
     const _t = key => {
         let res =  t(key);
         if(res == key){ // remove comment for display
