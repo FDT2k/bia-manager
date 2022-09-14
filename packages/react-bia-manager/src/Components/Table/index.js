@@ -11,13 +11,6 @@ import {useTranslation} from '@';
 const [__base_class, element, modifier] = bem('listing')
 
 export const Table =  props => {
-<<<<<<< HEAD
-
-=======
-
-
-    const { data,className, style,columns,tabIndex, forwardedRef,selectedIndex, handleSelect,handlePageChange, Tools, SortUp, SortDown,initialPageIndex, ...rest } = props;
->>>>>>> 53928269942854a6eebd2ca827623e67f26262ec
 
     const { data,className, style,columns,tabIndex, forwardedRef,selectedIndex, handleSelect,handlePageChange, Tools, SortUp, SortDown,initialPageIndex, ...rest } = props;
     const {t}=useTranslation();
@@ -81,10 +74,6 @@ export const Table =  props => {
         ],
         pageIndex:initialPageIndex
     } }, useFilters, useGlobalFilter, useSortBy, usePagination)
-<<<<<<< HEAD
-=======
-
->>>>>>> 53928269942854a6eebd2ca827623e67f26262ec
 
   
 
