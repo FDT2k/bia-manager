@@ -158,5 +158,16 @@
    "fmi_recap": "fmi_recap",
    "ffmi_recap": "ffmi_recap",
    "data.res50_recap": "data.res50_recap",
-   "data.rea50_recap": "data.rea50_recap"
+   "data.rea50_recap": "data.rea50_recap",
+   "List manager": "List manager",
+   "no element": "no element",
+   "Edit": "Edit",
+   "Editer": "Editer",
+   "Suprimmer": "Suprimmer",
+   "Par défaut": "Par défaut",
+   "Ajouter": "Ajouter",
+   "Retour": "Retour",
+   "Êtes vous sur de vouloir supprimer cet élément?": "Êtes vous sur de vouloir supprimer cet élément?",
+   "Oui": "Oui",
+   "Non": "Non"
 }

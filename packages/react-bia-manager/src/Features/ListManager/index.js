@@ -37,6 +37,8 @@ Component.defaultProps={
 
 export const Page =  (props) => {
     const{ children,renderFooter, ...rest} = props;
+    const {t} =useTranslation();
+
     return (
         <MainView renderFooter={renderFooter} className="list-editor">
             <LayoutFlexColumn cover centered justBetween>
