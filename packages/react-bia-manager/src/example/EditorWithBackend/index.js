@@ -10,12 +10,20 @@ import sample from './patient'
 
 import Editor from '@/example/ReduxEditor'
 
-const translations = {
+import trans from '../translation.json'
 
-}
+const translations = trans;
 
 const translate = key => {
     // console.warn('translator',key)
+
+        let res =  translations[key] || key;
+        if(res == key){ // remove comment for display
+            let a = res.split('//');
+            return a[0];
+        }
+        return res;
+
     return translations[key] || key;
 }
 

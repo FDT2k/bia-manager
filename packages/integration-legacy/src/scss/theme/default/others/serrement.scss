@@ -7,11 +7,10 @@
 
   align-items: center;
   justify-items: center;
-
-  
-
   max-width:100%;
   width:100%;
+  column-gap: 16px;
+  row-gap: 8px;
 }
 
 
@@ -22,5 +21,10 @@
 .header {
   &--left {
     justify-self: start;
+  }
+
+  &.truncate {
+      width: 100%;
+      text-align: center;
   }
 }
