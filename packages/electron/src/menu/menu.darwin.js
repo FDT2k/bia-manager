@@ -107,7 +107,7 @@ export default  (app, window, labelEnhancer=identity,actions) => {
     
     ,
     {
-      label: labelEnhancer('Sécurité'),
+      label: labelEnhancer('Security'),
       submenu: [
         {
           label: labelEnhancer('Configure'),
@@ -188,7 +188,7 @@ export default  (app, window, labelEnhancer=identity,actions) => {
       label: labelEnhancer('Settings'),
       submenu: [
         {
-          label: labelEnhancer('Inserer l\'entête personnalisée'),
+          label: labelEnhancer('Insert custom header'),
           id:'customize-header',
           enabled:true,
           click() {
