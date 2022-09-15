@@ -9,16 +9,21 @@ debugger;
 
     return ;
   }
-    if(sent_keys.includes(data.ns+'.'+data.key)){
+
+   
+    if(sent_keys.includes(data.key)){
       console.log('skipping already sent translation ',data.key); 
       return ;
     }
+    sent_keys.push(data.key);
+    console.log(sent_keys.join('\n'));
+    return ;// disabled the posting because it's too much trouble, instead we just dump it to the console
     console.log('posting translation'); 
     let collection_url = import.meta.env.VITE_I18N_COLLECTOR;
     let url = new URL(collection_url);
     const { net } = require('electron');
     var postData = JSON.stringify( {...data,version:__APP_VERSION__,app:import.meta.env.VITE_I18N_COLLECTOR_APP_NAME} );
-    sent_keys.push(data.ns+'.'+data.key);
+   
     let response_body=''
     console.log(data,postData);
    // debugger;

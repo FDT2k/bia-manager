@@ -13,6 +13,7 @@ import Modal from '@/Components/Modal'
 import Field from '@/Components/Form/Fields'
 import ToggleSwitch from '@/Components/Form/ToggleSwitch'
 import webWorker from './csvimport.worker.js?worker&inline'
+import {useTranslation} from '@';
 //import parse from './parser';
 export const Component = props => {
 
@@ -24,7 +25,7 @@ export const Component = props => {
     const [percentage, setPercentage] = useState(0);
     const [done,setDone] = useState(false);
 
-
+    const {t} = useTranslation();
     const fileRef = useRef();
 
     const dataRef = useRef();
@@ -171,14 +172,14 @@ export const Component = props => {
         <Modal type="dialog">
 
         <LayoutFlex column>
-            <b>Import depuis BIA JAVA</b>
+            <b>{t('Importing from BIA JAVA (previous version)')}</b>
             {!dataRef.current && !parsing && <LayoutFlexColumn>
-                <Field label="anoymiser les données">
+                <Field label={t('Data Anonymization')}>
                     <Container style={{width:'100px'}}>
-                    <ToggleSwitch labelYes="Oui" labelNo="Non" checked={anonymous}  onChange={e => setAnon(e.target.checked)}/>
+                    <ToggleSwitch labelYes={t('Yes')} labelNo={t('No')} checked={anonymous}  onChange={e => setAnon(e.target.checked)}/>
                     </Container>
                 </Field>
-                <Field label="Choisir un fichier CSV">
+                <Field label={t('Pick a CSV file')}>
                     <input ref={fileRef} type="file" onChange={onFileChange} disabled={parsing} />
                 </Field>
             </LayoutFlexColumn>}
@@ -187,10 +188,10 @@ export const Component = props => {
                     <div style={{ width: '50px', height: '50px' }}>
                         <CircularProgressbar value={percentage} text={`${percentage}%`} />
                     </div>
-                    <div>Importation en cours (depuis CSV BIA Java)</div>
+                    <div>{t('Importing data')}</div>
                 </LayoutFlex>}
                 <LayoutFlexColumn>
-                    {done && <Button onClick={handleDone}>Terminé</Button>}
+                    {done && <Button onClick={handleDone}>{t('Done')}</Button>}
                 </LayoutFlexColumn>
         </LayoutFlex>
         </Modal>

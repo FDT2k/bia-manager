@@ -32,11 +32,11 @@ export const RangeFilter = ({ label, handleSubmit, handleClear, currentValues,bu
         <Dropdown offset={8} label={_label} icon={<Icon />} overrideClick={overrideClick}>
             <>
                 <DropdownItem>
-                    <div>Du </div>
+                    <div>{t('From//Date filter start date') }</div>
                     <DatePicker allow_null={true} masked_input={true} selected={getValue('from')} handleChange={handleChangeValue('from')} />
                 </DropdownItem>
                 <DropdownItem>
-                    <div>Au</div>
+                    <div>{t('Until//Date filter end date')}</div>
                     <DatePicker allow_null={true} masked_input={true} selected={getValue('to')} handleChange={handleChangeValue('to')} />
                 </DropdownItem>
                 <DropdownItem>

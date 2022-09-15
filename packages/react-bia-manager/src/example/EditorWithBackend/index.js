@@ -88,6 +88,7 @@ export const FakeBackendContainer = Component => (props) => {
     const { get_subject, save_subject, get_mesure } = useBackend();
     const { isConfirmed } = useConfirm();
 
+    const { t } = useTranslation()
 
     const { handlers: _handlers, ...rest } = props;
 
@@ -103,7 +104,7 @@ export const FakeBackendContainer = Component => (props) => {
 
     const handleMesureOpen = async (value, idx, editor_status) => {
         if (editor_status === false) {
-            return await isConfirmed("The changes you made will not be saved, continue ?")
+            return await isConfirmed(t("The changes you made will not be saved, continue ?"))
         }
         return undefined;
     }

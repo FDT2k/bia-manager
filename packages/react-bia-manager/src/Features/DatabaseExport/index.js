@@ -76,7 +76,7 @@ export const Component = (props) => {
                             <label>{t('Raw export//toggle label')}</label>
                             <ToggleSwitch tabIndex={6} checked={rawExport} onChange={e=>setRawExport(e.target.checked)} labelYes={t('Yes')} labelNo={t('No')} name="left_side" />
                         </div>
-                        <Button onClick={handleExport}>Exporter</Button>
+                        <Button onClick={handleExport}>{t('Export')}</Button>
                     </Grid>
                 </Container>
             </Modal>

@@ -145,7 +145,7 @@ export const Page = props => {
                     >
                         {enlist(fields).map((_field, idx) => {
                             const [fieldKey, field] = keyval(_field);
-                            const label = t(field.label);
+                            const label = field.label;
                             const type = field.type;
                             const val = safe_path('', fieldKey, values);
                             const options = field.options;
