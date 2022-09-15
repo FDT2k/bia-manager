@@ -108,29 +108,29 @@ export const ListCrudHOC = Component => props => {
                         onSort={sortList}
                         handleDragStop={handleDragStop}
                         actions={[
-                            { key: 'edit', label: t('Editer') },
-                            { key: 'delete', label: t('Suprimmer') }
+                            { key: 'edit', label: t('Edit') },
+                            { key: 'delete', label: t('Delete') }
                         ]}
                         columns={[{
-                            Header: 'name',
+                            Header: t('Name//Name of list item'),
                             accessor: 'name',
                         },
                         {
-                            Header: 'ordre',
+                            Header: t('Order'),
                             accessor: 'sort',
                         },
                         {
-                            Header: t('Par défaut'),
+                            Header: t('Default'),
                             accessor: (value) => {
-                              return   value.default_value === true ? 'oui' : 'non'
+                              return   value.default_value === true ? t('Yes') : t('No')
                             },
                         },
                         {
                             id: 'actions',
                             accessor: 'id',
                             Cell: ({ row }) => {
-                                return (<LayoutFlex justEvenly><a onClick={_ => handleAction('edit', row.original)} >Editer </a>
-                                    <a onClick={_ => setDeleting(row.original)} > Supprimer </a></LayoutFlex>)
+                                return (<LayoutFlex justEvenly><a onClick={_ => handleAction('edit', row.original)} > {t('Edit')}  </a>
+                                    <a onClick={_ => setDeleting(row.original)} > {t('Delete')} </a></LayoutFlex>)
                             }
                         }
                         ]}
@@ -145,9 +145,9 @@ export const ListCrudHOC = Component => props => {
 
                 <Button onClick={
                     handleAdd
-                }>{t('Ajouter')}</Button>
+                }>{t('Add')}</Button>
                 <LayoutFlex justAround>
-                    <Button onClick={cancelEdit}>{t('Retour')}</Button>
+                    <Button onClick={cancelEdit}>{t('Back')}</Button>
                 </LayoutFlex>
 
             </LayoutFlex>
@@ -156,10 +156,10 @@ export const ListCrudHOC = Component => props => {
 
             <LayoutFlexColumn>
                 <LayoutFlex>
-                <Field className="field--one" label={'Valeur'}>
+                <Field className="field--one" label={'Value'}>
                     <input autoFocus type="text" {...inputProps('name')} />
                 </Field>
-                <Field className="field--one" label={'Ordre'}>
+                <Field className="field--one" label={'Order'}>
                     <input type="text" {...inputProps('sort')} />
                 </Field>
                {/* <Field className="field--one" label={'Par defaut'}>
@@ -168,7 +168,7 @@ export const ListCrudHOC = Component => props => {
 </LayoutFlex>
                 <LayoutFlex justEnd>
 
-                    <Button onClick={handleSave}>{t('Enregistrer')}</Button>
+                    <Button onClick={handleSave}>{t('Save')}</Button>
 
                 </LayoutFlex>
             </LayoutFlexColumn>
@@ -178,10 +178,10 @@ export const ListCrudHOC = Component => props => {
         <Modal visible={deleting !== null}>
 
             <LayoutFlexColumn>
-                <h3>{t('Êtes vous sur de vouloir supprimer cet élément?')}</h3>
+                <h3>{t('Are you sure you want to delete this item?')}</h3>
                 <LayoutFlex justBetween>
-                    <Button onClick={_ => handleDelete()}>{t('Oui')}</Button>
-                    <Button onClick={_ => setDeleting(null)}>{t('Non')}</Button>
+                    <Button onClick={_ => handleDelete()}>{t('Yes')}</Button>
+                    <Button onClick={_ => setDeleting(null)}>{t('No')}</Button>
                 </LayoutFlex>
             </LayoutFlexColumn>
 
