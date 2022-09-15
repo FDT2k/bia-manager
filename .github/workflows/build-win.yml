@@ -54,6 +54,8 @@ jobs:
 
       - name: Windows fix3
         run: yarn
+        env: 
+          YARN_ENABLE_IMMUTABLE_INSTALLS: false
 
       - name: Windows fix2 
         working-directory: 'packages/better-sqlite3'
