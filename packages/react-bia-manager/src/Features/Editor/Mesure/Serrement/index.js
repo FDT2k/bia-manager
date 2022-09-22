@@ -61,7 +61,7 @@ export const Component = props => {
 
 
 
-                <div className="header">{t('Left//clamping force hand')}</div>
+                <div className="header header--left">{t('Left//clamping force hand')}</div>
                 <div><input type="checkbox" {...checkboxProps('left.main')} /></div>
 
                 <div><input type="text" {...inputProps('left.data.0')} /></div>
