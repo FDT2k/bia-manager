@@ -33,7 +33,7 @@ export const Component = props => {
     const left_norme =  get_norme('left.norme', initialValues);
     const right_norme =  get_norme( 'right.norme', initialValues);
 
-   
+
     return (
         <>
             <Grid
@@ -43,15 +43,15 @@ export const Component = props => {
                 templateRows="repeat(3,1fr)"
                 rowGap={10}
             >
-                <div className="header header--left"></div>
-                <div className="header header--left">{t('Main Hand//clamping force')}</div>
-                <div className="header header--left">{t('Measurement 1//clamping force')}</div>
-                <div className="header header--left">{t('Measurement 2//clamping force')}</div>
-                <div className="header header--left">{t('Measurement 3//clamping force')}</div>
-                <div className="header header--left">{t('Average//clamping force')}</div>
-                <div className="header header--left">{t('Standards//clamping force')}</div>
+                <div className="header"></div>
+                <div className="header truncate">{t('Main Hand//clamping force')}</div>
+                <div className="header">{t('Measurement 1//clamping force')}</div>
+                <div className="header">{t('Measurement 2//clamping force')}</div>
+                <div className="header">{t('Measurement 3//clamping force')}</div>
+                <div className="header truncate">{t('Average//clamping force')}</div>
+                <div className="header truncate">{t('Standards//clamping force')}</div>
 
-                <div className="header">{t('Right//clamping force hand')}</div>
+                <div className="header header--left">{t('Right//clamping force hand')}</div>
                 <div><input type="checkbox" {...checkboxProps('right.main')} /></div>
                 <div><input type="text" {...inputProps('right.data.0')} /></div>
                 <div><input type="text" {...inputProps('right.data.1')} /></div>
