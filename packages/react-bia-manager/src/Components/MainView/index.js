@@ -33,7 +33,7 @@ const MainView = props => {
         <MainLayout className={className} contained cover>
             <Nav area="header" className="nav-main">
                 {renderLeftNav && renderLeftNav()}
-                {!renderLeftNav && <h3>BIA Manager</h3>}
+                {!renderLeftNav && <h3>BIM</h3>}
                 {showUser && <LayoutFlex onClick={_ => setLocation("/import")} alignCenter><Person />{t(`Utilisateur`)}</LayoutFlex>}
             </Nav>
             <Content scrollable area="maincontent">

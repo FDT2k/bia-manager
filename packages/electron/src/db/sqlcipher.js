@@ -285,7 +285,12 @@ export const API = db => {
 
 
 
-const defaultOptions = { fileMustExist: true, verbose: (...args) => console.log('[SQLITE]:', ...args) }
+const defaultOptions = { fileMustExist: true, verbose: (...args) => console.log('[SQLITE]:', ...args.map(item=>{
+    if(!item.includes('PRAGMA key')){
+        return item
+    }
+    return '*****';
+})) }
 
 
 const opendb = additional_modules => (file, key = '', options = defaultOptions) => {

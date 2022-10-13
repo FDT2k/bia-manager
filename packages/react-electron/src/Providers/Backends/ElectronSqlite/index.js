@@ -149,7 +149,7 @@ export default ({ children }) => {
   
 
     const save_subject_mesures = async (subject) => {
-        debugger;
+      //  debugger;
         start_loading(t('Saving'))
         const { mesures, ...subject_rest } = subject;
         let result = await sqlite_model_transaction({ model: 'mesure', fn: 'import', args: [subject_rest], arg_stmt: mesures }).catch(add_error)
@@ -272,7 +272,7 @@ export default ({ children }) => {
     //returns true if data are readable
     const is_protected_data_unlocked = async () => {
         let res = await sqlite_sd_is_unlocked();
-        debugger;
+      //  debugger;
         return res;
     }
 
@@ -349,7 +349,7 @@ export default ({ children }) => {
                 }
                 return check_database();
             }).then(res => {
-                debugger;
+               // debugger;
                 if (!res) {
                     add_error(t('Your database schema is diverging from current version.'))
                     return
