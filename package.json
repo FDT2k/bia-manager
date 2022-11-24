@@ -10,6 +10,7 @@
     "integrate-legacy": "cd packages/integration-legacy; yarn dev",
     "start:browser": "cd packages/react-bia-manager; yarn dev",
     "kda": "git submodule init;git submodule update; yarn build submodules; yarn; yarn start",
+    "kda-translations": "node scripts/trans.js",
     "start": "MODE=development node scripts/watch.js",
     "start:react-electron": "MODE=development node scripts/watch-new.js",
     "start:website": "cd packages/website; yarn dev",
