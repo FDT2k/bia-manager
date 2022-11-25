@@ -219,7 +219,9 @@ export const API = db => {
             let migrationContent = fs.readFileSync(migrationFile, 'utf8');
             let hash = crypto.createHash('md5').update(migrationContent).digest('hex')
             console.log(!applied[idx],hash !== applied[idx]['hash'],hash,applied[idx]['hash']);
-            if (!applied[idx] || hash !== applied[idx]['hash']) {
+            console.log(applied[idx]['name']==migration);
+            //added applied[idx]['name']!==migration because md5 hash check is not consistent between windows && *nix
+            if (!applied[idx] || applied[idx]['name']!==migration && hash !== applied[idx]['hash']) {
                 carry = false;
             }
 

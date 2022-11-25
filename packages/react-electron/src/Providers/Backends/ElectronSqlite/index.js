@@ -345,14 +345,14 @@ export default ({ children }) => {
             migrate_database().then(res => {
                 if (res === false) {
                     close_file();
-                    throw new Error('Database has been closed');
+                    throw new Error(t('Database has been closed'));
                 }
                 return check_database();
             }).then(res => {
                // debugger;
                 if (!res) {
-                    add_error(t('Your database schema is diverging from current version.'))
-                    return
+                    add_error(t('Your database schema is diverging from current version'))
+                    return ; 
                 }
                 start_loading(t('updating database 1 / 2'))
                 return update_uuids();
@@ -373,6 +373,7 @@ export default ({ children }) => {
                 }
 
             }).then(res => {
+                //ternary system here, if we get null, previous step was not run.
                 if (res === null) {
                     return true;
                 } else if (res === false) {
