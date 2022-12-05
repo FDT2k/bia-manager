@@ -1,6 +1,6 @@
 {
   "name": "@karsegard/bia-manager-theme-legacy",
-  "version": "1.0.0",
+  "version": "1.0.19",
   "scripts": {
     "dev": "vite",
     "build": "vite build",
