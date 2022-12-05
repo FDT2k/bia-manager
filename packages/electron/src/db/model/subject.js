@@ -174,7 +174,9 @@ const subject = (db, api) => {
 
         const { id, ...rest } = subject;
 
-
+        const {hash,last_updated,...to_hash} = rest;
+        subject.hash = ohash(to_hash);
+        rest.hash = subject.hash;
         let res = module.update(rest, { id }).run({ ..._transform(schema, subject), id });
         return res;
     }

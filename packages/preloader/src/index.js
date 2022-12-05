@@ -21,7 +21,8 @@ let electronAPI = {
     ...clientEvent('languageChange', 'language-change'),
     ...clientEvent('unlockSensitiveData','trigger-unlock-sensitive-data'),
     ...clientEvent('lockSensitiveData','trigger-lock-sensitive-data'),
-    ...clientEvent('customHeader','trigger-custom-header')
+    ...clientEvent('customHeader','trigger-custom-header'),
+    ...clientEvent('recomputeHash','trigger-recompute-hash'),
   },
   actions: {
     save: invokeOnMainProcess('file-save'),

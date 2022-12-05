@@ -34,7 +34,7 @@ export const encode_password = (password, salt) => {
 }
 
 export default ({ children }) => {
-    const { actions: { sqlite_model_transaction, sqlite_api, sqlite_export, sqlite_search, sqlite_custom_search, sqlite_create, sqlite_query, sqlite_model, sqlite_attach, set_custom_header,get_custom_header, sqlite_import, sqlite_unlock_sd, sqlite_lock_sd, sqlite_sd_is_unlocked, sqlite_sd_req_password }, subscribers: { handleUnlockSensitiveData, handleLockSensitiveData, handleCustomHeader } } = useElectron();
+    const { actions: { sqlite_model_transaction, sqlite_api, sqlite_export, sqlite_search, sqlite_custom_search, sqlite_create, sqlite_query, sqlite_model, sqlite_attach, set_custom_header,get_custom_header, sqlite_import, sqlite_unlock_sd, sqlite_lock_sd, sqlite_sd_is_unlocked, sqlite_sd_req_password }, subscribers: { handleUnlockSensitiveData, handleLockSensitiveData, handleCustomHeader,handleRecomputeHash } } = useElectron();
     const { selectors: { locked, file }, actions: { reload_file_state, close_file } } = useFileProvider();
     const [subject, setState] = useState({})
     const [sensitive_lock, setSensitiveLock] = useState(true)
@@ -407,8 +407,11 @@ export default ({ children }) => {
         handleCustomHeader(() => {
             setCustomHeader();
         });
+        handleRecomputeHash(() => {
+            do_recompute_hashes();
+        });
     }, [])
-
+    
     const update_hashes = async () => {
 
         const subjects = await sqlite_model({ model: "subject", fn: "all", args: [{ hash: null }] })
@@ -422,6 +425,42 @@ export default ({ children }) => {
         }
 
         const mesures = await sqlite_model({ model: "mesure", fn: "all", args: [{ hash: null }] })
+        if (mesures.length > 0) {
+
+            let [p, terminate] = doHeavyWork({ message: 'mesures_hashes', data: mesures });
+
+            let _mesures = await p;
+            await sqlite_model_transaction({ model: "mesure", fn: 'bulk_update', args: [{ hash: '' }, { id: '' }], arg_stmt: _mesures })
+            terminate();
+
+        }
+
+        return true
+    }
+    const do_recompute_hashes = ()=>{
+        start_loading(t('updating hashes'));
+        recompute_hashes().then(res => {
+            stop_loading()
+        }).catch(err => {
+            stop_loading()
+            add_error(err)
+        })
+    }
+    const recompute_hashes = async () => {
+
+       // const subjects = await sqlite_model({ model: "subject", fn: "all", args: [{}] })
+        let subjects = await sqlite_query({ query: "select * from subjects", values: {}});
+        console.log(subjects.length);
+        if (subjects.length > 0) {
+
+            let [p, terminate] = doHeavyWork({ message: 'subject_hashes', data: subjects });
+            let _subjects = await p;
+
+            await sqlite_model_transaction({ model: "subject", fn: 'bulk_update', args: [{ hash: '' }, { id: '' }], arg_stmt: _subjects })
+            terminate();
+        }
+
+        const mesures = await sqlite_query({ query: "select * from mesures", values: {}})
         if (mesures.length > 0) {
 
             let [p, terminate] = doHeavyWork({ message: 'mesures_hashes', data: mesures });
@@ -606,7 +645,7 @@ export default ({ children }) => {
         <BackendProvider type="sqlite" actions={{
             get_custom_header,
             get_subject_by_uuid, get_subject, ready, search, search_custom_filters, create_database, fetch_stats, stats, db_name, search_count, get_lists, get_forms, create_subject, save_subject, save_subject_mesures, delete_mesure, fetch_lists, fetch_list, save_list, add_list_item, delete_list_item, save_list_item, attach, detach, detach_all, should_reload_lists, exportToCSV, attached_stats_query, attached_sync, update_subject,
-            sensitive_lock, protected_data_unlock, protected_data_lock
+            sensitive_lock, protected_data_unlock, protected_data_lock,do_recompute_hashes
         }}>
 
             {children}

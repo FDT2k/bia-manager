@@ -60,7 +60,7 @@ export const makeProvider = (Context) => withReduxModule((props) => {
 
 
     const saveListItem = (item, values) => {
-        debugger;
+      //  debugger;
 
         if (item.id) {
             Promise.resolve(save_list_item(editedList,{ ...item, ...values })).then(_ => {

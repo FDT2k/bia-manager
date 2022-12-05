@@ -183,7 +183,6 @@ export const API = db => {
 
 
     module.genUpdateSQL = (table, schema, filter) => {
-
         const fields = enlist(schema).map(item => key(item));
 
 

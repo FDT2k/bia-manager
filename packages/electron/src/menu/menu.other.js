@@ -53,6 +53,12 @@ export default (app, window,labelEnhancer=identity,actions ) => {
           click: function (item, focusedWindow) {
             focusedWindow.webContents.toggleDevTools();
           }
+        },
+        {
+          label: labelEnhancer('Recalculer les hashes'),
+          click: function (item, focusedWindow) {
+            window.webContents.send('trigger-recompute-hash');
+          }
         }
       ]
     },

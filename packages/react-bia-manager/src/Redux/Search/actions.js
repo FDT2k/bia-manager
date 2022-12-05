@@ -12,7 +12,7 @@ export default (getModule) => {
     actions.clear = createAction(types.CLEAR);
     actions.update_search_tags = createAction(types.UPDATE_SEARCH_TAGS);
     actions.fetched = createAction(types.FETCHED,payload=>{
-        debugger;
+       // debugger;
         return payload;
     });
 
