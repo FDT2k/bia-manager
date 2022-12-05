@@ -54,12 +54,7 @@ export default (app, window,labelEnhancer=identity,actions ) => {
             focusedWindow.webContents.toggleDevTools();
           }
         },
-        {
-          label: labelEnhancer('Recalculer les hashes'),
-          click: function (item, focusedWindow) {
-            window.webContents.send('trigger-recompute-hash');
-          }
-        }
+       
       ]
     },
     {
@@ -175,6 +170,12 @@ export default (app, window,labelEnhancer=identity,actions ) => {
             
           }
 
+        },
+        {
+          label: labelEnhancer('Refresh records hashes'),
+          click: function (item, focusedWindow) {
+            window.webContents.send('trigger-recompute-hash');
+          }
         }
       ]
     },
