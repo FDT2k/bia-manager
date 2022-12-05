@@ -31,7 +31,7 @@ const mesures_hashes = (mesures, cb) => {
 
 }
 const parse = ({ data: { message, data } }, callback) => {
-  console.log('hello', message, data)
+  console.log('hello', message, data.length)
   switch (message) {
     case 'subject_hashes':
       subject_hashes(data, callback);

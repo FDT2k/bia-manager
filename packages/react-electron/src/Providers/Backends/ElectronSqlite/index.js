@@ -450,7 +450,7 @@ export default ({ children }) => {
 
        // const subjects = await sqlite_model({ model: "subject", fn: "all", args: [{}] })
         let subjects = await sqlite_query({ query: "select * from subjects", values: {}});
-        console.log(subjects.length);
+      //  console.log(subjects.length);
         if (subjects.length > 0) {
 
             let [p, terminate] = doHeavyWork({ message: 'subject_hashes', data: subjects });
