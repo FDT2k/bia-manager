@@ -69,7 +69,17 @@
     }
     &--small{
         height: 21px;
-        padding:0px;
+        padding:4px;
+        vertical-align: middle;
+        line-height:1.5;
+        max-width:100%;
+    }
+    &--xs{
+        height: 15px;
+        padding:4px;
+        vertical-align: middle;
+        line-height:1.3;
+        font-size: 11px;
         max-width:100%;
     }
     &.btn--primary {

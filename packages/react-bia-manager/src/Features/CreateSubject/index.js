@@ -23,7 +23,7 @@ const mapItemListAsoption = (item) => {
 
 export const Page = props => {
 
-    const { patient, handleChange, handleCancel, handleSave, lists, forms,locked, ...rest } = props;
+    const { patient,edit, handleChange, handleCancel, handleSave, lists, forms,locked, ...rest } = props;
     const [location, setLocation] = useLocation();
 
     const { t, dateSysToHuman, dateHumanToSys } = useTranslation()
@@ -126,7 +126,8 @@ export const Page = props => {
     return (
         <MainView className="page-create-subject">
             <Grid>
-                <PageHeader label={t('New Subject//create subject title')}></PageHeader>
+                {!edit && <PageHeader label={t('New Subject//create subject title')}></PageHeader>}
+                {edit && <PageHeader label={t('Edit Subject//edit subject title')}></PageHeader>}
                 <form {...formProps}>
                     <Grid
 
@@ -205,6 +206,7 @@ Page.defaultProps = {
         { list_key: 'pathological_groups', path: 'groups.patho' },
         { list_key: 'ethnological_groups', path: 'groups.ethno' },
     ],
+    edit:false,
     patient: {
         firstname: '',
         lastname: '',

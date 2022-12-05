@@ -18,7 +18,7 @@ export const PageHeader = props => {
                     <LayoutFlex style={{gap:'10px'}}>
                     {actions && actions.length >0 && actions.map(
                         item=> {
-                            return <div onClick={_=>handleAction(item)}>{t(item)}</div>
+                            return <div className="button button--xs" key={item} onClick={_=>handleAction(item)}>{t(item)}</div>
                         }
                     )}
                     </LayoutFlex>

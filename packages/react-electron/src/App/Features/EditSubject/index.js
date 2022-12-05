@@ -84,7 +84,7 @@ export default props => {
     }
 
     return <>
-    <CreateSubjectFeature handleCancel={handleCancel} lists={lists} locked={sensitive_lock} forms={forms.create_subject} handleSave={handleSave}  patient={patient}/>
+    <CreateSubjectFeature handleCancel={handleCancel} lists={lists} locked={sensitive_lock} forms={forms.create_subject} handleSave={handleSave} edit={true}  patient={patient}/>
    
         </>
 }
