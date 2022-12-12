@@ -499,7 +499,7 @@ const subject = (db, api) => {
     }
 
 
-
+    module.softDelete = (uuid) => module.update({status:'deleted'},{uuid}).run({uuid,status:'deleted'});
 
     module.search = (tag) => {
         let hasField = tag.indexOf(':') !== -1;
@@ -507,10 +507,12 @@ const subject = (db, api) => {
         let sql = `Select s.*,count(m.id)as count_mesures, (s.firstname || s.lastname || s.birthdate ) as search_terms,group_concat(m.date) as mesures_dates 
             from subjects as s left join mesures as m on s.id=m.subject_id 
         
-            where s.firstname like @tag 
+            where (s.firstname like @tag 
                 or s.lastname like @tag
                 or s.birthdate like @tag
-                or s.gender =@tag
+                or s.gender =@tag)
+                and s.status !='deleted'
+
             group by s.id
         `;
 

@@ -11,12 +11,34 @@ const Editor = ReduxEditor(editorModule, EditorFeature)
 
 
 const PatientHeader = props => {
-    const { data, ...rest } = props
+    const { data, ...rest } = props;
+    const { isConfirmed } = useConfirm();
+
+    const { t } = useTranslation();
+    const { delete_subject } = useBackend();
+    const handleSubjectDelete = async (uuid) => {
+        const confirmed = await isConfirmed(t("Are you sure that you want to delete this ?"));
+        if (confirmed) {
+            return delete_subject(uuid);
+        }
+
+        return false;
+    }
     const handleAction = action => {
 
-        window.location.href = "#/subject/" + data.uuid
+        if(action==='edit'){
+             window.location.href = "#/subject/" + data.uuid
+        }else if(action==='delete'){
+            handleSubjectDelete(data.uuid).then(_=>{
+                if(_===true){
+                    window.location.href = "#/search";
+                }
+            })
+        }else{
+            alert(t('not implemented yet'));
+        }
     }
-    return <PatientHeaderFeature data={data} {...rest} actions={['edit']} handleAction={handleAction} />
+    return <PatientHeaderFeature data={data} {...rest} actions={['edit','delete']} handleAction={handleAction} />
 }
 
 const EditorWithBackend = (props) => {

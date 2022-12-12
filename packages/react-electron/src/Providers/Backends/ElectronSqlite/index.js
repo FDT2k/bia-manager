@@ -199,6 +199,30 @@ export default ({ children }) => {
         }).catch(add_error)
     }
 
+    const delete_subject = async (uuid) => {
+
+
+        start_loading(t('Deleting'))
+
+      // let uuid = patient.uuid;
+
+        if (!is_empty(uuid)) {
+            await sqlite_model({ model: "subject", fn: 'softDelete', args: [uuid] })
+                .catch(err => {
+                    add_error(err)
+                    stop_loading();
+                })
+            stop_loading();
+
+            return true
+        } else {
+            add_error(t('Cannot delete subject'))
+            stop_loading();
+            return false;
+        }
+
+
+    }
     const delete_mesure = async (patient, idx) => {
 
 
@@ -645,7 +669,8 @@ export default ({ children }) => {
         <BackendProvider type="sqlite" actions={{
             get_custom_header,
             get_subject_by_uuid, get_subject, ready, search, search_custom_filters, create_database, fetch_stats, stats, db_name, search_count, get_lists, get_forms, create_subject, save_subject, save_subject_mesures, delete_mesure, fetch_lists, fetch_list, save_list, add_list_item, delete_list_item, save_list_item, attach, detach, detach_all, should_reload_lists, exportToCSV, attached_stats_query, attached_sync, update_subject,
-            sensitive_lock, protected_data_unlock, protected_data_lock,do_recompute_hashes
+            sensitive_lock, protected_data_unlock, protected_data_lock,do_recompute_hashes,
+            delete_subject
         }}>
 
             {children}
