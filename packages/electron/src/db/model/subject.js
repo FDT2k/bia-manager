@@ -1,5 +1,5 @@
 import mesure from './mesure'
-import { is_nil, enlist, is_empty,is_type_string, is_undefined, keys, is_type_array, is_type_function, safe_path } from '@karsegard/composite-js';
+import { is_nil, enlist, is_empty, is_type_string, is_undefined, keys, is_type_array, is_type_function, safe_path } from '@karsegard/composite-js';
 import { key, keyval, spec, pathes } from '@karsegard/composite-js/ObjectUtils';
 import { spreadObjectPresentIn } from '@karsegard/composite-js/ReactUtils'
 import { _transform, _retrieve, _retrieve_from_raw, _retrieve_entity, _raw_to_object, _retrieve_row } from '../sqlcipher'
@@ -106,9 +106,9 @@ const subject = (db, api) => {
 
         let stmt = db.prepare(`Select s.* from ${hash}.subjects s  where ${api.genConditionSQL(filter)}`).raw();
 
-      
 
-    
+
+
 
         return _retrieve_entity('subjects', schema, stmt.columns(), stmt.get(filter));
     }
@@ -174,7 +174,7 @@ const subject = (db, api) => {
 
         const { id, ...rest } = subject;
 
-        const {hash,last_updated,...to_hash} = rest;
+        const { hash, last_updated, ...to_hash } = rest;
         subject.hash = ohash(to_hash);
         rest.hash = subject.hash;
         let res = module.update(rest, { id }).run({ ..._transform(schema, subject), id });
@@ -309,7 +309,7 @@ const subject = (db, api) => {
             query = `where s.uuid in (
                 Select distinct s.uuid
                 from subjects as s 
-                
+                where status !='deleted'
                 left join mesures as m on s.uuid=m.subject_uuid 
                 ${whereClauses}
                 group by s.uuid
@@ -346,11 +346,11 @@ const subject = (db, api) => {
                 //     res.push(retrieve_csv_row(result, cols).join(separator));
                 //    console.log(extract_values(result,columns));
             }
-        }else{
-            stream.write(cols.map(item => `"${item.table}.${item.name}"`).join(separator)+'\n');
+        } else {
+            stream.write(cols.map(item => `"${item.table}.${item.name}"`).join(separator) + '\n');
             for (let result of stmt.iterate()) {
-                stream.write(result.map(item=>{
-                    return  is_type_string(item) ? `"${item.replace(/\"/g,'""')}"`:`${item}`
+                stream.write(result.map(item => {
+                    return is_type_string(item) ? `"${item.replace(/\"/g, '""')}"` : `${item}`
                 }).join(separator) + '\n');
             }
         }
@@ -499,7 +499,7 @@ const subject = (db, api) => {
     }
 
 
-    module.softDelete = (uuid) => module.update({status:'deleted'},{uuid}).run({uuid,status:'deleted'});
+    module.softDelete = (uuid) => module.update({ status: 'deleted' }, { uuid }).run({ uuid, status: 'deleted' });
 
     module.search = (tag) => {
         let hasField = tag.indexOf(':') !== -1;
