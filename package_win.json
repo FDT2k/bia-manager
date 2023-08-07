@@ -1,7 +1,7 @@
 {
   "name": "bia-manager-electron",
   "main": "packages/electron/dist/index.cjs",
-  "version": "1.0.19",
+  "version": "1.0.20",
   "author": "Karsegard Digital Agency",
   "repository": "https://github.com/FDT2k/bia-manager",
   "scripts": {
@@ -58,10 +58,6 @@
     "object-hash": "^2.2.0",
     "sass": "^1.38.2"
   },
-  "browserslist": [
-    "Chrome 91"
-  ],
-  "workspaces": [
-    "packages/*"
-  ]
+  "browserslist": ["Chrome 91"],
+  "workspaces": ["packages/*"]
 }
