@@ -22,6 +22,7 @@ const subject = (db, api) => {
         med_service: '',
         hash: '',
         last_updated: '',
+        status:''
     }
 
 
