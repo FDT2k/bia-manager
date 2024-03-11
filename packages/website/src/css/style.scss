@@ -211,4 +211,18 @@ header {
       max-width: 100%;
     }
   }
+
+  .steps {
+    article {
+      flex-direction: column;
+      gap: 16px;
+      padding-bottom:32px;
+
+      img {
+        width: 100%;
+        margin-right: 0px;
+      }
+    }
+ 
+  }
 }
