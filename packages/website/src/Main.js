@@ -27,7 +27,9 @@ const reducer = (state, { type, payload }) => {
           assets, body, name
         }
 
-      })
+      });
+      console.log(releases);
+      
       return {
         releases,
         latest: {
@@ -45,7 +47,7 @@ const reducer = (state, { type, payload }) => {
 export default props => {
   const [loaded, setLoaded] = useState(false)
   useEffect(() => {
-    axios.get('https://api.github.com/repos/fdt2k/bia-manager-releases/releases').then(res => {
+    axios.get('https://api.github.com/repos/fdt2k/bia-manager/releases').then(res => {
       dispatch({ type: 'fetch', payload: res.data })
       setLoaded(true)
     })
@@ -55,53 +57,54 @@ export default props => {
   console.log(state)
   return (
     <>
-      <nav class="flex flex-row just-center">
+      {/* <nav className="flex flex-row just-center">
         <section>
-          <h4>BIA Manager</h4>
+          <h4>BIM - BIA Manager</h4>
         </section>
-      </nav>
+      </nav> */}
 
 
       <div className="container">
         
         {loaded &&
           <>
-            <section className="downloads flex flex-row just-around">
-              <article className="flex flex-column align-stretch">
-                <h4>Windows - Latest Version</h4>
-                <i>windows 7 & 10 (64 bits)</i>
+            <section className="downloads flex flex-row just-between wrap">
+              <article className="flex flex-column align-stretch grow-1 shrink-0">
+                <h3>Windows</h3>
+                <i>windows 7, 10 & 11 (64 bits)</i>
                 <a href={state.latest.assets.win} className="btn btn--primary">TELECHARGER v{state.latest.name}</a>
                 <span>
                   <a class="link" href="#/help/win">Aide pour l'installation</a>
                 </span>
               </article>
-              <article className="flex flex-column align-stretch">
-                <h4>MAC - Latest Version</h4>
+              <article className="flex flex-column align-stretch grow-1 shrink-0">
+                <h3>MAC</h3>
                 <i>macOS 10.11 minimum</i>
                 <a href={state.latest.assets.osx} className="btn btn--primary">TELECHARGER v{state.latest.name}</a>
                 <span>
                   <a class="link" href="#/help/mac">Aide pour l'installation</a>
                 </span>
               </article>
-            </section>
-            <section className="downloads flex flex-row just-around">
-              <article className="flex flex-column align-stretch">
-                <h4>Linux - Latest Version</h4>
+              <article className="flex flex-column align-stretch grow-1 shrink-0">
+                <h3>Linux</h3>
                 <i>Any 64bits</i>
 
                 <a href={state.latest.assets.lin} className="btn btn--primary">TELECHARGER v{state.latest.name}</a>
               </article>
-              <article className="flex flex-column align-stretch">
-                <h4>Version en ligne</h4>
+            </section>
+            {/* <section className="downloads flex flex-row just-between wrap">
+              <article className="flex flex-column align-stretch grow-1 shrink-0">
+                <h3>Version en ligne</h3>
 
                 <i>bientôt disponible</i>
               </article>
-            </section>
-            <section className="downloads flex flex-row just-around">
-              <article className="flex flex-column align-stretch">
-                <h4>Code source</h4>
-
-                <a href="https://www.gitlab.com/karsegard/bia-manager" className="btn btn--primary">GitLab</a>
+            </section> */}
+            <section className="downloads flex flex-row just-between wrap">
+              <article className="flex flex-column align-stretch grow-1 shrink-0">
+                <h3>Code source</h3>
+                <span>
+                  <a href="https://www.gitlab.com/karsegard/bia-manager" className="link">GitLab</a>
+                </span>
               </article>
              
             </section>
@@ -109,10 +112,9 @@ export default props => {
         }
       </div>
 
-      <footer>
+      {/* <footer>
         handcrafted with love & cocoa by <a target="_blank" href="https://www.karsegard.ch/">Karsegard Digital Agency</a>
-      </footer>
-
+      </footer> */}
 
     </>
   )

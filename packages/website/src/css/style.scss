@@ -7,8 +7,9 @@ body, html {
   font-family: aktiv-grotesk, sans-serif;
   font-weight: 400;
   font-style: normal;
-  font-size: 14px;
+  font-size: 16px;
   line-height: 1.2em;
+  color:#1C313A;
   margin: 0px auto;
   max-width: 1200px;
 }
@@ -16,6 +17,7 @@ body, html {
 .container {
   margin: 72px 32px;
 }
+
 
 h1{
   font-size: 50px;
@@ -40,7 +42,7 @@ h4{
 p,
 label,
 a{
-  font-size: 14px;
+  font-size: 16px;
   line-height: 1.2em;
 }
 
@@ -57,13 +59,13 @@ a:active,
 a:hover {
   cursor:pointer;
   text-decoration: none;
-  color: black;
+  color: #1C313A;
   border:none;
 
   &.link {
     display: inline-block;
     padding-bottom: 1px;
-    border-bottom: solid 1px black;
+    border-bottom: solid 1px #1C313A;
 
     &::after {
       content:" \2794";
@@ -81,33 +83,35 @@ img{
   height: auto;
   max-width: 650px;
   border-radius: 4px;
+  flex-shrink: 0;
 }
 
 /** SECTIONS **/
 
 nav, footer {
-  background-color: black;
+  // background-color: #1C313A;
+  background-color: #1C313A;
   color: white;
 
   position: fixed;
   left: 0px;
   right: 0px;
-}
-
-nav {
-  top: 0px;
 
   section {
     padding: 16px 32px;
-    margin: 0px;
+    margin: 0px; 
     width: 100%;
     max-width: calc(1200px - 72px);
   }
 }
 
+nav {
+  top: 0px;
+}
+
 footer {
   bottom: 0px;
-  text-align: center;
+  // text-align: center;
 }
 
 footer a,
@@ -144,7 +148,7 @@ header {
   &--primary:active,
   &--primary:visited,
   &--secondary:hover {
-    background-color: black;
+    background-color: #1C313A;
     border: solid 1px white;
     color: white;
   }
@@ -154,8 +158,8 @@ header {
   &--secondary:visited,
   &--primary:hover {
     background-color: white;
-    border: solid 1px black;
-    color: black;
+    border: solid 1px #1C313A;
+    color: #1C313A;
   }
 
   &--text {
@@ -168,8 +172,11 @@ header {
 /** CUSTOMS **/
 
 .downloads {
+  gap: 7%;
   article {
-    width: 47%;
+    width: auto;
+    min-width: 15%;
+    max-width: 47%;
   }
 
   & a {
@@ -177,11 +184,31 @@ header {
   }
 }
 
-.steps img {
-  margin-right: 32px;
+.steps {
+  section:not(section:first-child) {
+    margin-top: calc(32px*4);
+  }
+  img {
+    margin-right: 32px;
+  }
 }
 
 .icon{
   height:32px;
   width:32px;
+}
+
+/** MEDIAQUERIES **/
+
+@media (max-width: 560px) {
+  .container {
+    margin: 50px 20px;
+  }
+
+  .downloads {
+    flex-direction: column;
+    article {
+      max-width: 100%;
+    }
+  }
 }

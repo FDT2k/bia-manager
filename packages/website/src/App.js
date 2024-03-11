@@ -22,18 +22,21 @@ export default props => {
 
     return (
         <>
-            <nav>
-                <h4>BIM</h4>
+            <nav className="flex flex-row just-center">
+                <section>
+                    <h4>BIM - BIA Manager</h4>
+                </section>
             </nav>
+
             <Router hook={useHashLocation}>
                 <Route path="/help/:os" component={Help} />
                 <Route path="/"><Main /></Route>
-
             </Router>
 
-
-            <footer>
-                handcrafted with love & cocoa by <a target="_blank" href="https://www.karsegard.ch/">Karsegard Digital Agency</a>
+            <footer className="flex flex-row just-center">
+                <section>
+                    <p>Handcrafted with love & cocoa by <a target="_blank" href="https://www.karsegard.ch/">Karsegård Digital Agency</a></p>
+                </section>
             </footer>
         </>
     )
