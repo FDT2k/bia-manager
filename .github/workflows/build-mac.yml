@@ -1,7 +1,7 @@
 name: BuildMac
 
 on:
-  workflow-dispatch:
+  workflow_dispatch:
   push:
     branches:
       - master-macos
