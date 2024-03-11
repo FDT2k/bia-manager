@@ -130,6 +130,10 @@ export const Page = props => {
                     <b>Indice de masse grasse FMI </b> = masse grasse (kg)/ taille(m)2<br/>
                     =&gt; utiliser la masse non-grasse calculée pour la clinique pour le résultat clinique et la masse non grasse calculée par la formule recherche pour le résultat recherche, idem pour la masse grasse
                     </p>
+                    <h4>Force de serrement</h4>
+                    <p>
+                    Protocole de test : Schectman O, American Society of Hand Therapists, Grip Strength, 2013 Normes : Werle S, Journal of Hand Surgery 2009
+                    </p>
                 </LayoutFlex>
             </Container>
         </Modal>
