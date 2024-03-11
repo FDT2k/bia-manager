@@ -1,6 +1,7 @@
 name: BuildWindows
 
 on:
+  workflow-dispatch:
   push:
     branches:
       - windows-master
