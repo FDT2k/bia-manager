@@ -65,6 +65,7 @@ export default props => {
         let _vals = {
             ...values,
             birthdate:  moment(values['birthdate'],'DD.MM.YYYY').format("YYYY-MM-DD"),
+            status:'active',
             diag: values.diag ? values.diag.split("\n"): null
         };
         debugger;

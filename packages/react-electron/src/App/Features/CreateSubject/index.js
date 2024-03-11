@@ -50,7 +50,8 @@ export default props => {
         let _vals = {
             ...values,
             birthdate:  moment(values['birthdate'],'DD.MM.YYYY').format("YYYY-MM-DD"),
-            diag: values.diag.split("\n")
+            diag: values.diag.split("\n"),
+            status:'active'
 
         };
         Promise.resolve(create_subject(_vals))
