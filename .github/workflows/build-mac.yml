@@ -31,6 +31,12 @@ jobs:
         with:
           node-version: 16
 
+
+      - name: Fix fips error
+        run: | 
+          npm config set openssl_fips ''
+        env: 
+          CI: true
           
       - name: Get yarn cache directory path
         id: yarn-cache-dir-path
