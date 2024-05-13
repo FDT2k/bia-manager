@@ -470,8 +470,12 @@ const subject = (db, api) => {
         return val;
     }
     const retrieve_csv_row = (row, columns) => {
+        console.log(columns);
         return columns.reduce(
             (carry, col, idx) => {
+                if(col.name == 'diag'){
+                   return carry;
+                }
                 if (!is_nil(csv_json_map[col.name])) {
 
                     let __columns = enlist(extract_object(row[idx], csv_json_map[col.name], false));
@@ -493,6 +497,9 @@ const subject = (db, api) => {
     const retrieve_csv_cols = (row, columns) => {
         return columns.reduce(
             (carry, col, idx) => {
+                if(col.name == 'diag'){
+                    return carry;
+                 }
                 if (!is_nil(csv_json_map[col.name])) {
 
                     let __columns = enlist(extract_columns(csv_json_map[col.name]));
