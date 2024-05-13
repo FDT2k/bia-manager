@@ -575,7 +575,7 @@ export default ({ children }) => {
 
         start_loading('exporting data');
         let result = await sqlite_export({ query: arg, filename: 'bia-export.csv' }).catch(add_error);
-        add_error('Export terminé')
+        add_error({title:'Info',message:'Export terminé'})
         stop_loading();
     }
 

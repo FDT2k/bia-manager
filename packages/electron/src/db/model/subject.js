@@ -310,9 +310,9 @@ const subject = (db, api) => {
             query = `where s.uuid in (
                 Select distinct s.uuid
                 from subjects as s 
-                where status !='deleted'
                 left join mesures as m on s.uuid=m.subject_uuid 
                 ${whereClauses}
+                and m.status !='deleted'
                 group by s.uuid
                 ${havingClauses}
             )`;
