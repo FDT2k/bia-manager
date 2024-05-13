@@ -22,7 +22,7 @@ const subject = (db, api) => {
         med_service: '',
         hash: '',
         last_updated: '',
-        status:''
+        status: ''
     }
 
 
@@ -293,7 +293,7 @@ const subject = (db, api) => {
 
     }
 
-    module.export_csv = ({ custom_filters, rawExport }, separator, stream) => {
+    module.export_csv = ({ custom_filters, rawExport, onlyMeasure }, separator, stream) => {
 
 
         let method = "where";
@@ -307,7 +307,18 @@ const subject = (db, api) => {
 
         if (enlist(custom_filters).length > 0) {
 
-            query = `where s.uuid in (
+            if (onlyMeasure) {
+                query = `where m.uuid in (
+                    Select distinct m.uuid
+                    from subjects as s 
+                    left join mesures as m on s.uuid=m.subject_uuid 
+                    ${whereClauses}
+                    and m.status !='deleted'
+                    group by s.uuid
+                    ${havingClauses}
+                )`;
+            } else {
+                query = `where s.uuid in (
                 Select distinct s.uuid
                 from subjects as s 
                 left join mesures as m on s.uuid=m.subject_uuid 
@@ -316,6 +327,7 @@ const subject = (db, api) => {
                 group by s.uuid
                 ${havingClauses}
             )`;
+            }
         }
 
         let sql = `

@@ -15,6 +15,9 @@ export const Component = (props) => {
     // const {custom_filters} = props;
     const [custom_filters, setCustomFilters] = useState({});
     const [rawExport, setRawExport] = useState(false);
+    const [onlyMeasure, setOnlyMeasure] = useState(true);
+
+    
     const { t } = useTranslation()
     
     const setFilter = (name, field, value,type="date_range") => {
@@ -43,7 +46,7 @@ export const Component = (props) => {
     const {handleExport:_handleExport} = props;
     const handleExport = (e)=>{
         _handleExport({
-            custom_filters,rawExport
+            custom_filters,rawExport,onlyMeasure
         })
     }
 
@@ -75,6 +78,10 @@ export const Component = (props) => {
                         <div>
                             <label>{t('Raw export//toggle label')}</label>
                             <ToggleSwitch tabIndex={6} checked={rawExport} onChange={e=>setRawExport(e.target.checked)} labelYes={t('Yes')} labelNo={t('No')} name="left_side" />
+                        </div>
+                        <div>
+                            <label>{t('Mesures seulement//measure toggle label')}</label>
+                            <ToggleSwitch tabIndex={6} checked={onlyMeasure} onChange={e=>setOnlyMeasure(e.target.checked)} labelYes={t('Yes')} labelNo={t('No')} name="measurement" id="measurement" />
                         </div>
                         <Button onClick={handleExport}>{t('Export')}</Button>
                     </Grid>
