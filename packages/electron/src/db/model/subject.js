@@ -470,7 +470,7 @@ const subject = (db, api) => {
         return val;
     }
     const retrieve_csv_row = (row, columns) => {
-        console.log(columns);
+      //  console.log(columns);
         return columns.reduce(
             (carry, col, idx) => {
                 if(col.name == 'diag'){

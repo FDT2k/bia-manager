@@ -34,7 +34,7 @@ export const encode_password = (password, salt) => {
 }
 
 export default ({ children }) => {
-    const { actions: { sqlite_model_transaction, sqlite_api, sqlite_export, sqlite_search, sqlite_custom_search, sqlite_create, sqlite_query, sqlite_model, sqlite_attach, set_custom_header,get_custom_header, sqlite_import, sqlite_unlock_sd, sqlite_lock_sd, sqlite_sd_is_unlocked, sqlite_sd_req_password }, subscribers: { handleUnlockSensitiveData, handleLockSensitiveData, handleCustomHeader,handleRecomputeHash } } = useElectron();
+    const { actions: { sqlite_model_transaction, sqlite_api, sqlite_export, sqlite_search, sqlite_custom_search, sqlite_create, sqlite_query, sqlite_model, sqlite_attach,sqlite_rekey, set_custom_header,get_custom_header, sqlite_import, sqlite_unlock_sd, sqlite_lock_sd, sqlite_sd_is_unlocked, sqlite_sd_req_password }, subscribers: { handleUnlockSensitiveData, handleLockSensitiveData,handleChangeDatabasePassword, handleCustomHeader,handleRecomputeHash } } = useElectron();
     const { selectors: { locked, file }, actions: { reload_file_state, close_file } } = useFileProvider();
     const [subject, setState] = useState({})
     const [sensitive_lock, setSensitiveLock] = useState(true)
@@ -260,6 +260,52 @@ export default ({ children }) => {
         return;
     }
 
+
+    const change_database_key = async () => {
+        await isConfirmed(t("This is a dangerous operation. DO NOT try to overwrite an existing file. DO NOT attempt to do this on a USB key or a Network drive. Keep backups of all your databases."));
+
+        let password = await isConfirmed(t("You'll be asked for a new destination database, the current database will be copied under the new file with the new password. Test the new database with the new password before deleting the current one. Be very careful because you can lose everything."), {
+            title:"Changing Database Password",
+            fields: [
+                { type: 'password', 'name': 'current_password', 'label': t('Current Password'), autoFocus: true },
+                { type: 'password', 'name': 'password', 'label': t('Password'), },
+                { type: 'password', 'name': 'confirm_password', 'label': t('Confirm Password'), },
+            ],
+            form: { password: '', confirm_password: '' },
+            validate: (values) => {
+                if (values.password !== values.confirm_password) {
+                    add_error(t("Passwords don't match"))
+                    return false;
+                }
+                if (values.password.length < 6) {
+                    add_error(t("The minimal length of the password is 6 characters"))
+                    return false;
+                }
+
+                return true;
+            }
+        });
+        start_loading(t('Changing password'))
+        sqlite_rekey({current_key: password.current_password, new_key: password.password}).then(result=>{
+            stop_loading();
+            add_error({title:'Success',message:"Mot de passe modifié avec succès"});
+
+        }).catch(err=>{
+            stop_loading();
+            add_error(err)
+        })
+
+      
+
+       /* let salt = nanoid(5);
+
+        let res = await sqlite_query({ query: "update settings set value = @salt where key = 'sensitive_data_salt'", values: { salt }, fn: 'run' });
+        let res2 = await sqlite_query({ query: "update settings set value = @password where key = 'sensitive_data_password'", values: { password: encode_password(password.password, salt) }, fn: 'run' });
+
+        await sqlite_query({ query: "update settings set value = '1' where key = 'sensitive_data_checked'", values: {}, fn: 'run' });
+        return res;*/
+    }
+
     const enable_data_protection = async () => {
 
 
@@ -423,6 +469,10 @@ export default ({ children }) => {
             protected_data_unlock()
             debugger;
         })
+        handleChangeDatabasePassword(() => {
+            change_database_key()
+            debugger;
+        })
         handleLockSensitiveData(() => {
             protected_data_lock()
             debugger;
@@ -574,9 +624,11 @@ export default ({ children }) => {
     const exportToCSV = async (arg) => {
 
         start_loading('exporting data');
-        let result = await sqlite_export({ query: arg, filename: 'bia-export.csv' }).catch(add_error);
-        add_error({title:'Info',message:'Export terminé'})
-        stop_loading();
+        sqlite_export({ query: arg, filename: 'bia-export.csv' }).catch(add_error).then(()=>{
+            add_error({title:'Info',message:'Export terminé'})
+            stop_loading();
+        })
+        
     }
 
 

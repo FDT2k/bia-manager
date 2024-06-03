@@ -20,7 +20,7 @@
 
     }
     &--loading{
-      z-index:400;
+      z-index:900;
 
     }
     &--info{
@@ -42,7 +42,7 @@
 
     }
     &--loading{
-      z-index:401;
+      z-index:901;
     }
 
     &--info{
@@ -61,7 +61,7 @@
 
 .modal-form {
   min-width: calc((var(--col-width) * 8) + (var(--gut-width) * 5));
-  padding: 20px;
+  padding: 40px;
 
   input{
     width:100%;

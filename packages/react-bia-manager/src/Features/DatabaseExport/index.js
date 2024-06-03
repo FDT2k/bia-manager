@@ -75,14 +75,14 @@ export const Component = (props) => {
                                 handleSubmit={values => setFilter('birthday_range', 'birthdate', values)}
                                 handleClear={_ => clearFilter('birthday_range')} />
                         </LayoutFlex>
-                        <div>
+                        <LayoutFlex style={{gap:'10px'}} alignCenter>
                             <label>{t('Raw export//toggle label')}</label>
                             <ToggleSwitch tabIndex={6} checked={rawExport} onChange={e=>setRawExport(e.target.checked)} labelYes={t('Yes')} labelNo={t('No')} name="left_side" />
-                        </div>
-                        <div>
+                        </LayoutFlex>
+                        <LayoutFlex style={{gap:'10px'}} alignCenter>
                             <label>{t('Mesures seulement//measure toggle label')}</label>
                             <ToggleSwitch tabIndex={6} checked={onlyMeasure} onChange={e=>setOnlyMeasure(e.target.checked)} labelYes={t('Yes')} labelNo={t('No')} name="measurement" id="measurement" />
-                        </div>
+                        </LayoutFlex>
                         <Button onClick={handleExport}>{t('Export')}</Button>
                     </Grid>
                 </Container>

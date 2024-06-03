@@ -136,6 +136,15 @@ export default  (app, window, labelEnhancer=identity,actions) => {
           }
 
         },
+        {
+          label: labelEnhancer('Change database password'),
+          id:'change-database-password',
+          enabled:false,
+          click() {
+            window.webContents.send('trigger-change-database-password');
+          }
+
+        },
       ]
     },
     {

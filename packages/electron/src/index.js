@@ -3,7 +3,7 @@ import { app, ipcMain, BrowserWindow, Menu, dialog } from 'electron';
 import { join, resolve } from 'path';
 import { URL } from 'url';
 import fs from 'fs/promises';
-import __fs from 'fs';
+import __fs, { copyFileSync } from 'fs';
 import { is_empty, is_nil } from '@karsegard/composite-js';
 
 import menuFactoryService from './menu';
@@ -364,6 +364,8 @@ const menuOpenFile = () => {
   Menu.getApplicationMenu().getMenuItemById('import').enabled = false;
   Menu.getApplicationMenu().getMenuItemById('list').enabled = false;
   Menu.getApplicationMenu().getMenuItemById('search').enabled = false;
+  Menu.getApplicationMenu().getMenuItemById('change-database-password').enabled = false;
+
 }
 
 const menuUnlockFile = () => {
@@ -376,6 +378,7 @@ const menuUnlockFile = () => {
   Menu.getApplicationMenu().getMenuItemById('search').enabled = true;
   Menu.getApplicationMenu().getMenuItemById('unlock-sensitive-data').enabled = SD_softLock === true;
   Menu.getApplicationMenu().getMenuItemById('lock-sensitive-data').enabled = SD_softLock === false;
+  Menu.getApplicationMenu().getMenuItemById('change-database-password').enabled = currentSQLite && currentSQLite.isUnlocked();
   /* if(SD_softLock===false){
      Menu.getApplicationMenu().getMenuItemById('unlock-sensitive-data').label='Verrouiller les données sensibles'
    }else{
@@ -395,6 +398,8 @@ const menuCloseFile = () => {
   Menu.getApplicationMenu().getMenuItemById('list').enabled = false;
   Menu.getApplicationMenu().getMenuItemById('search').enabled = false;
   Menu.getApplicationMenu().getMenuItemById('unlock-sensitive-data').enabled = false;
+  Menu.getApplicationMenu().getMenuItemById('change-database-password').enabled = false;
+
 }
 
 
@@ -415,6 +420,7 @@ ipcMain.handle('sqlite-open', async (event, { filename, key }) => {
   try {
     console.log('want to sqlite db', filename, key);
     currentSQLite = openDB(filename)
+      updateMenuState();
     return true;
   } catch (e) {
     return Promise.reject(e);
@@ -529,6 +535,9 @@ ipcMain.handle('sqlite-query', async (event, { type, table, query, values, filte
       query = currentSQLite.genUpdateSQL(table, values, filter)
     }
     console.log('prepare query ', query, fn, values)
+    if(!currentSQLite){
+      return Promise.reject("database closed");
+    }
     return currentSQLite.db.prepare(query)[fn](values);
   } catch (e) {
     return Promise.reject(e);
@@ -652,6 +661,46 @@ ipcMain.handle('sqlite-create', async (event, { filename, key }) => {
 
   return false;
 })
+
+function append_filename (filename,suffix){
+    // Séparer le nom de fichier et l'extension
+  let dotIndex = filename.lastIndexOf('.');
+  if (dotIndex === -1) {
+      // Si le fichier n'a pas d'extension, ajouter simplement le préfixe
+      filename = prefix + filename;
+  } else {
+      let name = filename.substring(0, dotIndex);
+      let extension = filename.substring(dotIndex);
+      // Reconstruire le nom de fichier avec le préfixe avant l'extension
+      filename = name + suffix + extension;
+  }
+  return filename;
+}
+
+ipcMain.handle('sqlite-change-key',async(event,{current_key, new_key})=>{
+  let filename = currentSQLite.file;
+  let dest = append_filename(filename, "_password_changed");
+  let { canceled, filePath } = await dialog.showSaveDialog({
+    defaultPath: dest, filters: [
+      { name: 'SQLite', extensions: ['sqlite'] },
+    ]
+  });
+  if (!canceled) {
+    console.log('copying', filename,filePath);
+    if(filename != filePath){
+      copyFileSync(filename,filePath);
+     //currentSQLite.attach(filePath, 'rekey')
+      const newDb  = openDB(filePath);
+      newDb.rekey(current_key,new_key);
+      newDb.db.close();
+    }else{
+      throw new Error('Cannot change key on the same file');
+    }
+    //return await openFile(filePath);
+  }
+
+  return false;
+});
 
 ipcMain.handle('update', () => {
   updater.autoUpdater.downloadUpdate();

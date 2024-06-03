@@ -13,6 +13,7 @@ export const makeProvider = (Context) => (props) => {
 
     const [confirm, setConfirm] = useState({
         prompt: "",
+        title:"Confirm",
         isOpen: false,
         proceed: null,
         cancel: null,
@@ -42,6 +43,7 @@ export const makeUse = Context => _ => {
         setNeedsCleanup(true);
         const promise = new Promise((resolve, reject) => {
             setConfirm({
+                title,
                 prompt,
                 okLabel,cancelLabel,
                 isOpen: true,

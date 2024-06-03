@@ -2,7 +2,8 @@
 import React, { useEffect, useState, useRef, forwardRef } from 'react';
 
 import { Modal, Button } from '@karsegard/react-bia-manager';
-import { LayoutFlexColumn } from '@karsegard/react-core-layout';
+import { LayoutFlexColumn, LayoutFlex } from '@karsegard/react-core-layout';
+
 import { useFieldValues } from '@karsegard/react-hooks';
 
 import { useTranslation } from '@karsegard/react-bia-manager';
@@ -50,14 +51,19 @@ export default (props) => {
     return (
         <>
             <Modal type="dialog" visible={visible}>
+            <LayoutFlexColumn style={{ gap: '10px', maxWidth: '750px' }} justCenter alignCenter>
                 <LayoutFlexColumn>
                     <Field label={`${t('The database is locked')}, ${t('type your password')}:`}>
 
                         <InputWithRef  ref={ref}  autoFocus  {...inputProps('key')} type="password" />
                     </Field>
                 </LayoutFlexColumn>
+                <LayoutFlex style={{ gap: '10px' }}>
+                <Button className="btn--secondary" onClick={_ => close_file()}>{t('Cancel//unlock database')}</Button>
                 <Button onClick={_ => doUnlock()}>{t('Unlock//database')}</Button>
-                <Button onClick={_ => close_file()}>{t('Cancel//unlock database')}</Button>
+                </LayoutFlex>
+                </LayoutFlexColumn>
+
             </Modal>
         </>
     )

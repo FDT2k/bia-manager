@@ -32,6 +32,7 @@ export const makeProvider = (Context, bindEvent) => props => {
 
 
     console.log('rendered context')
+    console.log(api)
     const provider = useMemo(_ => {
         const [{events},actions] = spreadObjectContaining(['events'], api);
         const [revokers, subscribers] = spreadObjectBeginWith('revoke', events);

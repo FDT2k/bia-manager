@@ -274,6 +274,21 @@ export const API = db => {
         }
     }
 
+    module.rekey = (oldkey,newkey)=>{
+        db.pragma("key='" + oldkey + "'");
+        console.log('unlocking')
+        try {
+
+            db.exec("select count(*) from sqlite_master;")
+            db.pragma("rekey='" + newkey + "'");
+
+            return true;
+        } catch (e) {
+            console.error(e)
+            throw new Error("Invalid database or key is wrong")
+        }
+    }
+
 
     module.attach = (file, alias) => {
         db.exec(`attach '${file}' as '${alias}'`)
