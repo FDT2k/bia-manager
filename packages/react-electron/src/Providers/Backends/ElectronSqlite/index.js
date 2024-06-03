@@ -431,6 +431,7 @@ export default ({ children }) => {
                 start_loading(t('updating database 2 / 2'))
                 return update_hashes();
             }).then(res => {
+                stop_loading()
                 return check_data_protection()
 
             }).then(res => {
