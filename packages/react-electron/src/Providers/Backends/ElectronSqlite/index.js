@@ -35,7 +35,7 @@ export const encode_password = (password, salt) => {
 
 export default ({ children }) => {
     const { actions: { sqlite_model_transaction, sqlite_api, sqlite_export, sqlite_search, sqlite_custom_search, sqlite_create, sqlite_query, sqlite_model, sqlite_attach,sqlite_rekey, set_custom_header,get_custom_header, sqlite_import, sqlite_unlock_sd, sqlite_lock_sd, sqlite_sd_is_unlocked, sqlite_sd_req_password }, subscribers: { handleUnlockSensitiveData, handleLockSensitiveData,handleChangeDatabasePassword, handleCustomHeader,handleRecomputeHash } } = useElectron();
-    const { selectors: { locked, file }, actions: { reload_file_state, close_file } } = useFileProvider();
+    const { selectors: { locked, file }, actions: { reload_file_state, close_file,open_file } } = useFileProvider();
     const [subject, setState] = useState({})
     const [sensitive_lock, setSensitiveLock] = useState(true)
     const [should_reload_lists, setShouldReloadLists] = useState(false)
@@ -288,8 +288,9 @@ export default ({ children }) => {
         start_loading(t('Changing password'))
         sqlite_rekey({current_key: password.current_password, new_key: password.password}).then(result=>{
             stop_loading();
-            add_error({title:'Success',message:"Mot de passe modifié avec succès"});
-
+            add_error({title:'Success',message:"Mot de passe modifié avec succès. La nouvelle base va s'ouvrir automatiquement"});
+            reload_file_state();
+           // close_file()
         }).catch(err=>{
             stop_loading();
             add_error(err)

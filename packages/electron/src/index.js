@@ -688,15 +688,16 @@ ipcMain.handle('sqlite-change-key',async(event,{current_key, new_key})=>{
   if (!canceled) {
     console.log('copying', filename,filePath);
     if(filename != filePath){
-      copyFileSync(filename,filePath);
+      copyFileSync(filename,filePath,__fs.constants.COPYFILE_EXCL);
      //currentSQLite.attach(filePath, 'rekey')
       const newDb  = openDB(filePath);
       newDb.rekey(current_key,new_key);
       newDb.db.close();
+      return await openFile(filePath);
     }else{
       throw new Error('Cannot change key on the same file');
     }
-    //return await openFile(filePath);
+    //
   }
 
   return false;
