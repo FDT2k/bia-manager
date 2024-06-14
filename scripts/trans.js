@@ -20,6 +20,8 @@ const locales = [
 ]
 
 locales.map ( function (lang){
-    download("https://bim.karsegard.com/api/translations/bia_manager/translation/"+lang,"packages/electron/locales/"+lang+"/translation.json");
+  console.log( "http://bim.test/api/translations/bia_manager/translation/"+lang);
+  //download("http://bim.test/api/translations/bia_manager/translation/"+lang,"packages/electron/locales/"+lang+"/translation.json");
+  //download("https://bim.karsegard.com/api/translations/bia_manager/translation/"+lang,"packages/electron/locales/"+lang+"/translation.json");
     
 })

@@ -262,9 +262,12 @@ export default ({ children }) => {
 
 
     const change_database_key = async () => {
-        await isConfirmed(t("This is a dangerous operation. DO NOT try to overwrite an existing file. DO NOT attempt to do this on a USB key or a Network drive. Keep backups of all your databases."));
+        let ctd = await isConfirmed(t("This is a dangerous operation. DO NOT try to overwrite an existing file. DO NOT attempt to do this on a USB key or a Network drive. Keep backups of all your databases."));
 
-        let password = await isConfirmed(t("You'll be asked for a new destination database, the current database will be copied under the new file with the new password. Test the new database with the new password before deleting the current one. Be very careful because you can lose everything."), {
+        if(!ctd){
+            return false;
+        }
+        let password = await isConfirmed(t("You'll be asked for a new destination database, the current database will be copied under the new file with the new password")+' '+t("Test the new database with the new password before deleting the current one")+' '+t("Be very careful because you can lose everything."), {
             title:"Changing Database Password",
             fields: [
                 { type: 'password', 'name': 'current_password', 'label': t('Current Password'), autoFocus: true },
@@ -285,10 +288,14 @@ export default ({ children }) => {
                 return true;
             }
         });
+        console.log(password)
+        if(!password){
+            return ;
+        }
         start_loading(t('Changing password'))
         sqlite_rekey({current_key: password.current_password, new_key: password.password}).then(result=>{
             stop_loading();
-            add_error({title:'Success',message:"Mot de passe modifié avec succès. La nouvelle base va s'ouvrir automatiquement"});
+            add_error({title:'Success',message:t("Key has been changed, the new datbase will now be opened")});
             reload_file_state();
            // close_file()
         }).catch(err=>{

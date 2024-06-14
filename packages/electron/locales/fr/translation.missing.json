@@ -1,0 +1,12 @@
+{
+   "This is a dangerous operation. DO NOT try to overwrite an existing file. DO NOT attempt to do this on a USB key or a Network drive. Keep backups of all your databases.": "This is a dangerous operation. DO NOT try to overwrite an existing file. DO NOT attempt to do this on a USB key or a Network drive. Keep backups of all your databases.",
+   "You'll be asked for a new destination database, the current database will be copied under the new file with the new password": "You'll be asked for a new destination database, the current database will be copied under the new file with the new password",
+   "Test the new database with the new password before deleting the current one": "Test the new database with the new password before deleting the current one",
+   "Be very careful because you can lose everything.": "Be very careful because you can lose everything.",
+   "Current Password": "Current Password",
+   "Confirm Password": "Confirm Password",
+   "Changing Database Password//dialog title": "Changing Database Password//dialog title",
+   "Changing password": "Changing password",
+   "Key has been changed, the new datbase will now be opened": "Key has been changed, the new datbase will now be opened",
+   "Success": "Success"
+}
