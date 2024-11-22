@@ -14,6 +14,7 @@ export default props => {
         lastname:'',
         usual_height:'',
         usual_weight:'',
+        gender:'',
         groups:{
             patho:'',
             ethno:''
@@ -25,16 +26,18 @@ export default props => {
     useEffect(() => {
         if (forms.create_subject) {
             let custom_forms =forms.create_subject.reduce((carry, item) => {
-                const { list_key, path } = item;
+                const { list_key, path,no_value } = item;
                 const list = lists[list_key];
                 if (list) {
                   //  carry[path] = list[0].value
 
-                  carry = as_safe_path(path,carry,list[0].value)
+                  let value = no_value ? '' : list[0].value;
+                  carry = as_safe_path(path,carry,value)
 
                 }
                 return carry;
             }, patient)
+            console.log('custom_forms',custom_forms);
             setPatient(custom_forms)
 
         }   
