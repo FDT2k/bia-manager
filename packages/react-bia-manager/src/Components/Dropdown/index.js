@@ -28,6 +28,10 @@ export const DropDown =  props => {
         }
     };
 
+    const handleClose = ()=>{
+        setHidden();
+    }
+
     useEffect(()=>{
         if(ref.current && refContent.current){
            
@@ -38,8 +42,11 @@ export const DropDown =  props => {
             })
         }
         document.addEventListener('click', handleClick, true);
+
+        document.addEventListener('dropdown-close', handleClose, true);
         return () => {
             document.removeEventListener('click', handleClick, true);
+            document.removeEventListener('dropdown-close', handleClose, true);
         };
     },[overrideClick])
 

@@ -18,7 +18,7 @@ export const GenderFilter = ({ label, handleSubmit, handleClear, currentValues,b
     }, [currentValues])
 
 
-    const filled = (!is_nil(currentValues) && (!is_nil(currentValues.options.M) || !is_nil(currentValues.options.F)))
+    const filled = (!is_nil(currentValues) && (!is_nil(currentValues.options?.M) || !is_nil(currentValues.options?.F)))
 
     const Icon = filled === true ? (CloseSharp) : ChevronDownSharp
 
@@ -41,7 +41,7 @@ export const GenderFilter = ({ label, handleSubmit, handleClear, currentValues,b
                     <input {...checkboxProps('options.M')} type="checkbox" />
                 </DropdownItem>
                 <DropdownItem>
-                <button onClick={_ => handleSubmit(values)}>{t(buttonLabel)}</button>
+                <button onClick={_ => {handleSubmit(values);document.dispatchEvent(new Event('dropdown-close'))}}>{t(buttonLabel)}</button>
                 </DropdownItem>
             </>
         </Dropdown>

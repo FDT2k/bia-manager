@@ -40,7 +40,7 @@ export const RangeFilter = ({ label, handleSubmit, handleClear, currentValues,bu
                     <DatePicker allow_null={true} masked_input={true} selected={getValue('to')} handleChange={handleChangeValue('to')} />
                 </DropdownItem>
                 <DropdownItem>
-                <button onClick={_ => handleSubmit(values)}>{t(buttonLabel)}</button>
+                <button onClick={_ => {handleSubmit(values);document.dispatchEvent(new Event('dropdown-close'))}}>{t(buttonLabel)}</button>
                 </DropdownItem>
             </>
         </Dropdown>
