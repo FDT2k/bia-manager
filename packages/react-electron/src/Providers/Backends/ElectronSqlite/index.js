@@ -92,7 +92,7 @@ export default ({ children }) => {
             "create_subject": [
                 { list_key: 'pathological_groups', path: 'groups.patho' },
                 { list_key: 'ethnological_groups', path: 'groups.ethno' },
-                { list_key: 'genders', path: 'gender' },
+                { list_key: 'genders', path: 'gender',placeholder:t('Select gender'),no_value:true },
             ],
             "edit_subject": [
                 { list_key: 'pathological_groups', path: 'groups.patho' },

@@ -24,19 +24,7 @@ const translate = key => {
 const TestCreate = () => {
     const {t} = useTranslation();
     return (<CustomListProvider value={{
-
-        'groups.ethno': [
-            'europeen',
-            'europeen',
-            'europeen',
-            'europeen',
-        ],
-        'groups.patho': [
-            'europeen',
-            'europeen',
-            'europeen',
-            'europeen',
-        ]
+       
     }}>
         <Page />
     </CustomListProvider>)

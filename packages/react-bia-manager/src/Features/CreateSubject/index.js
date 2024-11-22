@@ -25,7 +25,7 @@ export const Page = props => {
 
     const { patient, edit, handleChange, handleCancel, handleSave, lists, forms, locked, ...rest } = props;
     const [location, setLocation] = useLocation();
-
+    console.log('lists',lists);
     const { t, dateSysToHuman, dateHumanToSys } = useTranslation()
     let fields = {
         'lastname': { type: 'text', label: t('Last name//create subject'), tabIndex: 1 },
@@ -48,11 +48,11 @@ export const Page = props => {
 
     // inject custom fields
     fields = useMemo(() => enlist(forms).reduce((carry, item, idx) => {
-        const [_, { list_key, path }] = keyval(item)
+        const [_, { list_key, path,placeholder }] = keyval(item)
         //const {path,default_value,list} = item;
         let list = lists[list_key];
         if (list) {
-            carry[path] = { type: 'select', tabIndex: 4 + idx, label: t(path), options: list }
+            carry[path] = { type: 'select', tabIndex: 4 + idx, label: t(path), options: list,placeholder }
         }
         return carry;
     }, fields), [lists]);
@@ -101,11 +101,19 @@ export const Page = props => {
         return true;
     });
 
+    const required_select = curry((value) => {
+        if (is_nil(value) || value === "") {
+            return `is required`;
+        }
+        return true;
+    });
     const validate = (name, value, values) => {
         const r = ['lastname', 'firstname']
 
         if (r.includes(name)) {
             return required_string(1, 255, value)
+        } else if (name === 'gender') {
+            return required_select(value)
         } else if (name === 'usual_weight') {
             return required_number(20, 200, value, false)
         } else if (name === 'usual_height') {
@@ -161,7 +169,7 @@ export const Page = props => {
 
                             return (<ComponentWithArea key={fieldKey} area={fieldKey.replace('.', '_')}><Field label={label}>
 
-                                {type === "select" && <Select tabIndex={tabIndex} {...inputProps(fieldKey)} options={options} />}
+                                {type === "select" && <Select tabIndex={tabIndex} {...inputProps(fieldKey)} options={options} placeholder={field.placeholder} />}
                                 {type === "text" && <Input autoFocus={autoFocus} tabIndex={tabIndex} className={hasErrorClass} type="text" {...inputProps(fieldKey)} options={options} />}
                                 {type === "textarea" && <textarea tabIndex={tabIndex} {...inputProps(fieldKey)} options={options}></textarea>}
                                 {/*type === "date" && <DatePicker tabIndex={tabIndex}
@@ -205,6 +213,7 @@ Page.defaultProps = {
     handleSave: _ => console.warn('save handler not setup'),
     forms: [
         { list_key: 'pathological_groups', path: 'groups.patho' },
+        { list_key: 'genders', path: 'gender' ,placeholder:'Select gender'},
         { list_key: 'ethnological_groups', path: 'groups.ethno' },
     ],
     edit: false,
@@ -213,7 +222,7 @@ Page.defaultProps = {
         lastname: '',
         usual_height: '',
         usual_weight: '',
-        gender: 'F',
+        gender: '',
         groups: {
             patho: 'VENS2018',
             ethno: 'Caucasien'
@@ -221,6 +230,18 @@ Page.defaultProps = {
         birthdate: ''
     },
     lists: {
+        "genders": [
+            {
+                "list_key": "genders",
+                "id": "F",
+                "value": "Femme"
+            },
+            {
+                "list_key": "genders",
+                "id": "M",
+                "value": "Homme"
+            }
+        ],
         "ethnological_groups": [
             {
                 "list_key": "ethnological_groups",

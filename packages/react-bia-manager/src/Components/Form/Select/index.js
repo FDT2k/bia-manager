@@ -4,12 +4,13 @@ import { keyval } from '@karsegard/composite-js/ObjectUtils';
 import { is_type_object } from '@karsegard/composite-js';
 
 export default props => {
-    const { forwardedRef: ref,children, options,value,...rest } = props
+    const { forwardedRef: ref,children, options,value,placeholder,...rest } = props
     const renderChildren = is_nil(options);
 
 
     return (<select ref={ref}  value={value||''} {...rest} >
         {renderChildren && children}
+        {!renderChildren && placeholder && <option value=''>{placeholder}</option>}
         {!renderChildren && options.map((option, idx) => {
 
             let value = option;

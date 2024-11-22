@@ -133,7 +133,7 @@ PatientHeader.defaultProps = {
     data: {
         birthdate: '1970-01-25',
         age: '120',
-        gender: 'F',
+        gender: '',
         height: '177',
         usual_weight: '70',
         mesure_count: '999',
