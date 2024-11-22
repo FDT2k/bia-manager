@@ -23,7 +23,7 @@ const mapItemListAsoption = (item) => {
 
 export const Page = props => {
 
-    const { patient,edit, handleChange, handleCancel, handleSave, lists, forms,locked, ...rest } = props;
+    const { patient, edit, handleChange, handleCancel, handleSave, lists, forms, locked, ...rest } = props;
     const [location, setLocation] = useLocation();
 
     const { t, dateSysToHuman, dateHumanToSys } = useTranslation()
@@ -34,14 +34,14 @@ export const Page = props => {
 
         'usual_height': { type: 'text', label: t('Height//create subject'), tabIndex: 6 + 1 },
         'usual_weight': { type: 'text', label: t('Usual weight//create subject'), tabIndex: 6 + 2 },
-       // 'diag': { type: 'textarea', label: 'Diagnostic', tabIndex: 6 + 3 },
+        // 'diag': { type: 'textarea', label: 'Diagnostic', tabIndex: 6 + 3 },
     }
 
-    if(locked === false){
+    if (locked === false) {
         fields = {
             ...fields,
-            'med_name': { type: 'text', label: t('Doctor//create subject'), tabIndex: 6+4 },
-            'med_service': { type: 'text', label: t('Unit//Create subject'), tabIndex: 6+5 },
+            'med_name': { type: 'text', label: t('Doctor//create subject'), tabIndex: 6 + 4 },
+            'med_service': { type: 'text', label: t('Unit//Create subject'), tabIndex: 6 + 5 },
             'diag': { type: 'textarea', label: t('Diagnosis//create subject'), tabIndex: 6 + 3 },
         }
     }
@@ -81,21 +81,22 @@ export const Page = props => {
         return true;
     });
 
-    const required_number = curry((min, max, value) => {
+    const required_number = curry((min, max, value, mandatory = true) => {
         if (isNaN(value)) {
             return `must be a number`
         }
-        if (is_empty(value)) {
+        if (is_empty(value) && mandatory) {
             return `is required`
-        }
-        if (!is_nil(min) && value < min) {
-            return `at least ${min}`;
-        }
-        if (!is_nil(max) && value > max) {
-            return `max ${max}`;
-        }
-        if (is_nil(value) || value === "") {
-            return `is required`;
+        } else if(!is_empty(value) ){
+            if (!is_nil(min) && value < min) {
+                return `at least ${min}`;
+            }
+            if (!is_nil(max) && value > max) {
+                return `max ${max}`;
+            }
+            if (is_nil(value) || value === "") {
+                return `is required`;
+            }
         }
         return true;
     });
@@ -106,7 +107,7 @@ export const Page = props => {
         if (r.includes(name)) {
             return required_string(1, 255, value)
         } else if (name === 'usual_weight') {
-            return required_number(20, 200, value)
+            return required_number(20, 200, value, false)
         } else if (name === 'usual_height') {
             return required_number(50, 240, value)
         } else if (name === 'birthdate') {
@@ -200,13 +201,13 @@ export const Page = props => {
 Page.defaultProps = {
 
     t: identity,
-    handleCancel : _=> window.location.href='#/search',
+    handleCancel: _ => window.location.href = '#/search',
     handleSave: _ => console.warn('save handler not setup'),
     forms: [
         { list_key: 'pathological_groups', path: 'groups.patho' },
         { list_key: 'ethnological_groups', path: 'groups.ethno' },
     ],
-    edit:false,
+    edit: false,
     patient: {
         firstname: '',
         lastname: '',
