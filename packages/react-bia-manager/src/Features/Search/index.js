@@ -248,12 +248,14 @@ export const Component = props => {
         {
             Header: t('Lastname Column Label'),
             accessor: 'lastname',
-            filter: 'text'
+            filter: 'text',
+            sortingFn: 'alphanumeric'
         },
         {
             Header: t('Firstname Column Label'),
             accessor: 'firstname',
-            filter: 'fuzzyText'
+            filter: 'fuzzyText',
+            sortingFn: 'alphanumeric'
         },
         {
             Header: t('Birthdate Column Label'),
@@ -271,7 +273,8 @@ export const Component = props => {
         },
         {
             Header: t('Measurement Count Column Label'),
-            accessor: 'count_mesures'
+            accessor: 'count_mesures',
+            sortingFn: 'basic'
         },
     ]
 

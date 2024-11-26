@@ -33,3 +33,10 @@ yarn build-release
 in main folder 
 
 yarn compile
+
+
+## publication and auto build
+
+git push github release/1.0.27:master-macos
+git push github release/1.0.27:master
+git push github release/1.0.27:windows-master
