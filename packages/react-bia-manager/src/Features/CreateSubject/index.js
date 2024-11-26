@@ -70,32 +70,32 @@ export const Page = props => {
 
     const required_string = curry((min, max, value) => {
         if (min > 0 && value.length < min) {
-            return `at least ${min} characters`;
+            return t(`at least {value} characters`,{value:min});
         }
         if (max > 0 && value.length > max) {
-            return `max ${max} characters`;
+            return t(`max {value} characters`,{value:max});
         }
         if (is_nil(value) || value === "") {
-            return `is required`;
+            return t(`field is required`);
         }
         return true;
     });
 
     const required_number = curry((min, max, value, mandatory = true) => {
         if (isNaN(value)) {
-            return `must be a number`
+            return t(`must be a number`)
         }
         if (is_empty(value) && mandatory) {
-            return `is required`
+            return t(`field is required`)
         } else if(!is_empty(value) ){
             if (!is_nil(min) && value < min) {
-                return `at least ${min}`;
+                return t(`at least {value}`,{value:min});
             }
             if (!is_nil(max) && value > max) {
-                return `max ${max}`;
+                return t(`max {value}`,{value:max});
             }
             if (is_nil(value) || value === "") {
-                return `is required`;
+                return t(`field is required`);
             }
         }
         return true;
@@ -103,7 +103,7 @@ export const Page = props => {
 
     const required_select = curry((value) => {
         if (is_nil(value) || value === "") {
-            return `is required`;
+            return t(`field is required`);
         }
         return true;
     });
@@ -120,7 +120,7 @@ export const Page = props => {
             return required_number(50, 240, value)
         } else if (name === 'birthdate') {
             if (!moment(value, "DD.MM.YYYY").isValid()) {
-                return "Not a valid date"
+                return t(`Not a valid date`);
             }
         }
         return true;

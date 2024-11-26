@@ -7,12 +7,19 @@ import { useTranslation } from 'react-i18next';
 
 const BIATranslation = ({ children }) => {
     const {t} = useTranslation('translation')
-    const _t = key => {
+    const _t = (key,args={}) => {
         let res =  t(key);
         if(res == key){ // remove comment for display
             let a = res.split('//');
-            return a[0];
+
+            Object.keys(args).forEach(k=>{
+                res = res.replace(`{${k}}`,args[k])
+            })
+            return res;
         }
+        Object.keys(args).forEach(k=>{
+            res = res.replace(`{${k}}`,args[k])
+        })
         return res;
     }
     return ( <TranslationProvider value={{t:_t}}>

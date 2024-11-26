@@ -17,7 +17,10 @@ const translations = {
     SEARCH_table_column_sample_count: "Mesures"
 }
 
-const translate = key => {
+const translate = (key,args={}) => {
+    Object.keys(args).forEach(k=>{
+        key = key.replace(`{${k}}`,args[k])
+    })
     return translations[key] || key;
 }
 

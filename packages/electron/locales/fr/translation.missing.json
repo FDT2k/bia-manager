@@ -9,5 +9,10 @@
    "Changing password": "Changing password",
    "Key has been changed, the new datbase will now be opened": "Key has been changed, the new datbase will now be opened",
    "Success": "Success",
-   "Select gender": "Select gender"
+   "Select gender": "Select gender",
+   "at least {value} characters": "at least {value} characters",
+   "field is required": "field is required",
+   "Not a valid date": "Not a valid date",
+   "at least {value}": "at least {value}",
+   "max {value}": "max {value}"
 }
